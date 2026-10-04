@@ -141,3 +141,38 @@ tests. Final containing commit/push/sync is pending at write and will be observe
 externally after commit. M0-T03 accepted; next M1-T01. No private paths/media/tools
 tracked, no installer/persistent policy/PATH/default-branch/release change.
 Known bugs/full corpus/analyzer/codec/owner quality/publication remain later gates.
+
+## 2026-10-04 — M1-T01 completed
+
+Resumed clean 866aba0 independently equal to feature remote, with canonical origin
+fetch/push. Owner-merged PR #3 main b153d70 had the same tree; read-only fetch, no
+pull/merge/reset/default-branch update. Draft successor PR #4 continues the feature.
+
+Implementation f57b8adbb6859e8812471a4cc123b73530a2b301: friendly arguments/FileSystem source/Int64 validation,
+root semantics, actual executable selection, bounded version/format preflight and
+reviewed 7.1.2-32 dependency floor; upstream sources recorded. Missing decoders get
+no retries, supported items continue with code2. Video-only/empty ImageMagick
+requirement documented/tested. Destination DeleteOnClose probe, practical decimal
+space budgets and friendly mkdir failures; skipped-codec inputs excluded. Exact
+Int64 extent quotient fixes valid large divisible caps without changing default units.
+
+Actual desktop PS5.1/PS7 each passed 66/66, zero skipped, on clean committed revision;
+failure controls each 67 total/66 passed/one identified false assertion/exit1. Tested
+source hashes match git blobs; persistent policies unchanged. Real contained -File
+forms/failures, dependency shadow identity, ordinary JPEG full decode and video/source
+hash/timestamp preservation pass. Root/codec/denied-write/space failure controls are
+explicitly distinguished from live UNC/real HEIC/ACL/exhaustion/manual launcher claims.
+Initial development assertion expectation failures (55/59 each) are recorded and
+corrected; final suite supersedes them. Independent review corrections are retained.
+
+Implementation push/PR CI both passed Windows Server 2025 PS5.1.26100.33438 and PS7.6.6
+matrices, 66 passing tests and deliberate67th failure/exit1 per job. Actual jobs/log
+counts/versions in M1-T01-ci.json. M1-T01.json binds implementation and per-file hashes.
+Code synchronized while clean at 2026-10-04T14:59:09.193774+00:00; this containing
+record-only checkpoint awaits final commit/push/external remote comparison.
+
+M1-T01 accepted; next M1-T02, stop. Four of28 accepted; T001-T012 exercised, of which
+T001-T004 are legacy characterization. Original snapshot/launcher/license/assets
+preserved. No private media/tools/raw local logs tracked, no installation/persistent
+PATH/global policy changes. Containment/run isolation and remaining hardening, owner
+acceptance/release/website gates stay in later tasks.
