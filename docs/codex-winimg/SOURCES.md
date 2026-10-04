@@ -62,6 +62,30 @@ https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-gwr3-x37h-h8
 
 Relevant 2026 hang risk. Read upstream release/fix information rather than trusting an inconsistent version-range string.
 
+## I5 — M1-T01 dependency review, 4 October 2026
+
+https://github.com/ImageMagick/ImageMagick/releases/tag/7.1.2-32
+
+Current stable release 7.1.2-32, published 27 September 2026. The product minimum
+is this reviewed release; the existing test pin already matches it. Recheck upstream
+notices for future maintenance rather than treating this floor as permanent safety.
+
+https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-xxrx-rjp3-27rj
+
+https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-jph3-37cg-79wg
+
+JPEG decoder disclosure and XMP profile over-read fixes are included in 7.1.2-32.
+The earlier jpeg:extent hang advisory names patch 7.1.2-15 but has an inconsistent
+affected-range string. The actual fix is included in 32:
+
+https://github.com/ImageMagick/ImageMagick/commit/c448c6920a985872072fc7be6034f678c087de9b
+
+https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/magick.c
+
+ListMagickInfo emits format rows with an optional module column and r/w/adjoin
+mode. A star denotes native blob support, not read capability. Compiled formats
+do not override security policy or certify arbitrary input files.
+
 ## P1 — Microsoft about_PowerShell_exe
 
 https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1

@@ -234,10 +234,9 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
             $trace.Add(@($Arguments))
             return 0
         }
-        $result = Invoke-WinImgNormalizer -Source $source -OutputParent $parent -ProcessRunner $runner
+        $result = Invoke-WinImgNormalizer -Source $source -OutputParent $parent -MagickPath $magick -ProcessRunner $runner
         $result | Should -Be 0
-        $trace.Count | Should -Be 1
-        $trace[0][0] | Should -Be '-version'
+        $trace.Count | Should -Be 0
         $runs = @(Get-ChildItem -LiteralPath $parent -Directory)
         $runs.Count | Should -Be 1
         $logs = @(Get-ChildItem -LiteralPath $runs[0].FullName -File -Filter '*.log')
@@ -245,7 +244,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         Get-Content -LiteralPath $logs[0].FullName -Raw | Should -Match 'No images or videos found\.'
     }
 
-    It 'T005 routes version and conversion arguments and a retry through the injected runner' {
+    It 'T005 routes conversion arguments and a retry through the injected runner' {
         $source = New-OwnedDirectory 'runner-source'
         $parent = New-OwnedDirectory 'runner-output'
         [IO.File]::WriteAllBytes((Join-Path $source 'single.png'),
@@ -255,8 +254,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
             $trace.Add([pscustomobject]@{ Executable = $Executable; Arguments = @($Arguments) })
-            if ($Arguments[0] -eq '-version') { return 0 }
-            if ($trace.Count -eq 2) { return 9 }
+            if ($trace.Count -eq 1) { return 9 }
             $target = $Arguments[-1].Substring('JPEG:'.Length)
             if (-not $target.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase)) {
                 throw 'Injected conversion escaped its owned output parent.'
@@ -264,13 +262,11 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
             [IO.File]::WriteAllBytes($target, $jpegBytes)
             return 0
         }
-        $result = Invoke-WinImgNormalizer -Source $source -OutputParent $parent -ProcessRunner $runner
+        $result = Invoke-WinImgNormalizer -Source $source -OutputParent $parent -MagickPath $magick -ProcessRunner $runner
         $result | Should -Be 0
-        $trace.Count | Should -Be 3
-        $trace[0].Arguments.Count | Should -Be 1
-        $trace[0].Arguments[0] | Should -Be '-version'
-        $first = $trace[1].Arguments
-        $retry = $trace[2].Arguments
+        $trace.Count | Should -Be 2
+        $first = $trace[0].Arguments
+        $retry = $trace[1].Arguments
         ($first -join '|') | Should -Be (
             @('-quiet', (Join-Path $source 'single.png'), '-auto-orient', '-strip', '-colorspace', 'sRGB',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-background', 'white', '-alpha', 'remove',
@@ -279,8 +275,8 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
             @('-quiet', (Join-Path $source 'single.png'), '-auto-orient', '-strip', '-colorspace', 'sRGB',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '100%', '-define',
                 'jpeg:extent=1MB', $first[-1]) -join '|')
-        $trace[1].Executable | Should -Be $trace[0].Executable
-        $trace[2].Executable | Should -Be $trace[0].Executable
+        $trace[0].Executable | Should -Be $magick
+        $trace[1].Executable | Should -Be $magick
         $logs = @(Get-ChildItem -LiteralPath $parent -Recurse -File -Filter '*.log')
         Get-Content -LiteralPath $logs[0].FullName -Raw |
             Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0'

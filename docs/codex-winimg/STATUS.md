@@ -1,60 +1,65 @@
 # Project status
 
-Updated: 2026-10-04 — M0-T03 completed.
+Updated: 2026-10-04 — M1-T01 completed.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested implementation: 3b80ee94b8471a22560ea90a7583283c1613195c
-Next task: **M1-T01 — Validate inputs, root paths and ImageMagick before work**
-Task progress: **3 / 28 accepted**
-Specified cases exercised: **T001-T007 (7 / 75); T001-T004 are characterization**
-Early Pester suite: **6 / 6 passed in each actual Windows shell, zero skipped**
-CI: **PS 5.1/PS 7 Windows matrix passed on the tested implementation**
+Tested implementation: f57b8adbb6859e8812471a4cc123b73530a2b301
+Next task: **M1-T02 — Protect traversal and allocate unique run directories**
+Task progress: **4 / 28 accepted**
+Specified cases exercised: **T001-T012 (12 / 75); T001-T004 are characterization**
+Pester suite: **66 / 66 passed in each actual desktop Windows shell, zero skipped**
+Failure controls: **67 total, 66 passed, deliberate assertion failed; exit 1 in each shell**
+CI: **push and PR Windows Server PS 5.1/PS 7 matrices passed on tested implementation**
 GitHub sync for this containing evidence checkpoint: **pending_verification**
 Owner quality acceptance: **not requested / not granted**
 
-## Implementation and verification
+## Implementation and evidence
 
-The existing script now defines a callable orchestration function and positional
-command adapter. Dot-source import does not normalize, create user folders, alter
-caller preferences/log state or exit its host. Internal destination/process-runner
-parameters support contained tests; the public invocation forms and batch file
-remain unchanged. Existing conversion and known defects are preserved.
+Argument count, FileSystem directory and positive Int64 byte limits are validated
+with friendly setup exits before Pictures/run/log creation. Root-aware absolute
+paths preserve drive/UNC separators; drive-relative inputs and linked source roots
+are rejected. Exact application lookup bypasses aliases/functions. Bounded native
+version/format queries enforce the currently reviewed ImageMagick 7.1.2-32 floor
+and record executable/version/delegates/relevant capabilities in the local log.
+Upstream release/security review and chosen policies are in SOURCES/DECISIONS.
 
-Windows 11 Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5 each passed six Pester 5.9.1
-tests. Ten runner controls passed their expected outcomes: normal 6/6, exit 0,
-deliberate 7 total, 6 passed, 1 failed, exit 1, zero discovery, skipped test and discovery
-error each exit 1. Persistent policies and tested source hashes remained unchanged.
-A scratch-only exit 0 import mutation was detected before Pester loads the app.
+Missing decoders receive one per-file diagnosis and zero conversion attempts;
+supported images/videos continue with code 2. HEIF and HEIC use their own advertised
+coders. Video-only/empty batches still require ImageMagick; JPEG writing is required
+only for readable images. Destination write/delete probes remove themselves; setup
+checks a practical overflow-safe estimate and catches actual directory-creation
+failures. Unknown free space warns and continues. Large divisible byte caps no
+longer overflow the legacy MB/KB quotient; ordinary unit syntax is retained.
 
-Four independent real ordinary parity runs produced sixteen completely decoded
-JPEGs and twelve videos matching M0-T02 hashes, dimensions, tree and timestamps;
-source bytes/creation/modified times were unchanged. T006 also executes both real
--File positional forms in both shells, injecting only the outer scratch destination.
-Real Pictures resolution and manual batch drag-and-drop are outside this evidence.
+Actual Windows 11 Pro build 26300: PS 5.1.26100.9444 and PS 7.6.5, Pester 5.9.1 and
+verified portable ImageMagick 7.1.2-32 each passed 66/66. Both real positional forms,
+contained child -File setup failures, real dependency identity despite shadowing,
+ordinary JPEG full decode, video hashes/timestamps and source preservation passed.
+Deliberate controls returned exactly one false-assertion failure and exit 1.
+Committed runtime/test hashes match all four runner summaries; persistent execution
+policies are unchanged. No installer, persistent PATH change or global policy edit.
 
-Pinned development archives are privately extracted from verified bytes, without
-installation or persistent PATH/policy changes. GitHub first failed before tests
-because command discovery returned both Windows and Git tar executables. Explicit
-System32 libarchive selection fixed it; local default bootstrap with Git tar first
-on PATH passed, then real push/PR CI passed both shells and deliberate controls.
-The failed initial revision/runs remain recorded. CI runner versions/counts and
-job links are in evidence/M0-T03-ci.json; Server CI is distinct from desktop results.
+Real push/PR CI each passed PS5.1/PS7 Windows Server 2025 jobs: 66 passing tests and
+67 total/one identified deliberate failure/exit1. Actual CI versions are PS
+5.1.26100.33438 and PS 7.6.6. Job metadata and selected log counts/versions are saved
+in evidence/M1-T01-ci.json; desktop evidence is distinct. Initial test-only adapter
+expectation failures and review corrections are retained in M1-T01.json.
 
 ## Handoff and remaining scope
 
-Evidence: M0-T03.json, M0-T03-runner.json, M0-T03-parity.json,
-M0-T03-import-control.json and M0-T03-ci.json. Runtime/tests are bound to the tested
-implementation above; this checkpoint changes only records/evidence. Its actual
-final push and independent remote SHA comparison will be reported externally.
+Started clean at 866aba0 independently equal to the feature remote. Owner-merged
+PR #3 main at b153d70 had the same tree; fetch was read-only and no pull/merge/reset
+was performed. Successor draft PR #4 contains M1-T01. Implementation f57b8adbb6859e8812471a4cc123b73530a2b301
+was pushed and independently synchronized while clean at 2026-10-04T14:59:09.193774+00:00.
+This final record-only checkpoint binds that implementation; its own final SHA and
+remote observation will be reported externally after commit/push.
 
-Started clean at a3ef050 independently equal to the feature remote. The owner
-merged PR #2 into main at 8e35b6a with the same starting tree; no pull/merge/reset or
-default-branch change was performed. Successor draft PR #3 continues this feature.
-Original non-Git snapshot, launcher, license and assets remain preserved.
-
-Known collision/frame/dedupe/invalid-output/preflight/colour/lifecycle defects,
-full corpus/analyzer/codec coverage, subjective owner acceptance and publication
-gates remain assigned to later tasks. No release or website readiness is claimed.
-Stop after M0-T03; begin M1-T01 in a subsequent thread.
+Root cases are lexical/owned-path controls; no live UNC share, drive-root traversal,
+real Pictures or manual drag-and-drop test. Denied writes/mkdir/space failures are
+controlled seams; HEIC/HEIF gap controls do not claim real codec coverage. Existing
+containment/traversal and run-root reuse defects remain M1-T02. Collision/frame,
+dedupe, invalid outputs, colour/lifecycle/general exits, full corpus/analyzer and
+owner acceptance/publication gates remain later tasks. No release readiness claim.
+Stop after M1-T01; begin M1-T02 in a fresh thread.

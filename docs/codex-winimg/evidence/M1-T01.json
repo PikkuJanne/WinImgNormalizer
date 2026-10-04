@@ -1,0 +1,264 @@
+{
+  "schema_version": 1,
+  "task_id": "M1-T01",
+  "recorded_utc": "2026-10-04T14:59:09.193774+00:00",
+  "tested_implementation_commit": "f57b8adbb6859e8812471a4cc123b73530a2b301",
+  "starting_commit": "866aba02a7759212a143c1ef2cd52fde3c3f3cdd",
+  "tested_files_sha256": {
+    "WinImgNormalizer.ps1": "f980360185c1cf478781ddab939b045760a370ef3a3ff9e6711bec982db24c01",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Invoke-Tests.ps1": "99dce5dc078342879c31bf5b4dbaf45bba612b8095b152a6b76bd15bb900f8c8",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/Normalizer.Tests.ps1": "b31c6d1ba3ace8dd0859bfbcaac8f8321e9cb452e4d61a1a4018bc43ced6a3bc",
+    "tests/Preflight.Tests.ps1": "f275b59d231186e80f762e0637af37feea7b736f9e2eadd2f2f8f42a08201379",
+    "README.md": "0fa4f607b33e7e506d39fb6407dd14c7fff47b6c5ffe0a073d32bb6627e98568",
+    "tests/README.md": "de4aed0e64587ac6b8c5d09ed0f6007df4e868511a022a5ec0e63837a46e1a15",
+    "docs/codex-winimg/DECISIONS.md": "442ba0a72dc32255eb5f8e4939da251fe33f05b0bde32beb87ab9805532a8525",
+    "docs/codex-winimg/SOURCES.md": "e8335c5d17fd9228ce1d13e766e70c66edd55431bf0753405f916265164ce259",
+    "tests/legacy/toolchain.json": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406",
+    ".github/workflows/windows-tests.yml": "e166fdec3c7fd1bf2d1c47d520990ac1b0b5ca454763eef0f60d610ff5a0ac1f"
+  },
+  "environment": {
+    "ps51": {
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    },
+    "ps7": {
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    }
+  },
+  "executions": [
+    {
+      "environment_ref": "ps51",
+      "mode": "final",
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M1-T01-final-ps51",
+      "observed_at_utc": "2026-10-04T14:54:19.9547323Z",
+      "exit_code": 0,
+      "total": 66,
+      "passed": 66,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "failed_tests": [],
+      "duration_seconds": 11.266647299999999,
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T01-final-ps51/summary.json",
+      "artifact_sha256": "109e4d1cbdf255e6078c0f0de492f9bd3c382b71bb4dbbfb3294c2e5060bf7bb",
+      "committed_tested_file_hashes_verified": true
+    },
+    {
+      "environment_ref": "ps51",
+      "mode": "control",
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M1-T01-control-ps51",
+      "observed_at_utc": "2026-10-04T14:54:55.8216064Z",
+      "exit_code": 1,
+      "total": 67,
+      "passed": 66,
+      "failed": 1,
+      "skipped": 0,
+      "not_run": 0,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "duration_seconds": 11.778359499999999,
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T01-control-ps51/summary.json",
+      "artifact_sha256": "7fe8042eb84471976c6f6f1610d48a8a3fdee2a4c03dd65cef5177896a8ed2df",
+      "committed_tested_file_hashes_verified": true
+    },
+    {
+      "environment_ref": "ps7",
+      "mode": "final",
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M1-T01-final-ps7",
+      "observed_at_utc": "2026-10-04T14:54:21.3041407Z",
+      "exit_code": 0,
+      "total": 66,
+      "passed": 66,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "failed_tests": [],
+      "duration_seconds": 14.7335608,
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T01-final-ps7/summary.json",
+      "artifact_sha256": "2e5a44b88406d00eb517f4aa7420913c067e6d8ff8b53862a407929c6153d233",
+      "committed_tested_file_hashes_verified": true
+    },
+    {
+      "environment_ref": "ps7",
+      "mode": "control",
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M1-T01-control-ps7",
+      "observed_at_utc": "2026-10-04T14:54:57.2401816Z",
+      "exit_code": 1,
+      "total": 67,
+      "passed": 66,
+      "failed": 1,
+      "skipped": 0,
+      "not_run": 0,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "duration_seconds": 15.4089389,
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T01-control-ps7/summary.json",
+      "artifact_sha256": "d47a48d416bbc6e876efd4226800fd9c6a150c3cb2bd39d5b8ea9ad6311194aa",
+      "committed_tested_file_hashes_verified": true
+    }
+  ],
+  "case_results": [
+    {
+      "case_id": "T008",
+      "state": "passed",
+      "reason": "Both desktop shells: actual contained -File zero/extra/invalid-cap/missing-dependency exits; controlled missing/file/non-filesystem/blank source, malformed/overflow caps, positive Int64 limits and huge divisible MB/KB conversion cases.",
+      "execution_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T009",
+      "state": "passed",
+      "reason": "Both desktop shells: lexical drive-root/trailing-separator and synthetic UNC share root/nested controls; owned actual relative FileSystem source resolution. No recursive run on a drive root or live UNC share.",
+      "execution_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T010",
+      "state": "passed",
+      "reason": "Both desktop shells: real pinned executable/version/format query plus actual child alias/function shadowing. Controlled absent application, non-executable, nonzero/timeout/unrecognized/unsupported version and bad codec table fail before output.",
+      "execution_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T011",
+      "state": "passed",
+      "reason": "Both desktop shells: controlled unavailable HEIC yields no conversion attempts, real PNG converts/full-decodes and synthetic video hashes match, all source bytes/times preserved, code2. HEIF-only coder and missing JPEG writer controls are explicit; no real HEIC/HEIF decode claim.",
+      "execution_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T012",
+      "state": "passed",
+      "reason": "Both desktop shells: real removed DeleteOnClose write probe and file-as-parent rejection; controlled denied writes/run-directory creation, known/unknown/overflow space, huge cap budgets and skipped-codec exclusion. Video-only dependency/JPEG encoder policies and exact copied bytes verified.",
+      "execution_indices": [
+        0,
+        2
+      ]
+    }
+  ],
+  "dependency_review": {
+    "reviewed_on": "2026-10-04",
+    "minimum_supported": "7.1.2-32",
+    "latest_stable_release": "7.1.2-32",
+    "sources": "../SOURCES.md#i5--m1-t01-dependency-review-4-october-2026",
+    "advisory_range_inconsistency": "The jpeg:extent advisory patched-version and affected-range strings disagree; source fix inclusion and current release repairs were reviewed rather than inventing a safe affected range.",
+    "runtime_network_or_installation": false
+  },
+  "development_observations": {
+    "initial_59_case_run_each_shell": {
+      "passed": 55,
+      "failed": 4,
+      "skipped": 0,
+      "reason": "New test assumed the positional adapter casts; core actually validates raw forwarded values. Assertion corrected; runtime behavior was intentional."
+    },
+    "pre_final_preflight_run_each_shell": {
+      "passed": 58,
+      "failed": 0,
+      "skipped": 0,
+      "note": "Before two final large divisible-cap cases were added. Final clean-revision 66-case evidence above supersedes development results."
+    },
+    "review_corrections": [
+      "Bounded output budgets and excluded missing-decoder items",
+      "Friendly destination creation failures",
+      "DeleteOnClose probe",
+      "Distinct HEIF coder",
+      "Exact Int64 legacy extent-unit quotient"
+    ]
+  },
+  "ci": {
+    "state": "passed",
+    "commit": "f57b8adbb6859e8812471a4cc123b73530a2b301",
+    "run_url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37211043335",
+    "additional_run_url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37211072209",
+    "detail": "M1-T01-ci.json; both actual push/PR Windows Server matrices, each job 66 passing tests and a deliberate 67th failing assertion/exit1 control."
+  },
+  "sync_observation": {
+    "state": "pending_verification",
+    "branch": "codex/winimg-hardening",
+    "note": "Containing record-only checkpoint has not yet been committed/pushed; final observation will be external."
+  },
+  "past_implementation_sync_observation": {
+    "state": "synchronized",
+    "observed_utc": "2026-10-04T14:59:09.193774+00:00",
+    "local_commit": "f57b8adbb6859e8812471a4cc123b73530a2b301",
+    "remote_commit": "f57b8adbb6859e8812471a4cc123b73530a2b301",
+    "worktree_clean": true,
+    "branch": "codex/winimg-hardening"
+  },
+  "owner_approval": {
+    "state": "not_requested",
+    "actor": null,
+    "recorded_utc": null,
+    "approved_commit": null
+  },
+  "limitations": [
+    "Live UNC/drive-root normalization, real Pictures resolution and manual batch drag-and-drop are not exercised; root cases are lexical controls.",
+    "Denied ACL/directory-create and low/unknown capacity conditions are controlled mocks, not real ACL/low-disk changes. Normal write/delete probe and actual filesystem parent rejection execute on Windows.",
+    "HEIC/HEIF codec gap tests use controlled listings and synthetic invalid source bytes; no broad real HEIC/HEIF decoding claim.",
+    "Compiled codec listings do not override ImageMagick policy or guarantee arbitrary file decode.",
+    "Space estimate is best-effort; large expanded output or later write races can exceed it.",
+    "Containment/traversal, unique run allocation, collision/frame/duplicate/colour/transaction/process-lifecycle/general outcome and batch exit fixes remain later tasks.",
+    "PSScriptAnalyzer unavailable; complete corpus and subjective owner quality acceptance remain future gates."
+  ],
+  "preserved": [
+    "Original non-Git snapshot",
+    "WinImgNormalizer.bat",
+    "LICENSE",
+    "Three branding assets"
+  ],
+  "note": "Exact committed test/runtime hashes were independently verified against each desktop runner summary. No raw private logs, media, downloaded tools or absolute user paths are tracked. This evidence checkpoint changes only governance/evidence."
+}

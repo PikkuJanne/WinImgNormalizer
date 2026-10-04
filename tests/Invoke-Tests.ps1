@@ -10,7 +10,9 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
-if (-not $PSBoundParameters.ContainsKey('Path')) { $Path = @((Join-Path $PSScriptRoot 'Normalizer.Tests.ps1')) }
+if (-not $PSBoundParameters.ContainsKey('Path')) {
+    $Path = @((Join-Path $PSScriptRoot 'Normalizer.Tests.ps1'), (Join-Path $PSScriptRoot 'Preflight.Tests.ps1'))
+}
 $scratchRoot = [IO.Path]::GetFullPath((Join-Path $repositoryRoot '.scratch'))
 if ([string]::IsNullOrWhiteSpace($ResultDirectory)) {
     $ResultDirectory = Join-Path $scratchRoot ('test-results/' + [guid]::NewGuid().ToString('N'))

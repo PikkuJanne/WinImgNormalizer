@@ -5,7 +5,7 @@ Non-destructive image normalizer + archive prep for mixed photo folders
 Author: Janne Vuorela
 Target OS: Windows 10/11
 PowerShell: Windows PowerShell 5.1+, also works on PowerShell 7
-Dependencies: ImageMagick 7+ (magick.exe in PATH), optional: .bat wrapper for drag-and-drop
+Dependencies: ImageMagick 7.1.2-32+ supported 7.x (magick.exe in PATH), optional: .bat wrapper
 
 SYNOPSIS
     Recursively mirrors a source folder into a safe copy under the user’s Pictures folder,
@@ -36,7 +36,7 @@ MY INTENDED USAGE
     - I keep the original source intact.
 
 SETUP
-    1) Install ImageMagick 7+ for Windows and ensure `magick.exe` is on PATH.
+    1) Install ImageMagick 7.1.2-32 or newer supported 7.x; ensure `magick.exe` is on PATH.
     2) Keep these two files together (same base name):
          • WinImgNormalizer.ps1
          • WinImgNormalizer.bat  (enables drag-and-drop)
@@ -78,13 +78,165 @@ LICENSE / WARRANTY
 #>
 
 
+# Preflight helpers never create a run directory. Keep roots absolute, including
+# their separator: C:\ is a root, while C: means the drive's current directory.
+function Normalize-WinImgRootPath {
+  param([string]$Path)
+  if ([string]::IsNullOrWhiteSpace($Path) -or $Path -match '^[A-Za-z]:($|[^\\/])') {
+    throw 'Use a directory path, not a drive-relative path such as C:.'
+  }
+  $full = [IO.Path]::GetFullPath($Path)
+  $root = [IO.Path]::GetPathRoot($full)
+  if ($full.TrimEnd('\','/').Equals($root.TrimEnd('\','/'), [StringComparison]::OrdinalIgnoreCase)) {
+    return $root.TrimEnd('\','/') + [IO.Path]::DirectorySeparatorChar
+  }
+  return $full.TrimEnd('\','/')
+}
+
+function Resolve-WinImgSourcePath {
+  param([string]$Path)
+  if ([string]::IsNullOrWhiteSpace($Path)) { throw 'A source folder is required.' }
+  if ($Path -match '^[A-Za-z]:($|[^\\/])') { throw 'Use an absolute drive path such as C:\, not C:.' }
+  $item = Get-Item -LiteralPath $Path -Force -ErrorAction Stop
+  if ($item.PSProvider.Name -ne 'FileSystem' -or $item -isnot [IO.DirectoryInfo]) {
+    throw 'The source must be a FileSystem directory.'
+  }
+  if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+    throw 'A linked source root is not supported; select the actual source directory.'
+  }
+  return Normalize-WinImgRootPath $item.FullName
+}
+
+function ConvertTo-WinImgByteCap {
+  param([object]$Value)
+  $number = 0L
+  $text = [string]$Value
+  if ($text -notmatch '^[0-9]+$' -or
+      -not [long]::TryParse($text, [Globalization.NumberStyles]::None, [Globalization.CultureInfo]::InvariantCulture, [ref]$number) -or
+      $number -le 0) {
+    throw 'maxBytes must be a positive whole number from 1 to 9223372036854775807.'
+  }
+  return $number
+}
+
+function Resolve-WinImgMagickApplication {
+  param([string]$MagickPath)
+  $name = if ($MagickPath) { $MagickPath } else { 'magick.exe' }
+  $application = Get-Command $name -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
+  if (-not $application -or [IO.Path]::GetExtension($application.Path) -ine '.exe') {
+    throw "ImageMagick magick.exe was not found. Install a supported build and put its executable on PATH."
+  }
+  return (Get-Item -LiteralPath $application.Path -ErrorAction Stop).FullName
+}
+
+# Version/format queries need their output and exit status, independently of the
+# existing conversion seam. Bound query time and drain both pipes in PS 5.1/7.
+function Invoke-WinImgPreflightProcess {
+  param([string]$Executable, [string[]]$Arguments)
+  if (($Arguments -join ' ') -notin @('-version', '-list format')) { throw 'Unexpected preflight query.' }
+  $start = New-Object Diagnostics.ProcessStartInfo
+  $start.FileName = $Executable
+  $start.Arguments = $Arguments -join ' '
+  $start.UseShellExecute = $false
+  $start.CreateNoWindow = $true
+  $start.RedirectStandardOutput = $true
+  $start.RedirectStandardError = $true
+  $process = New-Object Diagnostics.Process
+  $process.StartInfo = $start
+  try {
+    if (-not $process.Start()) { throw 'ImageMagick query could not start.' }
+    $stdout = $process.StandardOutput.ReadToEndAsync()
+    $stderr = $process.StandardError.ReadToEndAsync()
+    $timedOut = -not $process.WaitForExit(15000)
+    if ($timedOut) {
+      & (Join-Path $env:SystemRoot 'System32\taskkill.exe') /PID $process.Id /T /F 1>$null 2>$null
+      if (-not $process.WaitForExit(5000)) { $process.Kill() }
+    }
+    if (-not $stdout.Wait(5000) -or -not $stderr.Wait(5000)) { throw 'ImageMagick query streams did not complete.' }
+    return [pscustomobject]@{ ExitCode = $process.ExitCode; StdOut = $stdout.GetAwaiter().GetResult(); StdErr = $stderr.GetAwaiter().GetResult(); TimedOut = $timedOut }
+  } finally { $process.Dispose() }
+}
+
+function Get-WinImgMagickInfo {
+  param([string]$MagickPath, [scriptblock]$PreflightRunner)
+  $executable = Resolve-WinImgMagickApplication $MagickPath
+  if (-not $PreflightRunner) { $PreflightRunner = { param($Executable, $Arguments) Invoke-WinImgPreflightProcess $Executable $Arguments } }
+  $version = & $PreflightRunner $executable @('-version')
+  if ($version.TimedOut -or $version.ExitCode -ne 0) { throw 'ImageMagick version query failed or timed out; no files were processed.' }
+  $match = [regex]::Match($version.StdOut, '(?m)^Version: ImageMagick (7)\.(\d+)\.(\d+)-(\d+)\b')
+  if (-not $match.Success) { throw 'Unrecognized ImageMagick version; use a supported ImageMagick 7 build.' }
+  $build = [version]($match.Groups[1].Value + '.' + $match.Groups[2].Value + '.' + $match.Groups[3].Value + '.' + $match.Groups[4].Value)
+  # Reviewed 2026-10-04: 7.1.2-32 includes jpeg:extent hang and JPEG/GIF/XMP fixes.
+  if ($build -lt [version]'7.1.2.32') { throw 'ImageMagick 7.1.2-32 or newer supported 7.x build is required; update the dependency before running.' }
+  $formatResult = & $PreflightRunner $executable @('-list','format')
+  if ($formatResult.TimedOut -or $formatResult.ExitCode -ne 0) { throw 'ImageMagick format query failed or timed out; no files were processed.' }
+  $formats = @{}
+  foreach ($line in ($formatResult.StdOut -split '\r?\n')) {
+    if ($line -match '^\s*([A-Z0-9]+)\*?\s+(?:\S+\s+)?([r-][w-][+-])\s') {
+      $formats[$Matches[1]] = @{ Read = ($Matches[2][0] -eq 'r'); Write = ($Matches[2][1] -eq 'w') }
+    }
+  }
+  if ($formats.Count -eq 0) { throw 'ImageMagick returned no usable format capability information.' }
+  $delegates = [regex]::Match($version.StdOut, '(?m)^Delegates[^:]*:\s*(.*)$').Groups[1].Value.Trim()
+  return [pscustomobject]@{ Path = $executable; Version = $build; VersionText = $version.StdOut.Trim(); Delegates = $delegates; Formats = $formats }
+}
+
+function Test-WinImgDestinationWritable {
+  param([string]$Path)
+  # Probe only the nearest existing directory; missing parents are created later.
+  $ancestor = $Path
+  while (-not (Test-Path -LiteralPath $ancestor)) {
+    $parent = [IO.Directory]::GetParent($ancestor)
+    if ($null -eq $parent) { throw 'The destination volume/share does not exist.' }
+    $ancestor = $parent.FullName
+  }
+  $item = Get-Item -LiteralPath $ancestor -Force
+  if ($item.PSProvider.Name -ne 'FileSystem' -or $item -isnot [IO.DirectoryInfo]) { throw 'The destination parent must be a FileSystem directory.' }
+  $probe = Join-Path $ancestor ('.WinImgNormalizer-write-probe-' + [guid]::NewGuid().ToString('N'))
+  # DeleteOnClose also checks deletion rights when opening, so a destination that
+  # permits creating but forbids deleting cannot leave a probe behind.
+  $stream = [IO.FileStream]::new($probe, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write,
+    [IO.FileShare]::None, 4096, [IO.FileOptions]::DeleteOnClose)
+  try { $stream.WriteByte(0) } finally { $stream.Dispose() }
+}
+
+function Get-WinImgAvailableBytes {
+  param([string]$Path)
+  try { return ([IO.DriveInfo]::new([IO.Path]::GetPathRoot($Path))).AvailableFreeSpace } catch { return $null }
+}
+
+function Get-WinImgDestinationInfo {
+  param([string]$Path, [object[]]$Files, [long]$MaxBytes)
+  $full = Normalize-WinImgRootPath $Path
+  Test-WinImgDestinationWritable $full
+  # Best-effort estimate: videos + bounded image budgets + two largest-input
+  # scratch copies + 64 MiB reserve. A large cap is an upper limit, not required
+  # output allocation. Decimal arithmetic prevents Int64 wrapping.
+  [decimal]$required = 64MB
+  [decimal]$largestImage = 0
+  foreach ($file in $Files) {
+    if ($file.Extension.ToLowerInvariant() -in @('.jpg','.jpeg','.png','.bmp','.tif','.tiff','.gif','.heic','.heif','.webp')) {
+      $required += [Math]::Min([decimal]$MaxBytes, [Math]::Max([decimal]1MB, 4 * [decimal]$file.Length))
+      $largestImage = [Math]::Max($largestImage, [decimal]$file.Length)
+    } else { $required += [decimal]$file.Length }
+  }
+  $required += 2 * $largestImage
+  $available = Get-WinImgAvailableBytes $full
+  if ($null -ne $available -and [decimal]$available -lt $required) {
+    throw ('Insufficient destination space: estimated {0} bytes required, {1} available.' -f $required, $available)
+  }
+  return [pscustomobject]@{ Path = $full; RequiredBytes = $required; AvailableBytes = $available }
+}
+
 # Dot-sourcing defines the callable boundary only. Internal seams are for tests;
 # the public script and batch launcher retain their positional interface.
 function Invoke-WinImgNormalizer {
   param(
     [string]$Source,
-    [long]$MaxBytes = 1MB,
+    [object]$MaxBytes = 1MB,
     [string]$OutputParent,
+    [string]$MagickPath,
+    [scriptblock]$PreflightRunner,
     [scriptblock]$ProcessRunner = {
       param([string]$Executable, [string[]]$Arguments)
       $LASTEXITCODE = 0
@@ -95,9 +247,46 @@ function Invoke-WinImgNormalizer {
 
   $ErrorActionPreference = 'Stop'
 
-  if ([string]::IsNullOrWhiteSpace($Source)) { Write-Host "Usage: WinImgNormalizer.ps1 <sourceFolder> [maxBytes]"; return 1 }
-  if (-not (Test-Path -LiteralPath $Source -PathType Container)) { Write-Error "Source folder not found: $Source"; return 1 }
-  $srcRoot = (Get-Item -LiteralPath $Source).FullName.TrimEnd('\','/')
+  # Complete basic setup before creating Pictures, run folders, logs or mirrors.
+  try {
+    $MaxBytes = ConvertTo-WinImgByteCap $MaxBytes
+    $srcRoot = Resolve-WinImgSourcePath $Source
+    $magickInfo = Get-WinImgMagickInfo -MagickPath $MagickPath -PreflightRunner $PreflightRunner
+    $MagickCmd = $magickInfo.Path
+    $imgExts = '.jpg','.jpeg','.png','.bmp','.tif','.tiff','.gif','.heic','.heif','.webp'
+    $videoExts = '.mp4','.mov','.mkv','.avi','.m4v','.wmv','.webm','.mts','.m2ts','.3gp','.3g2'
+    $imageCoders = @{ '.jpg'='JPEG'; '.jpeg'='JPEG'; '.png'='PNG'; '.bmp'='BMP'; '.tif'='TIFF'; '.tiff'='TIFF'; '.gif'='GIF'; '.heic'='HEIC'; '.heif'='HEIF'; '.webp'='WEBP' }
+    $allFiles = @(Get-ChildItem -LiteralPath $srcRoot -Recurse -File | Where-Object {
+      $e = $_.Extension.ToLowerInvariant()
+      ($imgExts -contains $e) -or ($videoExts -contains $e)
+    })
+    $missingCoders = @{}
+    foreach ($f in $allFiles) {
+      $coder = $imageCoders[$f.Extension.ToLowerInvariant()]
+      if ($coder -and (-not $magickInfo.Formats.ContainsKey($coder) -or -not $magickInfo.Formats[$coder].Read)) { $missingCoders[$coder] = $true }
+    }
+    $readableImages = @($allFiles | Where-Object {
+      $coder = $imageCoders[$_.Extension.ToLowerInvariant()]
+      $coder -and -not $missingCoders.ContainsKey($coder)
+    })
+    if ($readableImages.Count -gt 0 -and (-not $magickInfo.Formats.ContainsKey('JPEG') -or -not $magickInfo.Formats['JPEG'].Write)) {
+      throw 'This ImageMagick build has no JPEG encoder; install a build with JPEG write support.'
+    }
+    $pictures = $OutputParent
+    if (-not $pictures) {
+      $pictures = [Environment]::GetFolderPath('MyPictures')
+      if ([string]::IsNullOrWhiteSpace($pictures)) { $pictures = Join-Path $env:USERPROFILE 'Pictures' }
+    }
+    $spaceFiles = @($allFiles | Where-Object {
+      $coder = $imageCoders[$_.Extension.ToLowerInvariant()]
+      -not $coder -or -not $missingCoders.ContainsKey($coder)
+    })
+    $destinationInfo = Get-WinImgDestinationInfo -Path $pictures -Files $spaceFiles -MaxBytes $MaxBytes
+    $pictures = $destinationInfo.Path
+  } catch {
+    Write-Host ('Setup error: ' + $_.Exception.Message) -ForegroundColor Red
+    return 1
+  }
 
   # --------- Logger, literal-safe ---
   $LogPath = $null
@@ -109,20 +298,17 @@ function Invoke-WinImgNormalizer {
   }
 
   # --------- Resolve Pictures + dest root ----
-  if ($OutputParent) {
-    $pictures = $OutputParent
-  } else {
-    try { $pictures = [Environment]::GetFolderPath('MyPictures') } catch { $pictures = $null }
-    if ([string]::IsNullOrWhiteSpace($pictures) -or -not (Test-Path -LiteralPath $pictures)) {
-      $pictures = Join-Path $env:USERPROFILE 'Pictures'
-      if (-not (Test-Path -LiteralPath $pictures)) { New-Item -ItemType Directory -Path $pictures -Force | Out-Null }
-    }
-  }
-
   $base  = [System.IO.Path]::GetFileName($srcRoot.TrimEnd('\','/'))
+  if ([string]::IsNullOrWhiteSpace($base)) { $base = $srcRoot.TrimEnd('\','/').TrimEnd(':') }
   $stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
   $destRoot = [System.IO.Path]::Combine($pictures, "${base}_WinImgNormalized_${stamp}")
-  New-Item -ItemType Directory -Path $destRoot -Force | Out-Null
+  try {
+    [IO.Directory]::CreateDirectory($pictures) | Out-Null
+    New-Item -ItemType Directory -Path $destRoot -Force | Out-Null
+  } catch {
+    Write-Host ('Setup error: could not create the destination directory. ' + $_.Exception.Message) -ForegroundColor Red
+    return 1
+  }
 
   # --------- Log file ---
   try {
@@ -136,12 +322,14 @@ function Invoke-WinImgNormalizer {
   Write-Log "Destination: $destRoot"
   Write-Log ("MaxBytes: {0:n0} ({1} MB)" -f $MaxBytes, [Math]::Round($MaxBytes/1MB,2))
 
-  # --------- ImageMagick presence ---
-  $MagickCmd = $null
-  $cmd = Get-Command magick -ErrorAction SilentlyContinue
-  if ($cmd) { $MagickCmd = $cmd.Source; if (-not $MagickCmd) { $MagickCmd = $cmd.Path }; if (-not $MagickCmd) { $MagickCmd = $cmd.Definition } }
-  if (-not $MagickCmd) { $MagickCmd = 'magick' }
-  try { $null = & $ProcessRunner $MagickCmd @('-version') } catch { Write-Error "ImageMagick 'magick' not found on PATH."; return 1 }
+  Write-Log ('ImageMagick executable: ' + $MagickCmd)
+  foreach ($line in ($magickInfo.VersionText -split '\r?\n')) { Write-Log $line }
+  Write-Log ('Relevant formats: ' + (($imageCoders.Values | Select-Object -Unique | Sort-Object | ForEach-Object {
+    $mode = $magickInfo.Formats[$_]
+    '{0}:read={1},write={2}' -f $_, [bool]$mode.Read, [bool]$mode.Write
+  }) -join '; '))
+  Write-Log ('Destination space estimate: {0} bytes; available: {1}' -f $destinationInfo.RequiredBytes, $destinationInfo.AvailableBytes)
+  if ($null -eq $destinationInfo.AvailableBytes) { Write-Log 'Free space could not be measured for this destination; writes may still fail.' 'WARN' }
 
   # --------- Mirror tree, non-destructive ---
   try {
@@ -153,13 +341,6 @@ function Invoke-WinImgNormalizer {
   } catch { Write-Log "WARN: Could not fully pre-create directory tree ($($_.Exception.Message))" 'WARN' }
 
   # --------- File sets ---
-  $imgExts   = '.jpg','.jpeg','.png','.bmp','.tif','.tiff','.gif','.heic','.heif','.webp'
-  $videoExts = '.mp4','.mov','.mkv','.avi','.m4v','.wmv','.webm','.mts','.m2ts','.3gp','.3g2'
-
-  $allFiles = Get-ChildItem -LiteralPath $srcRoot -Recurse -File | Where-Object {
-    $e = $_.Extension.ToLowerInvariant()
-    ($imgExts -contains $e) -or ($videoExts -contains $e)
-  }
   $total = $allFiles.Count
   if ($total -eq 0) { Write-Log "No images or videos found." 'WARN'; return 0 }
 
@@ -170,8 +351,8 @@ function Invoke-WinImgNormalizer {
 
   # --------- IM helpers ---
   function Get-ExtentString([long]$Bytes) {
-    if ($Bytes -ge 1MB -and ($Bytes % 1MB) -eq 0) { return "{0}MB" -f [int]($Bytes/1MB) }
-    elseif ($Bytes -ge 1KB -and ($Bytes % 1KB) -eq 0) { return "{0}KB" -f [int]($Bytes/1KB) }
+    if ($Bytes -ge 1MB -and ($Bytes % 1MB) -eq 0) { return "{0}MB" -f [long]([decimal]$Bytes/1MB) }
+    elseif ($Bytes -ge 1KB -and ($Bytes % 1KB) -eq 0) { return "{0}KB" -f [long]([decimal]$Bytes/1KB) }
     else { return "{0}B" -f $Bytes }
   }
   function Convert-ImageMagick {
@@ -259,6 +440,13 @@ function Invoke-WinImgNormalizer {
     $ext = $f.Extension.ToLowerInvariant()
     Write-Progress -Activity "WinImgNormalizer" -Status "$i / $total : $rel" -PercentComplete ([int]($i*100/$total))
 
+    $coder = $imageCoders[$ext]
+    if ($coder -and $missingCoders.ContainsKey($coder)) {
+      $stats.Errors++
+      Write-Log "ERR IMG: $rel (Missing $coder decoder in this ImageMagick build; no conversion attempted. Install a build with $coder read support.)" 'ERR'
+      continue
+    }
+
     $dupKey = ('{0}|{1}' -f $f.Name.ToLowerInvariant(), $f.LastWriteTimeUtc.Ticks)
     if (-not $seen.Add($dupKey)) { $stats.SkippedDuplicate++; $firstRel = $keyFirst[$dupKey]; Write-Log "Duplicate skipped: $rel (first seen at: $firstRel)" 'SKIP'; continue } else { $keyFirst[$dupKey] = $rel }
 
@@ -307,6 +495,7 @@ function Invoke-WinImgNormalizer {
   Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4}" -f $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors)
   Write-Log "Completed $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
+  if ($missingCoders.Count -gt 0) { return 2 }
   return 0
 }
 
@@ -314,18 +503,26 @@ function Invoke-WinImgNormalizerCommand {
   param(
     [object[]]$Arguments,
     [string]$OutputParent,
+    [string]$MagickPath,
+    [scriptblock]$PreflightRunner,
     [scriptblock]$ProcessRunner
   )
 
-  # Preserve the two existing positional forms. Input hardening is a later task.
+  # Preserve the two existing positional forms; reject ambiguous/ignored extras.
   $ErrorActionPreference = 'Stop'
   $Source = $null
   $MaxBytes = 1MB
-  if ($Arguments.Count -ge 1) { $Source = $Arguments[0] }
-  if ($Arguments.Count -ge 2) { $MaxBytes = [int64]$Arguments[1] }
+  if (@($Arguments).Count -lt 1 -or @($Arguments).Count -gt 2) {
+    Write-Host 'Usage: WinImgNormalizer.ps1 <sourceFolder> [maxBytes] (one folder only)' -ForegroundColor Red
+    return 1
+  }
+  $Source = $Arguments[0]
+  if ($Arguments.Count -eq 2) { $MaxBytes = $Arguments[1] }
   $invoke = @{ Source = $Source; MaxBytes = $MaxBytes }
   if ($OutputParent) { $invoke.OutputParent = $OutputParent }
   if ($ProcessRunner) { $invoke.ProcessRunner = $ProcessRunner }
+  if ($MagickPath) { $invoke.MagickPath = $MagickPath }
+  if ($PreflightRunner) { $invoke.PreflightRunner = $PreflightRunner }
   return Invoke-WinImgNormalizer @invoke
 }
 

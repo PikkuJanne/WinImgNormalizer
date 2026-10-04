@@ -8,11 +8,16 @@ Drag-&-drop workflow: I drop a folder onto the .bat and find the normalized copy
 **Requirements**
 Windows 10/11
 PowerShell (Windows PowerShell 5.1+ or PowerShell 7)
-ImageMagick 7+ (magick.exe) in PATH or callable by name
+ImageMagick 7.1.2-32 or newer supported 7.x build (magick.exe) in PATH
 (Optional) The included .bat wrapper for drag-and-drop
 
 **Installation**
-Install ImageMagick 7+ for Windows and ensure magick.exe is in PATH (magick -version should work).
+Install a supported ImageMagick build for Windows and ensure magick.exe is in PATH
+(`magick -version` should work). The minimum reviewed build is **7.1.2-32**, as of
+4 October 2026; update it as upstream publishes security fixes. The tool selects
+an application executable rather than a PowerShell function or alias, checks its
+version and compiled format capabilities, and records its exact path and identity
+in the local log. It never installs or updates dependencies automatically.
 Place these two files together (same base name), e.g. in Downloads:
 WinImgNormalizer.ps1
 WinImgNormalizer.bat (wrapper for double-click + drag-and-drop)
@@ -28,6 +33,29 @@ A log file is saved inside the output folder.
 .\WinImgNormalizer.ps1 "D:\Photos\2024"
 #Whole folder with custom size cap (bytes), for example 2 MB
 .\WinImgNormalizer.ps1 "D:\Photos\2024" 2097152
+
+Supply exactly one source directory and, optionally, a positive whole-number byte
+cap from 1 through 9223372036854775807. Small caps remain best-effort and may be
+unachievable. Missing folders, files used as folders, non-filesystem sources,
+drive-relative paths such as `C:`, and linked source roots are rejected with a setup
+message. Ordinary relative directory paths are resolved to absolute filesystem
+paths; drive and UNC share roots retain their root separator.
+
+Arguments and ImageMagick are checked before creating Pictures or a run folder.
+The destination is checked with a temporary exclusive write probe that is removed,
+and a best-effort free-space estimate: copied video bytes, per-image output budgets,
+twice the largest readable image input for scratch, and 64 MiB reserve. Each image
+budget is the smaller of its byte cap and the larger of 1 MiB or four times its
+input size. Missing-decoder files need no conversion space. Insufficient measured
+space fails setup; unavailable free-space information (for example, some UNC shares)
+is logged as a warning. These checks cannot guarantee later writes succeed.
+
+ImageMagick remains required for **video-only and empty batches**. JPEG write support
+is required when there are readable images. An unavailable image decoder is reported
+for each affected file without conversion retries; supported images and videos
+continue. Such a partial batch returns exit code 2; setup failures return 1.
+Compiled capabilities do not override local ImageMagick policy or prove every file
+can be decoded. Keep the installed security policy in place.
 
 **What it does**
 Non-destructive mirror: exact subfolder structure; image files become .jpeg (same base names).
@@ -63,7 +91,7 @@ Background color for alpha: change -background white in the script (for example 
 Dimension ceiling: add an explicit -resize rule (for example -resize "1920x1920>") before jpeg:extent if you want a max edge.
 
 **Troubleshooting**
-“magick not found” -> Install ImageMagick 7+ and ensure magick.exe is in PATH. Test with magick -version.
+“magick not found” -> Install ImageMagick 7.1.2-32 or newer supported 7.x and ensure magick.exe is in PATH. Test with magick -version.
 PS 5.1 “Parameter set cannot be resolved” → Always launch via the provided .bat (positional args) or call the .ps1 with positional arguments only.
 Lots of JPEG warnings -> Expected for some camera apps; the script runs ImageMagick with -quiet and continues. Check the log for per-file results.
 No outputs -> See the log file in the destination for errors (permissions, unreadable files, ...).
