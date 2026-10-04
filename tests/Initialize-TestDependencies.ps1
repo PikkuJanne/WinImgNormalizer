@@ -83,7 +83,9 @@ Assert-VerifiedFile -File $pesterManifest -Sha256 $specification.pester.manifest
 
 if ([string]::IsNullOrWhiteSpace($MagickPath)) {
     $imageArchive = Get-VerifiedArchive -File (Join-Path $scratchRoot ('tools/ImageMagick-' + $imageSpecification.version + '-Q16-x64/' + $imageSpecification.asset)) -Url $imageSpecification.url -Sha256 $imageSpecification.sha256 -Bytes $imageSpecification.bytes
-    $tar = Get-Command tar.exe -CommandType Application -ErrorAction Stop
+    # Use Windows' libarchive tar (7z-capable), not a competing Git GNU tar on PATH.
+    $tarPath = Join-Path $env:SystemRoot 'System32\tar.exe'
+    $tar = Get-Command $tarPath -CommandType Application -ErrorAction Stop | Select-Object -First 1
     $entries = @(& $tar.Source -tf $imageArchive)
     if ($LASTEXITCODE -ne 0 -or $entries.Count -eq 0) { throw 'Could not inspect the verified ImageMagick archive.' }
     foreach ($entry in $entries) {
