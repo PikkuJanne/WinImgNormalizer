@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "task_id": "REPLACE_WITH_TASK_ID",
+  "recorded_utc": null,
+  "tested_implementation_commit": null,
+  "tested_files_sha256": {},
+  "environment": {
+    "os": null,
+    "powershell": null,
+    "imagemagick": null,
+    "pester": null
+  },
+  "executions": [
+    {
+      "command": null,
+      "environment_ref": null,
+      "exit_code": null,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "artifact_path": null,
+      "artifact_sha256": null
+    }
+  ],
+  "case_results": [
+    {
+      "case_id": "REPLACE_WITH_CASE_ID",
+      "state": "not_run",
+      "reason": null,
+      "execution_index": null
+    }
+  ],
+  "limitations": [],
+  "ci": {
+    "state": "not_observed",
+    "commit": null,
+    "run_url": null
+  },
+  "sync_observation": {
+    "state": "pending_verification",
+    "observed_utc": null,
+    "local_commit": null,
+    "remote_commit": null,
+    "branch": null
+  },
+  "owner_approval": {
+    "state": "not_requested",
+    "actor": null,
+    "recorded_utc": null,
+    "approved_commit": null
+  },
+  "note": "Template, not executed evidence. Use null/not_run rather than invented success. Never try to embed the containing commit hash into itself."
+}

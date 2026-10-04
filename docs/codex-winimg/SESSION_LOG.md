@@ -1,0 +1,42 @@
+# Session log
+
+## 2026-10-04 — Bundle preparation
+
+The planning bundle was prepared from the reviewed pinned GitHub baseline. No user
+local checkout was inspected or modified, no GitHub branch/PR was written, and no
+normalizer application tests were executed for this bundle. Helper self-tests and
+bundle integrity checks are recorded in the external VALIDATION_REPORT.md.
+
+Append one compact entry per Codex task with actual branch, implementation revision
+or tested file hashes, commands/results, evidence file, unresolved blockers and next
+task. A post-commit remote observation can be reported externally and logged at the
+next session. Never insert an invented final checkpoint SHA or a prospective success.
+
+## 2026-10-04 — M0-T01
+
+Reconciled the requested workspace: it was a non-Git seven-file source snapshot,
+all blobs equal to the historical baseline. Read-only discovery found no existing
+WinImgNormalizer checkout, and the configured project confirmed no Git metadata.
+Preserved the snapshot and used the documented fresh-clone fallback into the
+previously absent `C:/projects/WinImgNormalizer`. No parent/root/nested AGENTS or
+prior task progress existed there. Verified canonical origin fetch/push identity,
+clean `main`, live refs and baseline ancestry; local and remote starting HEAD were
+`4b918da50639d8fc7e3fddc6d6b3678880ea4098` with no source delta or divergence.
+Created `codex/winimg-hardening` from that reconciled clean point.
+
+Verified the immutable bundle (63 files), reviewed importer preview (56 adds,
+zero conflicts), and applied with the exact reviewed HEAD. All 56 imports matched
+the allowlist hashes before the intentional status/registry/handoff updates.
+Validated the task graph (28 tasks, 75 cases, 18 review items). External bundle
+tests ran on Windows: 48 total, 45 passed, 1 case-sensitive fixture failure,
+2 unavailable-symlink skips; an explicit colliding-manifest control passed.
+No application test, image conversion, dot-sourcing or software installation ran.
+
+Evidence: `evidence/M0-T01.json`, including environment, baseline blobs, actual
+command outcomes and precommit tested-file SHA-256 hashes. This is the one-commit
+checkpoint model from GIT_WORKFLOW.md; committed content must match those hashes.
+Push/remote comparison and final SHA are pending while this record is written;
+their actual results belong in the final response and draft PR. Baseline had no
+workflows, runs or PRs. M0-T01 is accepted; next task is M0-T02, with only that task
+to run in a fresh thread. The inherited helper fixture limitation and missing
+runtime tooling remain explicit; all application coverage is unrun.

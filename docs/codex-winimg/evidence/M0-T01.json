@@ -1,0 +1,392 @@
+{
+  "schema_version": 1,
+  "task_id": "M0-T01",
+  "recorded_utc": "2026-10-04T13:20:24.746195+00:00",
+  "tested_implementation_commit": null,
+  "reviewed_base_commit": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
+  "tested_files_sha256": {
+    "AGENTS.md": "e1b87ea59af0b6a2296f9c4e930f36ba1c8f403092f900984acc91adb2be746a",
+    "docs/codex-winimg/ACCEPTANCE.md": "335201e5284a3e92d7b1d868d74ce8573aa6fc4036750270b832a08d9d97208b",
+    "docs/codex-winimg/BASELINE.json": "11418612b4fb598c19df44b9a020cc1200c81c21fc7859e527293bf93b700fc0",
+    "docs/codex-winimg/DECISIONS.md": "dced2b9ac3870ec194d610ce8c89e93d1681441688081c3fffe6975eb8ed6ebf",
+    "docs/codex-winimg/FIXTURE_SPEC.md": "29dee0b3308fe8a7c4c409bee4684acb29764afa91a52d00b19d168cc4a622a0",
+    "docs/codex-winimg/GIT_WORKFLOW.md": "f44e73b27660025c9f6c437cf372529511b7bfb20df0c3d073bb8eb34ee2ea26",
+    "docs/codex-winimg/IMPLEMENTATION_SPEC.md": "493580020ab766f2420050eee7f0b79168d3aeb49eb65e7136d0a40778eb4850",
+    "docs/codex-winimg/IMPORT_RECOVERY.md": "4f0bdc17d6d7ede5fdd787833c42d9bdd81961da24d89c837c26b3dbd6f2b46a",
+    "docs/codex-winimg/NEXT_SESSION.md": "40035c6e437f3cc25a396c4c719c5a0d5bd41c5800617fed0e6f298260a49ee4",
+    "docs/codex-winimg/README.md": "b7f847269bd20d4c3537b2ccc429f964e74fbb34c5b0a01b46c00885edbca803",
+    "docs/codex-winimg/RELEASE_AND_WEBSITE.md": "924d7d60911b69a4c9836e8707e6198255301a0a96327184bd8cb830a6448493",
+    "docs/codex-winimg/REQUIREMENTS.md": "908843971f04f1387e5850e45990963485baf2028e6e773bb476b5ab427cfb45",
+    "docs/codex-winimg/REVIEW_BASELINE.md": "ce2489e2b2403b6c4182bf9a823397d42d2bf78bb130ff7f09333adaa2971976",
+    "docs/codex-winimg/ROADMAP.md": "a7928295305daa9f1917ad9af916a4eec8924ea51b36d6f988d1369ab49d4fee",
+    "docs/codex-winimg/SECURITY.md": "37994d2015fa9a10a47baa396a15b2e9cfcadda22890bfca5dc0a8b7b71dc97c",
+    "docs/codex-winimg/SESSION_LOG.md": "8dae0a4fdf021e1f8c2b3f97ea4b92f71516493182a23d88a0068fa121e20fd2",
+    "docs/codex-winimg/SOURCES.md": "7f3faa089cc638a8bdccd96517546f792c6acb323f1afcaad3778d3074fb64ed",
+    "docs/codex-winimg/STATUS.md": "25e239dba6c6457ff6f25c3ba4e6813938def78b09e17690a410f5809c236f6e",
+    "docs/codex-winimg/TASKS.json": "427ab220359b9d58cc3a59e0c114dc60bd2650015e128eaa95f2bbd807a4052b",
+    "docs/codex-winimg/TEST_CASES.json": "33340526a20291180c06204ec80cfc187f22b55506fef47b4ce1664bfebce69b",
+    "docs/codex-winimg/TEST_MATRIX.md": "a444044758f0e73064d942cd374aeca03ca2f8dcdcba8e6bc67ab764fabc279d",
+    "docs/codex-winimg/evidence/README.md": "90159dc999d32428a0c72b5a2e877a6b2912f1d8ce045737c9b2d6a01f11bf34",
+    "docs/codex-winimg/tasks/M0-T01.md": "062f8ec97918f6b5fea32091f1ec4097872ffcd7997835b835fca2c86c18c061",
+    "docs/codex-winimg/tasks/M0-T02.md": "19003369a0067e4a296b4a9d546883c4c6a7fed8c5b95980698b7271324517ff",
+    "docs/codex-winimg/tasks/M0-T03.md": "fbce018a09f0e2c9ada468ff33394cb7f94e8a804679e6c241068c85eee31258",
+    "docs/codex-winimg/tasks/M1-T01.md": "c52191f40c4f5c7baa062ac93cdd175f6440d3d68f545d590fd8446f81c9bc70",
+    "docs/codex-winimg/tasks/M1-T02.md": "572af891b7b2a5e0ced27518085d089400616da0f5f11bd3bf04dc2056d4ca43",
+    "docs/codex-winimg/tasks/M1-T03.md": "5cd4c58a90d05094aab3b598f1d5b387ff470616659dff174f23ca611fb8f70d",
+    "docs/codex-winimg/tasks/M1-T04.md": "23dd38a60ff8bb63014442208d200576f815cdabaf0344e768da45e4fc3c5f18",
+    "docs/codex-winimg/tasks/M1-T05.md": "3bb9c231b813670dd31befc32cbdf770d84f0808d2e8ec6a136fd576dd21e4ee",
+    "docs/codex-winimg/tasks/M1-T06.md": "df93b02400952ac8a4b37e23f309956db72d8ce6b8ff85a24426ab00699c30e1",
+    "docs/codex-winimg/tasks/M2-T01.md": "cc679c794b9e08afb2887442d833fbdf844010948c39405c683e0bbd2ff45671",
+    "docs/codex-winimg/tasks/M2-T02.md": "9fa5a4556caed2bf3a81163cd050835004a90d62df17c72af59f10730d39b451",
+    "docs/codex-winimg/tasks/M2-T03.md": "30e47be8528d1d8be241e7ca894163fd3e82f59544a64e7d785bb5b5ab7865e8",
+    "docs/codex-winimg/tasks/M2-T04.md": "36affa17e58937b0ca0bc8c03767439dd8c6d8be8e615650d3d25d6ed0f376b5",
+    "docs/codex-winimg/tasks/M2-T05.md": "586beb536ef7cd000b941739f02bc1d98ee0d93a300608c5d9bdbb1aae02bf46",
+    "docs/codex-winimg/tasks/M2-T06.md": "0153895e6beafa01d217a086e60c94475b5a0e51862b0c50773f06c90c594c1f",
+    "docs/codex-winimg/tasks/M3-T01.md": "fdb6f31f25bcbda9d844aa53f0ac7d16e10fd3ce44d5f2fc431d1b47f23aeb25",
+    "docs/codex-winimg/tasks/M3-T02.md": "babf40f1fae5a4b8fdb5cb70daf49dfd3f7f6815f3c2d3568b7c1e78e45d8b48",
+    "docs/codex-winimg/tasks/M3-T03.md": "2f494025019776343cd1c8c0594abf8b5d54cdde8f941de73906e146278ca0b1",
+    "docs/codex-winimg/tasks/M3-T04.md": "68b7b7f6a786cebd7fa8a6ad2d72b27625bed8d196c84f8476d7ab24eb5e7598",
+    "docs/codex-winimg/tasks/M3-T05.md": "8fb06ab892aaea72fdfcd1efc02117deecbae6151738f9336d063fbaa70605e2",
+    "docs/codex-winimg/tasks/M3-T06.md": "6bab198aec5963fe10d91e192fda6cc326ac60e4fbd31ae3e2057e119338acda",
+    "docs/codex-winimg/tasks/M3-T07.md": "8ff0c31959c9221866acf2b6ef07377af10abc44140e0e56898407a7281f7afc",
+    "docs/codex-winimg/tasks/M4-T01.md": "c5bf321263c78a8add17023cca1ec1788c2434a3f1a770e00486dcda7fe04f63",
+    "docs/codex-winimg/tasks/M4-T02.md": "9aa0bde6d5ef7354e87b295c80553e73cb0885241ca1f9500034068df3751b21",
+    "docs/codex-winimg/tasks/M4-T03.md": "40db25766feead123e91022578027aa9c63d4a43aba5afe1fcf38cecf3d26001",
+    "docs/codex-winimg/tasks/M4-T04.md": "dbd653c37bf9be26324115550fdcfa42b9f1fb92c1d349019c224e4564a221b4",
+    "docs/codex-winimg/tasks/M4-T05.md": "325144c46df9813b3d172a270af77d92e8c6438920762f4dcfdfe8a09264c513",
+    "docs/codex-winimg/tasks/M4-T06.md": "a9381bc15b7d0772f7381e246e81695778753529a2acbb6ac86d61e388990a23",
+    "docs/codex-winimg/templates/OWNER_ACCEPTANCE.md": "e3cc2ff04955838b527a58284cc0cb1ef8893a51d84cc43b20148da5b219a0ca",
+    "docs/codex-winimg/templates/PR_BODY.md": "26c5a43ed3ef38fd0493b1a2aa298389e61a66a2afa97c22184fb6677a51e414",
+    "docs/codex-winimg/templates/RELEASE_CHECKLIST.md": "edbe9d36090b64bbe0f4ceb2773097bade96b979f8f129622bb346386654d9d0",
+    "docs/codex-winimg/templates/SESSION_HANDOFF.md": "ebaf99e18d0266dbd853b7f5aa83934a9aa0268ae9acb07c60adba348a49965a",
+    "docs/codex-winimg/templates/TASK_EVIDENCE.json": "df29a2f077cc30b1b68b7efbbb7cc228c9af37f8ee93127df71e58bbfd098801",
+    "tools/codex-winimg/handoff.py": "9e1fce967e891d230c1e7dd52007c5d53835a1faed9c44d7fa8e861d207e210a"
+  },
+  "tested_external_files_sha256": {
+    "bundle/tests/test_handoff.py": "1d324537f05c1cebcc81869660f253bcdcc765d42708bb2d0b149c019f10d1fc"
+  },
+  "environment": {
+    "os": "Windows NT 10.0.26300.0",
+    "powershell": "7.6.5",
+    "windows_powershell": "5.1.26100.9444",
+    "python": "3.14.6",
+    "git": "2.56.0.windows.1",
+    "github_cli": "2.97.0",
+    "pester": "3.4.0 discoverable in both shells; not executed",
+    "imagemagick": "not found on PATH; not executed",
+    "exiftool": "not found on PATH; not executed",
+    "core_autocrlf": true,
+    "execution_policy_changed": false
+  },
+  "repository_inspection": {
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "checkout": "C:/projects/WinImgNormalizer",
+    "branch": "codex/winimg-hardening",
+    "initial_branch": "main",
+    "starting_worktree_clean": true,
+    "fetch_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "push_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "fetch_urls_count": 1,
+    "push_urls_count": 1,
+    "initial_advertised_main_sha": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
+    "baseline_is_ancestor": true,
+    "source_delta_from_baseline": [],
+    "initial_remote_feature_branch": "absent",
+    "initial_pull_requests": 0,
+    "unexpected_push_configuration": false,
+    "existing_applicable_agents_files": [],
+    "prior_progress_files": []
+  },
+  "workspace_reconciliation": {
+    "finding": "Original configured project was a seven-file source snapshot without .git; saved project independently reported isGitRepository=false.",
+    "discovery": "Read-only likely development directory, projects, and Codex managed-worktree search found no existing WinImgNormalizer Git checkout. Private media and Google Drive were not searched.",
+    "action": "Preserved original source snapshot and used START_HERE documented fallback: clone canonical GitHub repository into previously absent C:/projects/WinImgNormalizer.",
+    "original_snapshot_unchanged": true,
+    "existing_files_overwritten": false,
+    "newer_code_or_progress_discarded": false,
+    "task_scope_changed": false
+  },
+  "baseline_files": [
+    {
+      "path": "LICENSE",
+      "baseline_git_blob_sha1": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+      "actual_git_blob_sha1": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+      "worktree_sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5",
+      "source_snapshot_matches_baseline": true
+    },
+    {
+      "path": "README.md",
+      "baseline_git_blob_sha1": "039eaa3001b15727465e96f7937ac380d4c52e2f",
+      "actual_git_blob_sha1": "039eaa3001b15727465e96f7937ac380d4c52e2f",
+      "worktree_sha256": "a7f16f83999717f069b75205c9f3cd2c7dcef9eb273fb63ec7476bda97ceaf18",
+      "source_snapshot_matches_baseline": true
+    },
+    {
+      "path": "WinImgNormalizer.bat",
+      "baseline_git_blob_sha1": "869870ecda14157390dd7672c2e32387834743ac",
+      "actual_git_blob_sha1": "869870ecda14157390dd7672c2e32387834743ac",
+      "worktree_sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+      "source_snapshot_matches_baseline": true
+    },
+    {
+      "path": "WinImgNormalizer.ps1",
+      "baseline_git_blob_sha1": "519d55c6101ec1f3a72784838cd86e1cd4be04c1",
+      "actual_git_blob_sha1": "519d55c6101ec1f3a72784838cd86e1cd4be04c1",
+      "worktree_sha256": "3d31eaea3d926c2d2a4f75dc32856e6681fcf03f2f29ac89020aa1a4a907133a",
+      "source_snapshot_matches_baseline": true
+    },
+    {
+      "path": "WinImgNormalizer_icon_variant.png",
+      "baseline_git_blob_sha1": "e7a19683259ed855407f8e0d5cef326f0c789b8c",
+      "actual_git_blob_sha1": "e7a19683259ed855407f8e0d5cef326f0c789b8c",
+      "worktree_sha256": "479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9",
+      "source_snapshot_matches_baseline": true
+    },
+    {
+      "path": "WinImgNormalizer_poster.png",
+      "baseline_git_blob_sha1": "89a874807f72112b4acc1730d943314ec12379fd",
+      "actual_git_blob_sha1": "89a874807f72112b4acc1730d943314ec12379fd",
+      "worktree_sha256": "99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926",
+      "source_snapshot_matches_baseline": true
+    },
+    {
+      "path": "WinImgNormalizer_variant.ico",
+      "baseline_git_blob_sha1": "963ee47d33fcf457b309dd50f493d3c4545b36ed",
+      "actual_git_blob_sha1": "963ee47d33fcf457b309dd50f493d3c4545b36ed",
+      "worktree_sha256": "78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79",
+      "source_snapshot_matches_baseline": true
+    }
+  ],
+  "bundle": {
+    "id": "WinImgNormalizer-Codex-1.0-2026-10-04",
+    "zip_sha256": "ce7a238dfd92fbba874f82be74cc6d01f6855f659d71c23e242e3c9e7910be8f",
+    "manifest_sha256": "69453abca19bb152550f15ddd829b8cd955c357070876a7cddb9f5194467cb06",
+    "integrity_files_verified": 63,
+    "install_files": 56,
+    "preview_adds": 56,
+    "preview_conflicts": 0,
+    "apply_files_added": 56,
+    "all_imported_hashes_matched_before_progress_updates": true,
+    "intentional_progress_updates": [
+      "docs/codex-winimg/STATUS.md",
+      "docs/codex-winimg/TASKS.json",
+      "docs/codex-winimg/NEXT_SESSION.md",
+      "docs/codex-winimg/SESSION_LOG.md",
+      "docs/codex-winimg/DECISIONS.md"
+    ],
+    "external_bundle_unchanged": true
+  },
+  "executions": [
+    {
+      "command": "git status --porcelain=v1 --untracked-files=all; git branch -avv; git rev-parse HEAD; git remote get-url --all origin; git remote get-url --push --all origin; git config --get-regexp <reviewed push/url/hook/branch keys>",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "result": "Clean new clone, canonical single fetch/push identity, baseline main; no unusual push mapping."
+    },
+    {
+      "command": "git ls-remote --symref origin HEAD refs/heads/*; git fetch --no-tags origin; git merge-base --is-ancestor <baseline> HEAD; git diff --name-status <baseline> HEAD",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "result": "Advertised main equals reviewed base; feature branch absent; ancestry passes; no source delta."
+    },
+    {
+      "command": "python -B <bundle>/repo-overlay/tools/codex-winimg/handoff.py verify --bundle <bundle>",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "result": {
+        "verified": true,
+        "files_verified": 63
+      }
+    },
+    {
+      "command": "python -B <bundle>/repo-overlay/tools/codex-winimg/handoff.py plan --repo <bundle>/repo-overlay",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "result": {
+        "tasks": 28,
+        "cases": 75,
+        "review_items_covered": 18,
+        "tasks_done": 0,
+        "next_task": "M0-T01"
+      }
+    },
+    {
+      "command": "py -3 -B -m unittest discover -s tests -v (workdir: immutable bundle)",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 1,
+      "total": 48,
+      "passed": 45,
+      "failed": 1,
+      "skipped": 2,
+      "duration_seconds": 35.759,
+      "result": "FAILED (failures=1, skipped=2)",
+      "failure": "test_23_case_colliding_manifest_paths_rejected: on case-insensitive Windows, writing start_here.md overwrites START_HERE.md; regenerated fixture manifest has no duplicate.",
+      "skip_reason": "Tests 24 and 25: Windows symlink creation unavailable."
+    },
+    {
+      "command": "py -3 -B - (inline disposable explicit case-colliding manifest control)",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "result": {
+        "case_collision_control": "passed",
+        "reason": "Duplicate/case-colliding manifest path.",
+        "tests": 1
+      }
+    },
+    {
+      "command": "py -3 -B repo-overlay/tools/codex-winimg/handoff.py verify --bundle . (immutable bundle, after helper suite)",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "result": {
+        "verified": true,
+        "files_verified": 63
+      }
+    },
+    {
+      "command": "python -B <bundle>/repo-overlay/tools/codex-winimg/handoff.py install --bundle <bundle> --repo <checkout>",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "result": {
+        "mode": "preview",
+        "files": 56,
+        "adds": 56,
+        "blockers": []
+      }
+    },
+    {
+      "command": "python -B <bundle>/repo-overlay/tools/codex-winimg/handoff.py install --bundle <bundle> --repo <checkout> --apply --reviewed-head 4b918da50639d8fc7e3fddc6d6b3678880ea4098",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "result": {
+        "mode": "apply",
+        "files_added": 56,
+        "blockers": [],
+        "git_writes_performed": false
+      }
+    },
+    {
+      "command": "SHA-256 comparison of all manifest install_path entries before deliberate progress edits; baseline Git tree comparison",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "passed": 56,
+      "failed": 0,
+      "result": "All 56 imports matched; all seven baseline tree blobs matched."
+    },
+    {
+      "command": "python -B tools/codex-winimg/handoff.py plan --repo . (initial imported plan)",
+      "environment_ref": "windows-local",
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "exit_code": 0,
+      "result": {
+        "tasks": 28,
+        "cases": 75,
+        "review_items_covered": 18,
+        "tasks_done": 0,
+        "next_task": "M0-T01"
+      }
+    },
+    {
+      "command": "python -B tools/codex-winimg/handoff.py plan --repo . (updated task/evidence state)",
+      "environment_ref": "windows-local",
+      "exit_code": 0,
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "result": {
+        "tasks": 28,
+        "cases": 75,
+        "review_items_covered": 18,
+        "tasks_done": 1,
+        "next_task": "M0-T02"
+      }
+    },
+    {
+      "command": "git diff --cached --check",
+      "environment_ref": "windows-local",
+      "exit_code": 0,
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "result": "Passed; no whitespace errors in imported/staged content."
+    },
+    {
+      "command": "Explicit manifest install-path staging plus M0-T01 evidence; compare actual untracked/staged file sets",
+      "environment_ref": "windows-local",
+      "exit_code": 0,
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "result": "57 additions only: 56 allowed imports plus M0-T01 JSON. Only M0-T01 done; other 27 tasks pending."
+    },
+    {
+      "command": "SHA-256 comparison of all 56 index blobs to precommit tested_files_sha256; original worktree hash verification",
+      "environment_ref": "windows-local",
+      "exit_code": 0,
+      "artifact_path": null,
+      "artifact_sha256": null,
+      "result": "All 56 staged blob hashes match evidence; all seven original checkout files unchanged."
+    }
+  ],
+  "case_collision_control": {
+    "fixture": "Temporary directory containing one START_HERE.md and an explicit manifest with START_HERE.md and start_here.md entries of equal bytes/hash.",
+    "expected_error": "Duplicate/case-colliding manifest path.",
+    "actual_error": "Duplicate/case-colliding manifest path.",
+    "passed": true,
+    "script": "import importlib.util\nimport json\nfrom pathlib import Path\nimport sys\nimport tempfile\n\nhelper = Path(r'<bundle>/repo-overlay/tools/codex-winimg/handoff.py')\nspec = importlib.util.spec_from_file_location('handoff_case_fixture', helper)\nh = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(h)\nwith tempfile.TemporaryDirectory(prefix='winimg-case-fixture-') as task_temp:\n    fixture = Path(task_temp)\n    file = fixture / 'START_HERE.md'\n    file.write_text('Disposable case-collision fixture.\\n', encoding='utf-8')\n    item = {'path': 'START_HERE.md', 'bytes': file.stat().st_size, 'sha256': h.digest(file), 'install_path': None}\n    collision = dict(item, path='start_here.md')\n    manifest = {'schema_version': 1, 'bundle_id': 'disposable-case-collision', 'repository': h.EXPECTED_REPO, 'files': [item, collision]}\n    (fixture / h.MANIFEST_NAME).write_text(json.dumps(manifest), encoding='utf-8')\n    try:\n        h.verify_bundle(fixture)\n    except h.SafetyError as exc:\n        assert str(exc) == 'Duplicate/case-colliding manifest path.', str(exc)\n        print(json.dumps({'case_collision_control': 'passed', 'reason': str(exc), 'tests': 1}))\n    else:\n        raise AssertionError('Explicit case-colliding manifest was accepted')\n",
+    "script_note": "Actual executed input, with only the private helper absolute path sanitized to <bundle>. Replace that placeholder with the immutable bundle root to reproduce with py -3 -B -."
+  },
+  "case_results": [],
+  "application_cases_run": 0,
+  "limitations": [
+    "No application execution, dot-sourcing, image conversion, runtime compatibility claim, owner acceptance or benchmark.",
+    "External helper suite failed one platform-dependent fixture case and skipped two unavailable symlink cases; it is not a passing suite.",
+    "Explicit manifest-collision control supports the fixture diagnosis without erasing the failed test.",
+    "Only Pester 3.4.0 found; ImageMagick and ExifTool absent from PATH. No software installed.",
+    "No raw logs were retained on disk; command outcomes come from actual tool output. Artifact fields remain null.",
+    "One-commit evidence binds the reviewed base and 56 tested imported files to precommit SHA-256 hashes. Evidence cannot hash itself; final committed contents must be compared independently.",
+    "Current checkpoint sync and CI must be observed after commit, reported in final response/PR, and rechecked next session."
+  ],
+  "ci": {
+    "state": "not_configured_at_starting_revision",
+    "commit": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
+    "run_url": null,
+    "workflow_runs_observed": 0
+  },
+  "sync_observation": {
+    "state": "pending_verification",
+    "observed_utc": null,
+    "local_commit": null,
+    "remote_commit": null,
+    "branch": "codex/winimg-hardening"
+  },
+  "owner_approval": {
+    "state": "not_requested",
+    "actor": null,
+    "recorded_utc": null,
+    "approved_commit": null
+  },
+  "next_task": "M0-T02",
+  "note": "M0-T01 only. All source and assets remain at their baseline tree blobs. Final containing commit and post-push observation are reported externally, never predicted here."
+}
