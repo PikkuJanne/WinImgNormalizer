@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "origin": "saucecontrol/Compact-ICC-Profiles",
+  "commit": "bdd84663061bc4ae95ca70decff54f581e27f702",
+  "license": "CC0-1.0",
+  "cmyk_qualification": "CGATS001Compat-v2-micro contains only A2B0 (perceptual forward mapping). Requested Relative intent uses the available LittleCMS fallback; this profile is a test input, not a universal printer characterization or all-intent accuracy guarantee.",
+  "profiles": [
+    {
+      "source_path": "profiles/sRGB-v4.icc",
+      "source_url": "https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/profiles/sRGB-v4.icc",
+      "metadata_url": "https://api.github.com/repos/saucecontrol/Compact-ICC-Profiles/contents/profiles/sRGB-v4.icc?ref=bdd84663061bc4ae95ca70decff54f581e27f702",
+      "commit": "bdd84663061bc4ae95ca70decff54f581e27f702",
+      "license": "CC0-1.0",
+      "bytes": 480,
+      "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "git_blob_sha1": "d9f3c055bd4d7573124090569e1b9533932214eb",
+      "header": {
+        "device_class": "mntr",
+        "colour_space": "RGB",
+        "pcs": "XYZ",
+        "signature": "acsp"
+      },
+      "version_hex": "04200000",
+      "default_intent": 0,
+      "description": "sRGB"
+    },
+    {
+      "source_path": "profiles/AdobeCompat-v2.icc",
+      "source_url": "https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/profiles/AdobeCompat-v2.icc",
+      "metadata_url": "https://api.github.com/repos/saucecontrol/Compact-ICC-Profiles/contents/profiles/AdobeCompat-v2.icc?ref=bdd84663061bc4ae95ca70decff54f581e27f702",
+      "commit": "bdd84663061bc4ae95ca70decff54f581e27f702",
+      "license": "CC0-1.0",
+      "bytes": 374,
+      "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+      "git_blob_sha1": "47fb1b1e89b20e2accc57353c300ff2155215a95",
+      "header": {
+        "device_class": "mntr",
+        "colour_space": "RGB",
+        "pcs": "XYZ",
+        "signature": "acsp"
+      },
+      "version_hex": "02100000",
+      "default_intent": 0,
+      "description": "A98C"
+    },
+    {
+      "source_path": "profiles/CGATS001Compat-v2-micro.icc",
+      "source_url": "https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/profiles/CGATS001Compat-v2-micro.icc",
+      "metadata_url": "https://api.github.com/repos/saucecontrol/Compact-ICC-Profiles/contents/profiles/CGATS001Compat-v2-micro.icc?ref=bdd84663061bc4ae95ca70decff54f581e27f702",
+      "commit": "bdd84663061bc4ae95ca70decff54f581e27f702",
+      "license": "CC0-1.0",
+      "bytes": 8464,
+      "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+      "git_blob_sha1": "b5a73495bfc7509837b300800d8197d94e83fab7",
+      "header": {
+        "device_class": "scnr",
+        "colour_space": "CMYK",
+        "pcs": "Lab",
+        "signature": "acsp"
+      },
+      "version_hex": "02100000",
+      "default_intent": 0,
+      "description": "uCMY"
+    }
+  ],
+  "license_file": {
+    "path": "LICENSE-CC0.txt",
+    "bytes": 6552,
+    "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+    "source_url": "https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/license"
+  },
+  "verification": "Exact raw download size and Git blob SHA1 match the immutable GitHub contents API; profile header size, acsp signature, device colour space and PCS independently inspected.",
+  "use": "sRGB-v4 is the runtime target reference; AdobeCompat and CGATS001Compat are test source characterization profiles. No external image content."
+}

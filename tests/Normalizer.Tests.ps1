@@ -247,8 +247,10 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
     It 'T005 routes conversion arguments and a retry through the injected runner' {
         $source = New-OwnedDirectory 'runner-source'
         $parent = New-OwnedDirectory 'runner-output'
-        [IO.File]::WriteAllBytes((Join-Path $source 'single.png'),
+        $sourceImage = Join-Path $source 'single.png'
+        [IO.File]::WriteAllBytes($sourceImage,
             [IO.File]::ReadAllBytes((Join-Path $fixtureSource 'sub\portrait.png')))
+        $sourceBefore = Get-SourceState $source
         $jpegBytes = [IO.File]::ReadAllBytes((Join-Path $fixtureSource 'landscape.jpg'))
         $trace = New-Object 'Collections.Generic.List[object]'
         $runner = {
@@ -267,17 +269,29 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         $trace.Count | Should -Be 2
         $first = $trace[0].Arguments
         $retry = $trace[1].Arguments
+        $snapshotPath = $first[2]
+        if ($snapshotPath.StartsWith('\\?\', [StringComparison]::Ordinal)) { $snapshotPath = $snapshotPath.Substring(4) }
+        $run = @(Get-ChildItem -LiteralPath $parent -Directory)
+        $run.Count | Should -Be 1
+        $snapshotPath.StartsWith((Join-Path $run[0].FullName '.WinImgNormalizer\work\'), [StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
+        [IO.Path]::GetFileName($snapshotPath) | Should -Be 'source.png'
+        $first[2] | Should -Not -Be $sourceImage
+        $retry[2] | Should -Be $first[2]
+        Test-Path -LiteralPath $snapshotPath | Should -BeFalse
         ($first -join '|') | Should -Be (
-            @('-quiet', (Join-Path $source 'single.png'), '-auto-orient', '-strip', '-colorspace', 'sRGB',
-                '-sampling-factor', '4:2:0', '-interlace', 'Line', '-background', 'white', '-alpha', 'remove',
-                '-alpha', 'off', '-resize', '100%', '-define', 'jpeg:extent=1MB', $first[-1]) -join '|')
-        ($retry -join '|') | Should -Be (
-            @('-quiet', (Join-Path $source 'single.png'), '-auto-orient', '-strip', '-colorspace', 'sRGB',
+            @('-quiet', '-regard-warnings', $first[2], '-auto-orient', '-colorspace', 'sRGB',
+                '-background', 'white', '-alpha', 'remove', '-alpha', 'off', '-strip',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '100%', '-define',
+                'jpeg:extent=1MB', $first[-1]) -join '|')
+        ($retry -join '|') | Should -Be (
+            @('-quiet', '-regard-warnings', $first[2], '-auto-orient', '-colorspace', 'sRGB',
+                '-background', 'white', '-alpha', 'remove', '-alpha', 'off', '-strip',
+                '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '90%', '-define',
                 'jpeg:extent=1MB', $retry[-1]) -join '|')
         $retry[-1] | Should -Not -Be $first[-1]
         $trace[0].Executable | Should -Be $magick
         $trace[1].Executable | Should -Be $magick
+        Get-SourceState $source | Should -Be $sourceBefore
         $logs = @(Get-ChildItem -LiteralPath $parent -Recurse -File -Filter '*.log')
         Get-Content -LiteralPath $logs[0].FullName -Raw |
             Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0'

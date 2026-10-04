@@ -528,6 +528,9 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         Mock Get-WinImgSourceImageInfo {
             return [pscustomobject]@{ SourceCount = 1; Omitted = 0; Unit = 'Images'; Policy = 'DecoderPrimaryOrFirstImage'; Decoder = 'HEIF' }
         }
+        Mock Get-WinImgColourInfo {
+            return [pscustomobject]@{ ColourSpace = 'sRGB'; HasIcc = $false; Policy = 'AssumeSrgb' }
+        }
         $trace = New-Object 'Collections.Generic.List[object]'
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
@@ -540,9 +543,11 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner -FormatText $formats) -ProcessRunner $runner
         $result.Code | Should -Be 0 -Because $result.Text
         $trace.Count | Should -Be 1
-        $trace[0].Arguments[1] | Should -Be '-define'
-        $trace[0].Arguments[2] | Should -Be 'image:frames=0'
-        $snapshotPath = ConvertFrom-PreflightNativePath $trace[0].Arguments[3]
+        $trace[0].Arguments[0] | Should -Be '-quiet'
+        $trace[0].Arguments[1] | Should -Be '-regard-warnings'
+        $trace[0].Arguments[2] | Should -Be '-define'
+        $trace[0].Arguments[3] | Should -Be 'image:frames=0'
+        $snapshotPath = ConvertFrom-PreflightNativePath $trace[0].Arguments[4]
         $snapshotPath.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
         [IO.Path]::GetFileName($snapshotPath) | Should -Be 'source.heif'
         Test-Path -LiteralPath $snapshotPath | Should -BeFalse
@@ -578,7 +583,13 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         $result.Code | Should -Be 2 -Because $result.Text
         $conversionTrace.Count | Should -Be 1
         $conversionTrace[0].Executable | Should -Be $magick
-        $conversionTrace[0].Arguments[1] | Should -Be $png
+        $conversionTrace[0].Arguments[0] | Should -Be '-quiet'
+        $conversionTrace[0].Arguments[1] | Should -Be '-regard-warnings'
+        $snapshotPath = ConvertFrom-PreflightNativePath $conversionTrace[0].Arguments[2]
+        $snapshotPath.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
+        [IO.Path]::GetFileName($snapshotPath) | Should -Be 'source.png'
+        $snapshotPath | Should -Not -Be $png
+        Test-Path -LiteralPath $snapshotPath | Should -BeFalse
         $preflightTrace.Count | Should -Be 2
         foreach ($call in $preflightTrace) { $call.Executable | Should -Be $magick }
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)

@@ -180,6 +180,7 @@ BeforeAll {
     $realVideoCopy = (Get-Command Copy-WinImgVideoToCandidate -CommandType Function).ScriptBlock
     $realPlannedVideoCopy = (Get-Command Copy-WinImgPlannedVideo -CommandType Function).ScriptBlock
     $realSourceTree = (Get-Command Get-WinImgSourceTree -CommandType Function).ScriptBlock
+    $realSourceSnapshot = (Get-Command New-WinImgSourceSnapshot -CommandType Function).ScriptBlock
 }
 
 Describe 'M1-T05 register only finalized retained media (T025)' {
@@ -191,13 +192,21 @@ Describe 'M1-T05 register only finalized retained media (T025)' {
         $first = Write-DuplicateInput -Root $source -RelativePath 'a\photo.png' -Bytes $smallBytes
         $second = Write-DuplicateInput -Root $source -RelativePath 'b\photo.png' -Bytes $smallBytes
         $before = Get-DuplicateSourceState $source
-        $trace = [pscustomobject]@{ Sources = New-Object 'Collections.Generic.List[string]'; ArrivalPath = $null }
+        $trace = [pscustomobject]@{ Sources = New-Object 'Collections.Generic.List[string]'; ArrivalPath = $null; SnapshotSources = @{} }
+        Mock New-WinImgSourceSnapshot {
+            param([string]$SourcePath, [string]$WorkRoot, [long]$ExpectedLength, [DateTime]$ExpectedModified, [Collections.Generic.List[object]]$OwnedCandidates)
+            $snapshot = & $realSourceSnapshot -SourcePath $SourcePath -WorkRoot $WorkRoot -ExpectedLength $ExpectedLength -ExpectedModified $ExpectedModified -OwnedCandidates $OwnedCandidates
+            $trace.SnapshotSources[(Get-WinImgNativeOutputPath $snapshot)] = $SourcePath
+            return $snapshot
+        }
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
-            $trace.Sources.Add($Arguments[1])
+            $originalSource = $trace.SnapshotSources[$Arguments[2]]
+            if (-not $originalSource) { throw 'Duplicate conversion input did not match an actual owned source snapshot.' }
+            $trace.Sources.Add($originalSource)
             $candidate = Assert-DuplicateOwnedCandidate -Path $Arguments[-1].Substring('JPEG:'.Length) -OutputParent $parent
-            if ($Arguments[1] -eq $first -and $Failure -eq 'native') { [IO.File]::WriteAllBytes($candidate, $jpegBytes); return 7 }
-            if ($Arguments[1] -eq $first -and $Failure -eq 'validation') { [IO.File]::WriteAllText($candidate, 'Synthetic invalid native candidate.'); return 0 }
+            if ($originalSource -eq $first -and $Failure -eq 'native') { [IO.File]::WriteAllBytes($candidate, $jpegBytes); return 7 }
+            if ($originalSource -eq $first -and $Failure -eq 'validation') { [IO.File]::WriteAllText($candidate, 'Synthetic invalid native candidate.'); return 0 }
             & $Executable @Arguments 1>$null 2>$null
             return $LASTEXITCODE
         }
@@ -342,14 +351,22 @@ Describe 'M1-T05 deterministic retained links and explicit heuristic limitation 
         $parent = New-DuplicateDirectory 'changed-conversion-output'
         $first = Write-DuplicateInput -Root $source -RelativePath 'a\photo.png' -Bytes $smallBytes
         $second = Write-DuplicateInput -Root $source -RelativePath 'b\photo.png' -Bytes $smallBytes
-        $trace = [pscustomobject]@{ Sources = New-Object 'Collections.Generic.List[string]'; InjectedSourceState = $null }
+        $trace = [pscustomobject]@{ Sources = New-Object 'Collections.Generic.List[string]'; InjectedSourceState = $null; SnapshotSources = @{} }
+        Mock New-WinImgSourceSnapshot {
+            param([string]$SourcePath, [string]$WorkRoot, [long]$ExpectedLength, [DateTime]$ExpectedModified, [Collections.Generic.List[object]]$OwnedCandidates)
+            $snapshot = & $realSourceSnapshot -SourcePath $SourcePath -WorkRoot $WorkRoot -ExpectedLength $ExpectedLength -ExpectedModified $ExpectedModified -OwnedCandidates $OwnedCandidates
+            $trace.SnapshotSources[(Get-WinImgNativeOutputPath $snapshot)] = $SourcePath
+            return $snapshot
+        }
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
-            $trace.Sources.Add($Arguments[1])
+            $originalSource = $trace.SnapshotSources[$Arguments[2]]
+            if (-not $originalSource) { throw 'Duplicate conversion input did not match an actual owned source snapshot.' }
+            $trace.Sources.Add($originalSource)
             $null = Assert-DuplicateOwnedCandidate -Path $Arguments[-1].Substring('JPEG:'.Length) -OutputParent $parent
             & $Executable @Arguments 1>$null 2>$null
             $code = $LASTEXITCODE
-            if ($Arguments[1] -eq $first) {
+            if ($originalSource -eq $first) {
                 [IO.File]::SetLastWriteTimeUtc($first, $fixedUtc.AddSeconds(10))
                 $trace.InjectedSourceState = Get-DuplicateSourceState $source
             }
@@ -521,11 +538,19 @@ Describe 'M1-T05 deterministic retained links and explicit heuristic limitation 
         $first = Write-DuplicateInput -Root $source -RelativePath 'a\photo.png' -Bytes $smallBytes
         $null = Write-DuplicateInput -Root $source -RelativePath 'b\photo.png' -Bytes $smallBytes
         $before = Get-DuplicateSourceState $source
-        $trace = [pscustomobject]@{ Calls = 0; Sources = New-Object 'Collections.Generic.List[string]' }
+        $trace = [pscustomobject]@{ Calls = 0; Sources = New-Object 'Collections.Generic.List[string]'; SnapshotSources = @{} }
+        Mock New-WinImgSourceSnapshot {
+            param([string]$SourcePath, [string]$WorkRoot, [long]$ExpectedLength, [DateTime]$ExpectedModified, [Collections.Generic.List[object]]$OwnedCandidates)
+            $snapshot = & $realSourceSnapshot -SourcePath $SourcePath -WorkRoot $WorkRoot -ExpectedLength $ExpectedLength -ExpectedModified $ExpectedModified -OwnedCandidates $OwnedCandidates
+            $trace.SnapshotSources[(Get-WinImgNativeOutputPath $snapshot)] = $SourcePath
+            return $snapshot
+        }
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
             $trace.Calls++
-            $trace.Sources.Add($Arguments[1])
+            $originalSource = $trace.SnapshotSources[$Arguments[2]]
+            if (-not $originalSource) { throw 'Duplicate conversion input did not match an actual owned source snapshot.' }
+            $trace.Sources.Add($originalSource)
             $candidate = Assert-DuplicateOwnedCandidate -Path $Arguments[-1].Substring('JPEG:'.Length) -OutputParent $parent
             [IO.File]::WriteAllBytes($candidate, $jpegBytes)
             return 0
