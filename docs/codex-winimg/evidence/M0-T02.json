@@ -1,0 +1,281 @@
+{
+  "schema_version": 1,
+  "task_id": "M0-T02",
+  "state": "done",
+  "recorded_utc": "2026-10-04T14:10:51.765265+00:00",
+  "reviewed_base_commit": "38f1a33f753600fdc4e70af3dc68a323a65c19ae",
+  "tested_implementation_commit": null,
+  "legacy_sha256": "3d31eaea3d926c2d2a4f75dc32856e6681fcf03f2f29ac89020aa1a4a907133a",
+  "tested_files_sha256": {
+    "tests/legacy/build_fixtures.py": "b99c935389e15dcb6edba7dca3c02117d0c04fecebb12f67e73ca0045e70b4e8",
+    "tests/legacy/characterize.py": "010245511787fd183ecabd4ed15835fdbc25a324660337604c4840a47eb3bfc4",
+    "tests/legacy/README.md": "0ff5053d39ac3cb5cea73a79b757847826ae4e103305fb68fc98b3cea96b0d94",
+    "tests/legacy/toolchain.json": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406",
+    "docs/codex-winimg/STATUS.md": "3e10dc8e3b37ec51552001600579c762e8eecb316f04a12fb448f505d0b1545f",
+    "docs/codex-winimg/NEXT_SESSION.md": "508d2946d059afba4a49183f4a31bbd2b51d4feb41afb3a1014fecd531b0ee48",
+    "docs/codex-winimg/SESSION_LOG.md": "42f51c46d772ab8fc88ee788053496eb56955df4e12d312b8f2af8f395cf53fa",
+    "docs/codex-winimg/TASKS.json": "6516e8d9900c0285c50690feae516f1a61f850f805d774c4e6e47197d78c2edc",
+    "docs/codex-winimg/evidence/M0-T02-real-observations.json": "0c19feb237d28d4316768d583a81cfb104e869e2bb83ead90e04dd1c990e1fae",
+    "docs/codex-winimg/evidence/M0-T02-fixtures.json": "a407ac108446fefb741068651d403c102f28524d9c853a3d5e7bf963d7080fdd",
+    "tests/legacy/Invoke-LegacySnapshot.ps1": "87f02056c7a22ce0674b5c02149c3ef169a50a471da8ae63d0653f4af1781557",
+    "tests/legacy/fake_magick.py": "67608617d47fc082ae7101ab63962b303913467f342d4d49ca8cdb9c9dfcd074",
+    "tests/legacy/Inventory-Environment.ps1": "478caae924b6915787070dcb1713a5107e60fc53d7343007218faccc7cdf80a9",
+    "tests/legacy/check_harness.py": "912c2d06fe330169029f25382adf21615ead387f487f2a598b5b401008714e6a"
+  },
+  "file_hash_note": "Final committed LF bytes; actual executed code hashes also retained in the raw/sanitized observations. Documentation/toolchain state refreshed after execution.",
+  "environment": {
+    "schema_version": 1,
+    "recorded_utc": "2026-10-04T14:06:01.081959+00:00",
+    "python": "3.12.14",
+    "python_architecture": "AMD64",
+    "pillow": "12.3.0",
+    "shell_environment_adapter": "Remove inherited PSModulePath in worker environment; each edition resolves its own defaults",
+    "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+    "imagemagick": {
+      "exit_code": 0,
+      "stdout": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org\nCopyright: (C) 1999 ImageMagick Studio LLC\nLicense: https://imagemagick.org/license/\nFeatures: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) \nDelegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd\nCompiler: Visual Studio 2026 (195136257)\n",
+      "stderr": ""
+    },
+    "imagemagick_formats": {
+      "exit_code": 0,
+      "stdout": "   Format  Mode  Description\n-------------------------------------------------------------------------------\n      3FR  r--   Hasselblad CFV/H3D39II Raw Format (0.22.2-Release)\n      3G2  r--   Media Container\n      3GP  r--   Media Container\n        A* rw+   Raw alpha samples\n      AAI* rw+   AAI Dune image\n       AI  rw-   Adobe Illustrator CS2\n     APNG  rw+   Animated Portable Network Graphics\n      ART* rw-   PFS: 1st Publisher Clip Art\n      ARW  r--   Sony Alpha Raw Format (0.22.2-Release)\n      ASE* rw+   Aseprite Sprite Format\n ASEPRITE* rw+   Aseprite Sprite Format\n   ASHLAR* -w+   Image sequence laid out in continuous irregular courses\n     AVCI  r--   AVC Image File Format (1.23.5)\n      AVI  r--   Microsoft Audio/Visual Interleaved\n     AVIF  rw+   AV1 Image File Format (1.23.5)\n      AVS* rw+   AVS X image\n        B* rw+   Raw blue samples\n    BAYER* rw+   Raw mosaiced samples\n   BAYERA* rw+   Raw mosaiced and alpha samples\n      BGR* rw+   Raw blue, green, and red samples\n     BGRA* rw+   Raw blue, green, red, and alpha samples\n     BGRO* rw+   Raw blue, green, red, and opacity samples\n      BMP* rw-   Microsoft Windows bitmap image\n     BMP2* rw-   Microsoft Windows bitmap image (V2)\n     BMP3* rw-   Microsoft Windows bitmap image (V3)\n      BRF* -w-   BRF ASCII Braille format\n        C* rw+   Raw cyan samples\n     C2PA  r--   C2PA Provenance Metadata\n      CAL* rw-   Continuous Acquisition and Life-cycle Support Type 1\n             Specified in MIL-R-28002 and MIL-PRF-28002\n     CALS* rw-   Continuous Acquisition and Life-cycle Support Type 1\n             Specified in MIL-R-28002 and MIL-PRF-28002\n   CANVAS* r--   Constant image uniform color\n  CAPTION* r--   Caption\n      CIN* rw-   Cineon Image File\n      CIP* -w-   Cisco IP phone image format\n     CLIP* rw+   Image Clip Mask\nCLIPBOARD* rw-   The system clipboard\n     CMYK* rw+   Raw cyan, magenta, yellow, and black samples\n    CMYKA* rw+   Raw cyan, magenta, yellow, black, and alpha samples\n      CR2  r--   Canon Digital Camera Raw Format (0.22.2-Release)\n      CR3  r--   Canon Digital Camera Raw Format (0.22.2-Release)\n      CRW  r--   Canon Digital Camera Raw Format (0.22.2-Release)\n     CUBE* r--   Cube LUT\n      CUR* rw-   Microsoft icon\n      CUT* r--   DR Halo\n     DATA* rw+   Base64-encoded inline images\n      DCM* r--   Digital Imaging and Communications in Medicine image\n             DICOM is used by the medical community for images like X-rays.  The\n             specification, \"Digital Imaging and Communications in Medicine\n             (DICOM)\", is available at http://medical.nema.org/.  In particular,\n             see part 5 which describes the image encoding (RLE, JPEG, JPEG-LS),\n             and supplement 61 which adds JPEG-2000 encoding.\n      DCR  r--   Kodak Digital Camera Raw Format (0.22.2-Release)\n    DCRAW  r--   Raw Photo Decoder (dcraw) (0.22.2-Release)\n      DCX* rw+   ZSoft IBM PC multi-page Paintbrush\n      DDS* rw+   Microsoft DirectDraw Surface\n    DFONT* r--   Multi-face font package (Freetype 2.14.3)\n      DNG  r--   Digital Negative Raw Format (0.22.2-Release)\n      DPX* rw-   SMPTE 268M-2003 (DPX 2.0)\n             Digital Moving Picture Exchange Bitmap, Version 2.0.\n             See SMPTE 268M-2003 specification at http://www.smtpe.org\n             \n     DXT1* rw+   Microsoft DirectDraw Surface\n     DXT5* rw+   Microsoft DirectDraw Surface\n      EMF  r--   Windows Enhanced Meta File\n     EPDF  rw-   Encapsulated Portable Document Format\n      EPI  rw-   Encapsulated PostScript Interchange format\n      EPS  rw-   Encapsulated PostScript\n     EPS2  -w-   Level II Encapsulated PostScript\n     EPS3  -w+   Level III Encapsulated PostScript\n     EPSF  rw-   Encapsulated PostScript\n     EPSI  rw-   Encapsulated PostScript Interchange format\n      EPT  rw-   Encapsulated PostScript with TIFF preview\n     EPT2  rw-   Encapsulated PostScript Level II with TIFF preview\n     EPT3  rw+   Encapsulated PostScript Level III with TIFF preview\n      ERF  r--   Epson Raw Format (0.22.2-Release)\n      EXR  rw-   High Dynamic-range (HDR) (OpenEXR 3.5.1)\n FARBFELD* rw-   Farbfeld\n      FAX* rw+   Group 3 FAX\n             FAX machines use non-square pixels which are 1.5 times wider than\n             they are tall but computer displays use square pixels, therefore\n             FAX images may appear to be narrow unless they are explicitly\n             resized using a geometry of \"150x100%\".\n             \n       FF* rw-   Farbfeld\n      FFF  r--   Hasselblad CFV/H3D39II Raw Format (0.22.2-Release)\n     FILE* r--   Uniform Resource Locator (file://)\n     FITS* rw+   Flexible Image Transport System\n     FL32* rw-   FilmLight\n      FLV  rw+   Flash Video Stream\n  FRACTAL* r--   Plasma fractal image\n      FTP* r--   Uniform Resource Locator (ftp://)\n      FTS* rw+   Flexible Image Transport System\n     FTXT* rw-   Formatted text image\n        G* rw+   Raw green samples\n       G3* rw-   Group 3 FAX\n       G4* rw-   Group 4 FAX\n      GIF* rw+   CompuServe graphics interchange format\n    GIF87* rw-   CompuServe graphics interchange format (version 87a)\n GRADIENT* r--   Gradual linear passing from one shade to another\n     GRAY* rw+   Raw gray samples\n    GRAYA* rw+   Raw gray and alpha samples\n   GROUP4* rw-   Raw CCITT Group4\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n     HALD* r--   Identity Hald color lookup table image\n      HDR* rw+   Radiance RGBE image format\n     HEIC  r--   High Efficiency Image Format (1.23.5)\n     HEIF  r--   High Efficiency Image Format (1.23.5)\nHISTOGRAM* -w-   Histogram of the image\n      HRZ* rw-   Slow Scan TeleVision\n      HTM* -w-   Hypertext Markup Language and a client-side image map\n     HTML* -w-   Hypertext Markup Language and a client-side image map\n     HTTP* r--   Uniform Resource Locator (http://)\n    HTTPS* r--   Uniform Resource Locator (https://)\n      ICB* rw-   Truevision Targa image\n      ICN* rw-   Microsoft icon\n      ICO* rw+   Microsoft icon\n     ICON* rw-   Microsoft icon\n      IIQ  r--   Phase One Raw Format (0.22.2-Release)\n     INFO  -w+   The image format and characteristics\n   INLINE* rw+   Base64-encoded inline images\n      IPL* rw+   IPL Image Sequence\n   ISOBRL* -w-   ISO/TR 11548-1 format\n  ISOBRL6* -w-   ISO/TR 11548-1 format 6dot\n      J2C* rw-   JPEG-2000 Code Stream Syntax (2.5.4)\n      J2K* rw-   JPEG-2000 Code Stream Syntax (2.5.4)\n      JNG* rw-   JPEG Network Graphics\n             See http://www.libpng.org/pub/mng/ for details about the JNG\n             format.\n      JNX* r--   Garmin tile format\n      JP2* rw-   JPEG-2000 File Format Syntax (2.5.4)\n      JPC* rw-   JPEG-2000 Code Stream Syntax (2.5.4)\n      JPE* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n     JPEG* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      JPG* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      JPM* rw-   JPEG-2000 File Format Syntax (2.5.4)\n      JPS* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      JPT* rw-   JPEG-2000 File Format Syntax (2.5.4)\n     JSON  -w+   The image format and characteristics\n      JXL* rw+   JPEG XL (ISO/IEC 18181) (libjxl 0.12.0)\n        K* rw+   Raw black samples\n      K25  r--   Kodak Digital Camera Raw Format (0.22.2-Release)\n      KDC  r--   Kodak Digital Camera Raw Format (0.22.2-Release)\n   KERNEL* -w-   Morphology Kernel\n    LABEL* r--   Image label\n        M* rw+   Raw magenta samples\n      M2V  rw+   MPEG Video Stream\n      M4V  rw+   Raw VIDEO-4 Video\n      MAC* r--   MAC Paint\n      MAP* rw-   Colormap intensities and indices\n     MASK* rw+   Image Clip Mask\n      MAT  rw+   MATLAB level 5 image format\n    MATTE* -w+   MATTE format\n      MDC  r--   Minolta Digital Camera Raw Format (0.22.2-Release)\n      MEF  r--   Mamiya Raw Format (0.22.2-Release)\n     MIFF* rw+   Magick Image File Format\n      MKV  rw+   Multimedia Container\n      MNG* rw+   Multiple-image Network Graphics (libpng 1.6.58)\n             See http://www.libpng.org/pub/mng/ for details about the MNG\n             format.\n     MONO* rw-   Raw bi-level bitmap\n      MOS  r--   Aptus Leaf Raw Format (0.22.2-Release)\n      MOV  rw+   MPEG Video Stream\n      MP4  rw+   VIDEO-4 Video Stream\n      MPC* rw+   Magick Pixel Cache image format\n     MPEG  rw+   MPEG Video Stream\n      MPG  rw+   MPEG Video Stream\n      MPO* r--   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      MRW  r--   Sony (Minolta) Raw Format (0.22.2-Release)\n      MSL  r--   Magick Scripting Language\n     MSVG* rw+   ImageMagick's own SVG internal renderer\n      MTV* rw+   MTV Raytracing image format\n      MVG* rw-   Magick Vector Graphics\n      NEF  r--   Nikon Digital SLR Camera Raw Format (0.22.2-Release)\n      NRW  r--   Nikon Digital SLR Camera Raw Format (0.22.2-Release)\n     NULL* rw-   Constant image of uniform color\n        O* rw+   Raw opacity samples\n      ORA  r--   OpenRaster format\n      ORF  r--   Olympus Digital Camera Raw Format (0.22.2-Release)\n      OTB* rw-   On-the-air bitmap\n      OTF* r--   Open Type font (Freetype 2.14.3)\n      PAL* rw-   16bit/pixel interleaved YUV\n     PALM* rw+   Palm pixmap\n      PAM* rw+   Common 2-dimensional bitmap format\n    PANGO* r--   Pango Markup Language (Pangocairo 1.45.2)\n  PATTERN* r--   Predefined pattern\n      PBM* rw+   Portable bitmap format (black and white)\n      PCD* rw-   Photo CD\n     PCDS* rw-   Photo CD\n      PCL  rw+   Printer Control Language\n      PCT* rw-   Apple Macintosh QuickDraw/PICT\n      PCX* rw-   ZSoft IBM PC Paintbrush\n      PDB* rw+   Palm Database ImageViewer Format\n      PDF  rw+   Portable Document Format\n     PDFA  rw+   Portable Document Archive Format\n      PEF  r--   Pentax Electronic Raw Format (0.22.2-Release)\n      PES* r--   Embrid Embroidery Format\n      PFA* r--   Postscript Type 1 font (ASCII) (Freetype 2.14.3)\n      PFB* r--   Postscript Type 1 font (binary) (Freetype 2.14.3)\n      PFM* rw+   Portable float format\n      PGM* rw+   Portable graymap format (gray scale)\n      PGX* rw-   JPEG 2000 uncompressed format\n      PHM* rw+   Portable half float format\n    PICON* rw-   Personal Icon\n     PICT* rw-   Apple Macintosh QuickDraw/PICT\n      PIX* r--   Alias/Wavefront RLE image format\n    PJPEG* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n   PLASMA* r--   Plasma fractal image\n      PNG* rw-   Portable Network Graphics (libpng 1.6.58)\n             See http://www.libpng.org/ for details about the PNG format.\n    PNG00* rw-   PNG inheriting bit-depth, color-type from original, if possible\n    PNG24* rw-   opaque or binary transparent 24-bit RGB\n    PNG32* rw-   opaque or transparent 32-bit RGBA\n    PNG48* rw-   opaque or binary transparent 48-bit RGB\n    PNG64* rw-   opaque or transparent 64-bit RGBA\n     PNG8* rw-   8-bit indexed with optional binary transparency\n      PNM* rw+   Portable anymap\nPOCKETMOD  rw+   Pocketmod Personal Organizer\n      PPM* rw+   Portable pixmap format (color)\n       PS  rw+   PostScript\n      PS2  -w+   Level II PostScript\n      PS3  -w+   Level III PostScript\n      PSB* rw+   Adobe Large Document Format\n      PSD* rw+   Adobe Photoshop bitmap\n     PTIF* rw+   Pyramid encoded TIFF\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n      PWP* r--   Seattle Film Works\n      QOI* rw-   Quite OK image format\n        R* rw+   Raw red samples\nRADIAL-GRADIENT* r--   Gradual radial passing from one shade to another\n      RAF  r--   Fuji CCD-RAW Graphic Raw Format (0.22.2-Release)\n      RAS* rw+   SUN Rasterfile\n      RAW  r--   Raw (0.22.2-Release)\n      RGB* rw+   Raw red, green, and blue samples\n   RGB565* r--   Raw red, green, blue samples in 565 format\n     RGBA* rw+   Raw red, green, blue, and alpha samples\n     RGBO* rw+   Raw red, green, blue, and opacity samples\n      RGF* rw-   LEGO Mindstorms EV3 Robot Graphic Format (black and white)\n      RLA* r--   Alias/Wavefront image\n      RLE* r--   Utah Run length encoded image\n      RMF  r--   Raw Media Format (0.22.2-Release)\n     RSVG* rw+   Librsvg SVG renderer (RSVG 2.40.20)\n      RW2  r--   Panasonic Lumix Raw Format (0.22.2-Release)\n      RWL  r--   Leica Raw Format (0.22.2-Release)\n      SCR* r--   ZX-Spectrum SCREEN$\nSCREENSHOT* r--   Screen shot\n      SCT* r--   Scitex HandShake\n      SF3* rw+   Simple File Format Family Images\n             See https://shirakumo.org/docs/sf3/ for information on the SF3 file formats.\n      SFW* r--   Seattle Film Works\n      SGI* rw+   Irix RGB image\n    SHTML* -w-   Hypertext Markup Language and a client-side image map\n      SIX* rw-   DEC SIXEL Graphics Format\n    SIXEL* rw-   DEC SIXEL Graphics Format\nSPARSE-COLOR* -w+   Sparse Color\n      SR2  r--   Sony Raw Format 2 (0.22.2-Release)\n      SRF  r--   Sony Raw Format (0.22.2-Release)\n      SRW  r--   Samsung Raw Format (0.22.2-Release)\n  STEGANO* r--   Steganographic image\n      STI  r--   Sinar CaptureShop Raw Format (0.22.2-Release)\n   STRIMG* rw-   String to image and back\n      SUN* rw+   SUN Rasterfile\n      SVG  rw+   Scalable Vector Graphics (RSVG 2.40.20)\n     SVGZ* rw+   Compressed Scalable Vector Graphics (RSVG 2.40.20)\n     TEXT* r--   Text\n      TGA* rw-   Truevision Targa image\nTHUMBNAIL* -w+   EXIF Profile Thumbnail\n     TIFF* rw+   Tagged Image File Format (LIBTIFF, Version 4.7.2)\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n   TIFF64* rw+   Tagged Image File Format (64-bit) (LIBTIFF, Version 4.7.2)\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n     TILE* r--   Tile image with a texture\n      TIM* r--   PSX TIM\n      TM2* r--   PS2 TIM2\n      TTC* r--   TrueType font collection (Freetype 2.14.3)\n      TTF* r--   TrueType font (Freetype 2.14.3)\n      TXT* rw+   Text\n     UBRL* -w-   Unicode Text format\n    UBRL6* -w-   Unicode Text format 6dot\n      UIL* -w-   X-Motif UIL table\n     UYVY* rw-   16bit/pixel interleaved YUV\n      VDA* rw-   Truevision Targa image\n    VICAR* rw-   Video Image Communication And Retrieval\n      VID* rw+   Visual Image Directory\n     VIFF* rw+   Khoros Visualization image\n     VIPS* rw+   VIPS image\n      VST* rw-   Truevision Targa image\n   WBINFO* r--   Amiga Workbench Icon\n     WBMP* rw-   Wireless Bitmap (level 0) image\n     WEBM  rw+   Open Web Media\n     WEBP* rw+   WebP Image Format (libwebp 1.6.0 [0210])\n      WMF  r--   Windows Meta File\n      WMV  rw+   Windows Media Video\n      WPG* rw-   Word Perfect Graphics\n      X3F  r--   Sigma Camera RAW Format (0.22.2-Release)\n      XBM* rw-   X Windows system bitmap (black and white)\n       XC* r--   Constant image uniform color\n      XCF* r--   GIMP image\n      XPM* rw-   X Windows system pixmap (color)\n      XPS  r--   Microsoft XML Paper Specification\n       XV* rw+   Khoros Visualization image\n        Y* rw+   Raw yellow samples\n     YAML  -w+   The image format and characteristics\n    YCBCR* rw+   Raw Y, Cb, and Cr samples\n   YCBCRA* rw+   Raw Y, Cb, Cr, and alpha samples\n      YUV* rw-   CCIR 601 4:1:1 or 4:2:2\n\n* native blob support\nr read support\nw write support\n+ support for multiple images\n",
+      "stderr": ""
+    },
+    "imagemagick_delegates": {
+      "exit_code": 0,
+      "stdout": "\nPath: <portable-tools>\\delegates.xml\n\nDelegate                Command\n-------------------------------------------------------------------------------\n        bpg =>          \"\"bpgdec\" -b 16 -o \"%o\" \"%i\"\"\n        dot =>          \"\"dot\" -Tsvg \"%i\" -o \"%o\"\"\n        dvi =>          \"\"dvips\" -q -o \"%o\" \"%i\"\"\n        eps<=>pdf        \"\"gswin64c.exe\" -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 \"-sDEVICE=pdfwrite\" \"-sOutputFile=%o\" \"-f%i\"\"\n        eps<=>ps         \"\"gswin64c.exe\" -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=2 \"-sDEVICE=ps2write\" \"-sOutputFile=%o\" \"-f%i\"\"\n        hpg =>          \"\"hp2xx\" -q -m eps -f \"%o\" \"%i\"\"\n       hpgl =>          \"\"hp2xx\" -q -m eps -f \"%o\" \"%i\"\"\n        htm =>          \"\"html2ps\" -U -o \"%o\" \"%i\"\"\n       html =>          \"\"html2ps\" -U -o \"%o\" \"%i\"\"\n       ilbm =>          \"\"ilbmtoppm\" \"%i\" > \"%o\"\"\n        jpg<= lep        \"\"lepton\" \"%i\" \"%o\"\"\n        jxr =>          \"cmd.exe /c (move \"%i\" \"%i.jxr\" >nul) & (\"JXRDecApp.exe\" -i \"%i.jxr\" -o \"%o.tiff\") & (move \"%i.jxr\" \"%i\" >nul) & (move \"%o.tiff\" \"%o\" >nul)\"\n        lep =>          \"\"lepton\" \"%i\" \"%o\"\"\n        pdf<=>eps        \"\"gswin64c.exe\" -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=2 \"-sDEVICE=eps2write\" \"-sPDFPassword=%a\" \"-sOutputFile=%o\" \"-f%i\"\"\n        pdf<=>ps         \"\"gswin64c.exe\" -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=2 \"-sDEVICE=ps2write\" \"-sPDFPassword=%a\" \"-sOutputFile=%o\" \"-f%i\"\"\n        png<= bpg        \"\"bpgenc\" -b 12 -q \"%~\" -o \"%o\" \"%i\"\"\n        pnm<= ilbm       \"\"ppmtoilbm\" -24if \"%i\" > \"%o\"\"\n         ps<=>eps        \"\"gswin64c.exe\" -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=2 \"-sDEVICE=eps2write\" \"-sOutputFile=%o\" \"-f%i\"\"\n         ps<=>pdf        \"\"gswin64c.exe\" -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=2 \"-sDEVICE=pdfwrite\" \"-sOutputFile=%o\" \"-f%i\"\"\n      shtml =>          \"\"html2ps\" -U -o \"%o\" \"%i\"\"\n        svg =>          \"\"rsvg-convert\" --dpi-x %x --dpi-y %y -o \"%o\" \"%i\"\"\n       tiff<= jxr        \"cmd.exe /c (move \"%i\" \"%i.tiff\" >nul) & (\"JXREncApp.exe\" -i \"%i.tiff\" -o \"%o.jxr\" -q %Q) & (move \"%i.tiff\" \"%i\" >nul) & (move \"%o.jxr\" \"%o\" >nul)\"\n       tiff<= wdp        \"cmd.exe /c (move \"%i\" \"%i.tiff\" >nul) & (\"JXREncApp.exe\" -i \"%i.tiff\" -o \"%o.jxr\" -q %Q) & (move \"%i.tiff\" \"%i\" >nul) & (move \"%o.jxr\" \"%o\" >nul)\"\nvideo:decode =>          \"\"ffmpeg\" -nostdin -loglevel error -i \"%s\" -an -f rawvideo -y %s \"%s\"\"\n        wdp =>          \"cmd.exe /c (move \"%i\" \"%i.jxr\" >nul) & (\"JXRDecApp.exe\" -i \"%i.jxr\" -o \"%o.pnm\") & (move \"%i.jxr\" \"%i\" >nul) & (move \"%o.pnm\" \"%o\" >nul)\"\n",
+      "stderr": ""
+    },
+    "imagemagick_policy": {
+      "exit_code": 0,
+      "stdout": "\nPath: <portable-tools>\\policy.xml\n  Policy: Undefined\n    rights: None \n\nPath: [built-in]\n  Policy: Undefined\n    rights: None \n",
+      "stderr": ""
+    },
+    "shells": {
+      "ps51": {
+        "schema_version": 1,
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_version": "10.0.26300",
+        "os_build": "26300",
+        "os_architecture": "64-bit",
+        "process_bits": 64,
+        "powershell_version": "5.1.26100.9444",
+        "powershell_edition": "Desktop",
+        "culture": "fi-FI",
+        "ui_culture": "en-US",
+        "pester_versions": [
+          "3.4.0"
+        ],
+        "analyzer_versions": [],
+        "execution_policy": [
+          {
+            "scope": "MachinePolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "Process",
+            "policy": "Bypass"
+          },
+          {
+            "scope": "CurrentUser",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "policy": "Undefined"
+          }
+        ],
+        "inventory_command": [
+          "<ps51>",
+          "-NoLogo",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<repo>\\tests\\legacy\\Inventory-Environment.ps1"
+        ]
+      },
+      "ps7": {
+        "schema_version": 1,
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_version": "10.0.26300",
+        "os_build": "26300",
+        "os_architecture": "64-bit",
+        "process_bits": 64,
+        "powershell_version": "7.6.5",
+        "powershell_edition": "Core",
+        "culture": "fi-FI",
+        "ui_culture": "en-US",
+        "pester_versions": [
+          "3.4.0"
+        ],
+        "analyzer_versions": [],
+        "execution_policy": [
+          {
+            "scope": "MachinePolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "Process",
+            "policy": "Bypass"
+          },
+          {
+            "scope": "CurrentUser",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "policy": "RemoteSigned"
+          }
+        ],
+        "inventory_command": [
+          "<ps7>",
+          "-NoLogo",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<repo>\\tests\\legacy\\Inventory-Environment.ps1"
+        ]
+      }
+    }
+  },
+  "tooling_authorization": {
+    "state": "approved_by_user",
+    "quote": "Please download and continue",
+    "scope": "Pinned portable test tool in ignored scratch; no product runtime dependency",
+    "date": "2026-10-04"
+  },
+  "tool_provenance": {
+    "verified_archive_sha256": "2540f87550bd24488d71248427b8ab6754573a0506ea0cbe943579fdbddab299",
+    "executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+    "extraction": "portable archive into ignored scratch",
+    "installer_used": false,
+    "persistent_path_change": false
+  },
+  "execution_summary": {
+    "fixtures_independently_inspected": 45,
+    "legacy_observations": 12,
+    "real_imagemagick_runs": 6,
+    "controlled_fake_runs": 6,
+    "harness_checks_passed": 22,
+    "corrected_behavior_regression_tests": 0
+  },
+  "executions": [
+    {
+      "command": "<fixture-python> -B tests/legacy/characterize.py --root .scratch/full-characterization-02 --magick <verified-portable-magick> --ps51 <ps51> --ps7 <ps7>",
+      "exit_code": 0,
+      "observations": 12,
+      "harness_checks_passed": 22,
+      "real_runs": 6,
+      "controlled_fake_runs": 6,
+      "artifact": "evidence/M0-T02-real-observations.json",
+      "raw_artifact_sha256": "4ae457608763dd0816e53df21ac1d454389d50704176bd367fa8cfca026fbbdc"
+    },
+    {
+      "command": [
+        "<fixture-python>",
+        "-B",
+        "<scratch>\\audit-fixtures.py"
+      ],
+      "exit_code": 0,
+      "fixtures_passed": 45,
+      "artifact": "evidence/M0-T02-real-observations.json",
+      "raw_audit_sha256": "0ac5f1d88399056f96060a27803a1c52ec3edd6e06ba79b04f46ccbdfe1ca970",
+      "audit_source_sha256": "cabd5d5bae78a200f2ec7764d1e60d31cec84b5d7cebe48d64e226265b37cfd5"
+    }
+  ],
+  "case_results": [
+    {
+      "case_id": "T001",
+      "state": "passed",
+      "reason": "Both shells recorded four decoded JPEGs, three byte-identical video copies, mapped timestamps, mirrored empty directories, logs and unchanged sources."
+    },
+    {
+      "case_id": "T002",
+      "state": "passed",
+      "reason": "All 45 synthetic fixtures have recipes, versions, provenance and hashes; independent audit verified decoded properties and actual timestamps (45/45)."
+    },
+    {
+      "case_id": "T003",
+      "state": "passed",
+      "reason": "Bounded collision, frame, duplicate and weak-output outcomes are captured with commands, versions and transcripts. This is successful characterization; known application defects remain."
+    },
+    {
+      "case_id": "T004",
+      "state": "passed",
+      "reason": "Explicit owned destination snapshots, containment rejection controls and mocked nested planning prevented unsafe Pictures or drive-root recursion."
+    }
+  ],
+  "known_defects": [
+    {
+      "id": "same-stem-overwrite",
+      "native": "real",
+      "detail": "A blue TIFF overwrote the JPG in same-stem/photo.jpeg. The composite collision run reports four conversions but retains only two JPEG files."
+    },
+    {
+      "id": "directory-false-success",
+      "native": "real",
+      "detail": "directory-conflict/photo.png logs OK [1 bytes] while photo.jpeg remains a directory. Later same-stem/photo.png is skipped as a duplicate of that first candidate."
+    },
+    {
+      "id": "frame-numbering",
+      "native": "real",
+      "detail": "GIF, TIFF and WebP each leave two numbered JPEGs at the final 50% retry. Intended filenames are absent; summary Converted=0 / Errors=3 and host exit=0 in both shells."
+    },
+    {
+      "id": "failed-first-duplicate",
+      "native": "controlled_fake",
+      "detail": "The first candidate receives twelve native attempts. The later candidate receives none and is logged as a duplicate skip."
+    },
+    {
+      "id": "weak-output-success",
+      "native": "controlled_fake",
+      "detail": "Zero-byte and 23-byte undecodable files count as converted with Errors=0, despite native failure controls returning exit 9."
+    }
+  ],
+  "fixture_manifest_sha256": "e8c0441527d2e6682438aa4d6d45350bfbbadf03bf21e62b8d60068c9b464f05",
+  "fixture_generator_sha256": "b99c935389e15dcb6edba7dca3c02117d0c04fecebb12f67e73ca0045e70b4e8",
+  "prior_partial_checkpoint": {
+    "commit": "38f1a33f753600fdc4e70af3dc68a323a65c19ae",
+    "transcript": "evidence/M0-T02-observations.json",
+    "tooling_blocker_resolved": true
+  },
+  "limitations": [
+    "Instrumented snapshots replace Pictures lookup; original Known Folder resolution and launcher are untested.",
+    "Application defects remain unfixed. Characterization acceptance is separate from passing corrected-behavior regression tests.",
+    "HEIC/HEIF, external profiles and the remaining environment-failure corpus are deferred to their owning tasks. Native delegates alone do not prove coverage.",
+    "Advanced fixtures are independently inspected; they have not all been normalized through the application.",
+    "The initial GIF generator failure occurred before any application execution. Scoped page settings fixed the recipe without weakening assertions.",
+    "Stalled-process recovery remains a later acceptance case; it was not exercised in M0-T02.",
+    "Pester, analyzer, CI and owner quality acceptance have no passing result."
+  ],
+  "ci": {
+    "state": "unconfigured",
+    "commit": null,
+    "run_url": null
+  },
+  "sync_observation": {
+    "state": "pending_verification",
+    "branch": "codex/winimg-hardening",
+    "previous_checkpoint": "38f1a33f753600fdc4e70af3dc68a323a65c19ae",
+    "previous_observed_utc": "2026-10-04T13:50:29.3719501Z",
+    "previous_local_equals_remote": true
+  },
+  "owner_approval": {
+    "state": "not_requested",
+    "actor": null,
+    "recorded_utc": null,
+    "approved_commit": null
+  }
+}

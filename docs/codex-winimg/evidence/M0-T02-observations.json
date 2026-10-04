@@ -1,0 +1,1871 @@
+{
+  "schema_version": 1,
+  "scope": "harness validation and instrumented fake-process observations only",
+  "legacy_sha256": "3d31eaea3d926c2d2a4f75dc32856e6681fcf03f2f29ac89020aa1a4a907133a",
+  "test_files_sha256": {
+    "tests/legacy/build_fixtures.py": "2fb4ce395a7d4616cbc3f59b6a6629fc34c5c501d338b8892933ba45cd9e1322",
+    "tests/legacy/characterize.py": "39b97c0bdd136898e531906f762fd36f67ba92b31a4a576856f4d0955195e9e1",
+    "tests/legacy/check_harness.py": "912c2d06fe330169029f25382adf21615ead387f487f2a598b5b401008714e6a",
+    "tests/legacy/fake_magick.py": "67608617d47fc082ae7101ab63962b303913467f342d4d49ca8cdb9c9dfcd074",
+    "tests/legacy/Inventory-Environment.ps1": "478caae924b6915787070dcb1713a5107e60fc53d7343007218faccc7cdf80a9",
+    "tests/legacy/Invoke-LegacySnapshot.ps1": "87f02056c7a22ce0674b5c02149c3ef169a50a471da8ae63d0653f4af1781557",
+    "tests/legacy/README.md": "1bf2a30acee14f1756e3dc7bd4dbf907708c5d7d2696f6c2896e90b96a95c2e8"
+  },
+  "environment": {
+    "ps51": {
+      "schema_version": 1,
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "os_architecture": "64-bit",
+      "process_bits": 64,
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "culture": "fi-FI",
+      "ui_culture": "en-US",
+      "pester_versions": [
+        "3.4.0"
+      ],
+      "analyzer_versions": [],
+      "execution_policy": [
+        {
+          "scope": "MachinePolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "UserPolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "Process",
+          "policy": "Bypass"
+        },
+        {
+          "scope": "CurrentUser",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "LocalMachine",
+          "policy": "Undefined"
+        }
+      ],
+      "persistent_policy_unchanged": true
+    },
+    "ps7": {
+      "schema_version": 1,
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "os_architecture": "64-bit",
+      "process_bits": 64,
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "culture": "fi-FI",
+      "ui_culture": "en-US",
+      "pester_versions": [
+        "3.4.0"
+      ],
+      "analyzer_versions": [],
+      "execution_policy": [
+        {
+          "scope": "MachinePolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "UserPolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "Process",
+          "policy": "Bypass"
+        },
+        {
+          "scope": "CurrentUser",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "LocalMachine",
+          "policy": "RemoteSigned"
+        }
+      ],
+      "persistent_policy_unchanged": true
+    }
+  },
+  "executions": [
+    {
+      "shell": "ps51",
+      "case": "first_failure",
+      "native": "controlled_fake",
+      "command": [
+        "<ps51>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\duplicate",
+        "-PicturesRoot",
+        "<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀",
+        "-MagickPath",
+        "<scratch>\\runs\\ps51-first_failure\\fake-native\\magick.cmd",
+        "-FakeMode",
+        "first_failure"
+      ],
+      "exit_code": 0,
+      "stdout": "CONTAINMENT_METADATA=<scratch>\\legacy-snapshot-75a65342b53b41de829c123de5b5c6f4\\containment.json\n2026-10-04 15.43.50 [INFO] Source: <scratch>\\corpus\\duplicate\n2026-10-04 15.43.50 [INFO] Destination: <scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\n2026-10-04 15.43.50 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.43.52 [ERR] ERR IMG: a\\source.png (ImageMagick conversion failed)\n2026-10-04 15.43.52 [SKIP] Duplicate skipped: b\\source.png (first seen at: a\\source.png)\n\nSummary:\n  Converted images : 0\n  Copied videos    : 0\n  Duplicates       : 1\n  Unsupported      : 0\n  Errors           : 1\n  Log file         : <scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\WinImgNormalizer_20261004_154350.log\n2026-10-04 15.43.52 [INFO] SUMMARY ConvertedImages=0 CopiedVideos=0 Duplicates=1 Unsupported=0 Errors=1\n2026-10-04 15.43.52 [INFO] Completed 2026-10-04 15.43.52\n",
+      "stderr": "",
+      "source_before": {
+        "a/source.png": {
+          "sha256": "aade2f7a7f8998992254732f73c5fdc2b8b83163ab829856e7617ccedb59660a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "b/source.png": {
+          "sha256": "6cfd5202dfc83a8df98ca68f2b1b9f234ce9fd0ed5d9de02e6ac2dba65ee5b85",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "a/source.png": {
+          "sha256": "aade2f7a7f8998992254732f73c5fdc2b8b83163ab829856e7617ccedb59660a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "b/source.png": {
+          "sha256": "6cfd5202dfc83a8df98ca68f2b1b9f234ce9fd0ed5d9de02e6ac2dba65ee5b85",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_preserved": true,
+      "unicode_destination_created": true,
+      "outputs": [
+        {
+          "path": "duplicate_WinImgNormalized_20261004_154350/WinImgNormalizer_20261004_154350.log",
+          "bytes": 740,
+          "sha256": "94cf09cd46ac108514fe057988f168573e423bd69c959e19b8d52f4f4ef19c86",
+          "creation_ns": 1791121430124075400,
+          "modified_ns": 1791121432063193900
+        }
+      ],
+      "fake_trace": [
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-version"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "100%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "100%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "90%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "90%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "80%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "80%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "70%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "70%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "60%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "60%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "50%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "50%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\\a\\source.jpeg"
+          ]
+        }
+      ],
+      "application_log": "WinImgNormalizer started 2026-10-04 15.43.50\n2026-10-04 15.43.50 [INFO] Source: <scratch>\\corpus\\duplicate\n2026-10-04 15.43.50 [INFO] Destination: <scratch>\\runs\\ps51-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154350\n2026-10-04 15.43.50 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.43.52 [ERR] ERR IMG: a\\source.png (ImageMagick conversion failed)\n2026-10-04 15.43.52 [SKIP] Duplicate skipped: b\\source.png (first seen at: a\\source.png)\n2026-10-04 15.43.52 [INFO] SUMMARY ConvertedImages=0 CopiedVideos=0 Duplicates=1 Unsupported=0 Errors=1\n2026-10-04 15.43.52 [INFO] Completed 2026-10-04 15.43.52\n"
+    },
+    {
+      "shell": "ps51",
+      "case": "weak_zero",
+      "native": "controlled_fake",
+      "command": [
+        "<ps51>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\weak",
+        "-PicturesRoot",
+        "<scratch>\\runs\\ps51-weak_zero\\pictures-ää-😀",
+        "-MagickPath",
+        "<scratch>\\runs\\ps51-weak_zero\\fake-native\\magick.cmd",
+        "-FakeMode",
+        "weak_zero"
+      ],
+      "exit_code": 0,
+      "stdout": "CONTAINMENT_METADATA=<scratch>\\legacy-snapshot-e495afd19cd74721980ff2370d066f49\\containment.json\n2026-10-04 15.43.53 [INFO] Source: <scratch>\\corpus\\weak\n2026-10-04 15.43.53 [INFO] Destination: <scratch>\\runs\\ps51-weak_zero\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154352\n2026-10-04 15.43.53 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.43.53 [OK] OK IMG: source.png -> source.jpeg [0 bytes, Scale=100%]\n\nSummary:\n  Converted images : 1\n  Copied videos    : 0\n  Duplicates       : 0\n  Unsupported      : 0\n  Errors           : 0\n  Log file         : <scratch>\\runs\\ps51-weak_zero\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154352\\WinImgNormalizer_20261004_154352.log\n2026-10-04 15.43.53 [INFO] SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 15.43.53 [INFO] Completed 2026-10-04 15.43.53\n",
+      "stderr": "",
+      "source_before": {
+        "source.png": {
+          "sha256": "0e2238a1b0bd942cc88786f66f9bab91b57eab052fba65fa43f313768445d08a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "source.png": {
+          "sha256": "0e2238a1b0bd942cc88786f66f9bab91b57eab052fba65fa43f313768445d08a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_preserved": true,
+      "unicode_destination_created": true,
+      "outputs": [
+        {
+          "path": "weak_WinImgNormalized_20261004_154352/source.jpeg",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000,
+          "decode": {
+            "valid": false,
+            "error_type": "UnidentifiedImageError"
+          }
+        },
+        {
+          "path": "weak_WinImgNormalized_20261004_154352/WinImgNormalizer_20261004_154352.log",
+          "bytes": 637,
+          "sha256": "7d299e59784179b9a9605171f280ec2d8af8a51e6fe5fe228ddfb492a2cdd4b1",
+          "creation_ns": 1791121433004898800,
+          "modified_ns": 1791121433439263500
+        }
+      ],
+      "fake_trace": [
+        {
+          "mode": "weak_zero",
+          "argv": [
+            "-version"
+          ]
+        },
+        {
+          "mode": "weak_zero",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\weak\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "100%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-weak_zero\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154352\\source.jpeg"
+          ]
+        }
+      ],
+      "application_log": "WinImgNormalizer started 2026-10-04 15.43.53\n2026-10-04 15.43.53 [INFO] Source: <scratch>\\corpus\\weak\n2026-10-04 15.43.53 [INFO] Destination: <scratch>\\runs\\ps51-weak_zero\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154352\n2026-10-04 15.43.53 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.43.53 [OK] OK IMG: source.png -> source.jpeg [0 bytes, Scale=100%]\n2026-10-04 15.43.53 [INFO] SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 15.43.53 [INFO] Completed 2026-10-04 15.43.53\n"
+    },
+    {
+      "shell": "ps51",
+      "case": "weak_invalid",
+      "native": "controlled_fake",
+      "command": [
+        "<ps51>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\weak",
+        "-PicturesRoot",
+        "<scratch>\\runs\\ps51-weak_invalid\\pictures-ää-😀",
+        "-MagickPath",
+        "<scratch>\\runs\\ps51-weak_invalid\\fake-native\\magick.cmd",
+        "-FakeMode",
+        "weak_invalid"
+      ],
+      "exit_code": 0,
+      "stdout": "CONTAINMENT_METADATA=<scratch>\\legacy-snapshot-ab68bf9981ba42fbad73f302535ba7d4\\containment.json\n2026-10-04 15.43.54 [INFO] Source: <scratch>\\corpus\\weak\n2026-10-04 15.43.54 [INFO] Destination: <scratch>\\runs\\ps51-weak_invalid\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154354\n2026-10-04 15.43.54 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.43.54 [OK] OK IMG: source.png -> source.jpeg [23 bytes, Scale=100%]\n\nSummary:\n  Converted images : 1\n  Copied videos    : 0\n  Duplicates       : 0\n  Unsupported      : 0\n  Errors           : 0\n  Log file         : <scratch>\\runs\\ps51-weak_invalid\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154354\\WinImgNormalizer_20261004_154354.log\n2026-10-04 15.43.54 [INFO] SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 15.43.54 [INFO] Completed 2026-10-04 15.43.54\n",
+      "stderr": "",
+      "source_before": {
+        "source.png": {
+          "sha256": "0e2238a1b0bd942cc88786f66f9bab91b57eab052fba65fa43f313768445d08a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "source.png": {
+          "sha256": "0e2238a1b0bd942cc88786f66f9bab91b57eab052fba65fa43f313768445d08a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_preserved": true,
+      "unicode_destination_created": true,
+      "outputs": [
+        {
+          "path": "weak_WinImgNormalized_20261004_154354/source.jpeg",
+          "bytes": 23,
+          "sha256": "0609ea2113a57eabe7f537138f49626efb508912f29fcb3092d74f54141d46b0",
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000,
+          "decode": {
+            "valid": false,
+            "error_type": "UnidentifiedImageError"
+          }
+        },
+        {
+          "path": "weak_WinImgNormalized_20261004_154354/WinImgNormalizer_20261004_154354.log",
+          "bytes": 641,
+          "sha256": "d1c5b43b5b0b126d1763feb8c1ba609ae8f2ad5a142fcd4fd67d28f442d2cdab",
+          "creation_ns": 1791121434446865300,
+          "modified_ns": 1791121434863315600
+        }
+      ],
+      "fake_trace": [
+        {
+          "mode": "weak_invalid",
+          "argv": [
+            "-version"
+          ]
+        },
+        {
+          "mode": "weak_invalid",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\weak\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "100%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps51-weak_invalid\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154354\\source.jpeg"
+          ]
+        }
+      ],
+      "application_log": "WinImgNormalizer started 2026-10-04 15.43.54\n2026-10-04 15.43.54 [INFO] Source: <scratch>\\corpus\\weak\n2026-10-04 15.43.54 [INFO] Destination: <scratch>\\runs\\ps51-weak_invalid\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154354\n2026-10-04 15.43.54 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.43.54 [OK] OK IMG: source.png -> source.jpeg [23 bytes, Scale=100%]\n2026-10-04 15.43.54 [INFO] SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 15.43.54 [INFO] Completed 2026-10-04 15.43.54\n"
+    },
+    {
+      "shell": "ps7",
+      "case": "first_failure",
+      "native": "controlled_fake",
+      "command": [
+        "<ps7>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\duplicate",
+        "-PicturesRoot",
+        "<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀",
+        "-MagickPath",
+        "<scratch>\\runs\\ps7-first_failure\\fake-native\\magick.cmd",
+        "-FakeMode",
+        "first_failure"
+      ],
+      "exit_code": 0,
+      "stdout": "CONTAINMENT_METADATA=<scratch>\\legacy-snapshot-2d59b2b53d7649219d739ad6e6b3cbb0\\containment.json\n2026-10-04 15.44.01 [INFO] Source: <scratch>\\corpus\\duplicate\n2026-10-04 15.44.01 [INFO] Destination: <scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\n2026-10-04 15.44.01 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.44.03 [ERR] ERR IMG: a\\source.png (ImageMagick conversion failed)\n2026-10-04 15.44.03 [SKIP] Duplicate skipped: b\\source.png (first seen at: a\\source.png)\n\nSummary:\n  Converted images : 0\n  Copied videos    : 0\n  Duplicates       : 1\n  Unsupported      : 0\n  Errors           : 1\n  Log file         : <scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\WinImgNormalizer_20261004_154401.log\n2026-10-04 15.44.03 [INFO] SUMMARY ConvertedImages=0 CopiedVideos=0 Duplicates=1 Unsupported=0 Errors=1\n2026-10-04 15.44.03 [INFO] Completed 2026-10-04 15.44.03\n",
+      "stderr": "",
+      "source_before": {
+        "a/source.png": {
+          "sha256": "aade2f7a7f8998992254732f73c5fdc2b8b83163ab829856e7617ccedb59660a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "b/source.png": {
+          "sha256": "6cfd5202dfc83a8df98ca68f2b1b9f234ce9fd0ed5d9de02e6ac2dba65ee5b85",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "a/source.png": {
+          "sha256": "aade2f7a7f8998992254732f73c5fdc2b8b83163ab829856e7617ccedb59660a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "b/source.png": {
+          "sha256": "6cfd5202dfc83a8df98ca68f2b1b9f234ce9fd0ed5d9de02e6ac2dba65ee5b85",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_preserved": true,
+      "unicode_destination_created": true,
+      "outputs": [
+        {
+          "path": "duplicate_WinImgNormalized_20261004_154401/WinImgNormalizer_20261004_154401.log",
+          "bytes": 736,
+          "sha256": "8ec1771915dee2cf06855e99019673976b610a981d333e03b4fe228a30692aba",
+          "creation_ns": 1791121441063111400,
+          "modified_ns": 1791121443601709900
+        }
+      ],
+      "fake_trace": [
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-version"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "100%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "100%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "90%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "90%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "80%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "80%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "70%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "70%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "60%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "60%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "50%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        },
+        {
+          "mode": "first_failure",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\duplicate\\a\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-resize",
+            "50%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\\a\\source.jpeg"
+          ]
+        }
+      ],
+      "application_log": "WinImgNormalizer started 2026-10-04 15.44.01\n2026-10-04 15.44.01 [INFO] Source: <scratch>\\corpus\\duplicate\n2026-10-04 15.44.01 [INFO] Destination: <scratch>\\runs\\ps7-first_failure\\pictures-ää-😀\\duplicate_WinImgNormalized_20261004_154401\n2026-10-04 15.44.01 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.44.03 [ERR] ERR IMG: a\\source.png (ImageMagick conversion failed)\n2026-10-04 15.44.03 [SKIP] Duplicate skipped: b\\source.png (first seen at: a\\source.png)\n2026-10-04 15.44.03 [INFO] SUMMARY ConvertedImages=0 CopiedVideos=0 Duplicates=1 Unsupported=0 Errors=1\n2026-10-04 15.44.03 [INFO] Completed 2026-10-04 15.44.03\n"
+    },
+    {
+      "shell": "ps7",
+      "case": "weak_zero",
+      "native": "controlled_fake",
+      "command": [
+        "<ps7>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\weak",
+        "-PicturesRoot",
+        "<scratch>\\runs\\ps7-weak_zero\\pictures-ää-😀",
+        "-MagickPath",
+        "<scratch>\\runs\\ps7-weak_zero\\fake-native\\magick.cmd",
+        "-FakeMode",
+        "weak_zero"
+      ],
+      "exit_code": 0,
+      "stdout": "CONTAINMENT_METADATA=<scratch>\\legacy-snapshot-51ae3091085c4f419079309e5a1521cb\\containment.json\n2026-10-04 15.44.05 [INFO] Source: <scratch>\\corpus\\weak\n2026-10-04 15.44.05 [INFO] Destination: <scratch>\\runs\\ps7-weak_zero\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154405\n2026-10-04 15.44.05 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.44.06 [OK] OK IMG: source.png -> source.jpeg [0 bytes, Scale=100%]\n\nSummary:\n  Converted images : 1\n  Copied videos    : 0\n  Duplicates       : 0\n  Unsupported      : 0\n  Errors           : 0\n  Log file         : <scratch>\\runs\\ps7-weak_zero\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154405\\WinImgNormalizer_20261004_154405.log\n2026-10-04 15.44.06 [INFO] SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 15.44.06 [INFO] Completed 2026-10-04 15.44.06\n",
+      "stderr": "",
+      "source_before": {
+        "source.png": {
+          "sha256": "0e2238a1b0bd942cc88786f66f9bab91b57eab052fba65fa43f313768445d08a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "source.png": {
+          "sha256": "0e2238a1b0bd942cc88786f66f9bab91b57eab052fba65fa43f313768445d08a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_preserved": true,
+      "unicode_destination_created": true,
+      "outputs": [
+        {
+          "path": "weak_WinImgNormalized_20261004_154405/source.jpeg",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000,
+          "decode": {
+            "valid": false,
+            "error_type": "UnidentifiedImageError"
+          }
+        },
+        {
+          "path": "weak_WinImgNormalized_20261004_154405/WinImgNormalizer_20261004_154405.log",
+          "bytes": 633,
+          "sha256": "617804f9e0406d1c5ddf8602444bbbc437def1ac3a6fd71110e535ee5e7ab11c",
+          "creation_ns": 1791121445779341300,
+          "modified_ns": 1791121446216261200
+        }
+      ],
+      "fake_trace": [
+        {
+          "mode": "weak_zero",
+          "argv": [
+            "-version"
+          ]
+        },
+        {
+          "mode": "weak_zero",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\weak\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "100%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-weak_zero\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154405\\source.jpeg"
+          ]
+        }
+      ],
+      "application_log": "WinImgNormalizer started 2026-10-04 15.44.05\n2026-10-04 15.44.05 [INFO] Source: <scratch>\\corpus\\weak\n2026-10-04 15.44.05 [INFO] Destination: <scratch>\\runs\\ps7-weak_zero\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154405\n2026-10-04 15.44.05 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.44.06 [OK] OK IMG: source.png -> source.jpeg [0 bytes, Scale=100%]\n2026-10-04 15.44.06 [INFO] SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 15.44.06 [INFO] Completed 2026-10-04 15.44.06\n"
+    },
+    {
+      "shell": "ps7",
+      "case": "weak_invalid",
+      "native": "controlled_fake",
+      "command": [
+        "<ps7>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\weak",
+        "-PicturesRoot",
+        "<scratch>\\runs\\ps7-weak_invalid\\pictures-ää-😀",
+        "-MagickPath",
+        "<scratch>\\runs\\ps7-weak_invalid\\fake-native\\magick.cmd",
+        "-FakeMode",
+        "weak_invalid"
+      ],
+      "exit_code": 0,
+      "stdout": "CONTAINMENT_METADATA=<scratch>\\legacy-snapshot-4f0865a1e1114184b1bc7769ad3f338f\\containment.json\n2026-10-04 15.44.08 [INFO] Source: <scratch>\\corpus\\weak\n2026-10-04 15.44.08 [INFO] Destination: <scratch>\\runs\\ps7-weak_invalid\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154408\n2026-10-04 15.44.08 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.44.08 [OK] OK IMG: source.png -> source.jpeg [23 bytes, Scale=100%]\n\nSummary:\n  Converted images : 1\n  Copied videos    : 0\n  Duplicates       : 0\n  Unsupported      : 0\n  Errors           : 0\n  Log file         : <scratch>\\runs\\ps7-weak_invalid\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154408\\WinImgNormalizer_20261004_154408.log\n2026-10-04 15.44.08 [INFO] SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 15.44.08 [INFO] Completed 2026-10-04 15.44.08\n",
+      "stderr": "",
+      "source_before": {
+        "source.png": {
+          "sha256": "0e2238a1b0bd942cc88786f66f9bab91b57eab052fba65fa43f313768445d08a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "source.png": {
+          "sha256": "0e2238a1b0bd942cc88786f66f9bab91b57eab052fba65fa43f313768445d08a",
+          "length": 83,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_preserved": true,
+      "unicode_destination_created": true,
+      "outputs": [
+        {
+          "path": "weak_WinImgNormalized_20261004_154408/source.jpeg",
+          "bytes": 23,
+          "sha256": "0609ea2113a57eabe7f537138f49626efb508912f29fcb3092d74f54141d46b0",
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000,
+          "decode": {
+            "valid": false,
+            "error_type": "UnidentifiedImageError"
+          }
+        },
+        {
+          "path": "weak_WinImgNormalized_20261004_154408/WinImgNormalizer_20261004_154408.log",
+          "bytes": 637,
+          "sha256": "522a0810103ffd2315f544368ab89e0a3eed00cd22e1751e912bbdabee637c40",
+          "creation_ns": 1791121448535962700,
+          "modified_ns": 1791121448981782500
+        }
+      ],
+      "fake_trace": [
+        {
+          "mode": "weak_invalid",
+          "argv": [
+            "-version"
+          ]
+        },
+        {
+          "mode": "weak_invalid",
+          "argv": [
+            "-quiet",
+            "<scratch>\\corpus\\weak\\source.png",
+            "-auto-orient",
+            "-strip",
+            "-colorspace",
+            "sRGB",
+            "-sampling-factor",
+            "4:2:0",
+            "-interlace",
+            "Line",
+            "-background",
+            "white",
+            "-alpha",
+            "remove",
+            "-alpha",
+            "off",
+            "-resize",
+            "100%",
+            "-define",
+            "jpeg:extent=1MB",
+            "JPEG:<scratch>\\runs\\ps7-weak_invalid\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154408\\source.jpeg"
+          ]
+        }
+      ],
+      "application_log": "WinImgNormalizer started 2026-10-04 15.44.08\n2026-10-04 15.44.08 [INFO] Source: <scratch>\\corpus\\weak\n2026-10-04 15.44.08 [INFO] Destination: <scratch>\\runs\\ps7-weak_invalid\\pictures-ää-😀\\weak_WinImgNormalized_20261004_154408\n2026-10-04 15.44.08 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 15.44.08 [OK] OK IMG: source.png -> source.jpeg [23 bytes, Scale=100%]\n2026-10-04 15.44.08 [INFO] SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 15.44.08 [INFO] Completed 2026-10-04 15.44.08\n"
+    }
+  ],
+  "containment_controls": [
+    {
+      "shell": "ps51",
+      "control": "missing_marker",
+      "command": [
+        "<ps51>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>\\controls\\ps51-missing_marker",
+        "-Source",
+        "<scratch>\\controls\\ps51-missing_marker\\source",
+        "-PicturesRoot",
+        "<scratch>\\controls\\ps51-missing_marker\\pictures"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Scratch is missing the explicit synthetic-fixture ownership marker.\nAt <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:110 char:5\n+     throw 'Scratch is missing the explicit synthetic-fixture ownershi ...\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : OperationStopped: (Scratch is miss...nership marker.:String) [], RuntimeException\n    + FullyQualifiedErrorId : Scratch is missing the explicit synthetic-fixture ownership marker.\n \n",
+      "output_absent": true
+    },
+    {
+      "shell": "ps51",
+      "control": "outside_source",
+      "command": [
+        "<ps51>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<repo>",
+        "-PicturesRoot",
+        "<scratch>\\controls\\ps51-outside_source\\pictures"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Source and injected Pictures must be distinct descendants of scratch.\nAt <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:98 char:9\n+         throw 'Source and injected Pictures must be distinct descenda ...\n+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : OperationStopped: (Source and inje...nts of scratch.:String) [], RuntimeException\n    + FullyQualifiedErrorId : Source and injected Pictures must be distinct descendants of scratch.\n \n",
+      "output_absent": true
+    },
+    {
+      "shell": "ps51",
+      "control": "overlap",
+      "command": [
+        "<ps51>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\weak",
+        "-PicturesRoot",
+        "<scratch>\\corpus\\weak\\forbidden-output"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Nested or overlapping source and output trees are never executed.\nAt <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:103 char:5\n+     throw 'Nested or overlapping source and output trees are never ex ...\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : OperationStopped: (Nested or overl...never executed.:String) [], RuntimeException\n    + FullyQualifiedErrorId : Nested or overlapping source and output trees are never executed.\n \n",
+      "output_absent": true
+    },
+    {
+      "shell": "ps51",
+      "control": "wrong_hash",
+      "command": [
+        "<ps51>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\weak",
+        "-PicturesRoot",
+        "<scratch>\\controls\\ps51-wrong_hash\\pictures",
+        "-ExpectedLegacySha256",
+        "0000000000000000000000000000000000000000000000000000000000000000"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "The legacy application hash differs from the explicitly reviewed source.\nAt <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:149 char:5\n+     throw 'The legacy application hash differs from the explicitly re ...\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : OperationStopped: (The legacy appl...eviewed source.:String) [], RuntimeException\n    + FullyQualifiedErrorId : The legacy application hash differs from the explicitly reviewed source.\n \n",
+      "output_absent": true
+    },
+    {
+      "shell": "ps51",
+      "control": "drive_root",
+      "command": [
+        "<ps51>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "C:\\",
+        "-PicturesRoot",
+        "<scratch>\\controls\\ps51-drive_root\\pictures"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "A drive or share root is not a disposable test directory.\nAt <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:38 char:9\n+         throw 'A drive or share root is not a disposable test directo ...\n+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : OperationStopped: (A drive or shar...test directory.:String) [], RuntimeException\n    + FullyQualifiedErrorId : A drive or share root is not a disposable test directory.\n \n",
+      "output_absent": true
+    },
+    {
+      "shell": "ps7",
+      "control": "missing_marker",
+      "command": [
+        "<ps7>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>\\controls\\ps7-missing_marker",
+        "-Source",
+        "<scratch>\\controls\\ps7-missing_marker\\source",
+        "-PicturesRoot",
+        "<scratch>\\controls\\ps7-missing_marker\\pictures"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Exception: <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:110\nLine |\n 110 |      throw 'Scratch is missing the explicit synthetic-fixture ownershi …\n     |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Scratch is missing the explicit synthetic-fixture ownership marker.\n",
+      "output_absent": true
+    },
+    {
+      "shell": "ps7",
+      "control": "outside_source",
+      "command": [
+        "<ps7>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<repo>",
+        "-PicturesRoot",
+        "<scratch>\\controls\\ps7-outside_source\\pictures"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Exception: <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:98\nLine |\n  98 |          throw 'Source and injected Pictures must be distinct descenda …\n     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Source and injected Pictures must be distinct descendants of scratch.\n",
+      "output_absent": true
+    },
+    {
+      "shell": "ps7",
+      "control": "overlap",
+      "command": [
+        "<ps7>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\weak",
+        "-PicturesRoot",
+        "<scratch>\\corpus\\weak\\forbidden-output"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Exception: <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:103\nLine |\n 103 |      throw 'Nested or overlapping source and output trees are never ex …\n     |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Nested or overlapping source and output trees are never executed.\n",
+      "output_absent": true
+    },
+    {
+      "shell": "ps7",
+      "control": "wrong_hash",
+      "command": [
+        "<ps7>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "<scratch>\\corpus\\weak",
+        "-PicturesRoot",
+        "<scratch>\\controls\\ps7-wrong_hash\\pictures",
+        "-ExpectedLegacySha256",
+        "0000000000000000000000000000000000000000000000000000000000000000"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Exception: <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:149\nLine |\n 149 |      throw 'The legacy application hash differs from the explicitly re …\n     |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | The legacy application hash differs from the explicitly reviewed source.\n",
+      "output_absent": true
+    },
+    {
+      "shell": "ps7",
+      "control": "drive_root",
+      "command": [
+        "<ps7>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1",
+        "-Repository",
+        "<repo>",
+        "-ScratchRoot",
+        "<scratch>",
+        "-Source",
+        "C:\\",
+        "-PicturesRoot",
+        "<scratch>\\controls\\ps7-drive_root\\pictures"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Exception: <repo>\\tests\\legacy\\Invoke-LegacySnapshot.ps1:38\nLine |\n  38 |          throw 'A drive or share root is not a disposable test directo …\n     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | A drive or share root is not a disposable test directory.\n",
+      "output_absent": true
+    }
+  ],
+  "containment": [
+    {
+      "schema_version": 1,
+      "recorded_utc": "2026-10-04T13:43:59.9633370Z",
+      "execution_kind": "instrumented-legacy-snapshot",
+      "seam": "Replace only exact Pictures resolution block; invoke snapshot in a separate -File process, never dot-source.",
+      "legacy_sha256": "3D31EAEA3D926C2D2A4F75DC32856E6681FCF03F2F29AC89020AA1A4A907133A",
+      "snapshot_sha256": "21DC532F537200C184652070F485194B5C14C594FF645D4C5DFE29EAB3C7BE1A",
+      "legacy_path": "<repo>\\WinImgNormalizer.ps1",
+      "snapshot_path": "<scratch>\\legacy-snapshot-2d59b2b53d7649219d739ad6e6b3cbb0\\WinImgNormalizer.contained.ps1",
+      "scratch_root": "<scratch>",
+      "source_root": "<scratch>\\corpus\\duplicate",
+      "pictures_root": "<scratch>\\runs\\ps7-first_failure\\pictures-ää-😀",
+      "temporary_root": "<scratch>\\legacy-snapshot-2d59b2b53d7649219d739ad6e6b3cbb0\\temporary",
+      "magick_path": "<scratch>\\runs\\ps7-first_failure\\fake-native\\magick.cmd",
+      "fake_mode": "first_failure",
+      "positional_arguments": [
+        "<scratch>\\corpus\\duplicate",
+        1048576
+      ],
+      "powershell_version": "7.6.5",
+      "powershell_executable": "<ps7>",
+      "application_process_arguments": [
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<scratch>\\legacy-snapshot-2d59b2b53d7649219d739ad6e6b3cbb0\\WinImgNormalizer.contained.ps1",
+        "<scratch>\\corpus\\duplicate",
+        "1048576"
+      ],
+      "original_application_executed": false,
+      "userprofile_redefined": false,
+      "nested_output_executed": false,
+      "parent_must_bound_process_tree": true,
+      "original_pictures_block": "try { $pictures = [Environment]::GetFolderPath('MyPictures') } catch { $pictures = $null }\r\nif ([string]::IsNullOrWhiteSpace($pictures) -or -not (Test-Path -LiteralPath $pictures)) {\r\n  $pictures = Join-Path $env:USERPROFILE 'Pictures'\r\n  if (-not (Test-Path -LiteralPath $pictures)) { New-Item -ItemType Directory -Path $pictures -Force | Out-Null }\r\n}",
+      "replacement_pictures_block": "ASCII UTF-8 Base64 destination expression; exact block retained only in ignored raw artifact"
+    },
+    {
+      "schema_version": 1,
+      "recorded_utc": "2026-10-04T13:44:07.5519964Z",
+      "execution_kind": "instrumented-legacy-snapshot",
+      "seam": "Replace only exact Pictures resolution block; invoke snapshot in a separate -File process, never dot-source.",
+      "legacy_sha256": "3D31EAEA3D926C2D2A4F75DC32856E6681FCF03F2F29AC89020AA1A4A907133A",
+      "snapshot_sha256": "E211E4C9A9F697B58C6E45011D8EBBD2D06D8F5BB60A25BE0890D449CE3AAFFD",
+      "legacy_path": "<repo>\\WinImgNormalizer.ps1",
+      "snapshot_path": "<scratch>\\legacy-snapshot-4f0865a1e1114184b1bc7769ad3f338f\\WinImgNormalizer.contained.ps1",
+      "scratch_root": "<scratch>",
+      "source_root": "<scratch>\\corpus\\weak",
+      "pictures_root": "<scratch>\\runs\\ps7-weak_invalid\\pictures-ää-😀",
+      "temporary_root": "<scratch>\\legacy-snapshot-4f0865a1e1114184b1bc7769ad3f338f\\temporary",
+      "magick_path": "<scratch>\\runs\\ps7-weak_invalid\\fake-native\\magick.cmd",
+      "fake_mode": "weak_invalid",
+      "positional_arguments": [
+        "<scratch>\\corpus\\weak",
+        1048576
+      ],
+      "powershell_version": "7.6.5",
+      "powershell_executable": "<ps7>",
+      "application_process_arguments": [
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<scratch>\\legacy-snapshot-4f0865a1e1114184b1bc7769ad3f338f\\WinImgNormalizer.contained.ps1",
+        "<scratch>\\corpus\\weak",
+        "1048576"
+      ],
+      "original_application_executed": false,
+      "userprofile_redefined": false,
+      "nested_output_executed": false,
+      "parent_must_bound_process_tree": true,
+      "original_pictures_block": "try { $pictures = [Environment]::GetFolderPath('MyPictures') } catch { $pictures = $null }\r\nif ([string]::IsNullOrWhiteSpace($pictures) -or -not (Test-Path -LiteralPath $pictures)) {\r\n  $pictures = Join-Path $env:USERPROFILE 'Pictures'\r\n  if (-not (Test-Path -LiteralPath $pictures)) { New-Item -ItemType Directory -Path $pictures -Force | Out-Null }\r\n}",
+      "replacement_pictures_block": "ASCII UTF-8 Base64 destination expression; exact block retained only in ignored raw artifact"
+    },
+    {
+      "schema_version": 1,
+      "recorded_utc": "2026-10-04T13:44:04.8269637Z",
+      "execution_kind": "instrumented-legacy-snapshot",
+      "seam": "Replace only exact Pictures resolution block; invoke snapshot in a separate -File process, never dot-source.",
+      "legacy_sha256": "3D31EAEA3D926C2D2A4F75DC32856E6681FCF03F2F29AC89020AA1A4A907133A",
+      "snapshot_sha256": "5BDEEF372CEB60C3E911DD7FA19E12FC5DC62391AE37D4CE52CC54FAB804FF78",
+      "legacy_path": "<repo>\\WinImgNormalizer.ps1",
+      "snapshot_path": "<scratch>\\legacy-snapshot-51ae3091085c4f419079309e5a1521cb\\WinImgNormalizer.contained.ps1",
+      "scratch_root": "<scratch>",
+      "source_root": "<scratch>\\corpus\\weak",
+      "pictures_root": "<scratch>\\runs\\ps7-weak_zero\\pictures-ää-😀",
+      "temporary_root": "<scratch>\\legacy-snapshot-51ae3091085c4f419079309e5a1521cb\\temporary",
+      "magick_path": "<scratch>\\runs\\ps7-weak_zero\\fake-native\\magick.cmd",
+      "fake_mode": "weak_zero",
+      "positional_arguments": [
+        "<scratch>\\corpus\\weak",
+        1048576
+      ],
+      "powershell_version": "7.6.5",
+      "powershell_executable": "<ps7>",
+      "application_process_arguments": [
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<scratch>\\legacy-snapshot-51ae3091085c4f419079309e5a1521cb\\WinImgNormalizer.contained.ps1",
+        "<scratch>\\corpus\\weak",
+        "1048576"
+      ],
+      "original_application_executed": false,
+      "userprofile_redefined": false,
+      "nested_output_executed": false,
+      "parent_must_bound_process_tree": true,
+      "original_pictures_block": "try { $pictures = [Environment]::GetFolderPath('MyPictures') } catch { $pictures = $null }\r\nif ([string]::IsNullOrWhiteSpace($pictures) -or -not (Test-Path -LiteralPath $pictures)) {\r\n  $pictures = Join-Path $env:USERPROFILE 'Pictures'\r\n  if (-not (Test-Path -LiteralPath $pictures)) { New-Item -ItemType Directory -Path $pictures -Force | Out-Null }\r\n}",
+      "replacement_pictures_block": "ASCII UTF-8 Base64 destination expression; exact block retained only in ignored raw artifact"
+    },
+    {
+      "schema_version": 1,
+      "recorded_utc": "2026-10-04T13:43:49.7634528Z",
+      "execution_kind": "instrumented-legacy-snapshot",
+      "seam": "Replace only exact Pictures resolution block; invoke snapshot in a separate -File process, never dot-source.",
+      "legacy_sha256": "3D31EAEA3D926C2D2A4F75DC32856E6681FCF03F2F29AC89020AA1A4A907133A",
+      "snapshot_sha256": "EAA5E2332A165D0110CF803AC94D502FEAD630B9DEE04D1CA2F783FECE9ADF27",
+      "legacy_path": "<repo>\\WinImgNormalizer.ps1",
+      "snapshot_path": "<scratch>\\legacy-snapshot-75a65342b53b41de829c123de5b5c6f4\\WinImgNormalizer.contained.ps1",
+      "scratch_root": "<scratch>",
+      "source_root": "<scratch>\\corpus\\duplicate",
+      "pictures_root": "<scratch>\\runs\\ps51-first_failure\\pictures-ää-😀",
+      "temporary_root": "<scratch>\\legacy-snapshot-75a65342b53b41de829c123de5b5c6f4\\temporary",
+      "magick_path": "<scratch>\\runs\\ps51-first_failure\\fake-native\\magick.cmd",
+      "fake_mode": "first_failure",
+      "positional_arguments": [
+        "<scratch>\\corpus\\duplicate",
+        1048576
+      ],
+      "powershell_version": "5.1.26100.9444",
+      "powershell_executable": "<ps51>",
+      "application_process_arguments": [
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<scratch>\\legacy-snapshot-75a65342b53b41de829c123de5b5c6f4\\WinImgNormalizer.contained.ps1",
+        "<scratch>\\corpus\\duplicate",
+        "1048576"
+      ],
+      "original_application_executed": false,
+      "userprofile_redefined": false,
+      "nested_output_executed": false,
+      "parent_must_bound_process_tree": true,
+      "original_pictures_block": "try { $pictures = [Environment]::GetFolderPath('MyPictures') } catch { $pictures = $null }\r\nif ([string]::IsNullOrWhiteSpace($pictures) -or -not (Test-Path -LiteralPath $pictures)) {\r\n  $pictures = Join-Path $env:USERPROFILE 'Pictures'\r\n  if (-not (Test-Path -LiteralPath $pictures)) { New-Item -ItemType Directory -Path $pictures -Force | Out-Null }\r\n}",
+      "replacement_pictures_block": "ASCII UTF-8 Base64 destination expression; exact block retained only in ignored raw artifact"
+    },
+    {
+      "schema_version": 1,
+      "recorded_utc": "2026-10-04T13:43:54.0633976Z",
+      "execution_kind": "instrumented-legacy-snapshot",
+      "seam": "Replace only exact Pictures resolution block; invoke snapshot in a separate -File process, never dot-source.",
+      "legacy_sha256": "3D31EAEA3D926C2D2A4F75DC32856E6681FCF03F2F29AC89020AA1A4A907133A",
+      "snapshot_sha256": "D0F17B100F5E2F2691CCEE18AF5879BDD62BE5B61576A20FA81795D334B2A90B",
+      "legacy_path": "<repo>\\WinImgNormalizer.ps1",
+      "snapshot_path": "<scratch>\\legacy-snapshot-ab68bf9981ba42fbad73f302535ba7d4\\WinImgNormalizer.contained.ps1",
+      "scratch_root": "<scratch>",
+      "source_root": "<scratch>\\corpus\\weak",
+      "pictures_root": "<scratch>\\runs\\ps51-weak_invalid\\pictures-ää-😀",
+      "temporary_root": "<scratch>\\legacy-snapshot-ab68bf9981ba42fbad73f302535ba7d4\\temporary",
+      "magick_path": "<scratch>\\runs\\ps51-weak_invalid\\fake-native\\magick.cmd",
+      "fake_mode": "weak_invalid",
+      "positional_arguments": [
+        "<scratch>\\corpus\\weak",
+        1048576
+      ],
+      "powershell_version": "5.1.26100.9444",
+      "powershell_executable": "<ps51>",
+      "application_process_arguments": [
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<scratch>\\legacy-snapshot-ab68bf9981ba42fbad73f302535ba7d4\\WinImgNormalizer.contained.ps1",
+        "<scratch>\\corpus\\weak",
+        "1048576"
+      ],
+      "original_application_executed": false,
+      "userprofile_redefined": false,
+      "nested_output_executed": false,
+      "parent_must_bound_process_tree": true,
+      "original_pictures_block": "try { $pictures = [Environment]::GetFolderPath('MyPictures') } catch { $pictures = $null }\r\nif ([string]::IsNullOrWhiteSpace($pictures) -or -not (Test-Path -LiteralPath $pictures)) {\r\n  $pictures = Join-Path $env:USERPROFILE 'Pictures'\r\n  if (-not (Test-Path -LiteralPath $pictures)) { New-Item -ItemType Directory -Path $pictures -Force | Out-Null }\r\n}",
+      "replacement_pictures_block": "ASCII UTF-8 Base64 destination expression; exact block retained only in ignored raw artifact"
+    },
+    {
+      "schema_version": 1,
+      "recorded_utc": "2026-10-04T13:43:52.6136825Z",
+      "execution_kind": "instrumented-legacy-snapshot",
+      "seam": "Replace only exact Pictures resolution block; invoke snapshot in a separate -File process, never dot-source.",
+      "legacy_sha256": "3D31EAEA3D926C2D2A4F75DC32856E6681FCF03F2F29AC89020AA1A4A907133A",
+      "snapshot_sha256": "E934F5452F340C4D0C8D5D5E5AD8B10734EF5EEDECB4AFC744BA65B9EB9A983F",
+      "legacy_path": "<repo>\\WinImgNormalizer.ps1",
+      "snapshot_path": "<scratch>\\legacy-snapshot-e495afd19cd74721980ff2370d066f49\\WinImgNormalizer.contained.ps1",
+      "scratch_root": "<scratch>",
+      "source_root": "<scratch>\\corpus\\weak",
+      "pictures_root": "<scratch>\\runs\\ps51-weak_zero\\pictures-ää-😀",
+      "temporary_root": "<scratch>\\legacy-snapshot-e495afd19cd74721980ff2370d066f49\\temporary",
+      "magick_path": "<scratch>\\runs\\ps51-weak_zero\\fake-native\\magick.cmd",
+      "fake_mode": "weak_zero",
+      "positional_arguments": [
+        "<scratch>\\corpus\\weak",
+        1048576
+      ],
+      "powershell_version": "5.1.26100.9444",
+      "powershell_executable": "<ps51>",
+      "application_process_arguments": [
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<scratch>\\legacy-snapshot-e495afd19cd74721980ff2370d066f49\\WinImgNormalizer.contained.ps1",
+        "<scratch>\\corpus\\weak",
+        "1048576"
+      ],
+      "original_application_executed": false,
+      "userprofile_redefined": false,
+      "nested_output_executed": false,
+      "parent_must_bound_process_tree": true,
+      "original_pictures_block": "try { $pictures = [Environment]::GetFolderPath('MyPictures') } catch { $pictures = $null }\r\nif ([string]::IsNullOrWhiteSpace($pictures) -or -not (Test-Path -LiteralPath $pictures)) {\r\n  $pictures = Join-Path $env:USERPROFILE 'Pictures'\r\n  if (-not (Test-Path -LiteralPath $pictures)) { New-Item -ItemType Directory -Path $pictures -Force | Out-Null }\r\n}",
+      "replacement_pictures_block": "ASCII UTF-8 Base64 destination expression; exact block retained only in ignored raw artifact"
+    }
+  ],
+  "nested_planning": {
+    "kind": "mocked_path_planning",
+    "filesystem_execution": false,
+    "source": "Q:\\synthetic\\Pictures",
+    "destination": "Q:\\synthetic\\Pictures\\Pictures_WinImgNormalized_MOCK",
+    "destination_is_inside_source": true,
+    "first_mirrored_descendant": "Q:\\synthetic\\Pictures\\Pictures_WinImgNormalized_MOCK\\Pictures_WinImgNormalized_MOCK",
+    "finding": "Destination created before enumeration is eligible as a source descendant; actual recursion behavior remains not_run."
+  },
+  "native_failure_oracles": [
+    {
+      "command": [
+        "<fixture-python>",
+        "-B",
+        "<repo>\\tests\\legacy\\fake_magick.py",
+        "-quiet",
+        "<scratch>\\corpus\\weak\\source.png",
+        "JPEG:<scratch>\\native-oracle\\weak_zero.jpeg"
+      ],
+      "mode": "weak_zero",
+      "exit_code": 9,
+      "stdout": "",
+      "stderr": "Controlled failure after creating invalid output\r\n",
+      "output_bytes": 0
+    },
+    {
+      "command": [
+        "<fixture-python>",
+        "-B",
+        "<repo>\\tests\\legacy\\fake_magick.py",
+        "-quiet",
+        "<scratch>\\corpus\\weak\\source.png",
+        "JPEG:<scratch>\\native-oracle\\weak_invalid.jpeg"
+      ],
+      "mode": "weak_invalid",
+      "exit_code": 9,
+      "stdout": "",
+      "stderr": "Controlled failure after creating invalid output\r\n",
+      "output_bytes": 23
+    }
+  ],
+  "fixture_manifest": {
+    "schema_version": 1,
+    "fixtures": [
+      {
+        "path": "corpus/duplicate/a/source.png",
+        "recipe": "standard-library PNG chunks; seeded-free uniform RGB",
+        "privacy_status": "synthetic",
+        "rgb": [
+          224,
+          32,
+          32
+        ],
+        "format": "PNG",
+        "dimensions": [
+          24,
+          16
+        ],
+        "independent_decoder": "Pillow complete decode and all-pixel comparison",
+        "sha256": "aade2f7a7f8998992254732f73c5fdc2b8b83163ab829856e7617ccedb59660a"
+      },
+      {
+        "path": "corpus/duplicate/b/source.png",
+        "recipe": "standard-library PNG chunks; seeded-free uniform RGB",
+        "privacy_status": "synthetic",
+        "rgb": [
+          32,
+          224,
+          32
+        ],
+        "format": "PNG",
+        "dimensions": [
+          24,
+          16
+        ],
+        "independent_decoder": "Pillow complete decode and all-pixel comparison",
+        "sha256": "6cfd5202dfc83a8df98ca68f2b1b9f234ce9fd0ed5d9de02e6ac2dba65ee5b85"
+      },
+      {
+        "path": "corpus/weak/source.png",
+        "recipe": "standard-library PNG chunks; seeded-free uniform RGB",
+        "privacy_status": "synthetic",
+        "rgb": [
+          32,
+          32,
+          224
+        ],
+        "format": "PNG",
+        "dimensions": [
+          24,
+          16
+        ],
+        "independent_decoder": "Pillow complete decode and all-pixel comparison",
+        "sha256": "0e2238a1b0bd942cc88786f66f9bab91b57eab052fba65fa43f313768445d08a"
+      }
+    ],
+    "real_imagemagick": false
+  },
+  "preflight": [
+    {
+      "command": "Python ast.parse on tests/legacy/*.py",
+      "exit_code": 0,
+      "files": 4
+    },
+    {
+      "command": [
+        "<fixture-python>",
+        "-B",
+        "tests/legacy/build_fixtures.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: build_fixtures.py [-h] --root ROOT --magick MAGICK\r\n\r\nBuild synthetic M0-T02 inputs in a new, explicitly selected scratch directory.\r\nImageMagick creates the encoded images; Pillow independently decodes every\r\nframe. No binaries are downloaded, application entry point is run, or Known\r\nFolder changed.\r\n\r\noptions:\r\n  -h, --help       show this help message and exit\r\n  --root ROOT      New absent scratch directory\r\n  --magick MAGICK  Existing real ImageMagick 7 executable\r\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<fixture-python>",
+        "-B",
+        "tests/legacy/build_fixtures.py",
+        "--root",
+        ".scratch/missing-tool-check-final",
+        "--magick",
+        ".scratch/absent-magick.exe"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "usage: build_fixtures.py [-h] --root ROOT --magick MAGICK\r\nbuild_fixtures.py: error: --magick must identify an existing executable; no auto-installation\r\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "tools/codex-winimg/handoff.py",
+        "plan",
+        "--repo",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\r\n  \"tasks\": 28,\r\n  \"cases\": 75,\r\n  \"review_items_covered\": 18,\r\n  \"tasks_done\": 1,\r\n  \"next_task\": \"M0-T02\",\r\n  \"scope\": \"Structural plan validation only; no application tests or approval authentication.\"\r\n}\r\n",
+      "stderr": ""
+    }
+  ]
+}
