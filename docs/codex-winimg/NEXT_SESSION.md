@@ -1,46 +1,61 @@
 # Next session handoff
 
-Next task: **M1-T02 — Protect traversal and allocate unique run directories**.
-M1-T01 is complete. Begin only that next task in a fresh thread.
+Next task: **M1-T03 — Plan collision-free output names before conversion**.
+M1-T02 is complete. Begin only that next task in a fresh thread.
 
 Use C:/projects/WinImgNormalizer on codex/winimg-hardening. The configured
 WinImgNormalizer-main folder remains the preserved non-Git snapshot. Read AGENTS.md,
-STATUS.md, TASKS.json, GIT_WORKFLOW.md and tasks/M1-T02.md with referenced specs.
+STATUS.md, TASKS.json, GIT_WORKFLOW.md and tasks/M1-T03.md with referenced specs/cases.
 Recheck clean state, canonical fetch/push URLs and exact advertised feature SHA.
-The final checkpoint/sync is reported in the preceding response and draft PR #4;
-tested runtime/tests revision is f57b8adbb6859e8812471a4cc123b73530a2b301.
+Final checkpoint/sync is reported in the preceding response and draft PR #5;
+tested runtime/tests revision is 8c9b157338419958a14c662ca379ccb8c50e8825.
 
-M1-T01 adds friendly argument/source/positive Int64 checks, root-aware paths,
-application-only ImageMagick resolution and structured bounded preflight queries.
-The public positional interface and batch launcher are retained. Minimum reviewed
-ImageMagick is 7.1.2-32, with upstream sources in SOURCES I5; recheck notices during
-future dependency work. MagickPath/PreflightRunner are internal test seams, alongside
-OutputParent and conversion-only ProcessRunner. Compiled format modes include
-optional module columns; HEIF/HEIC are distinct read coders. Missing decoder files
-are skipped with explicit errors, supported media continues and code 2 is returned.
-Video-only/empty batches require ImageMagick but no JPEG writer unless readable
-images exist. Actual broad image-error/batch exit behavior remains later scope.
+M1-T02 rejects canonical destinations inside/equal to source before enumeration or
+writes, including probes. OrdinalIgnoreCase whole-segment comparisons are deliberately
+conservative on Windows. Existing-directory handles canonicalize paths; missing
+output tails are appended after ancestor inspection. Linked source/output roots or
+ancestors, dangling links, device paths and components ending in dots/spaces fail
+setup. Never normalize real Pictures or a drive root.
 
-A DeleteOnClose exclusive probe checks destination write/delete rights. The space
-estimate uses copied videos, min(cap, max(1 MiB, 4 times input)) per readable image,
-twice largest readable input and 64 MiB reserve; missing decoders use no conversion
-space. Unknown capacity warns, measured shortage fails setup. Directory-create
-failure returns friendly code 1. Large divisible cap quotients are exact Int64;
-legacy extent units/default conversion sequence are retained for later M2-T04.
+Get-WinImgSourceTree is one nonrecursive inventory: directories, files, top-level
+names and warnings. Reparse entries are skipped before descent/read; unreadable
+subtrees are incomplete scans. Mirrors use this inventory. Source/output paths are
+rechecked before processing. Scan/safety omissions return code 2 even without
+eligible files. General conversion/copy exit classification remains later work;
+this is not a hostile-filesystem sandbox.
 
-Next implement only M1-T02: segment-aware canonical containment, reject destination
-inside/equal source before any writes (including probes), protect traversal and
-allocate exclusive distinct run roots/generated namespaces. Existing timestamp-only
-run creation still reuses directories, and the mirror still has unsafe nesting;
-do not execute those cases against real Pictures, user data or drive roots.
-Use contained disposable/mocked tests for T013-T016. Keep the smallest patch.
+New-WinImgRunDirectory uses exclusive native mkdir, timestamp/GUID suffix and eight
+collision retries; existing objects are never adopted. Native calls add internal
+extended drive/UNC prefixes so generated descendants can exceed MAX_PATH without
+shortening names. The native 272-character check passes; it does not certify every
+long source/native ImageMagick path across hosts.
 
-Actual desktop PS5.1/PS7 passed 66/66 with zero skips and expected deliberate failure
-controls (67 total, 66 passed, one false assertion, exit1). Real -File ordinary forms
-and setup failures, executable shadow controls, JPEG full decode and video/source
-hash/timestamp preservation pass. Both push/PR Server CI matrices pass on the same
-implementation; actual CI PS versions differ and are in M1-T01-ci.json. Live UNC,
-real Pictures/manual launcher/ACL exhaustion and real HEIC/HEIF decode are not claimed.
+Generated work/report/log paths use the first free `.WinImgNormalizer`, `__2`, etc.,
+reserved against every observed top-level source name, including ignored files and
+empty directories. Similar source directories mirror normally. The log is opened
+CreateNew in `reports/WinImgNormalizer_<stamp>.log`. An arrival is preserved; failed
+log setup stops with the owned run retained, without the old shared TEMP fallback.
+`work` is reserved for later transactions.
+
+Next implement only M1-T03: deterministic complete per-directory namespace planning,
+stable extension/numeric suffixes, explicit source/output map, file/directory and
+secondary/case collisions, and protection against final-target external arrivals.
+Keep legacy names when unique. Current direct final image/video writes and duplicate
+heuristic retain known later-task defects. Use owned synthetic tests T017-T019,
+never real user media. Include the M1-T02 generated namespace in reservations.
+
+Actual desktop PS5.1/PS7 passed 95/95 with zero skips; controls produced 96 total,
+95 passed, one false assertion and exit 1. Real ordinary positional forms, JPEG full
+decode, source/video hashes/timestamps, loop/outside/dangling junctions and simultaneous
+same-stamp child runs pass. Desktop file symlink creation was denied Win32 1314;
+mandatory controlled coverage is distinct. Drive/UNC controls are lexical; denied
+scan failures use mocks. Actual CI results/versions are in M1-T02-ci.json. No live
+UNC/real Pictures/manual launcher/owner visual-quality acceptance is claimed.
+
+Initial c6157fb desktop passed 94/94, but push/PR PS7 CI failed six setup tests because
+expanded generated paths hit the native mkdir limit. Owned reproduction and internal
+extended-prefix correction produced 8c9b157. Initial infra/fixture/CI failures remain
+in evidence rather than being relabeled.
 
 Commands, separately in each fresh Windows shell:
 
@@ -50,14 +65,13 @@ Commands, separately in each fresh Windows shell:
 .\tests\Invoke-Tests.ps1 -DeliberateFailure # expected exit 1 with one false assertion
 ```
 
-Bootstrap reuses verified cached archives or explicitly downloads pinned development
-bytes into ignored scratch, with fresh extraction and hashes. No installer/persistent
-PATH/policy change; runtime never bootstraps. Child shells remove inherited PSModulePath;
-never redefine USERPROFILE or run normalization against real Pictures.
+Pinned bootstrap reuses verified cached archives or explicitly downloads development
+bytes into ignored scratch. No installer, persistent PATH/policy change or runtime
+bootstrap. Child shells remove inherited PSModulePath; never redefine USERPROFILE.
+Keep raw results, media and tools ignored. Evidence binds exact code/hashes. Verify
+the containing checkpoint's live sync at the next session.
 
-Evidence: M1-T01.json and M1-T01-ci.json, bound to committed code/hashes. Raw artifacts
-remain ignored. Final containing checkpoint sync needs live verification next session.
-Keep the feature branch and draft PR #4; if the owner has merged it, inspect exact
-remote/tree identity and create one successor draft without rewriting local history.
-No merges, tags/releases, settings changes, website deployment or subjective owner
-quality approval are authorized by this handoff. Stop after M1-T01.
+Keep the feature branch and draft PR #5; if the owner merged it, inspect exact
+remote/tree identity and create one successor draft without rewriting history.
+No merges, tags/releases, settings changes, deployment or subjective owner quality
+approval are authorized by this handoff. Stop after M1-T02.

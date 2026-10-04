@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "task_id": "M1-T02",
+  "recorded_utc": "2026-10-04T15:19:17.600197+00:00",
+  "starting_commit": "95cbc7956897794bcebd558f8395fdc0391a3baa",
+  "initial_implementation_commit": "c6157fbbc754c12d840be90c65468026a7bee540",
+  "tested_implementation_commit": "8c9b157338419958a14c662ca379ccb8c50e8825",
+  "tested_files_sha256": {
+    "WinImgNormalizer.ps1": "b4edc53d5134bc32d8df6aac1171ec5b096d848eaea3875f133ac1bfb53d34e7",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Invoke-Tests.ps1": "7617a7ac26aa56875d3b881a886c07591255ea5e7f0aed937a70845ced1f1e53",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/Normalizer.Tests.ps1": "b419c0784572f2b9f65964cf8933d36a8747ba070032219ca8e91957b1622736",
+    "tests/Preflight.Tests.ps1": "cd45e4e226690188248d4c72ef396ac7ae2819806d03f64bd5f7ed07bbc5b8e3",
+    "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+    "README.md": "60e2cb4e3064931be9e17d0b895e21d09eb15e1212882bb5e680e270358fdd37",
+    "tests/README.md": "a5a970b23ce14256a454f2058ed054e352ecd784578b3ba5cbd3c35727e5eb49",
+    "docs/codex-winimg/DECISIONS.md": "382c6d8fa4a1e908e38b43a7d65506307e713dde5d70e01d10c622d86d0fb551",
+    "docs/codex-winimg/SOURCES.md": "2a0a415b720748c79714c76e7f47bf4ccb6f8755dd68ff60fe033448e2ea8f8d",
+    ".github/workflows/windows-tests.yml": "e166fdec3c7fd1bf2d1c47d520990ac1b0b5ca454763eef0f60d610ff5a0ac1f",
+    "tests/legacy/toolchain.json": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406"
+  },
+  "environment": {
+    "ps51": {
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    },
+    "ps7": {
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    }
+  },
+  "desktop_runs": [
+    {
+      "environment": "ps51",
+      "observed_at_utc": "2026-10-04T15:16:59.8162706Z",
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M1-T02-corrected-ps51",
+      "deliberate_failure": false,
+      "result": "Passed",
+      "counts": {
+        "total_count": 95,
+        "passed_count": 95,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "exit_code": 0,
+      "failed_tests": [],
+      "persistent_execution_policy_unchanged": true,
+      "duration_seconds": 19.5073062,
+      "local_artifacts": {
+        ".scratch/M1-T02-corrected-ps51/summary.json": "c21d2c45603d602c3c328ab427f777f2ac951fa0ddb8b00eb0aec07a04e04a4c",
+        ".scratch/M1-T02-corrected-ps51/results.xml": "baa33acd30d2b8ca1d905535862d8cf2ca575ccf4dfa4cbfff769dac312d3711"
+      }
+    },
+    {
+      "environment": "ps51",
+      "observed_at_utc": "2026-10-04T15:17:57.2609920Z",
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M1-T02-corrected-control-ps51",
+      "deliberate_failure": true,
+      "result": "Failed",
+      "counts": {
+        "total_count": 96,
+        "passed_count": 95,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "exit_code": 1,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_execution_policy_unchanged": true,
+      "duration_seconds": 19.5361927,
+      "local_artifacts": {
+        ".scratch/M1-T02-corrected-control-ps51/summary.json": "9a7601da69ccc843064e22e5ff5f6770946b50eac09bd3c985f02c4adca8df5e",
+        ".scratch/M1-T02-corrected-control-ps51/results.xml": "ce6733d92520beede94f14f567195626794ffdd5e4aa54c869ad2857aa1530e9"
+      }
+    },
+    {
+      "environment": "ps7",
+      "observed_at_utc": "2026-10-04T15:17:00.9865906Z",
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M1-T02-corrected-ps7",
+      "deliberate_failure": false,
+      "result": "Passed",
+      "counts": {
+        "total_count": 95,
+        "passed_count": 95,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "exit_code": 0,
+      "failed_tests": [],
+      "persistent_execution_policy_unchanged": true,
+      "duration_seconds": 24.7304896,
+      "local_artifacts": {
+        ".scratch/M1-T02-corrected-ps7/summary.json": "8a7af68ab2c923a8ae0b9146bcf2a9031a674eea49e87b076e7ee34f8436cdc5",
+        ".scratch/M1-T02-corrected-ps7/results.xml": "edb988a9a2834f084b4a2844c06b714747467ed68fdc0a2c081bc7f264b40b51"
+      }
+    },
+    {
+      "environment": "ps7",
+      "observed_at_utc": "2026-10-04T15:17:57.4728288Z",
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M1-T02-corrected-control-ps7",
+      "deliberate_failure": true,
+      "result": "Failed",
+      "counts": {
+        "total_count": 96,
+        "passed_count": 95,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "exit_code": 1,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_execution_policy_unchanged": true,
+      "duration_seconds": 26.2731182,
+      "local_artifacts": {
+        ".scratch/M1-T02-corrected-control-ps7/summary.json": "378e170049be6b2d3c762f467ed2d7aac1d48c4ba00767a3951aea7048c049d3",
+        ".scratch/M1-T02-corrected-control-ps7/results.xml": "18290f42b55d748594302dec210172e01519d36fbf75a69b51550cafd5fbff94"
+      }
+    }
+  ],
+  "case_results": [
+    {
+      "case_id": "T013",
+      "state": "passed",
+      "reason": "Pre-enumeration/probe nesting guard; owned root/ancestor/dangling junction rejection; real loop/outside pruning; controlled incomplete scan and post-inventory file replacement; partial code 2.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T014",
+      "state": "passed",
+      "reason": "OrdinalIgnoreCase segment equality/descendants, lookalike siblings, dot normalization; drive/UNC lexical controls and real safe missing destination tail.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T015",
+      "state": "passed",
+      "reason": "Real exclusive directory/file collision preservation, eight-retry bound, native error propagation, 272-character allocation/canonicalization, simultaneous same-stamp child applications and separate logs/media.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T016",
+      "state": "passed",
+      "reason": "All observed top-level files/directories reserve the generated namespace; source work/reports/private/log-like directories mirrored and preserved; arriving generated log preserved with no TEMP fallback.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    }
+  ],
+  "review_corrections": [
+    "Direct Get-Item ancestry inspection rejects dangling reparse objects even when Test-Path cannot find their targets.",
+    "File-reparse fallback rereads the controlled entry and asserts the exact skip reason; state checks explicitly preserve original directory junction objects.",
+    "Pre-existing dependency fixture output moved to a safe sibling; namespace fixture uses distinct filenames to avoid testing the deferred duplicate heuristic.",
+    "Initial fixture paths exceeded native limits; shorter owned fixture names preserve all assertions.",
+    "Initial push/PR pwsh CI failed six setup tests. Owned 231-character parent/272-character child reproduced the native path limit. Internal extended drive/UNC prefixes fix native creation/canonical handles without truncating filenames; regression added.",
+    "General conversion/copy exit changes remain deferred; M1-T02 tracks traversal and safety omissions explicitly."
+  ],
+  "historical_desktop_runs": [
+    {
+      "artifact": ".scratch/M1-T02-initial-ps51/summary.json",
+      "sha256": "a71a5dd7cb88b75e128d2e73284f669bfa8176a1a30d5978041b1a19ada723a3",
+      "result": "infrastructure_failed",
+      "total_count": 0,
+      "passed_count": 0,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": []
+    },
+    {
+      "artifact": ".scratch/M1-T02-initial-ps7/summary.json",
+      "sha256": "df837d2f6d3d817bc5b916c83e36e289366e56a468a84de60b2c4568fd291e32",
+      "result": "infrastructure_failed",
+      "total_count": 0,
+      "passed_count": 0,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": []
+    },
+    {
+      "artifact": ".scratch/M1-T02-baseline-ps51/summary.json",
+      "sha256": "c4cebdf64946c2d70eac7f14168ab306e9245c01c0a8cbf45534f6930dec20f4",
+      "result": "Failed",
+      "total_count": 66,
+      "passed_count": 65,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M1-T01 reviewed ImageMagick identity and preflight (T010).fails missing application without invoking a same-name function or creating output"
+      ]
+    },
+    {
+      "artifact": ".scratch/M1-T02-baseline-ps7/summary.json",
+      "sha256": "15d12934950403e3a73fb6440f24807bf836500f214b3a9fde9aea998301eb24",
+      "result": "Failed",
+      "total_count": 66,
+      "passed_count": 65,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M1-T01 reviewed ImageMagick identity and preflight (T010).fails missing application without invoking a same-name function or creating output"
+      ]
+    },
+    {
+      "artifact": ".scratch/M1-T02-traversal-dev-ps7/summary.json",
+      "sha256": "f22366831e56c65e32d22fd49ba297308cc8a84d198a0b9caf71d64dc24af8c1",
+      "result": "Failed",
+      "total_count": 25,
+      "passed_count": 23,
+      "failed_count": 2,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M1-T02 canonical destination containment (T013-T014).T014 accepts an actual lookalike sibling and resolves a missing destination without creating it",
+        "M1-T02 generated namespace reservations (T016).preserves source work, reports, private-name and log-like directories beside the generated namespace"
+      ]
+    },
+    {
+      "artifact": ".scratch/M1-T02-traversal-dev2-ps7/summary.json",
+      "sha256": "4d211cf91e5c74378d174432034c0c49de70c6167d92a069261d0ef4a3f80d20",
+      "result": "Failed",
+      "total_count": 26,
+      "passed_count": 25,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M1-T02 generated namespace reservations (T016).preserves source work, reports, private-name and log-like directories beside the generated namespace"
+      ]
+    },
+    {
+      "artifact": ".scratch/M1-T02-traversal-dev3-ps7/summary.json",
+      "sha256": "4d747ba2671831145b8c784d99e01e620674d70a69430aac690376ef1e2ef6d4",
+      "result": "Passed",
+      "total_count": 27,
+      "passed_count": 27,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": []
+    },
+    {
+      "artifact": ".scratch/M1-T02-final-ps51/summary.json",
+      "sha256": "a2c77ef924258ad6a0da2cbec4c9a753429d732115105f5b987bce0c7dc5f9e6",
+      "result": "Passed",
+      "total_count": 94,
+      "passed_count": 94,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": []
+    },
+    {
+      "artifact": ".scratch/M1-T02-final-ps7/summary.json",
+      "sha256": "66b1403fc9db3b90d5b2c178e4c84a31f965fe3b1c44504424941166d4980c96",
+      "result": "Passed",
+      "total_count": 94,
+      "passed_count": 94,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": []
+    },
+    {
+      "artifact": ".scratch/M1-T02-control-ps51/summary.json",
+      "sha256": "aca782b15b7f1e593fb4d38fd285500948a39b61265c152d07dc037860617626",
+      "result": "Failed",
+      "total_count": 95,
+      "passed_count": 94,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ]
+    },
+    {
+      "artifact": ".scratch/M1-T02-control-ps7/summary.json",
+      "sha256": "c1f72ac9a97973e0e348882f826bf58e21f9175ccb005e09b0848bb2961cd707",
+      "result": "Failed",
+      "total_count": 95,
+      "passed_count": 94,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ]
+    }
+  ],
+  "history_interpretation": "Initial zero-test infrastructure failures came from passing comma-separated array text to -File. Development fixture failures and the nested dependency fixture were corrected without weakening behavioral assertions. Initial 94-test desktop checks passed but did not reveal the CI native path limit; corrected 95-test results above bind the final implementation.",
+  "file_symlink_observations": [
+    {
+      "artifact": ".scratch/T02-61ecf0e5fd93460dacb1083e8ab36d61/file-link-f9cac9fc/link-evidence.txt",
+      "sha256": "dc96a334d21fbb92a5a4227538d92d6326a5641fb8b2fe2dd75bc6aa4bcb5bba",
+      "actual_observation": "CreateSymbolicLinkW unavailable; Win32=1314; controlled reparse-file entry tested."
+    },
+    {
+      "artifact": ".scratch/T02-54b761a8e16949efa0bd647a2fe08d46/file-link-23cec2ea/link-evidence.txt",
+      "sha256": "dc96a334d21fbb92a5a4227538d92d6326a5641fb8b2fe2dd75bc6aa4bcb5bba",
+      "actual_observation": "CreateSymbolicLinkW unavailable; Win32=1314; controlled reparse-file entry tested."
+    },
+    {
+      "artifact": ".scratch/T02-a1e9f22363d54af8be112d85b2a8e198/file-link-637add09/link-evidence.txt",
+      "sha256": "dc96a334d21fbb92a5a4227538d92d6326a5641fb8b2fe2dd75bc6aa4bcb5bba",
+      "actual_observation": "CreateSymbolicLinkW unavailable; Win32=1314; controlled reparse-file entry tested."
+    },
+    {
+      "artifact": ".scratch/T02-e0474eaeb39045fe97a5be859787b2f3/file-link-7e4c3f1d/link-evidence.txt",
+      "sha256": "dc96a334d21fbb92a5a4227538d92d6326a5641fb8b2fe2dd75bc6aa4bcb5bba",
+      "actual_observation": "CreateSymbolicLinkW unavailable; Win32=1314; controlled reparse-file entry tested."
+    }
+  ],
+  "ci_evidence": "evidence/M1-T02-ci.json",
+  "implementation_sync_observation": {
+    "observed_at_utc": "2026-10-04T15:17:42.8747086Z",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "branch": "codex/winimg-hardening",
+    "local_head": "8c9b157338419958a14c662ca379ccb8c50e8825",
+    "remote_head": "8c9b157338419958a14c662ca379ccb8c50e8825",
+    "worktree_clean": true,
+    "sync_state": "synchronized"
+  },
+  "containing_checkpoint_sync": "pending_verification",
+  "draft_pr": "https://github.com/PikkuJanne/WinImgNormalizer/pull/5",
+  "limitations": [
+    "Actual desktop file-symlink creation denied Win32 1314; mandatory controlled reparse-file coverage is distinct from real directory-junction coverage.",
+    "Drive and UNC boundary controls are lexical; no live share, drive-root normalization or real Pictures scan was performed.",
+    "Denied enumeration uses a narrow mock; no ACL changes or volume exhaustion experiment.",
+    "The 272-character check proves the native allocator/handle APIs; it does not certify arbitrary long source/native ImageMagick filenames across every host.",
+    "No sandbox guarantee against hostile concurrent filesystem mutation; paths are rechecked as a best-effort safeguard.",
+    "User output-name collisions, dedupe safeguards, image transactions/frames/colour/general lifecycle reporting remain later tasks.",
+    "No manual drag-and-drop, owner visual-quality acceptance, merge, release or website deployment is claimed."
+  ]
+}

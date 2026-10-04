@@ -176,3 +176,56 @@ T001-T004 are legacy characterization. Original snapshot/launcher/license/assets
 preserved. No private media/tools/raw local logs tracked, no installation/persistent
 PATH/global policy changes. Containment/run isolation and remaining hardening, owner
 acceptance/release/website gates stay in later tasks.
+
+
+## 2026-10-04 — M1-T02 completed
+
+Started at clean 95cbc7956897794bcebd558f8395fdc0391a3baa, independently equal to the
+advertised codex/winimg-hardening remote. Fetch/push URLs both verified canonical
+PikkuJanne/WinImgNormalizer. Owner had merged PR #4; origin/main c604ade had the same
+tree. Read-only fetch preserved local history; no pull/reset/rebase/merge. Successor
+draft PR #5 contains this task. The non-Git WinImgNormalizer-main snapshot is preserved.
+
+Implemented canonical whole-segment nesting checks before enumeration/probes, linked
+ancestor rejection including dangling reparse entries, one nonrecursive inventory,
+visible link/incomplete-scan warnings and safety rechecks. Exclusive timestamp/GUID
+run allocation retries at most eight collisions and never adopts existing files or
+directories. All observed source top-level names reserve a disambiguated generated
+work/reports namespace; log CreateNew preserves arrivals without a TEMP fallback.
+Ordinary mirrored paths and conversion defaults are retained. General exits, user
+output collisions, dedupe, transaction/frame/colour work remain later scope.
+
+Added 29 traversal regressions alongside the existing 66 checks. Actual directory
+loop/outside/dangling junctions, forced file/directory run collisions, simultaneous
+same-stamp child applications and namespace/log conflicts pass. File-symlink creation
+on this desktop was denied Win32 1314; mandatory controlled reparse-file coverage
+asserts the exact skip diagnosis. Source/video hashes and timestamps remain intact.
+Drive/UNC boundaries are lexical; denied enumeration/post-inventory changes use
+controlled seams. No real Pictures, private media, live UNC or ACL modifications.
+
+Development evidence retains the initial incorrect -File array invocation (zero-test
+infrastructure failure), long fixture paths, legacy duplicate-key fixture collision,
+and dependency test with a newly forbidden nested output parent. Assertions were
+preserved; fixtures/mocks corrected. Initial c6157fb desktop passed 94/94, but both
+push 37212183765 and PR 37212205276 pwsh CI had 88/94 passed, six setup failures; PS5.1
+jobs passed. An owned parent 231 / child 272 reproduced the native mkdir path limit.
+Correction 8c9b157338419958a14c662ca379ccb8c50e8825 adds internal extended drive/UNC
+prefixes and a 272-character native exclusive/canonical regression. No user name
+truncation or public device-path option. Initial failed CI logs/results remain history.
+
+Corrected actual Windows 11 Pro build 26300, PS 5.1.26100.9444 / PS 7.6.5 with Pester 5.9.1
+and verified ImageMagick 7.1.2-32 passed 95/95, zero skipped. Deliberate controls each
+had 96 total / 95 passed / one identified false assertion / exit 1. Four summaries match exact
+committed runtime/test hashes; persistent execution policy is unchanged. No installer,
+persistent PATH change, ImageMagick global policy edit or runtime bootstrap.
+Corrected push 37212453070 and PR 37212456334 Windows Server matrices each passed both
+PS5.1/PS7 jobs and expected failure controls; actual versions/counts/job links and
+initial CI failures are in M1-T02-ci.json. Desktop evidence is M1-T02.json.
+
+Corrected implementation pushed and independently matched clean local/remote HEAD
+at 2026-10-04T15:17:42.8747086Z. Final record-only checkpoint changes STATUS/TASKS/
+NEXT_SESSION/SESSION_LOG and the two evidence files only, binding corrected code
+and hashes. Its containing commit/sync fields remain pending_verification until
+observed externally after commit/push. No merge, release, deployment or owner image
+quality acceptance. M1-T02 accepted; next M1-T03, stop. Five of 28 accepted and
+T001-T016 exercised, with T001-T004 retained as characterization.
