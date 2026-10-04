@@ -390,7 +390,7 @@ $info = Get-WinImgMagickInfo
 
     It 'fails missing application without invoking a same-name function or creating output' {
         $source = New-PreflightDirectory 'missing-magick-source'
-        $parent = Join-Path $source 'unused-output'
+        $parent = Join-Path $ownedRoot ('unused-output-' + [Guid]::NewGuid().ToString('N'))
         Mock Get-Command { return $null }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -MagickPath '' -PreflightRunner {
             throw 'Missing application was invoked.'
@@ -571,7 +571,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         (Get-FileHash -LiteralPath (Join-Path $run[0].FullName 'opaque-video.mp4') -Algorithm SHA256).Hash | Should -Be $before
         (Get-FileHash -LiteralPath $video -Algorithm SHA256).Hash | Should -Be $before
         Get-PreflightSourceState $source | Should -Be $sourceBefore
-        $log = Get-Content -LiteralPath (Get-ChildItem -LiteralPath $run[0].FullName -Filter '*.log').FullName -Raw
+        $log = Get-Content -LiteralPath (Get-ChildItem -LiteralPath $run[0].FullName -Recurse -File -Filter '*.log').FullName -Raw
         $log | Should -Match '(?i)missing-decoder\.heic.*(decoder|read|codec|HEIC)'
         $log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=1 Duplicates=0 Unsupported=0 Errors=1'
         $log | Should -Match ([regex]::Escape($magick))
@@ -630,7 +630,7 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
     It 'reports an actual run-directory creation failure as friendly status without a run or log' {
         $source = New-PreflightDirectory 'mkdir-denied-source'
         $parent = New-PreflightDirectory 'mkdir-denied-output'
-        Mock New-Item { throw [UnauthorizedAccessException]::new('Synthetic run directory creation denied.') }
+        Mock New-WinImgExclusiveDirectory { throw [UnauthorizedAccessException]::new('Synthetic run directory creation denied.') }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner)
         $result.Code | Should -Be 1
         $result.Text | Should -Match '(?i)(destination|directory|creation|denied)'

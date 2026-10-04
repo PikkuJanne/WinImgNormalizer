@@ -239,7 +239,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         $trace.Count | Should -Be 0
         $runs = @(Get-ChildItem -LiteralPath $parent -Directory)
         $runs.Count | Should -Be 1
-        $logs = @(Get-ChildItem -LiteralPath $runs[0].FullName -File -Filter '*.log')
+        $logs = @(Get-ChildItem -LiteralPath $runs[0].FullName -Recurse -File -Filter '*.log')
         $logs.Count | Should -Be 1
         Get-Content -LiteralPath $logs[0].FullName -Raw | Should -Match 'No images or videos found\.'
     }
@@ -310,10 +310,10 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         Get-SourceState $fixtureSource | Should -Be $before
         $runs = @(Get-ChildItem -LiteralPath $parent -Directory)
         $runs.Count | Should -Be 1
-        $runs[0].Name | Should -Match '^ordinary-source_WinImgNormalized_\d{8}_\d{6}$'
+        $runs[0].Name | Should -Match '^ordinary-source_WinImgNormalized_\d{8}_\d{6}_[0-9a-f]{32}$'
         $output = $runs[0].FullName
         @(Get-ChildItem -LiteralPath $output -Recurse -File).Count | Should -Be 8
-        @(Get-ChildItem -LiteralPath $output -Recurse -Directory).Count | Should -Be 2
+        @(Get-ChildItem -LiteralPath $output -Recurse -Directory).Count | Should -Be 5
         Test-Path -LiteralPath (Join-Path $output 'empty-directory') -PathType Container | Should -BeTrue
         Test-Path -LiteralPath (Join-Path $output 'ignored.txt') | Should -BeFalse
         foreach ($image in $imageCases) {
@@ -336,7 +336,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
             $copy.CreationTimeUtc.Ticks | Should -Be $original.CreationTimeUtc.Ticks
             $copy.LastWriteTimeUtc.Ticks | Should -Be $original.LastWriteTimeUtc.Ticks
         }
-        $logs = @(Get-ChildItem -LiteralPath $output -File -Filter '*.log')
+        $logs = @(Get-ChildItem -LiteralPath $output -Recurse -File -Filter '*.log')
         $logs.Count | Should -Be 1
         $log = Get-Content -LiteralPath $logs[0].FullName -Raw
         $log | Should -Match 'SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0'

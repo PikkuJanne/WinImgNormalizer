@@ -26,7 +26,7 @@ No config files, it just runs.
 **Usage**
 1) My everyday flow (drag & drop onto .bat)
 Drag a folder (with photos/videos) onto WinImgNormalizer.bat.
-The normalized copy appears in: %USERPROFILE%\Pictures\<Source>_WinImgNormalized_<yyyyMMdd_HHmmss>
+The normalized copy appears in: %USERPROFILE%\Pictures\<Source>_WinImgNormalized_<yyyyMMdd_HHmmss>_<runId>
 A log file is saved inside the output folder.
 2) Command line (positional args, avoids PS 5.1 param-set quirks)
 #Whole folder (recursive), default 1 MB cap
@@ -37,9 +37,23 @@ A log file is saved inside the output folder.
 Supply exactly one source directory and, optionally, a positive whole-number byte
 cap from 1 through 9223372036854775807. Small caps remain best-effort and may be
 unachievable. Missing folders, files used as folders, non-filesystem sources,
-drive-relative paths such as `C:`, and linked source roots are rejected with a setup
-message. Ordinary relative directory paths are resolved to absolute filesystem
+drive-relative paths such as `C:`, and linked source roots or ancestors are rejected
+with a setup message. Ordinary relative directory paths are resolved to absolute filesystem
 paths; drive and UNC share roots retain their root separator.
+
+The destination must be outside the source tree. Choosing Pictures itself, its
+parent, or a drive root that contains Pictures is rejected before enumeration or
+any destination write, including probes. Choose a source subfolder instead; the
+tool does not silently relocate output. Path comparisons use canonical directories
+and case-insensitive whole path segments, so `PhotosBackup` is not inside `Photos`.
+Linked destination paths or ancestors are also rejected. Device paths and directory
+components with trailing dots/spaces are unsupported.
+
+Traversal skips and logs directory/file reparse points (links and junctions) without
+following them. Inaccessible subtrees are reported as an incomplete scan; other
+readable media continues. These omissions return exit code 2, including when no
+eligible files were readable. Concurrent hostile filesystem changes are outside the
+tool's isolation guarantee, though paths are rechecked before reading/writing.
 
 Arguments and ImageMagick are checked before creating Pictures or a run folder.
 The destination is checked with a temporary exclusive write probe that is removed,
@@ -71,8 +85,14 @@ Progress + logs: console progress bar and a timestamped log in the destination.
 
 **Output location**
 Default target is the Windows Pictures folder:
-%USERPROFILE%\Pictures\<Source>_WinImgNormalized_<timestamp>\
-Inside you’ll find the mirrored tree, converted .jpeg images, copied videos, and WinImgNormalizer_<timestamp>.log.
+%USERPROFILE%\Pictures\<Source>_WinImgNormalized_<timestamp>_<runId>\
+Each run has a random 32-character ID and is created exclusively; an existing file
+or folder is never reused as a run. Inside you'll find the mirrored tree, converted
+.jpeg images and copied videos. Generated files occupy `.WinImgNormalizer`, or the
+first free suffix such as `.WinImgNormalizer__2` when a source entry uses that name.
+Its `reports` subfolder contains `WinImgNormalizer_<timestamp>.log`; `work` is
+reserved for temporary processing. Source directories with these names are mirrored
+normally. A log creation failure stops setup and retains the run for diagnosis.
 
 **Batch wrapper (included)**
 The repo includes a minimal wrapper so you can drag a folder onto the .bat.

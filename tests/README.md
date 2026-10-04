@@ -1,8 +1,8 @@
-# Windows checks (M0-T03 and M1-T01)
+# Windows checks (through M1-T02)
 
 These development tests cover the import boundary, the two existing positional
-invocations and setup validation (T008-T012). They do not certify the later collision,
-metadata, frame, cancellation or output-validation fixes. The characterization
+invocations, setup validation (T008-T012), and traversal/run isolation (T013-T016).
+They do not certify the later collision, metadata, frame, cancellation or output-validation fixes. The characterization
 evidence in `legacy/` describes those known defects separately.
 
 Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
@@ -28,7 +28,8 @@ The application exposes `Invoke-WinImgNormalizer` and
 tests use owned synthetic scratch trees and controlled process failures. The public
 `.ps1 <sourceFolder> [maxBytes]` interface and `.bat` remain unchanged.
 
-The default runner includes `Normalizer.Tests.ps1` and `Preflight.Tests.ps1`.
+The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1` and
+`Traversal.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -49,3 +50,18 @@ The CI matrix uses Windows Server runners. Desktop results are recorded separate
 in `docs/codex-winimg/evidence/M0-T03.json`; Server CI does not prove desktop launcher
 or interruption behavior. PSScriptAnalyzer and the complete corpus belong to later
 tasks.
+
+Traversal tests verify nested destinations are rejected before probes/enumeration,
+case-insensitive segment comparisons, real disposable looping/outside/dangling
+junctions, safe missing destination tails and incomplete scans. They force run-name
+collisions with existing files/directories and launch two real child applications
+at the same fixed timestamp behind a release barrier. Generated namespaces conflict
+with source files/directories without replacing source data or logs. Ordinary media
+checks retain byte hashes and creation/modified timestamps. Sources and children
+remain in owned ignored scratch; loops are pruned in the fixture state checker.
+
+File-symlink tests attempt unprivileged CreateSymbolicLinkW. A host without that
+capability uses a mandatory controlled reparse-file entry and records its actual
+native error in ignored link-evidence.txt; it does not report a real symlink pass.
+UNC/drive-root containment is lexical only, and denied enumeration uses a narrow
+mock. No live share, real Pictures, ACL change or manual launcher result is claimed.
