@@ -1,12 +1,13 @@
-# Windows checks (through M1-T06)
+# Windows checks (through M2-T01)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
 deterministic naming/no-overwrite targets (T017-T019), validated conversion and
 staged video transactions (T020-T024), and successful-retention duplicate handling
 (T025-T027). The combined safety regression (T028) runs one complete mixed tree
-twice into separate outputs under the same parent.
-They do not certify the later metadata, source-frame policy or cancellation fixes. The characterization
+twice into separate outputs under the same parent. Frame/page regressions (T029-T031)
+check deliberate first-image selection, logical animation canvases and visible omissions.
+They do not certify the later metadata or cancellation fixes. The characterization
 evidence in `legacy/` describes those known defects separately.
 
 Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
@@ -34,7 +35,7 @@ tests use owned synthetic scratch trees and controlled process failures. The pub
 
 The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1`,
-`Duplicates.Tests.ps1` and `SafetyRegression.Tests.ps1`.
+`Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1` and `Frames.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -77,8 +78,9 @@ reservations, secondary numeric suffixes and case-only controlled inventories.
 Repeated seeded shuffles under five cultures assert identical mapping and row
 ordering. Real JPG/PNG/BMP collision outputs are fully decoded; source hashes and
 creation/modified timestamps plus unchanged synthetic video bytes are checked.
-HEIC naming/processing uses explicitly controlled capabilities and JPEG candidate
-bytes, so it proves routing and distinct names rather than an installed HEIC codec.
+HEIC naming/processing in the naming suite uses explicitly controlled capabilities
+and JPEG candidate bytes, so it proves routing and distinct names. The frame suite
+requires separate actual HEVC collection decoding with the selected executable.
 External file/directory arrivals are injected during conversion and after the
 availability check for both file operations.
 
@@ -126,3 +128,24 @@ must leave the first run's entire media/log tree and unrelated output-parent ent
 unchanged. These fixtures stay in marked ignored scratch without recursive cleanup.
 The full default suite retains the earlier mandatory controlled failure regressions;
 this combined case uses actual conversion and copying without process mocks.
+
+Frame tests generate actual offset, transparent GIFs with one or two frames, a
+two-page TIFF with a real first-page RightTop orientation tag, and animated WebP.
+They require exactly one planned JPEG, full JPEG decoding, dimensions and expected
+pixel samples with a small JPEG tolerance. Later blue frames/pages must be absent;
+white canvas placement, orientation and omission counts must be correct. Literal
+bracket source paths, source hashes and creation/modification timestamps are checked.
+Invalid inspection and controlled snapshot changes/short-copy metadata must prevent
+conversion; unknown snapshot arrivals and neighbors survive exact owned cleanup.
+
+The frame suite also embeds a 1,328-byte self-generated HEVC collection with two
+distinct top-level images and tests both HEIC/HEIF extensions against the actual
+decoder. It contains no thumbnails or auxiliary images and is not a timed animation.
+The decoder-visible count, first primary image and omitted second image are checked
+with independent known-color samples. Its recipe, fixture SHA256 and versioned
+official generator-wheel provenance are in the test; the generator and its libraries
+are not runtime or CI dependencies. Pinned portable ImageMagick can decode HEIC but
+cannot encode it, so the fixture was generated once in owned ignored scratch.
+These mandatory tests fail if the selected codec cannot decode their real fixtures;
+they never count a controlled routing test, unavailable codec or skipped case as a
+positive sequence result. Timed HEIC animation remains outside this evidence.

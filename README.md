@@ -113,7 +113,24 @@ successful native exit, nonempty JPEG bytes, one frame, positive dimensions and
 full pixel decode are required before finalization. Invalid or truncated outputs
 and files from earlier attempts cannot become successful derivatives. The current
 scale sequence and valid best-effort size fallback remain; explicit multi-frame
-selection is still planned, so numbered multi-output attempts are rejected.
+selection produces one intended output, and any unexpected numbered multi-output
+attempt remains rejected.
+
+GIF and WebP become the first displayed logical frame, including its canvas and
+placement. Multipage TIFF becomes its first page; pages are never stacked. HEIC/HEIF
+uses the decoder's primary image (or first sequence image). The log records the
+decoder-exposed source count, one selected image and the omitted frames/pages/images.
+Animation and omitted pages are not preserved in the JPEG. This deliberate still
+policy is informational and does not by itself change a successful exit code.
+
+For these sequence-capable formats, inspection and conversion use the same private
+copy in owned scratch, with source length/modification-time stability checks. The
+first-image define applies to this neutral input without appending a selector to a
+user filename. Only an animation's selected first image is coalesced onto its canvas,
+then orientation is applied. Counts describe images exposed by the installed decoder,
+not hidden thumbnails or a complete inventory of every item in a HEIF container.
+Decoder capability and local security policy still apply; an inspection failure
+fails that item rather than guessing a count or trying to write an image sequence.
 
 Videos are copied into owned partial files. After the copy streams finish, the
 partial size and source length/modified time must match before finalization. Videos

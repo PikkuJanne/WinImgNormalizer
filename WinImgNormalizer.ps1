@@ -58,7 +58,8 @@ NOTES
     - HEIC/WebP support depends on ImageMagick build/codecs.
     - Each fresh conversion attempt must exit successfully and fully decode as
       a nonempty single-frame JPEG with positive dimensions before finalization.
-    - Numbered multi-output attempts are rejected; explicit frame selection is planned.
+    - Animations become their first displayed frame; TIFF uses its first page.
+      HEIC/HEIF uses the decoder's primary/first image. Counts/omissions are logged.
     - Unique image basenames are preserved; conflicts use __sourceext and checked __N suffixes.
     - Timestamps on outputs are set to the source file times.
 
@@ -470,6 +471,70 @@ function Test-WinImgImageCandidate {
   return [pscustomobject]@{ BytesOut = $length; Width = $width; Height = $height }
 }
 
+# Multi-image inspection and selection read the same private, stable copy. No
+# selector is appended to a user filename; only the decoded first image is kept.
+function New-WinImgSourceSnapshot {
+  param([string]$SourcePath, [string]$WorkRoot, [long]$ExpectedLength,
+    [datetime]$ExpectedModified, [System.Collections.Generic.List[object]]$OwnedCandidates)
+
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($SourcePath))
+  $before = Get-Item -LiteralPath $SourcePath -Force -ErrorAction Stop
+  if ($before.PSIsContainer -or ($before.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+      $before.Length -ne $ExpectedLength -or $before.LastWriteTimeUtc -ne $ExpectedModified) {
+    throw 'Image source changed before frame/page inspection.'
+  }
+  $allocated = New-WinImgImageCandidate -WorkRoot $WorkRoot
+  $snapshot = [IO.Path]::Combine([IO.Path]::GetDirectoryName($allocated), ('source' + $before.Extension.ToLowerInvariant()))
+  $ownership = [pscustomobject]@{ Path = $snapshot; FileOwned = $false; Removed = $false }
+  $OwnedCandidates.Add($ownership)
+  $inputStream = [IO.FileStream]::new($SourcePath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+  try {
+    $outputStream = [IO.FileStream]::new($snapshot, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+    $ownership.FileOwned = $true
+    try { $inputStream.CopyTo($outputStream); $outputStream.Flush() }
+    finally { $outputStream.Dispose() }
+  } finally { $inputStream.Dispose() }
+  $after = Get-Item -LiteralPath $SourcePath -Force -ErrorAction Stop
+  $copied = Get-Item -LiteralPath $snapshot -Force -ErrorAction Stop
+  if ($after.PSIsContainer -or ($after.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+      $after.Length -ne $ExpectedLength -or $after.LastWriteTimeUtc -ne $ExpectedModified -or
+      $copied.PSIsContainer -or ($copied.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+      $copied.Length -ne $ExpectedLength) {
+    throw 'Image snapshot is incomplete or the source changed during copying.'
+  }
+  return $snapshot
+}
+
+function Get-WinImgSourceImageInfo {
+  param([string]$SnapshotPath, [string]$MagickPath)
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($SnapshotPath))
+  $nativePath = Get-WinImgNativeOutputPath $SnapshotPath
+  $previousPreference = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
+  try {
+    # Count every image exposed by this decoder without applying the first-image
+    # define. Header inspection is not the final JPEG's full-decode validation.
+    $metadata = @(& $MagickPath identify -ping -regard-warnings -format '%m|%n|%w|%h\n' $nativePath 2>&1)
+    $inspectExit = $LASTEXITCODE
+  } finally { $ErrorActionPreference = $previousPreference }
+  if ($inspectExit -ne 0 -or $metadata.Count -eq 0) { throw 'Source frame/page inspection failed; no image was selected.' }
+  $count = $metadata.Count
+  $decoder = $null
+  foreach ($line in $metadata) {
+    if ([string]$line -notmatch '^([A-Z0-9]+)\|([1-9][0-9]*)\|[1-9][0-9]*\|[1-9][0-9]*$' -or
+        $Matches[2] -ne $count.ToString([Globalization.CultureInfo]::InvariantCulture)) {
+      throw 'Source frame/page count or dimensions were ambiguous; no image was selected.'
+    }
+    if ($null -eq $decoder) { $decoder = $Matches[1] }
+    elseif ($decoder -ne $Matches[1]) { throw 'Source inspection returned mixed image formats.' }
+  }
+  $unit = 'Images'; $policy = 'FirstImage'
+  if ($decoder -in @('GIF', 'WEBP')) { $unit = 'Frames'; $policy = 'FirstDisplayedFrame' }
+  elseif ($decoder -eq 'TIFF') { $unit = 'Pages'; $policy = 'FirstPage' }
+  elseif ($decoder -in @('HEIC', 'HEIF')) { $policy = 'DecoderPrimaryOrFirstImage' }
+  return [pscustomobject]@{ SourceCount = $count; Omitted = $count - 1; Unit = $unit; Policy = $policy; Decoder = $decoder }
+}
+
 function New-WinImgExclusiveDirectory {
   param([string]$Path)
   Initialize-WinImgDirectoryApi
@@ -781,7 +846,7 @@ function Invoke-WinImgNormalizer {
   }
   function Convert-ImageMagick {
     param([string]$SourcePath, [string]$DestPath, [long]$MaxBytes,
-      [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates)
+      [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates, [object]$SourceInfo)
 
     $extent = Get-ExtentString $MaxBytes
     $scales = 100,90,80,70,60,50
@@ -803,7 +868,14 @@ function Invoke-WinImgNormalizer {
         $stream.Dispose()
         $attemptCount++
         $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
-        $nativeArguments = @('-quiet', $SourcePath, '-auto-orient','-strip','-colorspace','sRGB',
+        $nativeArguments = @('-quiet')
+        if ($SourceInfo) { $nativeArguments += @('-define', 'image:frames=0') }
+        $nativeArguments += $(if ($SourceInfo) { Get-WinImgNativeOutputPath $SourcePath } else { $SourcePath })
+        # Coalesce only the selected first animation frame onto its logical
+        # canvas. Document pages/HEIC images must never be overlaid together.
+        if ($SourceInfo -and $SourceInfo.Policy -eq 'FirstDisplayedFrame') { $nativeArguments += '-coalesce' }
+        if ($SourceInfo) { $nativeArguments += '+repage' }
+        $nativeArguments += @('-auto-orient','-strip','-colorspace','sRGB',
           '-sampling-factor','4:2:0','-interlace','Line')
         if ($alpha) { $nativeArguments += @('-background','white','-alpha','remove','-alpha','off') }
         $nativeArguments += @('-resize', "$p%", '-define', "jpeg:extent=$extent", ('JPEG:' + $nativeDestPath))
@@ -887,10 +959,18 @@ function Invoke-WinImgNormalizer {
     $ownedCandidates = New-Object 'System.Collections.Generic.List[object]'
     try {
       if ($imgExts -contains $ext) {
+        $imageSource = $f.FullName
+        $sourceInfo = $null
+        if ($ext -in @('.gif','.tif','.tiff','.webp','.heic','.heif')) {
+          $imageSource = New-WinImgSourceSnapshot -SourcePath $f.FullName -WorkRoot $workRoot -ExpectedLength $sourceLength -ExpectedModified $sourceModified -OwnedCandidates $ownedCandidates
+          $sourceInfo = Get-WinImgSourceImageInfo -SnapshotPath $imageSource -MagickPath $MagickCmd
+          Write-Log ('SOURCE IMG: {0} (SourceCount={1}; Selected=1; Omitted={2}; Unit={3}; Policy={4}; Decoder={5})' -f
+            $rel, $sourceInfo.SourceCount, $sourceInfo.Omitted, $sourceInfo.Unit, $sourceInfo.Policy, $sourceInfo.Decoder)
+        }
         try { $candidatePath = New-WinImgImageCandidate -WorkRoot $workRoot }
         catch { $hasNamingWarnings = $true; throw }
         $ownedCandidates.Add([pscustomobject]@{ Path = $candidatePath; FileOwned = $false; Removed = $false })
-        $res = Convert-ImageMagick -SourcePath $f.FullName -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates
+        $res = Convert-ImageMagick -SourcePath $imageSource -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -SourceInfo $sourceInfo
         if ($res.Status -eq 'Converted') {
           try { Move-WinImgPlannedImage -CandidatePath $res.CandidatePath -DestinationPath $destPath }
           catch { $hasNamingWarnings = $true; throw }

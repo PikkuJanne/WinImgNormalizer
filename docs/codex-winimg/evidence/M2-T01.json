@@ -1,0 +1,1237 @@
+{
+  "schema_version": 1,
+  "task_id": "M2-T01",
+  "recorded_utc": "2026-10-04T18:16:38.237358+00:00",
+  "starting_observation": {
+    "task_id": "M2-T01",
+    "observed_at_utc": "2026-10-04T17:52:52.828800+00:00",
+    "starting_commit": "b7fe275dfea31e7954df0ebbeeaff02189cf6f8a",
+    "advertised_feature_commit": "b7fe275dfea31e7954df0ebbeeaff02189cf6f8a",
+    "owner_merged_pr": 9,
+    "owner_merged_at_utc": "2026-10-04T17:51:32Z",
+    "main_commit": "f90de6ce37fdd3d760a32ce028fe3c40cc0290c9",
+    "starting_tree": "4bdb16373d3646ee41a05a831d3458e12676c3cc",
+    "main_tree": "4bdb16373d3646ee41a05a831d3458e12676c3cc",
+    "tree_equal": true,
+    "method": "Actual PR API plus advertised origin refs, read-only main fetch and local tree resolution. HEAD preserved; no PR mutation, pull, merge, reset or branch change."
+  },
+  "tested_implementation_commit": "d64a9034ff0b4324b2515900fdf8b4cb82f80bbb",
+  "tested_files_sha256": {
+    "WinImgNormalizer.ps1": "82d79707a3ea9a588c8cf83121456119874bcc062b5608bec0d223b11e292cda",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Invoke-Tests.ps1": "b00dc5bb1de05ecf771a93d7b300825abe300666cdca2ba71621c7f083a73b15",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/Normalizer.Tests.ps1": "59b6b77c21195ae882d04bea8912e5334f4e06c032877623a45ccb314fc8b859",
+    "tests/Preflight.Tests.ps1": "af89baa08898c758f7bc22fa7a586fe834107f053dcf32bca8e0f2e3c9e04fdb",
+    "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+    "tests/Naming.Tests.ps1": "3a1073e4ac6c053c97dc294ea59aa4452e3e1a8a306bf20916ec84bf00235b32",
+    "tests/Transactions.Tests.ps1": "f08b03e09d301541265a4b24ffc1e8e0d30e199d2250b65b1d91574458b1ae43",
+    "tests/Duplicates.Tests.ps1": "9c4872d08876b038cab7e1983bfe8f9ff90a97f962befb952e1f3d9eef0a308e",
+    "tests/SafetyRegression.Tests.ps1": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+    "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963"
+  },
+  "committed_blob_sha256": {
+    "WinImgNormalizer.ps1": "a9bbfbff1e7e77c3e86e8845e06e2a97b64de03d2497b9cb0b564c88303fc2dc",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Invoke-Tests.ps1": "b00dc5bb1de05ecf771a93d7b300825abe300666cdca2ba71621c7f083a73b15",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/Normalizer.Tests.ps1": "59b6b77c21195ae882d04bea8912e5334f4e06c032877623a45ccb314fc8b859",
+    "tests/Preflight.Tests.ps1": "af89baa08898c758f7bc22fa7a586fe834107f053dcf32bca8e0f2e3c9e04fdb",
+    "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+    "tests/Naming.Tests.ps1": "3a1073e4ac6c053c97dc294ea59aa4452e3e1a8a306bf20916ec84bf00235b32",
+    "tests/Transactions.Tests.ps1": "f08b03e09d301541265a4b24ffc1e8e0d30e199d2250b65b1d91574458b1ae43",
+    "tests/Duplicates.Tests.ps1": "9c4872d08876b038cab7e1983bfe8f9ff90a97f962befb952e1f3d9eef0a308e",
+    "tests/SafetyRegression.Tests.ps1": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+    "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963"
+  },
+  "checkout_line_endings": {
+    "core_autocrlf": "true",
+    "normalizations": [
+      {
+        "path": "WinImgNormalizer.ps1",
+        "tested_checkout_line_endings": "CRLF",
+        "tested_crlf_count": 1082,
+        "tested_bare_lf_count": 0,
+        "committed_blob_line_endings": "LF",
+        "binding": "Only CRLF-to-LF normalization converts the raw tested checkout into the exact committed Git blob."
+      }
+    ],
+    "note": "Raw runner hashes bind actual tested checkout bytes; Git blob hashes are separate. Every difference is verified as CRLF-to-LF normalization only. Final clean source/test bytes remained unchanged during all four runs."
+  },
+  "environment": {
+    "ps51": {
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    },
+    "ps7": {
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    }
+  },
+  "runs": [
+    {
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M2-T01-final-ps51",
+      "observed_at_utc": "2026-10-04T18:09:53.1955841Z",
+      "result": "Passed",
+      "total_count": 185,
+      "passed_count": 185,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 118.64623599999999,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M2-T01-final-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M2-T01-final-ps51/summary.json": "acf2140d35aac3ddb6badc485086f38961b76405251883b40bda7110a0c447d1",
+        ".scratch/M2-T01-final-ps51/results.xml": "a1c092e7c4812143e259a6ac778066842e29a78d6ca8e1c358bbef44ca23ba06",
+        ".scratch/M2-T01-final-ps51-console.log": "c274c3aa4791185a6158cc14c1dfe4311637bb05f4fa038e932fd504761c3b0f"
+      },
+      "observed_native_child_exit_code": 0
+    },
+    {
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M2-T01-control-ps51",
+      "observed_at_utc": "2026-10-04T18:09:53.4731472Z",
+      "result": "Failed",
+      "total_count": 186,
+      "passed_count": 185,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 118.97557049999999,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M2-T01-control-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M2-T01-control-ps51/summary.json": "0119013447ae886307b096758afe4f033bc8659ea7a8aa6b72e51f0653ad80ea",
+        ".scratch/M2-T01-control-ps51/results.xml": "b1c0d85af77b05005c7002c9a46df659955a5e6416c27d6543960f7fccc1e9b5",
+        ".scratch/M2-T01-control-ps51-console.log": "8f1c6677488a71d2f049171ae8275784d3a88c5857c4583a9069f2cd46314b2e"
+      },
+      "observed_native_child_exit_code": 1
+    },
+    {
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M2-T01-final-ps7",
+      "observed_at_utc": "2026-10-04T18:09:54.7517880Z",
+      "result": "Passed",
+      "total_count": 185,
+      "passed_count": 185,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 125.6528777,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M2-T01-final-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M2-T01-final-ps7/summary.json": "fdbae0a47a1655da3bf7ba840682427efd287d754e9ce4e1db75e61d4965b7ee",
+        ".scratch/M2-T01-final-ps7/results.xml": "9947141aa06696094da98389f47ac2e08a1ba007cb7f413c5509a416e7761acf",
+        ".scratch/M2-T01-final-ps7-console.log": "844a8d99b7b7bf20728ae207c9d96a758e12ead054597710bb02f9c15088ecb2"
+      },
+      "observed_native_child_exit_code": 0
+    },
+    {
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M2-T01-control-ps7",
+      "observed_at_utc": "2026-10-04T18:09:55.7461413Z",
+      "result": "Failed",
+      "total_count": 186,
+      "passed_count": 185,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 125.9242504,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M2-T01-control-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M2-T01-control-ps7/summary.json": "7531b8fb858cc277c88f6ce47eed6ddd0d21ee86418a0e5c5058ffe37633cb85",
+        ".scratch/M2-T01-control-ps7/results.xml": "c925e7de011b725bf5fb0c0a90030bdf3dad96f19a67d3c16251eca12443f97c",
+        ".scratch/M2-T01-control-ps7-console.log": "ff2664db4458c26ba7465299c567390f4688fc36241d7b6dbaba353115da6568"
+      },
+      "observed_native_child_exit_code": 1
+    }
+  ],
+  "desktop_native_child_verification": {
+    "implementation": "d64a9034ff0b4324b2515900fdf8b4cb82f80bbb",
+    "raw_git_source_bindings": 13,
+    "runs": [
+      {
+        "label": "final-ps51",
+        "total": 185,
+        "passed": 185,
+        "failed": 0,
+        "exit": 0,
+        "duration_seconds": 118.64623599999999,
+        "persistent_policy_unchanged": true,
+        "console_sha256": "c274c3aa4791185a6158cc14c1dfe4311637bb05f4fa038e932fd504761c3b0f"
+      },
+      {
+        "label": "control-ps51",
+        "total": 186,
+        "passed": 185,
+        "failed": 1,
+        "exit": 1,
+        "duration_seconds": 118.97557049999999,
+        "persistent_policy_unchanged": true,
+        "console_sha256": "8f1c6677488a71d2f049171ae8275784d3a88c5857c4583a9069f2cd46314b2e"
+      },
+      {
+        "label": "final-ps7",
+        "total": 185,
+        "passed": 185,
+        "failed": 0,
+        "exit": 0,
+        "duration_seconds": 125.6528777,
+        "persistent_policy_unchanged": true,
+        "console_sha256": "844a8d99b7b7bf20728ae207c9d96a758e12ead054597710bb02f9c15088ecb2"
+      },
+      {
+        "label": "control-ps7",
+        "total": 186,
+        "passed": 185,
+        "failed": 1,
+        "exit": 1,
+        "duration_seconds": 125.9242504,
+        "persistent_policy_unchanged": true,
+        "console_sha256": "ff2664db4458c26ba7465299c567390f4688fc36241d7b6dbaba353115da6568"
+      }
+    ],
+    "clean": true,
+    "source_artifact": ".scratch/M2-T01-desktop-verification.json",
+    "source_artifact_sha256": "773c19aac666bf69d54c0e8273076ab82a95d58aee4192f7b90a896570ddcb2d"
+  },
+  "case_results": [
+    {
+      "case_id": "T029",
+      "state": "passed",
+      "reason": "Two actual GIF variants, with one or two frames, independently establish a transparent 24x20 first tile at +8+10 on a 64x48 logical canvas. Literal bracket paths produce one exact mirrored 64x48 JPEG with white outside and the first red region; later blue pixels and numbered outputs are absent. Source count, selection and omissions are logged; source bytes, length, timestamps and attributes remain unchanged.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T030",
+      "state": "passed",
+      "reason": "An actual two-page TIFF has an asymmetric 80x48 first page whose first IFD Orientation tag is independently set/read as RightTop, followed by a distinct blue page. One 48x80 JPEG contains the correctly oriented first-page red/green/yellow samples, with no page overlay or second-page blue. FirstPage, count 2 and omission 1 are logged; exact output, empty owned work and source bytes/times are checked.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T031",
+      "state": "passed",
+      "reason": "An actual two-frame animated WebP requires sRGBA first-frame channels and a transparent corner before asserting a white/red 64x48 first displayed JPEG and omitted blue frame. A genuine 1328-byte HEVC collection with two top-level still images is independently decoded through both .heic and .heif aliases, exposing HEIC and HEIF labels respectively; one 64x48 JPEG retains the asymmetric primary red/green/yellow image and omits the distinct blue image. Counts, policy, exact single outputs, owned cleanup and source bytes/times are checked. This verifies a still collection; timed HEIC animation remains unverified.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    }
+  ],
+  "codec_capability_observations": [
+    {
+      "codec": "GIF",
+      "state": "actual_decode_and_canvas_verified",
+      "source_images": "one-frame and two-frame offset/transparent variants",
+      "output": "one 64x48 first displayed JPEG"
+    },
+    {
+      "codec": "TIFF",
+      "state": "actual_decode_and_oriented_page_verified",
+      "source_images": 2,
+      "first_orientation": "RightTop",
+      "output": "one 48x80 first-page JPEG"
+    },
+    {
+      "codec": "WebP",
+      "state": "actual_animated_decode_and_first_alpha_canvas_verified",
+      "source_images": 2,
+      "first_channels": "srgba",
+      "first_corner": "srgba(0,0,0,0)",
+      "output": "one 64x48 first displayed JPEG"
+    },
+    {
+      "codec": "HEIC/HEIF",
+      "state": "actual_two_image_still_collection_decode_verified",
+      "source_images": 2,
+      "fixture_sha256": "618ed4d0c36f19bfac97401f28d45d42df9e9125d093875ef794c8c4e675a69a",
+      "decoder_labels": {
+        "heic": "HEIC",
+        "heif": "HEIF"
+      },
+      "output": "one 64x48 primary-first JPEG",
+      "encode_capability": "Pinned native listing is read-only; fixture generation occurred once in ignored development scratch.",
+      "timed_sequence_verification": "unverified"
+    }
+  ],
+  "additional_snapshot_test_observations": [
+    "Malformed actual GIF inspection fails before any conversion process, produces no selected-image log or JPEG, preserves source state and removes exact owned snapshots; partial exit 2.",
+    "Real source length or modification-time mutation at the allocator seam is detected by the copied snapshot/post-read guard before inspection or conversion. The deliberately injected source state is retained; no JPEG or owned work remains; partial exit 2.",
+    "An external source.gif arrival at the exact reserved snapshot path survives CreateNew rejection; inspection/conversion are not called, no JPEG is created and original/external state is preserved; partial exit 2.",
+    "A successful JPEG conversion removes its owned source snapshot while retaining an unknown neighboring work file. Nonempty owned-directory cleanup warns and returns partial exit 2; the JPEG fully decodes and source bytes/times remain unchanged.",
+    "A narrow copied-snapshot metadata seam reports a one-byte-short copy and rejects it before inspection/conversion/finalization; exact cleanup and source preservation are checked. This controlled metadata case does not establish actual disk-exhaustion behavior."
+  ],
+  "case_notes_artifact": ".scratch/M2-T01-case-notes.json",
+  "case_notes_artifact_sha256": "93193428e743561040bae2b837249092ea8706dcf394413c15703306ca19e30f",
+  "case_notes_source_artifact": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/case-notes.json",
+  "case_notes_source_artifact_sha256": "a60e9932e2ed22426a1ab16a0f9ce786b46faae97825437e27a6427e622542be",
+  "implementation_notes": [
+    "GIF/TIF/TIFF/WebP/HEIC/HEIF inspection and conversion read the same exclusively created owned snapshot with a neutral source basename and original extension. Source regular-file/reparse checks and length/modification-time checks surround the copy, and copied length must match. External snapshot arrivals and unknown neighboring files are preserved; exact owned snapshots follow existing cleanup and partial-warning rules.",
+    "A separate successful identify -ping probe counts every decoder-exposed image and rejects malformed, inconsistent or ambiguous count/format/dimension observations. Conversion selects image:frames=0 before the owned native input. Only actual decoded GIF/WebP follows FirstDisplayedFrame coalescing onto its logical canvas; +repage and existing auto-orientation follow. TIFF keeps one first page without stacking; HEIC/HEIF keeps the decoder's primary/first image. Each finalized output still must fully decode as one nonempty JPEG at the exact planned path.",
+    "SOURCE IMG records source count, selected count 1, omitted count, unit, policy and actual decoder. Deliberate omission is the normal informational static-output policy and retains exit 0 on successful runs. Source bytes/times, mirrored naming, no-overwrite finalization, verified videos, success-based heuristic duplicate links, size cap/scales/JPEG flags and public BAT/positional forms retain their established behavior. The bootstrap, dependency pins and workflow were not changed."
+  ],
+  "implementation_notes_artifact": ".scratch/M2-T01-implementation-notes.json",
+  "implementation_notes_artifact_sha256": "a46d585b4c72b82cd0b01c6f928dca60403edc538b69172992ed6b1a1da150c0",
+  "internal_peer_review": {
+    "schema_version": 1,
+    "task_id": "M2-T01",
+    "review_kind": "Internal peer code review, not owner acceptance",
+    "observed_at_utc": "2026-10-04T18:11:37.778270+00:00",
+    "baseline_commit": "b7fe275dfea31e7954df0ebbeeaff02189cf6f8a",
+    "audited_commit": "d64a9034ff0b4324b2515900fdf8b4cb82f80bbb",
+    "audited_tree": "de18f66a156ba8d5d1743de67cb6704461c204c1",
+    "review_completed": true,
+    "no_blocking_findings": true,
+    "reviewed_paths": [
+      "README.md",
+      "WinImgNormalizer.ps1",
+      "tests/Frames.Tests.ps1",
+      "tests/Invoke-Tests.ps1",
+      "tests/Naming.Tests.ps1",
+      "tests/Preflight.Tests.ps1",
+      "tests/README.md"
+    ],
+    "implementation_diff_sha256": "fa2a2ef81378759250f4261a042b27f5ec7f6c8b7a27ca4cebb5ed7004a7da93",
+    "reviewed_file_bindings": [
+      {
+        "path": "README.md",
+        "observed_checkout_sha256": "8bdab33d9fe4972516afefcd6c6d9b559cd3d8b7523374505a276710ae35713d",
+        "reviewed_git_blob_sha256": "8bdab33d9fe4972516afefcd6c6d9b559cd3d8b7523374505a276710ae35713d",
+        "reviewed_git_blob_oid": "7c65c3feb6a50695eb20e94cb9739edcae425b3c",
+        "checkout_to_git_binding": "byte_equal"
+      },
+      {
+        "path": "WinImgNormalizer.ps1",
+        "observed_checkout_sha256": "82d79707a3ea9a588c8cf83121456119874bcc062b5608bec0d223b11e292cda",
+        "reviewed_git_blob_sha256": "a9bbfbff1e7e77c3e86e8845e06e2a97b64de03d2497b9cb0b564c88303fc2dc",
+        "reviewed_git_blob_oid": "7d1c59a341c14c106604ab26710175bda63fa3d5",
+        "checkout_to_git_binding": "checkout_CRLF_to_Git_LF_only"
+      },
+      {
+        "path": "tests/Frames.Tests.ps1",
+        "observed_checkout_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+        "reviewed_git_blob_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+        "reviewed_git_blob_oid": "c9708ca1e8fcbd4b2681f879cb065c8fedeac7cf",
+        "checkout_to_git_binding": "byte_equal"
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "observed_checkout_sha256": "b00dc5bb1de05ecf771a93d7b300825abe300666cdca2ba71621c7f083a73b15",
+        "reviewed_git_blob_sha256": "b00dc5bb1de05ecf771a93d7b300825abe300666cdca2ba71621c7f083a73b15",
+        "reviewed_git_blob_oid": "bb631c98dd76b35afa4dc5a10abed4699bfa48d4",
+        "checkout_to_git_binding": "byte_equal"
+      },
+      {
+        "path": "tests/Naming.Tests.ps1",
+        "observed_checkout_sha256": "3a1073e4ac6c053c97dc294ea59aa4452e3e1a8a306bf20916ec84bf00235b32",
+        "reviewed_git_blob_sha256": "3a1073e4ac6c053c97dc294ea59aa4452e3e1a8a306bf20916ec84bf00235b32",
+        "reviewed_git_blob_oid": "9a295e0cdd7965d3aec4cb2e54e57c38ab6b20aa",
+        "checkout_to_git_binding": "byte_equal"
+      },
+      {
+        "path": "tests/Preflight.Tests.ps1",
+        "observed_checkout_sha256": "af89baa08898c758f7bc22fa7a586fe834107f053dcf32bca8e0f2e3c9e04fdb",
+        "reviewed_git_blob_sha256": "af89baa08898c758f7bc22fa7a586fe834107f053dcf32bca8e0f2e3c9e04fdb",
+        "reviewed_git_blob_oid": "9277fee6ff50770e5c5fd70ff275160dd617017f",
+        "checkout_to_git_binding": "byte_equal"
+      },
+      {
+        "path": "tests/README.md",
+        "observed_checkout_sha256": "aa5e0c32c8aa611a0f767f0436ccc9142a30e7bdddcd3e4f612e58007009f80a",
+        "reviewed_git_blob_sha256": "aa5e0c32c8aa611a0f767f0436ccc9142a30e7bdddcd3e4f612e58007009f80a",
+        "reviewed_git_blob_oid": "86984eec7cd86e2ae31f44ca7e578496e0ea0510",
+        "checkout_to_git_binding": "byte_equal"
+      },
+      {
+        "path": "WinImgNormalizer.bat",
+        "observed_checkout_sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "reviewed_git_blob_sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "reviewed_git_blob_oid": "869870ecda14157390dd7672c2e32387834743ac",
+        "checkout_to_git_binding": "byte_equal",
+        "unchanged_from_task_baseline": true,
+        "baseline_git_blob_sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+      },
+      {
+        "path": ".github/workflows/windows-tests.yml",
+        "observed_checkout_sha256": "e166fdec3c7fd1bf2d1c47d520990ac1b0b5ca454763eef0f60d610ff5a0ac1f",
+        "reviewed_git_blob_sha256": "e166fdec3c7fd1bf2d1c47d520990ac1b0b5ca454763eef0f60d610ff5a0ac1f",
+        "reviewed_git_blob_oid": "1b049f4034506b33c289582c9eeb8491d4684c83",
+        "checkout_to_git_binding": "byte_equal",
+        "unchanged_from_task_baseline": true,
+        "baseline_git_blob_sha256": "e166fdec3c7fd1bf2d1c47d520990ac1b0b5ca454763eef0f60d610ff5a0ac1f"
+      },
+      {
+        "path": "tests/Initialize-TestDependencies.ps1",
+        "observed_checkout_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "reviewed_git_blob_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "reviewed_git_blob_oid": "1f9b2b7a8277a30d2fc01538850b3b58663d2f73",
+        "checkout_to_git_binding": "byte_equal",
+        "unchanged_from_task_baseline": true,
+        "baseline_git_blob_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+      },
+      {
+        "path": "tests/dependencies.json",
+        "observed_checkout_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "reviewed_git_blob_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "reviewed_git_blob_oid": "4fa77d9a4de6d374b58de0035fbeb42c3ebf7b6e",
+        "checkout_to_git_binding": "byte_equal",
+        "unchanged_from_task_baseline": true,
+        "baseline_git_blob_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+      }
+    ],
+    "findings": [
+      {
+        "topic": "R04 first displayed GIF/WebP canvas",
+        "result": "passed",
+        "details": "The first-image define precedes the neutral owned snapshot input. Only actual GIF/WEBP decoder policies coalesce the selected first image onto its logical canvas; +repage then existing auto-orient precedes strip. Pinned native offset/single-frame GIF and animated WebP probes support this ordering. Final T029/T031 tests independently inspect source count/geometry/real alpha and assert exactly one full-decoded JPEG with canvas placement and known pixels."
+      },
+      {
+        "topic": "R04 TIFF and HEIC/HEIF primary/first policy",
+        "result": "passed",
+        "details": "TIFF and HEIC/HEIF use index zero without coalescing unrelated pages/images. The pinned HEIC reader exposes collection primary first. T030 stores an actual first-IFD RightTop orientation tag and asserts oriented dimensions plus asymmetric known pixels; T031 embeds an approved self-generated genuine two-top-level HEVC collection, independently reads both colors and tests both extensions through the actual decoder."
+      },
+      {
+        "topic": "Source inspection/count gates",
+        "result": "passed",
+        "details": "One stable snapshot supplies both full decoder-exposed ping count inspection and selected conversion. Nonzero native inspection, absent output, ambiguous row/count/dimension shape or mixed format fails the item before conversion. Relative-source log records count, selected one, omitted count, unit, policy and decoder. Full single-frame JPEG candidate decoding/final no-overwrite move remain required."
+      },
+      {
+        "topic": "Snapshot ownership and stability",
+        "result": "passed",
+        "details": "Exclusive attempt directory plus exact source-name CreateNew establishes file ownership only after reservation succeeds; FileShare.Read blocks cooperative writers while copying. Regular/reparse and expected source length/time checks precede and follow copy; copied length must match. Ownership is registered before copy errors so exact owned cleanup runs on failure. Reserved arrivals/unknown siblings survive, with nonrecursive directory removal failure surfaced. Conversion retries use separate last-candidate ownership and cannot delete/reuse the source snapshot."
+      },
+      {
+        "topic": "Existing scope/public interface/dependencies",
+        "result": "passed",
+        "details": "Changes are exactly seven implementation paths. Existing CLI forms, callable boundary, BAT, verified dependency pins/bootstrap and Windows CI workflow are preserved. Ordinary JPEG/PNG/BMP and video conversion behavior/seams are unchanged. Naming/Preflight changes are narrow explicit controlled-codec inspection mocks, and actual HEVC coverage is mandatory in the separate Frames suite. Generator libraries/wheel are provenance only, absent runtime and CI dependency changes."
+      },
+      {
+        "topic": "Regression inclusion and evidence boundary",
+        "result": "passed",
+        "details": "The default runner includes all twelve Frames cases alongside prior mandatory suites. Actual GIF/TIFF/WebP/HEVC integration cases assert source hashes/timestamps/attributes and exact output/file/scratch shape. Failure cases cover invalid inspection, real changed source length/time, controlled short-copy metadata, external snapshot arrival and unknown neighbor. Final targeted PS7/PS5.1 summaries were read as 12/12 zero skipped and match reviewed runtime/test hashes; full final desktop/CI gates are separate execution evidence owned by root."
+      },
+      {
+        "topic": "Initial WebP failure classification",
+        "result": "passed",
+        "details": "Independent original RIFF parse found no VP8X or VP8L alpha, an opaque 16x12 first patch at 12,14 on 64x48 canvas and optional opaque-white ANIM background hint. Pinned native full read, define0/coalesce and independent Pillow12.3 already render RGB black padding before normalization. Initial white-alpha expectation was unsupported by the encoded fixture/installed decoder. This does not establish a normalizer first-frame/canvas-selection defect; black is not asserted as mandatory across every compliant viewer."
+      }
+    ],
+    "limitations": [
+      "Counts describe only images exposed by the installed decoder; hidden HEIF auxiliaries/thumbnails are not a complete container inventory.",
+      "Actual HEVC evidence is a two-image collection, not a timed HEIC animation. Decoder ordering for supported timed sequences is documented primary/first; a timed-sequence runtime reproduction is not claimed.",
+      "ANIM background is an optional hint; installed decoder handling of alpha-free cropped WebP padding is qualified in the independent diagnosis. The final transparency assertion requires actual decoded alpha.",
+      "M2-T02 color/profile/metadata policy and M2-T03 generic native filename grammar remain later work. Ordinary nonsequence inputs retain their existing native path handling.",
+      "Process timeout/cancellation, resource limits and later ancillary/reporting policy remain future gates; this internal review does not claim them complete.",
+      "Metadata stability/read sharing is not a hostile concurrent-filesystem sandbox or a content-equality guarantee. No mandatory runtime content hash was added.",
+      "Targeted checks are observations of the reviewed draft bytes; final full desktop and hosted CI results are separate execution evidence. Code review and Git synchronization do not establish owner acceptance."
+    ],
+    "initial_webp_diagnosis": {
+      "artifact_path": ".scratch/M2-T01-peer-probe-e9774285dcf64bf6b12f4dd31e473a3a/initial-webp-diagnosis.json",
+      "sha256": "d3a81247708a0185959236474fe61abd83806e3ad6aaab1575ff3a82114cd25b"
+    },
+    "primary_sources": [
+      {
+        "url": "https://imagemagick.org/command-line-processing/#input",
+        "finding": "image:frames define selects first index without appending a bracket selector to the user input name."
+      },
+      {
+        "url": "https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/image.c",
+        "finding": "Pinned SetImageInfo consumes image:frames when no filename subimage selection exists."
+      },
+      {
+        "url": "https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/layer.c",
+        "finding": "Pinned CoalesceImages initializes logical first canvas and composites first image at its page offset."
+      },
+      {
+        "url": "https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/coders/heic.c",
+        "finding": "Pinned collection reader acquires the primary image before other top-level images; supported sequence path returns its first decoded sequence image first."
+      },
+      {
+        "url": "https://developers.google.com/speed/webp/docs/riff_container",
+        "finding": "Background is a viewer hint; alpha is encoded per frame/container flags rather than inferred from a source-generation recipe."
+      }
+    ],
+    "source_artifact": ".scratch/M2-T01-peer-probe-e9774285dcf64bf6b12f4dd31e473a3a/M2-T01-peer-review.json",
+    "source_artifact_sha256": "4a2b009f8394dfd60f94c4fec26183887ed821b9627b919dee2f2f1c21497efe"
+  },
+  "fixture_provenance": {
+    "task_id": "M2-T01",
+    "kind": "synthetic_fixture_and_development_probe_provenance",
+    "generator": {
+      "generator": "pillow-heif",
+      "version": "1.8.0",
+      "wheel": "pillow_heif-1.8.0-cp312-cp312-win_amd64.whl",
+      "wheel_url": "https://files.pythonhosted.org/packages/a9/5e/97c0e837b787316ae8020e6f17134aa24e22b16027440406d02f9be7f99f/pillow_heif-1.8.0-cp312-cp312-win_amd64.whl",
+      "wheel_bytes": 6604433,
+      "wheel_sha256": "921784d39b5e3b9bcbfcf96ff05e78bc5a15ced5d171cf4e3987d06c04da71bf",
+      "metadata_url": "https://pypi.org/pypi/pillow-heif/1.8.0/json",
+      "license": "BSD-3-Clause",
+      "libheif_info": {
+        "libheif": "1.23.4",
+        "HEIF": "x265 HEVC encoder (4.3+1-e9b8812)",
+        "AVIF": "",
+        "encoders": {
+          "x265": "x265 HEVC encoder (4.3+1-e9b8812)",
+          "mask": "mask"
+        },
+        "decoders": {
+          "libde265": "libde265 HEVC decoder, version 1.1.3"
+        }
+      },
+      "fixture_name": "two-images.heic",
+      "fixture_bytes": 1328,
+      "fixture_sha256": "618ed4d0c36f19bfac97401f28d45d42df9e9125d093875ef794c8c4e675a69a",
+      "decoded_image_count": 2,
+      "decoded_images": [
+        {
+          "size": [
+            64,
+            48
+          ],
+          "mode": "RGB",
+          "primary": true
+        },
+        {
+          "size": [
+            64,
+            48
+          ],
+          "mode": "RGB",
+          "primary": false
+        }
+      ],
+      "recipe": "64x48 RGB first red #E02020, green #20D040 rectangle0,0..23,15, yellow #E0D020 rectangle40,32..63,47; second solidblue #2020E0; lossless HEVC444; primary0; no thumbnails/auxiliary/metadata; two still top-level images, not timed animation"
+    },
+    "official_metadata_wheel_binding": {
+      "metadata_url": "https://pypi.org/pypi/pillow-heif/1.8.0/json",
+      "download_url": "https://files.pythonhosted.org/packages/a9/5e/97c0e837b787316ae8020e6f17134aa24e22b16027440406d02f9be7f99f/pillow_heif-1.8.0-cp312-cp312-win_amd64.whl",
+      "filename": "pillow_heif-1.8.0-cp312-cp312-win_amd64.whl",
+      "bytes": 6604433,
+      "sha256": "921784d39b5e3b9bcbfcf96ff05e78bc5a15ced5d171cf4e3987d06c04da71bf"
+    },
+    "artifacts": [
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/pypi-1.8.0.json",
+        "exists": true,
+        "bytes": 70891,
+        "sha256": "c304c9c8d6b157d8da613f2656b57855171e3c4a9f285ac1ba944671bfabe220"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/pillow_heif-1.8.0-cp312-cp312-win_amd64.whl",
+        "exists": true,
+        "bytes": 6604433,
+        "sha256": "921784d39b5e3b9bcbfcf96ff05e78bc5a15ced5d171cf4e3987d06c04da71bf"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/pillow-heif-1.8.0-unpacked/pillow_heif-1.8.0.dist-info/licenses/LICENSE.txt",
+        "exists": true,
+        "bytes": 1546,
+        "sha256": "9e2635f155b00af5a46cb2f2c9b052072ec546d59837ee74efc9cba2cbb83f3d"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/pillow-heif-1.8.0-unpacked/pillow_heif-1.8.0.dist-info/licenses/LICENSES_bundled.txt",
+        "exists": true,
+        "bytes": 1153,
+        "sha256": "e66e5864371a3b082902dbb80424203d8ff5c7e2a9e239e403e7433cda1510c1"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/heic-encode.log",
+        "exists": true,
+        "bytes": 373,
+        "sha256": "07d8180df91b0ef1b926fcc861ea08eb8ca50a882d9b080f4caedb4e98116345"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/heic-decode.log",
+        "exists": true,
+        "bytes": 197,
+        "sha256": "2b8ccb1edfd34f2a80cdcf433edfc090c7662204f5c99f161c44b12ecf88d349"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/generate_heic-attempt1.py",
+        "exists": true,
+        "bytes": 2991,
+        "sha256": "31bed7fdf6a94a53512fb741f8026aa1210f17fb4b53d173b2830a36097642d0"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/generation-console.log",
+        "exists": true,
+        "bytes": 1235,
+        "sha256": "6e29951627a29c9c40462304200432b99d0e9db0eb4aee58177effd9c84acb5c"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/generate_heic.py",
+        "exists": true,
+        "bytes": 3330,
+        "sha256": "8a844610fe017c310f6bc7105a57cb5698e92a05385d1bccce38714a0c5b416d"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/generation-console2.log",
+        "exists": true,
+        "bytes": 1493,
+        "sha256": "6be528d88356cfb1b7862ac68859cf77726251fa7ff0c23a488355fd5848e23d"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/generation.json",
+        "exists": true,
+        "bytes": 1491,
+        "sha256": "0354cd14dbbb7fe67f724e67aba6992f41d487f6f791028b51230d0d8e4194a7"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/two-images.heic",
+        "exists": true,
+        "bytes": 1328,
+        "sha256": "618ed4d0c36f19bfac97401f28d45d42df9e9125d093875ef794c8c4e675a69a"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/two-images.base64.txt",
+        "exists": true,
+        "bytes": 1772,
+        "sha256": "e8b2a3c975e23e9e9d531e3bf588cd15598313edb6d29af5f4e6fa9155fe2ca9"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/pinned-heic-inspection.log",
+        "exists": true,
+        "bytes": 32,
+        "sha256": "ca9d0c75c375a625a1fd23fb108ea1bde26567a3fe9df1942de747c5a30dafa6"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/pinned-heic-pixels.log",
+        "exists": true,
+        "bytes": 46,
+        "sha256": "d98ba8537d2f5fa685c75a3614b5d4a84de17652e9064ce2c3020c30b721af7f"
+      }
+    ],
+    "peer_native_probe": {
+      "schema_version": 1,
+      "task_id": "M2-T01",
+      "kind": "internal_peer_native_probe",
+      "pinned_imagemagick_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "pinned_version": "7.1.2-32",
+      "originals": "Synthetic fixtures generated in this marked ignored directory only. No application runtime files were changed by this probe.",
+      "initial_tests": [
+        {
+          "fixture": "offset.gif",
+          "method": "selector",
+          "metadata": [
+            "GIF|2|8|6|24|20|+5|+4|Undefined",
+            "GIF|2|24|20|24|20|+0|+0|Undefined"
+          ],
+          "metadataExit": 0,
+          "exit": 0,
+          "output": "JPEG|1|24|20|srgb(255,249,255)|srgb(255,0,14)",
+          "native": []
+        },
+        {
+          "fixture": "offset.gif",
+          "method": "delete",
+          "metadata": [
+            "GIF|2|8|6|24|20|+5|+4|Undefined",
+            "GIF|2|24|20|24|20|+0|+0|Undefined"
+          ],
+          "metadataExit": 0,
+          "exit": 0,
+          "output": "JPEG|1|24|20|srgb(255,249,255)|srgb(255,0,14)",
+          "native": []
+        },
+        {
+          "fixture": "offset.gif",
+          "method": "define",
+          "metadata": [
+            "GIF|2|8|6|24|20|+5|+4|Undefined",
+            "GIF|2|24|20|24|20|+0|+0|Undefined"
+          ],
+          "metadataExit": 0,
+          "exit": 0,
+          "output": "JPEG|1|24|20|srgb(255,249,255)|srgb(255,0,14)",
+          "native": []
+        },
+        {
+          "fixture": "pages.tiff",
+          "method": "selector",
+          "metadata": [
+            "TIFF|2|18|10|18|10|+0|+0|TopLeft",
+            "TIFF|2|10|18|10|18|+0|+0|TopLeft"
+          ],
+          "metadataExit": 0,
+          "exit": 0,
+          "output": "JPEG|1|18|10|srgb(254,0,0)|srgb(254,0,0)",
+          "native": []
+        },
+        {
+          "fixture": "pages.tiff",
+          "method": "delete",
+          "metadata": [
+            "TIFF|2|18|10|18|10|+0|+0|TopLeft",
+            "TIFF|2|10|18|10|18|+0|+0|TopLeft"
+          ],
+          "metadataExit": 0,
+          "exit": 0,
+          "output": "JPEG|1|18|10|srgb(254,0,0)|srgb(254,0,0)",
+          "native": []
+        },
+        {
+          "fixture": "pages.tiff",
+          "method": "define",
+          "metadata": [
+            "TIFF|2|18|10|18|10|+0|+0|TopLeft",
+            "TIFF|2|10|18|10|18|+0|+0|TopLeft"
+          ],
+          "metadataExit": 0,
+          "exit": 0,
+          "output": "JPEG|1|18|10|srgb(254,0,0)|srgb(254,0,0)",
+          "native": []
+        },
+        {
+          "fixture": "animated.webp",
+          "method": "selector",
+          "metadata": [
+            "WEBP|2|24|20|24|20|+0|+0|Undefined",
+            "WEBP|2|24|20|24|20|+0|+0|Undefined"
+          ],
+          "metadataExit": 0,
+          "exit": 0,
+          "output": "JPEG|1|24|20|srgb(255,249,255)|srgb(255,0,14)",
+          "native": []
+        },
+        {
+          "fixture": "animated.webp",
+          "method": "delete",
+          "metadata": [
+            "WEBP|2|24|20|24|20|+0|+0|Undefined",
+            "WEBP|2|24|20|24|20|+0|+0|Undefined"
+          ],
+          "metadataExit": 0,
+          "exit": 0,
+          "output": "JPEG|1|24|20|srgb(255,249,255)|srgb(255,0,14)",
+          "native": []
+        },
+        {
+          "fixture": "animated.webp",
+          "method": "define",
+          "metadata": [
+            "WEBP|2|24|20|24|20|+0|+0|Undefined",
+            "WEBP|2|24|20|24|20|+0|+0|Undefined"
+          ],
+          "metadataExit": 0,
+          "exit": 0,
+          "output": "JPEG|1|24|20|srgb(255,249,255)|srgb(255,0,14)",
+          "native": []
+        }
+      ],
+      "extra_tests": {
+        "orientedCreateExit": 0,
+        "orientedMeta": [
+          "TIFF|2|18|10|TopLeft",
+          "TIFF|2|10|18|TopLeft"
+        ],
+        "results": [
+          {
+            "fixture": "oriented.tiff",
+            "method": "delete",
+            "exit": 0,
+            "output": "JPEG|1|18|10|Undefined",
+            "native": []
+          },
+          {
+            "fixture": "oriented.tiff",
+            "method": "define",
+            "exit": 0,
+            "output": "JPEG|1|18|10|Undefined",
+            "native": []
+          },
+          {
+            "fixture": "single.gif",
+            "method": "delete",
+            "exit": 0,
+            "output": "JPEG|1|24|20|Undefined",
+            "native": []
+          },
+          {
+            "fixture": "single.gif",
+            "method": "define",
+            "exit": 0,
+            "output": "JPEG|1|24|20|Undefined",
+            "native": []
+          }
+        ],
+        "heicCreateExit": 1,
+        "heicCreateNativeCount": 2,
+        "heicMeta": null,
+        "heicFirstExit": null,
+        "heicFirst": null
+      },
+      "orientation_and_capability": {
+        "orientationFieldFound": true,
+        "patchedMeta": [
+          "TIFF|2|18|10|RightTop",
+          "TIFF|2|10|18|TopLeft"
+        ],
+        "patchedFirstExit": 0,
+        "patchedFirst": "JPEG|1|10|18|srgb(254,0,0)",
+        "heicCreateExit": 1,
+        "heicReason": [
+          "magick.exe: no encode delegate for this image format `HEIC' @ warning/constitute.c/WriteImage/1426.",
+          "magick.exe: no encode delegate for this image format `HEIC' @ error/constitute.c/WriteImage/1435."
+        ],
+        "formats": [
+          "             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP",
+          "     HEIC  r--   High Efficiency Image Format (1.23.5)",
+          "     HEIF  r--   High Efficiency Image Format (1.23.5)",
+          "             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP",
+          "             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP",
+          "             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP",
+          "     WEBP* rw+   WebP Image Format (libwebp 1.6.0 [0210])"
+        ]
+      },
+      "sources": [
+        "https://imagemagick.org/command-line-processing/#input",
+        "https://imagemagick.org/command-line-options/#coalesce",
+        "https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/image.c",
+        "https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/layer.c",
+        "https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/coders/heic.c"
+      ],
+      "interpretation": "image:frames=0 succeeds on baseline without appending a selector. First-only coalesce respects the GIF/WebP first frame virtual canvas and placement. TIFF first page is kept separately; a real patched first IFD Orientation tag6 is auto-oriented. Native HEIC encode failed due missing encode delegate; source primary-first/sequence-first behavior is separate from actual fixture verification.",
+      "scope_limit": "This does not establish universal input filename literal handling, broad colour correctness, process budgets or native HEIC decoding.",
+      "source_artifact": ".scratch/M2-T01-peer-probe-e9774285dcf64bf6b12f4dd31e473a3a/probe-results.json",
+      "source_artifact_sha256": "64a4acfb15b10c167e3bcbed314c41e5cb67d62444b988e85abe0cf46eb6f5a5"
+    },
+    "independent_pinned_decoder_observation": {
+      "format": "HEIC",
+      "exposed_images": 2,
+      "width": 64,
+      "height": 48,
+      "image_order": "primary asymmetric red/green/yellow, then distinct blue",
+      "inspection_log": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/pinned-heic-inspection.log",
+      "inspection_log_sha256": "ca9d0c75c375a625a1fd23fb108ea1bde26567a3fe9df1942de747c5a30dafa6",
+      "pixels_log": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/pinned-heic-pixels.log",
+      "pixels_log_sha256": "d98ba8537d2f5fa685c75a3614b5d4a84de17652e9064ce2c3020c30b721af7f"
+    },
+    "tooling_development_history": [
+      {
+        "stage": "Initial ImageMagick fixture encode probe",
+        "result": "failed",
+        "observation": "The codec-probe encode log records blob-open/WriteBlob errors. Separately, the peer probe has actual HEIC r-- capability rows and explicit no-encode-delegate diagnostics. Do not attribute one log message to the other or call this a normalizer failure."
+      },
+      {
+        "stage": "Initial unpacked fixture-generator import",
+        "result": "failed",
+        "observation": "Observed ImportError: DLL load failed while importing _pillow_heif. The immutable attempt1 script and console log are retained. This is fixture tooling development, not a Pester or application assertion."
+      },
+      {
+        "stage": "Once-only corrected fixture generation",
+        "result": "passed",
+        "observation": "Process-local DLL directory resolution enabled the unpacked hash-verified wheel; generated fixture and metadata were independently inspected by pinned ImageMagick. No package installation, persistent PATH/policy, runtime bootstrap or CI dependency was added."
+      }
+    ],
+    "scope_limits": [
+      "The fixture has two top-level still images and no thumbnails/auxiliary/timed sequence; timed HEIC animation remains unverified.",
+      "Only the generated synthetic fixture bytes and provenance enter the test source; no generator software binary is embedded/distributed. Source and bundled binary license texts remain retained in ignored scratch.",
+      "Decoder capability/order is observed on the pinned build; a codec name alone does not prove arbitrary sequence decoding. Actual runtime regression results remain separate from these fixture/probe observations."
+    ],
+    "source_artifact": ".scratch/M2-T01-fixture-provenance.json",
+    "source_artifact_sha256": "811dc72d5b695ccd5b8305def160ac4ce562ecb392b5c5b4a9850d203c555ded"
+  },
+  "historical_run_results": [
+    {
+      "artifact": ".scratch/test-results/M2-T01-target-PS7-1/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T01-target-PS7-1/summary.json": "ddd20f4a0787ce258d5c171c341a0c417f1b3d47d7b20365f4e1b20c5c517025",
+        ".scratch/test-results/M2-T01-target-PS7-1/results.xml": "58f3e88d2549525dede4e7b3e3070ce90feddbd67b305ce92d287f7be61afe03"
+      },
+      "observed_at_utc": "2026-10-04T18:03:08.8742192Z",
+      "result": "Failed",
+      "total_count": 12,
+      "passed_count": 6,
+      "failed_count": 6,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M2-T01 deliberate first logical canvas and first page (T029-T031).T031 decodes an actual two-frame animated WebP, keeps its first alpha canvas and reports the dropped frame",
+        "M2-T01 deliberate first logical canvas and first page (T029-T031).T031 decodes both actual HEVC collection images via .heif, retains the decoder primary first image and reports one omission",
+        "M2-T01 source inspection and snapshot safety.rejects an actual source length change during snapshot allocation before source inspection or conversion",
+        "M2-T01 source inspection and snapshot safety.rejects an actual source timestamp change during snapshot allocation before source inspection or conversion",
+        "M2-T01 source inspection and snapshot safety.removes its successful owned source snapshot and keeps an unknown neighboring file",
+        "M2-T01 source inspection and snapshot safety.rejects a controlled short copied-snapshot length before inspection and conversion"
+      ],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "82d79707a3ea9a588c8cf83121456119874bcc062b5608bec0d223b11e292cda",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "b00dc5bb1de05ecf771a93d7b300825abe300666cdca2ba71621c7f083a73b15",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Frames.Tests.ps1": "248bc0a5996bbad5d2f118e92886ab08be57facca567edfc43e5b68d87e796f0"
+      },
+      "revision_binding": "Uncommitted M2-T01 development observation; saved end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T01-target-PS7-2/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T01-target-PS7-2/summary.json": "842b46cd83647b853fb5f6cbc1f1a3a1f501109b5d5219a77ae48fbd31a2db89",
+        ".scratch/test-results/M2-T01-target-PS7-2/results.xml": "eea9b8650b2475b6ceb5189f41f5604362f5163b045046885ba1fecb74482b63"
+      },
+      "observed_at_utc": "2026-10-04T18:06:05.6658157Z",
+      "result": "Failed",
+      "total_count": 12,
+      "passed_count": 11,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M2-T01 deliberate first logical canvas and first page (T029-T031).T031 decodes an actual two-frame animated WebP, keeps its first alpha canvas and reports the dropped frame"
+      ],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "82d79707a3ea9a588c8cf83121456119874bcc062b5608bec0d223b11e292cda",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "b00dc5bb1de05ecf771a93d7b300825abe300666cdca2ba71621c7f083a73b15",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Frames.Tests.ps1": "233f135f1da7728e0865e44161efc49a810a9d10dde8ea092f323d624729d462"
+      },
+      "revision_binding": "Uncommitted M2-T01 development observation; saved end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T01-target-PS7-3/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T01-target-PS7-3/summary.json": "97d026851e5342286c95984a22e4a830ec3eae82bf2392769a2280ad9c40c439",
+        ".scratch/test-results/M2-T01-target-PS7-3/results.xml": "7734841c0822f3bfb01694bdcab7f970bd61c9d67de7b74a52c77805ce87bc8b"
+      },
+      "observed_at_utc": "2026-10-04T18:07:04.8644067Z",
+      "result": "Passed",
+      "total_count": 12,
+      "passed_count": 12,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "82d79707a3ea9a588c8cf83121456119874bcc062b5608bec0d223b11e292cda",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "b00dc5bb1de05ecf771a93d7b300825abe300666cdca2ba71621c7f083a73b15",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963"
+      },
+      "revision_binding": "Uncommitted M2-T01 development observation; saved end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T01-target-PS51-1/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T01-target-PS51-1/summary.json": "195ebc0ea7a8a579ac25981f958ff4811cfe8596c9ee57f679fc1f8d3fbcc024",
+        ".scratch/test-results/M2-T01-target-PS51-1/results.xml": "24812cdcd765ee411e34ec0da81409e6cb89f62a3bc976e26e96ea8eb6aeab99"
+      },
+      "observed_at_utc": "2026-10-04T18:07:04.8735079Z",
+      "result": "Passed",
+      "total_count": 12,
+      "passed_count": 12,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "82d79707a3ea9a588c8cf83121456119874bcc062b5608bec0d223b11e292cda",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "b00dc5bb1de05ecf771a93d7b300825abe300666cdca2ba71621c7f083a73b15",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963"
+      },
+      "revision_binding": "Uncommitted M2-T01 development observation; saved end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    }
+  ],
+  "history_interpretation": "Four uncommitted targeted development runs are retained. The first PS7 run passed\n6/12 and failed six assertions: an HEIF label expectation, two mock source-path\nerrors, recursive copied-metadata inspection, a cleanup warning expected as success,\nand an unsupported white/transparent WebP expectation. Independent RIFF, pinned\ndecoder and Pillow inspection found the original WebP alpha-free; its optional\nwhite animation-background hint did not establish white rendered padding. The\nsecond PS7 run passed 11/12 and failed an alpha expression applied to an RGB-only\nsecond frame. Corrected fixture/mock/oracle checks passed 12/12 in PS7-3 and PS5.1-1;\nno runtime fix was required for those test-development failures. Raw summaries,\nXML, consoles and saved source snapshots stay ignored with hashes; their end-of-run\nsource hashes do not establish an immutable clean execution revision. Separately,\nthe native HEIC encode probe and first unpacked generator DLL import failed during\nfixture tooling development; verified once-only generation and independent actual\ntwo-image decoding then succeeded. These tooling events are distinct from runtime\nassertion results and from the subsequent clean committed full acceptance runs.",
+  "history_interpretation_artifact": ".scratch/M2-T01-history.txt",
+  "history_interpretation_artifact_sha256": "2d6cf25727d7921b5e4e53c321d7d882f32e49e88340af0cfc16b1f454d27336",
+  "development_failure_diagnosis": {
+    "task_id": "M2-T01",
+    "revision_binding": "Uncommitted development observations; retained end-of-run runner hashes and saved source snapshots do not establish an immutable committed execution binding.",
+    "independent_webp_diagnosis": {
+      "task_id": "M2-T01",
+      "observation_kind": "Internal peer fixture diagnosis; not owner acceptance",
+      "observed_at_utc": "2026-10-04T18:09:46.4071930Z",
+      "fixture_sha256": "bc1eb8a69deb4ffa6f2563599bc1830009ac260badae6c4c99a78db9511e7f7b",
+      "fixture_length": 150,
+      "native_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "container": {
+        "canvas_width": 64,
+        "canvas_height": 48,
+        "vp8x_flags": 2,
+        "vp8x_alpha_flag": false,
+        "anim_background_BGRA": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "loop_count": 0,
+        "frames": [
+          {
+            "index": 0,
+            "x": 12,
+            "y": 14,
+            "width": 16,
+            "height": 12,
+            "duration_ms": 100,
+            "flags": 2,
+            "blend": false,
+            "dispose_to_background": false,
+            "vp8l_alpha_used": false
+          },
+          {
+            "index": 1,
+            "x": 0,
+            "y": 0,
+            "width": 64,
+            "height": 48,
+            "duration_ms": 100,
+            "flags": 0,
+            "blend": true,
+            "dispose_to_background": false,
+            "vp8l_alpha_used": false
+          }
+        ]
+      },
+      "native_full_read": [
+        "WEBP|2|64|48|64|48|+0|+0|srgb  3.0|srgb(0,0,0)|srgb(224,32,32)",
+        "WEBP|2|64|48|64|48|+0|+0|srgb  3.0|srgb(32,32,224)|srgb(32,32,224)"
+      ],
+      "native_define0_coalesce": "WEBP|1|64|48|srgb  3.0|srgb(0,0,0)|srgb(224,32,32)",
+      "pillow_independent": {
+        "version": "12.3.0",
+        "mode": "RGB",
+        "count": 2,
+        "size": [
+          64,
+          48
+        ],
+        "background_RGBA": [
+          255,
+          255,
+          255,
+          255
+        ],
+        "first_pixel_0_0_RGBA": [
+          0,
+          0,
+          0,
+          255
+        ],
+        "first_pixel_15_17_RGBA": [
+          224,
+          32,
+          32,
+          255
+        ],
+        "second_pixel_0_0_RGBA": [
+          32,
+          32,
+          224,
+          255
+        ]
+      },
+      "classification": "The encoded first fragment contains no alpha; the installed decoder already exposes a full RGB canvas with black padding before normalizer operations. The initial white/transparent expectation was unsupported by this actual encoded fixture. It does not establish a normalizer first-frame or canvas-selection defect.",
+      "qualification": "ANIM background is an optional viewer hint, so opaque black padding is an observation of the pinned decoder/Pillow path, not an assertion that every compliant viewer must show black. The final regression requires real decoded alpha before expecting white flattening.",
+      "sources": [
+        {
+          "url": "https://developers.google.com/speed/webp/docs/riff_container",
+          "finding": "VP8X alpha indicates frame transparency; ANMF no-alpha content is opaque within its rectangle; ANIM background may fill canvas but viewers are not required to use its hint."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/coders/webp.c",
+          "finding": "ReadSingleWEBPImage obtains alpha_trait from encoded fragment; the first animation image is expanded to canvas and pixels outside fragment are zeroed. An alpha-free fragment leaves an RGB canvas."
+        },
+        {
+          "url": "https://raw.githubusercontent.com/webmproject/libwebp/v1.6.0/src/demux/anim_decode.c",
+          "finding": "Reference animation decoder clears key-frame canvas to transparent zeros and decodes at the frame offset; background is exposed in info without mandatory fill in this decoder."
+        }
+      ],
+      "fixture_artifact": ".scratch/M2-T01-frames-7c75b28b961547eca50dc12bd19c6573/webp-source-5015b7da/animated.webp",
+      "source_artifact": ".scratch/M2-T01-peer-probe-e9774285dcf64bf6b12f4dd31e473a3a/initial-webp-diagnosis.json",
+      "source_artifact_sha256": "d3a81247708a0185959236474fe61abd83806e3ad6aaab1575ff3a82114cd25b"
+    },
+    "diagnoses": [
+      {
+        "run": ".scratch/test-results/M2-T01-target-PS7-1/summary.json",
+        "total": 12,
+        "passed": 6,
+        "failed": 6,
+        "exit_code": 1,
+        "details": [
+          "The HEIF alias fixture expected HEIC metadata, while the actual pinned decoder reported HEIF for the .heif path; the test now asserts that actual alias.",
+          "Length and timestamp mutation mocks used a dynamically shadowed source path and acted on the report directory; the test retains an immutable trace.SourcePath.",
+          "The short-copy Get-Item mock recursed into itself and reached call-depth overflow; the fixture now uses IO.FileInfo for the narrowly controlled observation.",
+          "The unknown-neighbor cleanup case expected exit 0 although the completed output correctly retained an unknown neighboring file and reported partial cleanup with exit 2; the assertion now expects that warning.",
+          "The initial WebP first-pixel oracle expected a white alpha canvas although the encoded first fragment was opaque: VP8X flags 2, VP8L alpha_used false, and an opaque 16x12 fragment at offset 12,14. Independent raw/coalesced decoding had RGB black padding; the white ANIM background hint did not establish the intended transparent first frame. The fixture was revised to retain actual first-frame alpha and require decoded sRGBA channels plus a transparent corner before judging white JPEG output."
+        ]
+      },
+      {
+        "run": ".scratch/test-results/M2-T01-target-PS7-2/summary.json",
+        "total": 12,
+        "passed": 11,
+        "failed": 1,
+        "exit_code": 1,
+        "details": [
+          "The revised WebP fixture had a transparent sRGBA first frame, but the test queried fx alpha on the RGB-only second frame and assumed 1; the observed expression was 0.12549. The corrected oracle inspects actual first-frame channels and its transparent pixel without making an unsupported RGB-only alpha assumption."
+        ]
+      },
+      {
+        "runs": [
+          ".scratch/test-results/M2-T01-target-PS7-3/summary.json",
+          ".scratch/test-results/M2-T01-target-PS51-1/summary.json"
+        ],
+        "total_each": 12,
+        "passed_each": 12,
+        "failed_each": 0,
+        "exit_code_each": 0,
+        "details": [
+          "Both targeted editions passed after fixture/mock/oracle corrections; no runtime change was required to address these test-development failures."
+        ]
+      }
+    ],
+    "artifacts": [
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/Frames-target-PS7-1.Tests.ps1",
+        "bytes": 26443,
+        "sha256": "248bc0a5996bbad5d2f118e92886ab08be57facca567edfc43e5b68d87e796f0"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/Frames-target-PS7-2.Tests.ps1",
+        "bytes": 27180,
+        "sha256": "233f135f1da7728e0865e44161efc49a810a9d10dde8ea092f323d624729d462"
+      },
+      {
+        "path": ".scratch/M2-T01-codec-probe-68fcff7e02714fd18a79ac08b268c3d5/WinImgNormalizer-target-PS7-1.ps1",
+        "bytes": 58908,
+        "sha256": "82d79707a3ea9a588c8cf83121456119874bcc062b5608bec0d223b11e292cda"
+      },
+      {
+        "path": ".scratch/M2-T01-target-PS7-1-console.log",
+        "bytes": 15658,
+        "sha256": "7c5d940a4f4b3df9a205939ec27477f673051496af6e95921d2a736226b51d70"
+      },
+      {
+        "path": ".scratch/M2-T01-target-PS7-2-console.log",
+        "bytes": 3117,
+        "sha256": "cb3c7c8971b03e20826a1aa7a749ebeae14aca42378fe658f791c562dad4623d"
+      },
+      {
+        "path": ".scratch/M2-T01-target-PS7-3-console.log",
+        "bytes": 2615,
+        "sha256": "48df5c34e86ab0676b5b33d75a6c689e2290093d0b6d7de882f7e159ca57dcdc"
+      },
+      {
+        "path": ".scratch/M2-T01-target-PS51-1-console.log",
+        "bytes": 2627,
+        "sha256": "42420076c58ace7ca317cecf7958f0ed8f25729241ee379e0b25c81693a49f01"
+      },
+      {
+        "path": ".scratch/M2-T01-peer-probe-e9774285dcf64bf6b12f4dd31e473a3a/initial-webp-diagnosis.json",
+        "bytes": 3626,
+        "sha256": "d3a81247708a0185959236474fe61abd83806e3ad6aaab1575ff3a82114cd25b"
+      },
+      {
+        "path": ".scratch/M2-T01-frames-7c75b28b961547eca50dc12bd19c6573/webp-source-5015b7da/animated.webp",
+        "bytes": 150,
+        "sha256": "bc1eb8a69deb4ffa6f2563599bc1830009ac260badae6c4c99a78db9511e7f7b"
+      }
+    ],
+    "limitations": [
+      "Tooling-development native HEIC encode and unpacked generator DLL-resolution failures are recorded separately in the fixture provenance manifest.",
+      "Full raw failure messages contain local paths and remain in ignored console/XML artifacts; only qualified diagnoses are exported."
+    ],
+    "source_artifact": ".scratch/M2-T01-development-diagnosis.json",
+    "source_artifact_sha256": "8c1d7bfd01ab9eae393ce84f61be76212bb002c68686637d1542e500a5d8bf30"
+  },
+  "ci_evidence": "evidence/M2-T01-ci.json",
+  "implementation_sync_observation": {
+    "observed_at_utc": "2026-10-04T18:16:38.237322+00:00",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "branch": "codex/winimg-hardening",
+    "local_head": "d64a9034ff0b4324b2515900fdf8b4cb82f80bbb",
+    "remote_head": "d64a9034ff0b4324b2515900fdf8b4cb82f80bbb",
+    "worktree_clean_before_record_files": true,
+    "sync_state": "synchronized"
+  },
+  "containing_checkpoint_sync": "pending_verification",
+  "draft_pr": "https://github.com/PikkuJanne/WinImgNormalizer/pull/10",
+  "limitations": [
+    "Actual T031 HEIC/HEIF evidence is a genuine two-image top-level still collection through two aliases. Timed HEIC animation, thumbnails, auxiliary images and arbitrary codec builds remain unverified; container counts describe only images exposed by the pinned decoder. The pinned native build reads HEIC/HEIF but cannot generate the fixture; one verified official development wheel produced the synthetic bytes in ignored scratch, with no installation, runtime/CI generator dependency or distributed generator binary.",
+    "Snapshot length/modification-time checks and duplicate keys are stability heuristics, not proof of content identity. General native argument/input-grammar safety and source changes retaining identical metadata remain outside this narrow neutral-snapshot policy. Owned cleanup deliberately preserves unknown entries and may return partial exit 2 after a valid JPEG has finalized.",
+    "Tagged colour/profile conversion before metadata removal is next M2-T02. Broader alpha/colour/reference fidelity, size-search quality, process timeout/resource budgets, cancellation, reporting and publication remain later tasks. Automated internal peer review does not grant owner aesthetic acceptance or authorize merge, release, deployment, tags or default-branch changes."
+  ]
+}

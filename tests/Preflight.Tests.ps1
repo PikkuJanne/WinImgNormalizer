@@ -523,6 +523,11 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         $jpegBytes = [IO.File]::ReadAllBytes($jpegFixture)
         $parent = Join-Path $work 'output'
         $formats = $supportedFormatText -replace '(?m)^\s*HEIC.*(?:\r?\n|$)', ''
+        # This tiny controlled input tests decoder routing; real HEIC/HEIF
+        # collection decoding is required separately in Frames.Tests.ps1.
+        Mock Get-WinImgSourceImageInfo {
+            return [pscustomobject]@{ SourceCount = 1; Omitted = 0; Unit = 'Images'; Policy = 'DecoderPrimaryOrFirstImage'; Decoder = 'HEIF' }
+        }
         $trace = New-Object 'Collections.Generic.List[object]'
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
@@ -535,7 +540,12 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner -FormatText $formats) -ProcessRunner $runner
         $result.Code | Should -Be 0 -Because $result.Text
         $trace.Count | Should -Be 1
-        $trace[0].Arguments[1] | Should -Be $image
+        $trace[0].Arguments[1] | Should -Be '-define'
+        $trace[0].Arguments[2] | Should -Be 'image:frames=0'
+        $snapshotPath = ConvertFrom-PreflightNativePath $trace[0].Arguments[3]
+        $snapshotPath.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
+        [IO.Path]::GetFileName($snapshotPath) | Should -Be 'source.heif'
+        Test-Path -LiteralPath $snapshotPath | Should -BeFalse
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
         $run.Count | Should -Be 1
         Invoke-PreflightTestMagick @('identify', '-format', '%m|%w|%h|%n', (Join-Path $run[0].FullName 'supported.jpeg')) | Should -Be 'JPEG|3|2|1'

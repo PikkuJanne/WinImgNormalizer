@@ -142,3 +142,28 @@ Reviewed primary Microsoft documentation: [File.Move(String,String)](https://lea
 [ImageMagick identify](https://imagemagick.org/identify/) documents `+ping` for reading pixel characteristics instead of the default metadata-only probe. The validator uses it with stored-format/frame/dimension checks. [regard-warnings](https://imagemagick.org/command-line-options/#regard-warnings) turns some format warnings into errors; the supported JPEG build must also pass the real truncated-output regression. These references do not promise rejection of every possible corrupt file.
 
 [FileStream constructors](https://learn.microsoft.com/en-us/dotnet/api/system.io.filestream.-ctor?view=netframework-4.8.1) document that CreateNew fails if the path already exists. [FileShare](https://learn.microsoft.com/en-us/dotnet/api/system.io.fileshare?view=netframework-4.8.1) permits concurrent readers with Read while refusing cooperative writes, and None refuses other opens while the stream is held. Videos are copied into an exclusively reserved partial, flushed and closed, then checked against source length and modification time. [File.Move(String,String)](https://learn.microsoft.com/en-us/dotnet/api/system.io.file.move?view=netframework-4.8.1) refuses an existing final name; the application checks equal volume roots because cross-volume Move can copy/delete. These checks do not establish content identity for a same-length/same-timestamp mutation, batch atomicity, crash durability or hostile-filesystem isolation.
+
+## I6 — M2-T01 frame selection, canvas placement and HEIC order, 4 October 2026
+
+[Input frame selection](https://imagemagick.org/command-line-processing/#input)
+documents `-define image:frames=list` as an alternative to filename bracket syntax.
+The [pinned 7.1.2-32 SetImageInfo source](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/image.c)
+reads `image:frames` when a filename has no subimage component. The application
+selects index 0 on an owned neutral snapshot, rather than appending a selector to an
+unexamined user filename. Native argument and general input-grammar work remains
+separate from this limited selection policy.
+
+[Coalesce documentation](https://imagemagick.org/command-line-options/#coalesce)
+describes displayed animation frames using page offsets and disposal metadata.
+The [pinned CoalesceImages implementation](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/layer.c)
+allocates the first virtual canvas and places its image at the recorded offset.
+The application coalesces only the selected actual GIF/WebP image; TIFF/HEIC pages
+are not overlaid. Actual offset, pixel and orientation fixtures establish the tested
+behavior; these references do not certify every animation or colour case.
+
+The [pinned HEIC reader](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/coders/heic.c)
+uses the sequence track reader where available; otherwise it reads the primary
+image before other top-level images. The policy follows that decoder order.
+Counts describe decoder-exposed images, not every container item or thumbnail.
+T031 uses an actual two-image still collection plus animated WebP; timed HEIC
+animation, auxiliary images and arbitrary codec builds remain unverified.
