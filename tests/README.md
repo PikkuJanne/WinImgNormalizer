@@ -1,9 +1,9 @@
-# Early Windows checks (M0-T03)
+# Windows checks (M0-T03 and M1-T01)
 
-These development tests cover the import boundary and the two existing positional
-invocations. They do not certify the later collision, metadata, frame, cancellation
-or output-validation fixes. The characterization evidence in `legacy/` describes
-those known defects separately.
+These development tests cover the import boundary, the two existing positional
+invocations and setup validation (T008-T012). They do not certify the later collision,
+metadata, frame, cancellation or output-validation fixes. The characterization
+evidence in `legacy/` describes those known defects separately.
 
 Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
 and portable ImageMagick into ignored `.scratch`. It verifies the archives and
@@ -23,12 +23,23 @@ nonzero exit is checked by the Windows CI workflow after the normal suite passes
 No passing result should be inferred from merely importing Pester.
 
 The application exposes `Invoke-WinImgNormalizer` and
-`Invoke-WinImgNormalizerCommand` when dot-sourced. Their internal `OutputParent`
-and `ProcessRunner` parameters let tests use owned synthetic scratch trees. The
-public `.ps1 <sourceFolder> [maxBytes]` interface and `.bat` remain unchanged.
+`Invoke-WinImgNormalizerCommand` when dot-sourced. Internal `OutputParent`,
+`MagickPath`, `PreflightRunner` and conversion-only `ProcessRunner` parameters let
+tests use owned synthetic scratch trees and controlled process failures. The public
+`.ps1 <sourceFolder> [maxBytes]` interface and `.bat` remain unchanged.
 
-Invocation tests use a disposable copy with only the outer call given an internal
-scratch output parent, then run its real `-File` entry in the current Windows shell.
+The default runner includes `Normalizer.Tests.ps1` and `Preflight.Tests.ps1`.
+Preflight tests use the verified executable for ordinary JPEG checks and isolated
+responses for dependency/version/codec failures. Drive and UNC root tests call only
+the lexical path helper; they never normalize a drive root or network share. Denied
+writes and disk-space failures use narrow mocks, without ACL or policy changes.
+Video-only tests retain the documented ImageMagick prerequisite and verify unchanged
+synthetic bytes. Space estimates are advisory; passing them cannot guarantee later
+writes succeed.
+
+Invocation tests use a disposable copy with only the outer call given internal
+scratch output and dependency paths, then run its real `-File` entry in the current
+Windows shell.
 They check ordinary JPEG decoding/dimensions, video hashes, mirrored directories,
 timestamps, source preservation and logs. This is instrumented invocation evidence;
 it does not exercise real Pictures resolution or manual drag-and-drop. Tests never
