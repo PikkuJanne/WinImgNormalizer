@@ -1,0 +1,492 @@
+{
+  "schema_version": 1,
+  "task_id": "M1-T04",
+  "recorded_utc": "2026-10-04T16:09:28.581007+00:00",
+  "starting_commit": "f73a4d09a966f4600d4c09173225aa5602a47d09",
+  "starting_remote_identity": "Canonical HTTPS fetch/push origin verified; clean feature HEAD independently matched advertised f73a4d0. Owner-merged PR #6 main acd2959 had the exact same tree; read-only fetch did not pull, merge or reset.",
+  "tested_implementation_commit": "ed7fb7691eca9dd55082338230657804c1865681",
+  "initial_tested_implementation_commit": "8f10472ceb641af40bac88a4f3bc1e6988f2e2fb",
+  "tested_files_sha256": {
+    "WinImgNormalizer.ps1": "db1f154e9cb188ca8ae9740933f28a6b7d86c373c0c757c7e58a37f733141a6d",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/Normalizer.Tests.ps1": "59b6b77c21195ae882d04bea8912e5334f4e06c032877623a45ccb314fc8b859",
+    "tests/Preflight.Tests.ps1": "45bb1ab429f32628c9d8a640226208f2d56ff68d804229190521f06738e8e705",
+    "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+    "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12",
+    "tests/Transactions.Tests.ps1": "f08b03e09d301541265a4b24ffc1e8e0d30e199d2250b65b1d91574458b1ae43"
+  },
+  "committed_blob_sha256": {
+    "WinImgNormalizer.ps1": "2216cdacbde3296b39a0216988ee9b349392cb8532e6a3f1446393d73f0f21d2",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/Normalizer.Tests.ps1": "59b6b77c21195ae882d04bea8912e5334f4e06c032877623a45ccb314fc8b859",
+    "tests/Preflight.Tests.ps1": "45bb1ab429f32628c9d8a640226208f2d56ff68d804229190521f06738e8e705",
+    "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+    "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12",
+    "tests/Transactions.Tests.ps1": "f08b03e09d301541265a4b24ffc1e8e0d30e199d2250b65b1d91574458b1ae43"
+  },
+  "checkout_line_endings": {
+    "core_autocrlf": "true",
+    "normalizations": [
+      {
+        "path": "WinImgNormalizer.ps1",
+        "tested_checkout_line_endings": "CRLF",
+        "tested_crlf_count": 954,
+        "tested_bare_lf_count": 0,
+        "committed_blob_line_endings": "LF",
+        "binding": "Tested checkout bytes become the exact committed blob after CRLF-to-LF normalization only."
+      }
+    ],
+    "note": "Raw runner hashes identify the actual tested clean checkout. Committed blob hashes are separate; any difference is verified to be CRLF-to-LF normalization only. No working code or test bytes changed during final runs."
+  },
+  "environment": {
+    "ps51": {
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    },
+    "ps7": {
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    }
+  },
+  "runs": [
+    {
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M1-T04-final2-ps51",
+      "observed_at_utc": "2026-10-04T16:06:04.1354916Z",
+      "result": "Passed",
+      "total_count": 151,
+      "passed_count": 151,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 73.60829799999999,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T04-final2-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M1-T04-final2-ps51/summary.json": "18ae5988db45ce366e00ef3ee47cfcc2792f5de55fe64c96d431f730645282c2",
+        ".scratch/M1-T04-final2-ps51/results.xml": "164781f35c758ac680043495e09c7f287fe236d73550947c5d613f5ca24c9723"
+      }
+    },
+    {
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M1-T04-control2-ps51",
+      "observed_at_utc": "2026-10-04T16:06:04.7425327Z",
+      "result": "Failed",
+      "total_count": 152,
+      "passed_count": 151,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 74.4375992,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T04-control2-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M1-T04-control2-ps51/summary.json": "27630661cf34e3481943692a1e672761ff87d7710967430fdc200afe64f01281",
+        ".scratch/M1-T04-control2-ps51/results.xml": "18c328a91358a7c3ff67e92b4f297a489864e28ca74268e508611fef3062d97a"
+      }
+    },
+    {
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M1-T04-final2-ps7",
+      "observed_at_utc": "2026-10-04T16:06:05.9541256Z",
+      "result": "Passed",
+      "total_count": 151,
+      "passed_count": 151,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 80.3121057,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T04-final2-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M1-T04-final2-ps7/summary.json": "ad38d1e279dfa6cbfe407f783fb8ed3216d0ca4cba8a800287c6a110effcffd4",
+        ".scratch/M1-T04-final2-ps7/results.xml": "ff4771206f706ed894a67f1829162853e98832df25836fd2f14d674ff77161f0"
+      }
+    },
+    {
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M1-T04-control2-ps7",
+      "observed_at_utc": "2026-10-04T16:06:06.5169868Z",
+      "result": "Failed",
+      "total_count": 152,
+      "passed_count": 151,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 80.0910071,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T04-control2-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M1-T04-control2-ps7/summary.json": "c89585c5177018c83da9467c72ef5f68aefd153cf88b5b7df516c39b01df9dd1",
+        ".scratch/M1-T04-control2-ps7/results.xml": "9fbfb67971609bc2064e617c444abb2b87831e69c0507e6ff87243b731b20c68"
+      }
+    }
+  ],
+  "case_results": [
+    {
+      "case_id": "T020",
+      "state": "passed",
+      "reason": "Actual neutral JPEG candidates require nonempty regular bytes, stored JPEG format, positive dimensions, one frame and full pixel decode. A real truncated JPEG retains readable header dimensions but fails full decode. No-file, zero-length, malformed, wrong-format, numbered sequence output, nonzero, absent, string, extra-output, timed-out and cancelled controlled native outcomes are never finalized or counted. Real >260 native candidate validation/move passes.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T021",
+      "state": "passed",
+      "reason": "Each alpha fallback/scale exclusively reserves a fresh candidate. Later missing/failed attempts cannot reuse a valid earlier above-cap JPEG; a later valid fallback is independently decoded and finalized.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T022",
+      "state": "passed",
+      "reason": "External file/directory arrivals after candidate validation and before image/video finalization survive unchanged. The real no-overwrite operation also rejects arrivals after its availability check; source/sentinel preservation and partial status are asserted.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T023",
+      "state": "passed",
+      "reason": "Stable opaque video bytes pass through a reserved owned partial before a final name exists, then match source SHA256 and timestamps. Controlled source length/modification changes, incomplete copies, nonempty reserved partials and thrown copy interruptions never become stable final success.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T024",
+      "state": "passed",
+      "reason": "Explicit per-file ownership prevents cleanup of arrivals before reservation. Failed image attempts and interrupted video copies remove only exact owned partials and empty owned directories, preserving numbered outputs and unrelated neighboring files.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    }
+  ],
+  "implementation_notes": [
+    "Exclusively reserve a neutral candidate with FileMode.CreateNew for every native attempt, including alpha fallback and lower scale. ProcessRunner remains conversion-only; candidate validation calls the verified executable directly.",
+    "Fail closed unless an integer zero or unambiguous structured zero ExitCode without timeout/cancellation is returned. Native nonzero fails even if valid bytes were left.",
+    "Use identify +ping -regard-warnings on the actual stored format with exact one-frame JPEG metadata. Verify nonzero regular candidate length, positive dimensions and unchanged length/modification time before/after full decode.",
+    "Clean superseded owned candidates before the next attempt to bound normal scratch growth. Do not reuse previous successful output after later failure; only a validated final-scale output may be kept with the inherited above-target best-effort note.",
+    "Videos stream from FileShare.Read sources to FileShare.None reserved owned partials; flush/dispose precedes source length/time and partial length checks. Regression hashes verify opaque video bytes without adding runtime content hashing.",
+    "Require equal candidate/final volume roots and use File.Move(String,String) without overwrite for image and video finalization. Exact owned-file cleanup and nonrecursive empty-directory deletion preserve unknown neighbors.",
+    "Any item error returns partial status 2. Existing public invocation forms, deterministic naming, cap/scales and conversion settings remain; duplicate early-key registration, source-frame selection, colour and comprehensive native lifecycle stay later scope."
+  ],
+  "historical_run_results": [
+    {
+      "artifact": ".scratch/M1-T04-dev1-ps7/summary.json",
+      "sha256": "06bbd5d19efbd7c18b14986929c93b2a574c2f5eda9c266aac37cfd3fd82a03c",
+      "observed_at_utc": "2026-10-04T15:57:59.1135310Z",
+      "result": "Passed",
+      "total_count": 119,
+      "passed_count": 119,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "bfbb6f3fc6b1b9b28ee7f5f752fb08c32806c12dc60347336dcadba40b110e82",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b52debaefd0147a2782df70611fc92e8e311f80942341e2a884c77d822adf8f",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "59b6b77c21195ae882d04bea8912e5334f4e06c032877623a45ccb314fc8b859",
+        "tests/Preflight.Tests.ps1": "45bb1ab429f32628c9d8a640226208f2d56ff68d804229190521f06738e8e705",
+        "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+        "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12"
+      },
+      "revision_binding": "Exploratory development counts only. Runtime cleanup/source line-ending edits occurred during this run; runner hashes are end-of-run observations, not proof every import executed these bytes."
+    },
+    {
+      "artifact": ".scratch/test-results/M1-T04-target-PS7-1/summary.json",
+      "sha256": "d4c1a29ab91963e861f81c85b1418fd4f40751f90821b814040530f9442503e6",
+      "observed_at_utc": "2026-10-04T16:00:07.0131804Z",
+      "result": "Failed",
+      "total_count": 32,
+      "passed_count": 31,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M1-T04 native result and full candidate validation (T020).T020 fixture has readable JPEG header dimensions but fails full pixel decoding"
+      ],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "db1f154e9cb188ca8ae9740933f28a6b7d86c373c0c757c7e58a37f733141a6d",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Transactions.Tests.ps1": "8c85ae5fac6f142acf68877146e2a3fab3ae3fdad88538e9745057241a46d4c3"
+      },
+      "revision_binding": "Uncommitted development observation; recorded file hashes do not claim a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M1-T04-target-PS51-1/summary.json",
+      "sha256": "99e3fa29144e69f797d7695c8d73c40c7fee39577dfe3d755c34b4c2b32cbc38",
+      "observed_at_utc": "2026-10-04T16:00:21.1992307Z",
+      "result": "Failed",
+      "total_count": 32,
+      "passed_count": 31,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M1-T04 native result and full candidate validation (T020).T020 fixture has readable JPEG header dimensions but fails full pixel decoding"
+      ],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "db1f154e9cb188ca8ae9740933f28a6b7d86c373c0c757c7e58a37f733141a6d",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Transactions.Tests.ps1": "8c85ae5fac6f142acf68877146e2a3fab3ae3fdad88538e9745057241a46d4c3"
+      },
+      "revision_binding": "Uncommitted development observation; recorded file hashes do not claim a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M1-T04-target-PS7-2/summary.json",
+      "sha256": "5b86152202aa64cc4679861df96c79b99666aee94e508fad8e798575d2b201ed",
+      "observed_at_utc": "2026-10-04T16:01:12.0154148Z",
+      "result": "Passed",
+      "total_count": 32,
+      "passed_count": 32,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "db1f154e9cb188ca8ae9740933f28a6b7d86c373c0c757c7e58a37f733141a6d",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Transactions.Tests.ps1": "eac99643e2e99573540455d3a9e6c2cc158fddb2108660c7ace23add4fd8bc1d"
+      },
+      "revision_binding": "Uncommitted development observation; recorded file hashes do not claim a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M1-T04-target-PS51-2/summary.json",
+      "sha256": "a4974bdb36cabfb34c1b6756ba2c87c64974c663932cf6321ede0138a10226dc",
+      "observed_at_utc": "2026-10-04T16:01:47.2034766Z",
+      "result": "Passed",
+      "total_count": 32,
+      "passed_count": 32,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "db1f154e9cb188ca8ae9740933f28a6b7d86c373c0c757c7e58a37f733141a6d",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Transactions.Tests.ps1": "eac99643e2e99573540455d3a9e6c2cc158fddb2108660c7ace23add4fd8bc1d"
+      },
+      "revision_binding": "Uncommitted development observation; recorded file hashes do not claim a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/M1-T04-final-ps51/summary.json",
+      "sha256": "4799c0f4e01262bcbea7a50bcdeeae17a3428908024fdad2c95a638b10b23a9a",
+      "observed_at_utc": "2026-10-04T16:02:33.8867796Z",
+      "result": "Passed",
+      "total_count": 151,
+      "passed_count": 151,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "db1f154e9cb188ca8ae9740933f28a6b7d86c373c0c757c7e58a37f733141a6d",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "59b6b77c21195ae882d04bea8912e5334f4e06c032877623a45ccb314fc8b859",
+        "tests/Preflight.Tests.ps1": "45bb1ab429f32628c9d8a640226208f2d56ff68d804229190521f06738e8e705",
+        "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+        "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12",
+        "tests/Transactions.Tests.ps1": "eac99643e2e99573540455d3a9e6c2cc158fddb2108660c7ace23add4fd8bc1d"
+      },
+      "revision_binding": "Initial clean implementation 8f10472ceb641af40bac88a4f3bc1e6988f2e2fb; raw checkout hashes observed before the test-only CI path correction. Git CRLF/LF normalization remains distinct."
+    },
+    {
+      "artifact": ".scratch/M1-T04-control-ps51/summary.json",
+      "sha256": "7550684c4a9f608ec52489b4902c536a00a914c0345abf2956f0a54ec125aa3c",
+      "observed_at_utc": "2026-10-04T16:03:41.6861393Z",
+      "result": "Failed",
+      "total_count": 152,
+      "passed_count": 151,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "db1f154e9cb188ca8ae9740933f28a6b7d86c373c0c757c7e58a37f733141a6d",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "59b6b77c21195ae882d04bea8912e5334f4e06c032877623a45ccb314fc8b859",
+        "tests/Preflight.Tests.ps1": "45bb1ab429f32628c9d8a640226208f2d56ff68d804229190521f06738e8e705",
+        "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+        "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12",
+        "tests/Transactions.Tests.ps1": "eac99643e2e99573540455d3a9e6c2cc158fddb2108660c7ace23add4fd8bc1d"
+      },
+      "revision_binding": "Initial clean implementation 8f10472ceb641af40bac88a4f3bc1e6988f2e2fb; raw checkout hashes observed before the test-only CI path correction. Git CRLF/LF normalization remains distinct."
+    },
+    {
+      "artifact": ".scratch/M1-T04-final-ps7/summary.json",
+      "sha256": "633909279886cf6bef957160ebcc0ac4839dbbcd354cb54d603c88dd72cab2bc",
+      "observed_at_utc": "2026-10-04T16:02:35.0094092Z",
+      "result": "Passed",
+      "total_count": 151,
+      "passed_count": 151,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "db1f154e9cb188ca8ae9740933f28a6b7d86c373c0c757c7e58a37f733141a6d",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "59b6b77c21195ae882d04bea8912e5334f4e06c032877623a45ccb314fc8b859",
+        "tests/Preflight.Tests.ps1": "45bb1ab429f32628c9d8a640226208f2d56ff68d804229190521f06738e8e705",
+        "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+        "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12",
+        "tests/Transactions.Tests.ps1": "eac99643e2e99573540455d3a9e6c2cc158fddb2108660c7ace23add4fd8bc1d"
+      },
+      "revision_binding": "Initial clean implementation 8f10472ceb641af40bac88a4f3bc1e6988f2e2fb; raw checkout hashes observed before the test-only CI path correction. Git CRLF/LF normalization remains distinct."
+    },
+    {
+      "artifact": ".scratch/M1-T04-control-ps7/summary.json",
+      "sha256": "a85427f55cd7008b7fcb85e584959638ffa5b1de7e4a25bde909b8ea6c9240e9",
+      "observed_at_utc": "2026-10-04T16:03:43.0102221Z",
+      "result": "Failed",
+      "total_count": 152,
+      "passed_count": 151,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "db1f154e9cb188ca8ae9740933f28a6b7d86c373c0c757c7e58a37f733141a6d",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "e0dc36ec66dc559faf4e740f6fa3cdd1cb9f5debe4c1aa049c19b56d45494607",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "59b6b77c21195ae882d04bea8912e5334f4e06c032877623a45ccb314fc8b859",
+        "tests/Preflight.Tests.ps1": "45bb1ab429f32628c9d8a640226208f2d56ff68d804229190521f06738e8e705",
+        "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+        "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12",
+        "tests/Transactions.Tests.ps1": "eac99643e2e99573540455d3a9e6c2cc158fddb2108660c7ace23add4fd8bc1d"
+      },
+      "revision_binding": "Initial clean implementation 8f10472ceb641af40bac88a4f3bc1e6988f2e2fb; raw checkout hashes observed before the test-only CI path correction. Git CRLF/LF normalization remains distinct."
+    }
+  ],
+  "history_interpretation": "An exploratory development run passed 119/119 while runtime cleanup and source line-ending edits were still in progress. Its counts are retained as nonrevision-bound observations; runner hashes describe end-of-run files and do not prove every import executed those bytes. Initial targeted 32-case suites each passed 31 and failed one fixture-oracle assertion: converting a truncated JPEG to null: returned zero instead of the expected nonzero. A further resize/PNG probe emitted premature-end/corrupt warnings but returned zero and wrote 250 bytes on the pinned build. Explicit identify +ping -regard-warnings rejected the same truncated bytes with exit 1; the fixture oracle now checks readable header dimensions against that explicit full-pixel mode. The runtime already used it and its rejection regression had passed. Corrected targeted suites passed 32/32; these remain uncommitted development observations. Initial clean 8f10472 desktop suites each passed 151/151 with 152-test controls proving one false assertion/exit 1. All four initial hosted jobs failed with 150/151 tests passing because test-side inspection of retained numbered siblings used ordinary long paths. Test-only ed7fb76 applies the existing extended native path helper to two inspection calls; runtime code is unchanged. Corrected final2/control2 suites and hosted push/PR matrices above pass at the exact committed checkout binding.",
+  "diagnostic_observations": [
+    {
+      "purpose": "Check why the original truncated-JPEG fixture oracle returned zero; not a passing runtime regression.",
+      "command": "magick -regard-warnings <owned truncated.jpeg> -resize 1x1 PNG:<new owned decode-probe.png>",
+      "imagemagick_version": "7.1.2-32",
+      "native_exit_code": 0,
+      "output_bytes": 250,
+      "observed_warnings": [
+        "Premature end of JPEG file",
+        "Corrupt JPEG data: premature end of data segment"
+      ],
+      "output_artifact_path": ".scratch/M1-T04-60d0edb5335b4b1b97ef6e15623a9a65/decode-probe-72b854c1a18d476ab5b879e78e36a53a.png",
+      "output_artifact_sha256": "9cb63b74ffae9f64eeeb0cabc85b1fbd5ada36decd2077d88f7c853057b3ad35",
+      "transcript_capture": "Actual testing-agent tool transcript only; no standalone raw command log was saved. The PNG artifact remains ignored.",
+      "interpretation": "This conversion oracle is unsuitable for asserting nonzero exit on this truncated fixture. Explicit full identify +ping -regard-warnings returned 1 and is exercised by the final regression; the runtime already used that validation mode."
+    }
+  ],
+  "ci_evidence": "evidence/M1-T04-ci.json",
+  "implementation_sync_observation": {
+    "observed_at_utc": "2026-10-04T16:09:28.567322+00:00",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "branch": "codex/winimg-hardening",
+    "local_head": "ed7fb7691eca9dd55082338230657804c1865681",
+    "remote_head": "ed7fb7691eca9dd55082338230657804c1865681",
+    "worktree_clean_before_record_files": true,
+    "sync_state": "synchronized"
+  },
+  "containing_checkpoint_sync": "pending_verification",
+  "draft_pr": "https://github.com/PikkuJanne/WinImgNormalizer/pull/7",
+  "limitations": [
+    "Video length/modification-time stability is a heuristic: a same-length/same-timestamp source rewrite is not content identity. Runtime content hashing remains optional/later scope.",
+    "Thrown stream interruptions, changed sources and timeout/cancellation native outcomes use mandatory controlled seams; no actual Ctrl+C, hard-kill, process timeout cleanup or restart recovery is claimed.",
+    "First displayed frame/page selection and native source filename parsing remain later tasks. Numbered unknown outputs are preserved for diagnosis, not wildcard-deleted or accepted as one final JPEG.",
+    "HEIC routing and case-only source variants remain inherited controlled coverage; no actual HEIC decode/visual quality or NTFS case-sensitivity changes are claimed.",
+    "Drive/UNC checks are lexical only; no live network share, real Pictures, private media or drive-root normalization. Inherited real junction results remain separate from unavailable desktop file-symlink creation and controlled reparse-file coverage.",
+    "The native long generated candidate regression covers the tested Windows path, not universal long source/final-name support. No hostile-filesystem sandbox, batch atomicity or crash durability is claimed.",
+    "No manual launcher, owner quality acceptance, merge, release or deployment is claimed. Complete corpus, static analyzer, general lifecycle/exits and later regression gates remain future tasks."
+  ]
+}
