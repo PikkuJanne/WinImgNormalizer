@@ -1,0 +1,1032 @@
+{
+  "schema_version": 1,
+  "repository": "PikkuJanne/WinImgNormalizer",
+  "baseline_commit": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
+  "next_task": "M0-T02",
+  "state_semantics": "done = task acceptance verified; remote synchronization and CI are separate observations. Owner-gate tasks cannot be done without owner evidence.",
+  "allowed_states": [
+    "pending",
+    "in_progress",
+    "blocked",
+    "awaiting_owner",
+    "done"
+  ],
+  "tasks": [
+    {
+      "id": "M0-T01",
+      "milestone": "M0",
+      "title": "Reconcile workspace and import the handoff",
+      "requirements": [],
+      "scope": [
+        "Inspect existing instructions, branch, dirty state, Git remotes and current remote refs; compare current code with BASELINE.json without resetting newer work.",
+        "Preview and apply only additive handoff files on a dedicated feature branch. Resolve an existing AGENTS.md by an explicit manual merge, never by overwriting it.",
+        "Record actual environment and branch in STATUS.md; validate the task graph; make the first reviewed commit/push checkpoint and prepare the draft PR."
+      ],
+      "acceptance": [
+        "No application file or original asset changes.",
+        "No unknown local work is stashed, removed or staged.",
+        "Imported plan is internally valid; final feature-branch SHA and sync result are reported honestly."
+      ],
+      "case_ids": [],
+      "references": [
+        "GIT_WORKFLOW.md",
+        "REVIEW_BASELINE.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [],
+      "state": "done",
+      "evidence": [
+        "evidence/M0-T01.json"
+      ],
+      "blocked_reason": null,
+      "card": "tasks/M0-T01.md"
+    },
+    {
+      "id": "M0-T02",
+      "milestone": "M0",
+      "title": "Characterize the current application with safe fixtures",
+      "requirements": [
+        15
+      ],
+      "scope": [
+        "Build the synthetic fixture generator and a versioned test-environment inventory.",
+        "Capture legacy observations for ordinary image/video inputs and the suspected collision, frame, failed-first duplicate and weak-output cases.",
+        "For dangerous nested-output behavior use mocked planning first or a disposable account/VM; never run it against the real Pictures tree."
+      ],
+      "acceptance": [
+        "No claimed legacy reproduction lacks a command, version and output transcript.",
+        "Fixture source bytes and declared properties are independently inspected.",
+        "Current known defects are recorded separately from passing regression tests."
+      ],
+      "case_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004"
+      ],
+      "references": [
+        "FIXTURE_SPEC.md",
+        "REVIEW_BASELINE.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M0-T01"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M0-T02.md"
+    },
+    {
+      "id": "M0-T03",
+      "milestone": "M0",
+      "title": "Introduce minimal test seams and early Windows checks",
+      "requirements": [
+        15,
+        16
+      ],
+      "scope": [
+        "Move only the top-level orchestration needed for test isolation into callable helpers; keep both public entry points and invocation forms.",
+        "Inject an internal test destination/process runner so tests cannot touch real Pictures; do not add a new user configuration system.",
+        "Add a Pester runner and a minimal Windows PowerShell 5.1/PowerShell 7 CI matrix with real version reporting and safe dependency installation."
+      ],
+      "acceptance": [
+        "Ordinary fixture behavior is unchanged outside known defects.",
+        "Loading functions for unit tests does not execute the application or terminate the test host.",
+        "CI runs real tests and fails when a deliberate assertion is broken; no empty-success workflow."
+      ],
+      "case_ids": [
+        "T005",
+        "T006",
+        "T007"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md",
+        "SECURITY.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M0-T02"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M0-T03.md"
+    },
+    {
+      "id": "M1-T01",
+      "milestone": "M1",
+      "title": "Validate inputs, root paths and ImageMagick before work",
+      "requirements": [
+        8,
+        7
+      ],
+      "scope": [
+        "Validate argument count, source FileSystem directory and positive Int64 byte cap with friendly errors.",
+        "Normalize drive/UNC roots without losing root semantics; resolve the real ImageMagick application and record version/delegates.",
+        "Check a patched supported ImageMagick build and codecs needed by the batch, destination writability and practical space; no application output on basic setup failure."
+      ],
+      "acceptance": [
+        "Both existing positional calls still work.",
+        "Bad arguments and missing ImageMagick fail before run-directory creation.",
+        "Per-format gaps have useful diagnoses; video-only handling is explicitly documented and tested."
+      ],
+      "case_ids": [
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M0-T03"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M1-T01.md"
+    },
+    {
+      "id": "M1-T02",
+      "milestone": "M1",
+      "title": "Protect traversal and allocate unique run directories",
+      "requirements": [
+        2
+      ],
+      "scope": [
+        "Define source/destination containment with canonical roots and path-segment comparisons.",
+        "Reject unsafe nesting before writes for the first hardened version; do not silently fall back to another directory.",
+        "Allocate collision-resistant no-reuse run directories and protect generated work/report namespaces."
+      ],
+      "acceptance": [
+        "Pictures, its parents and drive-root input cannot cause destination self-ingestion.",
+        "Two concurrent/timestamp-identical launches never share a run directory.",
+        "Lookalike path prefixes do not count as containment."
+      ],
+      "case_ids": [
+        "T013",
+        "T014",
+        "T015",
+        "T016"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M1-T01"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M1-T02.md"
+    },
+    {
+      "id": "M1-T03",
+      "milestone": "M1",
+      "title": "Plan collision-free output names before conversion",
+      "requirements": [
+        1
+      ],
+      "scope": [
+        "Build a deterministic per-directory output-name reservation plan including file/directory conflicts and generated names.",
+        "Keep the legacy basename when unique; use source-extension suffixes and checked numeric suffixes for collisions.",
+        "Retain a complete source-to-output mapping for later reporting; final writes must not overwrite external arrivals."
+      ],
+      "acceptance": [
+        "photo.jpg/photo.png/photo.heic all receive distinct planned names.",
+        "An existing photo__png.jpeg input and directory named photo.jpeg cannot break the scheme.",
+        "Plans are identical across input enumeration orders and both PowerShell versions."
+      ],
+      "case_ids": [
+        "T017",
+        "T018",
+        "T019"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M1-T02"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M1-T03.md"
+    },
+    {
+      "id": "M1-T04",
+      "milestone": "M1",
+      "title": "Validate temporary outputs and finalize without overwriting",
+      "requirements": [
+        3
+      ],
+      "scope": [
+        "Write conversion attempts to owned neutral temporary files, never the intended final name.",
+        "Require a successful native outcome plus nonempty single-frame JPEG full decode, positive dimensions and size measurement before committing.",
+        "Stage video copies too; check completion/source stability and no-overwrite finalization. Retain only owned partials on unexpected interruption."
+      ],
+      "acceptance": [
+        "Zero-length, malformed, stale, wrong-format, nonzero-exit and truncated outputs never count as success.",
+        "A successful first attempt cannot be reused accidentally after a later failed attempt.",
+        "Video bytes match inputs in regression tests; unrelated destination files are never replaced."
+      ],
+      "case_ids": [
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M1-T03"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M1-T04.md"
+    },
+    {
+      "id": "M1-T05",
+      "milestone": "M1",
+      "title": "Make heuristic duplicate handling deterministic and success-based",
+      "requirements": [
+        6
+      ],
+      "scope": [
+        "Sort candidate paths deterministically and register a duplicate only after verified output finalization.",
+        "Keep the lightweight filename/timestamp heuristic; require matching length before a skip as the documented extra guard.",
+        "Record the retained successful source/output for every skip; do not add always-on hashing or remove originals."
+      ],
+      "acceptance": [
+        "A failed first candidate cannot suppress a later usable candidate.",
+        "Different lengths with the same filename/timestamp do not skip.",
+        "Same-key/same-length collisions remain explicitly documented as a heuristic limitation."
+      ],
+      "case_ids": [
+        "T025",
+        "T026",
+        "T027"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M1-T04"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M1-T05.md"
+    },
+    {
+      "id": "M1-T06",
+      "milestone": "M1",
+      "title": "Close the output-safety milestone",
+      "requirements": [
+        1,
+        2,
+        3,
+        6,
+        8
+      ],
+      "scope": [
+        "Run the combined safe-output tests and inspect all finalization/collision paths.",
+        "Verify source content and creation/modified times on synthetic fixtures; include two-run isolation.",
+        "Review the entire milestone diff for scope creep and leave a synchronized evidence checkpoint."
+      ],
+      "acceptance": [
+        "All mandatory M1 cases pass on available target shells; untested target environments are explicit blockers to full milestone acceptance.",
+        "No output loss/overwrite remains in the covered collision scenarios.",
+        "No accidental runtime dependency or public-interface rewrite was introduced."
+      ],
+      "case_ids": [
+        "T028"
+      ],
+      "references": [
+        "TEST_MATRIX.md",
+        "GIT_WORKFLOW.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M1-T05"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M1-T06.md"
+    },
+    {
+      "id": "M2-T01",
+      "milestone": "M2",
+      "title": "Implement deliberate first-frame and first-page handling",
+      "requirements": [
+        4
+      ],
+      "scope": [
+        "Select one logical first displayed frame for animated images and one first page for multipage documents.",
+        "Respect canvas placement and orientation without overlaying unrelated pages; do not rely on implicit numbered JPEG output.",
+        "Record source frame/page counts and omitted content, including codec-dependent cases."
+      ],
+      "acceptance": [
+        "Exactly one intended JPEG is produced per selected source and no numbered-file escape occurs.",
+        "Multipage TIFF uses the first page, never page stacking.",
+        "Dropped frames/pages are visible in reports without pretending animation is preserved."
+      ],
+      "case_ids": [
+        "T029",
+        "T030",
+        "T031"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M1-T06"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M2-T01.md"
+    },
+    {
+      "id": "M2-T02",
+      "milestone": "M2",
+      "title": "Convert colour profiles before metadata removal",
+      "requirements": [
+        5
+      ],
+      "scope": [
+        "Inspect embedded ICC profiles before stripping and use a verified sRGB conversion path.",
+        "Define tagged/untagged RGB and CMYK behavior, alpha compositing order and malformed-profile handling; retain auto-orientation.",
+        "Use redistributable, provenance-recorded reference profiles/fixtures; measure against a colour-managed reference."
+      ],
+      "acceptance": [
+        "Profiled source colours meet documented tolerant reference comparisons before lossy-JPEG effects are assessed.",
+        "GPS/EXIF/XMP/IPTC and unwanted profiles are absent from final images according to the declared policy.",
+        "Unrecoverable colour/profile ambiguity is warned or failed explicitly rather than silently misrepresented."
+      ],
+      "case_ids": [
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "FIXTURE_SPEC.md",
+        "SOURCES.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M2-T01"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M2-T02.md"
+    },
+    {
+      "id": "M2-T03",
+      "milestone": "M2",
+      "title": "Make filesystem and native filename handling literal-safe",
+      "requirements": [
+        7
+      ],
+      "scope": [
+        "Test both PowerShell and ImageMagick parsing layers for difficult input/output paths.",
+        "Use supported literal-output behavior or neutral temporary names plus filesystem rename; stage ambiguous input names under a neutral controlled name when needed.",
+        "Handle Unicode, long/UNC paths and root boundaries without introducing shell evaluation or filename-format expansion."
+      ],
+      "acceptance": [
+        "Percent and bracket filenames retain their literal identity in final names.",
+        "Quoted spaces, ampersands, apostrophes and Unicode work through the launcher as well as direct calls.",
+        "Unsupported long-path environments fail clearly without truncation or source changes."
+      ],
+      "case_ids": [
+        "T037",
+        "T038",
+        "T039"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M2-T02"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M2-T03.md"
+    },
+    {
+      "id": "M2-T04",
+      "milestone": "M2",
+      "title": "Clarify byte caps and benchmark quality without silent default changes",
+      "requirements": [
+        9
+      ],
+      "scope": [
+        "Document the 1,048,576-byte default and ensure the ImageMagick extent string represents the intended number of bytes.",
+        "Separate compliant and valid-above-target outcomes while keeping the 100→50 scale sequence and existing best-effort behavior initially.",
+        "Measure representative synthetic/copy quality and timings; propose algorithm changes only with owner-visible evidence."
+      ],
+      "acceptance": [
+        "Exact byte counts govern status, not MB display labels.",
+        "Above-target valid JPEGs are warnings, not plain OK results.",
+        "No default quality/resize change is slipped into a reporting fix."
+      ],
+      "case_ids": [
+        "T040",
+        "T041",
+        "T042"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M2-T03"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M2-T04.md"
+    },
+    {
+      "id": "M2-T05",
+      "milestone": "M2",
+      "title": "Capture useful errors and remove indiscriminate fallback",
+      "requirements": [
+        10
+      ],
+      "scope": [
+        "Capture bounded stdout/stderr and native exit information separately without turning known harmless warnings into random PowerShell exceptions.",
+        "Classify missing codec, damaged input, denied access, resource exhaustion and recoverable failures.",
+        "Retry only justified transient failures with a bound; preserve promised alpha/background treatment on every attempt."
+      ],
+      "acceptance": [
+        "Real failure details reach the log without flooding the console.",
+        "A missing codec is not retried at every scale.",
+        "No fallback silently removes required transparency handling or accepts nonzero output as ordinary success."
+      ],
+      "case_ids": [
+        "T043",
+        "T044",
+        "T045"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M2-T04"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M2-T05.md"
+    },
+    {
+      "id": "M2-T06",
+      "milestone": "M2",
+      "title": "Close the conversion-correctness milestone",
+      "requirements": [
+        4,
+        5,
+        7,
+        9,
+        10
+      ],
+      "scope": [
+        "Run representative colour, frame, literal-name, orientation and sizing cases together.",
+        "Collect real comparison artifacts from approved fixtures and document any codec/build-specific variation.",
+        "Review the default behavior against the baseline contract and synchronize evidence."
+      ],
+      "acceptance": [
+        "Mandatory conversion cases pass on required test configurations or remain explicitly blocked.",
+        "Colour/quality evidence is attached to the tested implementation revision, not to a different worktree.",
+        "Lossy output is not described as a lossless archive."
+      ],
+      "case_ids": [
+        "T046"
+      ],
+      "references": [
+        "TEST_MATRIX.md",
+        "GIT_WORKFLOW.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M2-T05"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M2-T06.md"
+    },
+    {
+      "id": "M3-T01",
+      "milestone": "M3",
+      "title": "Recover from inaccessible folders and expose ancillary failures",
+      "requirements": [
+        11
+      ],
+      "scope": [
+        "Enumerate folder by folder, recording inaccessible subtrees and continuing accessible siblings.",
+        "Define the default link/reparse-point policy as skip-and-report; resolve root aliases safely before traversal.",
+        "Expose log-write/timestamp failures and cancellation-safe reporting fallbacks; never hide an incomplete scan."
+      ],
+      "acceptance": [
+        "One denied subtree does not terminate the entire batch.",
+        "Junction/symlink loops are not followed.",
+        "Log and timestamp failures are visible and affect the documented outcome."
+      ],
+      "case_ids": [
+        "T047",
+        "T048",
+        "T049",
+        "T050"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M2-T06"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M3-T01.md"
+    },
+    {
+      "id": "M3-T02",
+      "milestone": "M3",
+      "title": "Bound processing and own native process lifetime",
+      "requirements": [
+        12
+      ],
+      "scope": [
+        "Add practical per-file runtime and ImageMagick memory/temp-disk limits that respect stricter installed policies.",
+        "Implement a native-process wrapper that drains both streams without deadlocks and terminates only the process tree it started.",
+        "Check current upstream ImageMagick security notices, including the jpeg:extent hang advisory; use bounded synthetic timeout tests rather than malicious input."
+      ],
+      "acceptance": [
+        "A stalled decoder/encoder cannot hang the entire batch forever.",
+        "No task kills unrelated magick processes or changes global policy.",
+        "Exhaustion/timeouts are classified and owned temporary data stays contained."
+      ],
+      "case_ids": [
+        "T051",
+        "T052",
+        "T053"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "SECURITY.md",
+        "SOURCES.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M3-T01"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M3-T02.md"
+    },
+    {
+      "id": "M3-T03",
+      "milestone": "M3",
+      "title": "Implement and test clean cooperative cancellation",
+      "requirements": [
+        12
+      ],
+      "scope": [
+        "Handle a user cancellation request, stop starting new items and terminate owned in-flight work.",
+        "Retain validated completed files and remove only known owned incomplete files where cleanup is possible.",
+        "Produce an interrupted-run record; distinguish cooperative Ctrl+C from terminal/process force-termination limitations."
+      ],
+      "acceptance": [
+        "No canceled partial image/video is presented as a complete final output.",
+        "Unrelated files/processes are untouched.",
+        "Actual PS5.1/PS7 and batch-wrapper interrupt outcomes are recorded; limitations are not hidden."
+      ],
+      "case_ids": [
+        "T054",
+        "T055",
+        "T056"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M3-T02"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M3-T03.md"
+    },
+    {
+      "id": "M3-T04",
+      "milestone": "M3",
+      "title": "Reconcile counts and add useful safe reports",
+      "requirements": [
+        13
+      ],
+      "scope": [
+        "Count ignored files at discovery, track inaccessible directories separately and partition discovered file outcomes accurately.",
+        "Add duration, image-only input/output bytes, size-target warnings, renamed mappings and retained duplicate links.",
+        "Add a formula-safe local CSV report with relative paths; escape hostile text and report output/log-write failures."
+      ],
+      "acceptance": [
+        "Counters reconcile without double-counting warning flags or pretending to know files in unreadable folders.",
+        "CSV filenames cannot become spreadsheet formulas; quoting alone is not the mitigation.",
+        "Video bytes and ignored/duplicate bytes are not falsely credited as image compression savings."
+      ],
+      "case_ids": [
+        "T057",
+        "T058",
+        "T059",
+        "T060"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M3-T03"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M3-T04.md"
+    },
+    {
+      "id": "M3-T05",
+      "milestone": "M3",
+      "title": "Propagate exit codes and harden the batch launcher",
+      "requirements": [
+        14
+      ],
+      "scope": [
+        "Implement the documented complete, warning/partial, setup/global-error and controlled-cancellation exit contract.",
+        "Capture and return the script code before echo/pause changes it; keep the familiar pause for drag-and-drop.",
+        "Reject extra dropped folders clearly, preserve literal arguments, and keep the current host choice unless explicitly changed."
+      ],
+      "acceptance": [
+        "Launcher messages match actual outcomes and exit codes survive the pause.",
+        "Single-directory drag-and-drop works on actual Windows.",
+        "No global execution-policy or security-setting change is introduced."
+      ],
+      "case_ids": [
+        "T061",
+        "T062",
+        "T063"
+      ],
+      "references": [
+        "IMPLEMENTATION_SPEC.md",
+        "TEST_MATRIX.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M3-T04"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M3-T05.md"
+    },
+    {
+      "id": "M3-T06",
+      "milestone": "M3",
+      "title": "Complete Windows compatibility, static checks and security CI",
+      "requirements": [
+        15,
+        16
+      ],
+      "scope": [
+        "Expand the Windows PS5.1/PS7 matrix to the full mandatory corpus, including missing-codec negative tests and real codec-enabled runs.",
+        "Add scoped PSScriptAnalyzer rules, versioned development dependencies and hardened read-only CI permissions.",
+        "Record exact runner/OS versions; separate Windows desktop manual tests from Windows Server CI and Linux experiments."
+      ],
+      "acceptance": [
+        "No mandatory test can silently pass by being skipped or discovering zero tests.",
+        "CI artifacts refer to exact tested commits and contain synthetic data only.",
+        "No pull_request_target checkout of untrusted code with write privileges, broad secrets, or fake action SHA pins."
+      ],
+      "case_ids": [
+        "T064",
+        "T065",
+        "T066"
+      ],
+      "references": [
+        "TEST_MATRIX.md",
+        "SECURITY.md",
+        "SOURCES.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M3-T05"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M3-T06.md"
+    },
+    {
+      "id": "M3-T07",
+      "milestone": "M3",
+      "title": "Obtain owner acceptance of the familiar workflow",
+      "requirements": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "scope": [
+        "Prepare the owner checklist and concrete comparison evidence without using private images in the repository.",
+        "Have the owner run the unchanged everyday launch flow with approved disposable copies on Windows.",
+        "Record approval or requested changes with tested commit; do not approve subjective image quality or default changes on the owner’s behalf."
+      ],
+      "acceptance": [
+        "Actual owner approval and Windows smoke evidence exist before public-release readiness is claimed.",
+        "Any requested material change returns to a bounded tested task.",
+        "A pending owner gate is reported as pending, not complete."
+      ],
+      "case_ids": [
+        "T067"
+      ],
+      "references": [
+        "templates/OWNER_ACCEPTANCE.md",
+        "GIT_WORKFLOW.md"
+      ],
+      "owner_gate": true,
+      "depends_on": [
+        "M3-T06"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M3-T07.md"
+    },
+    {
+      "id": "M4-T01",
+      "milestone": "M4",
+      "title": "Add one version source and release notes",
+      "requirements": [
+        17
+      ],
+      "scope": [
+        "Choose a truthful first managed release version after reviewing existing tags; do not assume earlier versions exist.",
+        "Use one version source in log/help/package metadata and write a changelog distinguishing fixes, default safeguards and limitations.",
+        "Document supported/tested environments and third-party requirements."
+      ],
+      "acceptance": [
+        "The same version appears throughout generated artifacts.",
+        "No tag or release is created during this task.",
+        "MIT license text and original authorship remain intact."
+      ],
+      "case_ids": [
+        "T068"
+      ],
+      "references": [
+        "RELEASE_AND_WEBSITE.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M3-T07"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M4-T01.md"
+    },
+    {
+      "id": "M4-T02",
+      "milestone": "M4",
+      "title": "Build a portable release ZIP from reviewed tracked content",
+      "requirements": [
+        17
+      ],
+      "scope": [
+        "Add a whitelist-driven release build containing matching entry points, necessary support files, legal notices and a short getting-started guide.",
+        "Exclude tests, governance, raw media, credentials and build debris; build from the intended clean revision.",
+        "Generate SHA-256 sums, inspect extraction and smoke-test in a new directory with spaces; record reproducibility claims precisely."
+      ],
+      "acceptance": [
+        "ZIP contents match the allowlist and correspond to the recorded revision.",
+        "Downloaded/blocked-file and dependency instructions do not disable machine-wide controls.",
+        "No ImageMagick installer/binary is silently bundled or downloaded at runtime."
+      ],
+      "case_ids": [
+        "T069",
+        "T070",
+        "T071"
+      ],
+      "references": [
+        "RELEASE_AND_WEBSITE.md",
+        "SECURITY.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M4-T01"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M4-T02.md"
+    },
+    {
+      "id": "M4-T03",
+      "milestone": "M4",
+      "title": "Publish-ready documentation for behavior and limitations",
+      "requirements": [
+        18
+      ],
+      "scope": [
+        "Rewrite README/quick start around the existing workflow with tested examples, failure messages and size-unit clarity.",
+        "Document metadata/privacy, copied-video metadata, frame/page omission, heuristic dedupe, cloud-synced Pictures and the unsafe-nesting rule.",
+        "Add a lightweight security/reporting policy without invented contact addresses or signature claims."
+      ],
+      "acceptance": [
+        "Every public behavior claim matches code/tests.",
+        "Documentation includes real prerequisites and distinguishes lossy derivatives from backups.",
+        "All download/version examples are either real or clearly held as unpublished drafts."
+      ],
+      "case_ids": [
+        "T072"
+      ],
+      "references": [
+        "RELEASE_AND_WEBSITE.md",
+        "SECURITY.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M4-T02"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M4-T03.md"
+    },
+    {
+      "id": "M4-T04",
+      "milestone": "M4",
+      "title": "Prepare website content and download metadata, not a backend",
+      "requirements": [
+        18
+      ],
+      "scope": [
+        "Prepare framework-neutral product copy, metadata fields and a simple website integration handoff.",
+        "Use the repository’s existing icon/poster and actual approved screenshots/comparisons; do not fabricate a UI or before/after.",
+        "Connect planned download metadata to versioned GitHub Release assets only after they exist; leave deployment to the website’s own approved workflow."
+      ],
+      "acceptance": [
+        "No upload form, processing API, server-side conversion or runtime account requirement is introduced.",
+        "No assumed website domain, framework or hosting service is invented.",
+        "Unpublished URLs remain clearly non-live rather than broken public download buttons."
+      ],
+      "case_ids": [
+        "T073"
+      ],
+      "references": [
+        "RELEASE_AND_WEBSITE.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M4-T03"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M4-T04.md"
+    },
+    {
+      "id": "M4-T05",
+      "milestone": "M4",
+      "title": "Audit the complete release candidate",
+      "requirements": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "scope": [
+        "Review the full improvement diff and reconcile requirements with tasks, cases, CI and owner evidence.",
+        "Build and smoke-test the release candidate from the reviewed revision; verify ZIP hash, license and source provenance.",
+        "Prepare exact proposed merge/tag/release actions for owner approval; do not execute them."
+      ],
+      "acceptance": [
+        "No unresolved critical safety defect or falsely completed test remains.",
+        "Release candidate approval names a specific implementation revision and artifact hash.",
+        "Feature branch is synchronized, CI is explicitly recorded and default branch remains untouched."
+      ],
+      "case_ids": [
+        "T074"
+      ],
+      "references": [
+        "RELEASE_AND_WEBSITE.md",
+        "templates/RELEASE_CHECKLIST.md",
+        "GIT_WORKFLOW.md"
+      ],
+      "owner_gate": false,
+      "depends_on": [
+        "M4-T04"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M4-T05.md"
+    },
+    {
+      "id": "M4-T06",
+      "milestone": "M4",
+      "title": "Perform only explicitly approved publication operations",
+      "requirements": [
+        17,
+        18
+      ],
+      "scope": [
+        "Verify the owner’s recorded approval identifies the exact merge target, version, artifact and permitted operations.",
+        "Execute only approved merge/tag/release actions; revalidate the actual post-merge/tag revision and release artifact when its identity changes.",
+        "Update download metadata only with verified public assets. Website deployment requires its own explicit approval and repository context."
+      ],
+      "acceptance": [
+        "No approval is inferred from the original request to create a bundle.",
+        "Public tag/source, release ZIP and website metadata agree.",
+        "Local/default-branch synchronization after publication uses a safe clean fast-forward or stops on conflict."
+      ],
+      "case_ids": [
+        "T075"
+      ],
+      "references": [
+        "RELEASE_AND_WEBSITE.md",
+        "GIT_WORKFLOW.md"
+      ],
+      "owner_gate": true,
+      "depends_on": [
+        "M4-T05"
+      ],
+      "state": "pending",
+      "evidence": [],
+      "blocked_reason": null,
+      "card": "tasks/M4-T06.md"
+    }
+  ]
+}

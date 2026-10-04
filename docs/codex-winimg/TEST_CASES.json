@@ -1,0 +1,680 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "T001",
+      "owner_task": "M0-T02",
+      "kind": "core",
+      "title": "Ordinary mixed tree",
+      "fixture": "Synthetic JPEG/PNG and opaque video bytes",
+      "expected": "Record default tree, bytes, timestamps and log behavior without asserting unfixed bugs are correct.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T002",
+      "owner_task": "M0-T02",
+      "kind": "core",
+      "title": "Fixture provenance",
+      "fixture": "Generated corpus with manifest",
+      "expected": "Each fixture has source recipe, intended format/dimensions and hash; no personal media.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T003",
+      "owner_task": "M0-T02",
+      "kind": "core",
+      "title": "Legacy suspected defects",
+      "fixture": "Small collision, GIF, duplicate and failed-output scenarios",
+      "expected": "Record actual reproduction outcomes with bounded runs; no imported claims of prior execution.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T004",
+      "owner_task": "M0-T02",
+      "kind": "core",
+      "title": "Dangerous-case containment",
+      "fixture": "Test workspace with mocked Pictures/destination",
+      "expected": "Neither user Pictures nor a real drive root is used for unsafe legacy recursion.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T005",
+      "owner_task": "M0-T03",
+      "kind": "core",
+      "title": "Pure import/test seam",
+      "fixture": "Load function definitions in Pester",
+      "expected": "No conversion, user-folder creation or host exit occurs while discovering tests.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T006",
+      "owner_task": "M0-T03",
+      "kind": "core",
+      "title": "Invocation compatibility",
+      "fixture": "Source only and Source plus 1048576 positional arguments",
+      "expected": "Both original public invocation forms still work unchanged.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T007",
+      "owner_task": "M0-T03",
+      "kind": "core",
+      "title": "Test runner credibility",
+      "fixture": "Known good test and temporary deliberate failure",
+      "expected": "Correct counts are recorded; deliberate failure makes runner/CI fail.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T008",
+      "owner_task": "M1-T01",
+      "kind": "core",
+      "title": "Argument validation",
+      "fixture": "Missing/non-directory source, zero/negative/noninteger/overflow byte cap, extra args",
+      "expected": "Friendly nonzero setup outcome before application output creation.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T009",
+      "owner_task": "M1-T01",
+      "kind": "core",
+      "title": "Root semantics",
+      "fixture": "Drive root, trailing separator and mocked UNC share root",
+      "expected": "Root separator and absolute resolution are preserved; no drive-relative C: substitution.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T010",
+      "owner_task": "M1-T01",
+      "kind": "core",
+      "title": "Dependency identity",
+      "fixture": "Missing magick, alias/function named magick, failing version response",
+      "expected": "Only the reviewed executable is invoked; failures are explicit before conversion.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T011",
+      "owner_task": "M1-T01",
+      "kind": "core",
+      "title": "Missing decoder",
+      "fixture": "A batch with unavailable HEIC decoder plus supported media",
+      "expected": "Useful per-format outcome; no repeated pointless scale retries; unrelated eligible items handled per policy.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T012",
+      "owner_task": "M1-T01",
+      "kind": "core",
+      "title": "Destination checks",
+      "fixture": "Unwritable destination, space failure and video-only batch",
+      "expected": "Clear documented behavior and no unrelated directory or policy changes.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T013",
+      "owner_task": "M1-T02",
+      "kind": "core",
+      "title": "Destination contained in source",
+      "fixture": "Pictures, parent profile and source equals destination parent",
+      "expected": "Rejected before new output is created under source; no recursion into generated tree.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T014",
+      "owner_task": "M1-T02",
+      "kind": "core",
+      "title": "Boundary comparisons",
+      "fixture": "C:\\Photos and C:\\PhotosBackup with case variations",
+      "expected": "Segment-aware containment avoids false positives; platform case rules are explicit.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T015",
+      "owner_task": "M1-T02",
+      "kind": "core",
+      "title": "Two launch isolation",
+      "fixture": "Identical clock timestamps and two workers",
+      "expected": "Run directories are distinct and exclusively owned.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T016",
+      "owner_task": "M1-T02",
+      "kind": "core",
+      "title": "Generated namespace conflict",
+      "fixture": "Source subdirectories named like work/log directories",
+      "expected": "Planner reserves or rejects conflicts without swallowing user data.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T017",
+      "owner_task": "M1-T03",
+      "kind": "core",
+      "title": "Same stem multiple formats",
+      "fixture": "photo.jpg, photo.png, photo.heic names using mocked codecs",
+      "expected": "Distinct deterministic target paths; no overwrite, no silent omission.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T018",
+      "owner_task": "M1-T03",
+      "kind": "core",
+      "title": "Secondary collisions",
+      "fixture": "photo__png.jpeg, photo.jpeg directory, case variants",
+      "expected": "Reservation loop handles suffix/file-directory/case collisions.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T019",
+      "owner_task": "M1-T03",
+      "kind": "core",
+      "title": "Deterministic plan",
+      "fixture": "Randomized enumeration order repeated",
+      "expected": "Identical source-to-output mapping and ordering.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T020",
+      "owner_task": "M1-T04",
+      "kind": "core",
+      "title": "Invalid process output",
+      "fixture": "No file, empty file, wrong format, truncated JPEG, nonzero exit with a file",
+      "expected": "None is committed or counted as valid success.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T021",
+      "owner_task": "M1-T04",
+      "kind": "core",
+      "title": "Stale attempt output",
+      "fixture": "Earlier valid temp result then a failed later attempt",
+      "expected": "No stale final or previous attempt is reused as new success.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T022",
+      "owner_task": "M1-T04",
+      "kind": "core",
+      "title": "No overwrite race",
+      "fixture": "Another file appears at planned final name before commit",
+      "expected": "External file survives unchanged; run records conflict/failure or safe replanning.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T023",
+      "owner_task": "M1-T04",
+      "kind": "core",
+      "title": "Video identity and stability",
+      "fixture": "Opaque video bytes and a source changed during copy",
+      "expected": "Stable copy is byte-identical; detected changes/partial writes do not become final success.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T024",
+      "owner_task": "M1-T04",
+      "kind": "core",
+      "title": "Temporary ownership",
+      "fixture": "Interrupted partials plus unrelated files beside them",
+      "expected": "Cleanup affects only owned files; no glob deletion of user data.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T025",
+      "owner_task": "M1-T05",
+      "kind": "core",
+      "title": "Failed-first duplicate",
+      "fixture": "Same name/timestamp/length; first fails and second succeeds",
+      "expected": "Second is attempted and retained; no poisoned seen key.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T026",
+      "owner_task": "M1-T05",
+      "kind": "core",
+      "title": "Length guard",
+      "fixture": "Same name/timestamp but different lengths",
+      "expected": "Both processed; no false skip based solely on legacy key.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T027",
+      "owner_task": "M1-T05",
+      "kind": "core",
+      "title": "Heuristic retained link",
+      "fixture": "Successful pair matching heuristic plus different bytes same length",
+      "expected": "Skip behavior and retained mapping are deterministic; limitation is expressly documented.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T028",
+      "owner_task": "M1-T06",
+      "kind": "core",
+      "title": "Source preservation and safety regression",
+      "fixture": "Full synthetic mixed tree run twice",
+      "expected": "Source bytes and creation/modified times unchanged; separate outputs; all M1 regressions pass.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T029",
+      "owner_task": "M2-T01",
+      "kind": "core",
+      "title": "Animated first frame",
+      "fixture": "Two-frame GIF with offset/transparent canvas",
+      "expected": "One logical first displayed-frame JPEG at intended name; no stray sequence outputs.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T030",
+      "owner_task": "M2-T01",
+      "kind": "core",
+      "title": "Multipage TIFF",
+      "fixture": "Two distinct pages",
+      "expected": "One first-page output, not composited pages; omission recorded.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T031",
+      "owner_task": "M2-T01",
+      "kind": "optional-codec",
+      "title": "Animated WebP and HEIC sequences",
+      "fixture": "Fixtures with confirmed decoder capability",
+      "expected": "One documented primary/first image; omissions recorded; absence is explicit skip only in optional jobs.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T032",
+      "owner_task": "M2-T02",
+      "kind": "core",
+      "title": "Tagged RGB conversion",
+      "fixture": "Licensed sRGB and wide-gamut ICC reference patches",
+      "expected": "Colour matches controlled reference within declared tolerances before JPEG variation.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T033",
+      "owner_task": "M2-T02",
+      "kind": "core",
+      "title": "Tagged CMYK and untagged input",
+      "fixture": "Licensed CMYK target, untagged RGB/CMYK",
+      "expected": "Tagged transform verified; ambiguous untagged behavior documented and warned as appropriate.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T034",
+      "owner_task": "M2-T02",
+      "kind": "core",
+      "title": "Malformed ICC",
+      "fixture": "Tiny benign image with invalid/truncated profile",
+      "expected": "Safe reported error/warning; no claim of successful accurate profile conversion.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T035",
+      "owner_task": "M2-T02",
+      "kind": "core",
+      "title": "Metadata and orientation",
+      "fixture": "JPEG orientation 1–8 plus synthetic GPS/EXIF/XMP/IPTC",
+      "expected": "Displayed orientation correct and privacy metadata absent; source metadata untouched.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T036",
+      "owner_task": "M2-T02",
+      "kind": "core",
+      "title": "Alpha flattening",
+      "fixture": "Fully/semitransparent colour patches",
+      "expected": "White background treatment verified with tolerance; no black fallback or dropped alpha flags.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T037",
+      "owner_task": "M2-T03",
+      "kind": "core",
+      "title": "ImageMagick filename metacharacters",
+      "fixture": "Percent, %d, brackets, hashes, at-signs and leading hyphens",
+      "expected": "Literal source selected and intended final filename retained; no format/template expansion.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T038",
+      "owner_task": "M2-T03",
+      "kind": "windows",
+      "title": "Launcher argument characters",
+      "fixture": "Spaces, apostrophes, ampersands, parentheses, exclamation marks and Finnish/German/emoji characters",
+      "expected": "Works through .bat and direct PowerShell without shell evaluation or silent mangling.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T039",
+      "owner_task": "M2-T03",
+      "kind": "windows-capability",
+      "title": "UNC and long paths",
+      "fixture": "Disposable share and long-path-enabled/disabled environments",
+      "expected": "Supported paths succeed; unsupported combinations fail clearly without truncation.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T040",
+      "owner_task": "M2-T04",
+      "kind": "core",
+      "title": "Extent byte semantics",
+      "fixture": "1048576 plus non-KiB-divisible custom limits",
+      "expected": "Actual final bytes determine outcome; documented units equal intended bytes.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T041",
+      "owner_task": "M2-T04",
+      "kind": "core",
+      "title": "Above-target best effort",
+      "fixture": "Deterministic incompressible fixture or controlled encoder stub",
+      "expected": "Valid above-cap result is retained only under documented best-effort policy and marked warning.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T042",
+      "owner_task": "M2-T04",
+      "kind": "core",
+      "title": "Quality/resize stability",
+      "fixture": "Portrait/landscape/detail/noise/line-art fixtures",
+      "expected": "No silent default algorithm change; measured comparison and decision recorded.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T043",
+      "owner_task": "M2-T05",
+      "kind": "core",
+      "title": "Native warning versus error",
+      "fixture": "Successful command with warning; failing command with output",
+      "expected": "Exit and stderr handled consistently on PS5.1/7; only valid acceptable outcomes finalize.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T044",
+      "owner_task": "M2-T05",
+      "kind": "core",
+      "title": "Classified retry bounds",
+      "fixture": "Missing codec, access denied, corrupt file, controlled transient failure",
+      "expected": "Only justified transient failure retries; attempt bounds and reason appear in logs.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T045",
+      "owner_task": "M2-T05",
+      "kind": "core",
+      "title": "Output-stream volume",
+      "fixture": "Benign process emits large stdout and stderr",
+      "expected": "No deadlock or unbounded retained diagnostic text; error details are usable.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T046",
+      "owner_task": "M2-T06",
+      "kind": "core",
+      "title": "Integrated conversion regression",
+      "fixture": "All mandatory frame/colour/path/size fixtures",
+      "expected": "Combined behavior correct and no raw input is modified.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T047",
+      "owner_task": "M3-T01",
+      "kind": "windows",
+      "title": "Denied subtree",
+      "fixture": "Disposable tree with one unreadable directory and accessible sibling",
+      "expected": "Accessible items complete; unreadable subtree reported; overall scan not called complete success.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T048",
+      "owner_task": "M3-T01",
+      "kind": "windows",
+      "title": "Links and loops",
+      "fixture": "Disposable symlink/junction loop and link outside source",
+      "expected": "Skip/report default works; no traversal outside allowed root or infinite loop.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T049",
+      "owner_task": "M3-T01",
+      "kind": "core",
+      "title": "Log-write failure",
+      "fixture": "Injected disk/permission error during logging",
+      "expected": "Visible fallback/degraded status without silent loss or recursive logging failure.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T050",
+      "owner_task": "M3-T01",
+      "kind": "core",
+      "title": "Timestamp failure",
+      "fixture": "Injected inability to set creation/modified times",
+      "expected": "Final data retained if valid, timestamp warning visible and outcome consistent.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T051",
+      "owner_task": "M3-T02",
+      "kind": "core",
+      "title": "Per-file timeout",
+      "fixture": "Benign sleeper process with controlled timeout",
+      "expected": "Only owned process/tree terminated; next items or orderly stop follow documented policy.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T052",
+      "owner_task": "M3-T02",
+      "kind": "core",
+      "title": "Resource ceiling",
+      "fixture": "Benign oversized fixture and constrained cache/disk budget",
+      "expected": "Resource failure controlled; no global policy changed, no machine exhaustion.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T053",
+      "owner_task": "M3-T02",
+      "kind": "core",
+      "title": "Unrelated process isolation",
+      "fixture": "Owned child plus unrelated long-running process",
+      "expected": "Cancel/timeout affects only owned tree; unrelated process remains.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T054",
+      "owner_task": "M3-T03",
+      "kind": "windows",
+      "title": "Ctrl+C during image conversion",
+      "fixture": "Real terminal interrupt against disposable image run",
+      "expected": "Completed outputs kept, incomplete output not finalized, actual exit behavior documented.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T055",
+      "owner_task": "M3-T03",
+      "kind": "windows",
+      "title": "Cancellation during video copy",
+      "fixture": "Disposable large synthetic byte file",
+      "expected": "No completed final name for partial copy; owned temp cleanup and interrupted summary.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T056",
+      "owner_task": "M3-T03",
+      "kind": "core",
+      "title": "Unexpected termination recovery",
+      "fixture": "Force-kill a disposable worker",
+      "expected": "No unsupported cleanup promise; recognizable owned partials never count as validated outputs.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T057",
+      "owner_task": "M3-T04",
+      "kind": "core",
+      "title": "Outcome reconciliation",
+      "fixture": "Mixed converted/copied/ignored/duplicate/error input",
+      "expected": "Discovered-file partition balances; warning attributes do not double-count.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T058",
+      "owner_task": "M3-T04",
+      "kind": "core",
+      "title": "Accounting correctness",
+      "fixture": "Mixed images/videos with a JPEG that grows",
+      "expected": "Signed image-only savings and separate video totals; no false savings from skips.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T059",
+      "owner_task": "M3-T04",
+      "kind": "core",
+      "title": "CSV formula defense",
+      "fixture": "Names beginning =, +, -, @ and whitespace controls where supported",
+      "expected": "CSV cells remain inert in documented import path; original relative path mapping preserved safely.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T060",
+      "owner_task": "M3-T04",
+      "kind": "core",
+      "title": "Incomplete scan and report failures",
+      "fixture": "Denied directories plus report-write failure",
+      "expected": "Unknown subtree file counts not fabricated; degraded outcome is visible.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T061",
+      "owner_task": "M3-T05",
+      "kind": "windows",
+      "title": "Exit propagation",
+      "fixture": "Success, setup failure, partial/warning, cancellation",
+      "expected": "Script contract and .bat return match despite echo/pause; real host behavior verified.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T062",
+      "owner_task": "M3-T05",
+      "kind": "windows",
+      "title": "Drag-and-drop count and path",
+      "fixture": "Zero/one/two dropped folders and script in spaced directory",
+      "expected": "Clear zero/extra argument handling; one-folder legacy flow works.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T063",
+      "owner_task": "M3-T05",
+      "kind": "windows",
+      "title": "Security context unchanged",
+      "fixture": "Inspect process/machine policy before and after launcher",
+      "expected": "No permanent/global policy changes; no admin prompt invented.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T064",
+      "owner_task": "M3-T06",
+      "kind": "windows",
+      "title": "Full PowerShell matrix",
+      "fixture": "Pinned development tools in Windows PS5.1 and supported PS7",
+      "expected": "Real tests discovered/executed; required coverage is not skipped away.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T065",
+      "owner_task": "M3-T06",
+      "kind": "core",
+      "title": "Dependency/capability CI reporting",
+      "fixture": "Missing optional codec and mandatory codec-enabled job",
+      "expected": "Optional skip has reason; mandatory codec coverage must run and pass for support claim.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T066",
+      "owner_task": "M3-T06",
+      "kind": "core",
+      "title": "Workflow/static-analysis security",
+      "fixture": "Review workflows plus deliberate analyzer/test failure",
+      "expected": "Checks fail honestly; least privilege, pinned reviewed actions and no secrets exposed to untrusted code.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T067",
+      "owner_task": "M3-T07",
+      "kind": "owner",
+      "title": "Everyday workflow acceptance",
+      "fixture": "Owner-approved disposable copies and real Windows drag-and-drop",
+      "expected": "Owner explicitly accepts workflow/appearance at named commit; no fabricated approval.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T068",
+      "owner_task": "M4-T01",
+      "kind": "core",
+      "title": "Single version source",
+      "fixture": "Log/help/package/changelog generated from chosen version",
+      "expected": "Version values agree; no release created yet.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T069",
+      "owner_task": "M4-T02",
+      "kind": "core",
+      "title": "Release content allowlist",
+      "fixture": "Built ZIP from clean candidate revision",
+      "expected": "Only intended tracked runtime/docs/license files included; no private assets or governance.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T070",
+      "owner_task": "M4-T02",
+      "kind": "windows",
+      "title": "Clean extract smoke test",
+      "fixture": "ZIP extracted to new folder with spaces on Windows",
+      "expected": "Matching .bat/.ps1 work with documented prerequisites and ordinary permissions.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T071",
+      "owner_task": "M4-T02",
+      "kind": "core",
+      "title": "Checksums/provenance",
+      "fixture": "ZIP plus published-style SHA256SUMS",
+      "expected": "Hash recomputes exactly; artifact/source revision recorded; no unsupported signing claim.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T072",
+      "owner_task": "M4-T03",
+      "kind": "core",
+      "title": "Documentation parity",
+      "fixture": "Actual help, README and test-backed features",
+      "expected": "Units, limitations, privacy/video caveat and nesting guard match implementation.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T073",
+      "owner_task": "M4-T04",
+      "kind": "core",
+      "title": "Website boundary and metadata",
+      "fixture": "Framework-neutral draft copy and metadata",
+      "expected": "No backend/upload form; only verified release URLs go live; real screenshots/assets only.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T074",
+      "owner_task": "M4-T05",
+      "kind": "owner",
+      "title": "Release-candidate gate",
+      "fixture": "Full traceability report, CI, owner evidence, ZIP hash",
+      "expected": "Approval request names exact candidate; unresolved required coverage prevents readiness claim.",
+      "initial_execution_status": "not_run"
+    },
+    {
+      "id": "T075",
+      "owner_task": "M4-T06",
+      "kind": "owner",
+      "title": "Approved publication consistency",
+      "fixture": "Approved merge/tag/release plus verified download",
+      "expected": "Actual tag commit, ZIP contents/hash and website metadata agree; no unapproved deployment.",
+      "initial_execution_status": "not_run"
+    }
+  ]
+}
