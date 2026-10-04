@@ -1,0 +1,636 @@
+{
+  "schema_version": 1,
+  "task_id": "M0-T03",
+  "recorded_utc": "2026-10-04T14:32:27.695619+00:00",
+  "tested_implementation_commit": "3b80ee94b8471a22560ea90a7583283c1613195c",
+  "starting_commit": "a3ef050e2f9fb42045c2a6c62ec680b7e93d5fc2",
+  "tested_files_sha256": {
+    "WinImgNormalizer.ps1": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Normalizer.Tests.ps1": "6106577985d42113c6085ea2212691e27cd7d56b655f6b45bdcf274edb6caf55",
+    "tests/Invoke-Tests.ps1": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    ".github/workflows/windows-tests.yml": "e166fdec3c7fd1bf2d1c47d520990ac1b0b5ca454763eef0f60d610ff5a0ac1f",
+    "tests/README.md": "f43a26a9e3250f1a534c056f5e59a3b33a1a0aea48190591c23395955032c3c8"
+  },
+  "environment": {
+    "ps51": {
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    },
+    "ps7": {
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    }
+  },
+  "executions": [
+    {
+      "shell": "ps51",
+      "control": "normal",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-normal"
+      ],
+      "exit_code": 0,
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    },
+    {
+      "shell": "ps51",
+      "control": "deliberate",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-deliberate",
+        "-DeliberateFailure"
+      ],
+      "exit_code": 1,
+      "total": 7,
+      "passed": 6,
+      "failed": 1,
+      "skipped": 0,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    },
+    {
+      "shell": "ps51",
+      "control": "zero",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-zero",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Zero.Tests.ps1"
+      ],
+      "exit_code": 1,
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    },
+    {
+      "shell": "ps51",
+      "control": "skip",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-skip",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Skip.Tests.ps1"
+      ],
+      "exit_code": 1,
+      "total": 1,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 1,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    },
+    {
+      "shell": "ps51",
+      "control": "discovery",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-discovery",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Discovery.Tests.ps1"
+      ],
+      "exit_code": 1,
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    },
+    {
+      "shell": "ps7",
+      "control": "normal",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-normal"
+      ],
+      "exit_code": 0,
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    },
+    {
+      "shell": "ps7",
+      "control": "deliberate",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-deliberate",
+        "-DeliberateFailure"
+      ],
+      "exit_code": 1,
+      "total": 7,
+      "passed": 6,
+      "failed": 1,
+      "skipped": 0,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    },
+    {
+      "shell": "ps7",
+      "control": "zero",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-zero",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Zero.Tests.ps1"
+      ],
+      "exit_code": 1,
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    },
+    {
+      "shell": "ps7",
+      "control": "skip",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-skip",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Skip.Tests.ps1"
+      ],
+      "exit_code": 1,
+      "total": 1,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 1,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    },
+    {
+      "shell": "ps7",
+      "control": "discovery",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-discovery",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Discovery.Tests.ps1"
+      ],
+      "exit_code": 1,
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "persistent_policy_unchanged": true,
+      "evidence": "evidence/M0-T03-runner.json"
+    }
+  ],
+  "ordinary_parity": {
+    "runs": 4,
+    "independently_decoded_jpegs": 16,
+    "byte_identical_videos": 12,
+    "source_bytes_creation_modified_times_preserved": true,
+    "same_toolchain_baseline_hashes_dimensions_tree_times_match": true,
+    "evidence": "evidence/M0-T03-parity.json"
+  },
+  "case_results": [
+    {
+      "case_id": "T005",
+      "state": "passed",
+      "reason": "Four import/usage/empty-tree/injected-runner tests pass in each Windows shell. Child safety probe precedes in-Pester import; a separate scratch exit-0 mutation control fails all six tests instead of allowing premature success.",
+      "evidence": "evidence/M0-T03-import-control.json"
+    },
+    {
+      "case_id": "T006",
+      "state": "passed",
+      "reason": "Both public positional -File forms run in each Windows shell with only the outer call given an internal scratch destination. Four real JPEGs decode with expected dimensions/times, three video hashes/times match, tree/logs and source preservation pass. Four independent callable parity runs match M0-T02 ordinary outputs."
+    },
+    {
+      "case_id": "T007",
+      "state": "passed",
+      "reason": "Default suite passes six tests per shell. Ten local credibility controls reject exactly the intended assertion/zero/skip/discovery failures; competing tar PATH bootstrap succeeds. Both GitHub matrix shells run six tests and verify a real seventh false assertion produces runner exit 1."
+    }
+  ],
+  "ci": {
+    "state": "passed",
+    "commit": "3b80ee94b8471a22560ea90a7583283c1613195c",
+    "runs": [
+      {
+        "conclusion": "success",
+        "createdAt": "2026-10-04T14:28:57Z",
+        "event": "push",
+        "headSha": "3b80ee94b8471a22560ea90a7583283c1613195c",
+        "jobs": [
+          {
+            "completedAt": "2026-10-04T14:29:30Z",
+            "conclusion": "success",
+            "databaseId": 111457347885,
+            "name": "pwsh on Windows",
+            "startedAt": "2026-10-04T14:28:59Z",
+            "status": "completed",
+            "steps": [
+              {
+                "completedAt": "2026-10-04T14:29:00Z",
+                "conclusion": "success",
+                "name": "Set up job",
+                "number": 1,
+                "startedAt": "2026-10-04T14:29:00Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:08Z",
+                "conclusion": "success",
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "number": 2,
+                "startedAt": "2026-10-04T14:29:00Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:17Z",
+                "conclusion": "success",
+                "name": "Run mandatory tests with verified development dependencies",
+                "number": 3,
+                "startedAt": "2026-10-04T14:29:08Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:26Z",
+                "conclusion": "success",
+                "name": "Prove a broken assertion returns failure",
+                "number": 4,
+                "startedAt": "2026-10-04T14:29:17Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:28Z",
+                "conclusion": "success",
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "number": 8,
+                "startedAt": "2026-10-04T14:29:26Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:28Z",
+                "conclusion": "success",
+                "name": "Complete job",
+                "number": 9,
+                "startedAt": "2026-10-04T14:29:28Z",
+                "status": "completed"
+              }
+            ],
+            "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37209413014/job/111457347885"
+          },
+          {
+            "completedAt": "2026-10-04T14:29:53Z",
+            "conclusion": "success",
+            "databaseId": 111457348048,
+            "name": "powershell on Windows",
+            "startedAt": "2026-10-04T14:29:02Z",
+            "status": "completed",
+            "steps": [
+              {
+                "completedAt": "2026-10-04T14:29:03Z",
+                "conclusion": "success",
+                "name": "Set up job",
+                "number": 1,
+                "startedAt": "2026-10-04T14:29:03Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:11Z",
+                "conclusion": "success",
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "number": 2,
+                "startedAt": "2026-10-04T14:29:04Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:41Z",
+                "conclusion": "success",
+                "name": "Run mandatory tests with verified development dependencies",
+                "number": 3,
+                "startedAt": "2026-10-04T14:29:11Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:50Z",
+                "conclusion": "success",
+                "name": "Prove a broken assertion returns failure",
+                "number": 4,
+                "startedAt": "2026-10-04T14:29:41Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:52Z",
+                "conclusion": "success",
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "number": 8,
+                "startedAt": "2026-10-04T14:29:50Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:52Z",
+                "conclusion": "success",
+                "name": "Complete job",
+                "number": 9,
+                "startedAt": "2026-10-04T14:29:52Z",
+                "status": "completed"
+              }
+            ],
+            "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37209413014/job/111457348048"
+          }
+        ],
+        "status": "completed",
+        "updatedAt": "2026-10-04T14:29:54Z",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37209413014"
+      },
+      {
+        "conclusion": "success",
+        "createdAt": "2026-10-04T14:29:00Z",
+        "event": "pull_request",
+        "headSha": "3b80ee94b8471a22560ea90a7583283c1613195c",
+        "jobs": [
+          {
+            "completedAt": "2026-10-04T14:29:45Z",
+            "conclusion": "success",
+            "databaseId": 111457355721,
+            "name": "powershell on Windows",
+            "startedAt": "2026-10-04T14:29:02Z",
+            "status": "completed",
+            "steps": [
+              {
+                "completedAt": "2026-10-04T14:29:04Z",
+                "conclusion": "success",
+                "name": "Set up job",
+                "number": 1,
+                "startedAt": "2026-10-04T14:29:03Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:10Z",
+                "conclusion": "success",
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "number": 2,
+                "startedAt": "2026-10-04T14:29:04Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:34Z",
+                "conclusion": "success",
+                "name": "Run mandatory tests with verified development dependencies",
+                "number": 3,
+                "startedAt": "2026-10-04T14:29:10Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:42Z",
+                "conclusion": "success",
+                "name": "Prove a broken assertion returns failure",
+                "number": 4,
+                "startedAt": "2026-10-04T14:29:34Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:44Z",
+                "conclusion": "success",
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "number": 8,
+                "startedAt": "2026-10-04T14:29:42Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:44Z",
+                "conclusion": "success",
+                "name": "Complete job",
+                "number": 9,
+                "startedAt": "2026-10-04T14:29:44Z",
+                "status": "completed"
+              }
+            ],
+            "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37209415439/job/111457355721"
+          },
+          {
+            "completedAt": "2026-10-04T14:29:31Z",
+            "conclusion": "success",
+            "databaseId": 111457355839,
+            "name": "pwsh on Windows",
+            "startedAt": "2026-10-04T14:29:02Z",
+            "status": "completed",
+            "steps": [
+              {
+                "completedAt": "2026-10-04T14:29:03Z",
+                "conclusion": "success",
+                "name": "Set up job",
+                "number": 1,
+                "startedAt": "2026-10-04T14:29:03Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:10Z",
+                "conclusion": "success",
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "number": 2,
+                "startedAt": "2026-10-04T14:29:03Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:19Z",
+                "conclusion": "success",
+                "name": "Run mandatory tests with verified development dependencies",
+                "number": 3,
+                "startedAt": "2026-10-04T14:29:10Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:28Z",
+                "conclusion": "success",
+                "name": "Prove a broken assertion returns failure",
+                "number": 4,
+                "startedAt": "2026-10-04T14:29:19Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:30Z",
+                "conclusion": "success",
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "number": 8,
+                "startedAt": "2026-10-04T14:29:28Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-04T14:29:30Z",
+                "conclusion": "success",
+                "name": "Complete job",
+                "number": 9,
+                "startedAt": "2026-10-04T14:29:30Z",
+                "status": "completed"
+              }
+            ],
+            "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37209415439/job/111457355839"
+          }
+        ],
+        "status": "completed",
+        "updatedAt": "2026-10-04T14:29:46Z",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37209415439"
+      }
+    ],
+    "evidence": "evidence/M0-T03-ci.json",
+    "scope": "Windows Server hosted PS5.1/PS7 early six-test matrix plus deliberately failing assertion control."
+  },
+  "ci_initial_failure": {
+    "commit": "08ea3c34d23fe25a45851136139eba889b96f124",
+    "state": "failed",
+    "run_urls": [
+      "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37209232187",
+      "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37209248696"
+    ],
+    "actual_error": "The term 'C:\\Windows\\system32\\tar.exe C:\\Program Files\\Git\\usr\\bin\\tar.exe' is not recognized",
+    "counts": "Zero tests ran; infrastructure exit 1 in each matrix job.",
+    "fix": "Select the explicit Windows System32 libarchive tar; verify default bootstrap with Git tar first on PATH and rerun real CI.",
+    "raw_failure_log_sha256": "8cc486f5a022a370a7dc03ebc81512b1450f80b7fda90d9830e319aac7e81444"
+  },
+  "sync_observation": {
+    "state": "pending_verification",
+    "branch": "codex/winimg-hardening",
+    "note": "Implementation pushes were observed independently. The containing evidence checkpoint final SHA/sync is reported externally after its commit and push."
+  },
+  "owner_approval": {
+    "state": "not_requested",
+    "actor": null,
+    "recorded_utc": null,
+    "approved_commit": null
+  },
+  "limitations": [
+    "T006 uses an instrumented outer destination call; real Known Folder resolution, manual drag-and-drop and batch outcome propagation are not tested here.",
+    "Known collision, frame, duplicate, weak-output, preflight, colour, sizing and lifecycle defects remain assigned to later tasks. These early tests do not certify the full 75-case corpus.",
+    "Byte-identical parity applies only to the identical verified native toolchain; no cross-build JPEG byte guarantee.",
+    "CI is Windows Server evidence, separate from actual Windows 11 desktop tests. Analyzer, optional-codec/profile coverage, owner quality acceptance and release readiness remain later gates.",
+    "Private raw transcripts, fixtures, native tools and controller scripts remain ignored. No persistent policy/PATH change or software installation occurred."
+  ],
+  "implementation_notes": [
+    "One callable orchestration function and one positional command adapter; nested legacy helpers and algorithms are retained. Only outer entry exits; dot-source loads definitions without caller preference/log mutation.",
+    "Internal OutputParent/ProcessRunner injection is not exposed as new public CLI options or runtime configuration. Batch launcher and original assets unchanged.",
+    "PowerShell 5.1 runner default-path evaluation was corrected by assigning PSScriptRoot-based defaults after param. Initial development command/path failures were infrastructure failures, not passing tests."
+  ]
+}

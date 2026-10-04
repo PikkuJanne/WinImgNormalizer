@@ -1,0 +1,1417 @@
+{
+  "schema_version": 1,
+  "kind": "M0-T03 actual Windows runner credibility controls",
+  "controller": "<repo>\\.scratch\\runner-validation\\check_runner.py",
+  "controller_sha256": "dc5b1892dead1babc051063343559d9a04fbae93b8b36516c10dedee7551b069",
+  "controller_command": [
+    ".scratch/runner-validation/check_runner.py",
+    "--root",
+    ".scratch/runner-validation/final-controller-tar-fix",
+    "--ps51",
+    "<powershell.exe>",
+    "--ps7",
+    "<pwsh.exe>",
+    "--extra-path",
+    "<competing-tar-directory>"
+  ],
+  "extra_child_path": "<competing-tar-directory>",
+  "tar_inventory": {
+    "ps51": {
+      "candidates": [
+        "<competing-tar-directory>\\tar.exe",
+        "<SystemRoot>\\system32\\tar.exe"
+      ],
+      "sha256": "4E598A8CEC84AF779E3377442FCE2B94B976F614ED4C6E5A665E19308FD1E379",
+      "selected": "<SystemRoot>\\System32\\tar.exe",
+      "version": [
+        "bsdtar 3.8.8 - libarchive 3.8.8 zlib/1.2.13.1-motley liblzma/5.8.1 bz2lib/1.0.8 libzstd/1.5.7 cng/2.0 libb2/bundled "
+      ]
+    },
+    "ps7": {
+      "selected": "<SystemRoot>\\System32\\tar.exe",
+      "version": [
+        "bsdtar 3.8.8 - libarchive 3.8.8 zlib/1.2.13.1-motley liblzma/5.8.1 bz2lib/1.0.8 libzstd/1.5.7 cng/2.0 libb2/bundled "
+      ],
+      "sha256": "4E598A8CEC84AF779E3377442FCE2B94B976F614ED4C6E5A665E19308FD1E379",
+      "candidates": [
+        "<competing-tar-directory>\\tar.exe",
+        "<SystemRoot>\\system32\\tar.exe"
+      ]
+    }
+  },
+  "source_before": {
+    "WinImgNormalizer.ps1": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Normalizer.Tests.ps1": "6106577985d42113c6085ea2212691e27cd7d56b655f6b45bdcf274edb6caf55",
+    "tests/Invoke-Tests.ps1": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    ".github/workflows/windows-tests.yml": "e166fdec3c7fd1bf2d1c47d520990ac1b0b5ca454763eef0f60d610ff5a0ac1f"
+  },
+  "source_after": {
+    "WinImgNormalizer.ps1": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Normalizer.Tests.ps1": "6106577985d42113c6085ea2212691e27cd7d56b655f6b45bdcf274edb6caf55",
+    "tests/Invoke-Tests.ps1": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    ".github/workflows/windows-tests.yml": "e166fdec3c7fd1bf2d1c47d520990ac1b0b5ca454763eef0f60d610ff5a0ac1f"
+  },
+  "sources_unchanged": true,
+  "cases": [
+    {
+      "shell": "ps51",
+      "case": "normal",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-normal"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:28.308269+00:00",
+      "process_exit": 0,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:18.9477009Z",
+        "result": "Passed",
+        "powershell_version": "5.1.26100.9444",
+        "powershell_edition": "Desktop",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": false,
+        "test_paths": [
+          "<repo>\\tests\\Normalizer.Tests.ps1"
+        ],
+        "total_count": 6,
+        "passed_count": 6,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0,
+        "failed_tests": [],
+        "skipped_tests": [],
+        "gate_failures": [],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<powershell.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 4.9425694,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\tests\\Normalizer.Tests.ps1",
+            "sha256": "6106577985d42113c6085ea2212691e27cd7d56b655f6b45bdcf274edb6caf55"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 0
+      },
+      "artifact_sha256": {
+        "stdout.txt": "e54f2df84fe5101d730331653d3c9e21805efa0d3a2a951aa190e9395cf8490a",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "ee13c470a767ba519f35404638dee1c3a2f3e2bffe86843905477b120e13008e",
+        "results.xml": "dd17718ed7fb7a62dad681fffaf135ec6520792115f3cdb0d322b075231902d4"
+      }
+    },
+    {
+      "shell": "ps51",
+      "case": "deliberate",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-deliberate",
+        "-DeliberateFailure"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:28.594658+00:00",
+      "process_exit": 1,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:18.9331300Z",
+        "result": "Failed",
+        "powershell_version": "5.1.26100.9444",
+        "powershell_edition": "Desktop",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": true,
+        "test_paths": [
+          "<repo>\\tests\\Normalizer.Tests.ps1"
+        ],
+        "total_count": 7,
+        "passed_count": 6,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0,
+        "failed_tests": [
+          "T007 runner credibility control.deliberate assertion must fail"
+        ],
+        "skipped_tests": [],
+        "gate_failures": [
+          "One or more assertions failed.",
+          "Pester reported a failing run, block or container."
+        ],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<powershell.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 5.2623299,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\tests\\Normalizer.Tests.ps1",
+            "sha256": "6106577985d42113c6085ea2212691e27cd7d56b655f6b45bdcf274edb6caf55"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 1
+      },
+      "artifact_sha256": {
+        "stdout.txt": "40e780c78bee49d8a03a9aee234cf643d416b65f4ab358e97d7c55b23a4eef93",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "77a364fa4b9214cd52e15ccfe9a430865f3749d973455bf477e59fb77994e1b6",
+        "results.xml": "0a31366a86ab9ea7bff6f0fa4ac5560569d7028fd3d0fac80d2b331b39868311"
+      }
+    },
+    {
+      "shell": "ps51",
+      "case": "zero",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-zero",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Zero.Tests.ps1"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:23.299723+00:00",
+      "process_exit": 1,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:18.9331300Z",
+        "result": "Passed",
+        "powershell_version": "5.1.26100.9444",
+        "powershell_edition": "Desktop",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": false,
+        "test_paths": [
+          "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Zero.Tests.ps1"
+        ],
+        "total_count": 0,
+        "passed_count": 0,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0,
+        "failed_tests": [],
+        "skipped_tests": [],
+        "gate_failures": [
+          "Zero tests discovered."
+        ],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<powershell.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 0.086808,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Zero.Tests.ps1",
+            "sha256": "d3bdc898fe9cc178c824683570d1a39e2f7e9d973a5f84e461f3e4493b5cd1ff"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 1
+      },
+      "artifact_sha256": {
+        "stdout.txt": "1dc6959f6bf89ec76a922d4f5e0edb634bc73a67ff29459b99e3c057cda36aec",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "17bbde01b2e131fe479274c471bd516e16dc38bb7f6c613d16fb94c065605581",
+        "results.xml": "dc74244885044c85dd15e6e861ac93fd46b9811dd0a1c9349e99f1d40e488fb4"
+      }
+    },
+    {
+      "shell": "ps51",
+      "case": "skip",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-skip",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Skip.Tests.ps1"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:24.174904+00:00",
+      "process_exit": 1,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:18.9497409Z",
+        "result": "Passed",
+        "powershell_version": "5.1.26100.9444",
+        "powershell_edition": "Desktop",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": false,
+        "test_paths": [
+          "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Skip.Tests.ps1"
+        ],
+        "total_count": 1,
+        "passed_count": 0,
+        "failed_count": 0,
+        "skipped_count": 1,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0,
+        "failed_tests": [],
+        "skipped_tests": [
+          "Runner fixture.cannot be skipped"
+        ],
+        "gate_failures": [
+          "Mandatory tests were skipped."
+        ],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<powershell.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 0.8154766,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Skip.Tests.ps1",
+            "sha256": "b8ce2c34dd8dfa8f2f7db5619ee1253c7da94332843bdb7c0e94691e9c06e7bc"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 1
+      },
+      "artifact_sha256": {
+        "stdout.txt": "3eac41255dc25859a2099fd13e1cc3ae95c803f3e96c4e1b4346b7ca11240a05",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "579ce836e9be5d0b972c17852e966d9f5254f630d593182eb98f5e9eb6a93ba9",
+        "results.xml": "2329dc487bfcf5677673e5e4db4cdbd0da4d88cf7b4f9ea817474294cc479b77"
+      }
+    },
+    {
+      "shell": "ps51",
+      "case": "discovery",
+      "command": [
+        "<powershell.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps51-discovery",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Discovery.Tests.ps1"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:27.842060+00:00",
+      "process_exit": 1,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:23.6864573Z",
+        "result": "Failed",
+        "powershell_version": "5.1.26100.9444",
+        "powershell_edition": "Desktop",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": false,
+        "test_paths": [
+          "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Discovery.Tests.ps1"
+        ],
+        "total_count": 0,
+        "passed_count": 0,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 1,
+        "failed_tests": [],
+        "skipped_tests": [],
+        "gate_failures": [
+          "Zero tests discovered.",
+          "Pester reported a failing run, block or container."
+        ],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<powershell.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 0.1346327,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Discovery.Tests.ps1",
+            "sha256": "c9e933abddab550ea229a5db7a5e03deaa6de33c3e68a0365d871b573c155fae"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "Undefined"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 1
+      },
+      "artifact_sha256": {
+        "stdout.txt": "79328dcfcdc4a42cb7848394022cc33347ee7a98da15839365138af2b6b9fb5b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "6d14bc10ebb7edc146e0717bae635bf45ddb34a97d154658d5d7562c949b0eae",
+        "results.xml": "8e8ba8f7f7aafe65206c4e20ddb6691d4717e4f18d895d8beb20fef1fa9a15e6"
+      }
+    },
+    {
+      "shell": "ps7",
+      "case": "normal",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-normal"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:35.826425+00:00",
+      "process_exit": 0,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:25.0927318Z",
+        "result": "Passed",
+        "powershell_version": "7.6.5",
+        "powershell_edition": "Core",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": false,
+        "test_paths": [
+          "<repo>\\tests\\Normalizer.Tests.ps1"
+        ],
+        "total_count": 6,
+        "passed_count": 6,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0,
+        "failed_tests": [],
+        "skipped_tests": [],
+        "gate_failures": [],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<pwsh.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 6.8642615,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\tests\\Normalizer.Tests.ps1",
+            "sha256": "6106577985d42113c6085ea2212691e27cd7d56b655f6b45bdcf274edb6caf55"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 0
+      },
+      "artifact_sha256": {
+        "stdout.txt": "ea6127caa23fe21418d6170e9b94232302115d89e68972e11c7834d3c67f592c",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "d8e26e70ebbe05fcb839830bce40788e5d91efc8141124968bc930206d695bd9",
+        "results.xml": "ef4e78070b5b84d7cea6906b90c50418f3e0db6853b91304dd9a1e85706c467e"
+      }
+    },
+    {
+      "shell": "ps7",
+      "case": "deliberate",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-deliberate",
+        "-DeliberateFailure"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:39.883085+00:00",
+      "process_exit": 1,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:28.7864920Z",
+        "result": "Failed",
+        "powershell_version": "7.6.5",
+        "powershell_edition": "Core",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": true,
+        "test_paths": [
+          "<repo>\\tests\\Normalizer.Tests.ps1"
+        ],
+        "total_count": 7,
+        "passed_count": 6,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0,
+        "failed_tests": [
+          "T007 runner credibility control.deliberate assertion must fail"
+        ],
+        "skipped_tests": [],
+        "gate_failures": [
+          "One or more assertions failed.",
+          "Pester reported a failing run, block or container."
+        ],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<pwsh.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 7.2155069,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\tests\\Normalizer.Tests.ps1",
+            "sha256": "6106577985d42113c6085ea2212691e27cd7d56b655f6b45bdcf274edb6caf55"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 1
+      },
+      "artifact_sha256": {
+        "stdout.txt": "6ba61620ad80ed59ef8a9255a8a02befa773e16a4d733518085533a3b8917247",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "eb2040b5b25625787c596eb74072c94ca4f18edbb027a3832fa7abae7bc73039",
+        "results.xml": "3d18afa922710a99301615449e3aaba0b641117b2b2278e662025d219d22ff6f"
+      }
+    },
+    {
+      "shell": "ps7",
+      "case": "zero",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-zero",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Zero.Tests.ps1"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:33.350352+00:00",
+      "process_exit": 1,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:29.3422259Z",
+        "result": "Passed",
+        "powershell_version": "7.6.5",
+        "powershell_edition": "Core",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": false,
+        "test_paths": [
+          "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Zero.Tests.ps1"
+        ],
+        "total_count": 0,
+        "passed_count": 0,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0,
+        "failed_tests": [],
+        "skipped_tests": [],
+        "gate_failures": [
+          "Zero tests discovered."
+        ],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<pwsh.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 0.0648039,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Zero.Tests.ps1",
+            "sha256": "d3bdc898fe9cc178c824683570d1a39e2f7e9d973a5f84e461f3e4493b5cd1ff"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 1
+      },
+      "artifact_sha256": {
+        "stdout.txt": "fcfe5133a49019284cd82d6e125b8db9d72e77deadaf50584a8b5e4261faaced",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "3489529519bef20591852a022d1b66243a8b65b662dfff1b1593fd2417bef5be",
+        "results.xml": "0960b6cfc793950cb7cb24f36b4f61486b86caf05fba52d91ab98c959a0c12b3"
+      }
+    },
+    {
+      "shell": "ps7",
+      "case": "skip",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-skip",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Skip.Tests.ps1"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:34.534503+00:00",
+      "process_exit": 1,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:29.6203049Z",
+        "result": "Passed",
+        "powershell_version": "7.6.5",
+        "powershell_edition": "Core",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": false,
+        "test_paths": [
+          "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Skip.Tests.ps1"
+        ],
+        "total_count": 1,
+        "passed_count": 0,
+        "failed_count": 0,
+        "skipped_count": 1,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0,
+        "failed_tests": [],
+        "skipped_tests": [
+          "Runner fixture.cannot be skipped"
+        ],
+        "gate_failures": [
+          "Mandatory tests were skipped."
+        ],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<pwsh.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 0.7880294,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Skip.Tests.ps1",
+            "sha256": "b8ce2c34dd8dfa8f2f7db5619ee1253c7da94332843bdb7c0e94691e9c06e7bc"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 1
+      },
+      "artifact_sha256": {
+        "stdout.txt": "ac17fcaa6915f04dbd9bbda77fb4932fb2908bab93991f85daa1d6dca9916c48",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "7c9b9b0a48eaedbb24a78ae3a326b94622ebf7ca4a7dd5d5d91786dda5894d9a",
+        "results.xml": "0ec727d0d41f436fbf5cada16d866bd2be9eae706854c22ddc462c6211cac5c6"
+      }
+    },
+    {
+      "shell": "ps7",
+      "case": "discovery",
+      "command": [
+        "<pwsh.exe>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<repo>\\tests\\Invoke-Tests.ps1",
+        "-ResultDirectory",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\ps7-discovery",
+        "-Path",
+        "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Discovery.Tests.ps1"
+      ],
+      "observed_at_utc": "2026-10-04T14:28:38.275930+00:00",
+      "process_exit": 1,
+      "timed_out": false,
+      "expectation_verified": true,
+      "summary": {
+        "schema_version": 1,
+        "observed_at_utc": "2026-10-04T14:28:34.4053802Z",
+        "result": "Failed",
+        "powershell_version": "7.6.5",
+        "powershell_edition": "Core",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "deliberate_failure": false,
+        "test_paths": [
+          "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Discovery.Tests.ps1"
+        ],
+        "total_count": 0,
+        "passed_count": 0,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "inconclusive_count": 0,
+        "not_run_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 1,
+        "failed_tests": [],
+        "skipped_tests": [],
+        "gate_failures": [
+          "Zero tests discovered.",
+          "Pester reported a failing run, block or container."
+        ],
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "ui_culture": "en-US",
+        "host_executable": "<pwsh.exe>",
+        "persistent_policy_before": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "pester_version": "5.9.1",
+        "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+        "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ],
+        "script_analyzer_versions_available": [],
+        "duration_seconds": 0.1135421,
+        "source_sha256": [
+          {
+            "path": "<repo>\\WinImgNormalizer.ps1",
+            "sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b"
+          },
+          {
+            "path": "<repo>\\WinImgNormalizer.bat",
+            "sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb"
+          },
+          {
+            "path": "<repo>\\tests\\Invoke-Tests.ps1",
+            "sha256": "e8d3401fb7fe35113f9613d3dcf681061fea75c7802b6b7e1d577dcc94546dc6"
+          },
+          {
+            "path": "<repo>\\tests\\Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "<repo>\\tests\\dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "<repo>\\.scratch\\runner-validation\\final-controller-tar-fix\\Discovery.Tests.ps1",
+            "sha256": "c9e933abddab550ea229a5db7a5e03deaa6de33c3e68a0365d871b573c155fae"
+          }
+        ],
+        "persistent_policy_after": [
+          {
+            "scope": "MachinePolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "CurrentUser",
+            "execution_policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "execution_policy": "RemoteSigned"
+          }
+        ],
+        "persistent_policy_unchanged": true,
+        "exit_code": 1
+      },
+      "artifact_sha256": {
+        "stdout.txt": "837d26ff13ce89bb971ce248431596c3e4695a8fe702c22eddf43e336c5406b8",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "summary.json": "54283390d899feea8461c3e44c272320b0327c16f9c9d24818558c5d61c66a30",
+        "results.xml": "eaccce8fc075cc9bacf88ca68e850db1769be7dbaef14286ab0378eb0f9a08cb"
+      }
+    }
+  ],
+  "expected_controls_verified": 10,
+  "passed": true
+}

@@ -1,41 +1,47 @@
 # Next session handoff
 
-Next task: **M0-T03 — Introduce minimal test seams and early Windows checks**.
-M0-T02 is complete. Stop this thread after its commit/push/remote comparison.
+Next task: **M1-T01 — Validate inputs, root paths and ImageMagick before work**.
+M0-T03 is complete. Begin only that next task in a fresh thread.
 
-Use C:/projects/WinImgNormalizer on codex/winimg-hardening; the original configured
-folder is a preserved non-Git snapshot. Read AGENTS.md, STATUS.md, TASKS.json,
-GIT_WORKFLOW.md and tasks/M0-T03.md plus its referenced specs. Recheck clean state,
-canonical fetch/push identity and advertised feature SHA. Final checkpoint/sync
-observation is in the preceding response and existing draft PR #2.
+Use C:/projects/WinImgNormalizer on codex/winimg-hardening. The configured
+WinImgNormalizer-main folder is the preserved non-Git snapshot. Read AGENTS.md,
+STATUS.md, TASKS.json, GIT_WORKFLOW.md and tasks/M1-T01.md with its referenced specs.
+Recheck clean state, canonical fetch/push URLs and the exact advertised feature SHA.
+The final evidence checkpoint/sync is reported in the preceding response and draft
+PR #3; the tested runtime/tests revision is 3b80ee94b8471a22560ea90a7583283c1613195c.
 
-M0-T02 generated 45 independently inspected synthetic fixtures and captured 12
-instrumented legacy observations (6 real ImageMagick,6 controlled fakes) across
-actual PS5.1/PS7;22 harness checks passed. T001-T004 characterization is complete,
-not a corrected-behavior regression pass. Source bytes/creation/modified times
-were preserved, ordinary 4 JPEG + 3 video behavior is captured, and collision/frame/
-failed-first/weak-output defects remain recorded for later fixes. Existing directory
-false success and duplicate interaction are explicit; do not simplify the counts.
+M0-T03 introduces only a callable orchestration/positional boundary and internal
+OutputParent/ProcessRunner injection. Dot-source is now safe after its isolated
+import probe. Outer script exits; callable usage/empty-tree paths return. Public
+source-only/source-plus-cap forms and batch launcher are retained. Production
+preflight, collision, frame, duplicate, weak-output, colour and exit bugs are not
+fixed by this seam task. Keep the smallest patch for M1-T01 and add its tests.
 
-The owner approved the official pinned portable ImageMagick 7.1.2-32 Q16 x64
-archive. SHA-256/size/executable hash are recorded in tests/legacy/toolchain.json;
-local copy remains under ignored .scratch/tools/ImageMagick-7.1.2-32-Q16-x64/portable.
-No installer, permanent PATH or global policy change was used. Use explicit tool
-paths and bundled Python 3.12.14/Pillow 12.3.0; PATH Python 3.14.6 lacks Pillow.
-Workers remove inherited PSModulePath case-insensitively in the child environment.
+Actual desktop PS 5.1/PS 7 each passed 6/6 Pester tests; ten credibility controls reject
+false assertions/zero/skip/discovery failures. An import exit 0 mutation also fails
+safely. Four independent ordinary parity runs match the M0-T02 baseline hashes,
+dimensions/tree/timestamps with sixteen JPEG decodes/twelve videos and preserved
+sources. T006 uses only an instrumented outer destination call; real Pictures and
+manual drag-and-drop are untested. CI passed the early Windows Server matrix and
+deliberate seventh assertion; exact versions/job links are in M0-T03-ci.json.
 
-Evidence: M0-T02.json, M0-T02-real-observations.json, M0-T02-fixtures.json. Earlier
-M0-T02-observations.json is partial historical evidence, not current tooling status.
-Raw runs/audit/failed previews remain ignored. The initial GIF canvas recipe was
-fixed with scoped page settings; unchanged assertions verified the 64x48 canvas and
- +8+10 second tile. WebP two-frame generation/decoding ran. HEIC/HEIF, external
-profiles and remaining environment-failure corpus are deferred future coverage.
-Advanced inspected fixtures were not all normalized through the app.
+Development commands from the repo root, separately in each fresh Windows shell:
 
-The tracked app/launcher are unchanged. The legacy harness snapshots only the exact
-Pictures block and launches a separate -File host; do not dot-source the current app
-until M0-T03 establishes its callable entry boundary. Continue one feature branch
-and draft PR #2. M0-T03 should introduce only the needed test seams/Pester runner/
-early Windows checks; Pester 3.4.0 was found but unused, analyzer absent, CI not yet
-configured. Missing/pending CI and owner quality acceptance are separate from sync.
-No merges, tags/releases, settings changes or website deployment are authorized.
+```powershell
+.\tests\Initialize-TestDependencies.ps1 -Download
+.\tests\Invoke-Tests.ps1
+.\tests\Invoke-Tests.ps1 -DeliberateFailure # expected exit 1 with one false assertion
+```
+
+The explicit bootstrap verifies Pester 5.9.1 and ImageMagick 7.1.2-32 archives, freshly
+extracts into ignored scratch and checks manifest/executable hashes. Cached archives
+are reused without downloading; normal runtime never bootstraps. GitHub exposed
+competing tar executables; bootstrap now explicitly selects Windows System32 tar.
+No installer, permanent PATH or persistent policy change. Child shells remove
+inherited PSModulePath; never redefine USERPROFILE or test against real Pictures.
+
+Evidence: M0-T03.json plus runner/parity/import-control/CI JSON. Private artifacts
+remain ignored. The final record-only checkpoint binds tested files to the code
+revision above; containing checkpoint sync requires live verification next session.
+Keep one feature branch and draft PR #3. No merges, tags/releases, settings changes,
+website deployment or subjective owner approval are authorized by this handoff.
