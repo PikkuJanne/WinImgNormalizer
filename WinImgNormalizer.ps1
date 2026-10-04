@@ -1,4 +1,4 @@
-<#
+﻿<#
 WinImgNormalizer.ps1
 Non-destructive image normalizer + archive prep for mixed photo folders
 
@@ -21,7 +21,7 @@ WHAT THIS IS (AND ISN’T)
       (filename + timestamp), good enough for typical camera roll structures.
 
 FEATURES
-    - Non-destructive: creates "<SourceName>_WinImgNormalized_<yyyyMMdd_HHmmss>" under Pictures.
+    - Non-destructive: creates "<SourceName>_WinImgNormalized_<yyyyMMdd_HHmmss>_<runId>" under Pictures.
     - Exact tree mirror: same subfolders, image files become .jpeg (same base names).
     - Supported images via ImageMagick: JPG/JPEG/PNG/BMP/TIF/TIFF/GIF/HEIC/HEIF/WebP.
     - Videos copied as-is (mp4/mov/mkv/avi/m4v/wmv/webm/mts/m2ts/3gp/3g2).
@@ -45,7 +45,7 @@ SETUP
 USAGE
     A) Drag & Drop (recommended)
        - Drag a folder onto WinImgNormalizer.bat.
-       - Output: %USERPROFILE%\Pictures\<Source>_WinImgNormalized_<timestamp>
+       - Output: %USERPROFILE%\Pictures\<Source>_WinImgNormalized_<timestamp>_<runId>
     B) Direct PowerShell (positional args only; avoids PS 5.1 param-set quirks)
        - .\WinImgNormalizer.ps1 "D:\Photos\2024"
        - .\WinImgNormalizer.ps1 "D:\Photos\2024" 1048576
@@ -93,6 +93,199 @@ function Normalize-WinImgRootPath {
   return $full.TrimEnd('\','/')
 }
 
+# Windows path comparisons deliberately use OrdinalIgnoreCase, including on a
+# directory configured for case sensitivity: a conservative containment policy.
+function Test-WinImgPathContained {
+  param([string]$Root, [string]$Path)
+  $rootPath = Normalize-WinImgRootPath $Root
+  $candidate = Normalize-WinImgRootPath $Path
+  $prefix = $rootPath.TrimEnd('\','/') + [IO.Path]::DirectorySeparatorChar
+  return $candidate.Equals($rootPath, [StringComparison]::OrdinalIgnoreCase) -or
+    $candidate.StartsWith($prefix, [StringComparison]::OrdinalIgnoreCase)
+}
+
+function Initialize-WinImgDirectoryApi {
+  if ('WinImgNormalizer.NativeDirectory' -as [type]) { return }
+  # Loaded only when the application runs; importing definitions has no effects.
+  # Both APIs exist on the supported Windows/Windows PowerShell versions.
+  Add-Type -TypeDefinition @'
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Text;
+using Microsoft.Win32.SafeHandles;
+namespace WinImgNormalizer {
+  public static class NativeDirectory {
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private static extern SafeFileHandle CreateFileW(string path, uint access, uint share,
+      IntPtr security, uint creation, uint flags, IntPtr template);
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private static extern uint GetFinalPathNameByHandleW(SafeFileHandle handle,
+      StringBuilder path, uint capacity, uint flags);
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool CreateDirectoryW(string path, IntPtr security);
+    private static string NativePath(string path) {
+      // Generated descendants can exceed MAX_PATH even with ordinary input roots.
+      // Prefix only internally validated absolute paths; do not shorten user names.
+      if (path.StartsWith(@"\\", StringComparison.Ordinal)) return @"\\?\UNC\" + path.Substring(2);
+      return @"\\?\" + path;
+    }
+    public static string CanonicalPath(string path) {
+      using (SafeFileHandle handle = CreateFileW(NativePath(path), 0, 7, IntPtr.Zero, 3, 0x02000000, IntPtr.Zero)) {
+        if (handle.IsInvalid) throw new Win32Exception(Marshal.GetLastWin32Error());
+        StringBuilder buffer = new StringBuilder(512);
+        uint length = GetFinalPathNameByHandleW(handle, buffer, (uint)buffer.Capacity, 0);
+        if (length == 0) throw new Win32Exception(Marshal.GetLastWin32Error());
+        if (length >= buffer.Capacity) {
+          buffer = new StringBuilder(checked((int)length + 1));
+          length = GetFinalPathNameByHandleW(handle, buffer, (uint)buffer.Capacity, 0);
+          if (length == 0 || length >= buffer.Capacity) throw new Win32Exception(Marshal.GetLastWin32Error());
+        }
+        string result = buffer.ToString();
+        if (result.StartsWith(@"\\?\UNC\", StringComparison.OrdinalIgnoreCase)) return @"\\" + result.Substring(8);
+        if (result.StartsWith(@"\\?\", StringComparison.Ordinal)) return result.Substring(4);
+        throw new InvalidOperationException("Windows returned an unsupported canonical directory path.");
+      }
+    }
+    public static bool CreateExclusive(string path) {
+      if (CreateDirectoryW(NativePath(path), IntPtr.Zero)) return true;
+      int error = Marshal.GetLastWin32Error();
+      if (error == 183 || error == 80) return false;
+      throw new Win32Exception(error);
+    }
+  }
+}
+'@
+}
+
+function Assert-WinImgNoReparseAncestors {
+  param([string]$Path)
+  $current = Normalize-WinImgRootPath $Path
+  while ($current) {
+    $item = $null
+    try { $item = Get-Item -LiteralPath $current -Force -ErrorAction Stop }
+    catch {
+      # Test-Path can hide a dangling link because its target does not exist.
+      # Inspect the entry itself; only truly missing components may be appended.
+      if ($_.CategoryInfo.Category -ne [Management.Automation.ErrorCategory]::ObjectNotFound) { throw }
+    }
+    if ($null -ne $item) {
+      if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+        throw 'A linked path or ancestor is not supported; select the actual directory.'
+      }
+      if ($item -isnot [IO.DirectoryInfo]) { throw 'The directory path has a non-directory component.' }
+    }
+    $parent = [IO.Directory]::GetParent($current)
+    if ($null -eq $parent) { break }
+    $current = $parent.FullName
+  }
+}
+
+function Resolve-WinImgCanonicalDirectory {
+  param([string]$Path)
+  $full = Normalize-WinImgRootPath $Path
+  # Avoid Win32 aliases caused by trailing dots/spaces and special device syntax.
+  if ($full -match '^\\\\[?.]\\' -or
+      $full.Substring([IO.Path]::GetPathRoot($full).Length) -match '(^|[\\/])[^\\/]*[. ]([\\/]|$)|:') {
+    throw 'Use an ordinary directory path without device syntax or trailing dots/spaces.'
+  }
+  Assert-WinImgNoReparseAncestors $full
+  $ancestor = $full
+  $missing = New-Object 'System.Collections.Generic.Stack[string]'
+  while (-not (Test-Path -LiteralPath $ancestor -ErrorAction Stop)) {
+    $missing.Push([IO.Path]::GetFileName($ancestor))
+    $parent = [IO.Directory]::GetParent($ancestor)
+    if ($null -eq $parent) { throw 'The destination volume/share does not exist.' }
+    $ancestor = $parent.FullName
+  }
+  Initialize-WinImgDirectoryApi
+  $canonical = [WinImgNormalizer.NativeDirectory]::CanonicalPath($ancestor)
+  while ($missing.Count -gt 0) { $canonical = [IO.Path]::Combine($canonical, $missing.Pop()) }
+  $canonical = Normalize-WinImgRootPath $canonical
+  Assert-WinImgNoReparseAncestors $canonical
+  return $canonical
+}
+
+function Assert-WinImgSafeDestination {
+  param([string]$SourceRoot, [string]$OutputParent)
+  $sourcePath = Resolve-WinImgCanonicalDirectory $SourceRoot
+  $parentPath = Resolve-WinImgCanonicalDirectory $OutputParent
+  if (Test-WinImgPathContained -Root $sourcePath -Path $parentPath) {
+    throw 'The destination is inside or equal to the source. Choose a source subfolder outside the destination tree (for example, a subfolder of Pictures).'
+  }
+  return $parentPath
+}
+
+function Get-WinImgRelativePath {
+  param([string]$Root, [string]$Path)
+  if (-not (Test-WinImgPathContained -Root $Root -Path $Path) -or
+      (Normalize-WinImgRootPath $Path).Equals((Normalize-WinImgRootPath $Root), [StringComparison]::OrdinalIgnoreCase)) {
+    throw 'An enumerated path escaped its source root.'
+  }
+  return $Path.Substring($Root.TrimEnd('\','/').Length).TrimStart('\','/')
+}
+
+function Get-WinImgSourceTree {
+  param([string]$SourceRoot)
+  $files = New-Object 'System.Collections.Generic.List[System.IO.FileInfo]'
+  $directories = New-Object 'System.Collections.Generic.List[System.IO.DirectoryInfo]'
+  $names = New-Object 'System.Collections.Generic.List[string]'
+  $warnings = New-Object 'System.Collections.Generic.List[object]'
+  $pending = New-Object 'System.Collections.Generic.Stack[string]'
+  $pending.Push($SourceRoot)
+  while ($pending.Count -gt 0) {
+    $directory = $pending.Pop()
+    try {
+      Assert-WinImgNoReparseAncestors $directory
+      $paths = New-Object 'System.Collections.Generic.List[string]'
+      foreach ($entry in @(Get-ChildItem -LiteralPath $directory -Force -ErrorAction Stop)) { $paths.Add($entry.FullName) }
+      $paths.Sort([StringComparer]::OrdinalIgnoreCase)
+      foreach ($path in $paths) {
+        try {
+          $entry = Get-Item -LiteralPath $path -Force -ErrorAction Stop
+          $null = Get-WinImgRelativePath -Root $SourceRoot -Path $entry.FullName
+          if ($directory.Equals($SourceRoot, [StringComparison]::OrdinalIgnoreCase)) { $names.Add($entry.Name) }
+          if (($entry.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+            $warnings.Add([pscustomobject]@{ Path = $entry.FullName; Reason = 'Reparse point skipped; links and junctions are not followed.' })
+          } elseif ($entry -is [IO.DirectoryInfo]) {
+            $directories.Add($entry)
+            $pending.Push($entry.FullName)
+          } elseif ($entry -is [IO.FileInfo]) { $files.Add($entry) }
+        } catch { $warnings.Add([pscustomobject]@{ Path = $path; Reason = 'Could not inspect source entry: ' + $_.Exception.Message }) }
+      }
+    } catch { $warnings.Add([pscustomobject]@{ Path = $directory; Reason = 'Incomplete source scan: ' + $_.Exception.Message }) }
+  }
+  return [pscustomobject]@{ Files = $files.ToArray(); Directories = $directories.ToArray(); TopLevelNames = $names.ToArray(); Warnings = $warnings.ToArray() }
+}
+
+function Get-WinImgGeneratedName {
+  param([string[]]$TopLevelNames)
+  $reserved = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+  foreach ($name in $TopLevelNames) { $null = $reserved.Add($name) }
+  $candidate = '.WinImgNormalizer'
+  $suffix = 2
+  while ($reserved.Contains($candidate)) { $candidate = '.WinImgNormalizer__' + $suffix; $suffix++ }
+  return $candidate
+}
+
+function New-WinImgExclusiveDirectory {
+  param([string]$Path)
+  Initialize-WinImgDirectoryApi
+  return [WinImgNormalizer.NativeDirectory]::CreateExclusive($Path)
+}
+
+function New-WinImgRunDirectory {
+  param([string]$OutputParent, [string]$BaseName, [string]$Stamp)
+  Assert-WinImgNoReparseAncestors $OutputParent
+  [IO.Directory]::CreateDirectory($OutputParent) | Out-Null
+  for ($attempt = 0; $attempt -lt 8; $attempt++) {
+    $candidate = [IO.Path]::Combine($OutputParent, ('{0}_WinImgNormalized_{1}_{2}' -f $BaseName, $Stamp, [guid]::NewGuid().ToString('N')))
+    if (New-WinImgExclusiveDirectory $candidate) { return $candidate }
+  }
+  throw 'Could not allocate an exclusive run directory after eight name collisions.'
+}
+
 function Resolve-WinImgSourcePath {
   param([string]$Path)
   if ([string]::IsNullOrWhiteSpace($Path)) { throw 'A source folder is required.' }
@@ -104,7 +297,7 @@ function Resolve-WinImgSourcePath {
   if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
     throw 'A linked source root is not supported; select the actual source directory.'
   }
-  return Normalize-WinImgRootPath $item.FullName
+  return Resolve-WinImgCanonicalDirectory $item.FullName
 }
 
 function ConvertTo-WinImgByteCap {
@@ -183,6 +376,7 @@ function Get-WinImgMagickInfo {
 
 function Test-WinImgDestinationWritable {
   param([string]$Path)
+  Assert-WinImgNoReparseAncestors $Path
   # Probe only the nearest existing directory; missing parents are created later.
   $ancestor = $Path
   while (-not (Test-Path -LiteralPath $ancestor)) {
@@ -251,12 +445,21 @@ function Invoke-WinImgNormalizer {
   try {
     $MaxBytes = ConvertTo-WinImgByteCap $MaxBytes
     $srcRoot = Resolve-WinImgSourcePath $Source
+    $pictures = $OutputParent
+    if (-not $pictures) {
+      $pictures = [Environment]::GetFolderPath('MyPictures')
+      if ([string]::IsNullOrWhiteSpace($pictures)) { $pictures = Join-Path $env:USERPROFILE 'Pictures' }
+    }
+    # This precedes enumeration and, critically, the destination write probe.
+    $pictures = Assert-WinImgSafeDestination -SourceRoot $srcRoot -OutputParent $pictures
     $magickInfo = Get-WinImgMagickInfo -MagickPath $MagickPath -PreflightRunner $PreflightRunner
     $MagickCmd = $magickInfo.Path
     $imgExts = '.jpg','.jpeg','.png','.bmp','.tif','.tiff','.gif','.heic','.heif','.webp'
     $videoExts = '.mp4','.mov','.mkv','.avi','.m4v','.wmv','.webm','.mts','.m2ts','.3gp','.3g2'
     $imageCoders = @{ '.jpg'='JPEG'; '.jpeg'='JPEG'; '.png'='PNG'; '.bmp'='BMP'; '.tif'='TIFF'; '.tiff'='TIFF'; '.gif'='GIF'; '.heic'='HEIC'; '.heif'='HEIF'; '.webp'='WEBP' }
-    $allFiles = @(Get-ChildItem -LiteralPath $srcRoot -Recurse -File | Where-Object {
+    $sourceTree = Get-WinImgSourceTree -SourceRoot $srcRoot
+    $generatedName = Get-WinImgGeneratedName -TopLevelNames $sourceTree.TopLevelNames
+    $allFiles = @($sourceTree.Files | Where-Object {
       $e = $_.Extension.ToLowerInvariant()
       ($imgExts -contains $e) -or ($videoExts -contains $e)
     })
@@ -271,11 +474,6 @@ function Invoke-WinImgNormalizer {
     })
     if ($readableImages.Count -gt 0 -and (-not $magickInfo.Formats.ContainsKey('JPEG') -or -not $magickInfo.Formats['JPEG'].Write)) {
       throw 'This ImageMagick build has no JPEG encoder; install a build with JPEG write support.'
-    }
-    $pictures = $OutputParent
-    if (-not $pictures) {
-      $pictures = [Environment]::GetFolderPath('MyPictures')
-      if ([string]::IsNullOrWhiteSpace($pictures)) { $pictures = Join-Path $env:USERPROFILE 'Pictures' }
     }
     $spaceFiles = @($allFiles | Where-Object {
       $coder = $imageCoders[$_.Extension.ToLowerInvariant()]
@@ -301,10 +499,15 @@ function Invoke-WinImgNormalizer {
   $base  = [System.IO.Path]::GetFileName($srcRoot.TrimEnd('\','/'))
   if ([string]::IsNullOrWhiteSpace($base)) { $base = $srcRoot.TrimEnd('\','/').TrimEnd(':') }
   $stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
-  $destRoot = [System.IO.Path]::Combine($pictures, "${base}_WinImgNormalized_${stamp}")
   try {
-    [IO.Directory]::CreateDirectory($pictures) | Out-Null
-    New-Item -ItemType Directory -Path $destRoot -Force | Out-Null
+    $pictures = Assert-WinImgSafeDestination -SourceRoot $srcRoot -OutputParent $pictures
+    $destRoot = New-WinImgRunDirectory -OutputParent $pictures -BaseName $base -Stamp $stamp
+    $generatedRoot = [IO.Path]::Combine($destRoot, $generatedName)
+    $workRoot = [IO.Path]::Combine($generatedRoot, 'work')
+    $reportRoot = [IO.Path]::Combine($generatedRoot, 'reports')
+    foreach ($path in @($generatedRoot, $workRoot, $reportRoot)) {
+      if (-not (New-WinImgExclusiveDirectory $path)) { throw 'A generated namespace was unexpectedly occupied; the run was not adopted.' }
+    }
   } catch {
     Write-Host ('Setup error: could not create the destination directory. ' + $_.Exception.Message) -ForegroundColor Red
     return 1
@@ -312,14 +515,20 @@ function Invoke-WinImgNormalizer {
 
   # --------- Log file ---
   try {
-    $LogPath = [System.IO.Path]::Combine($destRoot, "WinImgNormalizer_${stamp}.log")
-    "WinImgNormalizer started $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" | Set-Content -LiteralPath $LogPath -Encoding UTF8
+    $LogPath = [System.IO.Path]::Combine($reportRoot, "WinImgNormalizer_${stamp}.log")
+    $stream = [IO.FileStream]::new($LogPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+    try {
+      $writer = [IO.StreamWriter]::new($stream, [Text.UTF8Encoding]::new($true))
+      try { $writer.WriteLine("WinImgNormalizer started $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')") }
+      finally { $writer.Dispose() }
+    } finally { $stream.Dispose() }
   } catch {
-    $LogPath = [System.IO.Path]::Combine($env:TEMP, "WinImgNormalizer_${stamp}.log")
-    "WinImgNormalizer started $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') (TEMP fallback log)" | Set-Content -LiteralPath $LogPath -Encoding UTF8
+    Write-Host ('Setup error: could not create the run-owned log. ' + $_.Exception.Message) -ForegroundColor Red
+    return 1
   }
   Write-Log "Source: $srcRoot"
   Write-Log "Destination: $destRoot"
+  Write-Log "Generated work/report directory: $generatedName"
   Write-Log ("MaxBytes: {0:n0} ({1} MB)" -f $MaxBytes, [Math]::Round($MaxBytes/1MB,2))
 
   Write-Log ('ImageMagick executable: ' + $MagickCmd)
@@ -332,17 +541,28 @@ function Invoke-WinImgNormalizer {
   if ($null -eq $destinationInfo.AvailableBytes) { Write-Log 'Free space could not be measured for this destination; writes may still fail.' 'WARN' }
 
   # --------- Mirror tree, non-destructive ---
-  try {
-    Get-ChildItem -LiteralPath $srcRoot -Recurse -Directory | ForEach-Object {
-      $rel = $_.FullName.Substring($srcRoot.Length).TrimStart('\','/')
+  $hasTraversalWarnings = $sourceTree.Warnings.Count -gt 0
+  foreach ($warning in $sourceTree.Warnings) { Write-Log ("Source scan: {0} ({1})" -f $warning.Path, $warning.Reason) 'WARN' }
+  foreach ($directory in $sourceTree.Directories) {
+    try {
+      Assert-WinImgNoReparseAncestors $directory.FullName
+      $rel = Get-WinImgRelativePath -Root $srcRoot -Path $directory.FullName
       $target = [System.IO.Path]::Combine($destRoot, $rel)
-      New-Item -ItemType Directory -Path $target -Force | Out-Null
+      Assert-WinImgNoReparseAncestors $target
+      [IO.Directory]::CreateDirectory($target) | Out-Null
+    } catch {
+      $hasTraversalWarnings = $true
+      Write-Log ("Could not mirror directory: {0} ({1})" -f $directory.FullName, $_.Exception.Message) 'WARN'
     }
-  } catch { Write-Log "WARN: Could not fully pre-create directory tree ($($_.Exception.Message))" 'WARN' }
+  }
 
   # --------- File sets ---
   $total = $allFiles.Count
-  if ($total -eq 0) { Write-Log "No images or videos found." 'WARN'; return 0 }
+  if ($total -eq 0) {
+    Write-Log "No images or videos found." 'WARN'
+    if ($hasTraversalWarnings) { return 2 }
+    return 0
+  }
 
   # --------- Dedupe + stats ---
   $seen = New-Object 'System.Collections.Generic.HashSet[string]'
@@ -436,7 +656,7 @@ function Invoke-WinImgNormalizer {
   [int]$i = 0
   foreach ($f in $allFiles) {
     $i++
-    $rel = $f.FullName.Substring($srcRoot.Length).TrimStart('\','/')
+    $rel = Get-WinImgRelativePath -Root $srcRoot -Path $f.FullName
     $ext = $f.Extension.ToLowerInvariant()
     Write-Progress -Activity "WinImgNormalizer" -Status "$i / $total : $rel" -PercentComplete ([int]($i*100/$total))
 
@@ -453,6 +673,20 @@ function Invoke-WinImgNormalizer {
     $destRel  = if ($imgExts -contains $ext) { [System.IO.Path]::ChangeExtension($rel, '.jpeg') } else { $rel }
     $destPath = [System.IO.Path]::Combine($destRoot, $destRel)
 
+    # A source entry can change after inventory. Recheck links before reading;
+    # concurrent hostile filesystem mutation is not a complete sandbox boundary.
+    try {
+      Assert-WinImgNoReparseAncestors $f.DirectoryName
+      if (((Get-Item -LiteralPath $f.FullName -Force -ErrorAction Stop).Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+        throw 'Source entry became a reparse point after inventory; no read attempted.'
+      }
+      Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($destPath))
+    } catch {
+      $hasTraversalWarnings = $true
+      $stats.Errors++
+      Write-Log "Source/destination safety check failed: $rel ($($_.Exception.Message))" 'ERR'
+      continue
+    }
     try {
       if ($imgExts -contains $ext) {
         $res = Convert-ImageMagick -SourcePath $f.FullName -DestPath $destPath -MaxBytes $MaxBytes
@@ -495,7 +729,7 @@ function Invoke-WinImgNormalizer {
   Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4}" -f $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors)
   Write-Log "Completed $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
-  if ($missingCoders.Count -gt 0) { return 2 }
+  if ($missingCoders.Count -gt 0 -or $hasTraversalWarnings) { return 2 }
   return 0
 }
 

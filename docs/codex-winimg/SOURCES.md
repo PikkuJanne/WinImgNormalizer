@@ -127,3 +127,8 @@ Least privileges, untrusted code and reviewed action pins.
 https://developers.openai.com/codex/guides/agents-md
 
 Scoped repository instructions; current documentation may redirect to ChatGPT Learn.
+
+
+## W1 — M1-T02 Windows directory APIs, 4 October 2026
+
+Reviewed primary Microsoft documentation: [CreateDirectoryW](https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createdirectoryw) fails for an existing directory and creates only the last component; [GetFinalPathNameByHandleW](https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfinalpathnamebyhandlew) returns normalized final paths and documents DOS/UNC prefix handling and SMB permission limitations; [CreateFileW](https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilew) permits directory handles with FILE_FLAG_BACKUP_SEMANTICS. The implementation uses no-access directory handles with shared read/write/delete, checks native errors and closes handles. Native calls add the documented extended drive/UNC prefix internally for generated descendants; this avoids truncating names or depending on process long-path opt-in. An inaccessible canonical query fails setup; it does not substitute an unverified lexical alias. These references support API use, not unexecuted UNC or adversarial race claims.

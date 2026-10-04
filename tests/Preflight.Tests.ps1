@@ -390,7 +390,7 @@ $info = Get-WinImgMagickInfo
 
     It 'fails missing application without invoking a same-name function or creating output' {
         $source = New-PreflightDirectory 'missing-magick-source'
-        $parent = Join-Path $source 'unused-output'
+        $parent = Join-Path $ownedRoot ('unused-output-' + [Guid]::NewGuid().ToString('N'))
         Mock Get-Command { return $null }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -MagickPath '' -PreflightRunner {
             throw 'Missing application was invoked.'
@@ -493,7 +493,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         $parsed | Should -BeOfType ([long])
         $parsed | Should -Be ([long]$Cap)
         $result = Invoke-ContainedPreflight -InputArguments @($source, $Cap) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner) -ProcessRunner $runner
-        $result.Code | Should -Be 0
+        $result.Code | Should -Be 0 -Because $result.Text
         $trace.Count | Should -Be 1
         $trace[0].Arguments | Should -Contain ('jpeg:extent=' + $ExpectedExtent)
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
@@ -524,7 +524,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
             return 0
         }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner -FormatText $formats) -ProcessRunner $runner
-        $result.Code | Should -Be 0
+        $result.Code | Should -Be 0 -Because $result.Text
         $trace.Count | Should -Be 1
         $trace[0].Arguments[1] | Should -Be $image
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
@@ -556,7 +556,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
             return $LASTEXITCODE
         }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner $preflight -ProcessRunner $runner
-        $result.Code | Should -Be 2
+        $result.Code | Should -Be 2 -Because $result.Text
         $conversionTrace.Count | Should -Be 1
         $conversionTrace[0].Executable | Should -Be $magick
         $conversionTrace[0].Arguments[1] | Should -Be $png
@@ -571,7 +571,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         (Get-FileHash -LiteralPath (Join-Path $run[0].FullName 'opaque-video.mp4') -Algorithm SHA256).Hash | Should -Be $before
         (Get-FileHash -LiteralPath $video -Algorithm SHA256).Hash | Should -Be $before
         Get-PreflightSourceState $source | Should -Be $sourceBefore
-        $log = Get-Content -LiteralPath (Get-ChildItem -LiteralPath $run[0].FullName -Filter '*.log').FullName -Raw
+        $log = Get-Content -LiteralPath (Get-ChildItem -LiteralPath $run[0].FullName -Recurse -File -Filter '*.log').FullName -Raw
         $log | Should -Match '(?i)missing-decoder\.heic.*(decoder|read|codec|HEIC)'
         $log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=1 Duplicates=0 Unsupported=0 Errors=1'
         $log | Should -Match ([regex]::Escape($magick))
@@ -619,7 +619,7 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner -FormatText $formats) -ProcessRunner {
             throw 'Unavailable decoder file attempted conversion.'
         }
-        $result.Code | Should -Be 2
+        $result.Code | Should -Be 2 -Because $result.Text
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
         $run.Count | Should -Be 1
         (Get-FileHash -LiteralPath (Join-Path $run[0].FullName 'video.mp4') -Algorithm SHA256).Hash |
@@ -630,7 +630,7 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
     It 'reports an actual run-directory creation failure as friendly status without a run or log' {
         $source = New-PreflightDirectory 'mkdir-denied-source'
         $parent = New-PreflightDirectory 'mkdir-denied-output'
-        Mock New-Item { throw [UnauthorizedAccessException]::new('Synthetic run directory creation denied.') }
+        Mock New-WinImgExclusiveDirectory { throw [UnauthorizedAccessException]::new('Synthetic run directory creation denied.') }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner)
         $result.Code | Should -Be 1
         $result.Text | Should -Match '(?i)(destination|directory|creation|denied)'
@@ -716,7 +716,7 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner) -ProcessRunner {
             throw 'Video-only input attempted image conversion.'
         }
-        $result.Code | Should -Be 0
+        $result.Code | Should -Be 0 -Because $result.Text
         $result.Text | Should -Match '(?i)(space|capacity).*(unknown|unavailable|unable|could not|cannot|best.effort)'
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
         $run.Count | Should -Be 1
@@ -750,7 +750,7 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner -FormatText $formats) -ProcessRunner {
             throw 'Video-only input attempted image conversion.'
         }
-        $result.Code | Should -Be 0
+        $result.Code | Should -Be 0 -Because $result.Text
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
         $run.Count | Should -Be 1
         (Get-FileHash -LiteralPath (Join-Path $run[0].FullName 'video.mp4') -Algorithm SHA256).Hash |
