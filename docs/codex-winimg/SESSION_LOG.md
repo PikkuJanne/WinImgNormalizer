@@ -338,3 +338,65 @@ release or deployment. M1-T04 accepted; next M1-T05, stop. Seven of 28 accepted 
 T001-T024 exercised with T001-T004 retained as characterization. Duplicate early
 registration/length guard, native lifecycle, frames/colour/general cancellation and
 owner/publication gates remain later scope.
+
+## 2026-10-04 — M1-T05 completed
+
+Started from clean 8c9464b, independently matching the verified feature remote.
+Owner-merged PR #7 main d8936872 had the identical tree; read-only fetch preserved
+checkout/history. Continued the authorized feature and opened successor draft PR
+#8 after normal push. Preserved the non-Git snapshot.
+
+Replaced early duplicate seen-key registration with retained successful source/output
+mapping after verified image/video finalization. The existing case-normalized filename
+plus modification-time key now requires matching input length before skipping.
+Deterministic total ordinal plan order selects retained relationships and every skip
+logs its retained source/output/status. Failed conversions/copies/final moves leave no key;
+different lengths continue independently. A validated above-target finalized image
+may retain its existing success-with-warning note. Live source metadata precedes
+lookup; changed image-source length/time after finalization keeps valid output with
+a partial warning but prevents heuristic registration. Videos register the verified
+copy helper's length/time snapshot. Same-key/same-length different
+content can still match falsely; this remains a documented heuristic without runtime
+content hashing, hash database or original removal. Decision D23 records the choice.
+
+T025-T027 regress failed-first suppression, equal-length guarding and stable retained
+links/heuristic limits. Existing mandatory M1 suites retain source hashes and creation/
+modified timestamps, real full JPEG decode, unchanged synthetic video bytes, output
+isolation, conflict preservation and exact owned cleanup. Public calls, byte cap,
+scales, conversion settings and runtime dependencies are unchanged.
+
+Development history: The first targeted development suites each passed 21/21 in
+actual Windows PowerShell 5.1 and PowerShell 7, with zero failed or skipped tests.
+Review strengthened the JPEG inspection helper to use the existing native
+extended-path spelling and the per-length test to check both later mappings (short
+C to short A, long D to long B). Targeted reruns again passed 21/21 in both
+shells. These four runs retain end-of-run hashes and summary/XML artifacts as
+uncommitted development observations. Initial clean committed implementation
+4fce2f0e705a6a40fd2fa8f8804422c14bd4a5cb full suites each passed 171/172; controls
+passed 171/173 with the intended T007 failure plus the same unexpected inherited
+T013 failure. The source-reparse guard still prevented copying, but its broadened
+diagnostic no longer matched the established assertion. Correction c9988e2
+restores the original reparse-specific diagnostic and keeps a separate directory
+guard. The existing T013 assertion is unchanged; initial failures and exact
+raw/Git checkout binding remain recorded. The initial revision was superseded
+before implementation CI; no CI result is claimed for it. Final acceptance relies
+only on the corrected committed-revision normal suites, identified deliberate-
+failure controls and actual hosted push/PR matrices above.
+
+Committed runtime/tests as c9988e204d25bbb13616b6df601d0f5c400a73c1. Actual desktop PS 5.1 / PS 7 each passed
+172/172, zero skipped; controls 173 total / 172 passed / one identified false
+assertion / exit 1. All four summaries match the same clean committed checkout bytes;
+evidence records raw hashes, committed blob hashes and any Git CRLF/LF normalization.
+Persistent policies are unchanged. Push and PR Windows Server matrices passed all four
+jobs and failure controls; actual versions/counts/links are in M1-T05-ci.json.
+Desktop evidence is M1-T05.json. No installer, persistent PATH/policy, ImageMagick
+global policy, runtime bootstrap, private media or owner visual acceptance changes.
+
+Implementation sync is a past exact-SHA observation. The final record-only checkpoint
+updates STATUS/TASKS/NEXT_SESSION/SESSION_LOG/DECISIONS plus two sanitized evidence
+files, binding the tested implementation. Its containing SHA/sync remains
+pending_verification until externally observed after normal commit/push. No merge,
+release or deployment. M1-T05 accepted; next M1-T06, stop. Eight of 28 accepted and
+T001-T027 exercised with T001-T004 retained as characterization. M1-T06 full milestone
+audit, native lifecycle, frames/colour/general cancellation and owner/publication
+gates remain later scope.
