@@ -387,6 +387,11 @@ Describe 'M1-T03 collision integration and final-arrival preservation (T017-T019
                 }
             }
         }
+        # ASCII input here proves naming/routing only; actual HEVC decoding and
+        # decoder-visible image counts belong to Frames.Tests.ps1.
+        Mock Get-WinImgSourceImageInfo {
+            return [pscustomobject]@{ SourceCount = 1; Omitted = 0; Unit = 'Images'; Policy = 'DecoderPrimaryOrFirstImage'; Decoder = 'HEIC' }
+        }
         $trace = New-Object 'Collections.Generic.List[string]'
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
