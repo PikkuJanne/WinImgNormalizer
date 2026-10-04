@@ -1,10 +1,11 @@
-# Windows checks (through M1-T05)
+# Windows checks (through M1-T06)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
-deterministic naming/no-overwrite targets (T017-T019), and validated conversion and
+deterministic naming/no-overwrite targets (T017-T019), validated conversion and
 staged video transactions (T020-T024), and successful-retention duplicate handling
-(T025-T027).
+(T025-T027). The combined safety regression (T028) runs one complete mixed tree
+twice into separate outputs under the same parent.
 They do not certify the later metadata, source-frame policy or cancellation fixes. The characterization
 evidence in `legacy/` describes those known defects separately.
 
@@ -32,8 +33,8 @@ tests use owned synthetic scratch trees and controlled process failures. The pub
 `.ps1 <sourceFolder> [maxBytes]` interface and `.bat` remain unchanged.
 
 The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
-`Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1` and
-`Duplicates.Tests.ps1`.
+`Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1`,
+`Duplicates.Tests.ps1` and `SafetyRegression.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -112,3 +113,16 @@ content verification. Tests deliberately show same-key, same-length valid images
 and videos with different bytes can still be skipped. Originals remain preserved.
 SHA256 checks belong to these regression assertions and are not a runtime hash
 database or mandatory content-hashing feature.
+
+The safety regression combines actual colliding JPG/PNG/BMP conversions, reserved
+suffixes, a source generated-namespace lookalike, bracket/Unicode paths, hidden and
+unsupported source files, mirrored empty directories, duplicate images/videos and
+opaque video bytes. After each run it checks every source file's SHA256, creation
+and modification times, attributes and directory state. Complete JPEGs receive
+full decoding, frame/dimension checks and channel-mean comparisons with a small
+tolerance; copied videos retain byte hashes and timestamps. Both runs must emit
+the same complete source/output plan and retained duplicate links. The second run
+must leave the first run's entire media/log tree and unrelated output-parent entries
+unchanged. These fixtures stay in marked ignored scratch without recursive cleanup.
+The full default suite retains the earlier mandatory controlled failure regressions;
+this combined case uses actual conversion and copying without process mocks.

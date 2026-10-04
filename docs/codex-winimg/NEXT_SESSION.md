@@ -1,60 +1,45 @@
 # Next session handoff
 
-Next task: **M1-T06 — Close the output-safety milestone**.
-M1-T05 is complete. Begin only that next task in a fresh requested thread.
+Next task: **M2-T01 — Implement deliberate first-frame and first-page handling**.
+M1-T06 is complete and the covered output-safety milestone is closed. Begin only
+M2-T01 when next requested.
 
-Use C:/projects/WinImgNormalizer on codex/winimg-hardening; the configured
+Use C:/projects/WinImgNormalizer on codex/winimg-hardening. The configured
 WinImgNormalizer-main directory is the preserved non-Git snapshot. Read AGENTS.md,
-STATUS.md, TASKS.json, GIT_WORKFLOW.md and tasks/M1-T06.md with its referenced cases.
-Recheck clean state, canonical fetch/push URLs and the exact advertised feature SHA.
-Tested runtime/tests implementation is c9988e204d25bbb13616b6df601d0f5c400a73c1.
-The final evidence checkpoint SHA/live sync observation is reported externally in
-the preceding response and draft PR #8; verify it again at session start.
+STATUS.md, TASKS.json, GIT_WORKFLOW.md, tasks/M2-T01.md and only its referenced
+specifications/cases T029-T031. Recheck clean state, canonical fetch/push remote
+identity and exact advertised feature SHA before editing.
+Tested runtime/tests implementation: 4d7f9f2e7681902971b584560211139d555bf011.
+The final evidence-checkpoint SHA/live sync is reported externally in the preceding
+response and draft PR #9; independently verify it again at session start.
 
-Get-WinImgOutputPlan already returns the complete eligible image/video map in total
-ordinal relative-source order, with OrdinalIgnoreCase reservations. Processing follows
-those rows; PLAN log lines precede conversion. Complete path containment/inventory,
-exclusive run allocation, naming and no-overwrite finalization remain established.
+Covered M1 preflight/traversal/collision/finalization/duplicate behavior remains the
+baseline: complete total ordinal output plan; OrdinalIgnoreCase name reservations;
+fresh exclusive run and image/video attempt paths; successful native results and full
+single-frame JPEG decode before saving; stable staged video copying; same-volume
+no-overwrite File.Move; exact owned cleanup; input-length guarded success-based
+duplicate keys with retained source/output/status logs. Original sources are preserved.
+Length/time and duplicate checks remain heuristics; matching bytes are not guaranteed
+and no runtime hashing requirement exists. D20-D23 document the design.
 
-M1-T04 reserved fresh neutral image attempts, requires successful native outcomes and
-full single-frame JPEG decoding, and prevents stale earlier results from being saved
-after later failure. Video copies stream into owned partials and verify length plus
-source length/modification time after close. Same-volume File.Move refuses final
-replacement. Cleanup removes only explicitly owned exact files and empty owned
-directories; unknown siblings and reservation conflicts survive. Item errors return 2.
+T028 verifies mixed synthetic source bytes and creation/modified timestamps plus
+separate deterministic output runs, preserved first-run outputs/logs and existing
+user entries. All mandatory combined suites passed under actual desktop PS 5.1 and
+PS 7 at the exact clean implementation: 173/173, zero skips. Controls each
+174 total/173 passed/one T007 false assertion/exit 1. Push/PR Windows Server
+matrices passed; raw/Git binding, environments, artifacts and the complete milestone
+diff review are in M1-T06.json and M1-T06-ci.json.
+M1-T06 changes test coverage and test documentation; runtime and batch bytes are
+unchanged from the starting checkpoint.
 
-M1-T05 removes early duplicate-key registration. Get-WinImgDuplicateKey combines
-invariant lowercase filename, invariant LastWriteTimeUtc ticks and input length in an
-Ordinal dictionary, keeping a separate first success for every length. Retained
-mappings are added only after verified finalization and hold SourceRelativePath,
-OutputRelativePath and Status; every skip logs all three. A failed-first image/video cannot
-poison the retained key. Different lengths are processed separately. Valid above-cap
-finalized images may register ConvertedWithWarning. Live regular-file metadata is
-read before lookup; image registration rechecks length/time after finalization and
-keeps changed-source output with a partial warning without registering it. Videos
-register the stable copy helper's measured length/time snapshot. Same-key/same-length different
-content can still match falsely; this remains a documented lightweight heuristic,
-not content identity. No runtime hashing or original deletion was introduced.
-
-Implement only M1-T06: run combined mandatory M1 cases, inspect every collision and
-finalization path, verify synthetic source bytes plus creation/modified times and
-two-run isolation, then review the full milestone diff for scope or dependency
-changes. T028 is the source-preservation and safety-regression closure. Actual Windows
-PS 5.1 and PS 7 results remain mandatory; missing target results cannot be called full
-milestone acceptance. Record remaining native/frame/colour/lifecycle limits honestly.
-
-Desktop Windows PS 5.1 / PS 7 passed 172/172 with zero skips; controls each
-173 total, 172 passed, one deliberate false assertion and exit 1. Exact raw
-checkout and committed blob binding is in M1-T05.json, including Git line endings.
-CI push/PR Server matrices passed at the implementation SHA; versions/counts/job
-links are in M1-T05-ci.json. Source hashes/timestamps and video identity remain
-synthetic regression evidence. Inherited case-only single-directory inventory/HEIC
-routing and source-change/cancellation outcomes remain controlled where documented.
-New duplicate case variants use actual separate directories. Real junction checks are distinct from
-denied file-symlink creation (Win32 1314); native long generated scratch does not
-prove universal long source/final-name support. No live UNC, real Pictures, private
-media, real Ctrl+C/hard-kill, manual launcher, owner quality acceptance, merge,
-release or deployment is claimed.
+M2-T01 selects one deliberate first displayed animation frame and one first document
+page. Respect canvas placement and orientation; never stack unrelated pages or depend
+on implicit numbered JPEG output. Report original frame/page counts and omitted
+content honestly. T029-T031 require exactly one intended JPEG and visible dropped
+frames/pages, with codec-specific availability explicit. Preserve the established
+safe output plan, full validation, no-overwrite finalization and source bytes/times.
+Do not start colour/metadata, native lifecycle, general cancellation or publication
+work in this task.
 
 Commands, separately in each fresh Windows shell:
 
@@ -64,13 +49,21 @@ Commands, separately in each fresh Windows shell:
 .\tests\Invoke-Tests.ps1 -DeliberateFailure # expected exit 1, one false assertion
 ```
 
-Pinned bootstrap reuses verified cached archives or explicitly downloads development
-bytes into ignored scratch without installer, persistent PATH/policy changes or
-runtime bootstrap. Children remove inherited PSModulePath; never redefine USERPROFILE.
-The default runner includes six suites, including Duplicates.Tests.ps1. Keep raw
-results, media and tools ignored; retain development failures honestly in evidence.
+Pinned development bootstrap reuses verified cached archives or explicitly downloads
+only to ignored scratch; no installer, runtime bootstrap or persistent PATH/policy
+change. Children clear inherited PSModulePath; never redefine USERPROFILE. Keep raw
+artifacts, tools and media ignored. Retain actual development failures honestly.
 
-Keep the feature branch and draft PR #8; if the owner merged it, inspect exact
-remote and tree identity and create one successor draft without rewriting history.
-No merge, tag/release, settings change, deployment or owner quality approval is
-authorized by the handoff. Stop after M1-T05; start M1-T06 only when next requested.
+Source access times are excluded. Inherited controlled HEIC/case-only inventory and
+source-change/cancellation paths remain distinct from actual separate-directory
+casing and real junction checks. Denied file-symlink capability, lexical drive/UNC
+roots, no real Pictures/live UNC, tested long generated scratch limits, no real
+Ctrl+C/hard-kill, manual launcher, owner quality acceptance or full corpus/analyzer
+closure remain explicit. Do not claim batch atomicity, crash durability or a hostile
+filesystem sandbox.
+
+Keep the feature branch and draft PR #9. If the owner merged it, inspect exact
+remote/tree identity and create one successor draft without rewriting history.
+Normal scoped feature commits/pushes remain authorized; merge, default-branch changes,
+tags/releases, settings, deployment and owner approval are separate gates.
+Stop after M1-T06; begin M2-T01 only when next requested.
