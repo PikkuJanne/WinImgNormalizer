@@ -1,0 +1,351 @@
+{
+  "schema_version": 1,
+  "task_id": "M1-T03",
+  "recorded_utc": "2026-10-04T15:40:50.265168+00:00",
+  "starting_commit": "e178acb6228e35ed1ba71393d5322f884e5e70e1",
+  "starting_remote_identity": "Canonical HTTPS fetch/push origin verified; clean feature HEAD independently matched advertised e178acb. Owner-merged PR #5 main cd64fee had the exact same tree; read-only fetch did not pull, merge or reset.",
+  "tested_implementation_commit": "da91c0d648b387b270bcdd7269a48ee1c63d11eb",
+  "tested_files_sha256": {
+    "WinImgNormalizer.ps1": "6fbbad01a37073477672dfe4932b6484c34bc11b838aa7deaa8eff7c0b25a400",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Invoke-Tests.ps1": "5b52debaefd0147a2782df70611fc92e8e311f80942341e2a884c77d822adf8f",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/Normalizer.Tests.ps1": "b419c0784572f2b9f65964cf8933d36a8747ba070032219ca8e91957b1622736",
+    "tests/Preflight.Tests.ps1": "45bb1ab429f32628c9d8a640226208f2d56ff68d804229190521f06738e8e705",
+    "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+    "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12"
+  },
+  "environment": {
+    "ps51": {
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    },
+    "ps7": {
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    }
+  },
+  "runs": [
+    {
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M1-T03-final-ps51",
+      "observed_at_utc": "2026-10-04T15:35:52.2989424Z",
+      "result": "Passed",
+      "total_count": 119,
+      "passed_count": 119,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 36.5033045,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T03-final-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M1-T03-final-ps51/summary.json": "1819667267a5d4ceecb1e40878d0624c76f06c8e35202ff9304170e0538ce3b8",
+        ".scratch/M1-T03-final-ps51/results.xml": "e5bc063c132084ef8fe0003fb129b1909cfedde7a92f1f4dba48bffe724fc264"
+      }
+    },
+    {
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M1-T03-control-ps51",
+      "observed_at_utc": "2026-10-04T15:35:53.5592897Z",
+      "result": "Failed",
+      "total_count": 120,
+      "passed_count": 119,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 36.7948808,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T03-control-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M1-T03-control-ps51/summary.json": "7773615230b5b842b1454a9ca1e705ca9c6ed23c3f91236ddb22e5d6ce2c0ee3",
+        ".scratch/M1-T03-control-ps51/results.xml": "a7ada106f1d0eb4dc104cc80ea35a3f865fa7583187b19bc6419c730aa5b1180"
+      }
+    },
+    {
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M1-T03-final-ps7",
+      "observed_at_utc": "2026-10-04T15:35:53.7443452Z",
+      "result": "Passed",
+      "total_count": 119,
+      "passed_count": 119,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 40.6103051,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T03-final-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M1-T03-final-ps7/summary.json": "5fc775aa62a00c5b1563a0d7e9243bc4cd505c8073efbbc4db9f7794cbe4ee98",
+        ".scratch/M1-T03-final-ps7/results.xml": "1c923d12205cde1e0038caadf0bc2c7c0f7e5b4dd01d2c98eeee188fcf4db5c8"
+      }
+    },
+    {
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M1-T03-control-ps7",
+      "observed_at_utc": "2026-10-04T15:35:54.7935708Z",
+      "result": "Failed",
+      "total_count": 120,
+      "passed_count": 119,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 40.2179726,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M1-T03-control-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M1-T03-control-ps7/summary.json": "4bffbaa16794150f3dd8aaec512d83ec608c126bc5fc40fb770dc2a2d0c69dfc",
+        ".scratch/M1-T03-control-ps7/results.xml": "d5ff285d2fff998aa2fb9180d1bdfa52b5bd74f94fb9eb527d6df36150446d02"
+      }
+    }
+  ],
+  "case_results": [
+    {
+      "case_id": "T017",
+      "state": "passed",
+      "reason": "Distinct stable JPG/PNG/HEIC planned names; controlled HEIC application routing with valid JPEG candidate bytes, no codec skip. Real JPG/PNG/BMP same-stem outputs all fully decoded. Unique legacy names and video bytes preserved.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T018",
+      "state": "passed",
+      "reason": "Complete reservations cover secondary source names, image-like directory names, case variants, videos and generated namespaces. Actual file/directory arrivals during conversion and after availability checks refuse replacement; source/sentinel hashes and timestamps preserved. Allocation failure returns partial status and later valid work completes. Native long candidate write/full decode/move passes.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "case_id": "T019",
+      "state": "passed",
+      "reason": "16 seeded file/directory shuffles in each of five cultures return identical total ordinal mapping/order. Complete PLAN log precedes conversion and matches planned eligible source rows.",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    }
+  ],
+  "implementation_notes": [
+    "Reserve all mirrored directory paths, generated work/report namespace and unique image/video legacy names before extension/numeric collision allocation.",
+    "Store complete ordered eligible source/output map in memory and local PLAN log, including later unavailable-decoder, duplicate or failed items.",
+    "Images use absent neutral image.jpeg candidates in exclusive GUID work directories. Long generated native scratch uses internal extended Windows prefixes; public device paths remain unsupported.",
+    "Final image File.Move(String,String) and video File.Copy(String,String,false) reject replacements even after an availability check. Naming/allocation/copy-finalization/cleanup warnings return2.",
+    "Conversion settings, retry behavior, metadata/frame handling and duplicate heuristic remain inherited. Candidate validation and staged video transactions belong to M1-T04."
+  ],
+  "historical_run_results": [
+    {
+      "artifact": ".scratch/M1-T03-baseline-ps51/summary.json",
+      "sha256": "e87a9f2682ca8baffac5be37799f1fc565975ec2371e3e9f41b1f63a6b96e93f",
+      "result": "Failed",
+      "total_count": 95,
+      "passed_count": 92,
+      "failed_count": 3,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+        "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+        "M1-T01 per-format capability handling (T011).skips an unavailable HEIC decoder once, converts a supported image and copies video bytes"
+      ],
+      "execution_files_sha256": {
+        "WinImgNormalizer.ps1": "df3509374fad14c4235dfe74c56ae938adb852656a7bbe537e22a139405ce458",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "7617a7ac26aa56875d3b881a886c07591255ea5e7f0aed937a70845ced1f1e53",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "b419c0784572f2b9f65964cf8933d36a8747ba070032219ca8e91957b1622736",
+        "tests/Preflight.Tests.ps1": "cd45e4e226690188248d4c72ef396ac7ae2819806d03f64bd5f7ed07bbc5b8e3",
+        "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b"
+      }
+    },
+    {
+      "artifact": ".scratch/M1-T03-baseline-ps7/summary.json",
+      "sha256": "61834c43fca9bdee97bf2809554be22236dc1e75d47702ffdfcfb18c01237333",
+      "result": "Failed",
+      "total_count": 95,
+      "passed_count": 92,
+      "failed_count": 3,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+        "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+        "M1-T01 per-format capability handling (T011).skips an unavailable HEIC decoder once, converts a supported image and copies video bytes"
+      ],
+      "execution_files_sha256": {
+        "WinImgNormalizer.ps1": "df3509374fad14c4235dfe74c56ae938adb852656a7bbe537e22a139405ce458",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "7617a7ac26aa56875d3b881a886c07591255ea5e7f0aed937a70845ced1f1e53",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "b419c0784572f2b9f65964cf8933d36a8747ba070032219ca8e91957b1622736",
+        "tests/Preflight.Tests.ps1": "cd45e4e226690188248d4c72ef396ac7ae2819806d03f64bd5f7ed07bbc5b8e3",
+        "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b"
+      }
+    },
+    {
+      "artifact": ".scratch/M1-T03-path-fix-ps51/summary.json",
+      "sha256": "f469b7fa0c95f190254faa13e17220d63dc59ce475a3fcac0baa886ea800920e",
+      "result": "Passed",
+      "total_count": 6,
+      "passed_count": 6,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "execution_files_sha256": {
+        "WinImgNormalizer.ps1": "76bc3cc85eead05fa783214d2b9d6b266e80fbee8f6cb0dccca7930a9e676992",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b52debaefd0147a2782df70611fc92e8e311f80942341e2a884c77d822adf8f",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "b419c0784572f2b9f65964cf8933d36a8747ba070032219ca8e91957b1622736"
+      }
+    },
+    {
+      "artifact": ".scratch/M1-T03-path-fix-ps7/summary.json",
+      "sha256": "0d4984809b88c275c3b4a639fad00ec0b81492b4e88b51c8cb150b4592bb515f",
+      "result": "Passed",
+      "total_count": 6,
+      "passed_count": 6,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "execution_files_sha256": {
+        "WinImgNormalizer.ps1": "76bc3cc85eead05fa783214d2b9d6b266e80fbee8f6cb0dccca7930a9e676992",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b52debaefd0147a2782df70611fc92e8e311f80942341e2a884c77d822adf8f",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "b419c0784572f2b9f65964cf8933d36a8747ba070032219ca8e91957b1622736"
+      }
+    },
+    {
+      "artifact": ".scratch/M1-T03-dev-ps51/summary.json",
+      "sha256": "464ca2c631c29d850a15530abe1ee905204810003d8b8dcdc3fe7cb16a891e41",
+      "result": "Failed",
+      "total_count": 119,
+      "passed_count": 116,
+      "failed_count": 3,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M1-T01 per-format capability handling (T011).accepts a large Int64 cap and emits 2147483648MB without narrowing its unit quotient",
+        "M1-T01 per-format capability handling (T011).accepts a large Int64 cap and emits 2199023255553KB without narrowing its unit quotient",
+        "M1-T01 per-format capability handling (T011).uses the HEIF decoder for .heif when HEIC decoding is unavailable"
+      ],
+      "execution_files_sha256": {
+        "WinImgNormalizer.ps1": "6fbbad01a37073477672dfe4932b6484c34bc11b838aa7deaa8eff7c0b25a400",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b52debaefd0147a2782df70611fc92e8e311f80942341e2a884c77d822adf8f",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "b419c0784572f2b9f65964cf8933d36a8747ba070032219ca8e91957b1622736",
+        "tests/Preflight.Tests.ps1": "cd45e4e226690188248d4c72ef396ac7ae2819806d03f64bd5f7ed07bbc5b8e3",
+        "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+        "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12"
+      }
+    },
+    {
+      "artifact": ".scratch/M1-T03-dev-ps7/summary.json",
+      "sha256": "bb65e46c8a0ec65ae2d975281655342057abc384fa4eb4893cc92815e32158a0",
+      "result": "Failed",
+      "total_count": 119,
+      "passed_count": 116,
+      "failed_count": 3,
+      "skipped_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M1-T01 per-format capability handling (T011).accepts a large Int64 cap and emits 2147483648MB without narrowing its unit quotient",
+        "M1-T01 per-format capability handling (T011).accepts a large Int64 cap and emits 2199023255553KB without narrowing its unit quotient",
+        "M1-T01 per-format capability handling (T011).uses the HEIF decoder for .heif when HEIC decoding is unavailable"
+      ],
+      "execution_files_sha256": {
+        "WinImgNormalizer.ps1": "6fbbad01a37073477672dfe4932b6484c34bc11b838aa7deaa8eff7c0b25a400",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b52debaefd0147a2782df70611fc92e8e311f80942341e2a884c77d822adf8f",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/Normalizer.Tests.ps1": "b419c0784572f2b9f65964cf8933d36a8747ba070032219ca8e91957b1622736",
+        "tests/Preflight.Tests.ps1": "cd45e4e226690188248d4c72ef396ac7ae2819806d03f64bd5f7ed07bbc5b8e3",
+        "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+        "tests/Naming.Tests.ps1": "410ac55a64b3a9dfe38110eabbb997e9b61b231605cf67de13b50649891a2d12"
+      }
+    }
+  ],
+  "history_interpretation": "Initial 95-test checks passed92/failed3 in each shell: two ordinary child conversions and mixed-codec conversion hit ImageMagick scratch MAX_PATH. Internal extended candidate output prefixes corrected native writes; focused ordinary six-test suites passed. Combined119-test development checks passed116/failed3 because large-cap and HEIF controlled runner ownership guards rejected the new extended native spelling. Guards now remove only that spelling before retaining the same ownership test; final119-test suites and120-test deliberate controls above passed at the exact committed implementation.",
+  "ci_evidence": "evidence/M1-T03-ci.json",
+  "implementation_sync_observation": {
+    "observed_at_utc": "2026-10-04T15:40:50.254511+00:00",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "branch": "codex/winimg-hardening",
+    "local_head": "da91c0d648b387b270bcdd7269a48ee1c63d11eb",
+    "remote_head": "da91c0d648b387b270bcdd7269a48ee1c63d11eb",
+    "worktree_clean_before_record_files": true,
+    "sync_state": "synchronized"
+  },
+  "containing_checkpoint_sync": "pending_verification",
+  "draft_pr": "https://github.com/PikkuJanne/WinImgNormalizer/pull/6",
+  "limitations": [
+    "HEIC naming/routing is mandatory controlled coverage; no actual HEIC decoder/visual-quality result is claimed for this task.",
+    "Case-only variants use controlled FileInfo inventory paths; ordinary NTFS case-sensitivity settings were not changed.",
+    "Drive/UNC checks and prefix handling are lexical only; no live share, real Pictures, private media or drive-root normalization.",
+    "Inherited desktop file-symlink creation unavailable Win321314; controlled file-reparse checks are distinct from real directory junction checks.",
+    "Long generated candidate regression proves the tested native write/move path, not universal long source/final-name support across hosts.",
+    "Full per-attempt native result/content validation, first-frame policy, staged video recovery and duplicate bookkeeping remain later tasks.",
+    "No hostile-filesystem sandbox, batch atomicity, crash durability, manual launcher, owner quality acceptance, merge, release or deployment is claimed."
+  ]
+}

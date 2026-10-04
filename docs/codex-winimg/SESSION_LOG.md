@@ -229,3 +229,50 @@ and hashes. Its containing commit/sync fields remain pending_verification until
 observed externally after commit/push. No merge, release, deployment or owner image
 quality acceptance. M1-T02 accepted; next M1-T03, stop. Five of 28 accepted and
 T001-T016 exercised, with T001-T004 retained as characterization.
+
+## 2026-10-04 — M1-T03 completed
+
+Started from clean e178acb, independently matching the verified feature remote.
+Owner-merged PR #5 main cd64fee had the identical tree; read-only fetch preserved
+the checkout/history. Continued the authorized feature branch and opened successor
+draft PR #6 after normal push. Preserved the non-Git snapshot.
+
+Implemented deterministic complete eligible-source mapping with total ordinal row
+ordering and OrdinalIgnoreCase reservations. Mirrored directories, generated paths,
+video names and every unique legacy image name precede suffix allocation. Colliding
+images receive lowercase extension suffixes and checked numeric suffixes starting
+at 2. Local PLAN lines persist the complete map before conversion, including later
+missing-codec/duplicate/failed rows. Added neutral image candidates in exclusive GUID
+work directories, no-overwrite File.Move and File.Copy(false), final availability/
+ancestor checks, and partial status for new naming/staging/cleanup failures.
+
+Added 24 mandatory naming checks; independent read-only review found no remaining
+blocker. Actual JPG/PNG/BMP collisions full-decode; source hashes/timestamps and
+unchanged video bytes pass. Controlled HEIC routing/case-only inventory, 80 seeded
+shuffle/culture comparisons, complete logs, file/directory arrivals including
+post-check races, allocation failure continuation and >260 native scratch pass.
+Initial 95-test development runs passed 92/failed 3 per shell because native scratch
+hit MAX_PATH. Internal extended output spelling corrected it without shortening
+names; focused six-test ordinary invocation suites passed. Combined development
+119-test runs passed 116/failed 3 because preflight controlled ownership guards
+rejected that spelling. Removing only the extended prefix before the same guard
+corrected fixture handling, without reducing behavior assertions. Raw failures and
+sanitized counts/hashes remain in M1-T03.json history. A one-off evidence validator
+syntax typo was corrected before any validation assertions or tracked writes.
+
+Committed runtime/tests as da91c0d648b387b270bcdd7269a48ee1c63d11eb. Both actual Windows 11 shells passed
+119/119 with zero skips; controls 120 total/119 passed/one identified false assertion/
+exit 1. All four summaries match exact committed runtime/test bytes and unchanged
+persistent execution policy. Both push and PR Windows Server matrices passed all
+four jobs and failure controls; actual versions/counts/links are in M1-T03-ci.json.
+No installer, persistent PATH/policy edit, global ImageMagick policy change, runtime
+bootstrap, private media, owner visual acceptance or manual launcher claim.
+
+Implementation push independently matched clean feature HEAD. Final record-only
+checkpoint changes STATUS/TASKS/NEXT_SESSION/SESSION_LOG and two sanitized evidence
+files, binding the tested implementation. Its own sync remains pending_verification
+until externally observed after commit/push; final SHA/live sync belongs in the
+response/PR. M1-T03 accepted; next M1-T04, stop. Six of 28 accepted, T001-T019
+exercised with T001-T004 retained as characterization. Full candidate/native outcome
+validation, video-copy transactions, frames/colour/duplicates/general lifecycle and
+owner/publication gates remain later scope.
