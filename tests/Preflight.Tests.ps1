@@ -2,6 +2,15 @@ BeforeAll {
     $repository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
     $application = Join-Path $repository 'WinImgNormalizer.ps1'
 
+    function ConvertFrom-PreflightNativePath {
+        param([string]$Path)
+        # Generated scratch can require an extended Windows prefix. Strip only
+        # that native spelling before applying the existing owned-path guard.
+        if ($Path.StartsWith('\\?\UNC\', [StringComparison]::OrdinalIgnoreCase)) { return '\\' + $Path.Substring(8) }
+        if ($Path.StartsWith('\\?\', [StringComparison]::Ordinal)) { return $Path.Substring(4) }
+        return $Path
+    }
+
     function Assert-PreflightNoReparseAncestors {
         param([string]$Path)
         $current = [IO.Path]::GetFullPath($Path)
@@ -485,7 +494,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
             param([string]$Executable, [string[]]$Arguments)
             $trace.Add([pscustomobject]@{ Executable = $Executable; Arguments = @($Arguments) })
             $target = $Arguments[-1].Substring('JPEG:'.Length)
-            if (-not $target.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase)) { throw 'Large-cap control escaped owned output.' }
+            if (-not (ConvertFrom-PreflightNativePath $target).StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase)) { throw 'Large-cap control escaped owned output.' }
             [IO.File]::WriteAllBytes($target, $jpegBytes)
             return 0
         }
@@ -519,7 +528,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
             param([string]$Executable, [string[]]$Arguments)
             $trace.Add([pscustomobject]@{ Executable = $Executable; Arguments = @($Arguments) })
             $target = $Arguments[-1].Substring('JPEG:'.Length)
-            if (-not $target.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase)) { throw 'HEIF control escaped owned output.' }
+            if (-not (ConvertFrom-PreflightNativePath $target).StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase)) { throw 'HEIF control escaped owned output.' }
             [IO.File]::WriteAllBytes($target, $jpegBytes)
             return 0
         }

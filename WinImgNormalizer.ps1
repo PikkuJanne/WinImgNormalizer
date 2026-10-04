@@ -22,7 +22,8 @@ WHAT THIS IS (AND ISN’T)
 
 FEATURES
     - Non-destructive: creates "<SourceName>_WinImgNormalized_<yyyyMMdd_HHmmss>_<runId>" under Pictures.
-    - Exact tree mirror: same subfolders, image files become .jpeg (same base names).
+    - Exact tree mirror: same subfolders, images become .jpeg (same base names when unique).
+    - Deterministic collision suffixes; complete output plan; no replacement of arriving targets.
     - Supported images via ImageMagick: JPG/JPEG/PNG/BMP/TIF/TIFF/GIF/HEIC/HEIF/WebP.
     - Videos copied as-is (mp4/mov/mkv/avi/m4v/wmv/webm/mts/m2ts/3gp/3g2).
     - JPEG ≤ 1 MB targeting with progressive scaling (100→50%) and quality sizing (jpeg:extent).
@@ -56,7 +57,7 @@ NOTES
     - “Invalid SOS parameters for sequential JPEG” and similar libjpeg warnings are handled
       (suppressed via -quiet, script treats them as non-fatal).
     - Multi-frame GIF/TIFF are flattened to a single frame.
-    - Filenames are preserved, only the extension changes to .jpeg for images.
+    - Unique image basenames are preserved; conflicts use __sourceext and checked __N suffixes.
     - Timestamps on outputs are set to the source file times.
 
 LIMITATIONS
@@ -269,6 +270,109 @@ function Get-WinImgGeneratedName {
   return $candidate
 }
 
+function Get-WinImgOutputPlan {
+  param(
+    [string]$SourceRoot,
+    [object]$SourceTree,
+    [string]$GeneratedName,
+    [string[]]$ImageExtensions = @('.jpg','.jpeg','.png','.bmp','.tif','.tiff','.gif','.heic','.heif','.webp'),
+    [string[]]$VideoExtensions = @('.mp4','.mov','.mkv','.avi','.m4v','.wmv','.webm','.mts','.m2ts','.3gp','.3g2')
+  )
+
+  # Plan the whole namespace before assigning suffixes. Reserve unique legacy
+  # names first so a suffix cannot steal a later source's nonconflicting name.
+  $reserved = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+  foreach ($directory in $SourceTree.Directories) {
+    $null = $reserved.Add((Get-WinImgRelativePath -Root $SourceRoot -Path $directory.FullName))
+  }
+  foreach ($path in @($GeneratedName, [IO.Path]::Combine($GeneratedName, 'work'), [IO.Path]::Combine($GeneratedName, 'reports'))) {
+    $null = $reserved.Add($path)
+  }
+  $rows = New-Object 'Collections.Generic.Dictionary[string,object]' ([StringComparer]::Ordinal)
+  $preferredCounts = New-Object 'Collections.Generic.Dictionary[string,int]' ([StringComparer]::OrdinalIgnoreCase)
+  $orderedPaths = New-Object 'Collections.Generic.List[string]'
+  foreach ($file in $SourceTree.Files) {
+    $extension = $file.Extension.ToLowerInvariant()
+    if ($ImageExtensions -notcontains $extension -and $VideoExtensions -notcontains $extension) { continue }
+    $relative = Get-WinImgRelativePath -Root $SourceRoot -Path $file.FullName
+    $kind = if ($ImageExtensions -contains $extension) { 'Image' } else { 'Video' }
+    $preferred = if ($kind -eq 'Image') { [IO.Path]::ChangeExtension($relative, '.jpeg') } else { $relative }
+    $rows.Add($relative, [pscustomobject]@{
+      Source = $file; SourceRelativePath = $relative; OutputRelativePath = $preferred
+      Kind = $kind; NamingReason = 'Legacy'
+    })
+    $orderedPaths.Add($relative)
+    if (-not $preferredCounts.ContainsKey($preferred)) { $preferredCounts.Add($preferred, 0) }
+    $preferredCounts[$preferred]++
+  }
+  # Ordinal is a total order, including case-only variants, independent of locale
+  # and the filesystem's enumeration order in either supported PowerShell host.
+  $orderedPaths.Sort([StringComparer]::Ordinal)
+  $collisions = New-Object 'Collections.Generic.List[object]'
+  foreach ($relative in $orderedPaths) {
+    $row = $rows[$relative]
+    if ($preferredCounts[$row.OutputRelativePath] -eq 1 -and $reserved.Add($row.OutputRelativePath)) { continue }
+    $collisions.Add($row)
+  }
+  foreach ($row in $collisions) {
+    $directory = [IO.Path]::GetDirectoryName($row.SourceRelativePath)
+    $stem = [IO.Path]::GetFileNameWithoutExtension($row.SourceRelativePath)
+    $extension = $row.Source.Extension.ToLowerInvariant()
+    $outputExtension = if ($row.Kind -eq 'Image') { '.jpeg' } else { $extension }
+    $suffixStem = $stem + '__' + $extension.TrimStart('.')
+    $candidate = [IO.Path]::Combine($directory, $suffixStem + $outputExtension)
+    $row.NamingReason = 'ExtensionSuffix'
+    $number = 2
+    while (-not $reserved.Add($candidate)) {
+      $candidate = [IO.Path]::Combine($directory, $suffixStem + '__' + $number + $outputExtension)
+      $row.NamingReason = 'NumericSuffix'
+      $number++
+    }
+    $row.OutputRelativePath = $candidate
+  }
+  foreach ($relative in $orderedPaths) { $rows[$relative] }
+}
+
+function Assert-WinImgOutputAvailable {
+  param([string]$Path)
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($Path))
+  if (Test-Path -LiteralPath $Path) { throw 'The planned output is already occupied; the existing entry was preserved.' }
+}
+
+function New-WinImgImageCandidate {
+  param([string]$WorkRoot)
+  Assert-WinImgNoReparseAncestors $WorkRoot
+  for ($attempt = 0; $attempt -lt 8; $attempt++) {
+    $directory = [IO.Path]::Combine($WorkRoot, [guid]::NewGuid().ToString('N'))
+    if (New-WinImgExclusiveDirectory $directory) {
+      return [IO.Path]::Combine($directory, 'image.jpeg')
+    }
+  }
+  throw 'Could not allocate an exclusive image scratch directory after eight name collisions.'
+}
+
+function Get-WinImgNativeOutputPath {
+  param([string]$Path)
+  # Only internal, absolute candidate paths reach this helper. ImageMagick's
+  # Windows file APIs need the extended prefix for long generated scratch paths.
+  if ($Path.Length -lt 260) { return $Path }
+  if ($Path.StartsWith('\\', [StringComparison]::Ordinal)) { return '\\?\UNC\' + $Path.Substring(2) }
+  return '\\?\' + $Path
+}
+
+function Move-WinImgPlannedImage {
+  param([string]$CandidatePath, [string]$DestinationPath)
+  Assert-WinImgOutputAvailable $DestinationPath
+  # The two-argument overload also refuses an arrival after the preceding check.
+  [IO.File]::Move($CandidatePath, $DestinationPath)
+}
+
+function Copy-WinImgPlannedVideo {
+  param([string]$SourcePath, [string]$DestinationPath)
+  Assert-WinImgOutputAvailable $DestinationPath
+  [IO.File]::Copy($SourcePath, $DestinationPath, $false)
+}
+
 function New-WinImgExclusiveDirectory {
   param([string]$Path)
   Initialize-WinImgDirectoryApi
@@ -459,10 +563,8 @@ function Invoke-WinImgNormalizer {
     $imageCoders = @{ '.jpg'='JPEG'; '.jpeg'='JPEG'; '.png'='PNG'; '.bmp'='BMP'; '.tif'='TIFF'; '.tiff'='TIFF'; '.gif'='GIF'; '.heic'='HEIC'; '.heif'='HEIF'; '.webp'='WEBP' }
     $sourceTree = Get-WinImgSourceTree -SourceRoot $srcRoot
     $generatedName = Get-WinImgGeneratedName -TopLevelNames $sourceTree.TopLevelNames
-    $allFiles = @($sourceTree.Files | Where-Object {
-      $e = $_.Extension.ToLowerInvariant()
-      ($imgExts -contains $e) -or ($videoExts -contains $e)
-    })
+    $outputPlan = @(Get-WinImgOutputPlan -SourceRoot $srcRoot -SourceTree $sourceTree -GeneratedName $generatedName -ImageExtensions $imgExts -VideoExtensions $videoExts)
+    $allFiles = @($outputPlan | ForEach-Object { $_.Source })
     $missingCoders = @{}
     foreach ($f in $allFiles) {
       $coder = $imageCoders[$f.Extension.ToLowerInvariant()]
@@ -529,6 +631,9 @@ function Invoke-WinImgNormalizer {
   Write-Log "Source: $srcRoot"
   Write-Log "Destination: $destRoot"
   Write-Log "Generated work/report directory: $generatedName"
+  foreach ($row in $outputPlan) {
+    Write-Log ('PLAN {0}: {1} -> {2} ({3})' -f $row.Kind, $row.SourceRelativePath, $row.OutputRelativePath, $row.NamingReason)
+  }
   Write-Log ("MaxBytes: {0:n0} ({1} MB)" -f $MaxBytes, [Math]::Round($MaxBytes/1MB,2))
 
   Write-Log ('ImageMagick executable: ' + $MagickCmd)
@@ -542,6 +647,7 @@ function Invoke-WinImgNormalizer {
 
   # --------- Mirror tree, non-destructive ---
   $hasTraversalWarnings = $sourceTree.Warnings.Count -gt 0
+  $hasNamingWarnings = $false
   foreach ($warning in $sourceTree.Warnings) { Write-Log ("Source scan: {0} ({1})" -f $warning.Path, $warning.Reason) 'WARN' }
   foreach ($directory in $sourceTree.Directories) {
     try {
@@ -584,6 +690,7 @@ function Invoke-WinImgNormalizer {
 
     $extent = Get-ExtentString $MaxBytes
     $scales = 100,90,80,70,60,50
+    $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
 
     foreach ($p in $scales) {
       # Ensure destination directory exists
@@ -601,7 +708,7 @@ function Invoke-WinImgNormalizer {
         '-background','white','-alpha','remove','-alpha','off',
         '-resize', "$p%",
         '-define', "jpeg:extent=$extent",
-        ('JPEG:' + $DestPath)
+        ('JPEG:' + $nativeDestPath)
       )
 
       # Run ImageMagick without escalating warnings to terminating errors
@@ -622,7 +729,7 @@ function Invoke-WinImgNormalizer {
           '-sampling-factor','4:2:0','-interlace','Line',
           '-resize', "$p%",
           '-define', "jpeg:extent=$extent",
-          ('JPEG:' + $DestPath)
+          ('JPEG:' + $nativeDestPath)
         )
         $prevEAP = $ErrorActionPreference
         $ErrorActionPreference = 'Continue'
@@ -654,9 +761,10 @@ function Invoke-WinImgNormalizer {
 
   # --------- Main loop ---
   [int]$i = 0
-  foreach ($f in $allFiles) {
+  foreach ($row in $outputPlan) {
+    $f = $row.Source
     $i++
-    $rel = Get-WinImgRelativePath -Root $srcRoot -Path $f.FullName
+    $rel = $row.SourceRelativePath
     $ext = $f.Extension.ToLowerInvariant()
     Write-Progress -Activity "WinImgNormalizer" -Status "$i / $total : $rel" -PercentComplete ([int]($i*100/$total))
 
@@ -670,7 +778,7 @@ function Invoke-WinImgNormalizer {
     $dupKey = ('{0}|{1}' -f $f.Name.ToLowerInvariant(), $f.LastWriteTimeUtc.Ticks)
     if (-not $seen.Add($dupKey)) { $stats.SkippedDuplicate++; $firstRel = $keyFirst[$dupKey]; Write-Log "Duplicate skipped: $rel (first seen at: $firstRel)" 'SKIP'; continue } else { $keyFirst[$dupKey] = $rel }
 
-    $destRel  = if ($imgExts -contains $ext) { [System.IO.Path]::ChangeExtension($rel, '.jpeg') } else { $rel }
+    $destRel = $row.OutputRelativePath
     $destPath = [System.IO.Path]::Combine($destRoot, $destRel)
 
     # A source entry can change after inventory. Recheck links before reading;
@@ -680,17 +788,24 @@ function Invoke-WinImgNormalizer {
       if (((Get-Item -LiteralPath $f.FullName -Force -ErrorAction Stop).Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
         throw 'Source entry became a reparse point after inventory; no read attempted.'
       }
-      Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($destPath))
+      Assert-WinImgOutputAvailable $destPath
     } catch {
       $hasTraversalWarnings = $true
       $stats.Errors++
       Write-Log "Source/destination safety check failed: $rel ($($_.Exception.Message))" 'ERR'
       continue
     }
+    $candidatePath = $null
     try {
       if ($imgExts -contains $ext) {
-        $res = Convert-ImageMagick -SourcePath $f.FullName -DestPath $destPath -MaxBytes $MaxBytes
+        # Neutral owned scratch is necessary now to protect an arriving final
+        # name. Full attempt validation/lifecycle is the following task.
+        try { $candidatePath = New-WinImgImageCandidate -WorkRoot $workRoot }
+        catch { $hasNamingWarnings = $true; throw }
+        $res = Convert-ImageMagick -SourcePath $f.FullName -DestPath $candidatePath -MaxBytes $MaxBytes
         if ($res.Status -eq 'Converted') {
+          try { Move-WinImgPlannedImage -CandidatePath $candidatePath -DestinationPath $destPath }
+          catch { $hasNamingWarnings = $true; throw }
           $stats.Converted++
           try { (Get-Item -LiteralPath $destPath).LastWriteTimeUtc = $f.LastWriteTimeUtc; (Get-Item -LiteralPath $destPath).CreationTimeUtc = $f.CreationTimeUtc } catch {}
           $note = if ($res.Note) { " ($($res.Note))" } else { "" }
@@ -702,7 +817,8 @@ function Invoke-WinImgNormalizer {
       elseif ($videoExts -contains $ext) {
         $destDir = [System.IO.Path]::GetDirectoryName($destPath)
         if ($destDir -and -not (Test-Path -LiteralPath $destDir)) { New-Item -ItemType Directory -Path $destDir -Force | Out-Null }
-        Copy-Item -LiteralPath $f.FullName -Destination $destPath -Force
+        try { Copy-WinImgPlannedVideo -SourcePath $f.FullName -DestinationPath $destPath }
+        catch { $hasNamingWarnings = $true; throw }
         try { (Get-Item -LiteralPath $destPath).LastWriteTimeUtc = $f.LastWriteTimeUtc; (Get-Item -LiteralPath $destPath).CreationTimeUtc = $f.CreationTimeUtc } catch {}
         $bytesOut = (Get-Item -LiteralPath $destPath).Length
         $stats.CopiedVideo++; Write-Log ("OK VID: {0} -> {1} [{2:n0} bytes]" -f $rel, $destRel, $bytesOut) 'OK'
@@ -712,6 +828,18 @@ function Invoke-WinImgNormalizer {
       }
     } catch {
       $stats.Errors++; Write-Log "Exception processing: $rel ($($_.Exception.Message))" 'ERR'
+    } finally {
+      if ($candidatePath) {
+        # Only the exact candidate in this exclusively allocated directory is
+        # owned. Unknown numbered outputs are left for the later frame policy.
+        try {
+          if ([IO.File]::Exists($candidatePath)) { [IO.File]::Delete($candidatePath) }
+          [IO.Directory]::Delete([IO.Path]::GetDirectoryName($candidatePath), $false)
+        } catch {
+          $hasNamingWarnings = $true
+          Write-Log ('Could not remove owned image scratch: ' + $_.Exception.Message) 'WARN'
+        }
+      }
     }
   }
 
@@ -729,7 +857,7 @@ function Invoke-WinImgNormalizer {
   Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4}" -f $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors)
   Write-Log "Completed $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
-  if ($missingCoders.Count -gt 0 -or $hasTraversalWarnings) { return 2 }
+  if ($missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings) { return 2 }
   return 0
 }
 
