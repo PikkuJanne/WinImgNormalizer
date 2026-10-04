@@ -464,3 +464,110 @@ general cancellation/exits, complete corpus/analyzer, manual owner and publicati
 gates remain later scope. Synthetic source creation/modification timestamps are
 covered; access times, heuristic content identity, live UNC/real Pictures, universal
 long paths, hostile filesystem safety, batch atomicity and crash durability are not.
+
+## 2026-10-04 — M2-T01 completed
+
+Started from clean b7fe275d, independently equal to the feature remote. Owner-merged
+PR #9 main f90de6ce had the identical tree; read-only fetch preserved checkout/history.
+Continued the authorized feature and opened successor draft PR #10 after normal
+push. Preserved the separate non-Git snapshot.
+
+GIF/TIF/TIFF/WebP/HEIC/HEIF inspection and conversion read the same exclusively
+created owned snapshot with a neutral source basename and original extension.
+Source regular-file/reparse checks and length/modification-time checks surround
+the copy, and copied length must match. External snapshot arrivals and unknown
+neighboring files are preserved; exact owned snapshots follow existing cleanup and
+partial-warning rules.
+
+A separate successful identify -ping probe counts every decoder-exposed image and
+rejects malformed, inconsistent or ambiguous count/format/dimension observations.
+Conversion selects image:frames=0 before the owned native input. Only actual
+decoded GIF/WebP follows FirstDisplayedFrame coalescing onto its logical canvas;
++repage and existing auto-orientation follow. TIFF keeps one first page without
+stacking; HEIC/HEIF keeps the decoder's primary/first image. Each finalized output
+still must fully decode as one nonempty JPEG at the exact planned path.
+
+SOURCE IMG records source count, selected count 1, omitted count, unit, policy and
+actual decoder. Deliberate omission is the normal informational static-output
+policy and retains exit 0 on successful runs. Source bytes/times, mirrored naming,
+no-overwrite finalization, verified videos, success-based heuristic duplicate
+links, size cap/scales/JPEG flags and public BAT/positional forms retain their
+established behavior. The bootstrap, dependency pins and workflow were not
+changed.
+
+Decision D24 records the scoped frame/page policy.
+T029 — passed: Two actual GIF variants, with one or two frames, independently
+establish a transparent 24x20 first tile at +8+10 on a 64x48 logical canvas.
+Literal bracket paths produce one exact mirrored 64x48 JPEG with white outside and
+the first red region; later blue pixels and numbered outputs are absent. Source
+count, selection and omissions are logged; source bytes, length, timestamps and
+attributes remain unchanged.
+
+T030 — passed: An actual two-page TIFF has an asymmetric 80x48 first page whose
+first IFD Orientation tag is independently set/read as RightTop, followed by a
+distinct blue page. One 48x80 JPEG contains the correctly oriented first-page
+red/green/yellow samples, with no page overlay or second-page blue. FirstPage,
+count 2 and omission 1 are logged; exact output, empty owned work and source
+bytes/times are checked.
+
+T031 — passed: An actual two-frame animated WebP requires sRGBA first-frame
+channels and a transparent corner before asserting a white/red 64x48 first
+displayed JPEG and omitted blue frame. A genuine 1328-byte HEVC collection with
+two top-level still images is independently decoded through both .heic and .heif
+aliases, exposing HEIC and HEIF labels respectively; one 64x48 JPEG retains the
+asymmetric primary red/green/yellow image and omits the distinct blue image.
+Counts, policy, exact single outputs, owned cleanup and source bytes/times are
+checked. This verifies a still collection; timed HEIC animation remains
+unverified.
+
+Four uncommitted targeted development runs are retained. The first PS7 run passed
+6/12 and failed six assertions: an HEIF label expectation, two mock source-path
+errors, recursive copied-metadata inspection, a cleanup warning expected as
+success, and an unsupported white/transparent WebP expectation. Independent RIFF,
+pinned decoder and Pillow inspection found the original WebP alpha-free; its
+optional white animation-background hint did not establish white rendered padding.
+The second PS7 run passed 11/12 and failed an alpha expression applied to an RGB-
+only second frame. Corrected fixture/mock/oracle checks passed 12/12 in PS7-3 and
+PS5.1-1; no runtime fix was required for those test-development failures. Raw
+summaries, XML, consoles and saved source snapshots stay ignored with hashes;
+their end-of-run source hashes do not establish an immutable clean execution
+revision. Separately, the native HEIC encode probe and first unpacked generator
+DLL import failed during fixture tooling development; verified once-only
+generation and independent actual two-image decoding then succeeded. These tooling
+events are distinct from runtime assertion results and from the subsequent clean
+committed full acceptance runs.
+
+Committed runtime/tests as d64a9034ff0b4324b2515900fdf8b4cb82f80bbb. Actual desktop PS 5.1 and PS 7 each
+passed 185/185, zero skips; controls 186 total/185 passed/one exact
+T007 assertion failure/exit 1. All four summaries bind the same clean tested checkout;
+raw hashes, Git blob hashes and verified CRLF/LF normalization are recorded. Persistent
+execution policies are unchanged. Actual push/PR Windows Server matrices passed all
+four normal/control jobs; environment/count/log-hash evidence is in M2-T01-ci.json.
+
+Implementation synchronization is a past exact-SHA observation. The containing
+record-only checkpoint updates STATUS/TASKS/NEXT_SESSION/SESSION_LOG and two sanitized
+evidence files, plus the scoped D24 decision and primary references. Its own SHA/live sync stays pending_verification until externally
+observed after normal commit/push. No raw logs, private media or local tools are tracked.
+No merge, release, deployment or owner aesthetic approval was performed.
+
+M2-T01 accepted: 10/28 tasks, T001-T031 exercised with first four characterization
+and codec coverage/absence stated explicitly. Next M2-T02 — Convert colour profiles before metadata removal; stop.
+Actual T031 HEIC/HEIF evidence is a genuine two-image top-level still collection
+through two aliases. Timed HEIC animation, thumbnails, auxiliary images and
+arbitrary codec builds remain unverified; container counts describe only images
+exposed by the pinned decoder. The pinned native build reads HEIC/HEIF but cannot
+generate the fixture; one verified official development wheel produced the
+synthetic bytes in ignored scratch, with no installation, runtime/CI generator
+dependency or distributed generator binary.
+
+Snapshot length/modification-time checks and duplicate keys are stability
+heuristics, not proof of content identity. General native argument/input-grammar
+safety and source changes retaining identical metadata remain outside this narrow
+neutral-snapshot policy. Owned cleanup deliberately preserves unknown entries and
+may return partial exit 2 after a valid JPEG has finalized.
+
+Tagged colour/profile conversion before metadata removal is next M2-T02. Broader
+alpha/colour/reference fidelity, size-search quality, process timeout/resource
+budgets, cancellation, reporting and publication remain later tasks. Automated
+internal peer review does not grant owner aesthetic acceptance or authorize merge,
+release, deployment, tags or default-branch changes.

@@ -1,91 +1,131 @@
 # Project status
 
-Updated: 2026-10-04 — M1-T06 completed; output-safety milestone closed.
+Updated: 2026-10-04 — M2-T01 completed.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested implementation: 4d7f9f2e7681902971b584560211139d555bf011
-Next task: **M2-T01 — Implement deliberate first-frame and first-page handling**
-Task progress: **9 / 28 accepted**
-Specified cases exercised: **T001-T028 (28 / 75); T001-T004 are characterization**
-Pester suite: **173 / 173 passed in each actual desktop Windows shell, zero skipped**
-Failure controls: **174 total, 173 passed, one intended assertion failed; exit 1 in each shell**
+Tested implementation: d64a9034ff0b4324b2515900fdf8b4cb82f80bbb
+Next task: **M2-T02 — Convert colour profiles before metadata removal**
+Task progress: **10 / 28 accepted**
+Specified cases exercised: **T001-T031 (31 / 75); T001-T004 are characterization; codec observations remain explicit**
+Pester suite: **185 / 185 passed in each actual desktop Windows shell, zero skipped**
+Failure controls: **186 total, 185 passed, one intended assertion failed; exit 1 in each shell**
 CI: **implementation push and PR Windows Server PS 5.1 / PS 7 matrices passed, including expected controls**
 GitHub sync for this containing evidence checkpoint: **pending_verification**
 Owner quality acceptance: **not requested / not granted**
 
-## Milestone closure and evidence
+## Implementation and evidence
 
-M1 output-safety acceptance is complete for the covered mandatory T008-T028 cases.
-The combined suites verify preflight containment, pruned traversal, exclusive run
-allocation, deterministic collision planning, full JPEG validation, staged no-overwrite
-finalization, exact owned cleanup and successful heuristic duplicate retention.
-T028 adds the mixed-tree source-preservation and two-run isolation regression.
-One actual mixed synthetic source tree is normalized twice into the same
-prepopulated output parent. After each run all 15 source files retain SHA256,
-length, creation/modification ticks and attributes, and source directory
-metadata/paths remain unchanged. Each run contains eight fully decoded JPEGs, two
-byte-identical video copies and one log with the declared collision map and two
-retained duplicate links. The second run allocates a separate directory and
-preserves the first run media/log/tree and existing user entries.
+GIF/TIF/TIFF/WebP/HEIC/HEIF inspection and conversion read the same exclusively
+created owned snapshot with a neutral source basename and original extension.
+Source regular-file/reparse checks and length/modification-time checks surround
+the copy, and copied length must match. External snapshot arrivals and unknown
+neighboring files are preserved; exact owned snapshots follow existing cleanup and
+partial-warning rules.
 
-M1-T06 changes test coverage and test documentation; runtime and batch bytes are
-unchanged from the starting checkpoint.
-The complete milestone diff from 866aba02a7759212a143c1ef2cd52fde3c3f3cdd to the tested
-implementation was reviewed. Sanitized evidence binds its exact diff hash/path list
-and the audit findings for all finalization/collision routes, public interfaces,
-source preservation and runtime dependencies. No blocking audit findings remain.
-Existing behavior and limitations from D20-D23 remain documented; closure does not
-add a new product decision.
+A separate successful identify -ping probe counts every decoder-exposed image and
+rejects malformed, inconsistent or ambiguous count/format/dimension observations.
+Conversion selects image:frames=0 before the owned native input. Only actual
+decoded GIF/WebP follows FirstDisplayedFrame coalescing onto its logical canvas;
++repage and existing auto-orientation follow. TIFF keeps one first page without
+stacking; HEIC/HEIF keeps the decoder's primary/first image. Each finalized output
+still must fully decode as one nonempty JPEG at the exact planned path.
+
+SOURCE IMG records source count, selected count 1, omitted count, unit, policy and
+actual decoder. Deliberate omission is the normal informational static-output
+policy and retains exit 0 on successful runs. Source bytes/times, mirrored naming,
+no-overwrite finalization, verified videos, success-based heuristic duplicate
+links, size cap/scales/JPEG flags and public BAT/positional forms retain their
+established behavior. The bootstrap, dependency pins and workflow were not
+changed.
+
+Decision D24 records the scoped frame/page policy. Covered M1 output safety remains the established baseline.
+Original sources, mirrored directories, deterministic plans, no-overwrite moves,
+full JPEG validation, copied video bytes and successful duplicate links retain their
+combined regression coverage. Deliberate static output does not preserve animation
+or subsequent document pages; source counts and omissions are recorded honestly.
+
+T029 — passed: Two actual GIF variants, with one or two frames, independently
+establish a transparent 24x20 first tile at +8+10 on a 64x48 logical canvas.
+Literal bracket paths produce one exact mirrored 64x48 JPEG with white outside and
+the first red region; later blue pixels and numbered outputs are absent. Source
+count, selection and omissions are logged; source bytes, length, timestamps and
+attributes remain unchanged.
+
+T030 — passed: An actual two-page TIFF has an asymmetric 80x48 first page whose
+first IFD Orientation tag is independently set/read as RightTop, followed by a
+distinct blue page. One 48x80 JPEG contains the correctly oriented first-page
+red/green/yellow samples, with no page overlay or second-page blue. FirstPage,
+count 2 and omission 1 are logged; exact output, empty owned work and source
+bytes/times are checked.
+
+T031 — passed: An actual two-frame animated WebP requires sRGBA first-frame
+channels and a transparent corner before asserting a white/red 64x48 first
+displayed JPEG and omitted blue frame. A genuine 1328-byte HEVC collection with
+two top-level still images is independently decoded through both .heic and .heif
+aliases, exposing HEIC and HEIF labels respectively; one 64x48 JPEG retains the
+asymmetric primary red/green/yellow image and omits the distinct blue image.
+Counts, policy, exact single outputs, owned cleanup and source bytes/times are
+checked. This verifies a still collection; timed HEIC animation remains
+unverified.
 
 Actual Microsoft Windows 11 Pro build 26300, PS 5.1.26100.9444 and
-PS 7.6.5, Pester 5.9.1: 173/173 each, zero skipped.
-ImageMagick observation: Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org
-Controls each have 174 total, 173 passed and exactly T007's deliberately false
-assertion with exit 1. All four summaries bind the same clean committed checkout.
-Raw file hashes and separate Git blob hashes record any verified CRLF/LF checkout
-normalization. Persistent execution policies remain unchanged.
-Hosted Windows Server matrices also passed all four normal/control jobs: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37220174594) and [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37220187721).
-Evidence: evidence/M1-T06.json and M1-T06-ci.json.
+PS 7.6.5, Pester 5.9.1: 185/185 each, zero skipped.
+Controls each have 186 total/185 passed/exactly one T007 deliberately false
+assertion/exit 1. All four summaries bind the same clean committed checkout, with raw
+file hashes and separate Git blob hashes for verified CRLF/LF normalization.
+Persistent execution policies remain unchanged. Actual hosted Windows Server
+matrices passed all four normal/control jobs: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37223580015) and [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37223613778).
+Evidence: evidence/M2-T01.json and M2-T01-ci.json. Codec fixture counts, capability
+observations, exact artifacts and retained development history are separate fields.
 
-Initial targeted PowerShell 7 development run M1-T06-target-PS7-1 failed 0/1 with
-zero skips because the test's timestamp-inspection Get-Item omitted -Force for the
-actual hidden source. The fixture and runtime behavior remained unchanged; the
-correction adds -Force to the inspection while retaining all original preservation
-assertions. Targeted PowerShell 7 rerun PS7-2 and first PowerShell 5.1 run PS51-1
-each passed 1/1 with zero skips and exit 0. These three observations retain actual
-end-of-run hashes and summary/XML artifacts as uncommitted development history.
-Initial implementation push attempt 1 failed its PowerShell 7 development-
-dependency bootstrap with observed HTTP 403 before test discovery: zero tests,
-exit 1, control skipped. The failing download endpoint was not present in the log,
-so neither dependency is identified as the failed request. Its PowerShell 5.1 job
-and both PR jobs passed all 173 normal tests and identified
-174-total/173-pass/one-failure controls. One full push-workflow retry used the
-same implementation, pins and guards without code/test changes; the final recorded
-attempt provides the required normal/control acceptance independently of the
-retained initial failure. Earlier task failures remain in their original evidence.
-Final acceptance uses only the clean committed-revision full desktop
-normal/control suites and actual completed hosted push/PR matrices.
+Four uncommitted targeted development runs are retained. The first PS7 run passed
+6/12 and failed six assertions: an HEIF label expectation, two mock source-path
+errors, recursive copied-metadata inspection, a cleanup warning expected as
+success, and an unsupported white/transparent WebP expectation. Independent RIFF,
+pinned decoder and Pillow inspection found the original WebP alpha-free; its
+optional white animation-background hint did not establish white rendered padding.
+The second PS7 run passed 11/12 and failed an alpha expression applied to an RGB-
+only second frame. Corrected fixture/mock/oracle checks passed 12/12 in PS7-3 and
+PS5.1-1; no runtime fix was required for those test-development failures. Raw
+summaries, XML, consoles and saved source snapshots stay ignored with hashes;
+their end-of-run source hashes do not establish an immutable clean execution
+revision. Separately, the native HEIC encode probe and first unpacked generator
+DLL import failed during fixture tooling development; verified once-only
+generation and independent actual two-image decoding then succeeded. These tooling
+events are distinct from runtime assertion results and from the subsequent clean
+committed full acceptance runs.
 
 ## Handoff and remaining scope
 
-Started clean at 91e7f4ee10a86ef9e91560d2cab605b9aa0b8064, independently matching the
-feature remote. Owner-merged PR #8 main dc2a2a94c3dd88347dbe5ee7732e7fc17a61ec3e had
-the identical tree; read-only fetch did not pull, merge or reset. Successor draft PR
-#9 contains M1-T06. The preserved non-Git snapshot remains separate.
+Started clean at b7fe275dfea31e7954df0ebbeeaff02189cf6f8a, independently matching the
+feature remote. Owner-merged PR #9 main f90de6ce37fdd3d760a32ce028fe3c40cc0290c9 had
+the identical tree. Read-only fetch did not pull, merge, reset or change the branch.
+Successor draft PR #10 contains M2-T01; the preserved non-Git snapshot remains separate.
 
-Implementation sync is a past exact-SHA observation. This record-only checkpoint
-binds that implementation; its own SHA/live remote state is reported externally
-after normal commit/push. No raw logs, private media or local tool binaries are tracked.
+Implementation synchronization is a past exact-SHA observation. This record-only
+checkpoint binds that implementation; its own SHA/live remote state is reported
+externally after normal commit/push. No raw logs, private media or local tools are tracked.
 
-The duplicate heuristic still permits false matches for different bytes with the
-same normalized name, modification time and length. Length/time checks do not prove
-content identity; no mandatory runtime hashing was added. Source access times are
-excluded. Live UNC, real Pictures, actual HEIC decoding, universal long source/final
-paths and denied file-symlink creation remain documented coverage limits.
-First-frame/first-page handling starts at M2-T01. Colour/metadata correctness, native
-process lifecycle/timeouts, general cancellation/exits, complete corpus/analyzer,
-manual launcher, owner quality acceptance and publication remain later gates.
-No hostile-filesystem sandbox, batch atomicity, crash durability, merge, release or
-deployment is claimed. Stop after M1-T06; start M2-T01 only when next requested.
+Actual T031 HEIC/HEIF evidence is a genuine two-image top-level still collection
+through two aliases. Timed HEIC animation, thumbnails, auxiliary images and
+arbitrary codec builds remain unverified; container counts describe only images
+exposed by the pinned decoder. The pinned native build reads HEIC/HEIF but cannot
+generate the fixture; one verified official development wheel produced the
+synthetic bytes in ignored scratch, with no installation, runtime/CI generator
+dependency or distributed generator binary.
+
+Snapshot length/modification-time checks and duplicate keys are stability
+heuristics, not proof of content identity. General native argument/input-grammar
+safety and source changes retaining identical metadata remain outside this narrow
+neutral-snapshot policy. Owned cleanup deliberately preserves unknown entries and
+may return partial exit 2 after a valid JPEG has finalized.
+
+Tagged colour/profile conversion before metadata removal is next M2-T02. Broader
+alpha/colour/reference fidelity, size-search quality, process timeout/resource
+budgets, cancellation, reporting and publication remain later tasks. Automated
+internal peer review does not grant owner aesthetic acceptance or authorize merge,
+release, deployment, tags or default-branch changes.
+
+Stop after M2-T01; start M2-T02 only when next requested.
