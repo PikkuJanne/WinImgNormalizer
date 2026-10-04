@@ -426,6 +426,22 @@ Describe 'M1-T02 exclusive run ownership (T015)' {
         Test-Path -LiteralPath $missingParent | Should -BeFalse
     }
 
+    It 'creates and canonicalizes an exclusively owned directory beyond the legacy Windows path limit' {
+        $work = New-TraversalDirectory 'long'
+        $work.Length | Should -BeLessThan 230
+        $parent = [IO.Path]::Combine($work, ('p' * (230 - $work.Length)))
+        $parent.Length | Should -Be 231
+        $candidate = [IO.Path]::Combine($parent, ('directory-' + ('q' * 30)))
+        $candidate.Length | Should -Be 272
+        $candidate.StartsWith($ownedRoot + '\', [StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
+        Assert-TraversalNoReparseAncestors $parent
+        $null = [IO.Directory]::CreateDirectory($parent)
+        New-WinImgExclusiveDirectory -Path $candidate | Should -BeTrue
+        New-WinImgExclusiveDirectory -Path $candidate | Should -BeFalse
+        # Native handle verification avoids requiring PS5 Get-Item to support long paths.
+        [WinImgNormalizer.NativeDirectory]::CanonicalPath($candidate) | Should -Be $candidate
+    }
+
     It 'runs two real child applications released together at the same timestamp with isolated output and logs' {
         $work = New-TraversalDirectory 'concurrent-applications'
         $source = Join-Path $work 'source'

@@ -305,7 +305,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         $arguments = @($fixtureSource)
         if ($ExplicitCap) { $arguments += '1048576' }
         $result = Invoke-OwnedPowerShell -Script $snapshot -Arguments $arguments -WorkDirectory $work
-        $result.ExitCode | Should -Be 0
+        $result.ExitCode | Should -Be 0 -Because $result.StdOut
         $result.StdErr | Should -BeNullOrEmpty
         Get-SourceState $fixtureSource | Should -Be $before
         $runs = @(Get-ChildItem -LiteralPath $parent -Directory)

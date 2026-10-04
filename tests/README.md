@@ -54,7 +54,8 @@ tasks.
 Traversal tests verify nested destinations are rejected before probes/enumeration,
 case-insensitive segment comparisons, real disposable looping/outside/dangling
 junctions, safe missing destination tails and incomplete scans. They force run-name
-collisions with existing files/directories and launch two real child applications
+collisions with existing files/directories, test native allocation beyond MAX_PATH,
+and launch two real child applications
 at the same fixed timestamp behind a release barrier. Generated namespaces conflict
 with source files/directories without replacing source data or logs. Ordinary media
 checks retain byte hashes and creation/modified timestamps. Sources and children

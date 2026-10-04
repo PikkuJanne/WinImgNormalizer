@@ -493,7 +493,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         $parsed | Should -BeOfType ([long])
         $parsed | Should -Be ([long]$Cap)
         $result = Invoke-ContainedPreflight -InputArguments @($source, $Cap) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner) -ProcessRunner $runner
-        $result.Code | Should -Be 0
+        $result.Code | Should -Be 0 -Because $result.Text
         $trace.Count | Should -Be 1
         $trace[0].Arguments | Should -Contain ('jpeg:extent=' + $ExpectedExtent)
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
@@ -524,7 +524,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
             return 0
         }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner -FormatText $formats) -ProcessRunner $runner
-        $result.Code | Should -Be 0
+        $result.Code | Should -Be 0 -Because $result.Text
         $trace.Count | Should -Be 1
         $trace[0].Arguments[1] | Should -Be $image
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
@@ -556,7 +556,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
             return $LASTEXITCODE
         }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner $preflight -ProcessRunner $runner
-        $result.Code | Should -Be 2
+        $result.Code | Should -Be 2 -Because $result.Text
         $conversionTrace.Count | Should -Be 1
         $conversionTrace[0].Executable | Should -Be $magick
         $conversionTrace[0].Arguments[1] | Should -Be $png
@@ -619,7 +619,7 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner -FormatText $formats) -ProcessRunner {
             throw 'Unavailable decoder file attempted conversion.'
         }
-        $result.Code | Should -Be 2
+        $result.Code | Should -Be 2 -Because $result.Text
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
         $run.Count | Should -Be 1
         (Get-FileHash -LiteralPath (Join-Path $run[0].FullName 'video.mp4') -Algorithm SHA256).Hash |
@@ -716,7 +716,7 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner) -ProcessRunner {
             throw 'Video-only input attempted image conversion.'
         }
-        $result.Code | Should -Be 0
+        $result.Code | Should -Be 0 -Because $result.Text
         $result.Text | Should -Match '(?i)(space|capacity).*(unknown|unavailable|unable|could not|cannot|best.effort)'
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
         $run.Count | Should -Be 1
@@ -750,7 +750,7 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner -FormatText $formats) -ProcessRunner {
             throw 'Video-only input attempted image conversion.'
         }
-        $result.Code | Should -Be 0
+        $result.Code | Should -Be 0 -Because $result.Text
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
         $run.Count | Should -Be 1
         (Get-FileHash -LiteralPath (Join-Path $run[0].FullName 'video.mp4') -Algorithm SHA256).Hash |

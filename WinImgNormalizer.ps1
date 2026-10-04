@@ -125,8 +125,14 @@ namespace WinImgNormalizer {
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool CreateDirectoryW(string path, IntPtr security);
+    private static string NativePath(string path) {
+      // Generated descendants can exceed MAX_PATH even with ordinary input roots.
+      // Prefix only internally validated absolute paths; do not shorten user names.
+      if (path.StartsWith(@"\\", StringComparison.Ordinal)) return @"\\?\UNC\" + path.Substring(2);
+      return @"\\?\" + path;
+    }
     public static string CanonicalPath(string path) {
-      using (SafeFileHandle handle = CreateFileW(path, 0, 7, IntPtr.Zero, 3, 0x02000000, IntPtr.Zero)) {
+      using (SafeFileHandle handle = CreateFileW(NativePath(path), 0, 7, IntPtr.Zero, 3, 0x02000000, IntPtr.Zero)) {
         if (handle.IsInvalid) throw new Win32Exception(Marshal.GetLastWin32Error());
         StringBuilder buffer = new StringBuilder(512);
         uint length = GetFinalPathNameByHandleW(handle, buffer, (uint)buffer.Capacity, 0);
@@ -143,7 +149,7 @@ namespace WinImgNormalizer {
       }
     }
     public static bool CreateExclusive(string path) {
-      if (CreateDirectoryW(path, IntPtr.Zero)) return true;
+      if (CreateDirectoryW(NativePath(path), IntPtr.Zero)) return true;
       int error = Marshal.GetLastWin32Error();
       if (error == 183 || error == 80) return false;
       throw new Win32Exception(error);
