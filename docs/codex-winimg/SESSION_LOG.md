@@ -400,3 +400,67 @@ release or deployment. M1-T05 accepted; next M1-T06, stop. Eight of 28 accepted 
 T001-T027 exercised with T001-T004 retained as characterization. M1-T06 full milestone
 audit, native lifecycle, frames/colour/general cancellation and owner/publication
 gates remain later scope.
+
+## 2026-10-04 — M1-T06 completed
+
+Started from clean 91e7f4e, independently equal to the feature remote. Owner-merged
+PR #8 main dc2a2a94 had the identical tree; read-only fetch preserved checkout/history.
+Continued the authorized feature and opened successor draft PR #9 after normal
+push. Preserved the separate non-Git snapshot.
+
+Closed the covered output-safety milestone with T028 and combined mandatory M1
+regressions.
+One actual mixed synthetic source tree is normalized twice into the same
+prepopulated output parent. After each run all 15 source files retain SHA256,
+length, creation/modification ticks and attributes, and source directory
+metadata/paths remain unchanged. Each run contains eight fully decoded JPEGs, two
+byte-identical video copies and one log with the declared collision map and two
+retained duplicate links. The second run allocates a separate directory and
+preserves the first run media/log/tree and existing user entries.
+M1-T06 changes test coverage and test documentation; runtime and batch bytes are
+unchanged from the starting checkpoint.
+The complete milestone diff from 866aba02 to 4d7f9f2e7681902971b584560211139d555bf011 was reviewed;
+its exact diff hash/path list and finalization/collision/public-interface/dependency
+findings are retained in sanitized evidence. No blocking audit findings remain.
+No new product decision was needed; D20-D23 and their limits remain applicable.
+
+Initial targeted PowerShell 7 development run M1-T06-target-PS7-1 failed 0/1 with
+zero skips because the test's timestamp-inspection Get-Item omitted -Force for the
+actual hidden source. The fixture and runtime behavior remained unchanged; the
+correction adds -Force to the inspection while retaining all original preservation
+assertions. Targeted PowerShell 7 rerun PS7-2 and first PowerShell 5.1 run PS51-1
+each passed 1/1 with zero skips and exit 0. These three observations retain actual
+end-of-run hashes and summary/XML artifacts as uncommitted development history.
+Initial implementation push attempt 1 failed its PowerShell 7 development-
+dependency bootstrap with observed HTTP 403 before test discovery: zero tests,
+exit 1, control skipped. The failing download endpoint was not present in the log,
+so neither dependency is identified as the failed request. Its PowerShell 5.1 job
+and both PR jobs passed all 173 normal tests and identified
+174-total/173-pass/one-failure controls. One full push-workflow retry used the
+same implementation, pins and guards without code/test changes; the final recorded
+attempt provides the required normal/control acceptance independently of the
+retained initial failure. Earlier task failures remain in their original evidence.
+Final acceptance uses only the clean committed-revision full desktop
+normal/control suites and actual completed hosted push/PR matrices.
+
+Actual desktop PS 5.1 and PS 7 passed 173/173 with zero skips at the clean
+committed implementation. Controls each have 174 total/173 passed/one exact
+T007 false assertion/exit 1. All four summaries bind the same source/test checkout
+with raw hashes, Git blob hashes and verified CRLF/LF normalization recorded.
+Persistent execution policies remain unchanged. Actual push/PR Windows Server
+matrices passed all four jobs and expected controls; count/environment/log-hash
+observations are in M1-T06-ci.json.
+
+Implementation synchronization is a past exact-SHA observation. Six record-only
+paths update STATUS/TASKS/NEXT_SESSION/SESSION_LOG and two sanitized evidence files.
+The containing checkpoint SHA/live sync remains pending_verification until externally
+observed after normal commit/push. No private media, raw logs or local tool binaries
+are tracked. No merge, release, deployment or owner quality acceptance was performed.
+
+M1-T06 accepted: 9/28 tasks, T001-T028 exercised with T001-T004 characterization.
+Next M2-T01 — Implement deliberate first-frame and first-page handling; stop.
+First-frame/page, colour/metadata, native lifecycle,
+general cancellation/exits, complete corpus/analyzer, manual owner and publication
+gates remain later scope. Synthetic source creation/modification timestamps are
+covered; access times, heuristic content identity, live UNC/real Pictures, universal
+long paths, hostile filesystem safety, batch atomicity and crash durability are not.
