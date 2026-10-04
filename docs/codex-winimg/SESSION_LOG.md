@@ -107,3 +107,37 @@ M0-T02.json binds precommit source/file hashes; actual commands/transcripts/mani
 are in M0-T02-real-observations.json and M0-T02-fixtures.json. Prior partial evidence
 is preserved separately. Final containing checkpoint push/sync is pending at write
 and will be reported externally after normal commit/push/independent comparison.
+
+## 2026-10-04 — M0-T03 completed
+
+Resumed clean a3ef050 independently equal to the feature remote. Origin fetch/push
+identity verified; owner-merged PR #2 main at 8e35b6a had the same tree. Continued the
+feature without pull/merge/reset; created successor draft PR #3.
+
+Added minimal callable orchestration and positional adapter with internal output/
+process injection. Import performs no work or caller mutation and callable paths
+do not exit. Existing algorithms, launcher and assets retained. Added six contained
+Pester tests, pinned archive bootstrap, credible runner and read-only Windows CI.
+
+Actual PS 5.1/PS 7 each passed 6/6. Ten local controls verified expected good/false-
+assertion/zero/skip/discovery outcomes with real counts and unchanged persistent
+policies/source hashes. Child import gate precedes Pester import; a copied app
+prefixed with exit 0 was detected (six failures/container 1). Both -File argument
+forms ran with only an outer scratch destination injection. Independent ordinary
+parity matched sixteen complete Pillow JPEG decodes and twelve exact video copies,
+including timestamps/tree/source preservation against M0-T02.
+
+First CI at 08ea3c3 failed before tests: Get-Command returned Windows and Git tar
+records. Explicit System32 libarchive selection fixed the default bootstrap;
+ten controls reran with Git tar first on child PATH. Corrected implementation
+3b80ee94b8471a22560ea90a7583283c1613195c passed real push/PR Windows matrices, each job six tests plus
+an exactly identified false seventh assertion/exit 1 control. Actual runner versions
+and job links are retained. PS 5.1 PSScriptRoot parameter-default and development
+command-path failures were corrected infrastructure issues, not test passes.
+
+Evidence M0-T03.json plus runner/parity/import-control/CI JSON binds tested code
+and source hashes. This record-only checkpoint does not modify the tested runtime/
+tests. Final containing commit/push/sync is pending at write and will be observed
+externally after commit. M0-T03 accepted; next M1-T01. No private paths/media/tools
+tracked, no installer/persistent policy/PATH/default-branch/release change.
+Known bugs/full corpus/analyzer/codec/owner quality/publication remain later gates.

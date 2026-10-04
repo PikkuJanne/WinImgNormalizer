@@ -1,0 +1,1004 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-10-04T14:21:09.654353+00:00",
+  "application_sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+  "baseline_results_sha256": "4ae457608763dd0816e53df21ac1d454389d50704176bd367fa8cfca026fbbdc",
+  "baseline_legacy_sha256": "3d31eaea3d926c2d2a4f75dc32856e6681fcf03f2f29ac89020aa1a4a907133a",
+  "magick_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+  "pillow": "12.3.0",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "containment": {
+    "ignored_scratch": true,
+    "no_reparse_points": true,
+    "source_output_nonoverlapping": true,
+    "explicit_output_parent": true,
+    "real_pictures_used": false,
+    "real_native_process_runner": true,
+    "owned_process_timeout_seconds": 60
+  },
+  "executions": [
+    {
+      "shell": "ps51",
+      "invocation_form": "source_only",
+      "process": {
+        "exit_code": 0,
+        "stdout": "2026-10-04 16.21.05 [INFO] Source: <approved-ordinary-fixture>\n2026-10-04 16.21.05 [INFO] Destination: <parity-scratch>\\ps51-source_only\\output\\ordinary_WinImgNormalized_20261004_162105\n2026-10-04 16.21.05 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 16.21.05 [OK] OK IMG: landscape.jpg -> landscape.jpeg [1 688 bytes, Scale=100%]\n2026-10-04 16.21.05 [OK] OK IMG: seeded-noise.tiff -> seeded-noise.jpeg [6 958 bytes, Scale=100%]\n2026-10-04 16.21.05 [OK] OK IMG: sub\\lines.bmp -> sub\\lines.jpeg [3 471 bytes, Scale=100%]\n2026-10-04 16.21.05 [OK] OK VID: sub\\opaque-video.mkv -> sub\\opaque-video.mkv [4 096 bytes]\n2026-10-04 16.21.05 [OK] OK VID: sub\\opaque-video.mov -> sub\\opaque-video.mov [4 096 bytes]\n2026-10-04 16.21.05 [OK] OK VID: sub\\opaque-video.mp4 -> sub\\opaque-video.mp4 [4 096 bytes]\n2026-10-04 16.21.05 [OK] OK IMG: sub\\portrait.png -> sub\\portrait.jpeg [1 696 bytes, Scale=100%]\n\nSummary:\n  Converted images : 4\n  Copied videos    : 3\n  Duplicates       : 0\n  Unsupported      : 0\n  Errors           : 0\n  Log file         : <parity-scratch>\\ps51-source_only\\output\\ordinary_WinImgNormalized_20261004_162105\\WinImgNormalizer_20261004_162105.log\n2026-10-04 16.21.05 [INFO] SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 16.21.05 [INFO] Completed 2026-10-04 16.21.05\nHOST_SURVIVED version=5.1.26100.9444\n",
+        "stderr": ""
+      },
+      "command": [
+        "<windows-powershell-5.1-executable>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<parity-scratch>\\ps51-source_only\\Invoke-ImportedApp.ps1"
+      ],
+      "wrapper_sha256": "c0f017b59df3885e123d405ab190e51e639ec444250eb5435f4aabdb1f45d4f9",
+      "application_sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+      "source_preserved": true,
+      "matches_m0t02_baseline": true,
+      "video_bytes_and_times_preserved": true,
+      "source_before": {
+        "ignored.txt": {
+          "sha256": "9265d8aaef259dc7c74d08e2d753d602b226efe542175fbdf8f3670e7597b9d5",
+          "length": 36,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "landscape.jpg": {
+          "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+          "length": 927,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "seeded-noise.tiff": {
+          "sha256": "f46c8b25b8820bc0cd317e56ae0da31bc2cba7d96d7b575f23dd78b07cf1b525",
+          "length": 13704,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/lines.bmp": {
+          "sha256": "2b84cd1c556ba3b5b52d470234f12a90a442f0d2f10b0dbb5b401b189d029a4b",
+          "length": 9354,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mkv": {
+          "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mov": {
+          "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mp4": {
+          "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/portrait.png": {
+          "sha256": "2aa31600d18f6fd32b994d81af5e2c89a6a24759c79793766f5423dc3660ea63",
+          "length": 302,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "ignored.txt": {
+          "sha256": "9265d8aaef259dc7c74d08e2d753d602b226efe542175fbdf8f3670e7597b9d5",
+          "length": 36,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "landscape.jpg": {
+          "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+          "length": 927,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "seeded-noise.tiff": {
+          "sha256": "f46c8b25b8820bc0cd317e56ae0da31bc2cba7d96d7b575f23dd78b07cf1b525",
+          "length": 13704,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/lines.bmp": {
+          "sha256": "2b84cd1c556ba3b5b52d470234f12a90a442f0d2f10b0dbb5b401b189d029a4b",
+          "length": 9354,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mkv": {
+          "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mov": {
+          "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mp4": {
+          "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/portrait.png": {
+          "sha256": "2aa31600d18f6fd32b994d81af5e2c89a6a24759c79793766f5423dc3660ea63",
+          "length": 302,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "observed": {
+        "outputs": {
+          "landscape.jpeg": {
+            "bytes": 1688,
+            "sha256": "1593f75a4a6f6fd52a38ad7e6e6aab6342b31c976e816627fc6551ec2dad92a9",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                64,
+                48
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          },
+          "seeded-noise.jpeg": {
+            "bytes": 6958,
+            "sha256": "cb5e9abecf05d58077c934d12991484b5ea15043f0a19522623c4cdcf8aac727",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                80,
+                56
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                241,
+                15,
+                16
+              ]
+            }
+          },
+          "sub/lines.jpeg": {
+            "bytes": 3471,
+            "sha256": "2016865d3f83bb4b3958206e2d2498295503ce44c0b06189934257f3a91241fe",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                64,
+                48
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          },
+          "sub/opaque-video.mkv": {
+            "bytes": 4096,
+            "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/opaque-video.mov": {
+            "bytes": 4096,
+            "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/opaque-video.mp4": {
+            "bytes": 4096,
+            "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/portrait.jpeg": {
+            "bytes": 1696,
+            "sha256": "70d22e6b8f5baf4d6a58d789799a56c8d5510a23d3b3172eca533399a174d8b1",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                48,
+                64
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          }
+        },
+        "directories": [
+          "empty-directory",
+          "sub"
+        ],
+        "summary": {
+          "converted": 4,
+          "copied_video": 3,
+          "duplicates": 0,
+          "unsupported": 0,
+          "errors": 0
+        }
+      },
+      "application_log": "WinImgNormalizer started 2026-10-04 16.21.05\n2026-10-04 16.21.05 [INFO] Source: <approved-ordinary-fixture>\n2026-10-04 16.21.05 [INFO] Destination: <parity-scratch>\\ps51-source_only\\output\\ordinary_WinImgNormalized_20261004_162105\n2026-10-04 16.21.05 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 16.21.05 [OK] OK IMG: landscape.jpg -> landscape.jpeg [1 688 bytes, Scale=100%]\n2026-10-04 16.21.05 [OK] OK IMG: seeded-noise.tiff -> seeded-noise.jpeg [6 958 bytes, Scale=100%]\n2026-10-04 16.21.05 [OK] OK IMG: sub\\lines.bmp -> sub\\lines.jpeg [3 471 bytes, Scale=100%]\n2026-10-04 16.21.05 [OK] OK VID: sub\\opaque-video.mkv -> sub\\opaque-video.mkv [4 096 bytes]\n2026-10-04 16.21.05 [OK] OK VID: sub\\opaque-video.mov -> sub\\opaque-video.mov [4 096 bytes]\n2026-10-04 16.21.05 [OK] OK VID: sub\\opaque-video.mp4 -> sub\\opaque-video.mp4 [4 096 bytes]\n2026-10-04 16.21.05 [OK] OK IMG: sub\\portrait.png -> sub\\portrait.jpeg [1 696 bytes, Scale=100%]\n2026-10-04 16.21.05 [INFO] SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 16.21.05 [INFO] Completed 2026-10-04 16.21.05\n"
+    },
+    {
+      "shell": "ps51",
+      "invocation_form": "source_and_cap",
+      "process": {
+        "exit_code": 0,
+        "stdout": "2026-10-04 16.21.06 [INFO] Source: <approved-ordinary-fixture>\n2026-10-04 16.21.06 [INFO] Destination: <parity-scratch>\\ps51-source_and_cap\\output\\ordinary_WinImgNormalized_20261004_162106\n2026-10-04 16.21.06 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 16.21.06 [OK] OK IMG: landscape.jpg -> landscape.jpeg [1 688 bytes, Scale=100%]\n2026-10-04 16.21.06 [OK] OK IMG: seeded-noise.tiff -> seeded-noise.jpeg [6 958 bytes, Scale=100%]\n2026-10-04 16.21.06 [OK] OK IMG: sub\\lines.bmp -> sub\\lines.jpeg [3 471 bytes, Scale=100%]\n2026-10-04 16.21.06 [OK] OK VID: sub\\opaque-video.mkv -> sub\\opaque-video.mkv [4 096 bytes]\n2026-10-04 16.21.06 [OK] OK VID: sub\\opaque-video.mov -> sub\\opaque-video.mov [4 096 bytes]\n2026-10-04 16.21.06 [OK] OK VID: sub\\opaque-video.mp4 -> sub\\opaque-video.mp4 [4 096 bytes]\n2026-10-04 16.21.06 [OK] OK IMG: sub\\portrait.png -> sub\\portrait.jpeg [1 696 bytes, Scale=100%]\n\nSummary:\n  Converted images : 4\n  Copied videos    : 3\n  Duplicates       : 0\n  Unsupported      : 0\n  Errors           : 0\n  Log file         : <parity-scratch>\\ps51-source_and_cap\\output\\ordinary_WinImgNormalized_20261004_162106\\WinImgNormalizer_20261004_162106.log\n2026-10-04 16.21.06 [INFO] SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 16.21.06 [INFO] Completed 2026-10-04 16.21.06\nHOST_SURVIVED version=5.1.26100.9444\n",
+        "stderr": ""
+      },
+      "command": [
+        "<windows-powershell-5.1-executable>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<parity-scratch>\\ps51-source_and_cap\\Invoke-ImportedApp.ps1"
+      ],
+      "wrapper_sha256": "0fb5299e4716536c1d579b9fe85a81645441e3091999fcf9188c2c4864779e87",
+      "application_sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+      "source_preserved": true,
+      "matches_m0t02_baseline": true,
+      "video_bytes_and_times_preserved": true,
+      "source_before": {
+        "ignored.txt": {
+          "sha256": "9265d8aaef259dc7c74d08e2d753d602b226efe542175fbdf8f3670e7597b9d5",
+          "length": 36,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "landscape.jpg": {
+          "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+          "length": 927,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "seeded-noise.tiff": {
+          "sha256": "f46c8b25b8820bc0cd317e56ae0da31bc2cba7d96d7b575f23dd78b07cf1b525",
+          "length": 13704,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/lines.bmp": {
+          "sha256": "2b84cd1c556ba3b5b52d470234f12a90a442f0d2f10b0dbb5b401b189d029a4b",
+          "length": 9354,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mkv": {
+          "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mov": {
+          "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mp4": {
+          "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/portrait.png": {
+          "sha256": "2aa31600d18f6fd32b994d81af5e2c89a6a24759c79793766f5423dc3660ea63",
+          "length": 302,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "ignored.txt": {
+          "sha256": "9265d8aaef259dc7c74d08e2d753d602b226efe542175fbdf8f3670e7597b9d5",
+          "length": 36,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "landscape.jpg": {
+          "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+          "length": 927,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "seeded-noise.tiff": {
+          "sha256": "f46c8b25b8820bc0cd317e56ae0da31bc2cba7d96d7b575f23dd78b07cf1b525",
+          "length": 13704,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/lines.bmp": {
+          "sha256": "2b84cd1c556ba3b5b52d470234f12a90a442f0d2f10b0dbb5b401b189d029a4b",
+          "length": 9354,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mkv": {
+          "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mov": {
+          "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mp4": {
+          "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/portrait.png": {
+          "sha256": "2aa31600d18f6fd32b994d81af5e2c89a6a24759c79793766f5423dc3660ea63",
+          "length": 302,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "observed": {
+        "outputs": {
+          "landscape.jpeg": {
+            "bytes": 1688,
+            "sha256": "1593f75a4a6f6fd52a38ad7e6e6aab6342b31c976e816627fc6551ec2dad92a9",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                64,
+                48
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          },
+          "seeded-noise.jpeg": {
+            "bytes": 6958,
+            "sha256": "cb5e9abecf05d58077c934d12991484b5ea15043f0a19522623c4cdcf8aac727",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                80,
+                56
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                241,
+                15,
+                16
+              ]
+            }
+          },
+          "sub/lines.jpeg": {
+            "bytes": 3471,
+            "sha256": "2016865d3f83bb4b3958206e2d2498295503ce44c0b06189934257f3a91241fe",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                64,
+                48
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          },
+          "sub/opaque-video.mkv": {
+            "bytes": 4096,
+            "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/opaque-video.mov": {
+            "bytes": 4096,
+            "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/opaque-video.mp4": {
+            "bytes": 4096,
+            "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/portrait.jpeg": {
+            "bytes": 1696,
+            "sha256": "70d22e6b8f5baf4d6a58d789799a56c8d5510a23d3b3172eca533399a174d8b1",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                48,
+                64
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          }
+        },
+        "directories": [
+          "empty-directory",
+          "sub"
+        ],
+        "summary": {
+          "converted": 4,
+          "copied_video": 3,
+          "duplicates": 0,
+          "unsupported": 0,
+          "errors": 0
+        }
+      },
+      "application_log": "WinImgNormalizer started 2026-10-04 16.21.06\n2026-10-04 16.21.06 [INFO] Source: <approved-ordinary-fixture>\n2026-10-04 16.21.06 [INFO] Destination: <parity-scratch>\\ps51-source_and_cap\\output\\ordinary_WinImgNormalized_20261004_162106\n2026-10-04 16.21.06 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 16.21.06 [OK] OK IMG: landscape.jpg -> landscape.jpeg [1 688 bytes, Scale=100%]\n2026-10-04 16.21.06 [OK] OK IMG: seeded-noise.tiff -> seeded-noise.jpeg [6 958 bytes, Scale=100%]\n2026-10-04 16.21.06 [OK] OK IMG: sub\\lines.bmp -> sub\\lines.jpeg [3 471 bytes, Scale=100%]\n2026-10-04 16.21.06 [OK] OK VID: sub\\opaque-video.mkv -> sub\\opaque-video.mkv [4 096 bytes]\n2026-10-04 16.21.06 [OK] OK VID: sub\\opaque-video.mov -> sub\\opaque-video.mov [4 096 bytes]\n2026-10-04 16.21.06 [OK] OK VID: sub\\opaque-video.mp4 -> sub\\opaque-video.mp4 [4 096 bytes]\n2026-10-04 16.21.06 [OK] OK IMG: sub\\portrait.png -> sub\\portrait.jpeg [1 696 bytes, Scale=100%]\n2026-10-04 16.21.06 [INFO] SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 16.21.06 [INFO] Completed 2026-10-04 16.21.06\n"
+    },
+    {
+      "shell": "ps7",
+      "invocation_form": "source_only",
+      "process": {
+        "exit_code": 0,
+        "stdout": "2026-10-04 16.21.07 [INFO] Source: <approved-ordinary-fixture>\n2026-10-04 16.21.07 [INFO] Destination: <parity-scratch>\\ps7-source_only\\output\\ordinary_WinImgNormalized_20261004_162107\n2026-10-04 16.21.07 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 16.21.07 [OK] OK IMG: landscape.jpg -> landscape.jpeg [1 688 bytes, Scale=100%]\n2026-10-04 16.21.07 [OK] OK IMG: seeded-noise.tiff -> seeded-noise.jpeg [6 958 bytes, Scale=100%]\n2026-10-04 16.21.07 [OK] OK IMG: sub\\lines.bmp -> sub\\lines.jpeg [3 471 bytes, Scale=100%]\n2026-10-04 16.21.07 [OK] OK VID: sub\\opaque-video.mkv -> sub\\opaque-video.mkv [4 096 bytes]\n2026-10-04 16.21.07 [OK] OK VID: sub\\opaque-video.mov -> sub\\opaque-video.mov [4 096 bytes]\n2026-10-04 16.21.07 [OK] OK VID: sub\\opaque-video.mp4 -> sub\\opaque-video.mp4 [4 096 bytes]\n2026-10-04 16.21.08 [OK] OK IMG: sub\\portrait.png -> sub\\portrait.jpeg [1 696 bytes, Scale=100%]\n\nSummary:\n  Converted images : 4\n  Copied videos    : 3\n  Duplicates       : 0\n  Unsupported      : 0\n  Errors           : 0\n  Log file         : <parity-scratch>\\ps7-source_only\\output\\ordinary_WinImgNormalized_20261004_162107\\WinImgNormalizer_20261004_162107.log\n2026-10-04 16.21.08 [INFO] SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 16.21.08 [INFO] Completed 2026-10-04 16.21.08\nHOST_SURVIVED version=7.6.5\n",
+        "stderr": ""
+      },
+      "command": [
+        "<powershell-7-executable>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<parity-scratch>\\ps7-source_only\\Invoke-ImportedApp.ps1"
+      ],
+      "wrapper_sha256": "075bd64445fef42d2c3dd1217aaf90e8a4b47f85d7e3c09537e698aa156920e1",
+      "application_sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+      "source_preserved": true,
+      "matches_m0t02_baseline": true,
+      "video_bytes_and_times_preserved": true,
+      "source_before": {
+        "ignored.txt": {
+          "sha256": "9265d8aaef259dc7c74d08e2d753d602b226efe542175fbdf8f3670e7597b9d5",
+          "length": 36,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "landscape.jpg": {
+          "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+          "length": 927,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "seeded-noise.tiff": {
+          "sha256": "f46c8b25b8820bc0cd317e56ae0da31bc2cba7d96d7b575f23dd78b07cf1b525",
+          "length": 13704,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/lines.bmp": {
+          "sha256": "2b84cd1c556ba3b5b52d470234f12a90a442f0d2f10b0dbb5b401b189d029a4b",
+          "length": 9354,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mkv": {
+          "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mov": {
+          "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mp4": {
+          "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/portrait.png": {
+          "sha256": "2aa31600d18f6fd32b994d81af5e2c89a6a24759c79793766f5423dc3660ea63",
+          "length": 302,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "ignored.txt": {
+          "sha256": "9265d8aaef259dc7c74d08e2d753d602b226efe542175fbdf8f3670e7597b9d5",
+          "length": 36,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "landscape.jpg": {
+          "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+          "length": 927,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "seeded-noise.tiff": {
+          "sha256": "f46c8b25b8820bc0cd317e56ae0da31bc2cba7d96d7b575f23dd78b07cf1b525",
+          "length": 13704,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/lines.bmp": {
+          "sha256": "2b84cd1c556ba3b5b52d470234f12a90a442f0d2f10b0dbb5b401b189d029a4b",
+          "length": 9354,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mkv": {
+          "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mov": {
+          "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mp4": {
+          "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/portrait.png": {
+          "sha256": "2aa31600d18f6fd32b994d81af5e2c89a6a24759c79793766f5423dc3660ea63",
+          "length": 302,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "observed": {
+        "outputs": {
+          "landscape.jpeg": {
+            "bytes": 1688,
+            "sha256": "1593f75a4a6f6fd52a38ad7e6e6aab6342b31c976e816627fc6551ec2dad92a9",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                64,
+                48
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          },
+          "seeded-noise.jpeg": {
+            "bytes": 6958,
+            "sha256": "cb5e9abecf05d58077c934d12991484b5ea15043f0a19522623c4cdcf8aac727",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                80,
+                56
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                241,
+                15,
+                16
+              ]
+            }
+          },
+          "sub/lines.jpeg": {
+            "bytes": 3471,
+            "sha256": "2016865d3f83bb4b3958206e2d2498295503ce44c0b06189934257f3a91241fe",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                64,
+                48
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          },
+          "sub/opaque-video.mkv": {
+            "bytes": 4096,
+            "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/opaque-video.mov": {
+            "bytes": 4096,
+            "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/opaque-video.mp4": {
+            "bytes": 4096,
+            "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/portrait.jpeg": {
+            "bytes": 1696,
+            "sha256": "70d22e6b8f5baf4d6a58d789799a56c8d5510a23d3b3172eca533399a174d8b1",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                48,
+                64
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          }
+        },
+        "directories": [
+          "empty-directory",
+          "sub"
+        ],
+        "summary": {
+          "converted": 4,
+          "copied_video": 3,
+          "duplicates": 0,
+          "unsupported": 0,
+          "errors": 0
+        }
+      },
+      "application_log": "WinImgNormalizer started 2026-10-04 16.21.07\n2026-10-04 16.21.07 [INFO] Source: <approved-ordinary-fixture>\n2026-10-04 16.21.07 [INFO] Destination: <parity-scratch>\\ps7-source_only\\output\\ordinary_WinImgNormalized_20261004_162107\n2026-10-04 16.21.07 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 16.21.07 [OK] OK IMG: landscape.jpg -> landscape.jpeg [1 688 bytes, Scale=100%]\n2026-10-04 16.21.07 [OK] OK IMG: seeded-noise.tiff -> seeded-noise.jpeg [6 958 bytes, Scale=100%]\n2026-10-04 16.21.07 [OK] OK IMG: sub\\lines.bmp -> sub\\lines.jpeg [3 471 bytes, Scale=100%]\n2026-10-04 16.21.07 [OK] OK VID: sub\\opaque-video.mkv -> sub\\opaque-video.mkv [4 096 bytes]\n2026-10-04 16.21.07 [OK] OK VID: sub\\opaque-video.mov -> sub\\opaque-video.mov [4 096 bytes]\n2026-10-04 16.21.07 [OK] OK VID: sub\\opaque-video.mp4 -> sub\\opaque-video.mp4 [4 096 bytes]\n2026-10-04 16.21.08 [OK] OK IMG: sub\\portrait.png -> sub\\portrait.jpeg [1 696 bytes, Scale=100%]\n2026-10-04 16.21.08 [INFO] SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 16.21.08 [INFO] Completed 2026-10-04 16.21.08\n"
+    },
+    {
+      "shell": "ps7",
+      "invocation_form": "source_and_cap",
+      "process": {
+        "exit_code": 0,
+        "stdout": "2026-10-04 16.21.09 [INFO] Source: <approved-ordinary-fixture>\n2026-10-04 16.21.09 [INFO] Destination: <parity-scratch>\\ps7-source_and_cap\\output\\ordinary_WinImgNormalized_20261004_162109\n2026-10-04 16.21.09 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 16.21.09 [OK] OK IMG: landscape.jpg -> landscape.jpeg [1 688 bytes, Scale=100%]\n2026-10-04 16.21.09 [OK] OK IMG: seeded-noise.tiff -> seeded-noise.jpeg [6 958 bytes, Scale=100%]\n2026-10-04 16.21.09 [OK] OK IMG: sub\\lines.bmp -> sub\\lines.jpeg [3 471 bytes, Scale=100%]\n2026-10-04 16.21.09 [OK] OK VID: sub\\opaque-video.mkv -> sub\\opaque-video.mkv [4 096 bytes]\n2026-10-04 16.21.09 [OK] OK VID: sub\\opaque-video.mov -> sub\\opaque-video.mov [4 096 bytes]\n2026-10-04 16.21.09 [OK] OK VID: sub\\opaque-video.mp4 -> sub\\opaque-video.mp4 [4 096 bytes]\n2026-10-04 16.21.09 [OK] OK IMG: sub\\portrait.png -> sub\\portrait.jpeg [1 696 bytes, Scale=100%]\n\nSummary:\n  Converted images : 4\n  Copied videos    : 3\n  Duplicates       : 0\n  Unsupported      : 0\n  Errors           : 0\n  Log file         : <parity-scratch>\\ps7-source_and_cap\\output\\ordinary_WinImgNormalized_20261004_162109\\WinImgNormalizer_20261004_162109.log\n2026-10-04 16.21.09 [INFO] SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 16.21.09 [INFO] Completed 2026-10-04 16.21.09\nHOST_SURVIVED version=7.6.5\n",
+        "stderr": ""
+      },
+      "command": [
+        "<powershell-7-executable>",
+        "-NoLogo",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<parity-scratch>\\ps7-source_and_cap\\Invoke-ImportedApp.ps1"
+      ],
+      "wrapper_sha256": "0a66ddd325cdddc4ddf6986222340fe8c6d195a90a2351dc2732222ab4727177",
+      "application_sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+      "source_preserved": true,
+      "matches_m0t02_baseline": true,
+      "video_bytes_and_times_preserved": true,
+      "source_before": {
+        "ignored.txt": {
+          "sha256": "9265d8aaef259dc7c74d08e2d753d602b226efe542175fbdf8f3670e7597b9d5",
+          "length": 36,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "landscape.jpg": {
+          "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+          "length": 927,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "seeded-noise.tiff": {
+          "sha256": "f46c8b25b8820bc0cd317e56ae0da31bc2cba7d96d7b575f23dd78b07cf1b525",
+          "length": 13704,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/lines.bmp": {
+          "sha256": "2b84cd1c556ba3b5b52d470234f12a90a442f0d2f10b0dbb5b401b189d029a4b",
+          "length": 9354,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mkv": {
+          "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mov": {
+          "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mp4": {
+          "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/portrait.png": {
+          "sha256": "2aa31600d18f6fd32b994d81af5e2c89a6a24759c79793766f5423dc3660ea63",
+          "length": 302,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "source_after": {
+        "ignored.txt": {
+          "sha256": "9265d8aaef259dc7c74d08e2d753d602b226efe542175fbdf8f3670e7597b9d5",
+          "length": 36,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "landscape.jpg": {
+          "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+          "length": 927,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "seeded-noise.tiff": {
+          "sha256": "f46c8b25b8820bc0cd317e56ae0da31bc2cba7d96d7b575f23dd78b07cf1b525",
+          "length": 13704,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/lines.bmp": {
+          "sha256": "2b84cd1c556ba3b5b52d470234f12a90a442f0d2f10b0dbb5b401b189d029a4b",
+          "length": 9354,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mkv": {
+          "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mov": {
+          "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/opaque-video.mp4": {
+          "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+          "length": 4096,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        },
+        "sub/portrait.png": {
+          "sha256": "2aa31600d18f6fd32b994d81af5e2c89a6a24759c79793766f5423dc3660ea63",
+          "length": 302,
+          "creation_ns": 1580702706000000000,
+          "modified_ns": 1580702706000000000
+        }
+      },
+      "observed": {
+        "outputs": {
+          "landscape.jpeg": {
+            "bytes": 1688,
+            "sha256": "1593f75a4a6f6fd52a38ad7e6e6aab6342b31c976e816627fc6551ec2dad92a9",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                64,
+                48
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          },
+          "seeded-noise.jpeg": {
+            "bytes": 6958,
+            "sha256": "cb5e9abecf05d58077c934d12991484b5ea15043f0a19522623c4cdcf8aac727",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                80,
+                56
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                241,
+                15,
+                16
+              ]
+            }
+          },
+          "sub/lines.jpeg": {
+            "bytes": 3471,
+            "sha256": "2016865d3f83bb4b3958206e2d2498295503ce44c0b06189934257f3a91241fe",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                64,
+                48
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          },
+          "sub/opaque-video.mkv": {
+            "bytes": 4096,
+            "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/opaque-video.mov": {
+            "bytes": 4096,
+            "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/opaque-video.mp4": {
+            "bytes": 4096,
+            "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000
+          },
+          "sub/portrait.jpeg": {
+            "bytes": 1696,
+            "sha256": "70d22e6b8f5baf4d6a58d789799a56c8d5510a23d3b3172eca533399a174d8b1",
+            "creation_ns": 1580702706000000000,
+            "modified_ns": 1580702706000000000,
+            "decode": {
+              "valid": true,
+              "format": "JPEG",
+              "size": [
+                48,
+                64
+              ],
+              "frames": 1,
+              "corner_rgb": [
+                240,
+                16,
+                16
+              ]
+            }
+          }
+        },
+        "directories": [
+          "empty-directory",
+          "sub"
+        ],
+        "summary": {
+          "converted": 4,
+          "copied_video": 3,
+          "duplicates": 0,
+          "unsupported": 0,
+          "errors": 0
+        }
+      },
+      "application_log": "WinImgNormalizer started 2026-10-04 16.21.09\n2026-10-04 16.21.09 [INFO] Source: <approved-ordinary-fixture>\n2026-10-04 16.21.09 [INFO] Destination: <parity-scratch>\\ps7-source_and_cap\\output\\ordinary_WinImgNormalized_20261004_162109\n2026-10-04 16.21.09 [INFO] MaxBytes: 1 048 576 (1 MB)\n2026-10-04 16.21.09 [OK] OK IMG: landscape.jpg -> landscape.jpeg [1 688 bytes, Scale=100%]\n2026-10-04 16.21.09 [OK] OK IMG: seeded-noise.tiff -> seeded-noise.jpeg [6 958 bytes, Scale=100%]\n2026-10-04 16.21.09 [OK] OK IMG: sub\\lines.bmp -> sub\\lines.jpeg [3 471 bytes, Scale=100%]\n2026-10-04 16.21.09 [OK] OK VID: sub\\opaque-video.mkv -> sub\\opaque-video.mkv [4 096 bytes]\n2026-10-04 16.21.09 [OK] OK VID: sub\\opaque-video.mov -> sub\\opaque-video.mov [4 096 bytes]\n2026-10-04 16.21.09 [OK] OK VID: sub\\opaque-video.mp4 -> sub\\opaque-video.mp4 [4 096 bytes]\n2026-10-04 16.21.09 [OK] OK IMG: sub\\portrait.png -> sub\\portrait.jpeg [1 696 bytes, Scale=100%]\n2026-10-04 16.21.09 [INFO] SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0\n2026-10-04 16.21.09 [INFO] Completed 2026-10-04 16.21.09\n"
+    }
+  ],
+  "summary": {
+    "real_runs": 4,
+    "all_passed": true,
+    "jpeg_full_decodes": 16,
+    "video_bytes_and_timestamps_checked": 12
+  },
+  "evidence_kind": "Independent actual-Windows ordinary behavior parity; real ImageMagick, synthetic fixtures",
+  "raw_result_sha256": "7f9b7b227820edf727fdc23f987edcd106b6340a362784b53aaf621e7476e50d",
+  "raw_audit_source_sha256": "72cb100d4a3b4f6a000ab8a05d4044542beb26911704fe716f2ea1a9df4c2a75",
+  "sanitization_source_sha256": "3235ad77f7f350017474e37a0b7c5b55fefa16a54c66eb492fb4a8a680b6e350",
+  "fixture_manifest_sha256": "e8c0441527d2e6682438aa4d6d45350bfbbadf03bf21e62b8d60068c9b464f05",
+  "source_files_sha256": {
+    "WinImgNormalizer.ps1": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/legacy/characterize.py": "010245511787fd183ecabd4ed15835fdbc25a324660337604c4840a47eb3bfc4",
+    "tests/legacy/build_fixtures.py": "b99c935389e15dcb6edba7dca3c02117d0c04fecebb12f67e73ca0045e70b4e8"
+  },
+  "path_placeholders": {
+    "<parity-scratch>": "Private local path replaced; command structure retained",
+    "<approved-ordinary-fixture>": "Private local path replaced; command structure retained",
+    "<verified-imagemagick-directory>": "Private local path replaced; command structure retained",
+    "<windows-powershell-5.1-executable>": "Private local path replaced; command structure retained",
+    "<powershell-7-executable>": "Private local path replaced; command structure retained",
+    "<repository>": "Private local path replaced; command structure retained"
+  },
+  "limitations": [
+    "Four callable command adapter executions on the approved ordinary corpus; public process entry points are covered separately by the Pester invocation tests.",
+    "The M0-T02 baseline contains six real native cases across ordinary/collision/frames; this audit compares the two ordinary baseline observations only.",
+    "Byte-identical JPEG comparison is appropriate for this identical verified ImageMagick build; no cross-build byte parity claim.",
+    "Read-only seam review found no M0-T03-specific correctness regression; known hardening defects remain scheduled for later tasks."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "task_id": "M0-T03",
+  "case_id": "T005",
+  "recorded_utc": "2026-10-04T14:25:47.9845383Z",
+  "execution_kind": "isolated import exit-zero negative control",
+  "outcome": "control passed: inner Pester failed 6/6 and parent control continued",
+  "command": "& '<control-root>/Invoke-ImportExitControl.ps1' -Repository (Get-Location).Path -Magick (Resolve-Path -LiteralPath '<verified-magick>').Path -PesterManifest (Resolve-Path -LiteralPath '<verified-pester-manifest>').Path",
+  "working_directory": "<repo>",
+  "environment": {
+    "powershell_version": "7.6.5",
+    "pester_version": "5.9.1",
+    "os": "Microsoft Windows 10.0.26300",
+    "dependency_selection": "Verified portable ImageMagick 7.1.2-32 Q16 x64 and pinned Pester 5.9.1; explicit paths supplied."
+  },
+  "mutation": {
+    "application_unchanged": true,
+    "recipe": "Write UTF-8 without BOM: literal exit 0 followed by LF, then the reviewed application text. Copy test bytes unchanged. All copies are under ignored scratch.",
+    "copied_application_prefix": "exit 0\n",
+    "reviewed_application_sha256": "73119a16c3225f72431724988b9a790df6565b12f6189997a7c7cc14d958682b",
+    "copied_application_sha256": "2d18d8d02966bdd536aed094dc0d02630bb0119a6aa2659afbe4508feca8d3f8",
+    "tests_sha256": "6106577985d42113c6085ea2212691e27cd7d56b655f6b45bdcf274edb6caf55"
+  },
+  "inner_pester": {
+    "result": "Failed",
+    "total": 6,
+    "passed": 0,
+    "failed": 6,
+    "skipped": 0,
+    "inconclusive": 0,
+    "not_run": 0,
+    "failed_containers": 1,
+    "import_child_exit": 1,
+    "import_completion_marker_seen": false,
+    "diagnostic": "Callable definitions are absent."
+  },
+  "parent_control": {
+    "process_exit_code": 0,
+    "gate_detected": true,
+    "completion_marker": "IMPORT_EXIT_ZERO_REGRESSION_DETECTED",
+    "exit_code_semantics": "Parent zero denotes expected negative-control failure detected; it is not an application/test-suite pass."
+  },
+  "raw_artifacts": [
+    {
+      "path": "<control-root>/command.txt",
+      "sha256": "b2074d7d7abfd91a41d1d0459665a9c1e4b3b9053e9cdc4846dc8e864a8e8b54",
+      "bytes": 332
+    },
+    {
+      "path": "<control-root>/import-exit-zero-result.json",
+      "sha256": "6da18999fd646bf95f2f71c75f986b12d23819c617738d974d478f915411020e",
+      "bytes": 698
+    },
+    {
+      "path": "<control-root>/import-exit-zero-transcript.log",
+      "sha256": "177bd4de80beaffb94c0383df5fc7ea90b8fdfd0eef73234d6c007d439bd2ba5",
+      "bytes": 4664
+    },
+    {
+      "path": "<control-root>/Invoke-ImportExitControl.ps1",
+      "sha256": "30edeca8f6dbe77c27519af5f9d86266a7c977c5977d4872ed33a90621b65e94",
+      "bytes": 2218
+    },
+    {
+      "path": "<control-root>/WinImgNormalizer.ps1",
+      "sha256": "2d18d8d02966bdd536aed094dc0d02630bb0119a6aa2659afbe4508feca8d3f8",
+      "bytes": 15130
+    },
+    {
+      "path": "<control-root>/tests/Normalizer.Tests.ps1",
+      "sha256": "6106577985d42113c6085ea2212691e27cd7d56b655f6b45bdcf274edb6caf55",
+      "bytes": 19815
+    }
+  ],
+  "transcript_body_sha256": "4c4be3e22d25aa41b791710a4fa14a9995d0b1378744227663b2079d264ee5d6",
+  "transcript_body": "Pester v5.9.1\r\n\nStarting discovery in 1 files.\r\nDiscovery found 6 tests in 214ms.\r\nRunning tests.\r\n\nRunning tests from '<control-root>\\tests\\Normalizer.Tests.ps1'\r\nPS>TerminatingError(): \"Isolated import probe failed before Pester import: exit=1; stdout=; stderr=Exception: <control-root>\\<generated-import-work>\\pure-import\\Import-Control.ps1:15\r\nLine |\r\n  15 |  . inImgNormalizerCommand)) { throw 'Callable definitions are absent.' }\r\n     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n     | Callable definitions are absent.\r\n\"\r\n>> TerminatingError(): \"Isolated import probe failed before Pester import: exit=1; stdout=; stderr=Exception: <control-root>\\<generated-import-work>\\pure-import\\Import-Control.ps1:15\r\nLine |\r\n  15 |  . inImgNormalizerCommand)) { throw 'Callable definitions are absent.' }\r\n     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n     | Callable definitions are absent.\r\n\"\r\n>> TerminatingError(): \"Isolated import probe failed before Pester import: exit=1; stdout=; stderr=Exception: <control-root>\\<generated-import-work>\\pure-import\\Import-Control.ps1:15\r\nLine |\r\n  15 |  . inImgNormalizerCommand)) { throw 'Callable definitions are absent.' }\r\n     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n     | Callable definitions are absent.\r\n\"\r\n[-] <control-root>\\tests\\Normalizer.Tests.ps1 failed with:\r\nRuntimeException: Isolated import probe failed before Pester import: exit=1; stdout=; stderr=Exception: <control-root>\\<generated-import-work>\\pure-import\\Import-Control.ps1:15\r\nLine |\r\n  15 |  . inImgNormalizerCommand)) { throw 'Callable definitions are absent.' }\r\n     |                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n     | Callable definitions are absent.\r\nat <ScriptBlock>, <control-root>\\tests\\Normalizer.Tests.ps1:205\r\nTests completed in 2.38s\r\nTests Passed: 0,\r\nFailed: 6,\r\nSkipped: 0,\r\nInconclusive: 0,\r\n\r\nNotRun: 0\r\nContainer failed: 1\r\n  - <control-root>\\tests\\Normalizer.Tests.ps1\r\n{\r\n  \"schema_version\": 1,\r\n  \"recorded_utc\": \"2026-10-04T14:25:47.9845383Z\",\r\n  \"control\": \"Ignored scratch copy of app prefixed with exit 0; tracked application unchanged.\",\r\n  \"powershell_version\": \"7.6.5\",\r\n  \"pester_version\": \"5.9.1\",\r\n  \"application_sha256\": \"73119A16C3225F72431724988B9A790DF6565B12F6189997A7C7CC14D958682B\",\r\n  \"copied_application_sha256\": \"2D18D8D02966BDD536AED094DC0D02630BB0119A6AA2659AFBE4508FECA8D3F8\",\r\n  \"test_sha256\": \"6106577985D42113C6085EA2212691E27CD7D56B655F6B45BDCF274EDB6CAF55\",\r\n  \"result\": \"Failed\",\r\n  \"total\": 6,\r\n  \"passed\": 0,\r\n  \"failed\": 6,\r\n  \"skipped\": 0,\r\n  \"inconclusive\": 0,\r\n  \"not_run\": 0,\r\n  \"failed_containers\": 1,\r\n  \"gate_detected\": true\r\n}\r\nIMPORT_EXIT_ZERO_REGRESSION_DETECTED\r\n",
+  "control_script": "param(\n    [Parameter(Mandatory = $true)][string]$Repository,\n    [Parameter(Mandatory = $true)][string]$Magick,\n    [Parameter(Mandatory = $true)][string]$PesterManifest\n)\n$ErrorActionPreference = 'Stop'\n$env:WINIMG_TEST_MAGICK = $Magick\n$transcript = Join-Path $PSScriptRoot 'import-exit-zero-transcript.log'\nif (Test-Path -LiteralPath $transcript) { throw 'Control transcript already exists.' }\nStart-Transcript -Path $transcript | Out-Null\ntry {\n    Import-Module -Name $PesterManifest -RequiredVersion 5.9.1 -Force\n    $result = Invoke-Pester -Path (Join-Path $PSScriptRoot 'tests/Normalizer.Tests.ps1') -Output Detailed -PassThru\n    $summary = [ordered]@{\n        schema_version = 1\n        recorded_utc = [DateTime]::UtcNow.ToString('o')\n        control = 'Ignored scratch copy of app prefixed with exit 0; tracked application unchanged.'\n        powershell_version = $PSVersionTable.PSVersion.ToString()\n        pester_version = (Get-Module Pester).Version.ToString()\n        application_sha256 = (Get-FileHash -LiteralPath (Join-Path $Repository 'WinImgNormalizer.ps1') -Algorithm SHA256).Hash\n        copied_application_sha256 = (Get-FileHash -LiteralPath (Join-Path $PSScriptRoot 'WinImgNormalizer.ps1') -Algorithm SHA256).Hash\n        test_sha256 = (Get-FileHash -LiteralPath (Join-Path $PSScriptRoot 'tests/Normalizer.Tests.ps1') -Algorithm SHA256).Hash\n        result = [string]$result.Result\n        total = $result.TotalCount\n        passed = $result.PassedCount\n        failed = $result.FailedCount\n        skipped = $result.SkippedCount\n        inconclusive = $result.InconclusiveCount\n        not_run = $result.NotRunCount\n        failed_containers = $result.FailedContainersCount\n        gate_detected = ($result.Result -eq 'Failed' -and $result.TotalCount -eq 6 -and $result.FailedCount -eq 6)\n    }\n    $summary | ConvertTo-Json -Depth 4\n    [IO.File]::WriteAllText((Join-Path $PSScriptRoot 'import-exit-zero-result.json'),\n        ($summary | ConvertTo-Json -Depth 4), (New-Object Text.UTF8Encoding($false)))\n    if (-not $summary.gate_detected) { throw 'Import exit-zero regression escaped the test gate.' }\n    'IMPORT_EXIT_ZERO_REGRESSION_DETECTED'\n} finally { Stop-Transcript | Out-Null }\n\n",
+  "sanitization": "Removed transcript host/user/process header and footer. Replaced repository, owned scratch, generated import workspace and explicit dependency paths with placeholders; body otherwise preserved.",
+  "limitations": "This auxiliary safety control ran on Windows PowerShell 7.6.5 only. It does not replace the primary two-host runner/CI credibility results."
+}

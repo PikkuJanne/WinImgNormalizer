@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scope": "Development-only. Explicit test bootstrap downloads into ignored .scratch; the application never reads this file.",
+  "pester": {
+    "version": "5.9.1",
+    "url": "https://www.powershellgallery.com/api/v2/package/Pester/5.9.1",
+    "sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+    "sha512_base64": "Ro5dZIKb89GI4ljjInQc3m6sI74uvph1y4QAqBPZ1Jhg0l1wBv8rT0izkGKbOw2Brzn8rNV2NKpDbyvoi7ARqg==",
+    "bytes": 328088,
+    "provenance": "Official Pester 5.9.1 release and PowerShell Gallery OData SHA512 metadata; downloaded package matched the publisher checksum on 2026-10-04.",
+    "release_url": "https://github.com/pester/Pester/releases/tag/5.9.1",
+    "metadata_url": "https://www.powershellgallery.com/api/v2/Packages(Id='Pester',Version='5.9.1')",
+    "signature_claim": "No Authenticode verification or publisher-authentication claim. Checksums bind the reviewed package bytes.",
+    "manifest_sha256": "5ce1ff3d5aa9e6c84a20f36e082937b1c263277f4753529dc8db2e22fd964dca"
+  },
+  "imagemagick_specification": "legacy/toolchain.json",
+  "checkout_action": {
+    "major_version": "v4",
+    "sha": "11d5960a326750d5838078e36cf38b85af677262",
+    "verified_on": "2026-10-04",
+    "provenance": "Official actions/checkout GitHub API refs/tags/v4 and commit endpoint both returned this commit; message: backport fixes to releases-v4 (#2524).",
+    "commit_url": "https://github.com/actions/checkout/commit/11d5960a326750d5838078e36cf38b85af677262"
+  }
+}
