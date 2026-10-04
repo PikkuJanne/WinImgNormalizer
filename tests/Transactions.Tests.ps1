@@ -196,8 +196,9 @@ Describe 'M1-T04 native result and full candidate validation (T020)' {
         $result.Code | Should -Be 2 -Because $result.Text
         $trace.Numbered.Count | Should -Be 2
         foreach ($path in $trace.Numbered) {
-            Invoke-TransactionMagick @('identify', '-format', '%m|%w|%h|%n', $path) | Should -Be 'JPEG|96|64|1'
-            $null = Invoke-TransactionMagick @('-regard-warnings', $path, 'null:')
+            $nativeNumbered = Get-WinImgNativeOutputPath $path
+            Invoke-TransactionMagick @('identify', '-format', '%m|%w|%h|%n', $nativeNumbered) | Should -Be 'JPEG|96|64|1'
+            $null = Invoke-TransactionMagick @('-regard-warnings', $nativeNumbered, 'null:')
         }
         foreach ($candidate in $trace.Candidates) { Test-Path -LiteralPath $candidate | Should -BeFalse }
         $run = Get-TransactionRun $parent
