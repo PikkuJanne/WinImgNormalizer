@@ -859,8 +859,11 @@ function Invoke-WinImgNormalizer {
     try {
       Assert-WinImgNoReparseAncestors $f.DirectoryName
       $f = Get-Item -LiteralPath $f.FullName -Force -ErrorAction Stop
-      if ($f.PSIsContainer -or (($f.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0)) {
-        throw 'Source entry is no longer a regular file after inventory; no read attempted.'
+      if (($f.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+        throw 'Source entry became a reparse point after inventory; no read attempted.'
+      }
+      if ($f.PSIsContainer) {
+        throw 'Source entry became a directory after inventory; no read attempted.'
       }
       # Inventory FileInfo values may be cached. Snapshot live metadata before
       # lookup, then reuse those immutable values for the processed input.
