@@ -1,0 +1,43 @@
+name: Windows tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.shell }} on Windows
+    runs-on: windows-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        shell: [powershell, pwsh]
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4; verified 2026-10-04
+        with:
+          persist-credentials: false
+      - name: Run mandatory tests with verified development dependencies
+        run: |
+          ./tests/Invoke-Tests.ps1 -DownloadDependencies -ResultDirectory .scratch/ci-tests
+      - name: Prove a broken assertion returns failure
+        run: |
+          $hostExecutable = (Get-Process -Id $PID).Path
+          & $hostExecutable -NoProfile -NonInteractive -ExecutionPolicy Bypass -File ./tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/ci-deliberate-failure
+          $controlExit = $LASTEXITCODE
+          $control = Get-Content -LiteralPath .scratch/ci-deliberate-failure/summary.json -Raw | ConvertFrom-Json
+          if ($controlExit -ne 1 -or $control.exit_code -ne 1 -or $control.total_count -lt 2 -or $control.failed_count -ne 1 -or $control.skipped_count -ne 0 -or $control.not_run_count -ne 0 -or $control.infrastructure_error) {
+            throw 'The deliberate assertion control did not produce exactly the expected real test failure.'
+          }
+          if (@($control.failed_tests | Where-Object { $_ -eq 'T007 runner credibility control.deliberate assertion must fail' }).Count -ne 1) {
+            throw 'The failure did not come from the deliberate assertion.'
+          }
+          Write-Host 'Verified: the deliberately false assertion failed and the runner returned exit 1.'
+          $global:LASTEXITCODE = 0
