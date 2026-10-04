@@ -1,0 +1,4779 @@
+{
+  "schema_version": 1,
+  "generator": "tests/legacy/build_fixtures.py",
+  "generator_sha256": "b99c935389e15dcb6edba7dca3c02117d0c04fecebb12f67e73ca0045e70b4e8",
+  "seed": 4418,
+  "timestamp_utc": "2020-02-03T04:05:06Z",
+  "python_version": "3.12.14",
+  "independent_decoder": {
+    "name": "Pillow",
+    "version": "12.3.0"
+  },
+  "imagemagick_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org\nCopyright: (C) 1999 ImageMagick Studio LLC\nLicense: https://imagemagick.org/license/\nFeatures: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) \nDelegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd\nCompiler: Visual Studio 2026 (195136257)",
+  "imagemagick_formats": "   Format  Mode  Description\n-------------------------------------------------------------------------------\n      3FR  r--   Hasselblad CFV/H3D39II Raw Format (0.22.2-Release)\n      3G2  r--   Media Container\n      3GP  r--   Media Container\n        A* rw+   Raw alpha samples\n      AAI* rw+   AAI Dune image\n       AI  rw-   Adobe Illustrator CS2\n     APNG  rw+   Animated Portable Network Graphics\n      ART* rw-   PFS: 1st Publisher Clip Art\n      ARW  r--   Sony Alpha Raw Format (0.22.2-Release)\n      ASE* rw+   Aseprite Sprite Format\n ASEPRITE* rw+   Aseprite Sprite Format\n   ASHLAR* -w+   Image sequence laid out in continuous irregular courses\n     AVCI  r--   AVC Image File Format (1.23.5)\n      AVI  r--   Microsoft Audio/Visual Interleaved\n     AVIF  rw+   AV1 Image File Format (1.23.5)\n      AVS* rw+   AVS X image\n        B* rw+   Raw blue samples\n    BAYER* rw+   Raw mosaiced samples\n   BAYERA* rw+   Raw mosaiced and alpha samples\n      BGR* rw+   Raw blue, green, and red samples\n     BGRA* rw+   Raw blue, green, red, and alpha samples\n     BGRO* rw+   Raw blue, green, red, and opacity samples\n      BMP* rw-   Microsoft Windows bitmap image\n     BMP2* rw-   Microsoft Windows bitmap image (V2)\n     BMP3* rw-   Microsoft Windows bitmap image (V3)\n      BRF* -w-   BRF ASCII Braille format\n        C* rw+   Raw cyan samples\n     C2PA  r--   C2PA Provenance Metadata\n      CAL* rw-   Continuous Acquisition and Life-cycle Support Type 1\n             Specified in MIL-R-28002 and MIL-PRF-28002\n     CALS* rw-   Continuous Acquisition and Life-cycle Support Type 1\n             Specified in MIL-R-28002 and MIL-PRF-28002\n   CANVAS* r--   Constant image uniform color\n  CAPTION* r--   Caption\n      CIN* rw-   Cineon Image File\n      CIP* -w-   Cisco IP phone image format\n     CLIP* rw+   Image Clip Mask\nCLIPBOARD* rw-   The system clipboard\n     CMYK* rw+   Raw cyan, magenta, yellow, and black samples\n    CMYKA* rw+   Raw cyan, magenta, yellow, black, and alpha samples\n      CR2  r--   Canon Digital Camera Raw Format (0.22.2-Release)\n      CR3  r--   Canon Digital Camera Raw Format (0.22.2-Release)\n      CRW  r--   Canon Digital Camera Raw Format (0.22.2-Release)\n     CUBE* r--   Cube LUT\n      CUR* rw-   Microsoft icon\n      CUT* r--   DR Halo\n     DATA* rw+   Base64-encoded inline images\n      DCM* r--   Digital Imaging and Communications in Medicine image\n             DICOM is used by the medical community for images like X-rays.  The\n             specification, \"Digital Imaging and Communications in Medicine\n             (DICOM)\", is available at http://medical.nema.org/.  In particular,\n             see part 5 which describes the image encoding (RLE, JPEG, JPEG-LS),\n             and supplement 61 which adds JPEG-2000 encoding.\n      DCR  r--   Kodak Digital Camera Raw Format (0.22.2-Release)\n    DCRAW  r--   Raw Photo Decoder (dcraw) (0.22.2-Release)\n      DCX* rw+   ZSoft IBM PC multi-page Paintbrush\n      DDS* rw+   Microsoft DirectDraw Surface\n    DFONT* r--   Multi-face font package (Freetype 2.14.3)\n      DNG  r--   Digital Negative Raw Format (0.22.2-Release)\n      DPX* rw-   SMPTE 268M-2003 (DPX 2.0)\n             Digital Moving Picture Exchange Bitmap, Version 2.0.\n             See SMPTE 268M-2003 specification at http://www.smtpe.org\n             \n     DXT1* rw+   Microsoft DirectDraw Surface\n     DXT5* rw+   Microsoft DirectDraw Surface\n      EMF  r--   Windows Enhanced Meta File\n     EPDF  rw-   Encapsulated Portable Document Format\n      EPI  rw-   Encapsulated PostScript Interchange format\n      EPS  rw-   Encapsulated PostScript\n     EPS2  -w-   Level II Encapsulated PostScript\n     EPS3  -w+   Level III Encapsulated PostScript\n     EPSF  rw-   Encapsulated PostScript\n     EPSI  rw-   Encapsulated PostScript Interchange format\n      EPT  rw-   Encapsulated PostScript with TIFF preview\n     EPT2  rw-   Encapsulated PostScript Level II with TIFF preview\n     EPT3  rw+   Encapsulated PostScript Level III with TIFF preview\n      ERF  r--   Epson Raw Format (0.22.2-Release)\n      EXR  rw-   High Dynamic-range (HDR) (OpenEXR 3.5.1)\n FARBFELD* rw-   Farbfeld\n      FAX* rw+   Group 3 FAX\n             FAX machines use non-square pixels which are 1.5 times wider than\n             they are tall but computer displays use square pixels, therefore\n             FAX images may appear to be narrow unless they are explicitly\n             resized using a geometry of \"150x100%\".\n             \n       FF* rw-   Farbfeld\n      FFF  r--   Hasselblad CFV/H3D39II Raw Format (0.22.2-Release)\n     FILE* r--   Uniform Resource Locator (file://)\n     FITS* rw+   Flexible Image Transport System\n     FL32* rw-   FilmLight\n      FLV  rw+   Flash Video Stream\n  FRACTAL* r--   Plasma fractal image\n      FTP* r--   Uniform Resource Locator (ftp://)\n      FTS* rw+   Flexible Image Transport System\n     FTXT* rw-   Formatted text image\n        G* rw+   Raw green samples\n       G3* rw-   Group 3 FAX\n       G4* rw-   Group 4 FAX\n      GIF* rw+   CompuServe graphics interchange format\n    GIF87* rw-   CompuServe graphics interchange format (version 87a)\n GRADIENT* r--   Gradual linear passing from one shade to another\n     GRAY* rw+   Raw gray samples\n    GRAYA* rw+   Raw gray and alpha samples\n   GROUP4* rw-   Raw CCITT Group4\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n     HALD* r--   Identity Hald color lookup table image\n      HDR* rw+   Radiance RGBE image format\n     HEIC  r--   High Efficiency Image Format (1.23.5)\n     HEIF  r--   High Efficiency Image Format (1.23.5)\nHISTOGRAM* -w-   Histogram of the image\n      HRZ* rw-   Slow Scan TeleVision\n      HTM* -w-   Hypertext Markup Language and a client-side image map\n     HTML* -w-   Hypertext Markup Language and a client-side image map\n     HTTP* r--   Uniform Resource Locator (http://)\n    HTTPS* r--   Uniform Resource Locator (https://)\n      ICB* rw-   Truevision Targa image\n      ICN* rw-   Microsoft icon\n      ICO* rw+   Microsoft icon\n     ICON* rw-   Microsoft icon\n      IIQ  r--   Phase One Raw Format (0.22.2-Release)\n     INFO  -w+   The image format and characteristics\n   INLINE* rw+   Base64-encoded inline images\n      IPL* rw+   IPL Image Sequence\n   ISOBRL* -w-   ISO/TR 11548-1 format\n  ISOBRL6* -w-   ISO/TR 11548-1 format 6dot\n      J2C* rw-   JPEG-2000 Code Stream Syntax (2.5.4)\n      J2K* rw-   JPEG-2000 Code Stream Syntax (2.5.4)\n      JNG* rw-   JPEG Network Graphics\n             See http://www.libpng.org/pub/mng/ for details about the JNG\n             format.\n      JNX* r--   Garmin tile format\n      JP2* rw-   JPEG-2000 File Format Syntax (2.5.4)\n      JPC* rw-   JPEG-2000 Code Stream Syntax (2.5.4)\n      JPE* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n     JPEG* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      JPG* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      JPM* rw-   JPEG-2000 File Format Syntax (2.5.4)\n      JPS* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      JPT* rw-   JPEG-2000 File Format Syntax (2.5.4)\n     JSON  -w+   The image format and characteristics\n      JXL* rw+   JPEG XL (ISO/IEC 18181) (libjxl 0.12.0)\n        K* rw+   Raw black samples\n      K25  r--   Kodak Digital Camera Raw Format (0.22.2-Release)\n      KDC  r--   Kodak Digital Camera Raw Format (0.22.2-Release)\n   KERNEL* -w-   Morphology Kernel\n    LABEL* r--   Image label\n        M* rw+   Raw magenta samples\n      M2V  rw+   MPEG Video Stream\n      M4V  rw+   Raw VIDEO-4 Video\n      MAC* r--   MAC Paint\n      MAP* rw-   Colormap intensities and indices\n     MASK* rw+   Image Clip Mask\n      MAT  rw+   MATLAB level 5 image format\n    MATTE* -w+   MATTE format\n      MDC  r--   Minolta Digital Camera Raw Format (0.22.2-Release)\n      MEF  r--   Mamiya Raw Format (0.22.2-Release)\n     MIFF* rw+   Magick Image File Format\n      MKV  rw+   Multimedia Container\n      MNG* rw+   Multiple-image Network Graphics (libpng 1.6.58)\n             See http://www.libpng.org/pub/mng/ for details about the MNG\n             format.\n     MONO* rw-   Raw bi-level bitmap\n      MOS  r--   Aptus Leaf Raw Format (0.22.2-Release)\n      MOV  rw+   MPEG Video Stream\n      MP4  rw+   VIDEO-4 Video Stream\n      MPC* rw+   Magick Pixel Cache image format\n     MPEG  rw+   MPEG Video Stream\n      MPG  rw+   MPEG Video Stream\n      MPO* r--   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      MRW  r--   Sony (Minolta) Raw Format (0.22.2-Release)\n      MSL  r--   Magick Scripting Language\n     MSVG* rw+   ImageMagick's own SVG internal renderer\n      MTV* rw+   MTV Raytracing image format\n      MVG* rw-   Magick Vector Graphics\n      NEF  r--   Nikon Digital SLR Camera Raw Format (0.22.2-Release)\n      NRW  r--   Nikon Digital SLR Camera Raw Format (0.22.2-Release)\n     NULL* rw-   Constant image of uniform color\n        O* rw+   Raw opacity samples\n      ORA  r--   OpenRaster format\n      ORF  r--   Olympus Digital Camera Raw Format (0.22.2-Release)\n      OTB* rw-   On-the-air bitmap\n      OTF* r--   Open Type font (Freetype 2.14.3)\n      PAL* rw-   16bit/pixel interleaved YUV\n     PALM* rw+   Palm pixmap\n      PAM* rw+   Common 2-dimensional bitmap format\n    PANGO* r--   Pango Markup Language (Pangocairo 1.45.2)\n  PATTERN* r--   Predefined pattern\n      PBM* rw+   Portable bitmap format (black and white)\n      PCD* rw-   Photo CD\n     PCDS* rw-   Photo CD\n      PCL  rw+   Printer Control Language\n      PCT* rw-   Apple Macintosh QuickDraw/PICT\n      PCX* rw-   ZSoft IBM PC Paintbrush\n      PDB* rw+   Palm Database ImageViewer Format\n      PDF  rw+   Portable Document Format\n     PDFA  rw+   Portable Document Archive Format\n      PEF  r--   Pentax Electronic Raw Format (0.22.2-Release)\n      PES* r--   Embrid Embroidery Format\n      PFA* r--   Postscript Type 1 font (ASCII) (Freetype 2.14.3)\n      PFB* r--   Postscript Type 1 font (binary) (Freetype 2.14.3)\n      PFM* rw+   Portable float format\n      PGM* rw+   Portable graymap format (gray scale)\n      PGX* rw-   JPEG 2000 uncompressed format\n      PHM* rw+   Portable half float format\n    PICON* rw-   Personal Icon\n     PICT* rw-   Apple Macintosh QuickDraw/PICT\n      PIX* r--   Alias/Wavefront RLE image format\n    PJPEG* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n   PLASMA* r--   Plasma fractal image\n      PNG* rw-   Portable Network Graphics (libpng 1.6.58)\n             See http://www.libpng.org/ for details about the PNG format.\n    PNG00* rw-   PNG inheriting bit-depth, color-type from original, if possible\n    PNG24* rw-   opaque or binary transparent 24-bit RGB\n    PNG32* rw-   opaque or transparent 32-bit RGBA\n    PNG48* rw-   opaque or binary transparent 48-bit RGB\n    PNG64* rw-   opaque or transparent 64-bit RGBA\n     PNG8* rw-   8-bit indexed with optional binary transparency\n      PNM* rw+   Portable anymap\nPOCKETMOD  rw+   Pocketmod Personal Organizer\n      PPM* rw+   Portable pixmap format (color)\n       PS  rw+   PostScript\n      PS2  -w+   Level II PostScript\n      PS3  -w+   Level III PostScript\n      PSB* rw+   Adobe Large Document Format\n      PSD* rw+   Adobe Photoshop bitmap\n     PTIF* rw+   Pyramid encoded TIFF\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n      PWP* r--   Seattle Film Works\n      QOI* rw-   Quite OK image format\n        R* rw+   Raw red samples\nRADIAL-GRADIENT* r--   Gradual radial passing from one shade to another\n      RAF  r--   Fuji CCD-RAW Graphic Raw Format (0.22.2-Release)\n      RAS* rw+   SUN Rasterfile\n      RAW  r--   Raw (0.22.2-Release)\n      RGB* rw+   Raw red, green, and blue samples\n   RGB565* r--   Raw red, green, blue samples in 565 format\n     RGBA* rw+   Raw red, green, blue, and alpha samples\n     RGBO* rw+   Raw red, green, blue, and opacity samples\n      RGF* rw-   LEGO Mindstorms EV3 Robot Graphic Format (black and white)\n      RLA* r--   Alias/Wavefront image\n      RLE* r--   Utah Run length encoded image\n      RMF  r--   Raw Media Format (0.22.2-Release)\n     RSVG* rw+   Librsvg SVG renderer (RSVG 2.40.20)\n      RW2  r--   Panasonic Lumix Raw Format (0.22.2-Release)\n      RWL  r--   Leica Raw Format (0.22.2-Release)\n      SCR* r--   ZX-Spectrum SCREEN$\nSCREENSHOT* r--   Screen shot\n      SCT* r--   Scitex HandShake\n      SF3* rw+   Simple File Format Family Images\n             See https://shirakumo.org/docs/sf3/ for information on the SF3 file formats.\n      SFW* r--   Seattle Film Works\n      SGI* rw+   Irix RGB image\n    SHTML* -w-   Hypertext Markup Language and a client-side image map\n      SIX* rw-   DEC SIXEL Graphics Format\n    SIXEL* rw-   DEC SIXEL Graphics Format\nSPARSE-COLOR* -w+   Sparse Color\n      SR2  r--   Sony Raw Format 2 (0.22.2-Release)\n      SRF  r--   Sony Raw Format (0.22.2-Release)\n      SRW  r--   Samsung Raw Format (0.22.2-Release)\n  STEGANO* r--   Steganographic image\n      STI  r--   Sinar CaptureShop Raw Format (0.22.2-Release)\n   STRIMG* rw-   String to image and back\n      SUN* rw+   SUN Rasterfile\n      SVG  rw+   Scalable Vector Graphics (RSVG 2.40.20)\n     SVGZ* rw+   Compressed Scalable Vector Graphics (RSVG 2.40.20)\n     TEXT* r--   Text\n      TGA* rw-   Truevision Targa image\nTHUMBNAIL* -w+   EXIF Profile Thumbnail\n     TIFF* rw+   Tagged Image File Format (LIBTIFF, Version 4.7.2)\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n   TIFF64* rw+   Tagged Image File Format (64-bit) (LIBTIFF, Version 4.7.2)\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n     TILE* r--   Tile image with a texture\n      TIM* r--   PSX TIM\n      TM2* r--   PS2 TIM2\n      TTC* r--   TrueType font collection (Freetype 2.14.3)\n      TTF* r--   TrueType font (Freetype 2.14.3)\n      TXT* rw+   Text\n     UBRL* -w-   Unicode Text format\n    UBRL6* -w-   Unicode Text format 6dot\n      UIL* -w-   X-Motif UIL table\n     UYVY* rw-   16bit/pixel interleaved YUV\n      VDA* rw-   Truevision Targa image\n    VICAR* rw-   Video Image Communication And Retrieval\n      VID* rw+   Visual Image Directory\n     VIFF* rw+   Khoros Visualization image\n     VIPS* rw+   VIPS image\n      VST* rw-   Truevision Targa image\n   WBINFO* r--   Amiga Workbench Icon\n     WBMP* rw-   Wireless Bitmap (level 0) image\n     WEBM  rw+   Open Web Media\n     WEBP* rw+   WebP Image Format (libwebp 1.6.0 [0210])\n      WMF  r--   Windows Meta File\n      WMV  rw+   Windows Media Video\n      WPG* rw-   Word Perfect Graphics\n      X3F  r--   Sigma Camera RAW Format (0.22.2-Release)\n      XBM* rw-   X Windows system bitmap (black and white)\n       XC* r--   Constant image uniform color\n      XCF* r--   GIMP image\n      XPM* rw-   X Windows system pixmap (color)\n      XPS  r--   Microsoft XML Paper Specification\n       XV* rw+   Khoros Visualization image\n        Y* rw+   Raw yellow samples\n     YAML  -w+   The image format and characteristics\n    YCBCR* rw+   Raw Y, Cb, and Cr samples\n   YCBCRA* rw+   Raw Y, Cb, Cr, and alpha samples\n      YUV* rw-   CCIR 601 4:1:1 or 4:2:2\n\n* native blob support\nr read support\nw write support\n+ support for multiple images\n",
+  "capabilities": {
+    "animated_webp": "generated and independently decoded",
+    "heic_heif": "deferred: verified primary/sequence corpus not supplied",
+    "external_profiles": "deferred: no trusted redistributable profile provenance supplied"
+  },
+  "directories": [
+    "corpus/ordinary/empty-directory",
+    "corpus/collision/directory-conflict/photo.jpeg"
+  ],
+  "groups": {
+    "same_stem_collision": "corpus/collision/same-stem",
+    "directory_collision": "corpus/collision/directory-conflict"
+  },
+  "planning_mocks": [
+    {
+      "names": [
+        "case.png",
+        "CASE.PNG"
+      ],
+      "reason": "Windows default filesystem cannot store case-only sibling files"
+    },
+    {
+      "names": [
+        "bad:name.png",
+        "bad?name.png"
+      ],
+      "reason": "Windows-illegal filename characters; mocks only"
+    }
+  ],
+  "limitations": [
+    "Fixture checks do not execute or validate WinImgNormalizer.",
+    "JPEG byte determinism is asserted only within the recorded tool/codec environment.",
+    "Video suffixes contain opaque bytes; no real video codec claim.",
+    "No color-profile accuracy or HEIC/HEIF coverage is claimed."
+  ],
+  "files": [
+    {
+      "id": "ordinary-jpeg",
+      "path": "corpus/ordinary/landscape.jpg",
+      "recipe": "P6 PPM 64x48 gradient; four 8x8 RGB corner markers",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+      "length": 927,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "ordinary-png",
+      "path": "corpus/ordinary/sub/portrait.png",
+      "recipe": "P6 PPM 48x64 gradient; four 8x8 RGB corner markers",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          48,
+          64
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 0
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          48,
+          64
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              48,
+              64
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                16,
+                240,
+                16
+              ],
+              [
+                16,
+                16,
+                240
+              ],
+              [
+                240,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "2aa31600d18f6fd32b994d81af5e2c89a6a24759c79793766f5423dc3660ea63",
+      "length": 302,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "ordinary-bmp",
+      "path": "corpus/ordinary/sub/lines.bmp",
+      "recipe": "P6 PPM 64x48 lines; four 8x8 RGB corner markers",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "BMP",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 0
+      },
+      "observed": {
+        "format": "BMP",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                16,
+                240,
+                16
+              ],
+              [
+                16,
+                16,
+                240
+              ],
+              [
+                240,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "2b84cd1c556ba3b5b52d470234f12a90a442f0d2f10b0dbb5b401b189d029a4b",
+      "length": 9354,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "ordinary-tiff",
+      "path": "corpus/ordinary/seeded-noise.tiff",
+      "recipe": "P6 PPM 80x56 noise; four 8x8 RGB corner markers",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "TIFF",
+        "dimensions": [
+          80,
+          56
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 0
+      },
+      "observed": {
+        "format": "TIFF",
+        "dimensions": [
+          80,
+          56
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 1,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              80,
+              56
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              80,
+              56
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                16,
+                240,
+                16
+              ],
+              [
+                16,
+                16,
+                240
+              ],
+              [
+                240,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "f46c8b25b8820bc0cd317e56ae0da31bc2cba7d96d7b575f23dd78b07cf1b525",
+      "length": 13704,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "video-mp4",
+      "path": "corpus/ordinary/sub/opaque-video.mp4",
+      "recipe": "4096 seeded opaque bytes; suffix tests copy only",
+      "seed": 4418,
+      "generating_tool": "Python standard library random.Random",
+      "generating_tool_version": "3.12.14",
+      "source": "synthetic",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "decoded_video": false
+      },
+      "observed": {
+        "length": 4096
+      },
+      "sha256": "712ceea180389181511df35059cea1b2044052be9137fd26f0262a1fa7737f4f",
+      "length": 4096,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "video-mov",
+      "path": "corpus/ordinary/sub/opaque-video.mov",
+      "recipe": "4096 seeded opaque bytes; suffix tests copy only",
+      "seed": 4418,
+      "generating_tool": "Python standard library random.Random",
+      "generating_tool_version": "3.12.14",
+      "source": "synthetic",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "decoded_video": false
+      },
+      "observed": {
+        "length": 4096
+      },
+      "sha256": "0e26d23e2010b25d7ec722d86f0b09744987477a4ecc67fd460496e2595b8468",
+      "length": 4096,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "video-mkv",
+      "path": "corpus/ordinary/sub/opaque-video.mkv",
+      "recipe": "4096 seeded opaque bytes; suffix tests copy only",
+      "seed": 4418,
+      "generating_tool": "Python standard library random.Random",
+      "generating_tool_version": "3.12.14",
+      "source": "synthetic",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "decoded_video": false
+      },
+      "observed": {
+        "length": 4096
+      },
+      "sha256": "41f37ff7f487282f5b05aa4ad2ad1252e9182ac79607f90dfeb7e18a7c4510de",
+      "length": 4096,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "unsupported-text",
+      "path": "corpus/ordinary/ignored.txt",
+      "recipe": "literal UTF-8 control text",
+      "seed": null,
+      "generating_tool": "Python standard library",
+      "generating_tool_version": "3.12.14",
+      "source": "synthetic",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "unsupported": true
+      },
+      "observed": {
+        "length": 36
+      },
+      "sha256": "9265d8aaef259dc7c74d08e2d753d602b226efe542175fbdf8f3670e7597b9d5",
+      "length": 36,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "collision-photo-jpg",
+      "path": "corpus/collision/same-stem/photo.jpg",
+      "recipe": "P6 PPM 32x24 uniform RGB (224, 32, 32)",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            224,
+            32,
+            32
+          ],
+          [
+            224,
+            32,
+            32
+          ],
+          [
+            224,
+            32,
+            32
+          ],
+          [
+            224,
+            32,
+            32
+          ]
+        ],
+        "pixel_tolerance": 20
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              32,
+              24
+            ],
+            "corner_rgb": [
+              [
+                224,
+                31,
+                32
+              ],
+              [
+                224,
+                31,
+                32
+              ],
+              [
+                224,
+                31,
+                32
+              ],
+              [
+                224,
+                31,
+                32
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "a8536da526331ea75a4c7a91614b1af9876565e3431d96539ed4467ef6e45231",
+      "length": 297,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "collision-photo-png",
+      "path": "corpus/collision/same-stem/photo.png",
+      "recipe": "P6 PPM 32x24 uniform RGB (32, 224, 32)",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            32,
+            224,
+            32
+          ],
+          [
+            32,
+            224,
+            32
+          ],
+          [
+            32,
+            224,
+            32
+          ],
+          [
+            32,
+            224,
+            32
+          ]
+        ],
+        "pixel_tolerance": 0
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                32,
+                224,
+                32
+              ],
+              [
+                32,
+                224,
+                32
+              ],
+              [
+                32,
+                224,
+                32
+              ],
+              [
+                32,
+                224,
+                32
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7de2da7db17fd94b7a06f8c068046f12e4f0aad7823d11f0ec9b0d16cfd1cf6d",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "collision-photo-tiff",
+      "path": "corpus/collision/same-stem/photo.tiff",
+      "recipe": "P6 PPM 32x24 uniform RGB (32, 32, 224)",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "TIFF",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            32,
+            32,
+            224
+          ],
+          [
+            32,
+            32,
+            224
+          ],
+          [
+            32,
+            32,
+            224
+          ],
+          [
+            32,
+            32,
+            224
+          ]
+        ],
+        "pixel_tolerance": 0
+      },
+      "observed": {
+        "format": "TIFF",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 1,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              32,
+              24
+            ],
+            "corner_rgb": [
+              [
+                32,
+                32,
+                224
+              ],
+              [
+                32,
+                32,
+                224
+              ],
+              [
+                32,
+                32,
+                224
+              ],
+              [
+                32,
+                32,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "ede2b4e3c7bc5c4f75a1253f580e4a447c305369db308bf9e9f0667570d0256f",
+      "length": 2568,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "collision-photo_001-png",
+      "path": "corpus/collision/same-stem/photo_001.png",
+      "recipe": "P6 PPM 32x24 uniform RGB (224, 224, 32)",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            224,
+            224,
+            32
+          ],
+          [
+            224,
+            224,
+            32
+          ],
+          [
+            224,
+            224,
+            32
+          ],
+          [
+            224,
+            224,
+            32
+          ]
+        ],
+        "pixel_tolerance": 0
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                224,
+                224,
+                32
+              ],
+              [
+                224,
+                224,
+                32
+              ],
+              [
+                224,
+                224,
+                32
+              ],
+              [
+                224,
+                224,
+                32
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "f5121f5a57b57960bc8aa7339e2e15e9ba5feb384b9802acd1a88d84b477149c",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "collision-directory-conflict",
+      "path": "corpus/collision/directory-conflict/photo.png",
+      "recipe": "P6 uniform RGB (160,32,224); intended .jpeg destination already a directory",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            160,
+            32,
+            224
+          ],
+          [
+            160,
+            32,
+            224
+          ],
+          [
+            160,
+            32,
+            224
+          ],
+          [
+            160,
+            32,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                160,
+                32,
+                224
+              ],
+              [
+                160,
+                32,
+                224
+              ],
+              [
+                160,
+                32,
+                224
+              ],
+              [
+                160,
+                32,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "dc9c446ae2395c182b3bcfb2c9900c41082c726c440d5901b1428727fe201099",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "duplicate-0",
+      "path": "corpus/duplicate/a/same.png",
+      "recipe": "P6 PPM uniform RGB (224, 32, 32); identical filename and fixed UTC timestamp",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            224,
+            32,
+            32
+          ],
+          [
+            224,
+            32,
+            32
+          ],
+          [
+            224,
+            32,
+            32
+          ],
+          [
+            224,
+            32,
+            32
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "707daf450bec5d848f1c857dc580de03e71f1363bb3117d315d9e6d15cdeb1d4",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "duplicate-1",
+      "path": "corpus/duplicate/b/same.png",
+      "recipe": "P6 PPM uniform RGB (32, 224, 32); identical filename and fixed UTC timestamp",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            32,
+            224,
+            32
+          ],
+          [
+            32,
+            224,
+            32
+          ],
+          [
+            32,
+            224,
+            32
+          ],
+          [
+            32,
+            224,
+            32
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                32,
+                224,
+                32
+              ],
+              [
+                32,
+                224,
+                32
+              ],
+              [
+                32,
+                224,
+                32
+              ],
+              [
+                32,
+                224,
+                32
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7de2da7db17fd94b7a06f8c068046f12e4f0aad7823d11f0ec9b0d16cfd1cf6d",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "two-tiff-pages",
+      "path": "corpus/frames/pages.tiff",
+      "recipe": "Two uniform P6 pages: red then blue",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "TIFF",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 2
+      },
+      "observed": {
+        "format": "TIFF",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 2,
+        "mode": "RGB",
+        "exif_orientation": 1,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ]
+            ]
+          },
+          {
+            "index": 1,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                32,
+                32,
+                224
+              ],
+              [
+                32,
+                32,
+                224
+              ],
+              [
+                32,
+                32,
+                224
+              ],
+              [
+                32,
+                32,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "6152103ca6db8b2e40529f515acbbfd02a1ab500bea9f413ed95520409781156",
+      "length": 18976,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "offset-two-frame-gif",
+      "path": "corpus/frames/offset.gif",
+      "recipe": "Red 64x48 canvas then green 16x16 tile at offset +8+10",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "GIF",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 2
+      },
+      "observed": {
+        "format": "GIF",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 2,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ]
+            ]
+          },
+          {
+            "index": 1,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              8,
+              10,
+              24,
+              26
+            ],
+            "corner_rgb": [
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "6f456b52a440b79a2ca300aae562f793c34f7137367f8f3f91adcea1bbcd63e8",
+      "length": 158,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "animated-webp",
+      "path": "corpus/frames/animated.webp",
+      "recipe": "Two uniform P6 frames red/blue, lossless animated WebP",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "WEBP",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 2
+      },
+      "observed": {
+        "format": "WEBP",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 2,
+        "mode": "RGB",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ],
+              [
+                224,
+                32,
+                32
+              ]
+            ]
+          },
+          {
+            "index": 1,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                32,
+                32,
+                224
+              ],
+              [
+                32,
+                32,
+                224
+              ],
+              [
+                32,
+                32,
+                224
+              ],
+              [
+                32,
+                32,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "4e28b471f792e1bfaa0649f546fe8d9d8d357ea95a3d58f907f23657d30eb29f",
+      "length": 156,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "alpha-rgba",
+      "path": "corpus/advanced/alpha/transparency.png",
+      "recipe": "P7 PAM four RGBA pixels: transparent red, half green, opaque blue/red",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          4,
+          1
+        ],
+        "frame_count": 1,
+        "rgba": [
+          [
+            255,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0,
+            128
+          ],
+          [
+            0,
+            0,
+            255,
+            255
+          ],
+          [
+            255,
+            0,
+            0,
+            255
+          ]
+        ],
+        "white_composited_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            127,
+            255,
+            127
+          ],
+          [
+            0,
+            0,
+            255
+          ],
+          [
+            255,
+            0,
+            0
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          4,
+          1
+        ],
+        "frame_count": 1,
+        "mode": "RGBA",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              4,
+              1
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                255,
+                0,
+                0
+              ],
+              [
+                255,
+                0,
+                0
+              ],
+              [
+                255,
+                0,
+                0
+              ],
+              [
+                255,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "rgba": [
+          [
+            255,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            255,
+            0,
+            128
+          ],
+          [
+            0,
+            0,
+            255,
+            255
+          ],
+          [
+            255,
+            0,
+            0,
+            255
+          ]
+        ]
+      },
+      "sha256": "5a19a92e1ce80a49dc00521b771525c9fc77eeb9952a71b3bcc99faebd804e17",
+      "length": 142,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "orientation-source",
+      "path": "corpus/advanced/orientation/source.jpg",
+      "recipe": "P6 asymmetric corner-marked JPEG before EXIF orientation tagging",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+      "length": 927,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "exif-orientation-1",
+      "path": "corpus/advanced/orientation/orientation-1.jpg",
+      "recipe": "ImageMagick marker JPEG; standard-library APP1 Exif TIFF IFD orientation tag",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "exif_orientation": 1,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 1,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "a9db938f2f2e17319918e6b49e155d46237c132bb72e4a286ed7254334816afd",
+      "length": 963,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "exif-orientation-2",
+      "path": "corpus/advanced/orientation/orientation-2.jpg",
+      "recipe": "ImageMagick marker JPEG; standard-library APP1 Exif TIFF IFD orientation tag",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "exif_orientation": 2,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 2,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "914e73404395acb868f6b0605f80c903824452e3e6c950f1515862567075e0f5",
+      "length": 963,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "exif-orientation-3",
+      "path": "corpus/advanced/orientation/orientation-3.jpg",
+      "recipe": "ImageMagick marker JPEG; standard-library APP1 Exif TIFF IFD orientation tag",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "exif_orientation": 3,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 3,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "dfbe381b718e4f7863c60fa36530b23685c270994eba407337d5a9bdadb895f9",
+      "length": 963,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "exif-orientation-4",
+      "path": "corpus/advanced/orientation/orientation-4.jpg",
+      "recipe": "ImageMagick marker JPEG; standard-library APP1 Exif TIFF IFD orientation tag",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "exif_orientation": 4,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 4,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "63062316031b59bf418eb7aff59ee677ea12bf8092e6efdbb26a606c6c935ac5",
+      "length": 963,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "exif-orientation-5",
+      "path": "corpus/advanced/orientation/orientation-5.jpg",
+      "recipe": "ImageMagick marker JPEG; standard-library APP1 Exif TIFF IFD orientation tag",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "exif_orientation": 5,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 5,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "ef1acb622b610536aeb2676055ec911e039917d3dbcc3c5a5bb189afb561a6e3",
+      "length": 963,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "exif-orientation-6",
+      "path": "corpus/advanced/orientation/orientation-6.jpg",
+      "recipe": "ImageMagick marker JPEG; standard-library APP1 Exif TIFF IFD orientation tag",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "exif_orientation": 6,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 6,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "ca9f3ff201a801055f36a8cd5e72fb8c5bbb10484365c63c90fb9aa33a5bdb5d",
+      "length": 963,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "exif-orientation-7",
+      "path": "corpus/advanced/orientation/orientation-7.jpg",
+      "recipe": "ImageMagick marker JPEG; standard-library APP1 Exif TIFF IFD orientation tag",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "exif_orientation": 7,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 7,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "3660df9326dadc35e3bea261e924f0bc53d464f513aa6d8b44b7fa6238dd2f17",
+      "length": 963,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "exif-orientation-8",
+      "path": "corpus/advanced/orientation/orientation-8.jpg",
+      "recipe": "ImageMagick marker JPEG; standard-library APP1 Exif TIFF IFD orientation tag",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "exif_orientation": 8,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": 8,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "09438eb60addbc4afe70290296d28e560b848d75dca3ce8374fe772b239ed573",
+      "length": 963,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "zero-jpeg",
+      "path": "corpus/advanced/invalid/zero.jpg",
+      "recipe": "literal benign invalid bytes",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "decode_succeeded": false
+      },
+      "observed": {
+        "decode_succeeded": false,
+        "decoder_error_type": "UnidentifiedImageError"
+      },
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "length": 0,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "header-jpeg",
+      "path": "corpus/advanced/invalid/header.jpg",
+      "recipe": "literal benign invalid bytes",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "decode_succeeded": false
+      },
+      "observed": {
+        "decode_succeeded": false,
+        "decoder_error_type": "OSError"
+      },
+      "sha256": "23e5c96c789570b1a740a7463526bb846d97506642e12a6a5e6b9b3b7a90cd5f",
+      "length": 11,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "invalid-jpeg",
+      "path": "corpus/advanced/invalid/benign.jpg",
+      "recipe": "literal benign invalid bytes",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "decode_succeeded": false
+      },
+      "observed": {
+        "decode_succeeded": false,
+        "decoder_error_type": "UnidentifiedImageError"
+      },
+      "sha256": "592fe821991141e51127cd1eca3f4762b7863610675395c0228349dc7785e9af",
+      "length": 34,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z"
+    },
+    {
+      "id": "filename-0",
+      "path": "corpus/advanced/filenames/space name.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-1",
+      "path": "corpus/advanced/filenames/[brackets].png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-2",
+      "path": "corpus/advanced/filenames/percent%d.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-3",
+      "path": "corpus/advanced/filenames/quote's.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-4",
+      "path": "corpus/advanced/filenames/amp&ersand.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-5",
+      "path": "corpus/advanced/filenames/(parentheses).png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-6",
+      "path": "corpus/advanced/filenames/bang!.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-7",
+      "path": "corpus/advanced/filenames/ää-ö-é.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-8",
+      "path": "corpus/advanced/filenames/emoji-😀.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-9",
+      "path": "corpus/advanced/filenames/=formula.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-10",
+      "path": "corpus/advanced/filenames/+formula.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-11",
+      "path": "corpus/advanced/filenames/@formula.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "filename-12",
+      "path": "corpus/advanced/filenames/-formula.png",
+      "recipe": "P6 uniform source; encoded under neutral path then copied to legal literal filename",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ],
+          [
+            96,
+            160,
+            224
+          ]
+        ]
+      },
+      "observed": {
+        "format": "PNG",
+        "dimensions": [
+          32,
+          24
+        ],
+        "frame_count": 1,
+        "mode": "P",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              32,
+              24
+            ],
+            "encoded_tile_bounds": null,
+            "corner_rgb": [
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ],
+              [
+                96,
+                160,
+                224
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "7e428abf02ec5064640cea13da32f057565c1ad3b26989480b7067a0903cb137",
+      "length": 128,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    },
+    {
+      "id": "weak-source-jpeg",
+      "path": "corpus/weak/source.jpg",
+      "recipe": "P6 asymmetric corner-marked JPEG; controlled runner supplies weak output",
+      "seed": 4418,
+      "generating_tool": "ImageMagick 7 / Python standard library",
+      "generating_tool_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+      "source": "synthetic recipe in tests/legacy/build_fixtures.py",
+      "license": "repository MIT",
+      "privacy_status": "synthetic",
+      "expected": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "corner_rgb": [
+          [
+            240,
+            16,
+            16
+          ],
+          [
+            16,
+            240,
+            16
+          ],
+          [
+            16,
+            16,
+            240
+          ],
+          [
+            240,
+            240,
+            16
+          ]
+        ],
+        "pixel_tolerance": 35
+      },
+      "observed": {
+        "format": "JPEG",
+        "dimensions": [
+          64,
+          48
+        ],
+        "frame_count": 1,
+        "mode": "RGB",
+        "exif_orientation": null,
+        "icc_profile_present": false,
+        "frames": [
+          {
+            "index": 0,
+            "dimensions": [
+              64,
+              48
+            ],
+            "encoded_tile_bounds": [
+              0,
+              0,
+              64,
+              48
+            ],
+            "corner_rgb": [
+              [
+                240,
+                16,
+                16
+              ],
+              [
+                15,
+                240,
+                16
+              ],
+              [
+                17,
+                16,
+                240
+              ],
+              [
+                239,
+                240,
+                16
+              ]
+            ]
+          }
+        ]
+      },
+      "sha256": "3a9acc193782ce5e4cace931e36fae69e8e878d786e6fde751bb42cbb464e48d",
+      "length": 927,
+      "last_write_utc": "2020-02-03T04:05:06Z",
+      "creation_utc": "2020-02-03T04:05:06Z",
+      "determinism": "two fresh encodes have equal SHA-256"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "<magick>",
+        "-version"
+      ],
+      "exit_code": 0,
+      "stdout": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org\nCopyright: (C) 1999 ImageMagick Studio LLC\nLicense: https://imagemagick.org/license/\nFeatures: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) \nDelegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd\nCompiler: Visual Studio 2026 (195136257)\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "-list",
+        "format"
+      ],
+      "exit_code": 0,
+      "stdout": "   Format  Mode  Description\n-------------------------------------------------------------------------------\n      3FR  r--   Hasselblad CFV/H3D39II Raw Format (0.22.2-Release)\n      3G2  r--   Media Container\n      3GP  r--   Media Container\n        A* rw+   Raw alpha samples\n      AAI* rw+   AAI Dune image\n       AI  rw-   Adobe Illustrator CS2\n     APNG  rw+   Animated Portable Network Graphics\n      ART* rw-   PFS: 1st Publisher Clip Art\n      ARW  r--   Sony Alpha Raw Format (0.22.2-Release)\n      ASE* rw+   Aseprite Sprite Format\n ASEPRITE* rw+   Aseprite Sprite Format\n   ASHLAR* -w+   Image sequence laid out in continuous irregular courses\n     AVCI  r--   AVC Image File Format (1.23.5)\n      AVI  r--   Microsoft Audio/Visual Interleaved\n     AVIF  rw+   AV1 Image File Format (1.23.5)\n      AVS* rw+   AVS X image\n        B* rw+   Raw blue samples\n    BAYER* rw+   Raw mosaiced samples\n   BAYERA* rw+   Raw mosaiced and alpha samples\n      BGR* rw+   Raw blue, green, and red samples\n     BGRA* rw+   Raw blue, green, red, and alpha samples\n     BGRO* rw+   Raw blue, green, red, and opacity samples\n      BMP* rw-   Microsoft Windows bitmap image\n     BMP2* rw-   Microsoft Windows bitmap image (V2)\n     BMP3* rw-   Microsoft Windows bitmap image (V3)\n      BRF* -w-   BRF ASCII Braille format\n        C* rw+   Raw cyan samples\n     C2PA  r--   C2PA Provenance Metadata\n      CAL* rw-   Continuous Acquisition and Life-cycle Support Type 1\n             Specified in MIL-R-28002 and MIL-PRF-28002\n     CALS* rw-   Continuous Acquisition and Life-cycle Support Type 1\n             Specified in MIL-R-28002 and MIL-PRF-28002\n   CANVAS* r--   Constant image uniform color\n  CAPTION* r--   Caption\n      CIN* rw-   Cineon Image File\n      CIP* -w-   Cisco IP phone image format\n     CLIP* rw+   Image Clip Mask\nCLIPBOARD* rw-   The system clipboard\n     CMYK* rw+   Raw cyan, magenta, yellow, and black samples\n    CMYKA* rw+   Raw cyan, magenta, yellow, black, and alpha samples\n      CR2  r--   Canon Digital Camera Raw Format (0.22.2-Release)\n      CR3  r--   Canon Digital Camera Raw Format (0.22.2-Release)\n      CRW  r--   Canon Digital Camera Raw Format (0.22.2-Release)\n     CUBE* r--   Cube LUT\n      CUR* rw-   Microsoft icon\n      CUT* r--   DR Halo\n     DATA* rw+   Base64-encoded inline images\n      DCM* r--   Digital Imaging and Communications in Medicine image\n             DICOM is used by the medical community for images like X-rays.  The\n             specification, \"Digital Imaging and Communications in Medicine\n             (DICOM)\", is available at http://medical.nema.org/.  In particular,\n             see part 5 which describes the image encoding (RLE, JPEG, JPEG-LS),\n             and supplement 61 which adds JPEG-2000 encoding.\n      DCR  r--   Kodak Digital Camera Raw Format (0.22.2-Release)\n    DCRAW  r--   Raw Photo Decoder (dcraw) (0.22.2-Release)\n      DCX* rw+   ZSoft IBM PC multi-page Paintbrush\n      DDS* rw+   Microsoft DirectDraw Surface\n    DFONT* r--   Multi-face font package (Freetype 2.14.3)\n      DNG  r--   Digital Negative Raw Format (0.22.2-Release)\n      DPX* rw-   SMPTE 268M-2003 (DPX 2.0)\n             Digital Moving Picture Exchange Bitmap, Version 2.0.\n             See SMPTE 268M-2003 specification at http://www.smtpe.org\n             \n     DXT1* rw+   Microsoft DirectDraw Surface\n     DXT5* rw+   Microsoft DirectDraw Surface\n      EMF  r--   Windows Enhanced Meta File\n     EPDF  rw-   Encapsulated Portable Document Format\n      EPI  rw-   Encapsulated PostScript Interchange format\n      EPS  rw-   Encapsulated PostScript\n     EPS2  -w-   Level II Encapsulated PostScript\n     EPS3  -w+   Level III Encapsulated PostScript\n     EPSF  rw-   Encapsulated PostScript\n     EPSI  rw-   Encapsulated PostScript Interchange format\n      EPT  rw-   Encapsulated PostScript with TIFF preview\n     EPT2  rw-   Encapsulated PostScript Level II with TIFF preview\n     EPT3  rw+   Encapsulated PostScript Level III with TIFF preview\n      ERF  r--   Epson Raw Format (0.22.2-Release)\n      EXR  rw-   High Dynamic-range (HDR) (OpenEXR 3.5.1)\n FARBFELD* rw-   Farbfeld\n      FAX* rw+   Group 3 FAX\n             FAX machines use non-square pixels which are 1.5 times wider than\n             they are tall but computer displays use square pixels, therefore\n             FAX images may appear to be narrow unless they are explicitly\n             resized using a geometry of \"150x100%\".\n             \n       FF* rw-   Farbfeld\n      FFF  r--   Hasselblad CFV/H3D39II Raw Format (0.22.2-Release)\n     FILE* r--   Uniform Resource Locator (file://)\n     FITS* rw+   Flexible Image Transport System\n     FL32* rw-   FilmLight\n      FLV  rw+   Flash Video Stream\n  FRACTAL* r--   Plasma fractal image\n      FTP* r--   Uniform Resource Locator (ftp://)\n      FTS* rw+   Flexible Image Transport System\n     FTXT* rw-   Formatted text image\n        G* rw+   Raw green samples\n       G3* rw-   Group 3 FAX\n       G4* rw-   Group 4 FAX\n      GIF* rw+   CompuServe graphics interchange format\n    GIF87* rw-   CompuServe graphics interchange format (version 87a)\n GRADIENT* r--   Gradual linear passing from one shade to another\n     GRAY* rw+   Raw gray samples\n    GRAYA* rw+   Raw gray and alpha samples\n   GROUP4* rw-   Raw CCITT Group4\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n     HALD* r--   Identity Hald color lookup table image\n      HDR* rw+   Radiance RGBE image format\n     HEIC  r--   High Efficiency Image Format (1.23.5)\n     HEIF  r--   High Efficiency Image Format (1.23.5)\nHISTOGRAM* -w-   Histogram of the image\n      HRZ* rw-   Slow Scan TeleVision\n      HTM* -w-   Hypertext Markup Language and a client-side image map\n     HTML* -w-   Hypertext Markup Language and a client-side image map\n     HTTP* r--   Uniform Resource Locator (http://)\n    HTTPS* r--   Uniform Resource Locator (https://)\n      ICB* rw-   Truevision Targa image\n      ICN* rw-   Microsoft icon\n      ICO* rw+   Microsoft icon\n     ICON* rw-   Microsoft icon\n      IIQ  r--   Phase One Raw Format (0.22.2-Release)\n     INFO  -w+   The image format and characteristics\n   INLINE* rw+   Base64-encoded inline images\n      IPL* rw+   IPL Image Sequence\n   ISOBRL* -w-   ISO/TR 11548-1 format\n  ISOBRL6* -w-   ISO/TR 11548-1 format 6dot\n      J2C* rw-   JPEG-2000 Code Stream Syntax (2.5.4)\n      J2K* rw-   JPEG-2000 Code Stream Syntax (2.5.4)\n      JNG* rw-   JPEG Network Graphics\n             See http://www.libpng.org/pub/mng/ for details about the JNG\n             format.\n      JNX* r--   Garmin tile format\n      JP2* rw-   JPEG-2000 File Format Syntax (2.5.4)\n      JPC* rw-   JPEG-2000 Code Stream Syntax (2.5.4)\n      JPE* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n     JPEG* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      JPG* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      JPM* rw-   JPEG-2000 File Format Syntax (2.5.4)\n      JPS* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      JPT* rw-   JPEG-2000 File Format Syntax (2.5.4)\n     JSON  -w+   The image format and characteristics\n      JXL* rw+   JPEG XL (ISO/IEC 18181) (libjxl 0.12.0)\n        K* rw+   Raw black samples\n      K25  r--   Kodak Digital Camera Raw Format (0.22.2-Release)\n      KDC  r--   Kodak Digital Camera Raw Format (0.22.2-Release)\n   KERNEL* -w-   Morphology Kernel\n    LABEL* r--   Image label\n        M* rw+   Raw magenta samples\n      M2V  rw+   MPEG Video Stream\n      M4V  rw+   Raw VIDEO-4 Video\n      MAC* r--   MAC Paint\n      MAP* rw-   Colormap intensities and indices\n     MASK* rw+   Image Clip Mask\n      MAT  rw+   MATLAB level 5 image format\n    MATTE* -w+   MATTE format\n      MDC  r--   Minolta Digital Camera Raw Format (0.22.2-Release)\n      MEF  r--   Mamiya Raw Format (0.22.2-Release)\n     MIFF* rw+   Magick Image File Format\n      MKV  rw+   Multimedia Container\n      MNG* rw+   Multiple-image Network Graphics (libpng 1.6.58)\n             See http://www.libpng.org/pub/mng/ for details about the MNG\n             format.\n     MONO* rw-   Raw bi-level bitmap\n      MOS  r--   Aptus Leaf Raw Format (0.22.2-Release)\n      MOV  rw+   MPEG Video Stream\n      MP4  rw+   VIDEO-4 Video Stream\n      MPC* rw+   Magick Pixel Cache image format\n     MPEG  rw+   MPEG Video Stream\n      MPG  rw+   MPEG Video Stream\n      MPO* r--   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n      MRW  r--   Sony (Minolta) Raw Format (0.22.2-Release)\n      MSL  r--   Magick Scripting Language\n     MSVG* rw+   ImageMagick's own SVG internal renderer\n      MTV* rw+   MTV Raytracing image format\n      MVG* rw-   Magick Vector Graphics\n      NEF  r--   Nikon Digital SLR Camera Raw Format (0.22.2-Release)\n      NRW  r--   Nikon Digital SLR Camera Raw Format (0.22.2-Release)\n     NULL* rw-   Constant image of uniform color\n        O* rw+   Raw opacity samples\n      ORA  r--   OpenRaster format\n      ORF  r--   Olympus Digital Camera Raw Format (0.22.2-Release)\n      OTB* rw-   On-the-air bitmap\n      OTF* r--   Open Type font (Freetype 2.14.3)\n      PAL* rw-   16bit/pixel interleaved YUV\n     PALM* rw+   Palm pixmap\n      PAM* rw+   Common 2-dimensional bitmap format\n    PANGO* r--   Pango Markup Language (Pangocairo 1.45.2)\n  PATTERN* r--   Predefined pattern\n      PBM* rw+   Portable bitmap format (black and white)\n      PCD* rw-   Photo CD\n     PCDS* rw-   Photo CD\n      PCL  rw+   Printer Control Language\n      PCT* rw-   Apple Macintosh QuickDraw/PICT\n      PCX* rw-   ZSoft IBM PC Paintbrush\n      PDB* rw+   Palm Database ImageViewer Format\n      PDF  rw+   Portable Document Format\n     PDFA  rw+   Portable Document Archive Format\n      PEF  r--   Pentax Electronic Raw Format (0.22.2-Release)\n      PES* r--   Embrid Embroidery Format\n      PFA* r--   Postscript Type 1 font (ASCII) (Freetype 2.14.3)\n      PFB* r--   Postscript Type 1 font (binary) (Freetype 2.14.3)\n      PFM* rw+   Portable float format\n      PGM* rw+   Portable graymap format (gray scale)\n      PGX* rw-   JPEG 2000 uncompressed format\n      PHM* rw+   Portable half float format\n    PICON* rw-   Personal Icon\n     PICT* rw-   Apple Macintosh QuickDraw/PICT\n      PIX* r--   Alias/Wavefront RLE image format\n    PJPEG* rw-   Joint Photographic Experts Group JFIF format (libjpeg-turbo 3.2.0)\n   PLASMA* r--   Plasma fractal image\n      PNG* rw-   Portable Network Graphics (libpng 1.6.58)\n             See http://www.libpng.org/ for details about the PNG format.\n    PNG00* rw-   PNG inheriting bit-depth, color-type from original, if possible\n    PNG24* rw-   opaque or binary transparent 24-bit RGB\n    PNG32* rw-   opaque or transparent 32-bit RGBA\n    PNG48* rw-   opaque or binary transparent 48-bit RGB\n    PNG64* rw-   opaque or transparent 64-bit RGBA\n     PNG8* rw-   8-bit indexed with optional binary transparency\n      PNM* rw+   Portable anymap\nPOCKETMOD  rw+   Pocketmod Personal Organizer\n      PPM* rw+   Portable pixmap format (color)\n       PS  rw+   PostScript\n      PS2  -w+   Level II PostScript\n      PS3  -w+   Level III PostScript\n      PSB* rw+   Adobe Large Document Format\n      PSD* rw+   Adobe Photoshop bitmap\n     PTIF* rw+   Pyramid encoded TIFF\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n      PWP* r--   Seattle Film Works\n      QOI* rw-   Quite OK image format\n        R* rw+   Raw red samples\nRADIAL-GRADIENT* r--   Gradual radial passing from one shade to another\n      RAF  r--   Fuji CCD-RAW Graphic Raw Format (0.22.2-Release)\n      RAS* rw+   SUN Rasterfile\n      RAW  r--   Raw (0.22.2-Release)\n      RGB* rw+   Raw red, green, and blue samples\n   RGB565* r--   Raw red, green, blue samples in 565 format\n     RGBA* rw+   Raw red, green, blue, and alpha samples\n     RGBO* rw+   Raw red, green, blue, and opacity samples\n      RGF* rw-   LEGO Mindstorms EV3 Robot Graphic Format (black and white)\n      RLA* r--   Alias/Wavefront image\n      RLE* r--   Utah Run length encoded image\n      RMF  r--   Raw Media Format (0.22.2-Release)\n     RSVG* rw+   Librsvg SVG renderer (RSVG 2.40.20)\n      RW2  r--   Panasonic Lumix Raw Format (0.22.2-Release)\n      RWL  r--   Leica Raw Format (0.22.2-Release)\n      SCR* r--   ZX-Spectrum SCREEN$\nSCREENSHOT* r--   Screen shot\n      SCT* r--   Scitex HandShake\n      SF3* rw+   Simple File Format Family Images\n             See https://shirakumo.org/docs/sf3/ for information on the SF3 file formats.\n      SFW* r--   Seattle Film Works\n      SGI* rw+   Irix RGB image\n    SHTML* -w-   Hypertext Markup Language and a client-side image map\n      SIX* rw-   DEC SIXEL Graphics Format\n    SIXEL* rw-   DEC SIXEL Graphics Format\nSPARSE-COLOR* -w+   Sparse Color\n      SR2  r--   Sony Raw Format 2 (0.22.2-Release)\n      SRF  r--   Sony Raw Format (0.22.2-Release)\n      SRW  r--   Samsung Raw Format (0.22.2-Release)\n  STEGANO* r--   Steganographic image\n      STI  r--   Sinar CaptureShop Raw Format (0.22.2-Release)\n   STRIMG* rw-   String to image and back\n      SUN* rw+   SUN Rasterfile\n      SVG  rw+   Scalable Vector Graphics (RSVG 2.40.20)\n     SVGZ* rw+   Compressed Scalable Vector Graphics (RSVG 2.40.20)\n     TEXT* r--   Text\n      TGA* rw-   Truevision Targa image\nTHUMBNAIL* -w+   EXIF Profile Thumbnail\n     TIFF* rw+   Tagged Image File Format (LIBTIFF, Version 4.7.2)\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n   TIFF64* rw+   Tagged Image File Format (64-bit) (LIBTIFF, Version 4.7.2)\n             Compression options: None, Fax/Group3, Group4, JBIG, JPEG, LERC, LZW, LZMA, RLE, ZIP, ZSTD, WEBP\n     TILE* r--   Tile image with a texture\n      TIM* r--   PSX TIM\n      TM2* r--   PS2 TIM2\n      TTC* r--   TrueType font collection (Freetype 2.14.3)\n      TTF* r--   TrueType font (Freetype 2.14.3)\n      TXT* rw+   Text\n     UBRL* -w-   Unicode Text format\n    UBRL6* -w-   Unicode Text format 6dot\n      UIL* -w-   X-Motif UIL table\n     UYVY* rw-   16bit/pixel interleaved YUV\n      VDA* rw-   Truevision Targa image\n    VICAR* rw-   Video Image Communication And Retrieval\n      VID* rw+   Visual Image Directory\n     VIFF* rw+   Khoros Visualization image\n     VIPS* rw+   VIPS image\n      VST* rw-   Truevision Targa image\n   WBINFO* r--   Amiga Workbench Icon\n     WBMP* rw-   Wireless Bitmap (level 0) image\n     WEBM  rw+   Open Web Media\n     WEBP* rw+   WebP Image Format (libwebp 1.6.0 [0210])\n      WMF  r--   Windows Meta File\n      WMV  rw+   Windows Media Video\n      WPG* rw-   Word Perfect Graphics\n      X3F  r--   Sigma Camera RAW Format (0.22.2-Release)\n      XBM* rw-   X Windows system bitmap (black and white)\n       XC* r--   Constant image uniform color\n      XCF* r--   GIMP image\n      XPM* rw-   X Windows system pixmap (color)\n      XPS  r--   Microsoft XML Paper Specification\n       XV* rw+   Khoros Visualization image\n        Y* rw+   Raw yellow samples\n     YAML  -w+   The image format and characteristics\n    YCBCR* rw+   Raw Y, Cb, and Cr samples\n   YCBCRA* rw+   Raw Y, Cb, Cr, and alpha samples\n      YUV* rw-   CCIR 601 4:1:1 or 4:2:2\n\n* native blob support\nr read support\nw write support\n+ support for multiple images\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-001.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-quality",
+        "95",
+        "<fixture-root>\\.recipes\\encode-000-a.jpg"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-001.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-quality",
+        "95",
+        "<fixture-root>\\.recipes\\encode-000-b.jpg"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-002.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-001-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-002.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-001-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-003.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-002-a.bmp"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-003.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-002-b.bmp"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-004.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-003-a.tiff"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-004.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-003-b.tiff"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-005.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-quality",
+        "95",
+        "<fixture-root>\\.recipes\\encode-008-a.jpg"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-005.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-quality",
+        "95",
+        "<fixture-root>\\.recipes\\encode-008-b.jpg"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-006.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-009-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-006.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-009-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-007.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-010-a.tiff"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-007.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-010-b.tiff"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-008.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-011-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-008.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-011-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-009.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-012-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-009.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-012-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-010.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-013-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-010.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-013-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-011.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-014-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-011.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-014-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-012.ppm",
+        "<fixture-root>\\.recipes\\source-013.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-015-a.tiff"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-012.ppm",
+        "<fixture-root>\\.recipes\\source-013.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-015-b.tiff"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "-delay",
+        "12",
+        "(",
+        "<fixture-root>\\.recipes\\source-012.ppm",
+        "-set",
+        "page",
+        "64x48+0+0",
+        ")",
+        "(",
+        "<fixture-root>\\.recipes\\source-014.ppm",
+        "-set",
+        "page",
+        "64x48+8+10",
+        ")",
+        "-loop",
+        "0",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-016-a.gif"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "-delay",
+        "12",
+        "(",
+        "<fixture-root>\\.recipes\\source-012.ppm",
+        "-set",
+        "page",
+        "64x48+0+0",
+        ")",
+        "(",
+        "<fixture-root>\\.recipes\\source-014.ppm",
+        "-set",
+        "page",
+        "64x48+8+10",
+        ")",
+        "-loop",
+        "0",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-016-b.gif"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "-delay",
+        "12",
+        "<fixture-root>\\.recipes\\source-012.ppm",
+        "<fixture-root>\\.recipes\\source-013.ppm",
+        "-loop",
+        "0",
+        "-define",
+        "webp:lossless=true",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-017-a.webp"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "-delay",
+        "12",
+        "<fixture-root>\\.recipes\\source-012.ppm",
+        "<fixture-root>\\.recipes\\source-013.ppm",
+        "-loop",
+        "0",
+        "-define",
+        "webp:lossless=true",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "<fixture-root>\\.recipes\\encode-017-b.webp"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\alpha.pam",
+        "-define",
+        "png:color-type=6",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-018-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\alpha.pam",
+        "-define",
+        "png:color-type=6",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-018-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-015.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-quality",
+        "95",
+        "<fixture-root>\\.recipes\\encode-019-a.jpg"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-015.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-quality",
+        "95",
+        "<fixture-root>\\.recipes\\encode-019-b.jpg"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-031-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-031-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-032-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-032-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-033-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-033-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-034-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-034-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-035-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-035-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-036-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-036-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-037-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-037-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-038-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-038-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-039-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-039-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-040-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-040-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-041-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-041-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-042-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-042-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-043-a.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-016.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-define",
+        "png:exclude-chunk=date,time",
+        "<fixture-root>\\.recipes\\encode-043-b.png"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-017.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-quality",
+        "95",
+        "<fixture-root>\\.recipes\\encode-044-a.jpg"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "<magick>",
+        "<fixture-root>\\.recipes\\source-017.ppm",
+        "+set",
+        "date:create",
+        "+set",
+        "date:modify",
+        "-quality",
+        "95",
+        "<fixture-root>\\.recipes\\encode-044-b.jpg"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

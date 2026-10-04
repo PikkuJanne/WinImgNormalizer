@@ -306,8 +306,8 @@ class Builder:
             raise RuntimeError("Independent TIFF pages were not red then blue")
         small = self.source(16, 16, color=(32, 224, 32))
         entry = self.encode("offset-two-frame-gif", "corpus/frames/offset.gif",
-                            ["-delay", "12", "-page", "64x48+0+0", str(first),
-                             "-page", "64x48+8+10", str(small)],
+                            ["-delay", "12", "(", str(first), "-set", "page", "64x48+0+0", ")",
+                             "(", str(small), "-set", "page", "64x48+8+10", ")"],
                             {"format": "GIF", "dimensions": [64, 48], "frame_count": 2},
                             "Red 64x48 canvas then green 16x16 tile at offset +8+10",
                             ["-loop", "0"])
@@ -318,7 +318,8 @@ class Builder:
             image.load()
             if list(image.convert("RGB").getpixel((12, 14))) != [32, 224, 32]:
                 raise RuntimeError("Offset GIF tile has unexpected decoded pixels")
-        webp = re.search(r"(?m)^\s*WEBP\*?\s+\S+\s+rw", self.formats) is not None
+        # ImageMagick format listings may include a separate module column.
+        webp = re.search(r"(?m)^\s*WEBP\*?\s+(?:\S+\s+)?rw", self.formats) is not None
         from PIL import features
         # Recent Pillow versions expose animation through the WebP module rather
         # than the removed "webp_anim" feature name. Full frame decode follows.

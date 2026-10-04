@@ -1,60 +1,70 @@
 # Project status
 
-Updated: 2026-10-04 — M0-T02 partial characterization checkpoint.
+Updated: 2026-10-04 — M0-T02 characterization completed.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Reviewed starting HEAD: d323be72cbd61fe207af6b7876f52b2d809a2311
-Advertised main: 2a51c0b6fa36370ee8341ff0d6c9b0b638a27a73
-Current/next task: **M0-T02 — blocked on real ImageMagick tooling**
-Task progress: **1 / 28 accepted; M0-T02 is incomplete**
-Coverage: **T004 completed; T002/T003 partial; T001 not run**
-Real ImageMagick application runs: **0**
-Instrumented legacy fake-process observations: **6 across PS5.1/PS7**
+Reviewed continuation HEAD: 38f1a33f753600fdc4e70af3dc68a323a65c19ae
+Next task: **M0-T03 — Introduce minimal test seams and early Windows checks**
+Task progress: **2 / 28 accepted**
+Characterization cases: **T001-T004 completed (4 / 75 cases)**
+Corrected-behavior regression suite: **not implemented or claimed by M0-T02**
+Real instrumented legacy runs: **6**; controlled fake-process runs: **6**
 GitHub sync for this containing checkpoint: **pending_verification**
 CI: **unconfigured; no passing CI claimed**
 Owner quality acceptance: **not requested / not granted**
 
-## Work and blocker
+## Completed characterization
 
-Added a synthetic fixture generator, environment inventory, contained legacy
-snapshot wrapper, bounded controller and native-process fakes. The tracked app,
-launcher and assets are unchanged. The snapshot replaces only the Pictures lookup;
-all execution uses a separate -File process. No dot-sourcing, real Pictures writes,
-unsafe nested recursion, persistent policy change or software installation occurred.
+The owner approved the pinned portable ImageMagick download and continuation.
+Official ImageMagick 7.1.2-32 Q16 x64 archive matched the recorded SHA-256 and size before
+extraction. It ran only from ignored scratch, without an installer, permanent PATH
+change or machine-wide policy change. Tool provenance is in tests/legacy/toolchain.json.
 
-The formal harness check captured six fake-process observations, passed ten
-containment rejection controls and exercised six Unicode destinations. Source
-hashes/creation/modified times and persistent shell policies stayed unchanged.
-Failed-first duplicate suppression and zero/invalid output acceptance were
-reproduced in both shells. These are defects, not passing corrected regressions.
-Mocked nested planning is recorded without unsafe filesystem execution.
+Built 45 synthetic fixtures with independent complete Pillow inspection, explicit
+recipes/provenance, source SHA-256 and actual Windows creation/modified timestamps.
+The independent audit passed 45/45. JPEG/PNG/BMP/TIFF, offset GIF, animated WebP,
+EXIF 1-8, alpha, legal filename, benign-invalid and opaque-video controls are present.
+Advanced fixtures are inspected inputs; they were not all passed through the app.
+HEIC/HEIF, trusted external profiles and remaining environment-failure corpus remain
+explicitly deferred to their owning tasks, without a broad format-support claim.
 
-Real ordinary-image/video, same-stem/directory collision and GIF/TIFF observations
-are not_run. The full generator is implemented but its ImageMagick encodes are
-unverified. HEIC/HEIF and external profile provenance remain deferred coverage.
-No ImageMagick was found on PATH, likely package locations or bundled tools.
-The owner tooling choice is pending: verified official portable ImageMagick
-7.1.2-32 Q16 x64 inside ignored scratch, or an existing verified executable.
-No download or installation occurred. Keep M0-T02 incomplete until real runs
-meet acceptance; do not advance to M0-T03.
+Windows PowerShell 5.1.26100.9444 and PowerShell 7.6.5 each ran ordinary, collision,
+frame and three fake-process scenarios: twelve observations total, all captured.
+The controller passed 22 harness checks (12 complete captures/source preservation,
+8 containment rejections, 2 persistent-policy checks). Earlier standalone harness
+checks also cover Unicode destinations and drive-root rejection.
 
-Environment: Windows 11 Pro 10.0.26300 x64, fi-FI/UI en-US; Windows PowerShell
-5.1.26100.9444; PowerShell 7.6.5; bundled Python3.12.14 with Pillow12.3.0.
-PATH Python3.14.6 lacks Pillow. Pester3.4.0 is discoverable but unused; analyzer
-and ExifTool absent. Workers remove inherited PSModulePath only in their child
-environment so each edition can resolve its own default modules.
+Ordinary mixed trees produced 4 fully decodable JPEGs and copied 3 videos with
+exact hashes and mapped timestamps; empty directories mirrored. Logs and all
+source bytes/creation/modified times are recorded. Known defects remain separate:
 
-## Reconciliation and synchronization
+- Collision: JPG/TIFF overwrite one same-stem JPEG; an existing .jpeg directory is
+  logged OK [1 bytes]; another PNG is duplicate-skipped after the directory case.
+  Actual summary Converted=4 / Duplicates=1 / Errors=0 retains only 2 JPEG files.
+- GIF/TIFF/WebP: 6 numbered JPEGs remain at the last 50% retry, while intended base
+  filenames are absent; summary Converted=0 / Errors=3, host exit 0 in each shell.
+- Fake failed-first: 12 attempts against a, no conversion of b, duplicate skip.
+- Fake weak outputs: zero/23-byte undecodable files count as converted although
+  native failure controls return 9; host exits 0. No corrected success is claimed.
 
-The clean feature branch matched independently advertised remote HEAD at the
-starting SHA above. The owner merged previous PR #1; main's merge tree equals
-the selected feature tree. Fetch updated refs only; no pull, merge, reset or
-history rewrite was performed. Origin fetch/push identity remains canonical.
-Use one successor open draft PR because the preceding PR is already merged.
+All twelve snapshots differ from the original only by the Pictures substitution.
+The tracked application, launcher and assets are unchanged. No dot-sourcing, real
+Pictures write, source/profile mutation or unsafe nested recursion ran. Fictional
+nested planning is recorded. No remaining M0-T02 acceptance blocker.
 
-Evidence: evidence/M0-T02.json and M0-T02-observations.json. The checkpoint binds
-tested files by precommit hashes. Its actual push/remote comparison belongs in
-the response/PR after commit; no prospective sync or CI pass is recorded here.
-The original non-Git snapshot remains preserved. Publication gates remain intact.
+## Evidence and next action
+
+Evidence: M0-T02.json, M0-T02-real-observations.json and M0-T02-fixtures.json.
+The previous partial transcript remains M0-T02-observations.json; its pending-tool
+state describes the earlier checkpoint only. Raw artifacts remain ignored.
+The initial GIF generator failure was a recipe-scoping error, fixed without
+weakening assertions. WebP detection now recognizes the current native listing.
+
+The one-commit checkpoint binds final tested source and evidence by precommit
+hashes; actual final push/remote comparison is reported externally after commit.
+At continuation start, clean feature HEAD independently equaled remote 38f1a33;
+main remained 2a51c0b with the prior merge and no application delta. Draft PR #2
+continues this series. Start M0-T03 only in a subsequent thread. Publication gates
+and subjective owner acceptance remain separate; no CI or release readiness implied.

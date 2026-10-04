@@ -34,7 +34,9 @@ are independently fully decoded by Pillow. The same case is run under both shell
 including Unicode output destinations and rejection of a real drive-root input.
 It cannot close ordinary-image, collision or frame characterization. The proposed
 official portable asset and digest are in `toolchain.json`; obtaining it requires
-the owner's pending tooling choice. An existing verified executable is also usable.
+the owner's authorization. The owner approved it on 2026-10-04; the recorded build
+was downloaded, hash-verified and extracted into ignored scratch without an installer
+or permanent PATH change. An existing verified executable is also usable.
 
 `Invoke-LegacySnapshot.ps1` requires a marked workspace, contained nonoverlapping
 paths, no reparse points and the exact reviewed legacy hash. It replaces only the

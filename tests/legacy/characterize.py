@@ -139,9 +139,10 @@ def main():
     build_command = [sys.executable, "-B", str(HERE / "build_fixtures.py"),
                      "--root", str(root), "--magick", str(magick)]
     build = run_owned(build_command, timeout=120)
+    if root.is_dir():
+        save_json(root / "build-transcript.json", {"command": build_command, **build})
     if build["exit_code"]:
         raise RuntimeError(f"Fixture generation failed, not skipped: {build}")
-    save_json(root / "build-transcript.json", {"command": build_command, **build})
     environment = {"schema_version": 1, "recorded_utc": datetime.now(timezone.utc).isoformat(),
                    "python": platform.python_version(), "python_architecture": platform.machine(),
                    "pillow": PIL.__version__, "shell_environment_adapter": "Remove inherited PSModulePath in worker environment; each edition resolves its own defaults",

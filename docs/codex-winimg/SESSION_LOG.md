@@ -51,7 +51,7 @@ merge, reset, default push or application/source asset change occurred.
 
 Added the fixture generator, shell inventory, contained snapshot wrapper, bounded
 real-run controller and native fakes under tests/legacy, plus ignored scratch.
-Executed bundled Python3.12.14/Pillow12.3.0 check_harness.py on actual Windows
+Executed bundled Python 3.12.14/Pillow 12.3.0 check_harness.py on actual Windows
 PS5.1.26100.9444 and PS7.6.5: six instrumented fake-process runs, ten rejection
 controls, six Unicode destinations, source preservation and persistent-policy
 checks completed. Mocked nested planning executed without filesystem recursion.
@@ -76,3 +76,34 @@ transcripts, environments, fixture/input/code hashes and limitations are in
 evidence/M0-T02.json and M0-T02-observations.json. This one-commit checkpoint binds
 tested files by precommit hashes; final sync is pending until the actual commit,
 normal push and independent remote comparison reported externally. CI unconfigured.
+
+## 2026-10-04 — M0-T02 completed after owner tooling authorization
+
+The owner explicitly requested download and continuation. Verified official
+portable ImageMagick 7.1.2-32 Q16 x64 archive SHA-256 and 11984505-byte size, extracted
+into ignored scratch and verified native version/executable hash. No installer,
+persistent PATH, global policy, application-source or asset change occurred.
+Resumed clean feature 38f1a33 independently equal to advertised remote; main 2a51c0b
+and draft PR #2 remained unchanged. No pull, merge or history rewrite.
+
+Initial full build failed the independent GIF canvas assertion before any app run.
+Scoped per-frame -set page fixed the recipe, preserving assertions. Updated WebP
+capability parsing for the actual native format listing; actual animated WebP ran.
+The final generator/audit inspected 45 fixtures, source hashes/timestamps/properties,
+with provenance and all-frame decode. Raw failure/debug artifacts were retained.
+
+Full controller ran 12 observations (6 real / 6 controlled fake) and passed 22 harness
+checks on PS5.1/PS7. Ordinary 4 JPEG + 3 video hashes/timestamps/tree/logs are recorded.
+Collision output overwrite, directory false OK and duplicate interaction, numbered
+GIF/TIFF/WebP output with reported errors, failed-first duplicate and weak-output
+acceptance are actual known defects. All sources preserved and persistent policies
+unchanged; twelve snapshots modify only the exact Pictures block. No real Pictures
+write, unsafe recursion or dot-sourcing. Independent fixture audit passed 45/45.
+
+T001-T004 characterization completed; M0-T02 accepted, next M0-T03. Corrected
+regression tests 0, CI unconfigured, owner quality acceptance not requested. HEIC/
+profiles/further failure fixtures remain explicit future coverage. Final evidence
+M0-T02.json binds precommit source/file hashes; actual commands/transcripts/manifest
+are in M0-T02-real-observations.json and M0-T02-fixtures.json. Prior partial evidence
+is preserved separately. Final containing checkpoint push/sync is pending at write
+and will be reported externally after normal commit/push/independent comparison.
