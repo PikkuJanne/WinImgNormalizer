@@ -73,9 +73,11 @@
       "depends_on": [
         "M0-T01"
       ],
-      "state": "pending",
-      "evidence": [],
-      "blocked_reason": null,
+      "state": "blocked",
+      "evidence": [
+        "evidence/M0-T02.json"
+      ],
+      "blocked_reason": "Real ImageMagick unavailable; owner portable-tool/existing-path choice pending. T001 and real collision/frame observations remain not_run.",
       "card": "tasks/M0-T02.md"
     },
     {

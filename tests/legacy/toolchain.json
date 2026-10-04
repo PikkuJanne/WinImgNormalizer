@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "scope": "Development-only tooling for M0-T02; this file never installs or downloads anything",
+  "fixture_python": "3.12.14 (bundled desktop runtime)",
+  "independent_decoder": "Pillow 12.3.0 (bundled desktop runtime)",
+  "target_shells_observed": ["Windows PowerShell 5.1.26100.9444", "PowerShell 7.6.5"],
+  "proposed_portable_imagemagick": {
+    "version": "7.1.2-32",
+    "asset": "ImageMagick-7.1.2-32-portable-Q16-x64.7z",
+    "url": "https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-32/ImageMagick-7.1.2-32-portable-Q16-x64.7z",
+    "sha256": "2540f87550bd24488d71248427b8ab6754573a0506ea0cbe943579fdbddab299",
+    "bytes": 11984505,
+    "provenance": "Official ImageMagick/ImageMagick release API asset digest, read 2026-10-04",
+    "state": "not_downloaded; owner choice pending"
+  },
+  "no_runtime_dependencies_added": true,
+  "limitations": ["Pester 3.4.0 discovered but not used by this observation harness", "PSScriptAnalyzer and ExifTool absent", "No real ImageMagick execution has occurred"]
+}

@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "task_id": "M0-T02",
+  "recorded_utc": "2026-10-04T13:48:05.351317+00:00",
+  "state": "blocked",
+  "reviewed_base_commit": "d323be72cbd61fe207af6b7876f52b2d809a2311",
+  "tested_implementation_commit": null,
+  "tested_files_sha256": {
+    ".gitignore": "4e9755421fd804ed69d1f31e80c41a041e8866ac463ea56dde7d0e52d193cc6c",
+    "tests/legacy/build_fixtures.py": "2fb4ce395a7d4616cbc3f59b6a6629fc34c5c501d338b8892933ba45cd9e1322",
+    "tests/legacy/characterize.py": "39b97c0bdd136898e531906f762fd36f67ba92b31a4a576856f4d0955195e9e1",
+    "tests/legacy/check_harness.py": "912c2d06fe330169029f25382adf21615ead387f487f2a598b5b401008714e6a",
+    "tests/legacy/fake_magick.py": "67608617d47fc082ae7101ab63962b303913467f342d4d49ca8cdb9c9dfcd074",
+    "tests/legacy/Inventory-Environment.ps1": "478caae924b6915787070dcb1713a5107e60fc53d7343007218faccc7cdf80a9",
+    "tests/legacy/Invoke-LegacySnapshot.ps1": "87f02056c7a22ce0674b5c02149c3ef169a50a471da8ae63d0653f4af1781557",
+    "tests/legacy/README.md": "876dedb146bcddf036b0debf0410b792e2f34be0f7b00ad8d67487cd98c22e5c",
+    "tests/legacy/toolchain.json": "f4f3e59ae75b977dcc0211d32df16cd7bc8e0bd0d8af2d4ed2ac70c8bb22d39d",
+    "docs/codex-winimg/STATUS.md": "48fbcbd54d620817a99c0543c4ade808d7944750a89a1ce636abddf02b5a9846",
+    "docs/codex-winimg/NEXT_SESSION.md": "236b78816c21252566cf217944c5df5587cec2c6da884efdffc80c93fc1311e8",
+    "docs/codex-winimg/SESSION_LOG.md": "6bbc8e128c10148adfce56caf759d4917161103c8f9d9e4416cfca2d2d9ae7e6",
+    "docs/codex-winimg/TASKS.json": "f083cd269e1d465f817ded67109953a9dcf5f15a0e4291d268ed2a76e5164dfa",
+    "docs/codex-winimg/evidence/M0-T02-observations.json": "dbc6be088762ae95c8036bd563ae23e84855c605899cb2e02a5ec78dffd0e2ff"
+  },
+  "legacy_sha256": "3d31eaea3d926c2d2a4f75dc32856e6681fcf03f2f29ac89020aa1a4a907133a",
+  "environment": {
+    "ps51": {
+      "schema_version": 1,
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "os_architecture": "64-bit",
+      "process_bits": 64,
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "culture": "fi-FI",
+      "ui_culture": "en-US",
+      "pester_versions": [
+        "3.4.0"
+      ],
+      "analyzer_versions": [],
+      "execution_policy": [
+        {
+          "scope": "MachinePolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "UserPolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "Process",
+          "policy": "Bypass"
+        },
+        {
+          "scope": "CurrentUser",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "LocalMachine",
+          "policy": "Undefined"
+        }
+      ],
+      "persistent_policy_unchanged": true
+    },
+    "ps7": {
+      "schema_version": 1,
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "os_architecture": "64-bit",
+      "process_bits": 64,
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "culture": "fi-FI",
+      "ui_culture": "en-US",
+      "pester_versions": [
+        "3.4.0"
+      ],
+      "analyzer_versions": [],
+      "execution_policy": [
+        {
+          "scope": "MachinePolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "UserPolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "Process",
+          "policy": "Bypass"
+        },
+        {
+          "scope": "CurrentUser",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "LocalMachine",
+          "policy": "RemoteSigned"
+        }
+      ],
+      "persistent_policy_unchanged": true
+    }
+  },
+  "execution_summary": {
+    "instrumented_fake_legacy_runs": 6,
+    "containment_rejections_passed": 10,
+    "unicode_destinations": 6,
+    "native_failure_oracles": 2,
+    "real_imagemagick_runs": 0,
+    "corrected_behavior_regression_tests": 0
+  },
+  "executions": [
+    {
+      "command": "<fixture-python> -B tests/legacy/check_harness.py --root .scratch/harness-validation-02 --ps51 <ps51> --ps7 <ps7>",
+      "exit_code": 0,
+      "scope": "Windows harness validation + fake-process legacy observations",
+      "transcript": "evidence/M0-T02-observations.json",
+      "raw_artifact_sha256": "52e40eeedfaec71cd58fded9131d50930af80bd7dad2828aaa9f2967294e2d07"
+    },
+    {
+      "command": "Python ast.parse on tests/legacy/*.py",
+      "exit_code": 0,
+      "files": 4
+    },
+    {
+      "command": [
+        "<fixture-python>",
+        "-B",
+        "tests/legacy/build_fixtures.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: build_fixtures.py [-h] --root ROOT --magick MAGICK\r\n\r\nBuild synthetic M0-T02 inputs in a new, explicitly selected scratch directory.\r\nImageMagick creates the encoded images; Pillow independently decodes every\r\nframe. No binaries are downloaded, application entry point is run, or Known\r\nFolder changed.\r\n\r\noptions:\r\n  -h, --help       show this help message and exit\r\n  --root ROOT      New absent scratch directory\r\n  --magick MAGICK  Existing real ImageMagick 7 executable\r\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<fixture-python>",
+        "-B",
+        "tests/legacy/build_fixtures.py",
+        "--root",
+        ".scratch/missing-tool-check-final",
+        "--magick",
+        ".scratch/absent-magick.exe"
+      ],
+      "exit_code": 2,
+      "stdout": "",
+      "stderr": "usage: build_fixtures.py [-h] --root ROOT --magick MAGICK\r\nbuild_fixtures.py: error: --magick must identify an existing executable; no auto-installation\r\n"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-B",
+        "tools/codex-winimg/handoff.py",
+        "plan",
+        "--repo",
+        "."
+      ],
+      "exit_code": 0,
+      "stdout": "{\r\n  \"tasks\": 28,\r\n  \"cases\": 75,\r\n  \"review_items_covered\": 18,\r\n  \"tasks_done\": 1,\r\n  \"next_task\": \"M0-T02\",\r\n  \"scope\": \"Structural plan validation only; no application tests or approval authentication.\"\r\n}\r\n",
+      "stderr": ""
+    }
+  ],
+  "case_results": [
+    {
+      "case_id": "T001",
+      "state": "not_run",
+      "reason": "Real ImageMagick unavailable; ordinary image/video legacy characterization remains required."
+    },
+    {
+      "case_id": "T002",
+      "state": "partial",
+      "reason": "Three standard-library synthetic PNG inputs independently decoded; full ImageMagick fixture corpus not_run."
+    },
+    {
+      "case_id": "T003",
+      "state": "partial",
+      "reason": "Failed-first duplicate and weak outputs captured in both shells with controlled fakes; real collisions/frames not_run."
+    },
+    {
+      "case_id": "T004",
+      "state": "passed",
+      "reason": "Owned destination injection, ten rejection controls, Unicode containment and mocked planning; unsafe recursion not executed."
+    }
+  ],
+  "known_defects": [
+    {
+      "id": "failed-first-duplicate",
+      "outcome": "reproduced with controlled fake in both shells",
+      "detail": "12 native attempts against a, no conversion of b, summary Errors=1 Duplicates=1 ConvertedImages=0."
+    },
+    {
+      "id": "weak-output-success",
+      "outcome": "reproduced with controlled fake in both shells",
+      "detail": "Native oracle exit9 leaves zero/23-byte undecodable output; application reports ConvertedImages=1 Errors=0 and host exit0."
+    }
+  ],
+  "limitations": [
+    "M0-T02 incomplete; no real ImageMagick fixture encode/application conversion ran.",
+    "Full generator/native controller unexecuted; no collision/frame outcomes claimed.",
+    "Legacy snapshot replaces Pictures lookup; original Known Folder resolution and launcher untested.",
+    "HEIC/HEIF and external profile corpus deferred without support claims.",
+    "Missing tool is a mandatory result blocker, not an optional passing skip.",
+    "Earlier command-discovery/module-path/control-fixture infrastructure failures were corrected; final formal run reported separately.",
+    "Timeout/process-tree recovery code was reviewed but no stalled-process acceptance case ran.",
+    "Pester/analyzer/owner quality acceptance and CI are not passing claims."
+  ],
+  "tooling_choice": {
+    "state": "pending_owner_reply",
+    "rule": "AGENTS.md: Do not ... auto-install software",
+    "proposal": "Pinned official portable ImageMagick7.1.2-32 Q16 x64 in ignored scratch or owner-provided existing executable",
+    "downloaded": false,
+    "installed": false
+  },
+  "ci": {
+    "state": "unconfigured",
+    "commit": null,
+    "run_url": null
+  },
+  "sync_observation": {
+    "state": "pending_verification",
+    "prior_starting_checkpoint": "d323be72cbd61fe207af6b7876f52b2d809a2311",
+    "branch": "codex/winimg-hardening",
+    "main_observed": "2a51c0b6fa36370ee8341ff0d6c9b0b638a27a73",
+    "main_and_starting_feature_trees_equal": true
+  },
+  "owner_approval": {
+    "state": "not_requested",
+    "actor": null,
+    "recorded_utc": null,
+    "approved_commit": null
+  },
+  "file_hash_note": "Expected committed file bytes, normalized LF. Executed Python/PowerShell files already used these bytes; governance-only CRLF writes were normalized before commit. Actual original legacy file bytes are separately bound by legacy_sha256."
+}
