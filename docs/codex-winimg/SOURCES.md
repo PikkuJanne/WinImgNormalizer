@@ -167,3 +167,44 @@ image before other top-level images. The policy follows that decoder order.
 Counts describe decoder-exposed images, not every container item or thumbnail.
 T031 uses an actual two-image still collection plus animated WebP; timed HEIC
 animation, auxiliary images and arbitrary codec builds remain unverified.
+
+## I7 — M2-T02 colour profiles, orientation and alpha, 4 October 2026
+
+[Profile operations](https://imagemagick.org/command-line-options/#profile) run in
+command order. The [pinned 7.1.2-32 ProfileImage implementation](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/profile.c)
+distinguishes assigning a first profile from transforming pixels between existing
+and target profiles, using LittleCMS for the latter. Removing a source profile
+before that transform loses its characterization.
+
+The [pinned property implementation](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/property.c)
+can return free-form image properties before computed metadata. Separate inspection
+therefore clears conflicting profile/colorspace text properties while preserving
+the actual ICC data. The [ICC description of profile tag tables](https://www.color.org/security/malformed/added-bytes/)
+explains the 128-byte header followed by signature/offset/length entries. Bounded
+structural and decoded-model checks support a fail-closed policy; they do not
+establish complete ICC conformance or semantic accuracy. Actual native diagnostic
+and malformed/model-mismatch behavior is retained as synthetic test/probe evidence.
+
+[Colour management](https://imagemagick.org/color-management/) distinguishes
+declaring a colorspace from converting pixel values, and describes untagged sRGB
+assumptions. [Auto-orient](https://imagemagick.org/command-line-options/#auto-orient)
+uses orientation metadata while present;
+[strip](https://imagemagick.org/command-line-options/#strip) removes profiles and
+comments. [Alpha remove](https://imagemagick.org/command-line-options/#alpha)
+composites against the selected background. These semantics support a tested
+ordering; actual profile licenses, reference values and separate lossy-JPEG
+tolerances remain evidence requirements.
+
+The [pinned Compact ICC profile source](https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/readme.md)
+publishes the selected sRGB-v4, AdobeCompat-v2 and CGATS001Compat-v2-micro profiles
+under [CC0](https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/license).
+The compact CMYK profile contains only an A2B0 perceptual display mapping. A requested
+rendering intent does not add absent characterization; reference evidence must
+state the engine's actual supported/fallback mapping and avoid promising general
+printing accuracy or reverse CMYK conversion.
+
+[Pillow ImageCms](https://pillow.readthedocs.io/en/stable/reference/ImageCms.html)
+provides source/target profile transforms with explicit intent and flags. The
+independent synthetic patch recipe records its Pillow/LittleCMS versions and keeps
+pre-JPEG transform tolerance separate from lossy JPEG tolerance; mandatory tests
+consume checked reference data without a Python/Pillow runtime dependency.
