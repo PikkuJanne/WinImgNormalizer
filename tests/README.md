@@ -1,9 +1,10 @@
-# Windows checks (through M1-T04)
+# Windows checks (through M1-T05)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
 deterministic naming/no-overwrite targets (T017-T019), and validated conversion and
-staged video transactions (T020-T024).
+staged video transactions (T020-T024), and successful-retention duplicate handling
+(T025-T027).
 They do not certify the later metadata, source-frame policy or cancellation fixes. The characterization
 evidence in `legacy/` describes those known defects separately.
 
@@ -31,7 +32,8 @@ tests use owned synthetic scratch trees and controlled process failures. The pub
 `.ps1 <sourceFolder> [maxBytes]` interface and `.bat` remain unchanged.
 
 The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
-`Traversal.Tests.ps1`, `Naming.Tests.ps1` and `Transactions.Tests.ps1`.
+`Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1` and
+`Duplicates.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -95,3 +97,18 @@ owned-candidate cleanup preserves unrelated and numbered neighboring files and
 preexisting arrivals. Raw fixtures remain in marked ignored scratch without recursive
 test cleanup. No runtime content hashing or universal hostile-filesystem guarantee is
 claimed.
+
+Duplicate tests verify that a failed first native result, JPEG validation,
+no-overwrite finalization or staged video copy cannot suppress a later usable
+same-key source. Same filename and modification timestamp with different source
+lengths are retained independently, including a later match to an earlier length.
+Retained-source and retained-output links remain deterministic across shuffled
+inventories under five cultures. Case-normalized filenames, distinct timestamps,
+refreshed inventory metadata and changes during conversion/copying are covered.
+A validated above-target finalized JPEG registers its explicit warning status.
+
+The heuristic uses filename, modification timestamp and byte length; it is not
+content verification. Tests deliberately show same-key, same-length valid images
+and videos with different bytes can still be skipped. Originals remain preserved.
+SHA256 checks belong to these regression assertions and are not a runtime hash
+database or mandatory content-hashing feature.

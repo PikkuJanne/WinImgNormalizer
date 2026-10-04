@@ -2,7 +2,7 @@
 Minimal, no-frills normalizer I use to prep mixed photo/video folders for archiving. It mirrors the tree into a safe copy, converts images to JPEG ≤ 1 MB, copies videos as-is, and skips simple duplicates. Purpose-built for my workflow, I don’t expect most people to need this. It trades options for speed and repeatability.
 
 **Synopsis**
-Recursively mirror a source folder under Pictures, convert images to JPEG (≤ 1 MB, auto-orient, strip metadata, flatten alpha), copy videos unchanged, skip duplicates by (filename + LastWriteTimeUtc), show progress, write a detailed log.
+Recursively mirror a source folder under Pictures, convert images to JPEG (≤ 1 MB, auto-orient, strip metadata, flatten alpha), copy videos unchanged, skip heuristic duplicates by filename/time plus equal byte length, show progress, write a detailed log.
 Drag-&-drop workflow: I drop a folder onto the .bat and find the normalized copy in Pictures.
 
 **Requirements**
@@ -80,7 +80,7 @@ Convert to sRGB
 Flatten transparency to white
 Progressive attempt: scale 100->50 % while enforcing jpeg:extent
 Videos: mp4/mov/mkv/avi/m4v/wmv/webm/mts/m2ts/3gp/3g2 are copied as-is.
-Duplicates: any later file whose (filename lowercase + LastWriteTimeUtc ticks) matches a previously seen one is skipped and logged.
+Heuristic duplicates: a later file with the same lowercase filename, LastWriteTimeUtc ticks and byte length as a successfully retained source is skipped and linked to that source/output in the log.
 Progress + logs: console progress bar and a timestamped log in the destination.
 
 Output names are planned for the whole tree before processing, in stable ordinal
@@ -92,6 +92,21 @@ collision checks. An existing `photo__png.jpeg` keeps its name and forces the PN
 derivative to `photo__png__2.jpeg`; further conflicts use the next free number.
 Every eligible source has a `PLAN` source-to-output entry in the local log, even
 when it is later skipped or fails. The duplicate heuristic still applies.
+
+Duplicate matching follows that ordinal source-path order and registers a source
+only after its output has been validated and finalized. A failed conversion, copy
+or final move cannot suppress a usable later candidate. Different byte lengths
+are processed independently, and each length keeps its first successful source
+and output for later matches. A valid above-target JPEG can be retained with its
+best-effort warning; later skips report that retained warning status.
+
+Source metadata is read again before duplicate lookup. A finalized image whose
+source length or modification time changed during processing is kept with a warning
+and excluded from duplicate matching. Video registration uses the verified copy's
+length/time snapshot. Every skip records the retained source, retained output and
+status. This remains a lightweight heuristic: different content with the same
+filename, timestamp and byte length can still be skipped. No runtime content hash
+database is added, and source files are never removed.
 
 Every image attempt uses a fresh, exclusively reserved neutral scratch file. A
 successful native exit, nonempty JPEG bytes, one frame, positive dimensions and

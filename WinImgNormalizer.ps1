@@ -10,7 +10,8 @@ Dependencies: ImageMagick 7.1.2-32+ supported 7.x (magick.exe in PATH), optional
 SYNOPSIS
     Recursively mirrors a source folder into a safe copy under the user’s Pictures folder,
     converts all images to JPEG ≤ 1 MB (auto-orient, strip metadata, flatten alpha),
-    copies videos as-is, skips duplicates by (filename + LastWriteTimeUtc), shows progress in terminal,
+    copies videos as-is, skips heuristic duplicates by filename/time plus equal length,
+    shows progress in terminal,
     and writes a detailed log file.
 
 WHAT THIS IS (AND ISN’T)
@@ -18,7 +19,7 @@ WHAT THIS IS (AND ISN’T)
       It trades knobs for reliability, speed, and repeatability.
     - Designed for drag-and-drop via the .bat wrapper, also works from PowerShell directly.
     - Not a deduplication/content-hashing system, duplicate detection is lightweight
-      (filename + timestamp), good enough for typical camera roll structures.
+      (filename + timestamp + equal byte length); different content can still match.
 
 FEATURES
     - Non-destructive: creates "<SourceName>_WinImgNormalized_<yyyyMMdd_HHmmss>_<runId>" under Pictures.
@@ -28,7 +29,8 @@ FEATURES
     - Videos copied as-is (mp4/mov/mkv/avi/m4v/wmv/webm/mts/m2ts/3gp/3g2).
     - JPEG ≤ 1 MB targeting with progressive scaling (100→50%) and quality sizing (jpeg:extent).
     - EXIF auto-orientation, metadata stripped, alpha flattened to white.
-    - Duplicate skip: (filename lowercase + LastWriteTimeUtc ticks) anywhere in the tree.
+    - Heuristic skips match lowercase filename + LastWriteTimeUtc + input byte length.
+      Only finalized successes register; every skip links its retained source and output.
     - Progress bar in terminal; detailed timestamped log in the destination folder.
 
 MY INTENDED USAGE
@@ -358,6 +360,15 @@ function Get-WinImgNativeOutputPath {
   if ($Path.Length -lt 260) { return $Path }
   if ($Path.StartsWith('\\', [StringComparison]::Ordinal)) { return '\\?\UNC\' + $Path.Substring(2) }
   return '\\?\' + $Path
+}
+
+function Get-WinImgDuplicateKey {
+  param([string]$Name, [datetime]$LastWriteTimeUtc, [long]$Length)
+  # The existing filename/time heuristic gains an equal-length guard. The
+  # composite key retains separate first successes for each input byte length.
+  return '{0}|{1}|{2}' -f $Name.ToLowerInvariant(),
+    $LastWriteTimeUtc.Ticks.ToString([Globalization.CultureInfo]::InvariantCulture),
+    $Length.ToString([Globalization.CultureInfo]::InvariantCulture)
 }
 
 function Move-WinImgPlannedImage {
@@ -757,9 +768,10 @@ function Invoke-WinImgNormalizer {
   }
 
   # --------- Dedupe + stats ---
-  $seen = New-Object 'System.Collections.Generic.HashSet[string]'
-  $keyFirst = @{}
+  $retained = New-Object 'Collections.Generic.Dictionary[string,object]' ([StringComparer]::Ordinal)
+  $hasDuplicateWarnings = $false
   $stats = [ordered]@{ Converted=0; CopiedVideo=0; SkippedDuplicate=0; Unsupported=0; Errors=0 }
+  Write-Log 'Heuristic duplicate matching uses lowercase filename, LastWriteTimeUtc and equal input byte length after successful finalization; same-key/same-length content can still differ.'
 
   # --------- IM helpers ---
   function Get-ExtentString([long]$Bytes) {
@@ -839,9 +851,6 @@ function Invoke-WinImgNormalizer {
       continue
     }
 
-    $dupKey = ('{0}|{1}' -f $f.Name.ToLowerInvariant(), $f.LastWriteTimeUtc.Ticks)
-    if (-not $seen.Add($dupKey)) { $stats.SkippedDuplicate++; $firstRel = $keyFirst[$dupKey]; Write-Log "Duplicate skipped: $rel (first seen at: $firstRel)" 'SKIP'; continue } else { $keyFirst[$dupKey] = $rel }
-
     $destRel = $row.OutputRelativePath
     $destPath = [System.IO.Path]::Combine($destRoot, $destRel)
 
@@ -849,8 +858,24 @@ function Invoke-WinImgNormalizer {
     # concurrent hostile filesystem mutation is not a complete sandbox boundary.
     try {
       Assert-WinImgNoReparseAncestors $f.DirectoryName
-      if (((Get-Item -LiteralPath $f.FullName -Force -ErrorAction Stop).Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
+      $f = Get-Item -LiteralPath $f.FullName -Force -ErrorAction Stop
+      if (($f.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
         throw 'Source entry became a reparse point after inventory; no read attempted.'
+      }
+      if ($f.PSIsContainer) {
+        throw 'Source entry became a directory after inventory; no read attempted.'
+      }
+      # Inventory FileInfo values may be cached. Snapshot live metadata before
+      # lookup, then reuse those immutable values for the processed input.
+      $sourceLength = $f.Length
+      $sourceModified = $f.LastWriteTimeUtc
+      $dupKey = Get-WinImgDuplicateKey -Name $f.Name -LastWriteTimeUtc $sourceModified -Length $sourceLength
+      if ($retained.ContainsKey($dupKey)) {
+        $first = $retained[$dupKey]
+        $stats.SkippedDuplicate++
+        Write-Log ('Heuristic duplicate skipped: {0} (retained source: {1}; retained output: {2}; retained status: {3})' -f
+          $rel, $first.SourceRelativePath, $first.OutputRelativePath, $first.Status) 'SKIP'
+        continue
       }
       Assert-WinImgOutputAvailable $destPath
     } catch {
@@ -870,6 +895,23 @@ function Invoke-WinImgNormalizer {
           try { Move-WinImgPlannedImage -CandidatePath $res.CandidatePath -DestinationPath $destPath }
           catch { $hasNamingWarnings = $true; throw }
           $stats.Converted++
+          try {
+            Assert-WinImgNoReparseAncestors $f.DirectoryName
+            $current = Get-Item -LiteralPath $f.FullName -Force -ErrorAction Stop
+            if ($current.PSIsContainer -or ($current.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+                $current.Length -ne $sourceLength -or $current.LastWriteTimeUtc -ne $sourceModified) {
+              throw 'Source metadata changed during image processing.'
+            }
+            if (-not $retained.ContainsKey($dupKey)) {
+              $retained.Add($dupKey, [pscustomobject]@{
+                SourceRelativePath = $rel; OutputRelativePath = $destRel
+                Status = $(if ($res.Note) { 'ConvertedWithWarning' } else { 'Converted' })
+              })
+            }
+          } catch {
+            $hasDuplicateWarnings = $true
+            Write-Log ('Finalized image kept without heuristic registration: {0} ({1})' -f $rel, $_.Exception.Message) 'WARN'
+          }
           try { (Get-Item -LiteralPath $destPath).LastWriteTimeUtc = $f.LastWriteTimeUtc; (Get-Item -LiteralPath $destPath).CreationTimeUtc = $f.CreationTimeUtc } catch {}
           $note = if ($res.Note) { " ($($res.Note))" } else { "" }
           Write-Log ("OK IMG: {0} -> {1} [{2:n0} bytes, Scale={3}%]{4}" -f $rel, $destRel, $res.BytesOut, $res.Scale, $note) 'OK'
@@ -882,6 +924,12 @@ function Invoke-WinImgNormalizer {
         if ($destDir -and -not (Test-Path -LiteralPath $destDir)) { New-Item -ItemType Directory -Path $destDir -Force | Out-Null }
         try { $videoResult = Copy-WinImgPlannedVideo -SourcePath $f.FullName -DestinationPath $destPath -WorkRoot $workRoot }
         catch { $hasNamingWarnings = $true; throw }
+        # The copy helper's stable snapshot describes the bytes actually copied,
+        # even if source metadata changed between lookup and staging.
+        $videoKey = Get-WinImgDuplicateKey -Name $f.Name -LastWriteTimeUtc $videoResult.LastWriteTimeUtc -Length $videoResult.BytesOut
+        if (-not $retained.ContainsKey($videoKey)) {
+          $retained.Add($videoKey, [pscustomobject]@{ SourceRelativePath = $rel; OutputRelativePath = $destRel; Status = 'CopiedVideo' })
+        }
         if ($videoResult.CleanupWarning) { $hasNamingWarnings = $true; Write-Log ('Video scratch cleanup: ' + $videoResult.CleanupWarning) 'WARN' }
         try { (Get-Item -LiteralPath $destPath).LastWriteTimeUtc = $videoResult.LastWriteTimeUtc; (Get-Item -LiteralPath $destPath).CreationTimeUtc = $videoResult.CreationTimeUtc } catch {}
         $bytesOut = $videoResult.BytesOut
@@ -918,7 +966,7 @@ function Invoke-WinImgNormalizer {
   Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4}" -f $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors)
   Write-Log "Completed $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
-  if ($stats.Errors -gt 0 -or $missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings) { return 2 }
+  if ($stats.Errors -gt 0 -or $missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings -or $hasDuplicateWarnings) { return 2 }
   return 0
 }
 
