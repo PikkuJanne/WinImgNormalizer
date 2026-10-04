@@ -1,9 +1,10 @@
-# Windows checks (through M1-T03)
+# Windows checks (through M1-T04)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
-and deterministic naming/no-overwrite targets (T017-T019).
-They do not certify the later metadata, frame, cancellation or output-validation fixes. The characterization
+deterministic naming/no-overwrite targets (T017-T019), and validated conversion and
+staged video transactions (T020-T024).
+They do not certify the later metadata, source-frame policy or cancellation fixes. The characterization
 evidence in `legacy/` describes those known defects separately.
 
 Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
@@ -29,8 +30,8 @@ The application exposes `Invoke-WinImgNormalizer` and
 tests use owned synthetic scratch trees and controlled process failures. The public
 `.ps1 <sourceFolder> [maxBytes]` interface and `.bat` remain unchanged.
 
-The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1` and
-`Traversal.Tests.ps1` and `Naming.Tests.ps1`.
+The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
+`Traversal.Tests.ps1`, `Naming.Tests.ps1` and `Transactions.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -76,5 +77,21 @@ creation/modified timestamps plus unchanged synthetic video bytes are checked.
 HEIC naming/processing uses explicitly controlled capabilities and JPEG candidate
 bytes, so it proves routing and distinct names rather than an installed HEIC codec.
 External file/directory arrivals are injected during conversion and after the
-availability check for both file operations. These checks do not yet certify the
-full candidate validation or staged video-copy lifecycle of M1-T04.
+availability check for both file operations.
+
+Transaction tests require real full JPEG decoding and positive dimensions before
+acceptance. A synthetic truncated JPEG retains readable header dimensions but fails
+pixel decoding; no-file, empty, malformed, wrong-format and nonzero native results
+remain uncommitted. Missing, string, extra-output, timed-out and cancelled controlled
+results also fail. Fresh exclusive candidates prevent earlier above-cap results from
+being reused after later failed attempts, and a later valid fallback is independently
+validated. External final-name arrivals survive the final no-overwrite move.
+
+Opaque synthetic video bytes pass through reserved partials before any final name
+appears. Tests check byte hashes, source timestamps, detected source length/timestamp
+changes, partial writes, and stream failures. Narrow copy mocks create deterministic
+changes or interruptions; they do not claim real Ctrl+C or hard-kill coverage. Exact
+owned-candidate cleanup preserves unrelated and numbered neighboring files and
+preexisting arrivals. Raw fixtures remain in marked ignored scratch without recursive
+test cleanup. No runtime content hashing or universal hostile-filesystem guarantee is
+claimed.
