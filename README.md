@@ -72,7 +72,7 @@ Compiled capabilities do not override local ImageMagick policy or prove every fi
 can be decoded. Keep the installed security policy in place.
 
 **What it does**
-Non-destructive mirror: exact subfolder structure; image files become .jpeg (same base names).
+Non-destructive mirror: exact subfolder structure; image files become .jpeg (same base names when unique).
 Images: JPG/JPEG/PNG/BMP/TIF/TIFF/GIF/HEIC/HEIF/WebP → JPEG ≤ 1 MB.
 Auto-orient via EXIF
 Strip metadata
@@ -82,6 +82,21 @@ Progressive attempt: scale 100->50 % while enforcing jpeg:extent
 Videos: mp4/mov/mkv/avi/m4v/wmv/webm/mts/m2ts/3gp/3g2 are copied as-is.
 Duplicates: any later file whose (filename lowercase + LastWriteTimeUtc ticks) matches a previously seen one is skipped and logged.
 Progress + logs: console progress bar and a timestamped log in the destination.
+
+Output names are planned for the whole tree before processing, in stable ordinal
+source-path order. Unique names keep the familiar basename. Images sharing a stem,
+such as `photo.jpg`, `photo.png` and `photo.heic`, receive `photo__jpg.jpeg`,
+`photo__png.jpeg` and `photo__heic.jpeg`. Mirrored directories, video names, generated
+work/reports and all unique image names are reserved first, ignoring case for
+collision checks. An existing `photo__png.jpeg` keeps its name and forces the PNG
+derivative to `photo__png__2.jpeg`; further conflicts use the next free number.
+Every eligible source has a `PLAN` source-to-output entry in the local log, even
+when it is later skipped or fails. The duplicate heuristic still applies.
+
+Images use neutral scratch names before a move that refuses replacement. Video
+copies also refuse replacement. If a file or directory appears at a planned target,
+it is preserved, the item is reported as failed and the batch returns code 2.
+Output-content validation and staged video-copy recovery remain planned improvements.
 
 **Output location**
 Default target is the Windows Pictures folder:

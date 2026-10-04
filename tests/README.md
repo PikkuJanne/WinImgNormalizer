@@ -1,8 +1,9 @@
-# Windows checks (through M1-T02)
+# Windows checks (through M1-T03)
 
 These development tests cover the import boundary, the two existing positional
-invocations, setup validation (T008-T012), and traversal/run isolation (T013-T016).
-They do not certify the later collision, metadata, frame, cancellation or output-validation fixes. The characterization
+invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
+and deterministic naming/no-overwrite targets (T017-T019).
+They do not certify the later metadata, frame, cancellation or output-validation fixes. The characterization
 evidence in `legacy/` describes those known defects separately.
 
 Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
@@ -29,7 +30,7 @@ tests use owned synthetic scratch trees and controlled process failures. The pub
 `.ps1 <sourceFolder> [maxBytes]` interface and `.bat` remain unchanged.
 
 The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1` and
-`Traversal.Tests.ps1`.
+`Traversal.Tests.ps1` and `Naming.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -66,3 +67,14 @@ capability uses a mandatory controlled reparse-file entry and records its actual
 native error in ignored link-evidence.txt; it does not report a real symlink pass.
 UNC/drive-root containment is lexical only, and denied enumeration uses a narrow
 mock. No live share, real Pictures, ACL change or manual launcher result is claimed.
+
+Naming tests cover same-stem format plans, complete directory/video/generated
+reservations, secondary numeric suffixes and case-only controlled inventories.
+Repeated seeded shuffles under five cultures assert identical mapping and row
+ordering. Real JPG/PNG/BMP collision outputs are fully decoded; source hashes and
+creation/modified timestamps plus unchanged synthetic video bytes are checked.
+HEIC naming/processing uses explicitly controlled capabilities and JPEG candidate
+bytes, so it proves routing and distinct names rather than an installed HEIC codec.
+External file/directory arrivals are injected during conversion and after the
+availability check for both file operations. These checks do not yet certify the
+full candidate validation or staged video-copy lifecycle of M1-T04.
