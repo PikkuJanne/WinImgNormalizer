@@ -54,9 +54,9 @@ USAGE
 
 NOTES
     - HEIC/WebP support depends on ImageMagick build/codecs.
-    - “Invalid SOS parameters for sequential JPEG” and similar libjpeg warnings are handled
-      (suppressed via -quiet, script treats them as non-fatal).
-    - Multi-frame GIF/TIFF are flattened to a single frame.
+    - Each fresh conversion attempt must exit successfully and fully decode as
+      a nonempty single-frame JPEG with positive dimensions before finalization.
+    - Numbered multi-output attempts are rejected; explicit frame selection is planned.
     - Unique image basenames are preserved; conflicts use __sourceext and checked __N suffixes.
     - Timestamps on outputs are set to the source file times.
 
@@ -69,8 +69,8 @@ TROUBLESHOOTING
     - "magick not found": install ImageMagick; ensure magick.exe is in PATH (check `magick -version`).
     - PS 5.1 “Parameter set cannot be resolved”: this script uses positional arguments by design.
       Always launch via the provided .bat or pass the folder path positionally.
-    - Excessive JPEG warnings: the script runs ImageMagick with `-quiet` and ignores warnings;
-      results are still size-checked and logged.
+    - Conversion uses `-quiet`; candidate validation promotes decode warnings to
+      failure so recovered/truncated JPEGs cannot be finalized.
     - No outputs created: check the log file in the destination for per-file errors.
 
 LICENSE / WARRANTY
@@ -362,15 +362,101 @@ function Get-WinImgNativeOutputPath {
 
 function Move-WinImgPlannedImage {
   param([string]$CandidatePath, [string]$DestinationPath)
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($CandidatePath))
+  if (-not [IO.Path]::GetPathRoot($CandidatePath).Equals([IO.Path]::GetPathRoot($DestinationPath), [StringComparison]::OrdinalIgnoreCase)) {
+    throw 'Candidate and final output must be on the same volume.'
+  }
   Assert-WinImgOutputAvailable $DestinationPath
   # The two-argument overload also refuses an arrival after the preceding check.
   [IO.File]::Move($CandidatePath, $DestinationPath)
 }
 
 function Copy-WinImgPlannedVideo {
-  param([string]$SourcePath, [string]$DestinationPath)
-  Assert-WinImgOutputAvailable $DestinationPath
-  [IO.File]::Copy($SourcePath, $DestinationPath, $false)
+  param([string]$SourcePath, [string]$DestinationPath, [string]$WorkRoot)
+  if (-not $WorkRoot) { $WorkRoot = [IO.Path]::GetDirectoryName($DestinationPath) }
+  $allocated = New-WinImgImageCandidate -WorkRoot $WorkRoot
+  $candidate = [IO.Path]::Combine([IO.Path]::GetDirectoryName($allocated), 'video.partial')
+  $cleanupWarning = $null
+  $fileOwned = $false
+  try {
+    Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($SourcePath))
+    $before = Get-Item -LiteralPath $SourcePath -Force -ErrorAction Stop
+    if ($before.PSIsContainer -or ($before.Attributes -band [IO.FileAttributes]::ReparsePoint)) { throw 'Video source is not a regular file.' }
+    $length = $before.Length
+    $modified = $before.LastWriteTimeUtc
+    $created = $before.CreationTimeUtc
+    $reservation = [IO.FileStream]::new($candidate, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+    $fileOwned = $true
+    $reservation.Dispose()
+    Copy-WinImgVideoToCandidate -SourcePath $SourcePath -CandidatePath $candidate
+    $after = Get-Item -LiteralPath $SourcePath -Force -ErrorAction Stop
+    $partial = Get-Item -LiteralPath $candidate -Force -ErrorAction Stop
+    if ($after.PSIsContainer -or ($after.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+        $partial.PSIsContainer -or ($partial.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+        $after.Length -ne $length -or $after.LastWriteTimeUtc -ne $modified -or $partial.Length -ne $length) {
+      throw 'Video copy is incomplete or the source changed during copying; no final output was committed.'
+    }
+    Move-WinImgPlannedImage -CandidatePath $candidate -DestinationPath $DestinationPath
+  } finally {
+    try { Remove-WinImgOwnedCandidate -CandidatePath $candidate -FileOwned $fileOwned }
+    catch { $cleanupWarning = $_.Exception.Message; Write-Warning ('Could not remove owned video scratch: ' + $cleanupWarning) }
+  }
+  return [pscustomobject]@{ BytesOut = $length; LastWriteTimeUtc = $modified; CreationTimeUtc = $created; CleanupWarning = $cleanupWarning }
+}
+
+function Copy-WinImgVideoToCandidate {
+  param([string]$SourcePath, [string]$CandidatePath)
+  # Read sharing blocks cooperative writers while copying. Both streams must
+  # finish/dispose before the caller verifies length and source timestamps.
+  $inputStream = [IO.FileStream]::new($SourcePath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+  try {
+    $outputStream = [IO.FileStream]::new($CandidatePath, [IO.FileMode]::Open, [IO.FileAccess]::Write, [IO.FileShare]::None)
+    try {
+      if ($outputStream.Length -ne 0) { throw 'The reserved video partial is unexpectedly nonempty.' }
+      $inputStream.CopyTo($outputStream); $outputStream.Flush()
+    }
+    finally { $outputStream.Dispose() }
+  } finally { $inputStream.Dispose() }
+}
+
+function Remove-WinImgOwnedCandidate {
+  param([string]$CandidatePath, [bool]$FileOwned = $true)
+  # Call only for an exact path in an exclusively allocated attempt directory.
+  # Unknown siblings, including numbered native outputs, are never deleted.
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($CandidatePath))
+  if ($FileOwned -and [IO.File]::Exists($CandidatePath)) { [IO.File]::Delete($CandidatePath) }
+  [IO.Directory]::Delete([IO.Path]::GetDirectoryName($CandidatePath), $false)
+}
+
+function Test-WinImgImageCandidate {
+  param([string]$CandidatePath, [string]$MagickPath)
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($CandidatePath))
+  $before = Get-Item -LiteralPath $CandidatePath -Force -ErrorAction Stop
+  if ($before.PSIsContainer -or ($before.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $before.Length -le 0) {
+    throw 'ImageMagick produced no nonempty regular candidate.'
+  }
+  $length = $before.Length
+  $modified = $before.LastWriteTimeUtc
+  $nativePath = Get-WinImgNativeOutputPath $CandidatePath
+  $previousPreference = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
+  try {
+    # Explicit +ping decodes pixels; -regard-warnings rejects recovered/truncated
+    # JPEGs. Do not force an input coder: inspect the actual stored format.
+    $metadata = @(& $MagickPath identify +ping -regard-warnings -format '%m|%w|%h|%n' $nativePath 2>&1)
+    $decodeExit = $LASTEXITCODE
+  } finally { $ErrorActionPreference = $previousPreference }
+  $text = $metadata -join "`n"
+  if ($decodeExit -ne 0 -or $text -notmatch '^JPEG\|([1-9][0-9]*)\|([1-9][0-9]*)\|1$') {
+    throw 'Candidate failed full single-frame JPEG decode or dimension validation.'
+  }
+  $width = [long]$Matches[1]
+  $height = [long]$Matches[2]
+  $after = Get-Item -LiteralPath $CandidatePath -Force -ErrorAction Stop
+  if ($after.Length -ne $length -or $after.LastWriteTimeUtc -ne $modified -or ($after.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+    throw 'Candidate changed during JPEG validation.'
+  }
+  return [pscustomobject]@{ BytesOut = $length; Width = $width; Height = $height }
 }
 
 function New-WinImgExclusiveDirectory {
@@ -682,81 +768,59 @@ function Invoke-WinImgNormalizer {
     else { return "{0}B" -f $Bytes }
   }
   function Convert-ImageMagick {
-    param(
-      [string]$SourcePath,
-      [string]$DestPath,
-      [long]$MaxBytes
-    )
+    param([string]$SourcePath, [string]$DestPath, [long]$MaxBytes,
+      [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates)
 
     $extent = Get-ExtentString $MaxBytes
     $scales = 100,90,80,70,60,50
-    $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
-
+    $lastFailure = 'ImageMagick conversion failed'
+    $attemptCount = 0
     foreach ($p in $scales) {
-      # Ensure destination directory exists
-      $destDir = [System.IO.Path]::GetDirectoryName($DestPath)
-      if ($destDir -and -not (Test-Path -LiteralPath $destDir)) {
-        New-Item -ItemType Directory -Path $destDir -Force | Out-Null
-      }
-
-      # Primary attempt, handles alpha -> white
-      $args = @(
-        '-quiet',
-        $SourcePath,
-        '-auto-orient','-strip','-colorspace','sRGB',
-        '-sampling-factor','4:2:0','-interlace','Line',
-        '-background','white','-alpha','remove','-alpha','off',
-        '-resize', "$p%",
-        '-define', "jpeg:extent=$extent",
-        ('JPEG:' + $nativeDestPath)
-      )
-
-      # Run ImageMagick without escalating warnings to terminating errors
-      $prevEAP = $ErrorActionPreference
-      $ErrorActionPreference = 'Continue'
-      try {
-        $nativeExitCode = & $ProcessRunner $MagickCmd $args
-      } finally {
-        $ErrorActionPreference = $prevEAP
-      }
-
-      # Retry without alpha flags if magick errored or produced nothing
-      if ($nativeExitCode -ne 0 -or -not (Test-Path -LiteralPath $DestPath)) {
-        $args2 = @(
-          '-quiet',
-          $SourcePath,
-          '-auto-orient','-strip','-colorspace','sRGB',
-          '-sampling-factor','4:2:0','-interlace','Line',
-          '-resize', "$p%",
-          '-define', "jpeg:extent=$extent",
-          ('JPEG:' + $nativeDestPath)
-        )
-        $prevEAP = $ErrorActionPreference
+      foreach ($alpha in @($true, $false)) {
+        # Every native attempt has a new exact path, including alpha fallback.
+        if ($attemptCount -gt 0) {
+          $previous = $OwnedCandidates[$OwnedCandidates.Count - 1]
+          try { Remove-WinImgOwnedCandidate -CandidatePath $previous.Path -FileOwned $previous.FileOwned; $previous.Removed = $true }
+          catch { Write-Log ('Could not remove superseded image scratch: ' + $_.Exception.Message) 'WARN' }
+          $DestPath = New-WinImgImageCandidate -WorkRoot $WorkRoot
+          $OwnedCandidates.Add([pscustomobject]@{ Path = $DestPath; FileOwned = $false; Removed = $false })
+        }
+        $ownership = $OwnedCandidates[$OwnedCandidates.Count - 1]
+        $stream = [IO.FileStream]::new($DestPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+        $ownership.FileOwned = $true
+        $stream.Dispose()
+        $attemptCount++
+        $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
+        $nativeArguments = @('-quiet', $SourcePath, '-auto-orient','-strip','-colorspace','sRGB',
+          '-sampling-factor','4:2:0','-interlace','Line')
+        if ($alpha) { $nativeArguments += @('-background','white','-alpha','remove','-alpha','off') }
+        $nativeArguments += @('-resize', "$p%", '-define', "jpeg:extent=$extent", ('JPEG:' + $nativeDestPath))
+        $previousPreference = $ErrorActionPreference
         $ErrorActionPreference = 'Continue'
-        try {
-          $nativeExitCode = & $ProcessRunner $MagickCmd $args2
-        } finally {
-          $ErrorActionPreference = $prevEAP
+        try { $nativeResult = & $ProcessRunner $MagickCmd $nativeArguments }
+        finally { $ErrorActionPreference = $previousPreference }
+        # Keep the inherited integer seam and allow a future structured native
+        # result. Missing, ambiguous and timeout/cancellation results fail closed.
+        $successful = (($nativeResult -is [int] -or $nativeResult -is [long]) -and $nativeResult -eq 0)
+        if ($null -ne $nativeResult -and $nativeResult -isnot [array] -and
+            $null -ne $nativeResult.PSObject.Properties['ExitCode']) {
+          $successful = (($nativeResult.ExitCode -is [int] -or $nativeResult.ExitCode -is [long]) -and
+            $nativeResult.ExitCode -eq 0 -and -not $nativeResult.TimedOut -and -not $nativeResult.Cancelled)
         }
-      }
-
-      # Check size target
-      if (Test-Path -LiteralPath $DestPath) {
-        $len = (Get-Item -LiteralPath $DestPath).Length
-        if ($len -le $MaxBytes) {
-          return @{ Status='Converted'; BytesOut=$len; Scale=$p; Note=$null }
+        if (-not $successful) { $lastFailure = 'ImageMagick attempt did not return a successful native outcome'; continue }
+        try { $validation = Test-WinImgImageCandidate -CandidatePath $DestPath -MagickPath $MagickCmd }
+        catch { $lastFailure = $_.Exception.Message; continue }
+        if ($validation.BytesOut -le $MaxBytes -or $p -eq 50) {
+          $note = if ($validation.BytesOut -gt $MaxBytes) { 'WARN: Could not reach target; best-effort saved' } else { $null }
+          return @{ Status='Converted'; CandidatePath=$DestPath; BytesOut=$validation.BytesOut;
+            Width=$validation.Width; Height=$validation.Height; Scale=$p; Attempts=$attemptCount; Note=$note }
         }
-        # Too big? try next smaller scale.
+        # This valid above-target attempt is superseded. A later failure may not
+        # reuse it or mislabel it with a later scale. Only the last attempt counts.
+        break
       }
     }
-
-    # Best-effort fallback if we have an output but couldn't hit the cap
-    if (Test-Path -LiteralPath $DestPath) {
-      $len = (Get-Item -LiteralPath $DestPath).Length
-      return @{ Status='Converted'; BytesOut=$len; Scale=50; Note='WARN: Could not reach target; best-effort saved' }
-    } else {
-      return @{ Status='Error'; Note='ImageMagick conversion failed' }
-    }
+    return @{ Status='Error'; Attempts=$attemptCount; Note=$lastFailure }
   }
 
   # --------- Main loop ---
@@ -795,16 +859,15 @@ function Invoke-WinImgNormalizer {
       Write-Log "Source/destination safety check failed: $rel ($($_.Exception.Message))" 'ERR'
       continue
     }
-    $candidatePath = $null
+    $ownedCandidates = New-Object 'System.Collections.Generic.List[object]'
     try {
       if ($imgExts -contains $ext) {
-        # Neutral owned scratch is necessary now to protect an arriving final
-        # name. Full attempt validation/lifecycle is the following task.
         try { $candidatePath = New-WinImgImageCandidate -WorkRoot $workRoot }
         catch { $hasNamingWarnings = $true; throw }
-        $res = Convert-ImageMagick -SourcePath $f.FullName -DestPath $candidatePath -MaxBytes $MaxBytes
+        $ownedCandidates.Add([pscustomobject]@{ Path = $candidatePath; FileOwned = $false; Removed = $false })
+        $res = Convert-ImageMagick -SourcePath $f.FullName -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates
         if ($res.Status -eq 'Converted') {
-          try { Move-WinImgPlannedImage -CandidatePath $candidatePath -DestinationPath $destPath }
+          try { Move-WinImgPlannedImage -CandidatePath $res.CandidatePath -DestinationPath $destPath }
           catch { $hasNamingWarnings = $true; throw }
           $stats.Converted++
           try { (Get-Item -LiteralPath $destPath).LastWriteTimeUtc = $f.LastWriteTimeUtc; (Get-Item -LiteralPath $destPath).CreationTimeUtc = $f.CreationTimeUtc } catch {}
@@ -817,10 +880,11 @@ function Invoke-WinImgNormalizer {
       elseif ($videoExts -contains $ext) {
         $destDir = [System.IO.Path]::GetDirectoryName($destPath)
         if ($destDir -and -not (Test-Path -LiteralPath $destDir)) { New-Item -ItemType Directory -Path $destDir -Force | Out-Null }
-        try { Copy-WinImgPlannedVideo -SourcePath $f.FullName -DestinationPath $destPath }
+        try { $videoResult = Copy-WinImgPlannedVideo -SourcePath $f.FullName -DestinationPath $destPath -WorkRoot $workRoot }
         catch { $hasNamingWarnings = $true; throw }
-        try { (Get-Item -LiteralPath $destPath).LastWriteTimeUtc = $f.LastWriteTimeUtc; (Get-Item -LiteralPath $destPath).CreationTimeUtc = $f.CreationTimeUtc } catch {}
-        $bytesOut = (Get-Item -LiteralPath $destPath).Length
+        if ($videoResult.CleanupWarning) { $hasNamingWarnings = $true; Write-Log ('Video scratch cleanup: ' + $videoResult.CleanupWarning) 'WARN' }
+        try { (Get-Item -LiteralPath $destPath).LastWriteTimeUtc = $videoResult.LastWriteTimeUtc; (Get-Item -LiteralPath $destPath).CreationTimeUtc = $videoResult.CreationTimeUtc } catch {}
+        $bytesOut = $videoResult.BytesOut
         $stats.CopiedVideo++; Write-Log ("OK VID: {0} -> {1} [{2:n0} bytes]" -f $rel, $destRel, $bytesOut) 'OK'
       }
       else {
@@ -829,13 +893,10 @@ function Invoke-WinImgNormalizer {
     } catch {
       $stats.Errors++; Write-Log "Exception processing: $rel ($($_.Exception.Message))" 'ERR'
     } finally {
-      if ($candidatePath) {
-        # Only the exact candidate in this exclusively allocated directory is
-        # owned. Unknown numbered outputs are left for the later frame policy.
-        try {
-          if ([IO.File]::Exists($candidatePath)) { [IO.File]::Delete($candidatePath) }
-          [IO.Directory]::Delete([IO.Path]::GetDirectoryName($candidatePath), $false)
-        } catch {
+      foreach ($owned in $ownedCandidates) {
+        if ($owned.Removed) { continue }
+        try { Remove-WinImgOwnedCandidate -CandidatePath $owned.Path -FileOwned $owned.FileOwned }
+        catch {
           $hasNamingWarnings = $true
           Write-Log ('Could not remove owned image scratch: ' + $_.Exception.Message) 'WARN'
         }
@@ -857,7 +918,7 @@ function Invoke-WinImgNormalizer {
   Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4}" -f $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors)
   Write-Log "Completed $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
-  if ($missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings) { return 2 }
+  if ($stats.Errors -gt 0 -or $missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings) { return 2 }
   return 0
 }
 

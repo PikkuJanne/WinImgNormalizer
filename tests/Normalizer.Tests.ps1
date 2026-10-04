@@ -274,7 +274,8 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         ($retry -join '|') | Should -Be (
             @('-quiet', (Join-Path $source 'single.png'), '-auto-orient', '-strip', '-colorspace', 'sRGB',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '100%', '-define',
-                'jpeg:extent=1MB', $first[-1]) -join '|')
+                'jpeg:extent=1MB', $retry[-1]) -join '|')
+        $retry[-1] | Should -Not -Be $first[-1]
         $trace[0].Executable | Should -Be $magick
         $trace[1].Executable | Should -Be $magick
         $logs = @(Get-ChildItem -LiteralPath $parent -Recurse -File -Filter '*.log')

@@ -93,10 +93,25 @@ derivative to `photo__png__2.jpeg`; further conflicts use the next free number.
 Every eligible source has a `PLAN` source-to-output entry in the local log, even
 when it is later skipped or fails. The duplicate heuristic still applies.
 
-Images use neutral scratch names before a move that refuses replacement. Video
-copies also refuse replacement. If a file or directory appears at a planned target,
-it is preserved, the item is reported as failed and the batch returns code 2.
-Output-content validation and staged video-copy recovery remain planned improvements.
+Every image attempt uses a fresh, exclusively reserved neutral scratch file. A
+successful native exit, nonempty JPEG bytes, one frame, positive dimensions and
+full pixel decode are required before finalization. Invalid or truncated outputs
+and files from earlier attempts cannot become successful derivatives. The current
+scale sequence and valid best-effort size fallback remain; explicit multi-frame
+selection is still planned, so numbered multi-output attempts are rejected.
+
+Videos are copied into owned partial files. After the copy streams finish, the
+partial size and source length/modified time must match before finalization. Videos
+retain their original bytes and metadata; runtime content hashing is not required.
+These checks detect observed changes and cannot guarantee a snapshot against
+concurrent hostile filesystem changes.
+
+Both media types use a move on the destination volume that refuses replacement.
+If a file or directory appears at a planned target, it is preserved, the item fails
+and the batch returns code 2. Cleanup deletes exact owned partials and empty owned
+directories only. Unexpected neighboring files remain for diagnosis. A forced
+process interruption can leave partials under the run's generated `work` directory;
+such files are not final outputs.
 
 **Output location**
 Default target is the Windows Pictures folder:

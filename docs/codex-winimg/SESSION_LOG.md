@@ -276,3 +276,65 @@ response/PR. M1-T03 accepted; next M1-T04, stop. Six of 28 accepted, T001-T019
 exercised with T001-T004 retained as characterization. Full candidate/native outcome
 validation, video-copy transactions, frames/colour/duplicates/general lifecycle and
 owner/publication gates remain later scope.
+
+## 2026-10-04 — M1-T04 completed
+
+Started from clean f73a4d0, independently matching the verified feature remote.
+Owner-merged PR #6 main acd2959 had the identical tree; read-only fetch preserved
+checkout/history. Continued the authorized feature and opened successor draft PR
+#7 after normal push. Preserved the non-Git snapshot.
+
+Each native image attempt now exclusively reserves its own neutral candidate,
+including fallback and lower scales. Successful native outcome, nonempty regular
+bytes, full single-frame JPEG decode and positive dimensions precede measured-byte
+acceptance; validation rechecks length/time. Superseded scratch is cleaned before the
+next attempt and cannot become stale best-effort success. Videos stream into owned
+partials, flush/close and verify output/source length plus source modification time.
+Same-volume no-overwrite File.Move preserves final arrivals. Exact owned cleanup
+preserves unknown numbered outputs and unreserved neighbors. Item errors return 2.
+Decision D22 and primary API reference W3 record choices and limits.
+
+T020-T024 add invalid/ambiguous outcomes, actual truncated-header/full-pixel decoding,
+real neutral native long-path validation/move, numbered outputs, fresh fallback/stale
+attempts, final-name arrivals, stable opaque video hashes, controlled source changes/
+partial writes/stream failures and exact ownership. Controlled cancellation/timeout
+results do not certify actual process termination. No runtime video content hashing,
+same-length/same-timestamp identity, crash durability or hostile-filesystem guarantee.
+
+Development history: An exploratory development run passed 119/119 while runtime
+cleanup and source line-ending edits were still in progress. Its counts are
+retained as nonrevision-bound observations; runner hashes describe end-of-run
+files and do not prove every import executed those bytes. Initial targeted 32-case
+suites each passed 31 and failed one fixture-oracle assertion: converting a
+truncated JPEG to null: returned zero instead of the expected nonzero. A further
+resize/PNG probe emitted premature-end/corrupt warnings but returned zero and
+wrote 250 bytes on the pinned build. Explicit identify +ping -regard-warnings
+rejected the same truncated bytes with exit 1; the fixture oracle now checks
+readable header dimensions against that explicit full-pixel mode. The runtime
+already used it and its rejection regression had passed. Corrected targeted suites
+passed 32/32; these remain uncommitted development observations. Initial clean
+8f10472 desktop suites each passed 151/151 with 152-test controls proving one
+false assertion/exit 1. All four initial hosted jobs failed with 150/151 tests
+passing because test-side inspection of retained numbered siblings used ordinary
+long paths. Test-only ed7fb76 applies the existing extended native path helper to
+two inspection calls; runtime code is unchanged. Corrected final2/control2 suites
+and hosted push/PR matrices above pass at the exact committed checkout binding.
+
+Committed runtime/tests as ed7fb7691eca9dd55082338230657804c1865681. Actual desktop PS 5.1 / PS 7 each passed
+151/151, zero skipped; controls 152 total / 151 passed / one identified false
+assertion / exit 1. All four summaries match the same clean committed checkout bytes;
+evidence records raw hashes, committed blob hashes and Git's CRLF/LF normalization.
+Persistent policies are unchanged. Push and PR Windows Server matrices passed all four
+jobs and failure controls; actual versions/counts/links are in M1-T04-ci.json.
+Desktop evidence is M1-T04.json. No installer, persistent PATH/policy, ImageMagick
+global policy, runtime bootstrap, private media or owner visual acceptance changes.
+
+Implementation sync is a past exact-SHA observation. The final record-only checkpoint
+updates STATUS/TASKS/NEXT_SESSION/SESSION_LOG/DECISIONS plus two sanitized evidence
+files, binding the tested implementation. The primary reference update is in the
+implementation checkpoint. Its containing SHA/sync remains
+pending_verification until externally observed after normal commit/push. No merge,
+release or deployment. M1-T04 accepted; next M1-T05, stop. Seven of 28 accepted and
+T001-T024 exercised with T001-T004 retained as characterization. Duplicate early
+registration/length guard, native lifecycle, frames/colour/general cancellation and
+owner/publication gates remain later scope.
