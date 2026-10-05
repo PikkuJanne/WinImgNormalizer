@@ -2422,7 +2422,18 @@ function Invoke-WinImgNormalizerCommand {
   foreach ($key in @('ExecutionPolicy','NativeProcessObserver','NativeTemporaryRoot','CancellationState','CopyProgressObserver','RunStageObserver','ReportObserver')) {
     if ($PSBoundParameters.ContainsKey($key)) { $invoke[$key] = $PSBoundParameters[$key] }
   }
-  return Invoke-WinImgNormalizer @invoke
+  try { return Invoke-WinImgNormalizer @invoke }
+  catch [Management.Automation.PipelineStoppedException] { throw }
+  catch {
+    # Ordinary run-level failures have a stable command result. Cooperative
+    # cancellation is handled by the active run; stopped/force-killed hosts may
+    # bypass this boundary and have no promised report or application exit code.
+    $message = 'Run error: ' + (Get-WinImgBoundedText (ConvertTo-WinImgLogText $_.Exception.Message) 1024)
+    try { Write-Host $message -ForegroundColor Red }
+    catch [Management.Automation.PipelineStoppedException] { throw }
+    catch { Write-WinImgEmergencyReport $message }
+    return 1
+  }
 }
 
 if ($MyInvocation.InvocationName -ne '.') {

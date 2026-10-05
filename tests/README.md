@@ -1,4 +1,4 @@
-# Windows checks (through M3-T03)
+# Windows checks (through M3-T05)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -13,6 +13,10 @@ orientation and white alpha composition. Literal native/launcher path checks
 (T054-T056) exercise owned native termination, staged-copy interruption and forced
 exit boundaries. The characterization evidence in `legacy/` describes the baseline
 defects separately.
+Reporting checks (T057-T060) reconcile outcomes, paired image bytes, reversible
+formula-safe CSV text and degraded sinks. Launcher and command checks (T061-T063)
+exercise actual Windows child hosts, pause/exit propagation, zero/extra arguments,
+literal paths and unchanged persistent policies.
 
 Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
 and portable ImageMagick into ignored `.scratch`. It verifies the archives and
@@ -41,7 +45,9 @@ The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1`,
 `Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1`, `Frames.Tests.ps1`,
 `Colour.Tests.ps1`, `Paths.Tests.ps1`, `Sizing.Tests.ps1`, `Diagnostics.Tests.ps1`,
-`ConversionRegression.Tests.ps1`, `RecoveryReporting.Tests.ps1`, and `NativeLifetime.Tests.ps1`.
+`ConversionRegression.Tests.ps1`, `RecoveryReporting.Tests.ps1`,
+`NativeLifetime.Tests.ps1`, `Cancellation.Tests.ps1`, `Reporting.Tests.ps1`,
+`Launcher.Tests.ps1`, and `ExitContract.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -397,3 +403,12 @@ are serializer unit probes. These parser checks do not claim actual Excel or
 LibreOffice execution, formula editing or save/reopen behavior. Keep all prefixes
 for spreadsheet display; README documents the qualified all-Text import recipe.
 Raw CSV/media and detailed source snapshots remain in marker-owned ignored scratch.
+
+M3-T05 launcher tests copy the exact production BAT beside a synthetic argument/
+exit observer. Actual CMD and Windows PowerShell children verify messages, native
+codes after an observed pause, literal path forwarding and no persistent policy,
+PATH or identity change. Exit-contract tests instead call the real application
+Command in a safe -File driver with internal scratch output/dependency paths,
+including genuine media processing and controlled cancellation/run-level faults.
+These controlled seams are identified in the test names and evidence. They do not
+claim a physical Explorer gesture or owner workflow approval; that remains M3-T07.
