@@ -208,3 +208,55 @@ provides source/target profile transforms with explicit intent and flags. The
 independent synthetic patch recipe records its Pillow/LittleCMS versions and keeps
 pre-JPEG transform tolerance separate from lossy JPEG tolerance; mandatory tests
 consume checked reference data without a Python/Pillow runtime dependency.
+
+## I8 — M2-T03 literal filenames, native argv and directory identity, 5 October 2026
+
+[ImageMagick command-line processing](https://imagemagick.org/command-line-processing/)
+describes filename globs, frame selectors and embedded scene/property formatting,
+and documents `registry:filename:literal=true` for literal formatting. The
+[defines reference](https://imagemagick.org/defines/) also documents the shorter
+`filename:literal` output define. PowerShell literal paths do not by themselves
+disable this separate native grammar.
+
+The [pinned 7.1.2-32 InterpretImageFilename implementation](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/image.c)
+returns the unexpanded filename when its literal registry setting is true.
+[ReadImages/PingImages](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/constitute.c)
+also apply filename interpretation while selecting scenes. The retained actual
+red-versus-blue input probe shows that `image:frames=0` can select a numeric
+counterpart in a percent ancestor when the guard is absent; placing it before
+input restores the intended pixels. This is a measured pinned-build result, not
+an inference that neutral basenames remove all ancestor syntax.
+The [pinned filename expansion code](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/utility.c)
+and [registry define handling](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickWand/operation.c)
+support the explicit process-local choice; checked synthetic files establish its
+actual behavior. Version-tagged source bytes and native probe hashes stay in the
+ignored provenance manifest.
+
+[CMD](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd)
+documents quoting and delayed exclamation expansion.
+[SETLOCAL](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/setlocal)
+localizes `DisableDelayedExpansion` to a batch invocation.
+[PowerShell parsing](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parsing)
+describes native argument boundaries and the legacy handling of CMD/BAT.
+Actual receiver/application tests support the conditional trailing-separator
+suffix and tested argv identities. Caller CMD substitution that occurs before
+entry is a separate limitation; use the documented direct PowerShell literal form
+for paired percent expressions. These observations do not certify Explorer use,
+default Pictures routing or general final BAT exit propagation.
+
+[Windows path limits](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation)
+distinguish extended paths, ordinary MAX_PATH, process opt-in and shell support.
+The actual supported 324-character source and complete output tests do not imply
+universal provider or disabled-policy support. No host policy is changed.
+
+[GetFileInformationByHandleEx](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-getfileinformationbyhandleex)
+documents `FileIdInfo` and its supported filesystem/network technologies.
+The [information-class enumeration](https://learn.microsoft.com/en-us/windows/win32/api/minwinbase/ne-minwinbase-file_info_by_handle_class)
+places that class at 18 and states its Windows 8/Server 2012 availability boundary.
+[FILE_ID_INFO](https://learn.microsoft.com/en-us/windows/win32/api/winbase/ns-winbase-file_id_info)
+combines a volume serial with a 128-bit identifier for comparing handles on one
+computer. The runtime rejects unavailable or unusable identities. Actual local
+drive/localhost C$ ancestor rejection supports this conservative preflight policy;
+it does not certify arbitrary remote SMB equivalence or a hostile concurrent
+filesystem sandbox. Live UNC capability remains separately observed from the
+mandatory assertion count.
