@@ -1,4 +1,4 @@
-# Windows checks (through M2-T02)
+# Windows checks (through M2-T03)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -8,7 +8,8 @@ staged video transactions (T020-T024), and successful-retention duplicate handli
 twice into separate outputs under the same parent. Frame/page regressions (T029-T031)
 check deliberate first-image selection, logical animation canvases and visible omissions.
 Colour and privacy regressions (T032-T036) compare managed patches, stripping,
-orientation and white alpha composition. They do not certify cancellation fixes. The characterization
+orientation and white alpha composition. Literal native/launcher path checks
+(T037-T039) preserve selected images and intended names. They do not certify cancellation fixes. The characterization
 evidence in `legacy/` describes those known defects separately.
 
 Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
@@ -36,8 +37,8 @@ tests use owned synthetic scratch trees and controlled process failures. The pub
 
 The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1`,
-`Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1`, `Frames.Tests.ps1` and
-`Colour.Tests.ps1`.
+`Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1`, `Frames.Tests.ps1`,
+`Colour.Tests.ps1` and `Paths.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -186,3 +187,30 @@ every attempt, together with the white alpha and stripping operations. Sources k
 timestamps, and each success produces one intended JPEG with exact owned scratch
 cleanup. All generated media and raw development history remain in marked ignored
 scratch without recursive deletion.
+
+Path tests create synthetic percent, template, bracket, hash, at-sign and leading
+hyphen filenames, selected GIF frames, copied opaque video bytes, percent directory ancestors and genuine
+tagged ICC inputs. Fully decoded JPEG pixels and exact final file lists distinguish
+the intended red image from deceptive blue neighbors. A narrow snapshot observer
+delegates the real copy, then creates a differently colored numeric-template
+counterpart in owned scratch; the actual native inspection and conversion decide
+which image is read. Final-name arrivals exercise no-overwrite behavior.
+
+Launcher tests copy the actual BAT bytes and instrument only the PS1 final call
+with an owned output/dependency seam and an argv/host/application-exit receiver. Real Windows
+PowerShell 5.1 receives spaces, apostrophes, ampersands, parentheses, exclamation
+marks, percent/brackets and Finnish/German/emoji characters through native `-File`
+and inherited delayed-expansion CMD. BAT trailing separators are compared as
+canonical directory identities. Caller-side CMD expansion of paired percent
+variables precedes BAT entry; the direct PowerShell test proves that literal form.
+Neither PATH, USERPROFILE, real Pictures nor persistent settings are changed.
+
+Long local paths run against actual owned files beyond MAX_PATH, retaining source
+bytes and creation/modified times whether the host supports them or reports an
+explicit failure. Drive and UNC root containment checks are lexical and do not
+enumerate a root/share. A separate five-second capability probe checks only an
+existing localhost administrative alias of the owned fixture. When available,
+actual direct UNC input/output and BAT UNC-source conversions verify argv, complete JPEG pixels and source
+preservation; unavailable capability is recorded as `not_run` outside the mandatory
+Pester count. No share is created, configured or searched, and lexical checks never
+establish live UNC support. Raw capability observations remain in owned scratch.

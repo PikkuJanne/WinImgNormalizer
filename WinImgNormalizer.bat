@@ -1,5 +1,5 @@
 @echo off
-setlocal EnableExtensions
+setlocal EnableExtensions DisableDelayedExpansion
 
 if "%~1"=="" (
   echo Drag and drop a FOLDER onto this .bat file.
@@ -8,6 +8,9 @@ if "%~1"=="" (
 )
 
 set "SRC=%~1"
+rem Preserve a trailing root/folder separator across native quoted argv parsing.
+if "%SRC:~-1%"=="\" set "SRC=%SRC%."
+if "%SRC:~-1%"=="/" set "SRC=%SRC%."
 set "PS1=%~dpn0.ps1"
 
 if not exist "%PS1%" (

@@ -400,7 +400,7 @@ Describe 'M1-T03 collision integration and final-arrival preservation (T017-T019
         $trace = New-Object 'Collections.Generic.List[string]'
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
-            $inputIndex = if ($Arguments[2] -eq '-define') { 4 } else { 2 }
+            $inputIndex = if ($Arguments[4] -eq '-define') { 6 } else { 4 }
             $trace.Add($Arguments[$inputIndex])
             [IO.File]::WriteAllBytes($Arguments[-1].Substring('JPEG:'.Length), $jpegBytes)
             return 0

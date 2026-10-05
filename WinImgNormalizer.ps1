@@ -112,7 +112,7 @@ function Test-WinImgPathContained {
 function Initialize-WinImgDirectoryApi {
   if ('WinImgNormalizer.NativeDirectory' -as [type]) { return }
   # Loaded only when the application runs; importing definitions has no effects.
-  # Both APIs exist on the supported Windows/Windows PowerShell versions.
+  # These APIs exist on the supported Windows/Windows PowerShell versions.
   Add-Type -TypeDefinition @'
 using System;
 using System.ComponentModel;
@@ -127,6 +127,16 @@ namespace WinImgNormalizer {
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
     private static extern uint GetFinalPathNameByHandleW(SafeFileHandle handle,
       StringBuilder path, uint capacity, uint flags);
+    [StructLayout(LayoutKind.Sequential)]
+    private struct FileIdInfo {
+      public ulong VolumeSerialNumber;
+      public ulong FileIdLow;
+      public ulong FileIdHigh;
+    }
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetFileInformationByHandleEx(SafeFileHandle handle,
+      int informationClass, out FileIdInfo information, uint size);
     [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool CreateDirectoryW(string path, IntPtr security);
@@ -151,6 +161,21 @@ namespace WinImgNormalizer {
         if (result.StartsWith(@"\\?\UNC\", StringComparison.OrdinalIgnoreCase)) return @"\\" + result.Substring(8);
         if (result.StartsWith(@"\\?\", StringComparison.Ordinal)) return result.Substring(4);
         throw new InvalidOperationException("Windows returned an unsupported canonical directory path.");
+      }
+    }
+    public static string Identity(string path) {
+      using (SafeFileHandle handle = CreateFileW(NativePath(path), 0, 7, IntPtr.Zero, 3, 0x02000000, IntPtr.Zero)) {
+        if (handle.IsInvalid) throw new Win32Exception(Marshal.GetLastWin32Error());
+        FileIdInfo information;
+        // FileIdInfo (18) supplies a 128-bit ID, including on ReFS. An unsupported
+        // provider cannot establish safe alias boundaries and fails setup.
+        if (!GetFileInformationByHandleEx(handle, 18, out information, (uint)Marshal.SizeOf(typeof(FileIdInfo))))
+          throw new InvalidOperationException("The directory provider cannot establish safe alias boundaries with a 128-bit file identity.",
+            new Win32Exception(Marshal.GetLastWin32Error()));
+        if (information.FileIdLow == 0 && information.FileIdHigh == 0)
+          throw new InvalidOperationException("The directory provider returned no usable file identity.");
+        return information.VolumeSerialNumber.ToString("X16") + ":" +
+          information.FileIdHigh.ToString("X16") + information.FileIdLow.ToString("X16");
       }
     }
     public static bool CreateExclusive(string path) {
@@ -216,8 +241,26 @@ function Assert-WinImgSafeDestination {
   param([string]$SourceRoot, [string]$OutputParent)
   $sourcePath = Resolve-WinImgCanonicalDirectory $SourceRoot
   $parentPath = Resolve-WinImgCanonicalDirectory $OutputParent
-  if (Test-WinImgPathContained -Root $sourcePath -Path $parentPath) {
-    throw 'The destination is inside or equal to the source. Choose a source subfolder outside the destination tree (for example, a subfolder of Pictures).'
+  $contained = Test-WinImgPathContained -Root $sourcePath -Path $parentPath
+  if (-not $contained) {
+    # A drive path and a share alias can spell the same physical directory
+    # differently. Compare the existing destination ancestors before any write.
+    $sourceIdentity = [WinImgNormalizer.NativeDirectory]::Identity($sourcePath)
+    $ancestor = $parentPath
+    while ($ancestor) {
+      if (Test-Path -LiteralPath $ancestor -ErrorAction Stop) {
+        if ([WinImgNormalizer.NativeDirectory]::Identity($ancestor) -eq $sourceIdentity) {
+          $contained = $true
+          break
+        }
+      }
+      $parent = [IO.Directory]::GetParent($ancestor)
+      if ($null -eq $parent) { break }
+      $ancestor = $parent.FullName
+    }
+  }
+  if ($contained) {
+    throw 'The destination is inside or equal to the source, including a directory alias. Choose a source subfolder outside the destination tree (for example, a subfolder of Pictures).'
   }
   return $parentPath
 }
@@ -456,7 +499,7 @@ function Test-WinImgImageCandidate {
   try {
     # Explicit +ping decodes pixels; -regard-warnings rejects recovered/truncated
     # JPEGs. Do not force an input coder: inspect the actual stored format.
-    $metadata = @(& $MagickPath identify +ping -regard-warnings -format '%m|%w|%h|%n' $nativePath 2>&1)
+    $metadata = @(& $MagickPath identify +ping -regard-warnings -define registry:filename:literal=true -format '%m|%w|%h|%n' $nativePath 2>&1)
     $decodeExit = $LASTEXITCODE
   } finally { $ErrorActionPreference = $previousPreference }
   $text = $metadata -join "`n"
@@ -515,7 +558,7 @@ function Get-WinImgSourceImageInfo {
   try {
     # Count every image exposed by this decoder without applying the first-image
     # define. Header inspection is not the final JPEG's full-decode validation.
-    $metadata = @(& $MagickPath identify -ping -regard-warnings -format '%m|%n|%w|%h\n' $nativePath 2>&1)
+    $metadata = @(& $MagickPath identify -ping -regard-warnings -define registry:filename:literal=true -format '%m|%n|%w|%h\n' $nativePath 2>&1)
     $inspectExit = $LASTEXITCODE
   } finally { $ErrorActionPreference = $previousPreference }
   if ($inspectExit -ne 0 -or $metadata.Count -eq 0) { throw 'Source frame/page inspection failed; no image was selected.' }
@@ -547,7 +590,7 @@ function Get-WinImgColourInfo {
   try {
     # profiles=none is an option fallback for an absent profile list, avoiding
     # an unknown-property warning. Never set the profiles image property.
-    $metadata = @(& $MagickPath identify -ping -regard-warnings -define image:frames=0 -define profiles=none +set profiles +set colorspace -format '%[colorspace]|%[profiles]' $nativePath 2>&1)
+    $metadata = @(& $MagickPath identify -ping -regard-warnings -define registry:filename:literal=true -define image:frames=0 -define profiles=none +set profiles +set colorspace -format '%[colorspace]|%[profiles]' $nativePath 2>&1)
     $inspectExit = $LASTEXITCODE
   } finally { $ErrorActionPreference = $previousPreference }
   if ($inspectExit -ne 0 -or $metadata.Count -ne 1 -or
@@ -585,7 +628,7 @@ function New-WinImgSourceIccProfile {
   $ErrorActionPreference = 'Continue'
   try {
     # Extract only the selected embedded profile; do not attach a replacement.
-    $messages = @(& $MagickPath -ping -regard-warnings -define image:frames=0 $nativeSource ('ICC:' + $nativeProfile) 2>&1)
+    $messages = @(& $MagickPath -ping -regard-warnings -define registry:filename:literal=true -define image:frames=0 $nativeSource ('ICC:' + $nativeProfile) 2>&1)
     $extractExit = $LASTEXITCODE
   } finally { $ErrorActionPreference = $previousPreference }
   if ($extractExit -ne 0 -or $messages.Count -ne 0) {
@@ -990,7 +1033,9 @@ function Invoke-WinImgNormalizer {
       $stream.Dispose()
       $attemptCount++
       $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
-      $nativeArguments = @('-quiet', '-regard-warnings')
+      # Disable filename interpretation before selected input reads as well as
+      # output writes: even neutral basenames have user-controlled parents.
+      $nativeArguments = @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true')
       if ($SourceInfo) { $nativeArguments += @('-define', 'image:frames=0') }
       $nativeArguments += Get-WinImgNativeOutputPath $SourcePath
       # Coalesce only the selected first animation frame onto its logical
@@ -1140,7 +1185,7 @@ function Invoke-WinImgNormalizer {
       }
       elseif ($videoExts -contains $ext) {
         $destDir = [System.IO.Path]::GetDirectoryName($destPath)
-        if ($destDir -and -not (Test-Path -LiteralPath $destDir)) { New-Item -ItemType Directory -Path $destDir -Force | Out-Null }
+        if ($destDir) { [IO.Directory]::CreateDirectory($destDir) | Out-Null }
         try { $videoResult = Copy-WinImgPlannedVideo -SourcePath $f.FullName -DestinationPath $destPath -WorkRoot $workRoot }
         catch { $hasNamingWarnings = $true; throw }
         # The copy helper's stable snapshot describes the bytes actually copied,
