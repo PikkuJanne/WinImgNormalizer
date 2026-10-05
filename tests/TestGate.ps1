@@ -1,4 +1,12 @@
 # Development acceptance helpers. Dot-sourcing only defines functions.
+function Get-WinImgTestContainerName {
+    param([object]$Item)
+    if ($Item -is [IO.FileInfo]) { return $Item.Name }
+    if ($Item -is [string] -and $Item -notmatch '[\x00-\x1f]') { return [IO.Path]::GetFileName($Item) }
+    # Pester's deliberate scriptblock container is executable text, not a path.
+    return 'scriptblock-control'
+}
+
 function Get-WinImgTestGateFailures {
     param([object]$Result, [string[]]$RequiredCases = @(), [string[]]$RequiredSuites = @())
     $failures = @()
@@ -14,7 +22,7 @@ function Get-WinImgTestGateFailures {
         if ($case -notin $passedCases) { $failures += ('Required case did not pass: ' + $case) }
     }
     foreach ($suite in $RequiredSuites) {
-        $containers = @($Result.Containers | Where-Object { $_.Item -is [string] -and [IO.Path]::GetFileName([string]$_.Item) -eq $suite })
+        $containers = @($Result.Containers | Where-Object { (Get-WinImgTestContainerName $_.Item) -eq $suite })
         if ($containers.Count -ne 1 -or $containers[0].TotalCount -eq 0 -or $containers[0].Result -ne 'Passed') {
             $failures += ('Required suite was absent, empty or failed: ' + $suite)
         }

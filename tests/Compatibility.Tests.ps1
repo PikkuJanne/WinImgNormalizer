@@ -18,10 +18,11 @@ BeforeAll {
         return [pscustomobject]$values
     }
     function Invoke-GateChild {
-        param([string]$TestFile, [string]$ResultDirectory)
+        param([string]$TestFile, [string]$ResultDirectory,
+            [string]$ScriptPath = (Join-Path $PSScriptRoot 'Invoke-Tests.ps1'), [string[]]$AdditionalArguments = @())
         $start = New-Object Diagnostics.ProcessStartInfo
         $start.FileName = (Get-Process -Id $PID).Path
-        $tokens = @('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',(Join-Path $PSScriptRoot 'Invoke-Tests.ps1'),'-Path',$TestFile,'-ResultDirectory',$ResultDirectory)
+        $tokens = @('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$ScriptPath,'-Path',$TestFile,'-ResultDirectory',$ResultDirectory) + $AdditionalArguments
         $start.Arguments = ($tokens | ForEach-Object {
             '"' + ([regex]::Replace([regex]::Replace([string]$_, '(\\*)"', '$1$1\"'), '(\\+)$', '$1$1')) + '"'
         }) -join ' '
@@ -46,6 +47,70 @@ BeforeAll {
 Describe 'T064 full-corpus discovery and completion gates' {
     It 'accepts a complete passing result with its required case and nonempty suite' {
         @(Get-WinImgTestGateFailures -Result (New-GateResult) -RequiredCases T064 -RequiredSuites Example.Tests.ps1).Count | Should -Be 0
+    }
+    It 'matches actual file-object containers and treats a scriptblock as text rather than a Windows filename' {
+        $result = New-GateResult @{Containers=@([pscustomobject]@{Item=[IO.FileInfo]::new((Join-Path $owned 'Example.Tests.ps1'));TotalCount=1;Result='Passed'})}
+        @(Get-WinImgTestGateFailures -Result $result -RequiredCases T064 -RequiredSuites Example.Tests.ps1).Count | Should -Be 0
+        Get-WinImgTestContainerName ([scriptblock]::Create("Describe 'control' { It 'x' { 1 | Should -Be 2 } }")) | Should -Be 'scriptblock-control'
+    }
+    It 'accepts real pinned Pester file and scriptblock containers in a fresh host through the required-suite gate' {
+        $directory = Join-Path $owned 'actual-containers'
+        [IO.Directory]::CreateDirectory($directory) | Out-Null
+        $fixture = Join-Path $directory 'ContainerFixture.Tests.ps1'
+        [IO.File]::WriteAllText($fixture, "Describe 'T064 actual file fixture' { It 'passes' { 1 | Should -Be 1 } }", [Text.UTF8Encoding]::new($false))
+        $probe = Join-Path $directory 'Probe-ActualContainers.ps1'
+        $probeText = @'
+param([string[]]$Path, [string]$ResultDirectory, [string]$PesterManifest, [string]$TestGatePath,
+    [string]$ExpectedManifestHash, [string]$ExpectedPesterVersion)
+$ErrorActionPreference = 'Stop'
+if (Test-Path -LiteralPath $ResultDirectory) { throw 'Actual container result directory already exists.' }
+$manifestHash = (Get-FileHash -LiteralPath $PesterManifest -Algorithm SHA256).Hash.ToLowerInvariant()
+if ($manifestHash -ne $ExpectedManifestHash) { throw 'Actual container probe Pester manifest differs from the reviewed pin.' }
+$pester = Import-Module $PesterManifest -Force -PassThru
+if ($pester.Version.ToString() -ne $ExpectedPesterVersion) { throw 'Actual container probe Pester version differs from the reviewed pin.' }
+. $TestGatePath
+$configuration = New-PesterConfiguration
+$configuration.Run.Path = $Path
+$configuration.Run.ScriptBlock = @({ Describe 'T064 actual scriptblock fixture' { It 'passes' { 1 | Should -Be 1 } } })
+$configuration.Run.PassThru = $true
+$configuration.Run.Exit = $false
+$configuration.Run.Throw = $false
+$configuration.Output.Verbosity = 'None'
+$result = Invoke-Pester -Configuration $configuration
+$requiredSuite = [IO.Path]::GetFileName($Path[0])
+$failures = @(Get-WinImgTestGateFailures -Result $result -RequiredCases T064 -RequiredSuites $requiredSuite)
+$exitCode = if ($failures.Count -eq 0) { 0 } else { 1 }
+$summary = [ordered]@{
+    exit_code = $exitCode; pester_version = $pester.Version.ToString(); pester_manifest_sha256 = $manifestHash
+    total_count = $result.TotalCount; passed_count = $result.PassedCount; failed_count = $result.FailedCount
+    skipped_count = $result.SkippedCount; not_run_count = $result.NotRunCount; gate_failures = $failures
+    containers = @($result.Containers | ForEach-Object {
+        [pscustomobject]@{ item_type = $_.Item.GetType().FullName; name = Get-WinImgTestContainerName $_.Item; result = [string]$_.Result; total = $_.TotalCount }
+    })
+}
+[IO.Directory]::CreateDirectory($ResultDirectory) | Out-Null
+$summary | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $ResultDirectory 'summary.json') -Encoding UTF8
+exit $exitCode
+'@
+        [IO.File]::WriteAllText($probe, $probeText, [Text.UTF8Encoding]::new($false))
+        $loadedPester = Get-Module Pester | Select-Object -First 1
+        $manifest = Join-Path $loadedPester.ModuleBase 'Pester.psd1'
+        $pin = (Get-Content -LiteralPath (Join-Path $PSScriptRoot 'dependencies.json') -Raw | ConvertFrom-Json).pester
+        $arguments = @('-PesterManifest', $manifest, '-TestGatePath', (Join-Path $PSScriptRoot 'TestGate.ps1'),
+            '-ExpectedManifestHash', $pin.manifest_sha256, '-ExpectedPesterVersion', $pin.version)
+        $observed = Invoke-GateChild -TestFile $fixture -ResultDirectory (Join-Path $directory 'result') -ScriptPath $probe -AdditionalArguments $arguments
+        $observed.Exit | Should -Be 0
+        $observed.Summary.exit_code | Should -Be 0
+        $observed.Summary.total_count | Should -Be 2
+        $observed.Summary.passed_count | Should -Be 2
+        $observed.Summary.failed_count | Should -Be 0
+        $observed.Summary.skipped_count | Should -Be 0
+        $observed.Summary.not_run_count | Should -Be 0
+        @($observed.Summary.gate_failures).Count | Should -Be 0
+        $observed.Summary.pester_version | Should -Be $pin.version
+        $observed.Summary.pester_manifest_sha256 | Should -Be $pin.manifest_sha256
+        @($observed.Summary.containers | Where-Object { $_.item_type -eq 'System.IO.FileInfo' -and $_.name -eq 'ContainerFixture.Tests.ps1' -and $_.result -eq 'Passed' -and $_.total -eq 1 }).Count | Should -Be 1
+        @($observed.Summary.containers | Where-Object { $_.item_type -eq 'System.Management.Automation.ScriptBlock' -and $_.name -eq 'scriptblock-control' -and $_.result -eq 'Passed' -and $_.total -eq 1 }).Count | Should -Be 1
     }
     It 'rejects <Label> even if other counts look successful' -ForEach @(
         @{Label='zero discovery';Change=@{TotalCount=0}}, @{Label='a skip';Change=@{SkippedCount=1}},
