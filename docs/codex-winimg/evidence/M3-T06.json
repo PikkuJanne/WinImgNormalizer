@@ -1,0 +1,4612 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T06",
+  "observed_at_utc": "2026-10-05T15:47:03.538042+00:00",
+  "implementation": "17a405bfe0150607486248e845f93ba82e1d0d52",
+  "initial_implementation": "0d3b9fbffcd46f2b65581c209d7544a5f7ec9e6b",
+  "desktop_automation": [
+    {
+      "host": "ps51",
+      "automated_tests": [
+        {
+          "kind": "final",
+          "native_parent_record": {
+            "label": "final",
+            "started_at_utc": "2026-10-05T15:31:07.9581017Z",
+            "completed_at_utc": "2026-10-05T15:38:38.4097909Z",
+            "native_child_exit": 0,
+            "summary_available": true,
+            "console_sha256": "03d1ebfa5d4ba6619dff4aa4c7b53ee663c9516ad4060589b4c0151bdf104ed1",
+            "summary_exit": 0,
+            "total": 468,
+            "passed": 468,
+            "failed": 0,
+            "summary_sha256": "a277e161714cb0fed0cbfdf1e1d800c37170e95937ef515782aaaaead5ecbbdd"
+          },
+          "summary_sha256": "a277e161714cb0fed0cbfdf1e1d800c37170e95937ef515782aaaaead5ecbbdd",
+          "nunit_xml_sha256": "d67a5017fbb6648c2b96fd0607e4a809ce377fa3a34d3da79df95bb9e3e90eb7",
+          "result": "Passed",
+          "counts": {
+            "total_count": 468,
+            "passed_count": 468,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0
+          },
+          "required_cases": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066"
+          ],
+          "passed_cases": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066"
+          ],
+          "codec_coverage": [
+            {
+              "extension": "jpg",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "jpeg",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "png",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "bmp",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "tif",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "tiff",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "gif",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "webp",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "heic",
+              "case_id": "T031",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "heif",
+              "case_id": "T031",
+              "passed_test_count": 1,
+              "executed": true
+            }
+          ],
+          "persistent_policy_unchanged": true,
+          "source_unchanged": true,
+          "commit_unchanged": true,
+          "fixture_compiler": {
+            "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+            "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+          }
+        },
+        {
+          "kind": "control",
+          "native_parent_record": {
+            "label": "control",
+            "started_at_utc": "2026-10-05T15:38:38.6112291Z",
+            "completed_at_utc": "2026-10-05T15:46:07.6740369Z",
+            "native_child_exit": 1,
+            "summary_available": true,
+            "console_sha256": "6ca0972a9e0a61fb8cb4bbae6b17d7e3b9db610abb53ca4983586bb9e6970905",
+            "summary_exit": 1,
+            "total": 469,
+            "passed": 468,
+            "failed": 1,
+            "summary_sha256": "e47ced93dce9f29426b54138ebeb0a933125c4059b2f702b066fcc1ca9c5476c"
+          },
+          "summary_sha256": "e47ced93dce9f29426b54138ebeb0a933125c4059b2f702b066fcc1ca9c5476c",
+          "nunit_xml_sha256": "3b646596183143076ebee46215bd283b5d3b9f5bd8fabf57168d0b0575cd9081",
+          "result": "Failed",
+          "counts": {
+            "total_count": 469,
+            "passed_count": 468,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0
+          },
+          "required_cases": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066"
+          ],
+          "passed_cases": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066"
+          ],
+          "codec_coverage": [
+            {
+              "extension": "jpg",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "jpeg",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "png",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "bmp",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "tif",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "tiff",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "gif",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "webp",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "heic",
+              "case_id": "T031",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "heif",
+              "case_id": "T031",
+              "passed_test_count": 1,
+              "executed": true
+            }
+          ],
+          "persistent_policy_unchanged": true,
+          "source_unchanged": true,
+          "commit_unchanged": true,
+          "fixture_compiler": {
+            "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+            "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+          }
+        }
+      ],
+      "sanitized_exports": {
+        "schema_version": 1,
+        "scope": "Synthetic allowlisted evidence only. Raw diagnostics, test names, absolute paths, media and XML are excluded.",
+        "runs": [
+          {
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "powershell_version": "5.1.26100.9444",
+            "powershell_edition": "Desktop",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_version": "10.0.26300",
+            "os_build": "26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "execution_environment": "windows_local_automated",
+            "runner_image": null,
+            "runner_image_version": null,
+            "runner_label": null,
+            "github_checkout_sha": null,
+            "source_worktree_dirty": false,
+            "observed_at_utc": "2026-10-05T15:31:08.4295548Z",
+            "source_sha256": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/mandatory-tests.json",
+                "sha256": "05cacbb14a4075c7d41372e16612095dbf1e3d8ccf1687ec6bb43f72a68c0b76"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": ".github/workflows/windows-tests.yml",
+                "sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39"
+              },
+              {
+                "path": "tests/legacy/toolchain.json",
+                "sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/fixtures/LauncherConsoleFixture.cs",
+                "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+              },
+              {
+                "path": "tests/Normalizer.Tests.ps1",
+                "sha256": "f59e5da4831f93aa204edf60dab6b8405cd38b4c408b8783dec8316dc38d9b5a"
+              },
+              {
+                "path": "tests/Preflight.Tests.ps1",
+                "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+              },
+              {
+                "path": "tests/Traversal.Tests.ps1",
+                "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+              },
+              {
+                "path": "tests/Naming.Tests.ps1",
+                "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+              },
+              {
+                "path": "tests/Transactions.Tests.ps1",
+                "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+              },
+              {
+                "path": "tests/Duplicates.Tests.ps1",
+                "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+              },
+              {
+                "path": "tests/SafetyRegression.Tests.ps1",
+                "sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+              },
+              {
+                "path": "tests/Frames.Tests.ps1",
+                "sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+              },
+              {
+                "path": "tests/Colour.Tests.ps1",
+                "sha256": "8810eb6ae3e821094eaf016e53ff928dd313053797ffd53f3f59818e3074252f"
+              },
+              {
+                "path": "tests/Paths.Tests.ps1",
+                "sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+              },
+              {
+                "path": "tests/Sizing.Tests.ps1",
+                "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+              },
+              {
+                "path": "tests/Diagnostics.Tests.ps1",
+                "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+              },
+              {
+                "path": "tests/ConversionRegression.Tests.ps1",
+                "sha256": "69707f0e020bd455c4a872ab103ca887163009fae04fcf5b68547e7362765b0d"
+              },
+              {
+                "path": "tests/RecoveryReporting.Tests.ps1",
+                "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+              },
+              {
+                "path": "tests/NativeLifetime.Tests.ps1",
+                "sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538"
+              },
+              {
+                "path": "tests/Cancellation.Tests.ps1",
+                "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+              },
+              {
+                "path": "tests/Reporting.Tests.ps1",
+                "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+              },
+              {
+                "path": "tests/ExitContract.Tests.ps1",
+                "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+              },
+              {
+                "path": "tests/Compatibility.Tests.ps1",
+                "sha256": "dde6ef607e51b00b231abf7f6a510883fab46a44a4acab76c7dbec4672d999ec"
+              },
+              {
+                "path": "tests/CodecCompatibility.Tests.ps1",
+                "sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548"
+              },
+              {
+                "path": "tests/StaticAnalysis.Tests.ps1",
+                "sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1"
+              },
+              {
+                "path": "tests/WorkflowSecurity.Tests.ps1",
+                "sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3"
+              }
+            ],
+            "summary_sha256": "a277e161714cb0fed0cbfdf1e1d800c37170e95937ef515782aaaaead5ecbbdd",
+            "status": "passed",
+            "total_count": 468,
+            "passed_count": 468,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "exit_code": 0,
+            "deliberate_failure": false,
+            "suite_scope": "mandatory",
+            "passed_case_ids": [
+              "T005",
+              "T006",
+              "T008",
+              "T009",
+              "T010",
+              "T011",
+              "T012",
+              "T013",
+              "T014",
+              "T015",
+              "T016",
+              "T017",
+              "T018",
+              "T019",
+              "T020",
+              "T021",
+              "T022",
+              "T023",
+              "T024",
+              "T025",
+              "T026",
+              "T027",
+              "T028",
+              "T029",
+              "T030",
+              "T031",
+              "T032",
+              "T033",
+              "T034",
+              "T035",
+              "T036",
+              "T037",
+              "T038",
+              "T039",
+              "T040",
+              "T041",
+              "T042",
+              "T043",
+              "T044",
+              "T045",
+              "T046",
+              "T047",
+              "T048",
+              "T049",
+              "T050",
+              "T051",
+              "T052",
+              "T053",
+              "T054",
+              "T055",
+              "T056",
+              "T057",
+              "T058",
+              "T059",
+              "T060",
+              "T061",
+              "T062",
+              "T063",
+              "T064",
+              "T065",
+              "T066"
+            ],
+            "required_case_ids": [
+              "T005",
+              "T006",
+              "T008",
+              "T009",
+              "T010",
+              "T011",
+              "T012",
+              "T013",
+              "T014",
+              "T015",
+              "T016",
+              "T017",
+              "T018",
+              "T019",
+              "T020",
+              "T021",
+              "T022",
+              "T023",
+              "T024",
+              "T025",
+              "T026",
+              "T027",
+              "T028",
+              "T029",
+              "T030",
+              "T031",
+              "T032",
+              "T033",
+              "T034",
+              "T035",
+              "T036",
+              "T037",
+              "T038",
+              "T039",
+              "T040",
+              "T041",
+              "T042",
+              "T043",
+              "T044",
+              "T045",
+              "T046",
+              "T047",
+              "T048",
+              "T049",
+              "T050",
+              "T051",
+              "T052",
+              "T053",
+              "T054",
+              "T055",
+              "T056",
+              "T057",
+              "T058",
+              "T059",
+              "T060",
+              "T061",
+              "T062",
+              "T063",
+              "T064",
+              "T065",
+              "T066"
+            ],
+            "gate_failure_count": 0,
+            "source_unchanged": true,
+            "commit_unchanged": true,
+            "source_worktree_dirty_after": false,
+            "persistent_policy_unchanged": true,
+            "pester_version": "5.9.1",
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+            "imagemagick_version": "7.1.2-32",
+            "imagemagick_delegates": [
+              "bzlib",
+              "cairo",
+              "freetype",
+              "gslib",
+              "heic",
+              "jng",
+              "jp2",
+              "jpeg",
+              "jxl",
+              "lcms",
+              "lqr",
+              "lzma",
+              "openexr",
+              "pangocairo",
+              "png",
+              "ps",
+              "raqm",
+              "raw",
+              "rsvg",
+              "tiff",
+              "webp",
+              "xml",
+              "zip",
+              "zlib",
+              "zstd"
+            ],
+            "codec_capabilities": [
+              {
+                "format": "BMP",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "GIF",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "HEIC",
+                "read": true,
+                "write": false
+              },
+              {
+                "format": "HEIF",
+                "read": true,
+                "write": false
+              },
+              {
+                "format": "JPEG",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "PNG",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "TIFF",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "WEBP",
+                "read": true,
+                "write": true
+              }
+            ],
+            "codec_coverage": [
+              {
+                "extension": "jpg",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "jpeg",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "png",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "bmp",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "tif",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "tiff",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "gif",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "webp",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "heic",
+                "case_id": "T031",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "heif",
+                "case_id": "T031",
+                "passed_test_count": 1,
+                "executed": true
+              }
+            ]
+          },
+          {
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "powershell_version": "5.1.26100.9444",
+            "powershell_edition": "Desktop",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_version": "10.0.26300",
+            "os_build": "26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "execution_environment": "windows_local_automated",
+            "runner_image": null,
+            "runner_image_version": null,
+            "runner_label": null,
+            "github_checkout_sha": null,
+            "source_worktree_dirty": false,
+            "observed_at_utc": "2026-10-05T15:38:39.1348137Z",
+            "source_sha256": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/mandatory-tests.json",
+                "sha256": "05cacbb14a4075c7d41372e16612095dbf1e3d8ccf1687ec6bb43f72a68c0b76"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": ".github/workflows/windows-tests.yml",
+                "sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39"
+              },
+              {
+                "path": "tests/legacy/toolchain.json",
+                "sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/fixtures/LauncherConsoleFixture.cs",
+                "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+              },
+              {
+                "path": "tests/Normalizer.Tests.ps1",
+                "sha256": "f59e5da4831f93aa204edf60dab6b8405cd38b4c408b8783dec8316dc38d9b5a"
+              },
+              {
+                "path": "tests/Preflight.Tests.ps1",
+                "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+              },
+              {
+                "path": "tests/Traversal.Tests.ps1",
+                "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+              },
+              {
+                "path": "tests/Naming.Tests.ps1",
+                "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+              },
+              {
+                "path": "tests/Transactions.Tests.ps1",
+                "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+              },
+              {
+                "path": "tests/Duplicates.Tests.ps1",
+                "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+              },
+              {
+                "path": "tests/SafetyRegression.Tests.ps1",
+                "sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+              },
+              {
+                "path": "tests/Frames.Tests.ps1",
+                "sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+              },
+              {
+                "path": "tests/Colour.Tests.ps1",
+                "sha256": "8810eb6ae3e821094eaf016e53ff928dd313053797ffd53f3f59818e3074252f"
+              },
+              {
+                "path": "tests/Paths.Tests.ps1",
+                "sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+              },
+              {
+                "path": "tests/Sizing.Tests.ps1",
+                "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+              },
+              {
+                "path": "tests/Diagnostics.Tests.ps1",
+                "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+              },
+              {
+                "path": "tests/ConversionRegression.Tests.ps1",
+                "sha256": "69707f0e020bd455c4a872ab103ca887163009fae04fcf5b68547e7362765b0d"
+              },
+              {
+                "path": "tests/RecoveryReporting.Tests.ps1",
+                "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+              },
+              {
+                "path": "tests/NativeLifetime.Tests.ps1",
+                "sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538"
+              },
+              {
+                "path": "tests/Cancellation.Tests.ps1",
+                "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+              },
+              {
+                "path": "tests/Reporting.Tests.ps1",
+                "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+              },
+              {
+                "path": "tests/ExitContract.Tests.ps1",
+                "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+              },
+              {
+                "path": "tests/Compatibility.Tests.ps1",
+                "sha256": "dde6ef607e51b00b231abf7f6a510883fab46a44a4acab76c7dbec4672d999ec"
+              },
+              {
+                "path": "tests/CodecCompatibility.Tests.ps1",
+                "sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548"
+              },
+              {
+                "path": "tests/StaticAnalysis.Tests.ps1",
+                "sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1"
+              },
+              {
+                "path": "tests/WorkflowSecurity.Tests.ps1",
+                "sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3"
+              }
+            ],
+            "summary_sha256": "e47ced93dce9f29426b54138ebeb0a933125c4059b2f702b066fcc1ca9c5476c",
+            "status": "failed",
+            "total_count": 469,
+            "passed_count": 468,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "exit_code": 1,
+            "deliberate_failure": true,
+            "suite_scope": "mandatory",
+            "passed_case_ids": [
+              "T005",
+              "T006",
+              "T008",
+              "T009",
+              "T010",
+              "T011",
+              "T012",
+              "T013",
+              "T014",
+              "T015",
+              "T016",
+              "T017",
+              "T018",
+              "T019",
+              "T020",
+              "T021",
+              "T022",
+              "T023",
+              "T024",
+              "T025",
+              "T026",
+              "T027",
+              "T028",
+              "T029",
+              "T030",
+              "T031",
+              "T032",
+              "T033",
+              "T034",
+              "T035",
+              "T036",
+              "T037",
+              "T038",
+              "T039",
+              "T040",
+              "T041",
+              "T042",
+              "T043",
+              "T044",
+              "T045",
+              "T046",
+              "T047",
+              "T048",
+              "T049",
+              "T050",
+              "T051",
+              "T052",
+              "T053",
+              "T054",
+              "T055",
+              "T056",
+              "T057",
+              "T058",
+              "T059",
+              "T060",
+              "T061",
+              "T062",
+              "T063",
+              "T064",
+              "T065",
+              "T066"
+            ],
+            "required_case_ids": [
+              "T005",
+              "T006",
+              "T008",
+              "T009",
+              "T010",
+              "T011",
+              "T012",
+              "T013",
+              "T014",
+              "T015",
+              "T016",
+              "T017",
+              "T018",
+              "T019",
+              "T020",
+              "T021",
+              "T022",
+              "T023",
+              "T024",
+              "T025",
+              "T026",
+              "T027",
+              "T028",
+              "T029",
+              "T030",
+              "T031",
+              "T032",
+              "T033",
+              "T034",
+              "T035",
+              "T036",
+              "T037",
+              "T038",
+              "T039",
+              "T040",
+              "T041",
+              "T042",
+              "T043",
+              "T044",
+              "T045",
+              "T046",
+              "T047",
+              "T048",
+              "T049",
+              "T050",
+              "T051",
+              "T052",
+              "T053",
+              "T054",
+              "T055",
+              "T056",
+              "T057",
+              "T058",
+              "T059",
+              "T060",
+              "T061",
+              "T062",
+              "T063",
+              "T064",
+              "T065",
+              "T066"
+            ],
+            "gate_failure_count": 2,
+            "source_unchanged": true,
+            "commit_unchanged": true,
+            "source_worktree_dirty_after": false,
+            "persistent_policy_unchanged": true,
+            "pester_version": "5.9.1",
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+            "imagemagick_version": "7.1.2-32",
+            "imagemagick_delegates": [
+              "bzlib",
+              "cairo",
+              "freetype",
+              "gslib",
+              "heic",
+              "jng",
+              "jp2",
+              "jpeg",
+              "jxl",
+              "lcms",
+              "lqr",
+              "lzma",
+              "openexr",
+              "pangocairo",
+              "png",
+              "ps",
+              "raqm",
+              "raw",
+              "rsvg",
+              "tiff",
+              "webp",
+              "xml",
+              "zip",
+              "zlib",
+              "zstd"
+            ],
+            "codec_capabilities": [
+              {
+                "format": "BMP",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "GIF",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "HEIC",
+                "read": true,
+                "write": false
+              },
+              {
+                "format": "HEIF",
+                "read": true,
+                "write": false
+              },
+              {
+                "format": "JPEG",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "PNG",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "TIFF",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "WEBP",
+                "read": true,
+                "write": true
+              }
+            ],
+            "codec_coverage": [
+              {
+                "extension": "jpg",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "jpeg",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "png",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "bmp",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "tif",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "tiff",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "gif",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "webp",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "heic",
+                "case_id": "T031",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "heif",
+                "case_id": "T031",
+                "passed_test_count": 1,
+                "executed": true
+              }
+            ]
+          }
+        ]
+      },
+      "analysis_runs": [
+        {
+          "native_parent_record": {
+            "kind": "normal",
+            "started_at_utc": "2026-10-05T15:31:26.9790325Z",
+            "completed_at_utc": "2026-10-05T15:31:34.5703657Z",
+            "native_exit": 0,
+            "summary_exit": 0,
+            "findings": 0,
+            "scanned_files": 7,
+            "summary_sha256": "87286ad7e6d5fbed022699c68b6e8e81ff3fe7cbe28622dbff7bdad7fcc54736",
+            "console_sha256": "bd36181e44cfc07ad745bbafa450fc052c81db72ad64016b073df6388160d4dd"
+          },
+          "sanitized_summary": {
+            "schema_version": 1,
+            "observed_at_utc": "2026-10-05T15:31:27.4555446Z",
+            "result": "passed",
+            "powershell_version": "5.1.26100.9444",
+            "powershell_edition": "Desktop",
+            "os_version": "10.0.26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "deliberate_failure": false,
+            "scanned_file_count": 7,
+            "scoped_findings_count": 0,
+            "control_findings_count": 0,
+            "control_detected": false,
+            "findings_count": 0,
+            "findings": [],
+            "source_sha256": [
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSUsePSCredentialType",
+              "PSAvoidUsingWMICmdlet",
+              "PSReservedParams",
+              "PSMisleadingBacktick",
+              "PSUseCmdletCorrectly",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSUseCompatibleSyntax"
+            ],
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_build": "26300",
+            "ui_culture": "en-US",
+            "host_file_version": "10.0.26100.8972 (WinBuild.160101.0800)",
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "source_worktree_dirty": false,
+            "syntax_target_versions": [
+              "5.1",
+              "7.0"
+            ],
+            "analyzer_version": "1.25.0",
+            "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "source_bindings_unchanged": true,
+            "exit_code": 0
+          }
+        },
+        {
+          "native_parent_record": {
+            "kind": "control",
+            "started_at_utc": "2026-10-05T15:31:34.7355825Z",
+            "completed_at_utc": "2026-10-05T15:31:43.3405151Z",
+            "native_exit": 1,
+            "summary_exit": 1,
+            "findings": 1,
+            "scanned_files": 7,
+            "summary_sha256": "721e1b7686c80c8bf665303a47353f55401116da7c2d7afcd170648ec03fd1db",
+            "console_sha256": "d4fcaebdd588c5411797b9962f35ec7fb4af646f534f961507a93a8ba4e55df7"
+          },
+          "sanitized_summary": {
+            "schema_version": 1,
+            "observed_at_utc": "2026-10-05T15:31:35.2153844Z",
+            "result": "analysis_failed",
+            "powershell_version": "5.1.26100.9444",
+            "powershell_edition": "Desktop",
+            "os_version": "10.0.26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "deliberate_failure": true,
+            "scanned_file_count": 7,
+            "scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_detected": true,
+            "findings_count": 1,
+            "findings": [
+              {
+                "source": "control/unsafe-expression.ps1",
+                "rule": "PSAvoidUsingInvokeExpression",
+                "severity": "Warning",
+                "line": 1,
+                "column": 1
+              }
+            ],
+            "source_sha256": [
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSUsePSCredentialType",
+              "PSAvoidUsingWMICmdlet",
+              "PSReservedParams",
+              "PSMisleadingBacktick",
+              "PSUseCmdletCorrectly",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSUseCompatibleSyntax"
+            ],
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_build": "26300",
+            "ui_culture": "en-US",
+            "host_file_version": "10.0.26100.8972 (WinBuild.160101.0800)",
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "source_worktree_dirty": false,
+            "syntax_target_versions": [
+              "5.1",
+              "7.0"
+            ],
+            "analyzer_version": "1.25.0",
+            "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_bindings_unchanged": true,
+            "exit_code": 1
+          }
+        }
+      ],
+      "sanitized_analysis_exports": {
+        "schema_version": 1,
+        "scope": "Synthetic allowlisted evidence only. Raw diagnostics, test names, absolute paths, media and XML are excluded.",
+        "runs": [
+          {
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "powershell_version": "5.1.26100.9444",
+            "powershell_edition": "Desktop",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_version": "10.0.26300",
+            "os_build": "26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "execution_environment": null,
+            "runner_image": null,
+            "runner_image_version": null,
+            "runner_label": null,
+            "github_checkout_sha": null,
+            "source_worktree_dirty": false,
+            "observed_at_utc": "2026-10-05T15:31:27.4555446Z",
+            "source_sha256": [
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              }
+            ],
+            "summary_sha256": "87286ad7e6d5fbed022699c68b6e8e81ff3fe7cbe28622dbff7bdad7fcc54736",
+            "status": "passed",
+            "exit_code": 0,
+            "scanned_file_count": 7,
+            "scoped_findings_count": 0,
+            "control_findings_count": 0,
+            "findings_count": 0,
+            "deliberate_failure": false,
+            "control_detected": false,
+            "source_bindings_unchanged": true,
+            "control_source_sha256": "",
+            "analyzer_version": "1.25.0",
+            "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSUsePSCredentialType",
+              "PSAvoidUsingWMICmdlet",
+              "PSReservedParams",
+              "PSMisleadingBacktick",
+              "PSUseCmdletCorrectly",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSUseCompatibleSyntax"
+            ]
+          },
+          {
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "powershell_version": "5.1.26100.9444",
+            "powershell_edition": "Desktop",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_version": "10.0.26300",
+            "os_build": "26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "execution_environment": null,
+            "runner_image": null,
+            "runner_image_version": null,
+            "runner_label": null,
+            "github_checkout_sha": null,
+            "source_worktree_dirty": false,
+            "observed_at_utc": "2026-10-05T15:31:35.2153844Z",
+            "source_sha256": [
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              }
+            ],
+            "summary_sha256": "721e1b7686c80c8bf665303a47353f55401116da7c2d7afcd170648ec03fd1db",
+            "status": "analysis_failed",
+            "exit_code": 1,
+            "scanned_file_count": 7,
+            "scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "findings_count": 1,
+            "deliberate_failure": true,
+            "control_detected": true,
+            "source_bindings_unchanged": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "analyzer_version": "1.25.0",
+            "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSUsePSCredentialType",
+              "PSAvoidUsingWMICmdlet",
+              "PSReservedParams",
+              "PSMisleadingBacktick",
+              "PSUseCmdletCorrectly",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSUseCompatibleSyntax"
+            ]
+          }
+        ]
+      },
+      "native_test_record_sha256": "cc8439e8e882cc468665f537448726317121325f5f41d66ff0b6f16a894b4ba1",
+      "native_analysis_record_sha256": "02a758406a4a21c56abeb76492e524a9b7f2f5ea51847dd523643f0ddebf5443",
+      "test_export_sha256": "8f0a4385e5133be4298648557ec827ea18c0e9d9580be646b7ea60437011eb57",
+      "analysis_export_sha256": "f859e027204345e17a07d1eda78bf4f0f2e8e34a296d77dced3dd1e67388f99d",
+      "native_test_controller_sha256": "b0617109468b7676d1e9517e0c706c023bbb3e988ef9a1b2455db28f49828806",
+      "native_analysis_controller_sha256": "b40a6e519070703626e701b230ccb92df0ad75eeee40cb20cb25088980c6f1f4"
+    },
+    {
+      "host": "ps7",
+      "automated_tests": [
+        {
+          "kind": "final",
+          "native_parent_record": {
+            "label": "final",
+            "started_at_utc": "2026-10-05T15:31:09.1813536Z",
+            "completed_at_utc": "2026-10-05T15:39:00.2254793Z",
+            "native_child_exit": 0,
+            "summary_available": true,
+            "console_sha256": "9ad0b194f5e0541b7207546c2f26baa8889b0044296255487253b0954c8ae32a",
+            "summary_exit": 0,
+            "total": 468,
+            "passed": 468,
+            "failed": 0,
+            "summary_sha256": "e3914ccf34f07be762ea3a28b8b9350258e51efcb65f129e4788fb28fca794b1"
+          },
+          "summary_sha256": "e3914ccf34f07be762ea3a28b8b9350258e51efcb65f129e4788fb28fca794b1",
+          "nunit_xml_sha256": "055bcf5c3bec7812a2a518c66a10e2f5c9c80c823e60713396291cea82524ecb",
+          "result": "Passed",
+          "counts": {
+            "total_count": 468,
+            "passed_count": 468,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0
+          },
+          "required_cases": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066"
+          ],
+          "passed_cases": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066"
+          ],
+          "codec_coverage": [
+            {
+              "extension": "jpg",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "jpeg",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "png",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "bmp",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "tif",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "tiff",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "gif",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "webp",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "heic",
+              "case_id": "T031",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "heif",
+              "case_id": "T031",
+              "passed_test_count": 1,
+              "executed": true
+            }
+          ],
+          "persistent_policy_unchanged": true,
+          "source_unchanged": true,
+          "commit_unchanged": true,
+          "fixture_compiler": {
+            "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+            "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+          }
+        },
+        {
+          "kind": "control",
+          "native_parent_record": {
+            "label": "control",
+            "started_at_utc": "2026-10-05T15:39:00.4303937Z",
+            "completed_at_utc": "2026-10-05T15:46:39.6016727Z",
+            "native_child_exit": 1,
+            "summary_available": true,
+            "console_sha256": "0aa1ea308375e92379a64111bcd5a74e0087789adf506a909fada6f77b41c962",
+            "summary_exit": 1,
+            "total": 469,
+            "passed": 468,
+            "failed": 1,
+            "summary_sha256": "e9766214741cebb5de9449c42ed8cf7a6aabb74e127e2c60c07870bb6a341408"
+          },
+          "summary_sha256": "e9766214741cebb5de9449c42ed8cf7a6aabb74e127e2c60c07870bb6a341408",
+          "nunit_xml_sha256": "a75667f80d6dfdcbb3ea64189219a867428630efbdaa516cf830d81742d5e144",
+          "result": "Failed",
+          "counts": {
+            "total_count": 469,
+            "passed_count": 468,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0
+          },
+          "required_cases": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066"
+          ],
+          "passed_cases": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066"
+          ],
+          "codec_coverage": [
+            {
+              "extension": "jpg",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "jpeg",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "png",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "bmp",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "tif",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "tiff",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "gif",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "webp",
+              "case_id": "T065",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "heic",
+              "case_id": "T031",
+              "passed_test_count": 1,
+              "executed": true
+            },
+            {
+              "extension": "heif",
+              "case_id": "T031",
+              "passed_test_count": 1,
+              "executed": true
+            }
+          ],
+          "persistent_policy_unchanged": true,
+          "source_unchanged": true,
+          "commit_unchanged": true,
+          "fixture_compiler": {
+            "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+            "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+          }
+        }
+      ],
+      "sanitized_exports": {
+        "schema_version": 1,
+        "scope": "Synthetic allowlisted evidence only. Raw diagnostics, test names, absolute paths, media and XML are excluded.",
+        "runs": [
+          {
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "powershell_version": "7.6.5",
+            "powershell_edition": "Core",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_version": "10.0.26300",
+            "os_build": "26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "execution_environment": "windows_local_automated",
+            "runner_image": null,
+            "runner_image_version": null,
+            "runner_label": null,
+            "github_checkout_sha": null,
+            "source_worktree_dirty": false,
+            "observed_at_utc": "2026-10-05T15:31:10.2982075Z",
+            "source_sha256": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/mandatory-tests.json",
+                "sha256": "05cacbb14a4075c7d41372e16612095dbf1e3d8ccf1687ec6bb43f72a68c0b76"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": ".github/workflows/windows-tests.yml",
+                "sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39"
+              },
+              {
+                "path": "tests/legacy/toolchain.json",
+                "sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/fixtures/LauncherConsoleFixture.cs",
+                "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+              },
+              {
+                "path": "tests/Normalizer.Tests.ps1",
+                "sha256": "f59e5da4831f93aa204edf60dab6b8405cd38b4c408b8783dec8316dc38d9b5a"
+              },
+              {
+                "path": "tests/Preflight.Tests.ps1",
+                "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+              },
+              {
+                "path": "tests/Traversal.Tests.ps1",
+                "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+              },
+              {
+                "path": "tests/Naming.Tests.ps1",
+                "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+              },
+              {
+                "path": "tests/Transactions.Tests.ps1",
+                "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+              },
+              {
+                "path": "tests/Duplicates.Tests.ps1",
+                "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+              },
+              {
+                "path": "tests/SafetyRegression.Tests.ps1",
+                "sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+              },
+              {
+                "path": "tests/Frames.Tests.ps1",
+                "sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+              },
+              {
+                "path": "tests/Colour.Tests.ps1",
+                "sha256": "8810eb6ae3e821094eaf016e53ff928dd313053797ffd53f3f59818e3074252f"
+              },
+              {
+                "path": "tests/Paths.Tests.ps1",
+                "sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+              },
+              {
+                "path": "tests/Sizing.Tests.ps1",
+                "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+              },
+              {
+                "path": "tests/Diagnostics.Tests.ps1",
+                "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+              },
+              {
+                "path": "tests/ConversionRegression.Tests.ps1",
+                "sha256": "69707f0e020bd455c4a872ab103ca887163009fae04fcf5b68547e7362765b0d"
+              },
+              {
+                "path": "tests/RecoveryReporting.Tests.ps1",
+                "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+              },
+              {
+                "path": "tests/NativeLifetime.Tests.ps1",
+                "sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538"
+              },
+              {
+                "path": "tests/Cancellation.Tests.ps1",
+                "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+              },
+              {
+                "path": "tests/Reporting.Tests.ps1",
+                "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+              },
+              {
+                "path": "tests/ExitContract.Tests.ps1",
+                "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+              },
+              {
+                "path": "tests/Compatibility.Tests.ps1",
+                "sha256": "dde6ef607e51b00b231abf7f6a510883fab46a44a4acab76c7dbec4672d999ec"
+              },
+              {
+                "path": "tests/CodecCompatibility.Tests.ps1",
+                "sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548"
+              },
+              {
+                "path": "tests/StaticAnalysis.Tests.ps1",
+                "sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1"
+              },
+              {
+                "path": "tests/WorkflowSecurity.Tests.ps1",
+                "sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3"
+              }
+            ],
+            "summary_sha256": "e3914ccf34f07be762ea3a28b8b9350258e51efcb65f129e4788fb28fca794b1",
+            "status": "passed",
+            "total_count": 468,
+            "passed_count": 468,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "exit_code": 0,
+            "deliberate_failure": false,
+            "suite_scope": "mandatory",
+            "passed_case_ids": [
+              "T005",
+              "T006",
+              "T008",
+              "T009",
+              "T010",
+              "T011",
+              "T012",
+              "T013",
+              "T014",
+              "T015",
+              "T016",
+              "T017",
+              "T018",
+              "T019",
+              "T020",
+              "T021",
+              "T022",
+              "T023",
+              "T024",
+              "T025",
+              "T026",
+              "T027",
+              "T028",
+              "T029",
+              "T030",
+              "T031",
+              "T032",
+              "T033",
+              "T034",
+              "T035",
+              "T036",
+              "T037",
+              "T038",
+              "T039",
+              "T040",
+              "T041",
+              "T042",
+              "T043",
+              "T044",
+              "T045",
+              "T046",
+              "T047",
+              "T048",
+              "T049",
+              "T050",
+              "T051",
+              "T052",
+              "T053",
+              "T054",
+              "T055",
+              "T056",
+              "T057",
+              "T058",
+              "T059",
+              "T060",
+              "T061",
+              "T062",
+              "T063",
+              "T064",
+              "T065",
+              "T066"
+            ],
+            "required_case_ids": [
+              "T005",
+              "T006",
+              "T008",
+              "T009",
+              "T010",
+              "T011",
+              "T012",
+              "T013",
+              "T014",
+              "T015",
+              "T016",
+              "T017",
+              "T018",
+              "T019",
+              "T020",
+              "T021",
+              "T022",
+              "T023",
+              "T024",
+              "T025",
+              "T026",
+              "T027",
+              "T028",
+              "T029",
+              "T030",
+              "T031",
+              "T032",
+              "T033",
+              "T034",
+              "T035",
+              "T036",
+              "T037",
+              "T038",
+              "T039",
+              "T040",
+              "T041",
+              "T042",
+              "T043",
+              "T044",
+              "T045",
+              "T046",
+              "T047",
+              "T048",
+              "T049",
+              "T050",
+              "T051",
+              "T052",
+              "T053",
+              "T054",
+              "T055",
+              "T056",
+              "T057",
+              "T058",
+              "T059",
+              "T060",
+              "T061",
+              "T062",
+              "T063",
+              "T064",
+              "T065",
+              "T066"
+            ],
+            "gate_failure_count": 0,
+            "source_unchanged": true,
+            "commit_unchanged": true,
+            "source_worktree_dirty_after": false,
+            "persistent_policy_unchanged": true,
+            "pester_version": "5.9.1",
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+            "imagemagick_version": "7.1.2-32",
+            "imagemagick_delegates": [
+              "bzlib",
+              "cairo",
+              "freetype",
+              "gslib",
+              "heic",
+              "jng",
+              "jp2",
+              "jpeg",
+              "jxl",
+              "lcms",
+              "lqr",
+              "lzma",
+              "openexr",
+              "pangocairo",
+              "png",
+              "ps",
+              "raqm",
+              "raw",
+              "rsvg",
+              "tiff",
+              "webp",
+              "xml",
+              "zip",
+              "zlib",
+              "zstd"
+            ],
+            "codec_capabilities": [
+              {
+                "format": "BMP",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "GIF",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "HEIC",
+                "read": true,
+                "write": false
+              },
+              {
+                "format": "HEIF",
+                "read": true,
+                "write": false
+              },
+              {
+                "format": "JPEG",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "PNG",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "TIFF",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "WEBP",
+                "read": true,
+                "write": true
+              }
+            ],
+            "codec_coverage": [
+              {
+                "extension": "jpg",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "jpeg",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "png",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "bmp",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "tif",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "tiff",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "gif",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "webp",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "heic",
+                "case_id": "T031",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "heif",
+                "case_id": "T031",
+                "passed_test_count": 1,
+                "executed": true
+              }
+            ]
+          },
+          {
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "powershell_version": "7.6.5",
+            "powershell_edition": "Core",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_version": "10.0.26300",
+            "os_build": "26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "execution_environment": "windows_local_automated",
+            "runner_image": null,
+            "runner_image_version": null,
+            "runner_label": null,
+            "github_checkout_sha": null,
+            "source_worktree_dirty": false,
+            "observed_at_utc": "2026-10-05T15:39:01.5011415Z",
+            "source_sha256": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/mandatory-tests.json",
+                "sha256": "05cacbb14a4075c7d41372e16612095dbf1e3d8ccf1687ec6bb43f72a68c0b76"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": ".github/workflows/windows-tests.yml",
+                "sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39"
+              },
+              {
+                "path": "tests/legacy/toolchain.json",
+                "sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/fixtures/LauncherConsoleFixture.cs",
+                "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+              },
+              {
+                "path": "tests/Normalizer.Tests.ps1",
+                "sha256": "f59e5da4831f93aa204edf60dab6b8405cd38b4c408b8783dec8316dc38d9b5a"
+              },
+              {
+                "path": "tests/Preflight.Tests.ps1",
+                "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+              },
+              {
+                "path": "tests/Traversal.Tests.ps1",
+                "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+              },
+              {
+                "path": "tests/Naming.Tests.ps1",
+                "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+              },
+              {
+                "path": "tests/Transactions.Tests.ps1",
+                "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+              },
+              {
+                "path": "tests/Duplicates.Tests.ps1",
+                "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+              },
+              {
+                "path": "tests/SafetyRegression.Tests.ps1",
+                "sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+              },
+              {
+                "path": "tests/Frames.Tests.ps1",
+                "sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+              },
+              {
+                "path": "tests/Colour.Tests.ps1",
+                "sha256": "8810eb6ae3e821094eaf016e53ff928dd313053797ffd53f3f59818e3074252f"
+              },
+              {
+                "path": "tests/Paths.Tests.ps1",
+                "sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+              },
+              {
+                "path": "tests/Sizing.Tests.ps1",
+                "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+              },
+              {
+                "path": "tests/Diagnostics.Tests.ps1",
+                "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+              },
+              {
+                "path": "tests/ConversionRegression.Tests.ps1",
+                "sha256": "69707f0e020bd455c4a872ab103ca887163009fae04fcf5b68547e7362765b0d"
+              },
+              {
+                "path": "tests/RecoveryReporting.Tests.ps1",
+                "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+              },
+              {
+                "path": "tests/NativeLifetime.Tests.ps1",
+                "sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538"
+              },
+              {
+                "path": "tests/Cancellation.Tests.ps1",
+                "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+              },
+              {
+                "path": "tests/Reporting.Tests.ps1",
+                "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+              },
+              {
+                "path": "tests/ExitContract.Tests.ps1",
+                "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+              },
+              {
+                "path": "tests/Compatibility.Tests.ps1",
+                "sha256": "dde6ef607e51b00b231abf7f6a510883fab46a44a4acab76c7dbec4672d999ec"
+              },
+              {
+                "path": "tests/CodecCompatibility.Tests.ps1",
+                "sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548"
+              },
+              {
+                "path": "tests/StaticAnalysis.Tests.ps1",
+                "sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1"
+              },
+              {
+                "path": "tests/WorkflowSecurity.Tests.ps1",
+                "sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3"
+              }
+            ],
+            "summary_sha256": "e9766214741cebb5de9449c42ed8cf7a6aabb74e127e2c60c07870bb6a341408",
+            "status": "failed",
+            "total_count": 469,
+            "passed_count": 468,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "exit_code": 1,
+            "deliberate_failure": true,
+            "suite_scope": "mandatory",
+            "passed_case_ids": [
+              "T005",
+              "T006",
+              "T008",
+              "T009",
+              "T010",
+              "T011",
+              "T012",
+              "T013",
+              "T014",
+              "T015",
+              "T016",
+              "T017",
+              "T018",
+              "T019",
+              "T020",
+              "T021",
+              "T022",
+              "T023",
+              "T024",
+              "T025",
+              "T026",
+              "T027",
+              "T028",
+              "T029",
+              "T030",
+              "T031",
+              "T032",
+              "T033",
+              "T034",
+              "T035",
+              "T036",
+              "T037",
+              "T038",
+              "T039",
+              "T040",
+              "T041",
+              "T042",
+              "T043",
+              "T044",
+              "T045",
+              "T046",
+              "T047",
+              "T048",
+              "T049",
+              "T050",
+              "T051",
+              "T052",
+              "T053",
+              "T054",
+              "T055",
+              "T056",
+              "T057",
+              "T058",
+              "T059",
+              "T060",
+              "T061",
+              "T062",
+              "T063",
+              "T064",
+              "T065",
+              "T066"
+            ],
+            "required_case_ids": [
+              "T005",
+              "T006",
+              "T008",
+              "T009",
+              "T010",
+              "T011",
+              "T012",
+              "T013",
+              "T014",
+              "T015",
+              "T016",
+              "T017",
+              "T018",
+              "T019",
+              "T020",
+              "T021",
+              "T022",
+              "T023",
+              "T024",
+              "T025",
+              "T026",
+              "T027",
+              "T028",
+              "T029",
+              "T030",
+              "T031",
+              "T032",
+              "T033",
+              "T034",
+              "T035",
+              "T036",
+              "T037",
+              "T038",
+              "T039",
+              "T040",
+              "T041",
+              "T042",
+              "T043",
+              "T044",
+              "T045",
+              "T046",
+              "T047",
+              "T048",
+              "T049",
+              "T050",
+              "T051",
+              "T052",
+              "T053",
+              "T054",
+              "T055",
+              "T056",
+              "T057",
+              "T058",
+              "T059",
+              "T060",
+              "T061",
+              "T062",
+              "T063",
+              "T064",
+              "T065",
+              "T066"
+            ],
+            "gate_failure_count": 2,
+            "source_unchanged": true,
+            "commit_unchanged": true,
+            "source_worktree_dirty_after": false,
+            "persistent_policy_unchanged": true,
+            "pester_version": "5.9.1",
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+            "imagemagick_version": "7.1.2-32",
+            "imagemagick_delegates": [
+              "bzlib",
+              "cairo",
+              "freetype",
+              "gslib",
+              "heic",
+              "jng",
+              "jp2",
+              "jpeg",
+              "jxl",
+              "lcms",
+              "lqr",
+              "lzma",
+              "openexr",
+              "pangocairo",
+              "png",
+              "ps",
+              "raqm",
+              "raw",
+              "rsvg",
+              "tiff",
+              "webp",
+              "xml",
+              "zip",
+              "zlib",
+              "zstd"
+            ],
+            "codec_capabilities": [
+              {
+                "format": "BMP",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "GIF",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "HEIC",
+                "read": true,
+                "write": false
+              },
+              {
+                "format": "HEIF",
+                "read": true,
+                "write": false
+              },
+              {
+                "format": "JPEG",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "PNG",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "TIFF",
+                "read": true,
+                "write": true
+              },
+              {
+                "format": "WEBP",
+                "read": true,
+                "write": true
+              }
+            ],
+            "codec_coverage": [
+              {
+                "extension": "jpg",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "jpeg",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "png",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "bmp",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "tif",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "tiff",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "gif",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "webp",
+                "case_id": "T065",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "heic",
+                "case_id": "T031",
+                "passed_test_count": 1,
+                "executed": true
+              },
+              {
+                "extension": "heif",
+                "case_id": "T031",
+                "passed_test_count": 1,
+                "executed": true
+              }
+            ]
+          }
+        ]
+      },
+      "analysis_runs": [
+        {
+          "native_parent_record": {
+            "kind": "normal",
+            "started_at_utc": "2026-10-05T15:31:27.8592647Z",
+            "completed_at_utc": "2026-10-05T15:31:32.5025635Z",
+            "native_exit": 0,
+            "summary_exit": 0,
+            "findings": 0,
+            "scanned_files": 7,
+            "summary_sha256": "e4fea029d98b7a91730f98ed8c9f9196e88935d71f90c5e2f0c74f6a5ed170bf",
+            "console_sha256": "ef3b3f78105c2dae57184c801a53684ba1fa67d1af7679cc539449a8bae1d128"
+          },
+          "sanitized_summary": {
+            "schema_version": 1,
+            "observed_at_utc": "2026-10-05T15:31:28.7952132Z",
+            "result": "passed",
+            "powershell_version": "7.6.5",
+            "powershell_edition": "Core",
+            "os_version": "10.0.26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "deliberate_failure": false,
+            "scanned_file_count": 7,
+            "scoped_findings_count": 0,
+            "control_findings_count": 0,
+            "control_detected": false,
+            "findings_count": 0,
+            "findings": [],
+            "source_sha256": [
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSUsePSCredentialType",
+              "PSAvoidUsingWMICmdlet",
+              "PSReservedParams",
+              "PSMisleadingBacktick",
+              "PSUseCmdletCorrectly",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSUseCompatibleSyntax"
+            ],
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_build": "26300",
+            "ui_culture": "en-US",
+            "host_file_version": "7.6.5.500",
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "source_worktree_dirty": false,
+            "syntax_target_versions": [
+              "5.1",
+              "7.0"
+            ],
+            "analyzer_version": "1.25.0",
+            "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "source_bindings_unchanged": true,
+            "exit_code": 0
+          }
+        },
+        {
+          "native_parent_record": {
+            "kind": "control",
+            "started_at_utc": "2026-10-05T15:31:32.6619649Z",
+            "completed_at_utc": "2026-10-05T15:31:38.4585383Z",
+            "native_exit": 1,
+            "summary_exit": 1,
+            "findings": 1,
+            "scanned_files": 7,
+            "summary_sha256": "1044be67a3858a65e46a3de929cc44bc58c861f4f7f5795812ecd3bf758f070c",
+            "console_sha256": "58cc85c75ca7c1c8a512e76a41d3441defc4a1c9195d174cdf6e2c230ada9ef2"
+          },
+          "sanitized_summary": {
+            "schema_version": 1,
+            "observed_at_utc": "2026-10-05T15:31:33.8594727Z",
+            "result": "analysis_failed",
+            "powershell_version": "7.6.5",
+            "powershell_edition": "Core",
+            "os_version": "10.0.26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "deliberate_failure": true,
+            "scanned_file_count": 7,
+            "scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_detected": true,
+            "findings_count": 1,
+            "findings": [
+              {
+                "source": "control/unsafe-expression.ps1",
+                "rule": "PSAvoidUsingInvokeExpression",
+                "severity": "Warning",
+                "line": 1,
+                "column": 1
+              }
+            ],
+            "source_sha256": [
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSUsePSCredentialType",
+              "PSAvoidUsingWMICmdlet",
+              "PSReservedParams",
+              "PSMisleadingBacktick",
+              "PSUseCmdletCorrectly",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSUseCompatibleSyntax"
+            ],
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_build": "26300",
+            "ui_culture": "en-US",
+            "host_file_version": "7.6.5.500",
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "source_worktree_dirty": false,
+            "syntax_target_versions": [
+              "5.1",
+              "7.0"
+            ],
+            "analyzer_version": "1.25.0",
+            "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_bindings_unchanged": true,
+            "exit_code": 1
+          }
+        }
+      ],
+      "sanitized_analysis_exports": {
+        "schema_version": 1,
+        "scope": "Synthetic allowlisted evidence only. Raw diagnostics, test names, absolute paths, media and XML are excluded.",
+        "runs": [
+          {
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "powershell_version": "7.6.5",
+            "powershell_edition": "Core",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_version": "10.0.26300",
+            "os_build": "26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "execution_environment": null,
+            "runner_image": null,
+            "runner_image_version": null,
+            "runner_label": null,
+            "github_checkout_sha": null,
+            "source_worktree_dirty": false,
+            "observed_at_utc": "2026-10-05T15:31:28.7952132Z",
+            "source_sha256": [
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              }
+            ],
+            "summary_sha256": "e4fea029d98b7a91730f98ed8c9f9196e88935d71f90c5e2f0c74f6a5ed170bf",
+            "status": "passed",
+            "exit_code": 0,
+            "scanned_file_count": 7,
+            "scoped_findings_count": 0,
+            "control_findings_count": 0,
+            "findings_count": 0,
+            "deliberate_failure": false,
+            "control_detected": false,
+            "source_bindings_unchanged": true,
+            "control_source_sha256": "",
+            "analyzer_version": "1.25.0",
+            "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSUsePSCredentialType",
+              "PSAvoidUsingWMICmdlet",
+              "PSReservedParams",
+              "PSMisleadingBacktick",
+              "PSUseCmdletCorrectly",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSUseCompatibleSyntax"
+            ]
+          },
+          {
+            "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+            "powershell_version": "7.6.5",
+            "powershell_edition": "Core",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_version": "10.0.26300",
+            "os_build": "26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "execution_environment": null,
+            "runner_image": null,
+            "runner_image_version": null,
+            "runner_label": null,
+            "github_checkout_sha": null,
+            "source_worktree_dirty": false,
+            "observed_at_utc": "2026-10-05T15:31:33.8594727Z",
+            "source_sha256": [
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+              },
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9"
+              }
+            ],
+            "summary_sha256": "1044be67a3858a65e46a3de929cc44bc58c861f4f7f5795812ecd3bf758f070c",
+            "status": "analysis_failed",
+            "exit_code": 1,
+            "scanned_file_count": 7,
+            "scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "findings_count": 1,
+            "deliberate_failure": true,
+            "control_detected": true,
+            "source_bindings_unchanged": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "analyzer_version": "1.25.0",
+            "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSUsePSCredentialType",
+              "PSAvoidUsingWMICmdlet",
+              "PSReservedParams",
+              "PSMisleadingBacktick",
+              "PSUseCmdletCorrectly",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSUseCompatibleSyntax"
+            ]
+          }
+        ]
+      },
+      "native_test_record_sha256": "e16c5e74020fe8239e3ab8793f9e2319a892e21979611b95eea2f6492ce66a22",
+      "native_analysis_record_sha256": "28bd8164ee6b43155d63970207f8bb6298dd0769fc688b64932ec9c6a1e2c456",
+      "test_export_sha256": "c3fed33b92cafb7b9ffd1231427e6cfe95d9c80c68954c9b5f9f883db2835933",
+      "analysis_export_sha256": "64a09e448aadeb404f4c55e04c172fa2d17cf99a69530d2c35d9c1d4bfb01be5",
+      "native_test_controller_sha256": "b0617109468b7676d1e9517e0c706c023bbb3e988ef9a1b2455db28f49828806",
+      "native_analysis_controller_sha256": "b40a6e519070703626e701b230ccb92df0ad75eeee40cb20cb25088980c6f1f4"
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": ".github/workflows/windows-tests.yml",
+      "raw_sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39",
+      "git_blob": "8f18087b3d43ee65cc7f39a06879bd636e72fa1b",
+      "git_blob_sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "WinImgNormalizer.bat",
+      "raw_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "git_blob": "9ce2bca5b18bfb3388a9eed10aef397ba3084d54",
+      "git_blob_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "WinImgNormalizer.ps1",
+      "raw_sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9",
+      "git_blob": "0b378bd2f9f468c379ffa0cca34f17da3dd73d55",
+      "git_blob_sha256": "b54a87eb99cbbfb388526ca994eed7312be8625a30502b154fd2db27fd6df1ef",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/Cancellation.Tests.ps1",
+      "raw_sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e",
+      "git_blob": "ea2b91077ae71e279beb2b6ee640558e43ac5fcb",
+      "git_blob_sha256": "6cc52b8fde1c22bad0b7fe715da819d7ab7fd7b7e077d47a3b586dd7bc10fbb6",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/CodecCompatibility.Tests.ps1",
+      "raw_sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548",
+      "git_blob": "0a5865f39c44dfccf7c5f6499ac278ca9798c0c4",
+      "git_blob_sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Colour.Tests.ps1",
+      "raw_sha256": "8810eb6ae3e821094eaf016e53ff928dd313053797ffd53f3f59818e3074252f",
+      "git_blob": "a0c7fc54f0e5c6a113f0052728cd1989f581d640",
+      "git_blob_sha256": "780dc425dd6a2e095361d5be5434babc519db6e8cd4c9e6036022492cd38fbd4",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/Compatibility.Tests.ps1",
+      "raw_sha256": "dde6ef607e51b00b231abf7f6a510883fab46a44a4acab76c7dbec4672d999ec",
+      "git_blob": "d3faf5f1036b21deccb70bce9f4ea6baa60cce5b",
+      "git_blob_sha256": "dde6ef607e51b00b231abf7f6a510883fab46a44a4acab76c7dbec4672d999ec",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/ConversionRegression.Tests.ps1",
+      "raw_sha256": "69707f0e020bd455c4a872ab103ca887163009fae04fcf5b68547e7362765b0d",
+      "git_blob": "6857651d4d893b2efc54196c1b207c4fc38f7e15",
+      "git_blob_sha256": "ad640c984b320ecf0be55f35a48be87590d24887f47c77446ff85ae770272e36",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/Diagnostics.Tests.ps1",
+      "raw_sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6",
+      "git_blob": "4f2015c2579584f891cd301d5fe21d2fc19c984f",
+      "git_blob_sha256": "0a3d905c5d6e907692cb4a33871673ee4b06f7d64819f659da2e502d0c2f5231",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/Duplicates.Tests.ps1",
+      "raw_sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f",
+      "git_blob": "13bb10677e14083166aeb0323a63dedb48415a02",
+      "git_blob_sha256": "b809ea01b3c32d330a2e230d43559964bb7036fd98dcd0674acecc6f28750d03",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/ExitContract.Tests.ps1",
+      "raw_sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154",
+      "git_blob": "9a1f6a1e19f3d307126f1476b5f9defdb909af50",
+      "git_blob_sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Export-TestEvidence.ps1",
+      "raw_sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78",
+      "git_blob": "26ed2b9e0ad6592466f103823e9e78239d91c3cc",
+      "git_blob_sha256": "178c7d572647b13463f903f769396697601b7bf56f273f30815bbfc2e4898a78",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Frames.Tests.ps1",
+      "raw_sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a",
+      "git_blob": "2ef7f0e1412b1a8d386570f1989aba4917236389",
+      "git_blob_sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Initialize-TestDependencies.ps1",
+      "raw_sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86",
+      "git_blob": "2aa2a21db976d5d3c780d06744332e45b25cdd6a",
+      "git_blob_sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Invoke-StaticAnalysis.ps1",
+      "raw_sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17",
+      "git_blob": "6965d22915e370e13ebcc5516a415bdba6651d91",
+      "git_blob_sha256": "8b1ea3ec295140900c60659328d0931544fe8b7aa701dffaded31f80878e0f17",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Invoke-Tests.ps1",
+      "raw_sha256": "c966c4be7f07e6894e7b29a8188382e2d532bc0d69955877e429710989447a16",
+      "git_blob": "178bf22785c035c792849d2a05b0b9fd7d18faf5",
+      "git_blob_sha256": "14776953c340d340bd19a6041b2186c4a989d04abf48b348f0344bbcdb83b894",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/Launcher.Tests.ps1",
+      "raw_sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062",
+      "git_blob": "c10436a50f9592be5349cc4490248043e29c3b08",
+      "git_blob_sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Measure-SizeQuality.ps1",
+      "raw_sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94",
+      "git_blob": "16c7434896b37fab6b2906b94a017f1b713f483c",
+      "git_blob_sha256": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/Naming.Tests.ps1",
+      "raw_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+      "git_blob": "752d240d3011bb7add2b56943081fcd8306881f5",
+      "git_blob_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/NativeLifetime.Tests.ps1",
+      "raw_sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538",
+      "git_blob": "74928e4bc44cb9d35b53abf558d16a63dedf0daf",
+      "git_blob_sha256": "1bf52a3a7b2795395e2730572232c3c9e7005f7039ed0f64d575d74ff789272d",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/Normalizer.Tests.ps1",
+      "raw_sha256": "f59e5da4831f93aa204edf60dab6b8405cd38b4c408b8783dec8316dc38d9b5a",
+      "git_blob": "18e2ecabb1f1877ec03d2735ffe5b24310ec23d5",
+      "git_blob_sha256": "937930a8502a442758a077a2af522b33b4f90127af218b6978e8c9bac347ce6c",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/PSScriptAnalyzerSettings.psd1",
+      "raw_sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634",
+      "git_blob": "30a9cdf89b52d8fe90dbdf8c54dec1436da18edd",
+      "git_blob_sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Paths.Tests.ps1",
+      "raw_sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287",
+      "git_blob": "07d571f38a2bba9538671f9ce8dfde311b410ce4",
+      "git_blob_sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Preflight.Tests.ps1",
+      "raw_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+      "git_blob": "6f75075b0eba1dbbe89bf7057893b18ed0979eb9",
+      "git_blob_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/RecoveryReporting.Tests.ps1",
+      "raw_sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+      "git_blob": "bc69c65c9a6032780cd35609bcd7136c6a03ccb7",
+      "git_blob_sha256": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/Reporting.Tests.ps1",
+      "raw_sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437",
+      "git_blob": "4163f281fdbaaa809c26fab5341aedaaa3a327ae",
+      "git_blob_sha256": "2451119df80b60bae78b90ec3dbd38655a8d8e00fdf7c3c91cb15425880d86f9",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/SafetyRegression.Tests.ps1",
+      "raw_sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee",
+      "git_blob": "418cfa3a783791f0f739ba41c09eb7db353d1a43",
+      "git_blob_sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Sizing.Tests.ps1",
+      "raw_sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0",
+      "git_blob": "c279bc38584e738252c6b2f91bf568b9ca2c0d39",
+      "git_blob_sha256": "5e18e11a1c82bb7e5464f8035d6bcd3fed92b91b59db2d1956680d4c45aab232",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/StaticAnalysis.Tests.ps1",
+      "raw_sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1",
+      "git_blob": "88ebdadee03c0c895ac8a658a0d29d03e0829207",
+      "git_blob_sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/TestGate.ps1",
+      "raw_sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016",
+      "git_blob": "4eb0f3ad7d3c591da95b3772d9f33361f40db59f",
+      "git_blob_sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/Transactions.Tests.ps1",
+      "raw_sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48",
+      "git_blob": "0492f0668445394d03d5c1eaae0c1687260a444e",
+      "git_blob_sha256": "43eccca35bee98132fe057955f09ea00ed5e0f48e9c4ab4b8ed8f9f491d1db2f",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    },
+    {
+      "path": "tests/Traversal.Tests.ps1",
+      "raw_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+      "git_blob": "9cf1315ef0fee7bb71e6e61d601617fe0a876b46",
+      "git_blob_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/WorkflowSecurity.Tests.ps1",
+      "raw_sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3",
+      "git_blob": "6896036b9444f3caa82e85c1f0cfbc2b8347a598",
+      "git_blob_sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/dependencies.json",
+      "raw_sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853",
+      "git_blob": "19287f0494c21b2d02890de5e0068e979a0f16a3",
+      "git_blob_sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/fixtures/LauncherConsoleFixture.cs",
+      "raw_sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d",
+      "git_blob": "35564e68bffb0ea07e58258f38a17687e65648a8",
+      "git_blob_sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+      "raw_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+      "git_blob": "47fb1b1e89b20e2accc57353c300ff2155215a95",
+      "git_blob_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+      "raw_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+      "git_blob": "b5a73495bfc7509837b300800d8197d94e83fab7",
+      "git_blob_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/Generate-Reference.py",
+      "raw_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+      "git_blob": "7354688df526c8065364eb75314ba2d3dbb5e4f1",
+      "git_blob_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+      "raw_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+      "git_blob": "550e190e5c9ddeff82695fd411ca16edc5e4980e",
+      "git_blob_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/MANIFEST.json",
+      "raw_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+      "git_blob": "4dbb39a80b93cd4a07aa3755e18c4bc7c74f33ac",
+      "git_blob_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/README.md",
+      "raw_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+      "git_blob": "ed3ea20c38b1ac9a16483013bc045c70379239f6",
+      "git_blob_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/REFERENCE.json",
+      "raw_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+      "git_blob": "e8a0a73ac9def4b59ea73c1db93d5afd1b17cb41",
+      "git_blob_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/sRGB-v4.icc",
+      "raw_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "git_blob": "d9f3c055bd4d7573124090569e1b9533932214eb",
+      "git_blob_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/legacy/toolchain.json",
+      "raw_sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406",
+      "git_blob": "2aa2e60923b7c5d3198ee86dd570ed88ae26e463",
+      "git_blob_sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406",
+      "byte_binding": "exact"
+    },
+    {
+      "path": "tests/mandatory-tests.json",
+      "raw_sha256": "05cacbb14a4075c7d41372e16612095dbf1e3d8ccf1687ec6bb43f72a68c0b76",
+      "git_blob": "010548696fa7d9ed74bfb2af49f49b1c46394d10",
+      "git_blob_sha256": "e03f260f6dad9dbfcd0afffae140f3be77bb97704fb1dda6f8a578ed1ea7d78a",
+      "byte_binding": "verified_text_CRLF_to_LF_only"
+    }
+  ],
+  "development_observations": [
+    {
+      "label": "workflow first PS5.1",
+      "summary_sha256": "40a84106a747d4e8bc5cea81f8a302bb1be2482f48b3b7286e1bf1d759f09061",
+      "result": "infrastructure_failed",
+      "exit_code": 1,
+      "counts": {
+        "total_count": 23,
+        "passed_count": 22,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "not_run_count": 0
+      },
+      "source_unchanged": null,
+      "commit_unchanged": null,
+      "infrastructure_failed": true
+    },
+    {
+      "label": "workflow first PS7",
+      "summary_sha256": "e4de6b5c1090fa71aa2aab5cb84935947343d65fb40030340aca1c1fe8507220",
+      "result": "infrastructure_failed",
+      "exit_code": 1,
+      "counts": {
+        "total_count": 23,
+        "passed_count": 22,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "not_run_count": 0
+      },
+      "source_unchanged": null,
+      "commit_unchanged": null,
+      "infrastructure_failed": true
+    },
+    {
+      "label": "codec first",
+      "summary_sha256": "292e588a94e4b69e5b6cca60ed5bf1989ea50cd720ce7c9f85231bc1f09163be",
+      "result": "infrastructure_failed",
+      "exit_code": 1,
+      "counts": {
+        "total_count": 19,
+        "passed_count": 0,
+        "failed_count": 19,
+        "skipped_count": 0,
+        "not_run_count": 0
+      },
+      "source_unchanged": null,
+      "commit_unchanged": null,
+      "infrastructure_failed": true
+    },
+    {
+      "label": "codec second",
+      "summary_sha256": "77823ceffd053a40e421099a7eb2871a062a3dc2bbde91e4f98bb569174b358b",
+      "result": "Failed",
+      "exit_code": 1,
+      "counts": {
+        "total_count": 19,
+        "passed_count": 0,
+        "failed_count": 19,
+        "skipped_count": 0,
+        "not_run_count": 0
+      },
+      "source_unchanged": null,
+      "commit_unchanged": null,
+      "infrastructure_failed": false
+    },
+    {
+      "label": "export first",
+      "summary_sha256": "4ad06cc43787c00579a00a16ac204b12ca38458af68976b7e9357e9ef7c45cce",
+      "result": "Failed",
+      "exit_code": 1,
+      "counts": {
+        "total_count": 16,
+        "passed_count": 15,
+        "failed_count": 1,
+        "skipped_count": 0,
+        "not_run_count": 0
+      },
+      "source_unchanged": null,
+      "commit_unchanged": null,
+      "infrastructure_failed": false
+    },
+    {
+      "label": "container-gate first PS5.1",
+      "summary_sha256": "2913006ec79b8a67dcf601e833857f71049058b70e681e05786ca4f4e41fcb2d",
+      "result": "Passed",
+      "exit_code": 1,
+      "counts": {
+        "total_count": 459,
+        "passed_count": 459,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "not_run_count": 0
+      },
+      "source_unchanged": false,
+      "commit_unchanged": true,
+      "infrastructure_failed": false
+    },
+    {
+      "label": "container-gate first PS7",
+      "summary_sha256": "d355499893648c9274ac6ef1c11ebfab7d39943c7a33b0dfcebbb62103dd2d52",
+      "result": "Passed",
+      "exit_code": 1,
+      "counts": {
+        "total_count": 459,
+        "passed_count": 459,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "not_run_count": 0
+      },
+      "source_unchanged": false,
+      "commit_unchanged": true,
+      "infrastructure_failed": false
+    },
+    {
+      "label": "superseded first implementation PS5.1",
+      "summary_sha256": "349c98960976191502df9024e999c1877d6e9e7389da18feb4b92ef59b98084f",
+      "result": "Passed",
+      "exit_code": 1,
+      "counts": {
+        "total_count": 458,
+        "passed_count": 458,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "not_run_count": 0
+      },
+      "source_unchanged": false,
+      "commit_unchanged": false,
+      "infrastructure_failed": false
+    },
+    {
+      "label": "superseded first implementation PS7",
+      "summary_sha256": "c9c70f04a5d1011b2128dae22e9e9f03f62a5fac01c8133ad46ceed2e061786e",
+      "result": "Passed",
+      "exit_code": 1,
+      "counts": {
+        "total_count": 458,
+        "passed_count": 458,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "not_run_count": 0
+      },
+      "source_unchanged": false,
+      "commit_unchanged": false,
+      "infrastructure_failed": false
+    }
+  ],
+  "evidence_builder_sha256": "fedb575f8c670523de8e5bb53823b80aa2ee422847a4e72bd3f0d24b023e9d12",
+  "superseded_i3": {
+    "implementation": "7f0bd6614a267514e553c4c8c820b59b7dd14468",
+    "classification": "successful_superseded_implementation",
+    "reason": "I4 repairs exporter collection element validation and UTC observation timestamp preservation; I3 remains frozen historical evidence.",
+    "desktop_proof_sha256": "7b083129a25f9abf57fc672b8ae488131572b88969c5452f5f479f2962745301",
+    "ci_proof_sha256": "0b392f945f1a779ccc8fefa0e29333d808f8b3006d5accdc1c881c924d0c8be4",
+    "desktop": [
+      {
+        "host": "ps51",
+        "runs": [
+          {
+            "kind": "final",
+            "counts": {
+              "total_count": 461,
+              "passed_count": 461,
+              "failed_count": 0,
+              "skipped_count": 0,
+              "not_run_count": 0,
+              "inconclusive_count": 0
+            },
+            "native_exit": 0,
+            "summary_sha256": "c6e3479d76b7015c2b68a8a490008803335cb7afa497f6b1a0bb7d6b54dd9053",
+            "nunit_xml_sha256": "a2e627a4dff0a98fe03ef6f2da1dd7a000fbaf209f940c671c7d6efa96d57e05"
+          },
+          {
+            "kind": "control",
+            "counts": {
+              "total_count": 462,
+              "passed_count": 461,
+              "failed_count": 1,
+              "skipped_count": 0,
+              "not_run_count": 0,
+              "inconclusive_count": 0
+            },
+            "native_exit": 1,
+            "summary_sha256": "a4b1975a5c99a519d119bdbb92a742779438b3700eec9c54dc0d7251d75a1c3c",
+            "nunit_xml_sha256": "0af9dd68fa112f5dcccd828bb1ff7fcd96a83cc51563999ced3658e28463f000"
+          }
+        ]
+      },
+      {
+        "host": "ps7",
+        "runs": [
+          {
+            "kind": "final",
+            "counts": {
+              "total_count": 461,
+              "passed_count": 461,
+              "failed_count": 0,
+              "skipped_count": 0,
+              "not_run_count": 0,
+              "inconclusive_count": 0
+            },
+            "native_exit": 0,
+            "summary_sha256": "88462b8b685e183f801de6e504909de613b30ac96868dabb8ffaf8cdf7bf0e43",
+            "nunit_xml_sha256": "bbb1601aa110f72767288b55252e520ac8ce1a6f75ea487cf16601536bdedf9b"
+          },
+          {
+            "kind": "control",
+            "counts": {
+              "total_count": 462,
+              "passed_count": 461,
+              "failed_count": 1,
+              "skipped_count": 0,
+              "not_run_count": 0,
+              "inconclusive_count": 0
+            },
+            "native_exit": 1,
+            "summary_sha256": "d7d29bfef83bba9d67221b2d83228dd3dc63b8107ec490e69ed74f4130e2d2c5",
+            "nunit_xml_sha256": "95b7b493c01c85ba7a5f3f932ffa4edf00a69df899284efda48f7a5b7e68f94b"
+          }
+        ]
+      }
+    ],
+    "ci_runs": [
+      {
+        "run_id": 37330932014,
+        "event": "push",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37330932014",
+        "checkout_sha": "7f0bd6614a267514e553c4c8c820b59b7dd14468",
+        "conclusion": "success",
+        "proof_sha256": "c5bdfbd877e15848eadf8f85c28058cb6e35f76bbb7ccca8c8ca0f7571f05e6a",
+        "artifacts": [
+          {
+            "shell": "powershell",
+            "archive_sha256": "6e93922b28b4fd1c26b9191932aaa3d629882fcdc85c7609a9c0b1bf9770c114",
+            "normal_test_counts": {
+              "total": 461,
+              "passed": 461,
+              "failed": 0,
+              "exit_code": 0
+            },
+            "assertion_control_counts": {
+              "total": 462,
+              "passed": 461,
+              "failed": 1,
+              "exit_code": 1
+            },
+            "real_codec_tests_passed": 10,
+            "analyzer_normal_findings": 0,
+            "analyzer_control_findings": 1
+          },
+          {
+            "shell": "pwsh",
+            "archive_sha256": "874a8671671e45f535aed48f94ed0547fc06d7690c92fce9de86fe6f4a45d768",
+            "normal_test_counts": {
+              "total": 461,
+              "passed": 461,
+              "failed": 0,
+              "exit_code": 0
+            },
+            "assertion_control_counts": {
+              "total": 462,
+              "passed": 461,
+              "failed": 1,
+              "exit_code": 1
+            },
+            "real_codec_tests_passed": 10,
+            "analyzer_normal_findings": 0,
+            "analyzer_control_findings": 1
+          }
+        ]
+      },
+      {
+        "run_id": 37330936331,
+        "event": "pull_request",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37330936331",
+        "checkout_sha": "13c9297c9d5aec5fb02c8c5cc8c2d374c7629508",
+        "conclusion": "success",
+        "proof_sha256": "853e195a1eccd4b24fb32ef3c8bf807928190e6ffad3129b2ca09d6de50b3509",
+        "artifacts": [
+          {
+            "shell": "powershell",
+            "archive_sha256": "31034f520475c64244f6cec319a954b96f375c5b397d1717e9a571c9429131f8",
+            "normal_test_counts": {
+              "total": 461,
+              "passed": 461,
+              "failed": 0,
+              "exit_code": 0
+            },
+            "assertion_control_counts": {
+              "total": 462,
+              "passed": 461,
+              "failed": 1,
+              "exit_code": 1
+            },
+            "real_codec_tests_passed": 10,
+            "analyzer_normal_findings": 0,
+            "analyzer_control_findings": 1
+          },
+          {
+            "shell": "pwsh",
+            "archive_sha256": "9b3763bd22a97f5701737623a66455e6ccdbd787ae51739ba722931071cd7371",
+            "normal_test_counts": {
+              "total": 461,
+              "passed": 461,
+              "failed": 0,
+              "exit_code": 0
+            },
+            "assertion_control_counts": {
+              "total": 462,
+              "passed": 461,
+              "failed": 1,
+              "exit_code": 1
+            },
+            "real_codec_tests_passed": 10,
+            "analyzer_normal_findings": 0,
+            "analyzer_control_findings": 1
+          }
+        ]
+      }
+    ],
+    "timestamp_qualification": "Earlier exports could shift UTC by the local timezone and discard fractional precision; this was observed as a two-hour shift in I3 desktop export data. Counts, source hashes and native exits are separate observations. I4 requires exported UTC instants, including seven-digit .NET fractions, to equal the raw summaries."
+  },
+  "failed_hosted_implementation": "5a25be50142daede88086e798bbcf7d4b4106e1b",
+  "failed_hosted_proof": {
+    "implementation": "5a25be50142daede88086e798bbcf7d4b4106e1b",
+    "task": "M3-T06",
+    "result": "failed_container_gate",
+    "feature_tree_sha": "bdd2a0f07da8dffc68ddff7b0470e11bc9887774",
+    "merge_commit": "b8bef81cecee59f632daa15f74c9f664399ed005",
+    "merge_parents": [
+      "e6b50d60937e81409dbb481e09bd42fa69c25111",
+      "5a25be50142daede88086e798bbcf7d4b4106e1b"
+    ],
+    "merge_tree_equals_feature": true,
+    "runs": [
+      {
+        "run_id": 37328908051,
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37328908051",
+        "event": "push",
+        "head_sha": "5a25be50142daede88086e798bbcf7d4b4106e1b",
+        "status": "completed",
+        "conclusion": "failure",
+        "checkout_sha": "5a25be50142daede88086e798bbcf7d4b4106e1b",
+        "raw_log_sha256": "7c6b75bff7f3455b3acae82ecdf2c06f717159eed1a5d3e018a3290277ff0c76",
+        "observations": [
+          {
+            "tested_commit": "5a25be50142daede88086e798bbcf7d4b4106e1b",
+            "powershell_version": "5.1.26100.33438",
+            "powershell_edition": "Desktop",
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "imagemagick_version": "7.1.2-32",
+            "shell": "powershell",
+            "normal_total": 459,
+            "normal_passed": 459,
+            "normal_failed": 0,
+            "normal_runner_exit": 1,
+            "normal_gate_failure_count": 23,
+            "assertion_control_total": 460,
+            "assertion_control_passed": 459,
+            "assertion_control_failed": 1,
+            "assertion_control_runner_exit": 1,
+            "assertion_control_gate_failure_count": 25,
+            "workflow_assertion_control_validated": false,
+            "real_codec_tests_passed": 10,
+            "passed_required_cases": 61,
+            "source_hashes_verified_against_feature_git_tree": true,
+            "source_hash_binding_methods": [
+              "Windows CRLF checkout of Git blob",
+              "exact Git blob"
+            ],
+            "synthetic_json_only": true,
+            "raw_logs_xml_media_absent_from_uploaded_artifact": true,
+            "analyzer_version": "1.25.0",
+            "analyzer_normal_files": 7,
+            "analyzer_normal_findings": 0,
+            "analyzer_normal_exit": 0,
+            "analyzer_control_findings": 1,
+            "analyzer_control_exit": 1,
+            "artifact_zip_sha256": "4444cdd6f2d14cfe9d4868e82f8b70e755eafb9bcbf0d86e353f2bf802a569ad"
+          },
+          {
+            "tested_commit": "5a25be50142daede88086e798bbcf7d4b4106e1b",
+            "powershell_version": "7.6.6",
+            "powershell_edition": "Core",
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "imagemagick_version": "7.1.2-32",
+            "shell": "pwsh",
+            "normal_total": 459,
+            "normal_passed": 459,
+            "normal_failed": 0,
+            "normal_runner_exit": 1,
+            "normal_gate_failure_count": 23,
+            "assertion_control_total": 460,
+            "assertion_control_passed": 459,
+            "assertion_control_failed": 1,
+            "assertion_control_runner_exit": 1,
+            "assertion_control_gate_failure_count": 25,
+            "workflow_assertion_control_validated": false,
+            "real_codec_tests_passed": 10,
+            "passed_required_cases": 61,
+            "source_hashes_verified_against_feature_git_tree": true,
+            "source_hash_binding_methods": [
+              "Windows CRLF checkout of Git blob",
+              "exact Git blob"
+            ],
+            "synthetic_json_only": true,
+            "raw_logs_xml_media_absent_from_uploaded_artifact": true,
+            "analyzer_version": "1.25.0",
+            "analyzer_normal_files": 7,
+            "analyzer_normal_findings": 0,
+            "analyzer_normal_exit": 0,
+            "analyzer_control_findings": 1,
+            "analyzer_control_exit": 1,
+            "artifact_zip_sha256": "3bcc99dfef0ec75044e6996f3f7685c7c1e1169796704bdb4aab5322aaf43765"
+          }
+        ],
+        "qualified": false
+      },
+      {
+        "run_id": 37329082015,
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37329082015",
+        "event": "pull_request",
+        "head_sha": "5a25be50142daede88086e798bbcf7d4b4106e1b",
+        "status": "completed",
+        "conclusion": "failure",
+        "checkout_sha": "b8bef81cecee59f632daa15f74c9f664399ed005",
+        "raw_log_sha256": "2ee7999646b2dd531511b13cc75c19aeef3ac9e5e2ed74e80757bcdee1ddba50",
+        "observations": [
+          {
+            "tested_commit": "b8bef81cecee59f632daa15f74c9f664399ed005",
+            "powershell_version": "5.1.26100.33438",
+            "powershell_edition": "Desktop",
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "imagemagick_version": "7.1.2-32",
+            "shell": "powershell",
+            "normal_total": 459,
+            "normal_passed": 459,
+            "normal_failed": 0,
+            "normal_runner_exit": 1,
+            "normal_gate_failure_count": 23,
+            "assertion_control_total": 460,
+            "assertion_control_passed": 459,
+            "assertion_control_failed": 1,
+            "assertion_control_runner_exit": 1,
+            "assertion_control_gate_failure_count": 25,
+            "workflow_assertion_control_validated": false,
+            "real_codec_tests_passed": 10,
+            "passed_required_cases": 61,
+            "source_hashes_verified_against_feature_git_tree": true,
+            "source_hash_binding_methods": [
+              "Windows CRLF checkout of Git blob",
+              "exact Git blob"
+            ],
+            "synthetic_json_only": true,
+            "raw_logs_xml_media_absent_from_uploaded_artifact": true,
+            "analyzer_version": "1.25.0",
+            "analyzer_normal_files": 7,
+            "analyzer_normal_findings": 0,
+            "analyzer_normal_exit": 0,
+            "analyzer_control_findings": 1,
+            "analyzer_control_exit": 1,
+            "artifact_zip_sha256": "3f0a80c1f4713ce5e2b8950803bba01b2f3eb59b84c8a468aee8e66d89bd542f"
+          },
+          {
+            "tested_commit": "b8bef81cecee59f632daa15f74c9f664399ed005",
+            "powershell_version": "7.6.6",
+            "powershell_edition": "Core",
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "imagemagick_version": "7.1.2-32",
+            "shell": "pwsh",
+            "normal_total": 459,
+            "normal_passed": 459,
+            "normal_failed": 0,
+            "normal_runner_exit": 1,
+            "normal_gate_failure_count": 23,
+            "assertion_control_total": 460,
+            "assertion_control_passed": 459,
+            "assertion_control_failed": 1,
+            "assertion_control_runner_exit": 1,
+            "assertion_control_gate_failure_count": 25,
+            "workflow_assertion_control_validated": false,
+            "real_codec_tests_passed": 10,
+            "passed_required_cases": 61,
+            "source_hashes_verified_against_feature_git_tree": true,
+            "source_hash_binding_methods": [
+              "Windows CRLF checkout of Git blob",
+              "exact Git blob"
+            ],
+            "synthetic_json_only": true,
+            "raw_logs_xml_media_absent_from_uploaded_artifact": true,
+            "analyzer_version": "1.25.0",
+            "analyzer_normal_files": 7,
+            "analyzer_normal_findings": 0,
+            "analyzer_normal_exit": 0,
+            "analyzer_control_findings": 1,
+            "analyzer_control_exit": 1,
+            "artifact_zip_sha256": "4a869ef86ebebddde9a84a18b16abf1331bda7cb917c2886acfabcd61c9bdeee"
+          }
+        ],
+        "qualified": false
+      }
+    ]
+  },
+  "failed_hosted_proof_sha256": "91714737c2945be3b76284fc3de927b7a876a54cfef360644a006d89cd3f602b",
+  "action_review": {
+    "observed_at_utc": "2026-10-05T14:48:38.3497453Z",
+    "actions": [
+      {
+        "name": "actions/checkout",
+        "version": "v4.4.0",
+        "sha": "11d5960a326750d5838078e36cf38b85af677262",
+        "tag_api": "https://api.github.com/repos/actions/checkout/git/refs/tags/v4.4.0",
+        "commit_api": "https://api.github.com/repos/actions/checkout/commits/11d5960a326750d5838078e36cf38b85af677262",
+        "commit_message": "backport fixes to releases-v4 (#2524)",
+        "github_verification": true,
+        "github_verification_reason": "valid",
+        "sources": [
+          {
+            "source": "action.yml",
+            "url": "https://raw.githubusercontent.com/actions/checkout/11d5960a326750d5838078e36cf38b85af677262/action.yml",
+            "sha256": "6188f6991491ed38977347cdaad0b0cd921a6d6232892363c91f433c22954f4f",
+            "bytes": 5144
+          },
+          {
+            "source": "src/input-helper.ts",
+            "url": "https://raw.githubusercontent.com/actions/checkout/11d5960a326750d5838078e36cf38b85af677262/src/input-helper.ts",
+            "sha256": "0bcab16b2b550f1b92c6176b5f842500febee3ae8c8051cb62a95264d40db0af",
+            "bytes": 7286
+          },
+          {
+            "source": "src/git-auth-helper.ts",
+            "url": "https://raw.githubusercontent.com/actions/checkout/11d5960a326750d5838078e36cf38b85af677262/src/git-auth-helper.ts",
+            "sha256": "5a37007aa5687f006483d0f38f13835c65781cf95814854de212995f655486aa",
+            "bytes": 17349
+          },
+          {
+            "source": "src/git-source-provider.ts",
+            "url": "https://raw.githubusercontent.com/actions/checkout/11d5960a326750d5838078e36cf38b85af677262/src/git-source-provider.ts",
+            "sha256": "b1bf57713d94302decc7f440a1cd7daa24f205ddf677c52debeb654a5565d1a7",
+            "bytes": 11050
+          }
+        ]
+      },
+      {
+        "name": "actions/upload-artifact",
+        "version": "v7.0.1",
+        "sha": "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+        "tag_api": "https://api.github.com/repos/actions/upload-artifact/git/refs/tags/v7.0.1",
+        "commit_api": "https://api.github.com/repos/actions/upload-artifact/commits/043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+        "commit_message": "Merge pull request #797 from actions/yacaovsnc/update-dependency\n\nInclude changes in typespec/ts-http-runtime 0.3.5",
+        "github_verification": true,
+        "github_verification_reason": "valid",
+        "sources": [
+          {
+            "source": "action.yml",
+            "url": "https://raw.githubusercontent.com/actions/upload-artifact/043fb46d1a93c77aae656e7c1c64a875d1fc6a0a/action.yml",
+            "sha256": "c5979822866a72362e609844b6ebe77d4b7e759af68cc1c2c425dcf51481fab4",
+            "bytes": 3603
+          },
+          {
+            "source": "src/upload/upload-artifact.ts",
+            "url": "https://raw.githubusercontent.com/actions/upload-artifact/043fb46d1a93c77aae656e7c1c64a875d1fc6a0a/src/upload/upload-artifact.ts",
+            "sha256": "645c95f89c7fa74b171875f9a8855314c6daf8ec08c46f796fd16fc197a22c2e",
+            "bytes": 2917
+          },
+          {
+            "source": "src/upload/input-helper.ts",
+            "url": "https://raw.githubusercontent.com/actions/upload-artifact/043fb46d1a93c77aae656e7c1c64a875d1fc6a0a/src/upload/input-helper.ts",
+            "sha256": "982def8793858e4976192f3f5ade26f1e843eee069922a974228648dafc1298c",
+            "bytes": 1766
+          },
+          {
+            "source": "src/shared/search.ts",
+            "url": "https://raw.githubusercontent.com/actions/upload-artifact/043fb46d1a93c77aae656e7c1c64a875d1fc6a0a/src/shared/search.ts",
+            "sha256": "4cbd489c239640073ee1bd17b9f941aabcf34cb7f41d68edd2264ee0438174e9",
+            "bytes": 5246
+          },
+          {
+            "source": "src/shared/upload-artifact.ts",
+            "url": "https://raw.githubusercontent.com/actions/upload-artifact/043fb46d1a93c77aae656e7c1c64a875d1fc6a0a/src/shared/upload-artifact.ts",
+            "sha256": "bfab1f3c0e5ada3dd46e64addb583730dd84e17a47f06e24f9bda3cd50b9153b",
+            "bytes": 1000
+          }
+        ]
+      }
+    ],
+    "runner_label": "windows-2025",
+    "runner_primary_url": "https://github.com/actions/runner-images/blob/main/README.md",
+    "review_scope": "Official tag-to-commit binding, signature verification status and action inputs, checkout credential cleanup and artifact file selection/upload source. No full transitive source audit claimed.",
+    "runner_source_commit": "6df43a84a99f76801fac238d7b7ddb2bd5808251",
+    "runner_sources": [
+      {
+        "source": "README.md",
+        "url": "https://raw.githubusercontent.com/actions/runner-images/6df43a84a99f76801fac238d7b7ddb2bd5808251/README.md",
+        "sha256": "7691efc4ce2d8a54055e2a504ce5b168413158c0c6169005f59ece6acf9ee2f2",
+        "bytes": 21232
+      },
+      {
+        "source": "images/windows/Windows2025-Readme.md",
+        "url": "https://raw.githubusercontent.com/actions/runner-images/6df43a84a99f76801fac238d7b7ddb2bd5808251/images/windows/Windows2025-Readme.md",
+        "sha256": "56db9ccbeb7792457be7bfd6b6fccab90730ece7143fee43dca049fd644adcdb",
+        "bytes": 36538
+      }
+    ]
+  },
+  "action_review_sha256": "7d138bb266a77495dea71efa786f0db087f54da8ffbbd9a7bef1a4fde4fdcf9e",
+  "upstream_review": {
+    "observed_at_utc": "2026-10-05T14:55:59.2433852Z",
+    "release": "7.1.2-32",
+    "release_url": "https://github.com/ImageMagick/ImageMagick/releases/tag/7.1.2-32",
+    "release_capture_sha256": "8d565a559588deb7eef540fcf63811c74f740b6d3e2c8fe34fd1e697239a7c54",
+    "advisory_count": 30,
+    "advisory_capture_sha256": "6925be8e328449c638e1169c9c2d608126b252b0414434de106aafb5f962384f",
+    "scope": "Dated official upstream recheck; retained version and no exploit execution."
+  },
+  "qualifications": [
+    "Actual Windows 11 desktop automation and hosted Windows Server CI are distinct; no Linux substitute or owner gesture evidence.",
+    "T001-T004 remain legacy characterization; T007 is the separate real assertion control. Mandatory corrected coverage T005-T066 excluding T007 has no skipped tests.",
+    "All ten advertised extensions have executed real codec tests; unavailable-reader controls use masked capability replies plus real supported sibling conversion and video copying.",
+    "Actual UNC target remains not_run; lexical root and local long-path tests do not establish network-share support.",
+    "Scoped analyzer excludes Pester DSL bodies, historical tools and vendor code. Diagnostics alone do not prove filesystem or API compatibility.",
+    "First full desktop runs were superseded during review; source/commit checks reject them. Their retained observations are not acceptance evidence.",
+    "Implementation5a25be5 hosted all459 assertions passed per normal job but its string-only suite container check rejected every FileInfo container. Both push/PR matrices remain failed; the final helper and actual-container regression repair this without weakening suite/case/codec/skip gates.",
+    "Checksum review binds package bytes; no Authenticode/publisher-identity claim, exploit sample execution, persistent policy change or runtime dependency install.",
+    "Final containing evidence checkpoint synchronization is pending independent post-commit observation. M3-T07 owner approval, merge and release remain separate."
+  ],
+  "observation_proof_sha256": "01a9355e7184a1390732d5735c93b34b608792c48d6de4e87578fc715792354a",
+  "case_results": [
+    {
+      "case_id": "T064",
+      "state": "passed",
+      "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+      "finding": "Both actual Windows desktop shells and four hosted Windows jobs executed all 23 mandatory suites, 61 corrected case IDs and 468 tests with zero skips/unrun/inconclusive/infrastructure failures and native exit0. Each exact assertion control had469 total/468 passed/one intended T007 failure/native1. Empty/skipped/missing/inventory/container/source negative gates and actual typed Pester container regressions passed."
+    },
+    {
+      "case_id": "T065",
+      "state": "passed",
+      "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+      "finding": "Ten real extension outcomes passed: jpg/jpeg/png/bmp/tif/tiff/gif/webp/heic/heif. HEIC/HEIF positives are the real T031 collections. All ten controlled missing-reader cases completed actual supported siblings and preserved videos; missing JPEG writer failed setup. Capability/source/dependency/OS/host metadata is recorded with no mandatory codec skip. Support is limited to the verified pinned ImageMagick7.1.2-32 build."
+    },
+    {
+      "case_id": "T066",
+      "state": "passed",
+      "tested_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+      "finding": "Verified analyzer1.25.0/pinned extraction,15 reviewed rules and seven maintained scripts passed with zero findings in both desktop shells and all hosted jobs; each unsafe-expression text control produced exactly one intended finding/native1. Workflow negative checks passed, actual CI permissions were read-only, action pins/source were reviewed and credentials were not persisted. Downloaded two-file artifacts passed digest, source and scalar allowlist/privacy checks; final UTC fractions are preserved. Analyzer and workflow audits retain their declared scope."
+    }
+  ],
+  "record_validation": {
+    "initial_plan_error": "Evidence task ID mismatch.",
+    "repair": "Added task_id to the CI record and explicit verified T064-T066 outcomes to the desktop record before final structural validation."
+  }
+}

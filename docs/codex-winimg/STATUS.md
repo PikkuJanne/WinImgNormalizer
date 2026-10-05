@@ -1,105 +1,88 @@
 # Project status
 
-Updated: 2026-10-05 — M3-T05 completed.
+Updated: 2026-10-05 — M3-T06 completed.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested implementation: 5df7a83ed3fd340479972366f95a59e8e51b1b41
-Next task: **M3-T06 — Complete Windows compatibility, static checks and security CI**
-Task progress: **20 / 28 accepted**
-Specified cases exercised: **T001-T063 (63 / 75); T001-T004 are characterization**
-Pester suite: **392/392 passed in each desktop shell, zero skipped**
-Failure controls: **393 total, 392 passed, one intended failure; native exit 1**
-CI: **implementation push/PR Windows matrices passed, including controls**
+Tested implementation: 17a405bfe0150607486248e845f93ba82e1d0d52
+Next task: **M3-T07 — Obtain owner acceptance of the familiar workflow**
+Task progress: **21 / 28 accepted**
+Specified cases exercised: **T001-T066 (66 / 75); T001-T004 characterization, T007 control**
+Pester suite: **468/468 passed in each desktop shell, zero skipped**
+Failure controls: **469 total, 468 passed, one intended failure; native exit 1**
+CI: **implementation push/PR Windows matrices passed, including both controls**
 Containing evidence checkpoint synchronization: **pending_verification**
 
 ## Current behavior and verification
 
-The launcher keeps Windows PowerShell, -NoProfile, process-only Bypass and the
-familiar pause. It clears an inherited ERRORLEVEL shadow inside SETLOCAL, saves the
-actual child code immediately, prints success/warning/error/cancelled text and returns
-that saved code after pause. Zero/extra arguments, including an explicit empty extra,
-are rejected before starting the script. Literal path forwarding and trailing-separator
-normalization remain. The file-specific WinImgNormalizer.bat -text attribute preserves
-the BAT's exact CRLF bytes in the Git blob, checkout and source archive, supporting
-reliable native CMD label lookup.
+The mandatory gate inventories all 23 maintained suites, requires actual passed
+T005-T066 coverage except the separate T007 failure control, and rejects zero
+discovery, skips, unrun/inconclusive tests, failed blocks/containers, missing suites,
+source changes and absent real codec outcomes. FileInfo file containers and
+ScriptBlock controls are handled explicitly and covered by a fresh pinned-Pester
+child regression. Focused runs cannot replace full acceptance.
 
-The command catches ordinary unexpected run-level failures, emits bounded escaped
-diagnostics and returns 1. Handled cancellation remains 130; PipelineStoppedException
-propagates. Completed outputs and existing reports survive a run-level failure.
+All ten advertised extensions have real codec results: jpg/jpeg/png/bmp/tif/tiff/
+gif/webp plus the existing HEIC/HEIF collection cases. Reader-absence controls mask
+the capability table while actual supported sibling conversion and video copying
+complete; the missing JPEG writer fails setup. Real positives establish support for
+the pinned ImageMagick 7.1.2-32 build, not every installed codec build.
 
-On actual Windows 11 Pro build 26300, Windows PowerShell 5.1.26100.9444 and PowerShell
-7.6.5, Pester 5.9.1, final implementation 5df7a83ed3fd340479972366f95a59e8e51b1b41 normal gates passed
-**392/392 in each shell**, zero skipped or unrun. Each control had 393
-total, 392 passed, exactly one intended T007
-failure and native exit 1. The parent recorded native exits; summary/XML/console hashes
-and verified raw/Git source bindings are in evidence/M3-T05.json. Persistent policies,
-PATH, profiles and user identity were checked without changing them.
+Pester 5.9.1, ImageMagick 7.1.2-32 and PSScriptAnalyzer 1.25.0 remain pinned development
+dependencies. Analyzer archive/manifest verification and safe fresh extraction precede
+use. Fifteen scoped security/defect/syntax rules scan seven maintained application/
+infrastructure scripts; normal results have zero findings. Each unsafe-expression
+text control produces exactly one intended finding and native exit 1. The application
+change only renames a caught exception variable that shadowed automatic $Error.
 
-The initial clean implementation 5cff9f22e0149d3acb6f339494094a93c67aeb5c passed
-391/391 in each desktop shell; each desktop control had 392 total, 391 passed, one
-intended T007 failure and native exit 1. Its hosted Windows PowerShell 5.1 push/PR
-normal gates each failed 22 pause assertions (391 total, 369 passed), while hosted
-PowerShell 7 normal gates passed. The reason for the hosted/desktop difference is unconfirmed;
-local detached-process probes did not reproduce it. These earlier observations and
-development failures remain preserved separately from the final implementation.
+The workflow uses Windows Server 2025, explicit powershell/pwsh jobs, contents:read,
+reviewed full action SHAs and persist-credentials:false. Native failures remain
+failures. Exactly two allowlisted synthetic JSON files are uploaded per shell after
+reparse-path rejection; raw logs, XML, diagnostics, test names and media stay local.
+Retained environment and text fields reject structured values before they can retain
+private text. UTC timestamp kind and fractional seconds survive both JSON readers.
 
-The repair changes only development test fixtures and their source/compiler evidence
-bindings. Production PowerShell and BAT bytes are unchanged between the initial and
-final implementations. A shared fixture creates a hidden private console, assigns
-itself to a private kill-on-close job before CMD starts, and captures the parent's
-stdio pipes before console allocation. Its readiness marker identifies the actual
-owned CMD. Tests wait for the real driver to exit, observe CMD blocked at pause, then
-supply two key records only to the verified controller/CMD console. Timeout cleanup
-kills the exact fixture handle; closing its private job stops its own descendants.
-A no-pause command must exit promptly with native 37 while parent stdin stays open,
-preventing the fixture's key reader from manufacturing pause evidence. The fixture
-uses the existing Windows Framework compiler only for development tests; measured
-compiler version/hash and fixture source/executable bindings are recorded locally and
-in sanitized evidence. It adds no application runtime requirement.
+Clean implementation 17a405bfe0150607486248e845f93ba82e1d0d52 passed **468/468** with zero
+skips/unrun tests on actual Windows 11 Pro build 26300, Windows PowerShell 5.1.26100.9444
+and PowerShell 7.6.5. Both full controls had 469 total/468 passed/one exact intended
+T007 failure/native 1. Standalone normal/control analyzer gates passed in both shells.
+Native parent records and summary/XML/console hashes bind these observations. All 45
+source bindings verify exact bytes or CRLF/LF-only equivalence against the tested Git
+blobs; source/commit/persistent policies remain unchanged.
+Evidence: [desktop](evidence/M3-T06.json).
 
-Final implementation hosted push/PR matrices passed all four jobs and controls: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37322686828); [pull_request CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37322698850).
-Evidence: evidence/M3-T05.json and evidence/M3-T05-ci.json.
-
-T061 — passed: Exact BAT bytes with a synthetic child observer prove actual Windows
-codes 0/1/2/130/37 and unavailable-host 9009, truthful messages and the blocked pause
-after the child exits in an explicitly owned console. Readiness checks exclude fixture
-startup from early usage/setup pause observations; the no-pause control verifies that
-open parent stdin cannot create a false wait. Separate safe -File drivers exercise the real Command for empty,
-ignored, usage/setup, partial and controlled global/cancellation outcomes, retain prior
-video hashes and preserve source hashes/times.
-
-T062 — passed: Actual native one-folder argument flow, script resolution and count
-rejection under spaces, Unicode, percent/bang expressions, ampersands, parentheses,
-brackets and trailing separators. Empty extra arguments reject with the intended
-message and pause. Path cases release the key only after observing the blocked pause;
-early-key timing failures are preserved. Earlier LF label failures are preserved;
-exact CRLF blob/checkout/archive verification passes.
-
-T063 — passed: Real legacy child host/process policy and unchanged same-edition
-persistent settings/PATH/profile/user context. Different PowerShell editions expose
-different policy views; baselines are compared within the same host edition.
+Hosted [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37333526329)
+and [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37333528830)
+passed all four jobs: 468/468 normally, 469/468/1 assertion controls, zero normal
+analyzer findings and one exact analyzer-control finding. Actual Server 2025
+Datacenter 10.0.26100, image win25-vs2026 version 20260925.250.1, runner 2.337.0,
+PS 5.1.26100.33438/PS 7.6.6, x64 en-US are recorded separately from desktop automation.
+Downloaded artifact digests, two-file content/privacy checks, source/Git bindings
+and synthetic PR merge provenance are independently verified in
+[CI evidence](evidence/M3-T06-ci.json).
 
 ## Handoff qualifications
 
-Started clean at 2ec018decc833d4b4004818f1175058bd61c11a0, equal to the live feature
-branch. Owner-merged PR #19 main fa2672f42be3f51cf2bfd0b00cb47ae0308d44b6 has the same
-tree. Continued without checkout/history changes. Successor draft [PR](https://github.com/PikkuJanne/WinImgNormalizer/pull/20) contains
-M3-T05. This record-only checkpoint's final SHA/live synchronization remains
-pending_verification until independently observed after normal commit/push.
+Started clean at fd4b60cd0e9a3107ee48e85b0589c837e4084f7e; owner-merged PR20 main
+e6b50d60937e81409dbb481e09bd42fa69c25111 has the same tree. Continued on the feature
+branch without changing the preserved non-Git snapshot or Git history. Successor
+[draft PR21](https://github.com/PikkuJanne/WinImgNormalizer/pull/21) contains M3-T06.
+This record-only checkpoint's final SHA/live synchronization requires an independent
+post-commit observation; its own hash is not embedded here.
 
-Automated Windows launcher argument flow is verified. A physical Explorer gesture,
-keyboard interaction and subjective owner workflow approval remain M3-T07. The safe
-drivers use internal owned scratch output and dependency paths; no real Pictures or
-private media are processed. Controlled cancellation is distinguished from actual
-Ctrl+C/forced-exit tests in the existing suite. Stopped pipelines, terminal closure
-and force termination may bypass reporting, cleanup and launcher pause, and have no
-unconditional exit130 guarantee. Caller-side CMD percent/bang expansion can alter
-arguments before the wrapper receives them.
+Earlier fixture/export failures and superseded desktop runs remain recorded. I2
+hosted assertions passed 459/459 but the string-only container guard rejected actual
+FileInfo suites; both matrices failed. I3 passed 461/461 and both controls in all
+environments, then review found nested-array retention and lossy UTC serialization
+in the exporter. Actual I3 uploaded payloads were clean; its exported timestamps are
+qualified. I4 repairs those boundaries and adds seven regressions. These earlier
+observations are separate from final acceptance, never relabeled successful I4 runs.
 
-JPEG/colour/frame/size defaults, source/no-overwrite safety, byte-identical videos,
-report accounting and native ownership remain covered. No owner quality acceptance,
-merge, release, settings change or deployment is inferred.
-
-This session stops at M3-T05. Begin M3-T06 only when requested.
+Actual UNC remains **not_run**; lexical/local long-path cases do not establish live
+network-share support. Analyzer scope excludes Pester DSL bodies, legacy and vendor
+code. Package checksums bind bytes without claiming signatures/publisher identity.
+Desktop automation and Server CI do not supply physical Explorer gestures or owner
+workflow/quality approval. JPEG/colour/frame/size defaults, source/no-overwrite safety,
+video fidelity, launcher pause/exit behavior and owned native processing remain
+covered. M3-T07 owner approval, merge and release are separate. Stop at M3-T06.
