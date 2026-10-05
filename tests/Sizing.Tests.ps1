@@ -57,7 +57,7 @@ BeforeAll {
         $observed=@(& Invoke-WinImgNormalizer @parameters 6>&1 3>&1 2>&1)
         $codes=@($observed | Where-Object {$_ -is [int] -or $_ -is [long]}); $codes.Count | Should -Be 1
         $runs=@(Get-ChildItem -LiteralPath $Parent -Directory); $runs.Count | Should -Be 1
-        $logs=@(Get-ChildItem -LiteralPath (Join-Path $runs[0].FullName '.WinImgNormalizer/reports') -File); $logs.Count | Should -Be 1
+        $logs=@(Get-ChildItem -LiteralPath (Join-Path $runs[0].FullName '.WinImgNormalizer/reports') -File -Filter '*.log'); $logs.Count | Should -Be 1
         return [pscustomobject]@{Code=$codes[0];Run=$runs[0].FullName;Log=[IO.File]::ReadAllText($logs[0].FullName);Text=$observed -join "`n"}
     }
     function Write-SizingCandidate([string]$Operand,[byte[]]$Bytes) {

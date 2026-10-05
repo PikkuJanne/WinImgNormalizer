@@ -124,8 +124,9 @@ BeforeAll {
         $Result.Log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0'
         $files = @(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File)
         @($files | Where-Object { $_.Extension -eq '.jpeg' }).Count | Should -Be 1
-        @($files | Where-Object { $_.Extension -ne '.log' }).Count | Should -Be 1
-        $files.Count | Should -Be 2
+        @($files | Where-Object { $_.Extension -notin @('.log','.csv') }).Count | Should -Be 1
+        @($files | Where-Object { $_.Extension -eq '.csv' }).Count | Should -Be 1
+        $files.Count | Should -Be 3
         Test-Path -LiteralPath (Join-Path $Result.Run $Output) -PathType Leaf | Should -BeTrue
         @(Get-ChildItem -LiteralPath (Join-Path $Result.Run '.WinImgNormalizer\work') -Force).Count | Should -Be 0
     }

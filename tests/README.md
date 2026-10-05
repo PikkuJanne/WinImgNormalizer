@@ -379,3 +379,21 @@ transcripts, output/source snapshots and observation JSON under ignored owned ro
 Keep one actual targeted_histories list and qualified cancellation_console_observations/
 ConsoleObservationsFile rows; neither a helper result nor event-send return alone
 establishes the real-host gate.
+
+## Reconciled outcomes and local CSV (T057-T060)
+
+Reporting.Tests.ps1 checks one outcome per successfully inspected regular file,
+ignored discovery, warning attributes, retained mappings and final success before
+ancillary failures. Signed image-only paired bytes use actual source/final lengths;
+videos, duplicate/ignored/error/cancelled/unstarted bytes create no image savings.
+Owned denied-directory fixtures preserve unknown subtree counts separately.
+Report I/O faults are distinguished from real media failures, and valid finalized
+media must survive required-report degradation.
+
+Hostile legal Windows filenames exercise the visible text: prefix, relative
+mapping, CSV quoting and independent reversible decoding through actual Import-Csv
+on both supported shells. UTF-16/control cases that Windows cannot store as names
+are serializer unit probes. These parser checks do not claim actual Excel or
+LibreOffice execution, formula editing or save/reopen behavior. Keep all prefixes
+for spreadsheet display; README documents the qualified all-Text import recipe.
+Raw CSV/media and detailed source snapshots remain in marker-owned ignored scratch.
