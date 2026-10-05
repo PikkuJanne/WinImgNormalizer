@@ -2330,3 +2330,59 @@ feature branch; main remained e6b50d60937e81409dbb481e09bd42fa69c25111. Its push
 observations, separate from the fully verified I4 implementation artifacts.
 This containing scope checkpoint's own SHA/live synchronization remains
 pending_verification until independently observed after normal commit/push.
+
+
+## 2026-10-05 — M3-T07 synthetic comparisons ready; owner gate pending
+
+Started clean at 4618a83cb2aa893aea9d6a1587987612624e1cf7 on the canonical feature
+branch with live equality. Owner-merged PR21/main 4d0bc6dd403a84b4cad770fdacfd394066c9fbd1
+has the same tree 2e1523f984ccfb46e63e0f8926727ea21190b81b; no checkout/history
+operation was needed. The preserved non-Git snapshot was not changed. Read-only
+prior checkpoint push 37341068495/PR 37341075972 metadata shows success.
+
+Prepared an owned disposable packet outside the repository from hash-bound accepted
+M2-T06 fixtures and M2-T04 benchmark originals/baseline outputs, plus three
+same-stem copies. 24 synthetic files cover ordinary appearance/detail/noise, real
+profiles/EXIF/alpha, frame/page/primary collection policy, literal paths, collisions,
+duplicate mapping, opaque video copy, ignored files and empty mirror folders.
+Files/dirs have fixed 2020 creation/write times; Hidden flag and duplicate timing are
+recorded. BAT/PS1 copies match exact checkout bytes; BAT matches exact CRLF Git blob.
+
+Fresh real Command preparation used disposable OutputParent and explicit verified
+portable ImageMagick 7.1.2-32. Actual Windows 11 Pro build 26300, Windows PowerShell
+5.1.26100.9444 and PowerShell 7.6.5 parent-observed native exits are 0 for default
+1,048,576 bytes and 2 for intentional 1 byte. Each default run reconciles
+24 discovered = 20 converted + 1 video + 1 duplicate + 2 ignored, zero
+errors/warnings, five omitted frames. Tiny runs retain 546/1,621-byte JPEGs at 50%
+with two size warnings. Independent Pillow fully decodes all 44 JPEGs with matching
+format/frame/dimensions/bytes and absent EXIF/ICC/comment/XMP fields; videos match
+hashes. Source file hashes, file/dir times/attributes and persistent policies remain
+unchanged, reports complete/balance, final outputs agree between hosts on this build.
+
+Initial PS5.1 preparation stopped before application start because inherited pwsh
+module paths hid Get-FileHash. A first child dictionary removal failed to account
+for Windows environment key casing. Failed local console logs are retained;
+Final v3 removes PSMODULEPATH case-insensitively in child environment only. Earlier
+PS7 preparation is superseded; final native parent records bind only fresh v3 runs.
+A local packet-builder row-shape retry preserved its partial generated root; no
+application or owner result arose from that preparation failure.
+
+The 22-section local source/current comparison HTML and static overview were
+prepared; overview inspected. Source native colour-managed displays are inspection
+aids, not independent oracles. Three five-image quality samples match historical
+baseline bytes; noise 1,015,369 bytes and already-lossy 916,662 bytes differ from
+historical 979,962/840,679 bytes after the prior M2-T04 byte-extent correction. No new quality/default
+change or subjective approval is claimed. Historical outputs retain their revision.
+
+OWNER_ACCEPTANCE.md and sanitized M3-T07.json contain checklist, exact review
+commit, source/fixture/tool/artifact bindings and limitations. Agent-session PATH
+has no magick.exe. Optional local helper provides pinned tool child PATH then invokes
+exact BAT with actual Pictures; helper/Explorer/Pictures were not agent-run.
+Actual owner physical workflow and appearance observations/statement remain absent.
+T067 not_run, M3-T07 awaiting_owner, accepted 21/28 and exercised 66/75 unchanged.
+No app/tests or defaults changed; prior M3-T06 full 468/468 remains distinct.
+
+Updated STATUS/TASKS/NEXT_SESSION/ACCEPTANCE. Plan/JSON/privacy/diff/source checks
+and scoped commit/push/independent remote observation follow; final containing
+SHA is reported externally, not embedded here. Stop at owner gate. Live UNC stays
+owner-excluded D35. No M4 task, merge/release or deployment was performed.

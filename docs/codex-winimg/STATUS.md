@@ -1,12 +1,12 @@
 # Project status
 
-Updated: 2026-10-05 — M3-T06 completed; owner excluded live UNC validation.
+Updated: 2026-10-05 — M3-T07 preparation complete; awaiting owner smoke/acceptance.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
 Tested implementation: 17a405bfe0150607486248e845f93ba82e1d0d52
-Next task: **M3-T07 — Obtain owner acceptance of the familiar workflow**
+Current task: **M3-T07 — Obtain owner acceptance of the familiar workflow (awaiting_owner)**
 Task progress: **21 / 28 accepted**
 Specified cases exercised: **T001-T066 (66 / 75); T001-T004 characterization, T007 control**
 Pester suite: **468/468 passed in each desktop shell, zero skipped**
@@ -89,4 +89,33 @@ code. Package checksums bind bytes without claiming signatures/publisher identit
 Desktop automation and Server CI do not supply physical Explorer gestures or owner
 workflow/quality approval. JPEG/colour/frame/size defaults, source/no-overwrite safety,
 video fidelity, launcher pause/exit behavior and owned native processing remain
-covered. M3-T07 owner approval, merge and release are separate. Stop at M3-T06.
+covered. M3-T07 owner approval, merge and release are separate.
+
+## M3-T07 prepared owner gate
+
+The clean review commit is 4618a83cb2aa893aea9d6a1587987612624e1cf7; its feature
+head was live-equal at this session's observations. Owner-merged PR21/main
+4d0bc6dd403a84b4cad770fdacfd394066c9fbd1 has the same tree. No application, BAT,
+test or default changes were made. M3-T06's tested implementation and full 468/468
+gates above remain separate evidence. Prior checkpoint push 37341068495 and
+PR 37341075972 metadata report success. The new containing checkpoint still needs
+post-commit live synchronization observation.
+
+[Owner checklist](OWNER_ACCEPTANCE.md) and [prepared evidence](evidence/M3-T07.json)
+are ready. The local packet outside the repository has 24 synthetic inputs, original/
+current displays, five hash-bound historical baseline comparisons and real tiny-cap
+warning examples. Fresh real Command preparation in PS5.1/PS7 returns 0 by default:
+20 converted/1 video/1 duplicate/2 ignored, zero errors, five omitted frames. Each
+1-byte run returns 2 with two valid above-target JPEGs. All 44 JPEGs fully decode;
+source state and video bytes are preserved and reports complete/balance.
+
+Preparation injected a disposable destination and explicit pinned ImageMagick, so
+actual Explorer/Pictures/tool discovery and owner appearance approval remain
+not_run. No magick.exe is on this agent session's PATH; the optional local helper
+supplies portable-tool PATH only to its child and is not yet owner-run. Local
+driver PS5.1 module-discovery failures are preserved, distinct from final v3 runs.
+Two quality samples differ from the historical baseline after the prior byte-extent
+correction; no new default is proposed or subjective quality decision inferred.
+
+M3-T07 is **awaiting_owner**, T067 **not_run**, task progress **21/28** and cases
+**66/75** unchanged. Stop here. M4-T01 requires actual named-commit acceptance.

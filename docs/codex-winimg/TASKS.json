@@ -865,9 +865,11 @@
       "depends_on": [
         "M3-T06"
       ],
-      "state": "pending",
-      "evidence": [],
-      "blocked_reason": null,
+      "state": "awaiting_owner",
+      "evidence": [
+        "evidence/M3-T07.json"
+      ],
+      "blocked_reason": "Prepared synthetic comparisons/checklist; actual owner Windows Explorer smoke, launcher tool discovery and explicit named-commit appearance/workflow acceptance are absent.",
       "card": "tasks/M3-T07.md"
     },
     {
