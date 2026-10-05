@@ -33,9 +33,14 @@ unexpected skipped mandatory tests must fail the acceptance gate. [T1]
 
 Capability-specific tests carry a precise reason. `optional-codec` means local
 absence can be represented explicitly; public supported-format coverage still
-needs an actual codec-enabled run. `windows-capability` cases such as UNC may use
-a separate controlled target. Missing that environment limits the support claim.
-Owner tests require actual owner evidence and cannot be approved by the agent.
+needs an actual codec-enabled run. Required `windows-capability` cases need actual
+Windows evidence. On 2026-10-05 the owner excluded live UNC/network-share validation
+and support because no suitable server is available (D35); it is not an acceptance
+or release gate and no target needs to be configured or supplied. T039 retains
+mandatory local long-path, lexical drive/UNC-root and local identity checks. Earlier
+limited localhost results and unavailable-target `not_run` observations remain
+historical evidence, without a live network-share support claim. Owner tests require
+actual owner evidence and cannot be approved by the agent.
 
 ## Evidence per execution
 

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T06",
+  "record_type": "owner_scope_clarification",
+  "decision_date": "2026-10-05",
+  "decision_id": "D35",
+  "owner_instruction": "Ok, there is no server to do this kind of testing. If you cannot do it, it is out of scope for this project.",
+  "reason": "No suitable server/live network-share target is available.",
+  "scope": {
+    "live_unc_network_share_validation_and_support": "out_of_scope",
+    "pending_acceptance_or_release_gate": false,
+    "server_or_share_setup_required": false,
+    "local_long_paths": "mandatory",
+    "lexical_drive_unc_root_safety": "mandatory",
+    "local_directory_identity_and_containment": "mandatory",
+    "historical_evidence": "Preserved unchanged, including limited localhost results and later unavailable-target not_run observations. No new live-share pass or remote-provider support is inferred.",
+    "existing_bounded_localhost_diagnostic": "Unchanged; localhost availability is not required. Any diagnostic assertions that execute retain normal failure semantics, without requiring a target or establishing remote-share support."
+  },
+  "revision": {
+    "base_checkpoint": "fdb44c18f9f37cb711dc7d2ca64368bd413fa25c",
+    "tested_implementation": "17a405bfe0150607486248e845f93ba82e1d0d52",
+    "branch": "codex/winimg-hardening",
+    "containing_scope_checkpoint_sync": "pending_verification",
+    "own_checkpoint_sha": "Observe externally after commit/push; not self-referenced."
+  },
+  "prior_checkpoint_ci_metadata": {
+    "head_sha": "fdb44c18f9f37cb711dc7d2ca64368bd413fa25c",
+    "push_run_id": 37336261529,
+    "pr_run_id": 37336267864,
+    "status": "completed",
+    "conclusion": "success",
+    "qualification": "Read-only metadata observations; the independently verified I4 artifacts remain in M3-T06.json and M3-T06-ci.json."
+  },
+  "validation": {
+    "status": "passed",
+    "application_tests_rerun": false,
+    "new_live_share_probe_performed": false,
+    "server_share_or_policy_configured": false,
+    "observed_at_utc": "2026-10-05T16:27:18.968032+00:00",
+    "commands": [
+      "git diff --check",
+      "python tools/codex-winimg/handoff.py plan --repo .",
+      "Python JSON/base-commit inventory and allowed-change assertions"
+    ],
+    "mandatory_inventory_unchanged": {
+      "suites": 23,
+      "required_case_ids": 61,
+      "optional_tests": 0,
+      "T039_required": true
+    },
+    "case_registry_unchanged_except_T039_descriptions": {
+      "specified_cases": 75,
+      "initial_status_and_kind_preserved": true
+    },
+    "task_graph_states_and_dependencies_unchanged": {
+      "tasks": 28,
+      "done": 21,
+      "next": "M3-T07",
+      "next_state": "pending"
+    },
+    "runtime_executable_tests_fixtures_and_workflow_bytes_unchanged_from_base": true,
+    "existing_historical_evidence_bytes_unchanged": true,
+    "modified_tracked_paths": [
+      "README.md",
+      "docs/codex-winimg/DECISIONS.md",
+      "docs/codex-winimg/NEXT_SESSION.md",
+      "docs/codex-winimg/SESSION_LOG.md",
+      "docs/codex-winimg/STATUS.md",
+      "docs/codex-winimg/TASKS.json",
+      "docs/codex-winimg/TEST_CASES.json",
+      "docs/codex-winimg/TEST_MATRIX.md",
+      "docs/codex-winimg/tasks/M2-T03.md",
+      "tests/README.md",
+      "tests/mandatory-tests.json"
+    ],
+    "handoff_plan": {
+      "tasks": 28,
+      "cases": 75,
+      "review_items_covered": 18,
+      "tasks_done": 21,
+      "next_task": "M3-T07",
+      "scope": "Structural plan validation only; no application tests or approval authentication."
+    }
+  },
+  "handoff": {
+    "accepted_tasks": 21,
+    "total_tasks": 28,
+    "next_task": "M3-T07",
+    "next_task_state": "pending",
+    "owner_workflow_or_quality_approval": "not_inferred"
+  }
+}

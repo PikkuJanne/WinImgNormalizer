@@ -58,7 +58,9 @@ focused and cannot stand in for mandatory acceptance. Ten exact real codec test
 outcomes must pass, including the existing T031 HEIC/HEIF collection tests. Compiled
 capabilities alone do not establish that coverage. Missing readers are controlled
 application-negative tests with real supported siblings; no Pester codec skips are
-permitted by this pinned baseline. Actual UNC/owner/packaging gates remain separate.
+permitted by this pinned baseline. Owner/packaging gates remain separate. Live UNC
+validation is outside the owner-approved scope, not a pending gate; local long-path
+and lexical root-safety coverage remains mandatory.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -253,7 +255,11 @@ existing localhost administrative alias of the owned fixture. When available,
 actual direct UNC input/output and BAT UNC-source conversions verify argv, complete JPEG pixels and source
 preservation; unavailable capability is recorded as `not_run` outside the mandatory
 Pester count. No share is created, configured or searched, and lexical checks never
-establish live UNC support. Raw capability observations remain in owned scratch.
+establish live UNC support. Localhost availability is not required; any diagnostic
+assertions that execute retain normal failure semantics. The owner excluded live network-share validation
+on 2026-10-05 because no suitable server is available; no server/share setup or
+owner-run UNC verification is required. Historical capability observations remain
+in their original evidence and owned scratch.
 
 Sizing tests (T040-T042) require exact invariant byte extent arguments for the
 default, non-KiB values and Int64 maximum under a hostile numeric culture. Genuine

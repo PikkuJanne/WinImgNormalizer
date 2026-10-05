@@ -1,6 +1,6 @@
 # Project status
 
-Updated: 2026-10-05 — M3-T06 completed.
+Updated: 2026-10-05 — M3-T06 completed; owner excluded live UNC validation.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
@@ -79,8 +79,12 @@ in the exporter. Actual I3 uploaded payloads were clean; its exported timestamps
 qualified. I4 repairs those boundaries and adds seven regressions. These earlier
 observations are separate from final acceptance, never relabeled successful I4 runs.
 
-Actual UNC remains **not_run**; lexical/local long-path cases do not establish live
-network-share support. Analyzer scope excludes Pester DSL bodies, legacy and vendor
+Live UNC/network-share validation and support are **out_of_scope** by the owner's
+2026-10-05 decision (D35), with no suitable server available. This is no longer an
+outstanding acceptance/release gate. Local long-path, lexical drive/UNC-root and
+local identity checks remain mandatory; historical localhost results and `not_run`
+observations are preserved without claiming live network-share support. See
+[scope record](evidence/M3-T06-scope.json). Analyzer scope excludes Pester DSL bodies, legacy and vendor
 code. Package checksums bind bytes without claiming signatures/publisher identity.
 Desktop automation and Server CI do not supply physical Explorer gestures or owner
 workflow/quality approval. JPEG/colour/frame/size defaults, source/no-overwrite safety,

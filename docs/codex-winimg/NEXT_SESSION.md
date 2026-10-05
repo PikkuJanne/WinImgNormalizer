@@ -30,7 +30,12 @@ remain separate. See evidence/M3-T06.json and evidence/M3-T06-ci.json.
 The final exporter rejects nested private values and preserves UTC fractional time.
 CI remains contents:read with reviewed full action pins, credentials disabled and
 two fixed synthetic JSON uploads. Analyzer excludes Pester DSL/legacy/vendor code.
-Live UNC remains not_run. No Linux substitute or checksum-signature claim exists.
+Live UNC/network-share validation and support are out_of_scope by the owner on
+2026-10-05 (D35): no server is available, and no live-share verification is pending.
+Keep local long-path, lexical drive/UNC-root and local identity tests mandatory.
+Preserve earlier limited localhost results and `not_run` observations; no passing
+live network-share result is inferred. See evidence/M3-T06-scope.json. No Linux
+substitute or checksum-signature claim exists.
 
 M3-T07 must prepare concrete owner comparisons/checklist using approved disposable
 copies, then obtain actual named-commit workflow and quality acceptance. Do not

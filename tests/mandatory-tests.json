@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "Mandatory corrected automated corpus through M3-T06; T001-T004 remain historical legacy characterization; T007 executes in the separate deliberate-failure control. Owner/UNC/packaging cases are separate recorded gates.",
+  "scope": "Mandatory corrected automated corpus through M3-T06; T001-T004 remain historical legacy characterization; T007 executes in the separate deliberate-failure control. Owner/packaging cases are separate recorded gates. Live UNC validation is outside owner-approved scope; local/lexical T039 remains mandatory.",
   "suites": [
     "Normalizer.Tests.ps1",
     "Preflight.Tests.ps1",
@@ -92,7 +92,7 @@
   "optional_tests": [],
   "limitations": [
     "No codec skips are permitted in this mandatory development baseline.",
-    "T039 actual UNC environment remains not run; local long-path policy evidence is not UNC support.",
+    "Live UNC/network-share validation and support are outside owner-approved scope (2026-10-05, D35); historical not_run observations are not a pending gate. Local long-path and lexical root-safety tests remain mandatory and do not prove live UNC support.",
     "Desktop automated runs do not grant owner gesture or quality acceptance."
   ]
 }

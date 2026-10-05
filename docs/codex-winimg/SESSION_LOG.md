@@ -2305,3 +2305,28 @@ sync is pending_verification; its final SHA/live equality are reported externall
 after normal commit/push. Stop at M3-T06; no owner/merge/release operation performed.
 
 Initial closeout plan validation rejected the evidence wrapper because the CI record lacked task_id; explicit T064-T066 case outcomes were also required. Added those verified annotations without changing frozen observations or tested source, then repeated structural validation before staging.
+
+## 2026-10-05 — M3-T06 owner scope clarification: live UNC excluded
+
+The owner stated: "Ok, there is no server to do this kind of testing. If you cannot
+do it, it is out of scope for this project." No suitable live-share target is
+available. D35 records live UNC/network-share validation and support as
+out_of_scope, without an outstanding acceptance/release gate or a requirement to
+provide/configure a server. Local long-path, lexical drive/UNC-root, containment
+and local identity coverage remains mandatory T039. The 23 suites, 61 corrected
+mandatory case IDs, ten codec outcomes, 75 specified cases and 28 task states are
+unchanged. M3-T06 stays done; next M3-T07 remains pending and has not started.
+
+This documentation/manifest-description follow-up preserves executable runtime,
+test, fixture and workflow bytes. Historical M2-T03 localhost results and later
+not_run observations remain unchanged; no live-share pass or remote-provider
+support is inferred. No new share probe, server setup or application run was
+performed. Structural validation and exact predecessor bindings are recorded in
+evidence/M3-T06-scope.json.
+
+Started clean at fdb44c18f9f37cb711dc7d2ca64368bd413fa25c, equal to the advertised
+feature branch; main remained e6b50d60937e81409dbb481e09bd42fa69c25111. Its push
+37336261529 and PR 37336267864 CI runs completed successfully. These are metadata
+observations, separate from the fully verified I4 implementation artifacts.
+This containing scope checkpoint's own SHA/live synchronization remains
+pending_verification until independently observed after normal commit/push.

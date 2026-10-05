@@ -347,9 +347,9 @@
       "id": "T039",
       "owner_task": "M2-T03",
       "kind": "windows-capability",
-      "title": "UNC and long paths",
-      "fixture": "Disposable share and long-path-enabled/disabled environments",
-      "expected": "Supported paths succeed; unsupported combinations fail clearly without truncation.",
+      "title": "Local long paths and lexical root safety",
+      "fixture": "Owned local long-path tree; lexical drive/UNC roots and local directory identity",
+      "expected": "Supported local long paths succeed or fail clearly without truncation or source changes; drive/UNC separators, containment and local identity stay safe. Live network-share validation/support is outside owner-approved scope (D35).",
       "initial_execution_status": "not_run"
     },
     {
