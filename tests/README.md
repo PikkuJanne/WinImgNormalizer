@@ -1,4 +1,4 @@
-# Windows checks (through M2-T01)
+# Windows checks (through M2-T02)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -7,7 +7,8 @@ staged video transactions (T020-T024), and successful-retention duplicate handli
 (T025-T027). The combined safety regression (T028) runs one complete mixed tree
 twice into separate outputs under the same parent. Frame/page regressions (T029-T031)
 check deliberate first-image selection, logical animation canvases and visible omissions.
-They do not certify the later metadata or cancellation fixes. The characterization
+Colour and privacy regressions (T032-T036) compare managed patches, stripping,
+orientation and white alpha composition. They do not certify cancellation fixes. The characterization
 evidence in `legacy/` describes those known defects separately.
 
 Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
@@ -35,7 +36,8 @@ tests use owned synthetic scratch trees and controlled process failures. The pub
 
 The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1`,
-`Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1` and `Frames.Tests.ps1`.
+`Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1`, `Frames.Tests.ps1` and
+`Colour.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -149,3 +151,38 @@ cannot encode it, so the fixture was generated once in owned ignored scratch.
 These mandatory tests fail if the selected codec cannot decode their real fixtures;
 they never count a controlled routing test, unavailable codec or skipped case as a
 positive sequence result. Timed HEIC animation remains outside this evidence.
+
+Colour tests use the scoped CC0 ICC profiles, source/license manifest, synthetic
+recipe and independent reference tuples in `fixtures/colour/`. The runner hashes
+every file in that directory in targeted and complete execution summaries. Optional
+reference regeneration uses Pillow 12.3.0/ImageCms with LittleCMS 2.19; mandatory
+tests do not require Python or Pillow. The reference requests Relative intent with
+black point compensation off. The CMYK profile contains only A2B0, a perceptual
+forward mapping, so LittleCMS uses that available fallback for the request. This
+verifies the selected fixture's forward transform without claiming general print
+accuracy, other rendering intents or reverse CMYK characterization.
+
+Tagged wide RGB, already-sRGB and actual four-channel CMYK fixtures reach the real
+runtime argument sequence. A parallel lossless PNG using those same arguments is
+compared against independently computed RGB tuples within 3/255 per channel before
+JPEG coding; final JPEG patch centers allow 12/255. Actual native probes differed
+by at most 1/255 before JPEG. Untagged RGB uses the stated sRGB assumption, known
+linear RGB is encoded into sRGB, and untagged CMYK fails before conversion.
+Malformed retained ICC profiles, decoder-rejected PNG iCCP, real profile/model
+mismatches and zero native exits with diagnostics must not finalize an inaccurate
+JPEG. A structurally valid ICC with an invalid curve also exercises the actual
+default native runner's rejection. An unsupported ICC version independently
+demonstrates a real native zero exit with diagnostics and a fully decoded JPEG;
+the default runner must still reject and clean its attempts. A genuine ICC remains
+active despite spoofed free metadata properties.
+
+Eight actual EXIF orientation tags have synthetic GPS, XMP, Photoshop/IPTC, comments
+and ICC attached to asymmetric JPEG fixtures. Displayed corner maps and dimensions
+must match; independent JPEG segment inspection verifies privacy/profile removal.
+Fully transparent and semi-transparent patches compare white composition after
+the managed sRGB transform. A controlled extent override forces six real native
+scale attempts and verifies the owned target profile's path and trusted bytes on
+every attempt, together with the white alpha and stripping operations. Sources keep byte hashes and creation/modified
+timestamps, and each success produces one intended JPEG with exact owned scratch
+cleanup. All generated media and raw development history remain in marked ignored
+scratch without recursive deletion.

@@ -1,0 +1,2644 @@
+{
+  "schema_version": 1,
+  "task_id": "M2-T02",
+  "recorded_utc": "2026-10-04T19:03:48.555724+00:00",
+  "starting_observation": {
+    "task_id": "M2-T02",
+    "observed_at_utc": "2026-10-04T18:29:39.745829+00:00",
+    "starting_commit": "ad56bdf9ae991812a819884e50647e454d443a4f",
+    "advertised_feature_commit": "ad56bdf9ae991812a819884e50647e454d443a4f",
+    "main_commit": "58d628ce189a3dd508d05fdce24937e71f74a222",
+    "starting_tree": "bdf853baacb510f3556ee9326e5c6477325b9c29",
+    "main_tree": "bdf853baacb510f3556ee9326e5c6477325b9c29",
+    "tree_equal": true,
+    "worktree_clean": true,
+    "branch": "codex/winimg-hardening",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "fetch_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "push_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "prior_pull_request": {
+      "baseRefOid": "f90de6ce37fdd3d760a32ce028fe3c40cc0290c9",
+      "headRefOid": "ad56bdf9ae991812a819884e50647e454d443a4f",
+      "isDraft": false,
+      "mergeCommit": {
+        "oid": "58d628ce189a3dd508d05fdce24937e71f74a222"
+      },
+      "mergedAt": "2026-10-04T18:27:52Z",
+      "state": "MERGED",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/10"
+    },
+    "successor_draft_needed": true,
+    "successor_created_by_this_observation": false,
+    "method": "Read-only live remote refs/PR metadata and local tree resolution after explicit fetch of main. No pull, merge, reset, branch change, push, PR mutation or tracked update."
+  },
+  "tested_implementation_commit": "a30c456594a31368294588cc198444b38bc3e0e3",
+  "tested_files_sha256": {
+    "WinImgNormalizer.ps1": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Invoke-Tests.ps1": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+    "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+    "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+    "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+    "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+    "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+    "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+    "tests/Normalizer.Tests.ps1": "81a896982bcbafc52b8d8edcde50aae1ae1fde057eadde5bce697df8ba02bf31",
+    "tests/Preflight.Tests.ps1": "059faf4177c48751ae8eedec6f465f5bbe005af3bc92ead28c791b78a423659c",
+    "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+    "tests/Naming.Tests.ps1": "2bac78d07ce69a70ba9fcc0f3465b0ac66a990a36babb3c908ec5d1c3627d72e",
+    "tests/Transactions.Tests.ps1": "f08b03e09d301541265a4b24ffc1e8e0d30e199d2250b65b1d91574458b1ae43",
+    "tests/Duplicates.Tests.ps1": "d87b1f0daf44acd80207e7cfb6826607eedfe33f88607a20d9d2764716097c4f",
+    "tests/SafetyRegression.Tests.ps1": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+    "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+    "tests/Colour.Tests.ps1": "eb406cbbb54b946cc80e56a4f19cbb6d4dc6ae7d38fabebb6a7b82c7e70fa51f"
+  },
+  "committed_blob_sha256": {
+    "WinImgNormalizer.ps1": "3e165c8d14a1db0097a4523420f352a1a8c7f7fd19df4de54410ab93bbaf2454",
+    "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+    "tests/Invoke-Tests.ps1": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+    "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+    "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+    "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+    "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+    "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+    "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+    "tests/Normalizer.Tests.ps1": "81a896982bcbafc52b8d8edcde50aae1ae1fde057eadde5bce697df8ba02bf31",
+    "tests/Preflight.Tests.ps1": "059faf4177c48751ae8eedec6f465f5bbe005af3bc92ead28c791b78a423659c",
+    "tests/Traversal.Tests.ps1": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+    "tests/Naming.Tests.ps1": "2bac78d07ce69a70ba9fcc0f3465b0ac66a990a36babb3c908ec5d1c3627d72e",
+    "tests/Transactions.Tests.ps1": "f08b03e09d301541265a4b24ffc1e8e0d30e199d2250b65b1d91574458b1ae43",
+    "tests/Duplicates.Tests.ps1": "d87b1f0daf44acd80207e7cfb6826607eedfe33f88607a20d9d2764716097c4f",
+    "tests/SafetyRegression.Tests.ps1": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+    "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+    "tests/Colour.Tests.ps1": "eb406cbbb54b946cc80e56a4f19cbb6d4dc6ae7d38fabebb6a7b82c7e70fa51f"
+  },
+  "checkout_line_endings": {
+    "core_autocrlf": "true",
+    "normalizations": [
+      {
+        "path": "WinImgNormalizer.ps1",
+        "tested_checkout_line_endings": "CRLF",
+        "tested_crlf_count": 1221,
+        "tested_bare_lf_count": 0,
+        "committed_blob_line_endings": "LF",
+        "binding": "Only CRLF-to-LF normalization converts the raw tested checkout into the exact committed Git blob."
+      }
+    ],
+    "note": "Raw runner hashes bind actual tested checkout bytes; Git blob hashes are separate. Every difference is verified as CRLF-to-LF normalization only. Final clean source/test bytes remained unchanged during all four runs."
+  },
+  "environment": {
+    "ps51": {
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    },
+    "ps7": {
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    }
+  },
+  "runs": [
+    {
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M2-T02-final-ps51",
+      "observed_at_utc": "2026-10-04T18:55:45.9643982Z",
+      "result": "Passed",
+      "total_count": 210,
+      "passed_count": 210,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 124.90480079999999,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M2-T02-final-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M2-T02-final-ps51/summary.json": "3bf08f8549a97f1728085a238ce0fefeb126dd4d0d9803d4207f0723c612ab52",
+        ".scratch/M2-T02-final-ps51/results.xml": "52fb1fb8d0fd6dc5977b2cf06a8d7841aaf550d39621ebf26bc4ccf1dd08c693",
+        ".scratch/M2-T02-final-ps51-console.log": "3be527dcf39c6b52fba3a60e4bc22dd9349d9dae0ff7961433d0e717a4f8a22b"
+      },
+      "observed_native_child_exit_code": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0
+    },
+    {
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M2-T02-control-ps51",
+      "observed_at_utc": "2026-10-04T18:57:56.4554787Z",
+      "result": "Failed",
+      "total_count": 211,
+      "passed_count": 210,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 110.2140362,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M2-T02-control-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M2-T02-control-ps51/summary.json": "ab7475e448076ef1c2a24c45a3159c778190c640c2d01ef1e414f60de66b62ff",
+        ".scratch/M2-T02-control-ps51/results.xml": "65fe627beb10d41f397d50cdfc06200143076e89ad99c1a4d0d37137da487ae7",
+        ".scratch/M2-T02-control-ps51-console.log": "7c69c8fb6bf0e505a8175eb02472a11125159e7b20245504e9cf3cebb0d47788"
+      },
+      "observed_native_child_exit_code": 1,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0
+    },
+    {
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M2-T02-final-ps7",
+      "observed_at_utc": "2026-10-04T18:55:46.9609638Z",
+      "result": "Passed",
+      "total_count": 210,
+      "passed_count": 210,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 137.5335606,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M2-T02-final-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M2-T02-final-ps7/summary.json": "732d3814ede9e7c22df588f0617d6b5cd954faf60670b2b6bd7631046301ea49",
+        ".scratch/M2-T02-final-ps7/results.xml": "3ed258902bbe8141a796839a308dc6d9775c651473e510dfb3dca39e8e5d9746",
+        ".scratch/M2-T02-final-ps7-console.log": "755e51d84611d8f2ce5d531e79411f84e6ca2cde688a755dd09b6029863ce0be"
+      },
+      "observed_native_child_exit_code": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0
+    },
+    {
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M2-T02-control-ps7",
+      "observed_at_utc": "2026-10-04T18:58:10.4426231Z",
+      "result": "Failed",
+      "total_count": 211,
+      "passed_count": 210,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 117.9743459,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "artifact_path": ".scratch/M2-T02-control-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M2-T02-control-ps7/summary.json": "e53d16e45e75ae6d4c7fcc0a0c678c109505ddf1ef1cf8f7332adf9c07e842f7",
+        ".scratch/M2-T02-control-ps7/results.xml": "b16cad8fb5fef1b6ebf4af56092dec6634c8987208d030df7c3ea534979c1a2c",
+        ".scratch/M2-T02-control-ps7-console.log": "418a272990166b14005710a2f86bc6bcaf8cd5994e744bf6e278ea2ada5e6bca"
+      },
+      "observed_native_child_exit_code": 1,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0
+    }
+  ],
+  "desktop_native_child_verification": {
+    "implementation": "a30c456594a31368294588cc198444b38bc3e0e3",
+    "observed_at_utc": "2026-10-04T19:00:49.969257+00:00",
+    "clean": true,
+    "raw_git_source_bindings": 22,
+    "binding_audit": {
+      "path": ".scratch/M2-T02-desktop-binding-audit.json",
+      "sha256": "31ed17bcc678e8e07e57d3277db5a1d6537536c1c0fe1c3e8d0b77838c927250"
+    },
+    "controller": {
+      "path": ".scratch/M2-T02-run-desktop.ps1",
+      "sha256": "4f647bb2507c4431d55c7a12d953b10799733afcf0b16bbb049414e99149e6cb"
+    },
+    "native_records": [
+      {
+        "path": ".scratch/M2-T02-desktop-native-ps51.json",
+        "sha256": "203b581e6d032850d833602aad9a8824aad49f7852a470ad57de7d20d97d27a8"
+      },
+      {
+        "path": ".scratch/M2-T02-desktop-native-ps7.json",
+        "sha256": "0c5085f53e2f334fa23fdc7a1db9180ca533245d0caf727175ad31fe8e82585a"
+      }
+    ],
+    "runs": [
+      {
+        "label": "final-ps51",
+        "exit": 0,
+        "total": 210,
+        "passed": 210,
+        "failed": 0,
+        "console_sha256": "3be527dcf39c6b52fba3a60e4bc22dd9349d9dae0ff7961433d0e717a4f8a22b",
+        "started_at_utc": "2026-10-04T18:55:45.5950613Z",
+        "completed_at_utc": "2026-10-04T18:57:55.8041847Z"
+      },
+      {
+        "label": "control-ps51",
+        "exit": 1,
+        "total": 211,
+        "passed": 210,
+        "failed": 1,
+        "console_sha256": "7c69c8fb6bf0e505a8175eb02472a11125159e7b20245504e9cf3cebb0d47788",
+        "started_at_utc": "2026-10-04T18:57:55.9987918Z",
+        "completed_at_utc": "2026-10-04T18:59:52.2496097Z"
+      },
+      {
+        "label": "final-ps7",
+        "exit": 0,
+        "total": 210,
+        "passed": 210,
+        "failed": 0,
+        "console_sha256": "755e51d84611d8f2ce5d531e79411f84e6ca2cde688a755dd09b6029863ce0be",
+        "started_at_utc": "2026-10-04T18:55:45.9191158Z",
+        "completed_at_utc": "2026-10-04T18:58:09.1126870Z"
+      },
+      {
+        "label": "control-ps7",
+        "exit": 1,
+        "total": 211,
+        "passed": 210,
+        "failed": 1,
+        "console_sha256": "418a272990166b14005710a2f86bc6bcaf8cd5994e744bf6e278ea2ada5e6bca",
+        "started_at_utc": "2026-10-04T18:58:09.3335467Z",
+        "completed_at_utc": "2026-10-04T19:00:13.5995737Z"
+      }
+    ],
+    "source_artifact": ".scratch/M2-T02-desktop-verification.json",
+    "source_artifact_sha256": "71e749410c6b717723306cfc5bf071feb7b8422dd45be7083d079c2f4e2dd0e8"
+  },
+  "case_results": [
+    {
+      "reason": "Actual wide RGB, already-sRGB and spoofed-free-profile-property sources use the real runtime conversion arguments; lossless pre-JPEG and final JPEG patch values match independently precomputed Pillow/ImageCms references.",
+      "case_id": "T032",
+      "state": "passed",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "reason": "Actual four-channel tagged CMYK uses its available forward A2B0 mapping, untagged RGB assumes sRGB, declared linear RGB encodes to sRGB, and untagged CMYK fails before the conversion runner.",
+      "case_id": "T033",
+      "state": "passed",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "reason": "Real malformed PNG and retained JPEG ICC, real profile/model mismatches, structurally accepted invalid-curve and unsupported-version ICC all fail without final output; the actual default native capture rejects a real zero exit with visible diagnostics and decodable JPEG bytes. Controlled zero-with-diagnostics coverage remains explicitly controlled.",
+      "case_id": "T034",
+      "state": "passed",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "reason": "All8 actual EXIF orientations match independent displayed corner maps/dimensions; synthetic GPS/EXIF/XMP/IPTC/comments/ICC are absent from final JPEG segments. Source byte hashes, creation and modification times remain unchanged.",
+      "case_id": "T035",
+      "state": "passed",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    },
+    {
+      "reason": "Actual tagged and untagged transparent/semitransparent patches composite on white after managed sRGB handling; all6 real native scales retain profile/white/strip semantics and the same owned target path with trusted profile bytes.",
+      "case_id": "T036",
+      "state": "passed",
+      "desktop_run_indices": [
+        0,
+        2
+      ]
+    }
+  ],
+  "colour_policy_observations": [
+    "Profiles are exact immutable Compact-ICC-Profiles bdd84663061bc4ae95ca70decff54f581e27f702 bytes, redistributed under CC0 with tracked license/provenance/header/hash manifest.",
+    "Independent reference method is bundled Pillow12.3.0/ImageCms/LittleCMS2.19, requested Relative intent1 with flags0 and black point compensation off. RGB transform precedes encoded-sRGB white alpha composition.",
+    "CGATS001Compat-v2-micro only provides A2B0 perceptual forward mapping. The requested Relative intent uses the available LittleCMS fallback; this selected fixture comparison does not qualify general relative-colorimetric print accuracy, other intents or reverse CMYK.",
+    "Separate tolerances are3/255 per channel pre-JPEG and12/255 at JPEG interior patch centers. Earlier independent actual native lossless probes differ by at most1/255.",
+    "Valid structure/model checks do not establish semantic LCMS transform validity. Invalid para-to-xxxx curve produces native exit1/no JPEG in independent peer probe; unsupported version99 produces native exit0 plus visible ColorspaceColorProfileMismatch and a decodable JPEG, then the real default application rejects and cleans.",
+    "The earlier30-byte malformed JPEG native false-zero observation is preserved but current application rejects that profile before conversion. It is distinct from the structurally accepted version99 default-capture regression.",
+    "Final JPEG has no ICC/GPS/EXIF/XMP/IPTC/comments and alpha is removed after white composition; these tests do not claim broader colour certification."
+  ],
+  "additional_colour_test_observations": [
+    "Six initial PS5.1 failures came from @($Arguments) retaining the original typed string-array reference; changing the PNG probe destination also changed the actual JPEG destination. All3 wrappers now clone the array. PS7 does not alias in this reproduction.",
+    "The first isolated PS5.1 array-alias probe omitted process ExecutionPolicy Bypass and was rejected before running. Its raw rejection is retained separately; the subsequent process-scoped Bypass probe reproduced the alias. No persistent policy was changed.",
+    "Initial native probe interpolation of missing profiles raised an unknown-property warning on valid untagged images. Safe absence handling in the actual inspector is covered by positive untagged tests and real ICC property spoof regression.",
+    "Optional tracked Generate-Reference.py reproduced all managed tuples exactly; Pillow getdata deprecation output is retained. Python/Pillow remain optional development reference tools, absent from runtime/CI dependencies.",
+    "Every final target summary binds all8 scoped profile/reference/license/recipe inputs; raw targeted development histories are not clean-commit claims. Parent owns clean-I full normal/control desktop and CI gates."
+  ],
+  "case_notes_artifact": ".scratch/M2-T02-case-notes.json",
+  "case_notes_artifact_sha256": "298a96aafeeaf0180a2e4d68185856fbac193ae04857a76ead66eec52dabc712",
+  "case_notes_source_artifact": ".scratch/M2-T02-colour-case-notes.json",
+  "case_notes_source_artifact_sha256": "4aba443e8c0bf17b383c3d68bbba4410eacd83edb3a9933ece0eb754e1167d3d",
+  "implementation_notes": [
+    "Every eligible image is copied once into a stable owned neutral snapshot; frame/page inspection, source colour inspection and all conversion attempts use those same preserved source bytes. Strict native inspection clears conflicting free-form profile/colorspace properties without stripping actual ICC characterization.",
+    "Tagged sources retain their source ICC through owned exact extraction and bounded header/tag/model checks, then transform to a hash-verified embedded CC0 sRGB-v4 target. Requested Relative intent explicitly disables black-point compensation. Decoded untagged sRGB is assumed sRGB; native linear RGB and gray are converted explicitly. Untagged CMYK without source characterization is rejected with a source-preserving partial error.",
+    "Auto-orientation precedes colour conversion. RGB transforms precede compositing over white in encoded sRGB; alpha is then disabled and ICC/EXIF/GPS/XMP/IPTC/comments are removed. Every 100, 90, 80, 70, 60 and 50 percent attempt uses that same order and white-alpha policy. The inherited alpha-dropping 100-percent retry is removed so a retry cannot change the background policy.",
+    "Malformed/mismatched profiles, ambiguous inspection and nonempty native diagnostic output cannot claim accurate successful conversion. Existing transactional full single-JPEG validation and no-overwrite finalization still decide whether output is retained; later valid files continue after a source error, and exact owned cleanup preserves unrelated entries.",
+    "The established positional/BAT interface, 1,048,576-byte default, scale sequence and best-effort boundary, first-frame/page selection with informational omissions, mirrored naming, source preservation, copied videos and success-only duplicate links remain the regression baseline. No runtime dependency or dependency pin changes; the runtime target profile is embedded rather than downloaded.",
+    "Three CC0 source/target profiles and an optional reproducible independent Pillow 12.3.0/LittleCMS 2.19 recipe provide synthetic references. Mandatory tests use checked reference data, with distinct 3/255 pre-JPEG and 12/255 JPEG interior patch tolerances, and require the actual T032-T036 RGB/CMYK/malformed-ICC/orientation/metadata/alpha cases."
+  ],
+  "implementation_notes_artifact": ".scratch/M2-T02-implementation-notes.json",
+  "implementation_notes_artifact_sha256": "0ab927f7e91c54bda2c3a762718dd5d5369877a14d8730ed973a26861c879672",
+  "internal_peer_review": {
+    "task_id": "M2-T02",
+    "record_type": "internal peer review of exact committed implementation; not owner acceptance",
+    "baseline_commit": "ad56bdf9ae991812a819884e50647e454d443a4f",
+    "audited_commit": "a30c456594a31368294588cc198444b38bc3e0e3",
+    "audited_tree": "25dd8683d46585390174a5e2c92d5937c9acf2d1",
+    "final_implementation_binding": "verified_exact_commit_and_tree",
+    "review_completed": true,
+    "no_blocking_findings": true,
+    "reviewed_paths": [
+      "README.md",
+      "WinImgNormalizer.ps1",
+      "tests/Colour.Tests.ps1",
+      "tests/Duplicates.Tests.ps1",
+      "tests/Invoke-Tests.ps1",
+      "tests/Naming.Tests.ps1",
+      "tests/Normalizer.Tests.ps1",
+      "tests/Preflight.Tests.ps1",
+      "tests/README.md",
+      "tests/fixtures/colour/AdobeCompat-v2.icc",
+      "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+      "tests/fixtures/colour/Generate-Reference.py",
+      "tests/fixtures/colour/LICENSE-CC0.txt",
+      "tests/fixtures/colour/MANIFEST.json",
+      "tests/fixtures/colour/README.md",
+      "tests/fixtures/colour/REFERENCE.json",
+      "tests/fixtures/colour/sRGB-v4.icc"
+    ],
+    "implementation_diff_sha256": "286f2a331418e46c152fe62cca5e2bbbb6eeca656796445f7f76ee8837e5fe52",
+    "reviewed_file_bindings": [
+      {
+        "path": "README.md",
+        "observed_checkout_sha256": "91074b8bfc2c78b41cd3271c92f7e5fb8cd9d7fa895c2e18bf3fa8cca3b1137f",
+        "reviewed_git_blob_sha256": "1da8acc637a7189c6d71d0e6935959870bf0081edcea9a9934eb2f76e5457ffd",
+        "checkout_to_git_binding": "crlf_to_lf_only"
+      },
+      {
+        "path": "WinImgNormalizer.ps1",
+        "observed_checkout_sha256": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3",
+        "reviewed_git_blob_sha256": "3e165c8d14a1db0097a4523420f352a1a8c7f7fd19df4de54410ab93bbaf2454",
+        "checkout_to_git_binding": "crlf_to_lf_only"
+      },
+      {
+        "path": "tests/Colour.Tests.ps1",
+        "observed_checkout_sha256": "eb406cbbb54b946cc80e56a4f19cbb6d4dc6ae7d38fabebb6a7b82c7e70fa51f",
+        "reviewed_git_blob_sha256": "eb406cbbb54b946cc80e56a4f19cbb6d4dc6ae7d38fabebb6a7b82c7e70fa51f",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/Duplicates.Tests.ps1",
+        "observed_checkout_sha256": "d87b1f0daf44acd80207e7cfb6826607eedfe33f88607a20d9d2764716097c4f",
+        "reviewed_git_blob_sha256": "d87b1f0daf44acd80207e7cfb6826607eedfe33f88607a20d9d2764716097c4f",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "observed_checkout_sha256": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+        "reviewed_git_blob_sha256": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/Naming.Tests.ps1",
+        "observed_checkout_sha256": "2bac78d07ce69a70ba9fcc0f3465b0ac66a990a36babb3c908ec5d1c3627d72e",
+        "reviewed_git_blob_sha256": "2bac78d07ce69a70ba9fcc0f3465b0ac66a990a36babb3c908ec5d1c3627d72e",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/Normalizer.Tests.ps1",
+        "observed_checkout_sha256": "81a896982bcbafc52b8d8edcde50aae1ae1fde057eadde5bce697df8ba02bf31",
+        "reviewed_git_blob_sha256": "81a896982bcbafc52b8d8edcde50aae1ae1fde057eadde5bce697df8ba02bf31",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/Preflight.Tests.ps1",
+        "observed_checkout_sha256": "059faf4177c48751ae8eedec6f465f5bbe005af3bc92ead28c791b78a423659c",
+        "reviewed_git_blob_sha256": "059faf4177c48751ae8eedec6f465f5bbe005af3bc92ead28c791b78a423659c",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/README.md",
+        "observed_checkout_sha256": "81c0f6c440370926618489972cf70b7b6d1c08877f7dd938a5e9f251dcf02a6a",
+        "reviewed_git_blob_sha256": "81c0f6c440370926618489972cf70b7b6d1c08877f7dd938a5e9f251dcf02a6a",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+        "observed_checkout_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "reviewed_git_blob_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+        "observed_checkout_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "reviewed_git_blob_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/Generate-Reference.py",
+        "observed_checkout_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "reviewed_git_blob_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+        "observed_checkout_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "reviewed_git_blob_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/MANIFEST.json",
+        "observed_checkout_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "reviewed_git_blob_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/README.md",
+        "observed_checkout_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "reviewed_git_blob_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/REFERENCE.json",
+        "observed_checkout_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "reviewed_git_blob_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "checkout_to_git_binding": "exact_bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/sRGB-v4.icc",
+        "observed_checkout_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "reviewed_git_blob_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "checkout_to_git_binding": "exact_bytes"
+      }
+    ],
+    "embedded_target_profile": {
+      "bytes": 480,
+      "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "matches_trusted_asset_exactly": true
+    },
+    "findings": [
+      {
+        "topic": "stable source and profile ownership",
+        "result": "passed",
+        "details": "All images use one owned checked source snapshot. Selected metadata and ICC extraction precede transforms. Source ICC, embedded target and JPEG attempts register exact CreateNew ownership in the correct order; finalization and cleanup preserve arrivals and prior source-safety checks."
+      },
+      {
+        "topic": "profile, model and native diagnostic gates",
+        "result": "passed",
+        "details": "Fixed built-in metadata enumeration clears free-form masking properties. Missing/ambiguous source information, uncharacterized CMYK/unsupported spaces, invalid ICC size/acsp/table/payload bounds, channel-model mismatches, and unsuccessful or diagnostic-bearing native outcomes fail. Gray with supported RGB/GRAY is permitted. Basic structure checks do not assert full ICC conformance."
+      },
+      {
+        "topic": "real zero native status and curve error distinction",
+        "result": "passed",
+        "details": "Case24 uses a valid basic ICC header with an invalid shared curve and checks actual default-runner rejection; independent curve probe is native1 with zero JPEG bytes. Case25 uses version99 while retaining size/acsp/RGB/table/payload bounds, proves native0 plus visible ColorspaceColorProfileMismatch and a fully decoded JPEG, then proves default-runtime rejection, no final image and exact cleanup. Controlled zero diagnostics remain a separate test."
+      },
+      {
+        "topic": "independent color oracles and intent limits",
+        "result": "passed",
+        "details": "Trusted immutable ICC source/target hashes, license and independently regenerated Pillow12.3.0/LCMS2.19 reference tuples match. Real runtime arguments produce parallel lossless PNG oracles within3/255, while JPEG patch centers allow12/255. Requested Relative/BPCoff is distinguished from selected CMYK A2B0-only perceptual fallback; no general printer/intents accuracy claim."
+      },
+      {
+        "topic": "orientation, privacy and retry invariants",
+        "result": "passed",
+        "details": "All eight genuine EXIF orientations contain synthetic GPS/XMP/IPTC/comments/ICC and asymmetric corner maps. Independent JPEG marker inspection verifies stripping after orientation. Tagged and untagged alpha compare white encoded-sRGB composition. Every one of six real retries retains ICC/white/alpha/strip order and the same exact trusted target bytes."
+      },
+      {
+        "topic": "PowerShell5.1 alias correction",
+        "result": "passed",
+        "details": "Three lossless probe wrappers use typed Arguments.Clone, preventing PS5.1 from mutating the original final JPEG output argument when replacing only the probe coder."
+      },
+      {
+        "topic": "established test adaptations and public scope",
+        "result": "passed",
+        "details": "Normalizer/Preflight/Naming/Duplicates preserve prior safety assertions and controlled-codec routing boundaries while adapting neutral snapshots, argument positions and six scales. Runner includes Colour and hashes all eight scoped assets. BAT/workflow/bootstrap/dependency/public positional interface remain unchanged; no new application dependency or tracked media content."
+      },
+      {
+        "topic": "license and raw-vs-Git provenance",
+        "result": "passed",
+        "details": "Binary profiles and embedded target match upstream bytes exactly. Current raw and committed LF license match original upstream6552-byte SHA; future Windows text checkouts may use CRLF and must be bound separately with recognized normalization only."
+      }
+    ],
+    "limitations": [
+      "This artifact binds exact implementation code and assets; full immutable desktop/hosted execution gates are recorded separately. It does not claim future CI or checkpoint synchronization.",
+      "ICC structure/model plus accepted native transform does not certify arbitrary ICC semantics or the source characterization. Synthetic probes/reference tolerances do not prove every codec/profile or production image.",
+      "General native filename grammar, process cancellation/resource lifecycle, later M3/M4 and owner acceptance/release gates remain separate."
+    ],
+    "independent_native_semantic_probe": {
+      "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/icc-header-semantic-probes.json",
+      "sha256": "78bdefbdd60300024b7fbaa933c7d2419051a15d00af9aaaec0d830a16019650"
+    },
+    "source_artifact": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/M2-T02-peer-review.json",
+    "source_artifact_sha256": "fbfbb7326c8d60670a7b6eec812b79097237bef32d00a487a778c5ab93a35fc5"
+  },
+  "fixture_provenance": {
+    "task_id": "M2-T02",
+    "record_type": "synthetic colour fixture, profile, independent reference and ignored development provenance",
+    "recorded_at_utc": "2026-10-04T19:03:44.317744Z",
+    "privacy": "Generated synthetic pixels and fabricated metadata only; no user media or raw images/logs are embedded in tracked evidence.",
+    "profile_origin": "saucecontrol/Compact-ICC-Profiles",
+    "profile_upstream_commit": "bdd84663061bc4ae95ca70decff54f581e27f702",
+    "reference_profiles": [
+      {
+        "path": "tests/fixtures/colour/sRGB-v4.icc",
+        "source": "https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/profiles/sRGB-v4.icc",
+        "metadata_source": "https://api.github.com/repos/saucecontrol/Compact-ICC-Profiles/contents/profiles/sRGB-v4.icc?ref=bdd84663061bc4ae95ca70decff54f581e27f702",
+        "upstream_commit": "bdd84663061bc4ae95ca70decff54f581e27f702",
+        "license": "CC0-1.0",
+        "bytes": 480,
+        "profile_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "git_blob_sha1": "d9f3c055bd4d7573124090569e1b9533932214eb",
+        "colour_model": "RGB",
+        "purpose": "embedded runtime target reference"
+      },
+      {
+        "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+        "source": "https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/profiles/AdobeCompat-v2.icc",
+        "metadata_source": "https://api.github.com/repos/saucecontrol/Compact-ICC-Profiles/contents/profiles/AdobeCompat-v2.icc?ref=bdd84663061bc4ae95ca70decff54f581e27f702",
+        "upstream_commit": "bdd84663061bc4ae95ca70decff54f581e27f702",
+        "license": "CC0-1.0",
+        "bytes": 374,
+        "profile_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "git_blob_sha1": "47fb1b1e89b20e2accc57353c300ff2155215a95",
+        "colour_model": "RGB",
+        "purpose": "synthetic test source characterization"
+      },
+      {
+        "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+        "source": "https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/profiles/CGATS001Compat-v2-micro.icc",
+        "metadata_source": "https://api.github.com/repos/saucecontrol/Compact-ICC-Profiles/contents/profiles/CGATS001Compat-v2-micro.icc?ref=bdd84663061bc4ae95ca70decff54f581e27f702",
+        "upstream_commit": "bdd84663061bc4ae95ca70decff54f581e27f702",
+        "license": "CC0-1.0",
+        "bytes": 8464,
+        "profile_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "git_blob_sha1": "b5a73495bfc7509837b300800d8197d94e83fab7",
+        "colour_model": "CMYK",
+        "purpose": "synthetic test source characterization",
+        "mapping_qualification": "CGATS001Compat-v2-micro contains only A2B0 (perceptual forward mapping). Requested Relative intent uses the available LittleCMS fallback; this profile is a test input, not a universal printer characterization or all-intent accuracy guarantee."
+      }
+    ],
+    "profile_license": {
+      "name": "CC0-1.0",
+      "source": "https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/license",
+      "retained_path": "tests/fixtures/colour/LICENSE-CC0.txt",
+      "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+    },
+    "reference_method": {
+      "Pillow": "12.3.0",
+      "LittleCMS": "2.19",
+      "method": "ImageCms.profileToProfile",
+      "rendering_intent": "Relative colorimetric (1)",
+      "flags": 0,
+      "black_point_compensation": false,
+      "cmyk_qualification": "The selected CGATS001Compat profile has only an A2B0 perceptual forward mapping. LittleCMS falls back to that available mapping when Relative intent 1 is requested. These tuples verify this fixture's forward CMYK-to-sRGB result; they do not certify general relative-colorimetric print accuracy, other intents or reverse transforms.",
+      "alpha": "Transform RGB first; preserve alpha; Pillow.alpha_composite over white in encoded sRGB"
+    },
+    "tolerances": {
+      "pre_jpeg_channel_units": 3,
+      "jpeg_channel_units": 12,
+      "reason": "Actual pinned ImageMagick lossless transformed patches differed at most 1/255 from the independently generated Pillow reference. Pre-JPEG threshold 3 allows small 8-bit quantization/LCMS differences; JPEG threshold 12 allows lossy coding at uniform patch centers far from edges and remains below the demonstrated missing-profile error."
+    },
+    "reference_geometry": {
+      "width": 128,
+      "height": 96,
+      "points": [
+        [
+          32,
+          24
+        ],
+        [
+          96,
+          24
+        ],
+        [
+          32,
+          72
+        ],
+        [
+          96,
+          72
+        ]
+      ]
+    },
+    "reference_data_artifact": "tests/fixtures/colour/REFERENCE.json",
+    "reference_data_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "recipe_artifact": "tests/fixtures/colour/Generate-Reference.py",
+    "recipe_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+    "reference_verification": "The optional development recipe reproduced the checked tuples. Tests consume checked JSON/profile assets; Python, Pillow and downloads are not test/normalizer runtime dependencies.",
+    "independent_reference_reproduction": {
+      "artifact": ".scratch/M2-T02-reference-reproduction.json",
+      "sha256": "54b118b9404d530c945464d23168296b278a6ee36832966b83a195314de549c0",
+      "engine": "Pillow 12.3.0/LittleCMS 2.19",
+      "requested_intent": 1,
+      "black_point_compensation": false,
+      "exact_match_reference_sets": [
+        "wide_rgb",
+        "tagged_cmyk",
+        "tagged_alpha_white",
+        "untagged_alpha_white"
+      ],
+      "mandatory_test_dependency": false
+    },
+    "lossless_probe_scope": "Pinned ImageMagick synthetic transformed uniform patches differ at most 1/255 from independent Pillow/LittleCMS references. The 3/255 pre-JPEG gate and 12/255 lossy JPEG gate are distinct, checked at interior uniform patch centers.",
+    "native_probe_history": [
+      "Prototype native inspector attempts using an empty %[profiles] property emitted warnings. These remain exploratory tool observations, not normalizer test assertions.",
+      "The optional reference recipe emitted an initial deprecated getdata warning while reproducing tuples; no output acceptance count is inferred from that warning.",
+      "Peer research explicitly excludes an initial incorrectly concatenated ICC:/JPEG: argv experiment from runtime evidence; corrected native error-channel probes are separately retained.",
+      "The first isolated PowerShell 5.1 array-copy probe was blocked by host execution policy before its script ran. Its preserved log is not a Pester/runtime failure. The subsequent process-Bypass probe records an aliased array in PS5.1; PS7 records a distinct array. Test adapters use Clone() so the pre-JPEG PNG oracle cannot change JPEG conversion argv.",
+      "Root parser/Python shell quotation failures and the uncommitted smoke are separately recorded; they do not establish a clean implementation revision or Pester acceptance."
+    ],
+    "root_development_history": {
+      "task_id": "M2-T02",
+      "record_type": "root-reported development tooling history and observed uncommitted smoke artifacts",
+      "observed_at_utc": "2026-10-04T18:44:36.046559Z",
+      "clean_implementation_commit_binding": null,
+      "source": "Parent agent messages and the preserved artifacts below; no standalone failed-command log was supplied.",
+      "tooling_history": [
+        {
+          "observation": "The first PowerShell 5.1 parser invocation used an incorrectly escaped interpolated -Command expression.",
+          "outcome": "Shell quoting failed before the parser was applied to the runtime script.",
+          "correction": "A literal ignored -File parser helper was used successfully.",
+          "classification": "tooling invocation failure; no runtime/parser failure or Pester count"
+        },
+        {
+          "observation": "A precision Python -c invocation failed in PowerShell quotation.",
+          "outcome": "The Python code was not executed and no source edit occurred from that invocation.",
+          "correction": "The literal ignored precision script applied the ancestry and explicit black-point-compensation changes.",
+          "classification": "tooling invocation failure; no runtime or Pester count"
+        },
+        {
+          "observation": "Static review removed an inherited inner-loop break immediately before the first runtime smoke.",
+          "outcome": "The final six-scale continuation was corrected before execution.",
+          "classification": "development source correction; it was not observed as a failing test"
+        }
+      ],
+      "runtime_smoke": {
+        "classification": "uncommitted development observation; not full-suite acceptance",
+        "observed_callable_exit_code": 2,
+        "converted_images": 4,
+        "copied_videos": 0,
+        "duplicates": 0,
+        "unsupported": 0,
+        "errors": 2,
+        "expected_rejections": [
+          "malformed source ICC",
+          "untagged CMYK without source characterization"
+        ],
+        "jpeg_names": [
+          "tagged-cmyk.jpeg",
+          "tagged-wide-alpha.jpeg",
+          "tagged-wide-rgb.jpeg",
+          "untagged-rgb.jpeg"
+        ],
+        "owned_work_entries_after_run": 0,
+        "source_binding_limit": "No runner file-hash inventory or clean committed revision was captured for this smoke; it cannot establish exact-I suite acceptance."
+      },
+      "artifacts": [
+        {
+          "path": ".scratch/M2-T02-parse-runtime.ps1",
+          "bytes": 308,
+          "sha256": "93bc69cb48dbb48671193af20b9b1b7b98720cfd5e6307c2b95baae1300c90c1"
+        },
+        {
+          "path": ".scratch/M2-T02-precision-runtime.py",
+          "bytes": 844,
+          "sha256": "9c32e71e8f832f5a57d99e02828b73af4a0ab9a665ae25d6f778e54dd32daa3c"
+        },
+        {
+          "path": ".scratch/M2-T02-smoke-runtime.ps1",
+          "bytes": 1610,
+          "sha256": "8c7105cd3b9a35f4f740610309fd60ce99115ce41ed93a35277e4608541d82fa"
+        },
+        {
+          "path": ".scratch/M2-T02-smoke-runtime-console.log",
+          "bytes": 4993,
+          "sha256": "372757e2165d7a069b72b52027e010561bd2e0d9fd057d153ac769f958b5ecea"
+        },
+        {
+          "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/observation.json",
+          "bytes": 435,
+          "sha256": "1fcb732d75c42fdac3a0dba907c1a0b75bfbe6465c60b26fabc87c3128b45a45"
+        },
+        {
+          "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/.WinImgNormalizer/reports/WinImgNormalizer_20261004_204109.log",
+          "bytes": 4229,
+          "sha256": "d05d54867a255e53f7c580a529719960c5e514c6e25391f44c8a1537ddb963cc"
+        },
+        {
+          "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/tagged-cmyk.jpeg",
+          "bytes": 629,
+          "sha256": "66911209e13db42f398f896acc61351849e267d610c00899334ee0cc4eb7748c"
+        },
+        {
+          "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/tagged-wide-alpha.jpeg",
+          "bytes": 630,
+          "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e"
+        },
+        {
+          "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/tagged-wide-rgb.jpeg",
+          "bytes": 639,
+          "sha256": "0c5ab8c5e5b1cf3e73e2494631ba9b0d1300be2f69c8788809137f4a411d4f37"
+        },
+        {
+          "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/untagged-rgb.jpeg",
+          "bytes": 635,
+          "sha256": "3946465d7000ac7581d3a9fac1925818fae8889cb9c005254465f3c8e2915a8e"
+        }
+      ],
+      "acceptance_counts_from_tooling_commands": null,
+      "source_artifact": ".scratch/M2-T02-root-development-history.json",
+      "source_artifact_sha256": "67d49c73b82d5e95a2dfdbd034c3a855f08f57052c2a80a96eeb124355095724"
+    },
+    "limitations": [
+      "CGATS001Compat-v2-micro contains only A2B0 (perceptual forward mapping). Requested Relative intent uses the available LittleCMS fallback; this profile is a test input, not a universal printer characterization or all-intent accuracy guarantee.",
+      "Synthetic bounded patch/reference evidence does not certify arbitrary profiles, production photographs, every ICC semantic construct or subjective quality.",
+      "The ICC structural guard is not a complete ICC conformance validator; native diagnostic and final-content gates remain required.",
+      "Malformed/mismatched inputs are error cases with source preservation; untagged CMYK has no accurate colour characterization and is rejected explicitly."
+    ],
+    "artifacts": [
+      {
+        "path": ".scratch/M2-T02-colour-487d6667a5764d7fa68a5e27780fddda/unsupported-icc-version-probe-d2a23791/native-zero-observation.json",
+        "exists": true,
+        "bytes": 196,
+        "sha256": "7a6a6fd146f1c64a75d4021af56fa00d8daf34cc96998cfb59bf352dc97071d3"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-487d6667a5764d7fa68a5e27780fddda/unsupported-icc-version-probe-d2a23791/native-zero.jpg",
+        "exists": true,
+        "bytes": 635,
+        "sha256": "3946465d7000ac7581d3a9fac1925818fae8889cb9c005254465f3c8e2915a8e"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-bc60901ae57c44279fe1d83919b68679/unsupported-icc-version-probe-d5cbace8/native-zero-observation.json",
+        "exists": true,
+        "bytes": 179,
+        "sha256": "292bd325bd0bc59b7d48e246aea0daa59cfe58845158384078a5a63a9a762df7"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-bc60901ae57c44279fe1d83919b68679/unsupported-icc-version-probe-d5cbace8/native-zero.jpg",
+        "exists": true,
+        "bytes": 635,
+        "sha256": "3946465d7000ac7581d3a9fac1925818fae8889cb9c005254465f3c8e2915a8e"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-case-notes.json",
+        "exists": true,
+        "bytes": 20661,
+        "sha256": "4aba443e8c0bf17b383c3d68bbba4410eacd83edb3a9933ece0eb754e1167d3d"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/.winimg-fixture-root",
+        "exists": true,
+        "bytes": 35,
+        "sha256": "76564fec55a006ee43f480016798857ab6a790fa53ff2b5e3449dd7a2e4d8e43"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/AdobeCompat-v2.icc",
+        "exists": true,
+        "bytes": 374,
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/AdobeCompat-v2.icc.github.json",
+        "exists": true,
+        "bytes": 1687,
+        "sha256": "06c578bc5f140c97103ba06c41bacc27322a8f41f9ae56f7f96a594e0db8e9f2"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/CGATS001Compat-v2-micro.icc",
+        "exists": true,
+        "bytes": 8464,
+        "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/CGATS001Compat-v2-micro.icc.github.json",
+        "exists": true,
+        "bytes": 12899,
+        "sha256": "bdaec86cdb153f359fcd1b3ebaf469043c5e2dfbe7b153b15f136e174a287062"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/Colour-target-attempt1.Tests.ps1",
+        "exists": true,
+        "bytes": 33562,
+        "sha256": "b82c6ba7f467340922a10afb850c37ffdfe50f64ea98d0d97f641ab5e45894f2"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/Colour-target-attempt2.Tests.ps1",
+        "exists": true,
+        "bytes": 36937,
+        "sha256": "8a97754d2034abf13d20a6bec28158282eb6781fa4cf437b3e668ecd97bbc72f"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/WinImgNormalizer-target-attempt1.ps1",
+        "exists": true,
+        "bytes": 68421,
+        "sha256": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/actual-cmyk-channel-bytes.raw",
+        "exists": true,
+        "bytes": 49152,
+        "sha256": "e7a9b5383f7b3259a7d1cf8c4acbb1526efe2be3908fc13b09850e463a93c00a"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/array-copy-ps51-2.log",
+        "exists": true,
+        "bytes": 93,
+        "sha256": "5639bfb0fb85d104720e842acc793ee1833ac409f2853d12f59d6ab10ddb2179"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/array-copy-ps51.log",
+        "exists": true,
+        "bytes": 431,
+        "sha256": "8bfa1aae56a2a175ae0b0c6082c28e25bc95231b7fdfb513ad15f4e922d70640"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/array-copy-ps7.log",
+        "exists": true,
+        "bytes": 87,
+        "sha256": "3ca558de3ebedabf6836d53822f67f793f121ad12da8708328e551525eaa23b0"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/audit_desktop_gates.py",
+        "exists": true,
+        "bytes": 8280,
+        "sha256": "c461200812f0a7627c589b0a724f380482d3606f698afb3435d5167c5e69d70b"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/independent-reference.json",
+        "exists": true,
+        "bytes": 8138,
+        "sha256": "8ea9b82ce74a5635fbdc4d2992977e5994c55f00a2d954044e22f60a7ce03358"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/jpeg-base-without-profile.jpg",
+        "exists": true,
+        "bytes": 905,
+        "sha256": "16d86751e2821ea9ed3c329e111adc6233e00e1964c5aee748821e918186731d"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/license",
+        "exists": true,
+        "bytes": 6552,
+        "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/license.github.json",
+        "exists": true,
+        "bytes": 10067,
+        "sha256": "c5b7ddc25fcbcac078c3f3941fcaf75ec600ded1fca48ca59ab44f4b43240541"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/linear-rgb-probe.json",
+        "exists": true,
+        "bytes": 202,
+        "sha256": "97388fc822aef2499c26d8b15fb0a24292f0c2262a4e1fb3439086d1940a1659"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/linear-rgb.png",
+        "exists": true,
+        "bytes": 74066,
+        "sha256": "24b8f55b97eb099075dbe3ad7d279b130b57109181738bb8f698981401944177"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/make-final-notes.ps1",
+        "exists": true,
+        "bytes": 10974,
+        "sha256": "187c556e020d8ab0b6def1ad71f6258cca03bae0228994e26d957ca130433073"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/malformed-icc.jpg",
+        "exists": true,
+        "bytes": 954,
+        "sha256": "1fd235fae6acf122fd6e70b4d970a4713e8d9e5c5e1b96f2d146218f37fe41c9"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/malformed-icc.png",
+        "exists": true,
+        "bytes": 385,
+        "sha256": "f225bfde5aa9c7014f25944b507ec9a33dffab2c69ffa6b40bee57136ea34ba1"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/malformed-jpeg-inspection.json",
+        "exists": true,
+        "bytes": 61,
+        "sha256": "098b0365b4a6e0641ba81eb0f01ed19515ba0301ecf686e58e3fe4b0a7f3f5a7"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/malformed-jpeg-transform.json",
+        "exists": true,
+        "bytes": 367,
+        "sha256": "793ac54386da15e46f6bd3ecdfc4ec950e34bbb3887dc0773f1bde18f099993c"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/malformed-jpeg-transform.png",
+        "exists": true,
+        "bytes": 115,
+        "sha256": "9e04ed631ef9b61d3065f70cce1a3c0497a473264001c707d8745e3a0250e34d"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/metadata-console.log",
+        "exists": true,
+        "bytes": 3693,
+        "sha256": "67ec8022ade3fdbe7f92c5f71bf78d4f53bc9fd59bc5823939bfb1fb20648e11"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/metadata-reference.json",
+        "exists": true,
+        "bytes": 3691,
+        "sha256": "221d88ad01f59935b112989b29dc451ab33608cacaa4def18f903629804cc910"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/native-console.log",
+        "exists": true,
+        "bytes": 2723,
+        "sha256": "dc6730366259ff1225fcac65f58027ff5e21902ae49ab19948d2333caef37053"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/native-observations.json",
+        "exists": true,
+        "bytes": 15245,
+        "sha256": "f9465ad5aa86d80c9af31a44765fa4f9d764f02160b5845ccb3f25cf48f2b67b"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/native-relative-alpha.png",
+        "exists": true,
+        "bytes": 122,
+        "sha256": "f4468cf44cd01f3dc68fa1435b9b43c291c4c6068b400cf04e65ff6070344dfd"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/native-relative-cmyk.png",
+        "exists": true,
+        "bytes": 135,
+        "sha256": "9393d700c39e3adda40032a59c04d1efe26d51e040e4bd00c2382301ef67414d"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/native-relative-wide.png",
+        "exists": true,
+        "bytes": 122,
+        "sha256": "89a8f76b9130ba92b1c2afc4773c487548a974f749f6d1dcaa31cf795bdc9259"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation-exif.base64.txt",
+        "exists": true,
+        "bytes": 328,
+        "sha256": "75a627b70ee5d89bde7cc8812f2e48385f08de8d9f80ac502637b739bf52c4e9"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation-exif.bin",
+        "exists": true,
+        "bytes": 246,
+        "sha256": "9f9698358c78a395c1abe5f63791c97bd4778afe52f432c670d8458267ee3108"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation1-base.jpg",
+        "exists": true,
+        "bytes": 1653,
+        "sha256": "23435e3233a2bd324daaca3f1f70b168fce1b4bac0e9d0b74b360d40ac545940"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation1.jpg",
+        "exists": true,
+        "bytes": 1653,
+        "sha256": "23435e3233a2bd324daaca3f1f70b168fce1b4bac0e9d0b74b360d40ac545940"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation2.jpg",
+        "exists": true,
+        "bytes": 1653,
+        "sha256": "bd3e27d0996f2b7eaa18957eec764536ea71a308765b45274668ae2dad243c9a"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation3.jpg",
+        "exists": true,
+        "bytes": 1653,
+        "sha256": "3ddee13304d6e5d5a4b8bc0a6a3aa81a6c52be89379d640a5827222eb7183391"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation4.jpg",
+        "exists": true,
+        "bytes": 1653,
+        "sha256": "74fd98ac0863a450923c280daf39a296f67bedc669425719670106575d0edce7"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation5.jpg",
+        "exists": true,
+        "bytes": 1653,
+        "sha256": "fe62b0c4c203bb10a8c5ab57230693958b2fe6204f87498dbe3eb8afd3b22c69"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation6.jpg",
+        "exists": true,
+        "bytes": 1653,
+        "sha256": "e28c4cc8cbf8b9ad8ef0c4020889a439783abe1ad63644ce9dad63823ae2a677"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation7.jpg",
+        "exists": true,
+        "bytes": 1653,
+        "sha256": "7401c01462f015837772394d87bc9a98d36254d19d6ca0eca1239d617c1cecec"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/orientation8.jpg",
+        "exists": true,
+        "bytes": 1653,
+        "sha256": "931de3d7a7304034c26c57ab5dd4ae4e6bd91c11a70305364998cca7ef1f0ee0"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/perceptual-alpha-reference.png",
+        "exists": true,
+        "bytes": 316,
+        "sha256": "ed64f72b5ca01600feecdc2c1ead8573a1bc835c5765132dacc4ea02e111ef37"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/perceptual-cmyk-reference.png",
+        "exists": true,
+        "bytes": 662,
+        "sha256": "175a0efa7f1c7e8d19e5fb300f648baf8564ee33498c00931bd8a5e619f0ae1b"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/perceptual-wide-reference.png",
+        "exists": true,
+        "bytes": 661,
+        "sha256": "94ec49a50cff50666dcbe8a26d34a6b30a496484e7dc6aea207697aa6c92fad6"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe-colour-console.log",
+        "exists": true,
+        "bytes": 12981,
+        "sha256": "3b4b5e5e1e9d6ad69d2d4896288a5906789faa3cbc89beef5c7cecd93cbdb076"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe_array_copy.ps1",
+        "exists": true,
+        "bytes": 431,
+        "sha256": "90934c49458aeba65cfdeeb5c094e5d45096a7dc957a6c393ec2e2f478c0be00"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe_colour.py",
+        "exists": true,
+        "bytes": 6559,
+        "sha256": "01c2a3f143dd3d20d294a85788946364c524dc8b6b44f47d53b41ffd6acc2511"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe_metadata.py",
+        "exists": true,
+        "bytes": 3101,
+        "sha256": "f5625c96275df9c7b45e75c964d1c32c1fbbdab20ac92ee48f35eea1526bafff"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe_native.ps1",
+        "exists": true,
+        "bytes": 3863,
+        "sha256": "cfa48cf1afd1cc922ea1e50fa1740b6638bb5bc23419a053407b188a90eacafa"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/profile-provenance.json",
+        "exists": true,
+        "bytes": 3775,
+        "sha256": "9691f582328aedf050e37b88064f899c1d936bed2bb376c22144bd289c75162f"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/readme.md",
+        "exists": true,
+        "bytes": 16066,
+        "sha256": "1a844dff76783493d3b1b81e4ec8b43b79a3f17ff52e162c393df17fda554949"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/readme.md.github.json",
+        "exists": true,
+        "bytes": 23194,
+        "sha256": "6acbd617d5ab089132ea1ef889591574cf93417967c6441730047ce16d4c6a5a"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/relative_colorimetric-alpha-reference.png",
+        "exists": true,
+        "bytes": 316,
+        "sha256": "ed64f72b5ca01600feecdc2c1ead8573a1bc835c5765132dacc4ea02e111ef37"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/relative_colorimetric-cmyk-reference.png",
+        "exists": true,
+        "bytes": 662,
+        "sha256": "175a0efa7f1c7e8d19e5fb300f648baf8564ee33498c00931bd8a5e619f0ae1b"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/relative_colorimetric-wide-reference.png",
+        "exists": true,
+        "bytes": 661,
+        "sha256": "94ec49a50cff50666dcbe8a26d34a6b30a496484e7dc6aea207697aa6c92fad6"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/sRGB-v4.icc",
+        "exists": true,
+        "bytes": 480,
+        "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/sRGB-v4.icc.github.json",
+        "exists": true,
+        "bytes": 1782,
+        "sha256": "4a474feae1e210435ee02ece9bc67f16465bd4ea9b780451b161953c8a59bfca"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/tagged-cmyk.tiff",
+        "exists": true,
+        "bytes": 57770,
+        "sha256": "c88637a9b35a39d41b9e6223dd20c350de53ade3b6963e078de041a85521f040"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/tagged-srgb.png",
+        "exists": true,
+        "bytes": 660,
+        "sha256": "e900c53e49d3b1d5b59d5f38746882164f9a78ef9d6527a29e73982bbd71f583"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/tagged-wide-alpha.png",
+        "exists": true,
+        "bytes": 600,
+        "sha256": "aa203da673ce04d3c7bfbe84b9a3ac95b81e74990fa3b3ce64019901174f12f1"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/tagged-wide-rgb.png",
+        "exists": true,
+        "bytes": 580,
+        "sha256": "d1ea2068fdae3178727a2822fd22125149bbda40552c72e8b9c6998c64b2dcae"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/tracked-reference-recipe-console.log",
+        "exists": true,
+        "bytes": 1894,
+        "sha256": "42c59cb5c56bdd5a3ff0f80dad3c05290a15f17da098f80a6aeb5df375adeda3"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/truncated-icc.png",
+        "exists": true,
+        "bytes": 449,
+        "sha256": "9d49c8b91e403cfb5d8e7c0e5e8601242c40861fdfb50e73c04a7f40c0959e27"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/untagged-alpha.png",
+        "exists": true,
+        "bytes": 339,
+        "sha256": "70db3afe9e882e5026e049a430ad68758f6cd196bc03d1aae62635f5050a780e"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/untagged-cmyk.tiff",
+        "exists": true,
+        "bytes": 49294,
+        "sha256": "c44bd143ffc37557e1752bc41c7f25f92304d978bcf9fdd819ade7ba77c86051"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/untagged-rgb.png",
+        "exists": true,
+        "bytes": 319,
+        "sha256": "51a7663d446b0d69aef04bca4d5b5edf6cb24f03366a3e0b0cd4c483b1f5c24e"
+      },
+      {
+        "path": ".scratch/M2-T02-desktop-binding-audit.json",
+        "exists": true,
+        "bytes": 329,
+        "sha256": "31ed17bcc678e8e07e57d3277db5a1d6537536c1c0fe1c3e8d0b77838c927250"
+      },
+      {
+        "path": ".scratch/M2-T02-desktop-native-ps51.json",
+        "exists": true,
+        "bytes": 1031,
+        "sha256": "203b581e6d032850d833602aad9a8824aad49f7852a470ad57de7d20d97d27a8"
+      },
+      {
+        "path": ".scratch/M2-T02-desktop-native-ps7.json",
+        "exists": true,
+        "bytes": 1030,
+        "sha256": "0c5085f53e2f334fa23fdc7a1db9180ca533245d0caf727175ad31fe8e82585a"
+      },
+      {
+        "path": ".scratch/M2-T02-desktop-verification.json",
+        "exists": true,
+        "bytes": 2203,
+        "sha256": "71e749410c6b717723306cfc5bf071feb7b8422dd45be7083d079c2f4e2dd0e8"
+      },
+      {
+        "path": ".scratch/M2-T02-independent-desktop-audit.json",
+        "exists": true,
+        "bytes": 12442,
+        "sha256": "9d1c50dd59c8cfbc8d6b0374371b6b7761623747d4bcc38f0de5d5d2c37d5dc2"
+      },
+      {
+        "path": ".scratch/M2-T02-parse-runtime.ps1",
+        "exists": true,
+        "bytes": 308,
+        "sha256": "93bc69cb48dbb48671193af20b9b1b7b98720cfd5e6307c2b95baae1300c90c1"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/.winimg-fixture-root",
+        "exists": true,
+        "bytes": 49,
+        "sha256": "52b84c86f60eaa61b23a0ee34be0e4991bc3a3c9e70949218fae89730a523aed"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/M2-T02-peer-research.json",
+        "exists": true,
+        "bytes": 6641,
+        "sha256": "7cd3dc5e506fe7300d276804fb064198454d4378f1d89f17622fab9424fb7da8"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/M2-T02-peer-review.json",
+        "exists": true,
+        "bytes": 11307,
+        "sha256": "fbfbb7326c8d60670a7b6eec812b79097237bef32d00a487a778c5ab93a35fc5"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/alpha.png",
+        "exists": true,
+        "bytes": 523,
+        "sha256": "7195b9d11ae7d96953051092ed8f07c9faac6b4334a90a4a3e2a1c547d027743"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/cmyk-rgb-mismatch.tiff",
+        "exists": true,
+        "bytes": 6672,
+        "sha256": "8dfe0bd8ddaf05a46de37aa3981e2769298349262a57e88b4a1add12bae313f1"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/cmyk-rgb-mismatch.tiff.correct-extract.icc",
+        "exists": true,
+        "bytes": 374,
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/cmyk-rgb-mismatch.tiff.correct-runtime.jpg",
+        "exists": true,
+        "bytes": 530,
+        "sha256": "bbe35a27874e2ee87a4dc23d72b668769cb8662ceb94ac7676153d16bc46d224"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/cmyk-rgb-mismatch.tiff.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/cmyk-rgb-mismatch.tiff.extracted-0.icc",
+        "exists": true,
+        "bytes": 374,
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/cmyk-rgb-mismatch.tiff.extracted-1.icc",
+        "exists": true,
+        "bytes": 1,
+        "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/cmyk-rgb-mismatch.tiff.extracted.icc",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/compact-native-reference-probes.json",
+        "exists": true,
+        "bytes": 7994,
+        "sha256": "d1804e1b187c6de21ff3f3fc402f90f4f107a3411e04f2617fa4e97b1b3bd354"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/compact-target-tagged-cmyk.png",
+        "exists": true,
+        "bytes": 135,
+        "sha256": "9393d700c39e3adda40032a59c04d1efe26d51e040e4bd00c2382301ef67414d"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/compact-target-tagged-srgb.png",
+        "exists": true,
+        "bytes": 135,
+        "sha256": "fd233695db05cd9be953d0d5aad8ec4fb0f657a9e8ffebfb32e751146c769775"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/compact-target-tagged-wide-alpha.png",
+        "exists": true,
+        "bytes": 135,
+        "sha256": "c014c860eab5f642a240fb6b1cafe442b7a0cce517ee47ed8d46e524005ab4b5"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/compact-target-tagged-wide-rgb.png",
+        "exists": true,
+        "bytes": 135,
+        "sha256": "59d9b28ca89151f3e465e9188d9b9407e89a97d4793bb7d47889449b9014abaa"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/compact-target-untagged-alpha.png",
+        "exists": true,
+        "bytes": 135,
+        "sha256": "c1dd9f32951666a0abe2768dc966fe5a96dbb18d6b5f2b7b118aa94ab19cee63"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/compact-target-untagged-rgb.png",
+        "exists": true,
+        "bytes": 135,
+        "sha256": "fd233695db05cd9be953d0d5aad8ec4fb0f657a9e8ffebfb32e751146c769775"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS51-d41c244d8126421ab27990dde1fcef95/console.log",
+        "exists": true,
+        "bytes": 2957,
+        "sha256": "27c7fdc4075bf12ee439aa5038227f3ff3f7d60eadf0476d7fc7afa34a7ded1a"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS51-d41c244d8126421ab27990dde1fcef95/outputs/source_WinImgNormalized_20261004_205229_d4218e98f201420b99ca43743e851c45/.WinImgNormalizer/reports/WinImgNormalizer_20261004_205229.log",
+        "exists": true,
+        "bytes": 2556,
+        "sha256": "d0b925a07840e8d93000e821c4f8e15e7db7df2adda25bbd07bbdfa5d41a7f8c"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS51-d41c244d8126421ab27990dde1fcef95/source/unsupported-version.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "1f79133da7b0a150d51f46505b129aa6b366f51bc3d0fccefdbbc968c1705228"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS51-tooling-note.json",
+        "exists": true,
+        "bytes": 881,
+        "sha256": "fe3f69f7be1652092da87361de7295a2c2c40c31c1b2b8eb28d17bb05c43ff01"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS7-308c7e0adb1e4aecb00524496605ef4a/console.log",
+        "exists": true,
+        "bytes": 2951,
+        "sha256": "4ecb6826496643719d110383e23b6132c980479b71aece4cbbbbc8c934c1e4e0"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS7-308c7e0adb1e4aecb00524496605ef4a/outputs/source_WinImgNormalized_20261004_205232_90892a792fe44702b6beeb4695b66a99/.WinImgNormalizer/reports/WinImgNormalizer_20261004_205232.log",
+        "exists": true,
+        "bytes": 2554,
+        "sha256": "325d80f58037a2be61864e799874aaa99037c80c158f8bceba38672cea576e15"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS7-308c7e0adb1e4aecb00524496605ef4a/source/unsupported-version.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "1f79133da7b0a150d51f46505b129aa6b366f51bc3d0fccefdbbc968c1705228"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-guard-PS7.json",
+        "exists": true,
+        "bytes": 3350,
+        "sha256": "1ffc28a52942f19a382dda71a37c7b1d75746e0c2af91280fd7ccf320bb6c60f"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/generated-srgb.icc",
+        "exists": true,
+        "bytes": 588,
+        "sha256": "3f6dd90e18e94d0aa8f93a9f3ac4b05601595cdf9e5cf55437ebc982db1b0bda"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/gray-rgb-icc-ping-probes.json",
+        "exists": true,
+        "bytes": 2074,
+        "sha256": "0314173d880b3a02a8c4f0d3e4f1bb749199aee3b355a1ecdba4f4c01cf6d51c"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/gray-wide-rgb-icc.png",
+        "exists": true,
+        "bytes": 345,
+        "sha256": "177ec7e7bfd2fa549f3f9db4545eb1f8a4413b5ea8c9e8464a946b3b791eb26e"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/gray-wide-rgb-icc.png.ping-extracted.icc",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/gray-wide-rgb-icc.png.transformed.png",
+        "exists": true,
+        "bytes": 91,
+        "sha256": "3e63dc500a3640bbce49b41338c1348dc2905a1689b5171a0a909b429b266c21"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/gray-wide-rgb-icc.tiff",
+        "exists": true,
+        "bytes": 1084,
+        "sha256": "683e4c1be81280f5b3b8a9340d3afde64c66d2e30527d3bef88b08791c9606d5"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/gray-wide-rgb-icc.tiff.ping-extracted.icc",
+        "exists": true,
+        "bytes": 374,
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/gray-wide-rgb-icc.tiff.transformed.png",
+        "exists": true,
+        "bytes": 91,
+        "sha256": "6946c4d5edbc51bf6391c866b2f76f69ca5dda3760027a11a7ebaeaaefce1022"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/icc-correct-error-channel-probes.json",
+        "exists": true,
+        "bytes": 2642,
+        "sha256": "b3906ff04a9a066ef5549f0f442c3507eae997396721f61019668f3328013f47"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/icc-error-channel-probes.json",
+        "exists": true,
+        "bytes": 2931,
+        "sha256": "2060bd0bf1cb3f002ad5c69650ca3654ca9acf80966263a9333a0c5e8484cf05"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/icc-header-semantic-probes.json",
+        "exists": true,
+        "bytes": 4237,
+        "sha256": "78bdefbdd60300024b7fbaa933c7d2419051a15d00af9aaaec0d830a16019650"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/initial-profile-probes.json",
+        "exists": true,
+        "bytes": 7182,
+        "sha256": "31efef2422f83fce5087fb65a33a6a9c9c31639901006410bb4267697ff49352"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-class.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 526,
+        "sha256": "f4d2cddad58be8e9db009c2477e7529112dacbf5f550b73b8f5bf9569a2c9373"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-class.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "19720a652e44e78daba328044d30002403478179bfe9e011b2e70d2a81cbbbc7"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-curve-valid-header-probe.json",
+        "exists": true,
+        "bytes": 683,
+        "sha256": "37155596d7afd13ed2dacbf3d86b0977fdba1c7eb87e9aefbb83812753d60538"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-curve-valid-header.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-curve-valid-header.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "e0ebb123657b14027d6bd0d0bd8a90d42a457cf175416eae579d308a606d01a0"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-date-month.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 526,
+        "sha256": "f4d2cddad58be8e9db009c2477e7529112dacbf5f550b73b8f5bf9569a2c9373"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-date-month.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "8d402b539534ff1681320cf53008f3281fa6df517ddeff6eda82715b298d9d6f"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-pcs.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-pcs.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "c9488c7a80f422473515724ae233bfc14c27a5eb6689ac959c3d5b0f44d88086"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-rendering-intent.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 526,
+        "sha256": "f4d2cddad58be8e9db009c2477e7529112dacbf5f550b73b8f5bf9569a2c9373"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/invalid-rendering-intent.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "7a54c43fc99649ec580073165bc2f6f9a01a4dc0df3aa753bda7631836bc331c"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/lab-pcs-with-xyz-tags.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 526,
+        "sha256": "f4d2cddad58be8e9db009c2477e7529112dacbf5f550b73b8f5bf9569a2c9373"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/lab-pcs-with-xyz-tags.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "ad6395776f691cc39b887ed04935a3fe2f4249c3e714a303f4b64882695eff83"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/malformed-icc.jpg.correct-extract.icc",
+        "exists": true,
+        "bytes": 31,
+        "sha256": "ec0b4fbf5d6e27cbbae115232cb928f01a3adb42a7cbed0a54c2808e2aefbea5"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/malformed-icc.jpg.correct-runtime.jpg",
+        "exists": true,
+        "bytes": 589,
+        "sha256": "8b2a84a78abd3f479cc87ad886916be86be3017e86b873a0cdaa3db2c34a0b57"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/malformed-icc.jpg.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/malformed-icc.jpg.extracted-0.icc",
+        "exists": true,
+        "bytes": 31,
+        "sha256": "ec0b4fbf5d6e27cbbae115232cb928f01a3adb42a7cbed0a54c2808e2aefbea5"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/malformed-icc.jpg.extracted-1.icc",
+        "exists": true,
+        "bytes": 1,
+        "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/malformed-icc.jpg.extracted.icc",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/malformed.jpg",
+        "exists": true,
+        "bytes": 729,
+        "sha256": "03433dbd3b978487192ccd5a9e52d59943620da60e75de835eda32aad11cd2a2"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/malformed.png",
+        "exists": true,
+        "bytes": 220,
+        "sha256": "6c7cc3cae9b0df4236506d3cc45418888a2129723d0f87490c816fa7e74278bf"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/malformed.tiff",
+        "exists": true,
+        "bytes": 4820,
+        "sha256": "d19d43f79345b576c05878a1e8e3490347aecafda179710e358410783f4c2ed9"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/probe_default_false_zero_guard.ps1",
+        "exists": true,
+        "bytes": 3826,
+        "sha256": "5b844e5d572a1042e3f80fb07523fa0cf18979181a75105993a928d13e0f3f79"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/probe_gray_rgb_icc.py",
+        "exists": true,
+        "bytes": 2642,
+        "sha256": "8bd8c5ea2baf912fd92e21c303a19ddb5c7528842e0689ccc938616d8b9ec23c"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/probe_icc_header_semantics.py",
+        "exists": true,
+        "bytes": 2708,
+        "sha256": "bb3732f329a81c40d3015e4d2f1251fd73490bda1990d6962223c19817d8061d"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/probe_invalid_icc_curve.py",
+        "exists": true,
+        "bytes": 2544,
+        "sha256": "5a169032e0fdd96c854f46350d79f70466599c26304a9450188e8542811877a0"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/probe_runtime_icc_helpers.ps1",
+        "exists": true,
+        "bytes": 3194,
+        "sha256": "de625ae221e7e8641977f712c30661cfaf721a8b34b7da1b9176970e9cf5da42"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/rgb-cmyk-mismatch.jpg",
+        "exists": true,
+        "bytes": 9134,
+        "sha256": "e66fa3f6682b3702eb24fad5f166c3b02b11307fb67d81f9232586656379ee2f"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/rgb-cmyk-mismatch.jpg.correct-extract.icc",
+        "exists": true,
+        "bytes": 8464,
+        "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/rgb-cmyk-mismatch.jpg.correct-runtime.jpg",
+        "exists": true,
+        "bytes": 531,
+        "sha256": "c46d2cbaf9eb76f2c504c77c0798c64cdaa9d281c842424f5dffc4de23c41278"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/rgb-cmyk-mismatch.jpg.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/rgb-cmyk-mismatch.jpg.extracted-0.icc",
+        "exists": true,
+        "bytes": 8464,
+        "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/rgb-cmyk-mismatch.jpg.extracted-1.icc",
+        "exists": true,
+        "bytes": 1,
+        "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/rgb-cmyk-mismatch.jpg.extracted.icc",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/runtime-helper-PS51.json",
+        "exists": true,
+        "bytes": 4831,
+        "sha256": "eccb979a7925eec709c363a2338d802ebaf04f2ac975d26f23261f34288e91e6"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/runtime-helper-PS7.json",
+        "exists": true,
+        "bytes": 3305,
+        "sha256": "b9ce5b1c05cbe2aba17211fb9474d6d64865ed30fd010075940a2cfc8a61d618"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/spoof-miff-tagged.png",
+        "exists": true,
+        "bytes": 38003,
+        "sha256": "c4785f760546bb1f146a892a41a74d75a0b03fe3c9950fea91b6cc43d168f996"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/spoof-tagged.png",
+        "exists": true,
+        "bytes": 990,
+        "sha256": "eda6ef73e96f5b332102410aff1f95e4a5b7aefddb45932aadd37b9d4c878a92"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/spoof-untagged.png",
+        "exists": true,
+        "bytes": 321,
+        "sha256": "82bb22bb591a805569d178e540b895bcde0b2fd8dc2a03fdf866ba84180c38e5"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-cmyk.tiff.correct-extract.icc",
+        "exists": true,
+        "bytes": 8464,
+        "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-cmyk.tiff.correct-runtime.jpg",
+        "exists": true,
+        "bytes": 629,
+        "sha256": "66911209e13db42f398f896acc61351849e267d610c00899334ee0cc4eb7748c"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-cmyk.tiff.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-cmyk.tiff.extracted-0.icc",
+        "exists": true,
+        "bytes": 8464,
+        "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-cmyk.tiff.extracted-1.icc",
+        "exists": true,
+        "bytes": 1,
+        "sha256": "9652595f37edd08c51dfa26567e6cd76e6fa2709c3e578478ca398d316837a7a"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-cmyk.tiff.extracted.icc",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-wide-rgb.png.correct-extract.icc",
+        "exists": true,
+        "bytes": 374,
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-wide-rgb.png.correct-runtime.jpg",
+        "exists": true,
+        "bytes": 639,
+        "sha256": "0c5ab8c5e5b1cf3e73e2494631ba9b0d1300be2f69c8788809137f4a411d4f37"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-wide-rgb.png.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-wide-rgb.png.extracted-0.icc",
+        "exists": true,
+        "bytes": 374,
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-wide-rgb.png.extracted-1.icc",
+        "exists": true,
+        "bytes": 1,
+        "sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged-wide-rgb.png.extracted.icc",
+        "exists": true,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged.jpg",
+        "exists": true,
+        "bytes": 1258,
+        "sha256": "9a0ceaaea593d4516baf88358668d70d822a7670754d0acc66675b2c0e070e84"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged.png",
+        "exists": true,
+        "bytes": 522,
+        "sha256": "997201e390e48e0d3255dcf12622d7e85c6612cfd4bf1bce5abb4bbab10cc29c"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/tagged.tiff",
+        "exists": true,
+        "bytes": 5348,
+        "sha256": "9453dade5b0ce608d70dcb0e7bc769b0054a26ca4d6e3e6ef14c947de6850acc"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/text-spoof-tagged.png",
+        "exists": true,
+        "bytes": 449,
+        "sha256": "c8ef08db2b3748ae70851462f343fa1021808bdf1a12ceb8e520bc0052d8199b"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/text-spoof-untagged.png",
+        "exists": true,
+        "bytes": 187,
+        "sha256": "ebdf9567124543098f342b23e9d51d981daaa96b43598d39c38ccd98d62449a8"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/unsupported-version-99.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 526,
+        "sha256": "f4d2cddad58be8e9db009c2477e7529112dacbf5f550b73b8f5bf9569a2c9373"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/unsupported-version-99.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "1f79133da7b0a150d51f46505b129aa6b366f51bc3d0fccefdbbc968c1705228"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/unsupported-version-ff.exact-runtime.jpg",
+        "exists": true,
+        "bytes": 526,
+        "sha256": "f4d2cddad58be8e9db009c2477e7529112dacbf5f550b73b8f5bf9569a2c9373"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/unsupported-version-ff.jpg",
+        "exists": true,
+        "bytes": 1142,
+        "sha256": "800a09521943b4a8f37e185012e116514a453d9f50630fe0f9561741ae44d16f"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/untagged.jpg",
+        "exists": true,
+        "bytes": 652,
+        "sha256": "c23d3bf3640de1a4ce029a451af50e80eec1dbea43235cd85944c06464471682"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/untagged.png",
+        "exists": true,
+        "bytes": 136,
+        "sha256": "56be1a3e4ecba8ef01c1a89720e1a0928cdd3d43b113ea0d8b52ab4b27e438f7"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/untagged.tiff",
+        "exists": true,
+        "bytes": 4748,
+        "sha256": "5bd74e7077717b4d4950e24c5c7f44b760ff63f8f294cbbf544de223e1458c0b"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/write_frozen_review.py",
+        "exists": true,
+        "bytes": 7898,
+        "sha256": "7def0e6f89ecf0c5e77e6e622a18897b17ebaddafe7302614bb64cd68374df21"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/write_research_registry.py",
+        "exists": true,
+        "bytes": 6056,
+        "sha256": "79637eb255ce6e34ddd867bf5bc24c67e8c79ccb6b8217a35137d73a30fa0c7d"
+      },
+      {
+        "path": ".scratch/M2-T02-precision-runtime.py",
+        "exists": true,
+        "bytes": 844,
+        "sha256": "9c32e71e8f832f5a57d99e02828b73af4a0ab9a665ae25d6f778e54dd32daa3c"
+      },
+      {
+        "path": ".scratch/M2-T02-reference-reproduction.json",
+        "exists": true,
+        "bytes": 1004,
+        "sha256": "54b118b9404d530c945464d23168296b278a6ee36832966b83a195314de549c0"
+      },
+      {
+        "path": ".scratch/M2-T02-root-development-history.json",
+        "exists": true,
+        "bytes": 4784,
+        "sha256": "67d49c73b82d5e95a2dfdbd034c3a855f08f57052c2a80a96eeb124355095724"
+      },
+      {
+        "path": ".scratch/M2-T02-run-desktop.ps1",
+        "exists": true,
+        "bytes": 2919,
+        "sha256": "4f647bb2507c4431d55c7a12d953b10799733afcf0b16bbb049414e99149e6cb"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/observation.json",
+        "exists": true,
+        "bytes": 435,
+        "sha256": "1fcb732d75c42fdac3a0dba907c1a0b75bfbe6465c60b26fabc87c3128b45a45"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/.WinImgNormalizer/reports/WinImgNormalizer_20261004_204109.log",
+        "exists": true,
+        "bytes": 4229,
+        "sha256": "d05d54867a255e53f7c580a529719960c5e514c6e25391f44c8a1537ddb963cc"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/tagged-cmyk.jpeg",
+        "exists": true,
+        "bytes": 629,
+        "sha256": "66911209e13db42f398f896acc61351849e267d610c00899334ee0cc4eb7748c"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/tagged-wide-alpha.jpeg",
+        "exists": true,
+        "bytes": 630,
+        "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/tagged-wide-rgb.jpeg",
+        "exists": true,
+        "bytes": 639,
+        "sha256": "0c5ab8c5e5b1cf3e73e2494631ba9b0d1300be2f69c8788809137f4a411d4f37"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/untagged-rgb.jpeg",
+        "exists": true,
+        "bytes": 635,
+        "sha256": "3946465d7000ac7581d3a9fac1925818fae8889cb9c005254465f3c8e2915a8e"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-runtime-console.log",
+        "exists": true,
+        "bytes": 4993,
+        "sha256": "372757e2165d7a069b72b52027e010561bd2e0d9fd057d153ac769f958b5ecea"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-runtime.ps1",
+        "exists": true,
+        "bytes": 1610,
+        "sha256": "8c7105cd3b9a35f4f740610309fd60ce99115ce41ed93a35277e4608541d82fa"
+      },
+      {
+        "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+        "exists": true,
+        "bytes": 374,
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+        "exists": true,
+        "bytes": 8464,
+        "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+      },
+      {
+        "path": "tests/fixtures/colour/Generate-Reference.py",
+        "exists": true,
+        "bytes": 2157,
+        "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+      },
+      {
+        "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+        "exists": true,
+        "bytes": 6552,
+        "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+      },
+      {
+        "path": "tests/fixtures/colour/MANIFEST.json",
+        "exists": true,
+        "bytes": 3741,
+        "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+      },
+      {
+        "path": "tests/fixtures/colour/README.md",
+        "exists": true,
+        "bytes": 1499,
+        "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+      },
+      {
+        "path": "tests/fixtures/colour/REFERENCE.json",
+        "exists": true,
+        "bytes": 5199,
+        "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+      },
+      {
+        "path": "tests/fixtures/colour/sRGB-v4.icc",
+        "exists": true,
+        "bytes": 480,
+        "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+      }
+    ],
+    "source_artifact": ".scratch/M2-T02-provenance.json",
+    "source_artifact_sha256": "aab5345207941bf929418d3c2a2d320c954fc7de446e4ea9631d9fbb672b121d"
+  },
+  "historical_run_results": [
+    {
+      "artifact": ".scratch/test-results/M2-T02-prior-PS7-1/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T02-prior-PS7-1/summary.json": "d43f792a39e7df9674aab8b01e6fe54885f8c570d50ec781a53668e484536d6b",
+        ".scratch/M2-T02-prior-PS7-1-console.log": "5930e2bf89d8139dfa63dbea8284318850fffe98502b7192249b619b5680eafc"
+      },
+      "artifact_availability": {
+        ".scratch/test-results/M2-T02-prior-PS7-1/summary.json": true,
+        ".scratch/test-results/M2-T02-prior-PS7-1/results.xml": false,
+        ".scratch/M2-T02-prior-PS7-1-console.log": true
+      },
+      "observed_at_utc": "2026-10-04T18:44:24.2188171Z",
+      "result": "infrastructure_failed",
+      "total_count": 0,
+      "passed_count": 0,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "failed_tests": [],
+      "classification": "development runner infrastructure failure before discovery; no assertion failure",
+      "infrastructure_error": "You cannot call a method on a null-valued expression.",
+      "source_hash_inventory_recorded": false,
+      "observed_end_of_run_files_sha256": {},
+      "revision_binding": "Uncommitted M2-T02 development observation; available end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T02-prior-PS7-2/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T02-prior-PS7-2/summary.json": "76009e2297bbdad40685fa1bae085c2f251b34e8c63559f89beb35fc43e90006",
+        ".scratch/test-results/M2-T02-prior-PS7-2/results.xml": "0f176a30610ed4d138a699e01d2728245fcee20b180490e4f9846c808fa33ada",
+        ".scratch/M2-T02-prior-PS7-2-console.log": "30c57126525fafb00b38031db072e8fd99448e45719076e2d05f32fe150c431b"
+      },
+      "artifact_availability": {
+        ".scratch/test-results/M2-T02-prior-PS7-2/summary.json": true,
+        ".scratch/test-results/M2-T02-prior-PS7-2/results.xml": true,
+        ".scratch/M2-T02-prior-PS7-2-console.log": true
+      },
+      "observed_at_utc": "2026-10-04T18:44:48.2224523Z",
+      "result": "Passed",
+      "total_count": 111,
+      "passed_count": 111,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "classification": "uncommitted development test result",
+      "infrastructure_error": null,
+      "source_hash_inventory_recorded": true,
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "tests/Normalizer.Tests.ps1": "81a896982bcbafc52b8d8edcde50aae1ae1fde057eadde5bce697df8ba02bf31",
+        "tests/Preflight.Tests.ps1": "059faf4177c48751ae8eedec6f465f5bbe005af3bc92ead28c791b78a423659c",
+        "tests/Naming.Tests.ps1": "2bac78d07ce69a70ba9fcc0f3465b0ac66a990a36babb3c908ec5d1c3627d72e",
+        "tests/Duplicates.Tests.ps1": "d87b1f0daf44acd80207e7cfb6826607eedfe33f88607a20d9d2764716097c4f"
+      },
+      "revision_binding": "Uncommitted M2-T02 development observation; available end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T02-target-PS7-1/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T02-target-PS7-1/summary.json": "07c045e4f440ceca286b1408d8ae15765924250ee0867aaf02b9478ce3fcfc3d",
+        ".scratch/test-results/M2-T02-target-PS7-1/results.xml": "6aeed50b1732cc403f30f17c9cb6cbbbb662396d27e69401a0cfdfddf49f40dc",
+        ".scratch/M2-T02-target-PS7-1-console.log": "e1af1f3c1ca0328f04ce065eaa398d63e8f8264fdc7b9cc700369103839a617c"
+      },
+      "artifact_availability": {
+        ".scratch/test-results/M2-T02-target-PS7-1/summary.json": true,
+        ".scratch/test-results/M2-T02-target-PS7-1/results.xml": true,
+        ".scratch/M2-T02-target-PS7-1-console.log": true
+      },
+      "observed_at_utc": "2026-10-04T18:44:35.3599367Z",
+      "result": "Passed",
+      "total_count": 23,
+      "passed_count": 23,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "classification": "uncommitted development test result",
+      "infrastructure_error": null,
+      "source_hash_inventory_recorded": true,
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "tests/Colour.Tests.ps1": "b82c6ba7f467340922a10afb850c37ffdfe50f64ea98d0d97f641ab5e45894f2"
+      },
+      "revision_binding": "Uncommitted M2-T02 development observation; available end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T02-target-PS51-1/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T02-target-PS51-1/summary.json": "9ce99697d173a9c806c8a2e43e79ca1f0938bd5c8a6621296b7c571c798f7efb",
+        ".scratch/test-results/M2-T02-target-PS51-1/results.xml": "3f0a7f8f541e4e6ae563a4a607120de7262c71eccef6e11728d6509b594e31ab",
+        ".scratch/M2-T02-target-PS51-1-console.log": "bc49bacbd4f46c7d6d0bef5d6d73ffcd0b01e6ffe010c73525efbf043f4f988a"
+      },
+      "artifact_availability": {
+        ".scratch/test-results/M2-T02-target-PS51-1/summary.json": true,
+        ".scratch/test-results/M2-T02-target-PS51-1/results.xml": true,
+        ".scratch/M2-T02-target-PS51-1-console.log": true
+      },
+      "observed_at_utc": "2026-10-04T18:46:10.9453829Z",
+      "result": "Failed",
+      "total_count": 23,
+      "passed_count": 17,
+      "failed_count": 6,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "failed_tests": [
+        "M2-T02 independent profiled and untagged colour references (T032-T033).T032 transforms wide tagged RGB before stripping and verifies actual runtime arguments before JPEG loss",
+        "M2-T02 independent profiled and untagged colour references (T032-T033).T032 transforms sRGB tagged RGB before stripping and verifies actual runtime arguments before JPEG loss",
+        "M2-T02 independent profiled and untagged colour references (T032-T033).T032 transforms wide with spoofed free profile property tagged RGB before stripping and verifies actual runtime arguments before JPEG loss",
+        "M2-T02 independent profiled and untagged colour references (T032-T033).T033 transforms genuine four-channel tagged CMYK through the available A2B0 mapping and verifies its independent forward reference",
+        "M2-T02 alpha composition and retry invariants (T036).T036 composites tagged wide RGB transparent patches on white after conversion and checks separate pre-JPEG and JPEG tolerances",
+        "M2-T02 alpha composition and retry invariants (T036).T036 composites untagged sRGB transparent patches on white after conversion and checks separate pre-JPEG and JPEG tolerances"
+      ],
+      "classification": "uncommitted development test result",
+      "infrastructure_error": null,
+      "source_hash_inventory_recorded": true,
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "tests/Colour.Tests.ps1": "b82c6ba7f467340922a10afb850c37ffdfe50f64ea98d0d97f641ab5e45894f2"
+      },
+      "revision_binding": "Uncommitted M2-T02 development observation; available end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T02-target-PS7-2/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T02-target-PS7-2/summary.json": "005b4dfefcd2235690e82839b93dded0fcd1e2df2fc7c4f9240a45a2386f42e1",
+        ".scratch/test-results/M2-T02-target-PS7-2/results.xml": "111834ccf79a77dafd0d8692b9ebaf73da437c7d2881bc6fbd1c44b93017b7f7",
+        ".scratch/M2-T02-target-PS7-2-console.log": "1a70c12a056d938bda9583d79cbaee9a98f0d8fa718c7b2307d19f17428acf21"
+      },
+      "artifact_availability": {
+        ".scratch/test-results/M2-T02-target-PS7-2/summary.json": true,
+        ".scratch/test-results/M2-T02-target-PS7-2/results.xml": true,
+        ".scratch/M2-T02-target-PS7-2-console.log": true
+      },
+      "observed_at_utc": "2026-10-04T18:51:18.9710910Z",
+      "result": "Passed",
+      "total_count": 24,
+      "passed_count": 24,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "classification": "uncommitted development test result",
+      "infrastructure_error": null,
+      "source_hash_inventory_recorded": true,
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "tests/Colour.Tests.ps1": "8a97754d2034abf13d20a6bec28158282eb6781fa4cf437b3e668ecd97bbc72f"
+      },
+      "revision_binding": "Uncommitted M2-T02 development observation; available end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T02-target-PS51-2/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T02-target-PS51-2/summary.json": "c0c460b6ae40201f5b855c8ad4af38f424ca4dc2a27c6d857052d5309bf0b9f8",
+        ".scratch/test-results/M2-T02-target-PS51-2/results.xml": "197c968da12208122eda9b7ffe09b66b646dba27bb94f7c116aa0e12595fe1f9",
+        ".scratch/M2-T02-target-PS51-2-console.log": "2dbddc1f751a5095a22dc81e771f6dea21694cc3f9f2d8390d34ac405527e1c0"
+      },
+      "artifact_availability": {
+        ".scratch/test-results/M2-T02-target-PS51-2/summary.json": true,
+        ".scratch/test-results/M2-T02-target-PS51-2/results.xml": true,
+        ".scratch/M2-T02-target-PS51-2-console.log": true
+      },
+      "observed_at_utc": "2026-10-04T18:51:53.6436656Z",
+      "result": "Passed",
+      "total_count": 24,
+      "passed_count": 24,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "classification": "uncommitted development test result",
+      "infrastructure_error": null,
+      "source_hash_inventory_recorded": true,
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "tests/Colour.Tests.ps1": "8a97754d2034abf13d20a6bec28158282eb6781fa4cf437b3e668ecd97bbc72f"
+      },
+      "revision_binding": "Uncommitted M2-T02 development observation; available end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T02-target-PS7-3/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T02-target-PS7-3/summary.json": "b4e57641db844162f2835a838be098a3f305333e55ee7a51e205efcdf26663d0",
+        ".scratch/test-results/M2-T02-target-PS7-3/results.xml": "7ac325db8a4556d4e44da1e3c0dc1bd66564b7ceb6a7ab9052b7b88c9547614c",
+        ".scratch/M2-T02-target-PS7-3-console.log": "f060ed7dcd34b19da0682b3eb659cfa02c7c34ebf54ee5776d372e82268843df"
+      },
+      "artifact_availability": {
+        ".scratch/test-results/M2-T02-target-PS7-3/summary.json": true,
+        ".scratch/test-results/M2-T02-target-PS7-3/results.xml": true,
+        ".scratch/M2-T02-target-PS7-3-console.log": true
+      },
+      "observed_at_utc": "2026-10-04T18:53:05.3904164Z",
+      "result": "Passed",
+      "total_count": 25,
+      "passed_count": 25,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "classification": "uncommitted development test result",
+      "infrastructure_error": null,
+      "source_hash_inventory_recorded": true,
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "tests/Colour.Tests.ps1": "eb406cbbb54b946cc80e56a4f19cbb6d4dc6ae7d38fabebb6a7b82c7e70fa51f"
+      },
+      "revision_binding": "Uncommitted M2-T02 development observation; available end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    },
+    {
+      "artifact": ".scratch/test-results/M2-T02-target-PS51-3/summary.json",
+      "artifact_sha256": {
+        ".scratch/test-results/M2-T02-target-PS51-3/summary.json": "134b0e5a9c604a5df10fa3bf6f5dd34dd61d8f5e15c95ca6ae918ba4e2d29184",
+        ".scratch/test-results/M2-T02-target-PS51-3/results.xml": "8898d46c53e5fc28252d88d236b78f53ece32e60b6c571a8ee8dca033f73c109",
+        ".scratch/M2-T02-target-PS51-3-console.log": "6b2b02483f75bbbd24ad4d1f153bd0758feaf644a6bba66cc61bbd2c349aee03"
+      },
+      "artifact_availability": {
+        ".scratch/test-results/M2-T02-target-PS51-3/summary.json": true,
+        ".scratch/test-results/M2-T02-target-PS51-3/results.xml": true,
+        ".scratch/M2-T02-target-PS51-3-console.log": true
+      },
+      "observed_at_utc": "2026-10-04T18:53:52.4671631Z",
+      "result": "Passed",
+      "total_count": 25,
+      "passed_count": 25,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "failed_tests": [],
+      "classification": "uncommitted development test result",
+      "infrastructure_error": null,
+      "source_hash_inventory_recorded": true,
+      "observed_end_of_run_files_sha256": {
+        "WinImgNormalizer.ps1": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3",
+        "WinImgNormalizer.bat": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+        "tests/Invoke-Tests.ps1": "5b60a91a0c620a69028e95c446c16dccc1e178df7accfc3552d35a75d198a686",
+        "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "tests/Colour.Tests.ps1": "eb406cbbb54b946cc80e56a4f19cbb6d4dc6ae7d38fabebb6a7b82c7e70fa51f"
+      },
+      "revision_binding": "Uncommitted M2-T02 development observation; available end-of-run file hashes do not establish a clean committed revision or exact execution binding."
+    }
+  ],
+  "history_interpretation": "M2-T02 development history is retained separately from clean implementation acceptance. The first prior-suite native -File call passed one comma-containing Path, failed before discovery with zero tests/exit 1 and no XML/source hash inventory; the corrected literal four-path child wrapper passed 111/111 in PS7. Original Colour tests passed 23/23 in PS7 and failed six actual assertions in PS5.1 (17/23) because a test-side typed-array alias changed JPEG argv when building the pre-JPEG PNG oracle. Clone() corrected the test adapters without runtime changes or weakened assertions. Intermediate 24/24 and final 25/25 targeted runs passed in both shells; the added cases distinguish real invalid-curve failure from a structurally accepted unsupported ICC version returning native zero with visible diagnostics and decodable JPEG, which the actual default runtime capture rejects. Initial isolated policy rejection, shell quotation failures, exploratory native/property/argv probes and successful optional reference reproduction with deprecation output are tooling history, not Pester or clean-I acceptance. A supplementary PS5.1 provider collector hung after app return2/errors1 and its exact owned helper was stopped; no completed supplementary-summary pass is claimed. Authoritative target3 case25 passed independently. All eight development summaries and available XML/console/source snapshots are preserved; observed end-of-run file hashes do not establish immutable committed execution. Final full/control desktop and hosted gates bind the separate clean tested implementation.",
+  "history_interpretation_artifact": ".scratch/M2-T02-history-interpretation.txt",
+  "history_interpretation_artifact_sha256": "c8c2cf22fc1c16be45f67a70bb27709d73db6cfd4285be2a39fe9ebc6d725abb",
+  "development_failure_diagnosis": {
+    "task_id": "M2-T02",
+    "record_type": "qualified development tooling/test diagnosis; not clean-I acceptance",
+    "observations": [
+      "The original four-suite native -File invocation passed one comma-containing Path string. Discovery failed before Pester results; summary records infrastructure_failed, zero discovered tests, no assertion failures, exit1, no XML and no source hash inventory. An ignored literal child wrapper passed a real four-element array; the corrected prior-suite run passed111/111.",
+      "Original Colour23 passed23/23 on PS7 but only17/23 on PS5.1. Six actual PS5.1 assertions failed because @($Arguments) aliased a typed string array; changing pre-JPEG PNG argv changed the actual JPEG destination. Typed Clone() fixed test adapters without changing runtime semantics or weakening assertions.",
+      "The first isolated PS5.1 alias probe was blocked before execution by host policy; a subsequent process-scoped Bypass probe reproduced the alias. The PS7 probe had a distinct array. This tooling rejection is separate from the six Pester assertion failures; persistent test policies remained unchanged.",
+      "Intermediate24 cases passed24/24 in both shells after Clone() correction, addition of genuine invalid-curve coverage and target ICC path/hash retry checks. Final25 passed25/25 in both shells after adding real structurally accepted unsupported-version native-zero diagnostics/default-capture coverage.",
+      "Earlier native malformed-JPEG ICC zero-exit/diagnostic output is rejected by the current structural guard before conversion. Invalid-curve native exit1/noJPEG and unsupported-version native0/visible diagnostic/decodableJPEG are separate actual observations; final default runtime capture rejects the latter without finalized output.",
+      "Root parser/Python quotation failures occurred before parser/code execution; an inherited loop continuation issue was fixed in static development before smoke. No failing runtime or acceptance count is attributed to those commands.",
+      "Initial native empty-profile property warnings, an excluded incorrectly concatenated peer ICC/JPEG argv experiment and optional Pillow getdata deprecation output remain exploratory/tooling history rather than evidence of a final implementation failure.",
+      "A supplementary PS5.1 default-false-zero application returned2/errors1, but its later long-path recursive PowerShell provider artifact collector hung. The verified exact owned helper process was stopped; no completed supplementary helper-summary pass is claimed. Authoritative final Colour target3 case25 passed separately."
+    ],
+    "artifacts": [
+      {
+        "path": ".scratch/M2-T02-colour-487d6667a5764d7fa68a5e27780fddda/unsupported-icc-version-probe-d2a23791/native-zero-observation.json",
+        "bytes": 196,
+        "sha256": "7a6a6fd146f1c64a75d4021af56fa00d8daf34cc96998cfb59bf352dc97071d3"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-bc60901ae57c44279fe1d83919b68679/unsupported-icc-version-probe-d5cbace8/native-zero-observation.json",
+        "bytes": 179,
+        "sha256": "292bd325bd0bc59b7d48e246aea0daa59cfe58845158384078a5a63a9a762df7"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-case-notes.json",
+        "bytes": 20661,
+        "sha256": "4aba443e8c0bf17b383c3d68bbba4410eacd83edb3a9933ece0eb754e1167d3d"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/Colour-target-attempt1.Tests.ps1",
+        "bytes": 33562,
+        "sha256": "b82c6ba7f467340922a10afb850c37ffdfe50f64ea98d0d97f641ab5e45894f2"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/Colour-target-attempt2.Tests.ps1",
+        "bytes": 36937,
+        "sha256": "8a97754d2034abf13d20a6bec28158282eb6781fa4cf437b3e668ecd97bbc72f"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/WinImgNormalizer-target-attempt1.ps1",
+        "bytes": 68421,
+        "sha256": "d0753a6ae62d11ed7ebdd2f770676893c62e4118c180830bedf366b6be853bc3"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/array-copy-ps51-2.log",
+        "bytes": 93,
+        "sha256": "5639bfb0fb85d104720e842acc793ee1833ac409f2853d12f59d6ab10ddb2179"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/array-copy-ps51.log",
+        "bytes": 431,
+        "sha256": "8bfa1aae56a2a175ae0b0c6082c28e25bc95231b7fdfb513ad15f4e922d70640"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/array-copy-ps7.log",
+        "bytes": 87,
+        "sha256": "3ca558de3ebedabf6836d53822f67f793f121ad12da8708328e551525eaa23b0"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/independent-reference.json",
+        "bytes": 8138,
+        "sha256": "8ea9b82ce74a5635fbdc4d2992977e5994c55f00a2d954044e22f60a7ce03358"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/linear-rgb-probe.json",
+        "bytes": 202,
+        "sha256": "97388fc822aef2499c26d8b15fb0a24292f0c2262a4e1fb3439086d1940a1659"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/malformed-jpeg-inspection.json",
+        "bytes": 61,
+        "sha256": "098b0365b4a6e0641ba81eb0f01ed19515ba0301ecf686e58e3fe4b0a7f3f5a7"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/malformed-jpeg-transform.json",
+        "bytes": 367,
+        "sha256": "793ac54386da15e46f6bd3ecdfc4ec950e34bbb3887dc0773f1bde18f099993c"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/metadata-console.log",
+        "bytes": 3693,
+        "sha256": "67ec8022ade3fdbe7f92c5f71bf78d4f53bc9fd59bc5823939bfb1fb20648e11"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/metadata-reference.json",
+        "bytes": 3691,
+        "sha256": "221d88ad01f59935b112989b29dc451ab33608cacaa4def18f903629804cc910"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/native-console.log",
+        "bytes": 2723,
+        "sha256": "dc6730366259ff1225fcac65f58027ff5e21902ae49ab19948d2333caef37053"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/native-observations.json",
+        "bytes": 15245,
+        "sha256": "f9465ad5aa86d80c9af31a44765fa4f9d764f02160b5845ccb3f25cf48f2b67b"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe-colour-console.log",
+        "bytes": 12981,
+        "sha256": "3b4b5e5e1e9d6ad69d2d4896288a5906789faa3cbc89beef5c7cecd93cbdb076"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe_array_copy.ps1",
+        "bytes": 431,
+        "sha256": "90934c49458aeba65cfdeeb5c094e5d45096a7dc957a6c393ec2e2f478c0be00"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe_colour.py",
+        "bytes": 6559,
+        "sha256": "01c2a3f143dd3d20d294a85788946364c524dc8b6b44f47d53b41ffd6acc2511"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe_metadata.py",
+        "bytes": 3101,
+        "sha256": "f5625c96275df9c7b45e75c964d1c32c1fbbdab20ac92ee48f35eea1526bafff"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/probe_native.ps1",
+        "bytes": 3863,
+        "sha256": "cfa48cf1afd1cc922ea1e50fa1740b6638bb5bc23419a053407b188a90eacafa"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/profile-provenance.json",
+        "bytes": 3775,
+        "sha256": "9691f582328aedf050e37b88064f899c1d936bed2bb376c22144bd289c75162f"
+      },
+      {
+        "path": ".scratch/M2-T02-colour-probe-b8f1622db892454dbb7afd9dbcd5b8d0/tracked-reference-recipe-console.log",
+        "bytes": 1894,
+        "sha256": "42c59cb5c56bdd5a3ff0f80dad3c05290a15f17da098f80a6aeb5df375adeda3"
+      },
+      {
+        "path": ".scratch/M2-T02-parse-runtime.ps1",
+        "bytes": 308,
+        "sha256": "93bc69cb48dbb48671193af20b9b1b7b98720cfd5e6307c2b95baae1300c90c1"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS51-d41c244d8126421ab27990dde1fcef95/console.log",
+        "bytes": 2957,
+        "sha256": "27c7fdc4075bf12ee439aa5038227f3ff3f7d60eadf0476d7fc7afa34a7ded1a"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS51-d41c244d8126421ab27990dde1fcef95/outputs/source_WinImgNormalized_20261004_205229_d4218e98f201420b99ca43743e851c45/.WinImgNormalizer/reports/WinImgNormalizer_20261004_205229.log",
+        "bytes": 2556,
+        "sha256": "d0b925a07840e8d93000e821c4f8e15e7db7df2adda25bbd07bbdfa5d41a7f8c"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-PS51-tooling-note.json",
+        "bytes": 881,
+        "sha256": "fe3f69f7be1652092da87361de7295a2c2c40c31c1b2b8eb28d17bb05c43ff01"
+      },
+      {
+        "path": ".scratch/M2-T02-peer-probe-98b58c8ad1b341f8bcd79ee1b779aac6/default-false-zero-guard-PS7.json",
+        "bytes": 3350,
+        "sha256": "1ffc28a52942f19a382dda71a37c7b1d75746e0c2af91280fd7ccf320bb6c60f"
+      },
+      {
+        "path": ".scratch/M2-T02-precision-runtime.py",
+        "bytes": 844,
+        "sha256": "9c32e71e8f832f5a57d99e02828b73af4a0ab9a665ae25d6f778e54dd32daa3c"
+      },
+      {
+        "path": ".scratch/M2-T02-prior-PS7-1-console.log",
+        "bytes": 2347,
+        "sha256": "5930e2bf89d8139dfa63dbea8284318850fffe98502b7192249b619b5680eafc"
+      },
+      {
+        "path": ".scratch/M2-T02-prior-PS7-2-console.log",
+        "bytes": 18554,
+        "sha256": "30c57126525fafb00b38031db072e8fd99448e45719076e2d05f32fe150c431b"
+      },
+      {
+        "path": ".scratch/M2-T02-root-development-history.json",
+        "bytes": 4784,
+        "sha256": "67d49c73b82d5e95a2dfdbd034c3a855f08f57052c2a80a96eeb124355095724"
+      },
+      {
+        "path": ".scratch/M2-T02-run-prior.ps1",
+        "bytes": 353,
+        "sha256": "35dacac7003ecad607304bcb5521ec34389abec9105e35b50ebac36b8ba91349"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/observation.json",
+        "bytes": 435,
+        "sha256": "1fcb732d75c42fdac3a0dba907c1a0b75bfbe6465c60b26fabc87c3128b45a45"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/.WinImgNormalizer/reports/WinImgNormalizer_20261004_204109.log",
+        "bytes": 4229,
+        "sha256": "d05d54867a255e53f7c580a529719960c5e514c6e25391f44c8a1537ddb963cc"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/tagged-cmyk.jpeg",
+        "bytes": 629,
+        "sha256": "66911209e13db42f398f896acc61351849e267d610c00899334ee0cc4eb7748c"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/tagged-wide-alpha.jpeg",
+        "bytes": 630,
+        "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/tagged-wide-rgb.jpeg",
+        "bytes": 639,
+        "sha256": "0c5ab8c5e5b1cf3e73e2494631ba9b0d1300be2f69c8788809137f4a411d4f37"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-e988bc1163094b8c9924ca6026fc1dfb/output/source_WinImgNormalized_20261004_204109_3e07be192f8e423eb483710d0442c7e6/untagged-rgb.jpeg",
+        "bytes": 635,
+        "sha256": "3946465d7000ac7581d3a9fac1925818fae8889cb9c005254465f3c8e2915a8e"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-runtime-console.log",
+        "bytes": 4993,
+        "sha256": "372757e2165d7a069b72b52027e010561bd2e0d9fd057d153ac769f958b5ecea"
+      },
+      {
+        "path": ".scratch/M2-T02-smoke-runtime.ps1",
+        "bytes": 1610,
+        "sha256": "8c7105cd3b9a35f4f740610309fd60ce99115ce41ed93a35277e4608541d82fa"
+      },
+      {
+        "path": ".scratch/test-results/M2-T02-prior-PS7-1/summary.json",
+        "bytes": 2629,
+        "sha256": "d43f792a39e7df9674aab8b01e6fe54885f8c570d50ec781a53668e484536d6b"
+      },
+      {
+        "path": ".scratch/test-results/M2-T02-prior-PS7-2/results.xml",
+        "bytes": 53688,
+        "sha256": "0f176a30610ed4d138a699e01d2728245fcee20b180490e4f9846c808fa33ada"
+      },
+      {
+        "path": ".scratch/test-results/M2-T02-prior-PS7-2/summary.json",
+        "bytes": 5725,
+        "sha256": "76009e2297bbdad40685fa1bae085c2f251b34e8c63559f89beb35fc43e90006"
+      }
+    ],
+    "source_artifact": ".scratch/M2-T02-development-diagnosis.json",
+    "source_artifact_sha256": "bf1ef3a81007593320410be2032c009bf09f6300e0c97518de480e05839e14cd"
+  },
+  "ci_evidence": "evidence/M2-T02-ci.json",
+  "implementation_sync_observation": {
+    "observed_at_utc": "2026-10-04T19:03:48.555690+00:00",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "branch": "codex/winimg-hardening",
+    "local_head": "a30c456594a31368294588cc198444b38bc3e0e3",
+    "remote_head": "a30c456594a31368294588cc198444b38bc3e0e3",
+    "worktree_clean_before_record_files": true,
+    "sync_state": "synchronized"
+  },
+  "containing_checkpoint_sync": "pending_verification",
+  "draft_pr": "https://github.com/PikkuJanne/WinImgNormalizer/pull/11",
+  "limitations": [
+    "The selected CGATS001Compat CMYK profile contains only an A2B0 perceptual forward display mapping. Requested Relative intent uses LittleCMS fallback to that available mapping; evidence covers this source fixture rather than general relative-colorimetric printing accuracy, all rendering intents or reverse CMYK conversion.",
+    "The ICC guard checks bounded structure and decoded model consistency, not complete ICC semantic conformance. Synthetic patch and metadata fixtures do not prove arbitrary ICC profiles, every codec, production photography or subjective owner quality.",
+    "Length/modification checks remain a source stability heuristic rather than content identity. Duplicate matching remains the documented same-name/time/length heuristic; mandatory hashing, content databases and original removal remain excluded.",
+    "Actual HEIC/HEIF coverage retains the two-image still collection from M2-T01. Timed HEIC animation, thumbnails and auxiliary-image behavior remain unverified.",
+    "General literal-safe filenames, supported long/UNC/root boundaries, process/resource/cancellation controls, later quality/reporting/release work and owner aesthetic/default acceptance remain later explicit gates. No merge, tag, release, website deployment or owner quality approval is implied."
+  ]
+}

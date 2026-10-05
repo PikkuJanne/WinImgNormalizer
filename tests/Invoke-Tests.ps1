@@ -11,7 +11,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
 if (-not $PSBoundParameters.ContainsKey('Path')) {
-    $Path = @((Join-Path $PSScriptRoot 'Normalizer.Tests.ps1'), (Join-Path $PSScriptRoot 'Preflight.Tests.ps1'), (Join-Path $PSScriptRoot 'Traversal.Tests.ps1'), (Join-Path $PSScriptRoot 'Naming.Tests.ps1'), (Join-Path $PSScriptRoot 'Transactions.Tests.ps1'), (Join-Path $PSScriptRoot 'Duplicates.Tests.ps1'), (Join-Path $PSScriptRoot 'SafetyRegression.Tests.ps1'), (Join-Path $PSScriptRoot 'Frames.Tests.ps1'))
+    $Path = @((Join-Path $PSScriptRoot 'Normalizer.Tests.ps1'), (Join-Path $PSScriptRoot 'Preflight.Tests.ps1'), (Join-Path $PSScriptRoot 'Traversal.Tests.ps1'), (Join-Path $PSScriptRoot 'Naming.Tests.ps1'), (Join-Path $PSScriptRoot 'Transactions.Tests.ps1'), (Join-Path $PSScriptRoot 'Duplicates.Tests.ps1'), (Join-Path $PSScriptRoot 'SafetyRegression.Tests.ps1'), (Join-Path $PSScriptRoot 'Frames.Tests.ps1'), (Join-Path $PSScriptRoot 'Colour.Tests.ps1'))
 }
 $scratchRoot = [IO.Path]::GetFullPath((Join-Path $repositoryRoot '.scratch'))
 if ([string]::IsNullOrWhiteSpace($ResultDirectory)) {
@@ -117,6 +117,10 @@ try {
     $summary.duration_seconds = $result.Duration.TotalSeconds
     $summary.source_sha256 = @(
         $files = @((Join-Path $repositoryRoot 'WinImgNormalizer.ps1'), (Join-Path $repositoryRoot 'WinImgNormalizer.bat'), $PSCommandPath, (Join-Path $PSScriptRoot 'Initialize-TestDependencies.ps1'), (Join-Path $PSScriptRoot 'dependencies.json'))
+        # Colour assertions use immutable profiles and an independent reference;
+        # bind those exact bytes in targeted and full-suite run summaries too.
+        $colourFixtureRoot = Join-Path $PSScriptRoot 'fixtures/colour'
+        $files += @(Get-ChildItem -LiteralPath $colourFixtureRoot -Recurse -File -Force | ForEach-Object { $_.FullName })
         foreach ($testPath in $Path) {
             if (Test-Path -LiteralPath $testPath -PathType Container) {
                 $files += @(Get-ChildItem -LiteralPath $testPath -Recurse -Filter '*.Tests.ps1' | ForEach-Object { $_.FullName })

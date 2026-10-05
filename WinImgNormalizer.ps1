@@ -28,7 +28,7 @@ FEATURES
     - Supported images via ImageMagick: JPG/JPEG/PNG/BMP/TIF/TIFF/GIF/HEIC/HEIF/WebP.
     - Videos copied as-is (mp4/mov/mkv/avi/m4v/wmv/webm/mts/m2ts/3gp/3g2).
     - JPEG ≤ 1 MB targeting with progressive scaling (100→50%) and quality sizing (jpeg:extent).
-    - EXIF auto-orientation, metadata stripped, alpha flattened to white.
+    - EXIF auto-orientation; profiled colour to sRGB before white alpha flattening and metadata removal.
     - Heuristic skips match lowercase filename + LastWriteTimeUtc + input byte length.
       Only finalized successes register; every skip links its retained source and output.
     - Progress bar in terminal; detailed timestamped log in the destination folder.
@@ -66,7 +66,8 @@ NOTES
 LIMITATIONS
     - Size targeting is best-effort, extremely noisy or huge images may not reach ≤ 1 MB even at 50%.
     - Duplicate detection is not content-hash based.
-    - Metadata is stripped by design, this is an archive/preview-friendly normalization pass.
+    - Untagged RGB is assumed sRGB; untagged CMYK/unknown colour is rejected rather than guessed.
+    - Final known-sRGB JPEGs omit ICC and source metadata; profiled originals remain untouched.
 
 TROUBLESHOOTING
     - "magick not found": install ImageMagick; ensure magick.exe is in PATH (check `magick -version`).
@@ -471,7 +472,7 @@ function Test-WinImgImageCandidate {
   return [pscustomobject]@{ BytesOut = $length; Width = $width; Height = $height }
 }
 
-# Multi-image inspection and selection read the same private, stable copy. No
+# Colour inspection and conversion read the same private, stable copy. No
 # selector is appended to a user filename; only the decoded first image is kept.
 function New-WinImgSourceSnapshot {
   param([string]$SourcePath, [string]$WorkRoot, [long]$ExpectedLength,
@@ -481,7 +482,7 @@ function New-WinImgSourceSnapshot {
   $before = Get-Item -LiteralPath $SourcePath -Force -ErrorAction Stop
   if ($before.PSIsContainer -or ($before.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
       $before.Length -ne $ExpectedLength -or $before.LastWriteTimeUtc -ne $ExpectedModified) {
-    throw 'Image source changed before frame/page inspection.'
+    throw 'Image source changed before frame/page or colour inspection.'
   }
   $allocated = New-WinImgImageCandidate -WorkRoot $WorkRoot
   $snapshot = [IO.Path]::Combine([IO.Path]::GetDirectoryName($allocated), ('source' + $before.Extension.ToLowerInvariant()))
@@ -533,6 +534,124 @@ function Get-WinImgSourceImageInfo {
   elseif ($decoder -eq 'TIFF') { $unit = 'Pages'; $policy = 'FirstPage' }
   elseif ($decoder -in @('HEIC', 'HEIF')) { $policy = 'DecoderPrimaryOrFirstImage' }
   return [pscustomobject]@{ SourceCount = $count; Omitted = $count - 1; Unit = $unit; Policy = $policy; Decoder = $decoder }
+}
+
+# Inspect the selected snapshot before stripping. Clear only free-form names
+# that could mask built-in metadata; the real ICC profile remains attached.
+function Get-WinImgColourInfo {
+  param([string]$SnapshotPath, [string]$MagickPath)
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($SnapshotPath))
+  $nativePath = Get-WinImgNativeOutputPath $SnapshotPath
+  $previousPreference = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
+  try {
+    # profiles=none is an option fallback for an absent profile list, avoiding
+    # an unknown-property warning. Never set the profiles image property.
+    $metadata = @(& $MagickPath identify -ping -regard-warnings -define image:frames=0 -define profiles=none +set profiles +set colorspace -format '%[colorspace]|%[profiles]' $nativePath 2>&1)
+    $inspectExit = $LASTEXITCODE
+  } finally { $ErrorActionPreference = $previousPreference }
+  if ($inspectExit -ne 0 -or $metadata.Count -ne 1 -or
+      [string]$metadata[0] -notmatch '^([A-Za-z][A-Za-z0-9]*)\|([A-Za-z0-9, _:-]+)$') {
+    throw 'Colour/profile inspection failed or was ambiguous; no accurate conversion was claimed.'
+  }
+  $colourSpace = $Matches[1]
+  $profiles = @($Matches[2].ToLowerInvariant().Split(',') | ForEach-Object { $_.Trim() })
+  $hasIcc = $profiles -contains 'icc' -or $profiles -contains 'icm'
+  if ($hasIcc) { $policy = 'ProfileToSrgb' }
+  elseif ($colourSpace -eq 'sRGB') { $policy = 'AssumeSrgb' }
+  elseif ($colourSpace -eq 'RGB') { $policy = 'ConvertLinearRgb' }
+  elseif ($colourSpace -in @('Gray', 'LinearGray')) { $policy = 'ConvertGray' }
+  elseif ($colourSpace -eq 'CMYK') {
+    throw 'Untagged CMYK has no source ICC characterization; accurate sRGB colour cannot be inferred. Supply a correctly profiled source.'
+  } else {
+    throw ('Unprofiled ' + $colourSpace + ' colour is unsupported; supply a correctly profiled source instead of guessing its characterization.')
+  }
+  return [pscustomobject]@{ ColourSpace = $colourSpace; HasIcc = [bool]$hasIcc; Policy = $policy }
+}
+
+function New-WinImgSourceIccProfile {
+  param([string]$SnapshotPath, [string]$MagickPath, [string]$ColourSpace,
+    [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates)
+  $allocated = New-WinImgImageCandidate -WorkRoot $WorkRoot
+  $profilePath = [IO.Path]::Combine([IO.Path]::GetDirectoryName($allocated), 'source.icc')
+  $ownership = [pscustomobject]@{ Path = $profilePath; FileOwned = $false; Removed = $false }
+  $OwnedCandidates.Add($ownership)
+  $reservation = [IO.FileStream]::new($profilePath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+  $ownership.FileOwned = $true
+  $reservation.Dispose()
+  $nativeSource = Get-WinImgNativeOutputPath $SnapshotPath
+  $nativeProfile = Get-WinImgNativeOutputPath $profilePath
+  $previousPreference = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
+  try {
+    # Extract only the selected embedded profile; do not attach a replacement.
+    $messages = @(& $MagickPath -ping -regard-warnings -define image:frames=0 $nativeSource ('ICC:' + $nativeProfile) 2>&1)
+    $extractExit = $LASTEXITCODE
+  } finally { $ErrorActionPreference = $previousPreference }
+  if ($extractExit -ne 0 -or $messages.Count -ne 0) {
+    throw 'Embedded ICC extraction reported an error or warning; accurate colour conversion was not claimed.'
+  }
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($profilePath))
+  $item = Get-Item -LiteralPath $profilePath -Force -ErrorAction Stop
+  if ($item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $item.Length -lt 132) {
+    throw 'Embedded ICC is missing or truncated; no accurate colour conversion was claimed.'
+  }
+  $length = $item.Length
+  $stream = [IO.FileStream]::new($profilePath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+  try {
+    $header = New-Object byte[] 132
+    if ($stream.Read($header, 0, 132) -ne 132) { throw 'Embedded ICC header could not be read completely.' }
+    function Read-IccUInt32([byte[]]$Bytes, [int]$Offset) {
+      return [long]$Bytes[$Offset] * 16777216 + [long]$Bytes[$Offset + 1] * 65536 + [long]$Bytes[$Offset + 2] * 256 + [long]$Bytes[$Offset + 3]
+    }
+    $declared = Read-IccUInt32 $header 0
+    $signature = [Text.Encoding]::ASCII.GetString($header, 36, 4)
+    $model = [Text.Encoding]::ASCII.GetString($header, 16, 4).Trim()
+    $tags = Read-IccUInt32 $header 128
+    $tableEnd = 132 + 12 * $tags
+    if ($declared -ne $length -or $signature -ne 'acsp' -or $tags -eq 0 -or $tableEnd -gt $length) {
+      throw 'Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.'
+    }
+    $allowedModels = switch ($ColourSpace) {
+      'sRGB' { 'RGB' }; 'RGB' { 'RGB' }; 'CMYK' { 'CMYK' }
+      'Gray' { 'GRAY'; 'RGB' }; 'LinearGray' { 'GRAY'; 'RGB' }
+      default { @() }
+    }
+    if ($model -notin @($allowedModels)) {
+      throw ('Embedded ICC model ' + $model + ' does not match supported decoded ' + $ColourSpace + ' colour; no accurate conversion was claimed.')
+    }
+    $tag = New-Object byte[] 12
+    for ($index = 0; $index -lt $tags; $index++) {
+      if ($stream.Read($tag, 0, 12) -ne 12) { throw 'Embedded ICC tag table is truncated.' }
+      $offset = Read-IccUInt32 $tag 4
+      $size = Read-IccUInt32 $tag 8
+      # Shared tag payloads occur in compact profiles. Only
+      # enforce table/payload bounds; LCMS and native diagnostics check semantics.
+      if ($offset -lt $tableEnd -or $size -lt 8 -or $offset + $size -gt $length) {
+        throw 'Embedded ICC tag payload lies outside the profile; no accurate colour conversion was claimed.'
+      }
+    }
+  } finally { $stream.Dispose() }
+  return $profilePath
+}
+
+function New-WinImgSrgbProfile {
+  param([string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates)
+  # Compact-ICC-Profiles sRGB-v4, CC0-1.0, immutable upstream commit
+  # bdd84663061bc4ae95ca70decff54f581e27f702. RGB/XYZ matrix target, 480 bytes.
+  # SHA256 c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353
+  # https://github.com/saucecontrol/Compact-ICC-Profiles (license/provenance in tests/fixtures/colour).
+  # Embedded bytes keep the standalone script independent of installed ICC paths.
+  $bytes = [Convert]::FromBase64String('AAAB4GxjbXMEIAAAbW50clJHQiBYWVogB+IAAwAUAAkADgAdYWNzcE1TRlQAAAAAc2F3c2N0cmwAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1oYW5keem/Vlo+AbaDI4VVRvdPqgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKZGVzYwAAAPwAAAAkY3BydAAAASAAAAAid3RwdAAAAUQAAAAUY2hhZAAAAVgAAAAsclhZWgAAAYQAAAAUZ1hZWgAAAZgAAAAUYlhZWgAAAawAAAAUclRSQwAAAcAAAAAgZ1RSQwAAAcAAAAAgYlRSQwAAAcAAAAAgbWx1YwAAAAAAAAABAAAADGVuVVMAAAAIAAAAHABzAFIARwBCbWx1YwAAAAAAAAABAAAADGVuVVMAAAAGAAAAHABDAEMAMAAAWFlaIAAAAAAAAPbWAAEAAAAA0y1zZjMyAAAAAAABDD8AAAXd///zJgAAB5AAAP2S///7of///aIAAAPcAADAcVhZWiAAAAAAAABvoAAAOPIAAAOPWFlaIAAAAAAAAGKWAAC3iQAAGNpYWVogAAAAAAAAJKAAAA+FAAC2xHBhcmEAAAAAAAMAAAACZmkAAPKnAAANWQAAE9AAAApb')
+  $allocated = New-WinImgImageCandidate -WorkRoot $WorkRoot
+  $profilePath = [IO.Path]::Combine([IO.Path]::GetDirectoryName($allocated), 'sRGB.icc')
+  $ownership = [pscustomobject]@{ Path = $profilePath; FileOwned = $false; Removed = $false }
+  $OwnedCandidates.Add($ownership)
+  $stream = [IO.FileStream]::new($profilePath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+  $ownership.FileOwned = $true
+  try { $stream.Write($bytes, 0, $bytes.Length); $stream.Flush() }
+  finally { $stream.Dispose() }
+  return $profilePath
 }
 
 function New-WinImgExclusiveDirectory {
@@ -700,8 +819,11 @@ function Invoke-WinImgNormalizer {
     [scriptblock]$ProcessRunner = {
       param([string]$Executable, [string[]]$Arguments)
       $LASTEXITCODE = 0
-      & $Executable @Arguments 1>$null 2>$null
-      return $LASTEXITCODE
+      # Some ICC failures still return zero after a later image write. Preserve
+      # diagnostics so a decodable JPEG cannot conceal a failed colour transform.
+      $messages = @(& $Executable @Arguments 2>&1)
+      $nativeExit = $LASTEXITCODE
+      return [pscustomobject]@{ ExitCode = $nativeExit; DiagnosticOutput = ($messages -join "`n") }
     }
   )
 
@@ -846,63 +968,72 @@ function Invoke-WinImgNormalizer {
   }
   function Convert-ImageMagick {
     param([string]$SourcePath, [string]$DestPath, [long]$MaxBytes,
-      [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates, [object]$SourceInfo)
+      [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates, [object]$SourceInfo,
+      [object]$ColourInfo, [string]$SrgbProfilePath)
 
     $extent = Get-ExtentString $MaxBytes
     $scales = 100,90,80,70,60,50
     $lastFailure = 'ImageMagick conversion failed'
     $attemptCount = 0
     foreach ($p in $scales) {
-      foreach ($alpha in @($true, $false)) {
-        # Every native attempt has a new exact path, including alpha fallback.
-        if ($attemptCount -gt 0) {
-          $previous = $OwnedCandidates[$OwnedCandidates.Count - 1]
-          try { Remove-WinImgOwnedCandidate -CandidatePath $previous.Path -FileOwned $previous.FileOwned; $previous.Removed = $true }
-          catch { Write-Log ('Could not remove superseded image scratch: ' + $_.Exception.Message) 'WARN' }
-          $DestPath = New-WinImgImageCandidate -WorkRoot $WorkRoot
-          $OwnedCandidates.Add([pscustomobject]@{ Path = $DestPath; FileOwned = $false; Removed = $false })
-        }
-        $ownership = $OwnedCandidates[$OwnedCandidates.Count - 1]
-        $stream = [IO.FileStream]::new($DestPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
-        $ownership.FileOwned = $true
-        $stream.Dispose()
-        $attemptCount++
-        $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
-        $nativeArguments = @('-quiet')
-        if ($SourceInfo) { $nativeArguments += @('-define', 'image:frames=0') }
-        $nativeArguments += $(if ($SourceInfo) { Get-WinImgNativeOutputPath $SourcePath } else { $SourcePath })
-        # Coalesce only the selected first animation frame onto its logical
-        # canvas. Document pages/HEIC images must never be overlaid together.
-        if ($SourceInfo -and $SourceInfo.Policy -eq 'FirstDisplayedFrame') { $nativeArguments += '-coalesce' }
-        if ($SourceInfo) { $nativeArguments += '+repage' }
-        $nativeArguments += @('-auto-orient','-strip','-colorspace','sRGB',
-          '-sampling-factor','4:2:0','-interlace','Line')
-        if ($alpha) { $nativeArguments += @('-background','white','-alpha','remove','-alpha','off') }
-        $nativeArguments += @('-resize', "$p%", '-define', "jpeg:extent=$extent", ('JPEG:' + $nativeDestPath))
-        $previousPreference = $ErrorActionPreference
-        $ErrorActionPreference = 'Continue'
-        try { $nativeResult = & $ProcessRunner $MagickCmd $nativeArguments }
-        finally { $ErrorActionPreference = $previousPreference }
-        # Keep the inherited integer seam and allow a future structured native
-        # result. Missing, ambiguous and timeout/cancellation results fail closed.
-        $successful = (($nativeResult -is [int] -or $nativeResult -is [long]) -and $nativeResult -eq 0)
-        if ($null -ne $nativeResult -and $nativeResult -isnot [array] -and
-            $null -ne $nativeResult.PSObject.Properties['ExitCode']) {
-          $successful = (($nativeResult.ExitCode -is [int] -or $nativeResult.ExitCode -is [long]) -and
-            $nativeResult.ExitCode -eq 0 -and -not $nativeResult.TimedOut -and -not $nativeResult.Cancelled)
-        }
-        if (-not $successful) { $lastFailure = 'ImageMagick attempt did not return a successful native outcome'; continue }
-        try { $validation = Test-WinImgImageCandidate -CandidatePath $DestPath -MagickPath $MagickCmd }
-        catch { $lastFailure = $_.Exception.Message; continue }
-        if ($validation.BytesOut -le $MaxBytes -or $p -eq 50) {
-          $note = if ($validation.BytesOut -gt $MaxBytes) { 'WARN: Could not reach target; best-effort saved' } else { $null }
-          return @{ Status='Converted'; CandidatePath=$DestPath; BytesOut=$validation.BytesOut;
-            Width=$validation.Width; Height=$validation.Height; Scale=$p; Attempts=$attemptCount; Note=$note }
-        }
-        # This valid above-target attempt is superseded. A later failure may not
-        # reuse it or mislabel it with a later scale. Only the last attempt counts.
-        break
+      # Every scale attempt has a fresh path and retains the full colour/alpha policy.
+      if ($attemptCount -gt 0) {
+        $previous = $OwnedCandidates[$OwnedCandidates.Count - 1]
+        try { Remove-WinImgOwnedCandidate -CandidatePath $previous.Path -FileOwned $previous.FileOwned; $previous.Removed = $true }
+        catch { Write-Log ('Could not remove superseded image scratch: ' + $_.Exception.Message) 'WARN' }
+        $DestPath = New-WinImgImageCandidate -WorkRoot $WorkRoot
+        $OwnedCandidates.Add([pscustomobject]@{ Path = $DestPath; FileOwned = $false; Removed = $false })
       }
+      $ownership = $OwnedCandidates[$OwnedCandidates.Count - 1]
+      $stream = [IO.FileStream]::new($DestPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+      $ownership.FileOwned = $true
+      $stream.Dispose()
+      $attemptCount++
+      $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
+      $nativeArguments = @('-quiet', '-regard-warnings')
+      if ($SourceInfo) { $nativeArguments += @('-define', 'image:frames=0') }
+      $nativeArguments += Get-WinImgNativeOutputPath $SourcePath
+      # Coalesce only the selected first animation frame onto its logical
+      # canvas. Document pages/HEIC images must never be overlaid together.
+      if ($SourceInfo -and $SourceInfo.Policy -eq 'FirstDisplayedFrame') { $nativeArguments += '-coalesce' }
+      if ($SourceInfo) { $nativeArguments += '+repage' }
+      $nativeArguments += '-auto-orient'
+      if ($ColourInfo.HasIcc) {
+        # Transform the actual embedded source ICC before any profile stripping.
+        $nativeArguments += @('+black-point-compensation', '-intent', 'Relative', '-profile', (Get-WinImgNativeOutputPath $SrgbProfilePath))
+      } else {
+        # The inspector rejected uncharacterized CMYK/unknown spaces. sRGB is
+        # assumed for ordinary untagged RGB; RGB/LinearGray retain linear semantics.
+        $nativeArguments += @('-colorspace', 'sRGB')
+      }
+      # Composite in known, encoded sRGB, then remove all source/target profiles
+      # and privacy metadata. No retry can drop the white/alpha operations.
+      $nativeArguments += @('-background','white','-alpha','remove','-alpha','off',
+        '-strip','-sampling-factor','4:2:0','-interlace','Line')
+      $nativeArguments += @('-resize', "$p%", '-define', "jpeg:extent=$extent", ('JPEG:' + $nativeDestPath))
+      $previousPreference = $ErrorActionPreference
+      $ErrorActionPreference = 'Continue'
+      try { $nativeResult = & $ProcessRunner $MagickCmd $nativeArguments }
+      finally { $ErrorActionPreference = $previousPreference }
+      # Keep the inherited integer seam and allow a future structured native
+      # result. Missing, ambiguous and timeout/cancellation results fail closed.
+      $successful = (($nativeResult -is [int] -or $nativeResult -is [long]) -and $nativeResult -eq 0)
+      if ($null -ne $nativeResult -and $nativeResult -isnot [array] -and
+          $null -ne $nativeResult.PSObject.Properties['ExitCode']) {
+        $successful = (($nativeResult.ExitCode -is [int] -or $nativeResult.ExitCode -is [long]) -and
+          $nativeResult.ExitCode -eq 0 -and -not $nativeResult.TimedOut -and -not $nativeResult.Cancelled -and
+          [string]::IsNullOrWhiteSpace([string]$nativeResult.DiagnosticOutput))
+      }
+      if (-not $successful) { $lastFailure = 'Colour/ICC conversion or JPEG attempt did not return a successful native outcome; no accurate conversion was claimed'; continue }
+      try { $validation = Test-WinImgImageCandidate -CandidatePath $DestPath -MagickPath $MagickCmd }
+      catch { $lastFailure = $_.Exception.Message; continue }
+      if ($validation.BytesOut -le $MaxBytes -or $p -eq 50) {
+        $note = if ($validation.BytesOut -gt $MaxBytes) { 'WARN: Could not reach target; best-effort saved' } else { $null }
+        return @{ Status='Converted'; CandidatePath=$DestPath; BytesOut=$validation.BytesOut;
+          Width=$validation.Width; Height=$validation.Height; Scale=$p; Attempts=$attemptCount; Note=$note }
+      }
+      # This valid above-target attempt is superseded. A later failure may not
+      # reuse it or mislabel it with a later scale. Only the last attempt counts.
     }
     return @{ Status='Error'; Attempts=$attemptCount; Note=$lastFailure }
   }
@@ -959,18 +1090,26 @@ function Invoke-WinImgNormalizer {
     $ownedCandidates = New-Object 'System.Collections.Generic.List[object]'
     try {
       if ($imgExts -contains $ext) {
-        $imageSource = $f.FullName
+        # Inspection and every attempt use the same profile-bearing bytes.
+        $imageSource = New-WinImgSourceSnapshot -SourcePath $f.FullName -WorkRoot $workRoot -ExpectedLength $sourceLength -ExpectedModified $sourceModified -OwnedCandidates $ownedCandidates
         $sourceInfo = $null
         if ($ext -in @('.gif','.tif','.tiff','.webp','.heic','.heif')) {
-          $imageSource = New-WinImgSourceSnapshot -SourcePath $f.FullName -WorkRoot $workRoot -ExpectedLength $sourceLength -ExpectedModified $sourceModified -OwnedCandidates $ownedCandidates
           $sourceInfo = Get-WinImgSourceImageInfo -SnapshotPath $imageSource -MagickPath $MagickCmd
           Write-Log ('SOURCE IMG: {0} (SourceCount={1}; Selected=1; Omitted={2}; Unit={3}; Policy={4}; Decoder={5})' -f
             $rel, $sourceInfo.SourceCount, $sourceInfo.Omitted, $sourceInfo.Unit, $sourceInfo.Policy, $sourceInfo.Decoder)
         }
+        $colourInfo = Get-WinImgColourInfo -SnapshotPath $imageSource -MagickPath $MagickCmd
+        $srgbProfilePath = $null
+        if ($colourInfo.HasIcc) {
+          $null = New-WinImgSourceIccProfile -SnapshotPath $imageSource -MagickPath $MagickCmd -ColourSpace $colourInfo.ColourSpace -WorkRoot $workRoot -OwnedCandidates $ownedCandidates
+          $srgbProfilePath = New-WinImgSrgbProfile -WorkRoot $workRoot -OwnedCandidates $ownedCandidates
+        }
+        Write-Log ('COLOUR IMG: {0} (SourceSpace={1}; SourceICC={2}; Policy={3}; Intent={4}; Alpha=WhiteAfterSrgb; OutputICC=None)' -f
+          $rel, $colourInfo.ColourSpace, $colourInfo.HasIcc, $colourInfo.Policy, $(if ($colourInfo.HasIcc) { 'Relative' } else { 'None' }))
         try { $candidatePath = New-WinImgImageCandidate -WorkRoot $workRoot }
         catch { $hasNamingWarnings = $true; throw }
         $ownedCandidates.Add([pscustomobject]@{ Path = $candidatePath; FileOwned = $false; Removed = $false })
-        $res = Convert-ImageMagick -SourcePath $imageSource -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -SourceInfo $sourceInfo
+        $res = Convert-ImageMagick -SourcePath $imageSource -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -SourceInfo $sourceInfo -ColourInfo $colourInfo -SrgbProfilePath $srgbProfilePath
         if ($res.Status -eq 'Converted') {
           try { Move-WinImgPlannedImage -CandidatePath $res.CandidatePath -DestinationPath $destPath }
           catch { $hasNamingWarnings = $true; throw }

@@ -2,7 +2,7 @@
 Minimal, no-frills normalizer I use to prep mixed photo/video folders for archiving. It mirrors the tree into a safe copy, converts images to JPEG ≤ 1 MB, copies videos as-is, and skips simple duplicates. Purpose-built for my workflow, I don’t expect most people to need this. It trades options for speed and repeatability.
 
 **Synopsis**
-Recursively mirror a source folder under Pictures, convert images to JPEG (≤ 1 MB, auto-orient, strip metadata, flatten alpha), copy videos unchanged, skip heuristic duplicates by filename/time plus equal byte length, show progress, write a detailed log.
+Recursively mirror a source folder under Pictures, convert images to JPEG (≤ 1 MB, auto-orient, convert profiled colour to sRGB, flatten alpha, strip metadata), copy videos unchanged, skip heuristic duplicates by filename/time plus equal byte length, show progress, write a detailed log.
 Drag-&-drop workflow: I drop a folder onto the .bat and find the normalized copy in Pictures.
 
 **Requirements**
@@ -123,14 +123,41 @@ decoder-exposed source count, one selected image and the omitted frames/pages/im
 Animation and omitted pages are not preserved in the JPEG. This deliberate still
 policy is informational and does not by itself change a successful exit code.
 
-For these sequence-capable formats, inspection and conversion use the same private
-copy in owned scratch, with source length/modification-time stability checks. The
-first-image define applies to this neutral input without appending a selector to a
-user filename. Only an animation's selected first image is coalesced onto its canvas,
-then orientation is applied. Counts describe images exposed by the installed decoder,
-not hidden thumbnails or a complete inventory of every item in a HEIF container.
-Decoder capability and local security policy still apply; an inspection failure
-fails that item rather than guessing a count or trying to write an image sequence.
+Every image is inspected and converted from the same private copy in owned
+scratch, with source length/modification-time stability checks. This temporarily
+requires room for the source bytes as well as the JPEG attempts and any inspected
+profiles. For sequence-capable formats, the first-image define applies to this
+neutral input without appending a selector to a user filename. Only an animation's
+selected first image is coalesced onto its canvas, then orientation is applied.
+Counts describe images exposed by the installed decoder, not hidden thumbnails or
+all items in a HEIF container. Decoder capability and local security policy still
+apply; an inspection failure fails that item rather than guessing its properties.
+
+Colour conversion happens while the source ICC profile is still attached. Tagged
+RGB and CMYK use that characterization to transform into sRGB through ImageMagick's
+colour-management delegate. The target profile is included in the script; no
+separately installed ICC file is needed. The requested rendering intent is relative
+colorimetric with black-point compensation disabled. A profile that supplies only
+a perceptual mapping may use the delegate's fallback; this is not a promise about
+all printing conditions or every profile's rendering intents.
+
+Untagged ordinary RGB is assumed to be sRGB. Explicit linear RGB and grayscale
+spaces use the decoder's declared transfer semantics when converting to sRGB.
+Untagged CMYK and unsupported unprofiled colour spaces fail with an explanation:
+the missing source characterization is not guessed. Malformed profiles, unsupported
+profile/channel models and reported native transform diagnostics fail the item,
+even when ImageMagick writes a decodable JPEG and returns zero. Other readable
+items can continue, with exit code 2 for the partial run. Profile checks establish
+basic structure/model consistency and an accepted native transform, rather than
+certifying arbitrary ICC contents or the source creator's characterization.
+
+After orientation and colour conversion, transparent pixels are composited onto
+white in encoded sRGB channels; fully transparent pixels become white. Every scale
+attempt retains the same profile, white-background and alpha operations. Only then
+are GPS/EXIF, XMP, IPTC, comments and source/target profiles stripped. Final JPEGs
+omit ICC after sRGB conversion, retaining the tool's metadata-removal policy. The
+log records the inspected source colour space, ICC presence and chosen policy.
+Original image bytes and embedded metadata remain untouched.
 
 Videos are copied into owned partial files. After the copy streams finish, the
 partial size and source length/modified time must match before finalization. Videos
@@ -162,9 +189,12 @@ It runs the .ps1 positionally (no named params), which is the safest path on Pow
 Keep the .bat and .ps1 in the same folder and with the same base name.
 
 **Technical details**
-ImageMagick is invoked with -auto-orient -strip -colorspace sRGB -sampling-factor 4:2:0 -interlace Line -define jpeg:extent=<bytes>.
-Alpha is flattened to white, a retry path omits alpha flags for formats that don’t need them.
-JPEG warnings like “Invalid SOS parameters for sequential JPEG” are suppressed (-quiet) and do not abort processing.
+ImageMagick applies auto-orientation, an embedded-ICC to sRGB transform (or the
+explicit untagged RGB/grayscale policy), white alpha compositing, then metadata
+stripping. JPEG settings remain -sampling-factor 4:2:0 -interlace Line and
+-define jpeg:extent=<bytes>. The six scale attempts remain 100→50%; retries retain
+all colour and alpha operations. Strict source inspection, successful native
+outcomes with no reported diagnostics and full JPEG decode precede finalization.
 Output file timestamps are set to the source file’s timestamps.
 
 **Tweaks (optional)**
@@ -175,7 +205,7 @@ Dimension ceiling: add an explicit -resize rule (for example -resize "1920x1920>
 **Troubleshooting**
 “magick not found” -> Install ImageMagick 7.1.2-32 or newer supported 7.x and ensure magick.exe is in PATH. Test with magick -version.
 PS 5.1 “Parameter set cannot be resolved” → Always launch via the provided .bat (positional args) or call the .ps1 with positional arguments only.
-Lots of JPEG warnings -> Expected for some camera apps; the script runs ImageMagick with -quiet and continues. Check the log for per-file results.
+Colour/profile errors -> Check the per-file log. Untagged CMYK needs a correctly profiled source; malformed or incompatible profiles are not silently converted. Originals remain intact.
 No outputs -> See the log file in the destination for errors (permissions, unreadable files, ...).
 Very noisy images won’t reach ≤ 1 MB → They’ll be saved best-effort and flagged in the log.
 

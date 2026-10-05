@@ -1,59 +1,74 @@
 # Next session handoff
 
-Next task: **M2-T02 — Convert colour profiles before metadata removal**.
-M2-T01 is complete. Begin only M2-T02 when next requested.
+Next task: **M2-T03 — Make filesystem and native filename handling literal-safe**.
+M2-T02 is complete. Begin only M2-T03 when next requested.
 
 Use C:/projects/WinImgNormalizer on codex/winimg-hardening; WinImgNormalizer-main
 is the preserved non-Git snapshot. Read AGENTS.md, STATUS.md, TASKS.json,
-GIT_WORKFLOW.md, tasks/M2-T02.md and its referenced implementation/fixture/source
-requirements for T032-T036. Recheck clean state, canonical fetch/push URLs and exact
+GIT_WORKFLOW.md, tasks/M2-T03.md, IMPLEMENTATION_SPEC.md and TEST_MATRIX.md,
+including T037-T039. Recheck clean state, canonical fetch/push URLs and exact
 advertised feature SHA before editing.
-Tested runtime/tests implementation: d64a9034ff0b4324b2515900fdf8b4cb82f80bbb.
+Tested runtime/tests implementation: a30c456594a31368294588cc198444b38bc3e0e3.
 Final evidence-checkpoint SHA/live sync is reported externally in the preceding
-response and draft PR #10; verify it independently again at session start.
+response and draft PR #11; verify it independently again at session start.
 
-GIF/TIF/TIFF/WebP/HEIC/HEIF inspection and conversion read the same exclusively
-created owned snapshot with a neutral source basename and original extension.
-Source regular-file/reparse checks and length/modification-time checks surround
-the copy, and copied length must match. External snapshot arrivals and unknown
-neighboring files are preserved; exact owned snapshots follow existing cleanup and
-partial-warning rules.
+Every eligible image is copied once into a stable owned neutral snapshot;
+frame/page inspection, source colour inspection and all conversion attempts use
+those same preserved source bytes. Strict native inspection clears conflicting
+free-form profile/colorspace properties without stripping actual ICC
+characterization.
 
-A separate successful identify -ping probe counts every decoder-exposed image and
-rejects malformed, inconsistent or ambiguous count/format/dimension observations.
-Conversion selects image:frames=0 before the owned native input. Only actual
-decoded GIF/WebP follows FirstDisplayedFrame coalescing onto its logical canvas;
-+repage and existing auto-orientation follow. TIFF keeps one first page without
-stacking; HEIC/HEIF keeps the decoder's primary/first image. Each finalized output
-still must fully decode as one nonempty JPEG at the exact planned path.
+Tagged sources retain their source ICC through owned exact extraction and bounded
+header/tag/model checks, then transform to a hash-verified embedded CC0 sRGB-v4
+target. Requested Relative intent explicitly disables black-point compensation.
+Decoded untagged sRGB is assumed sRGB; native linear RGB and gray are converted
+explicitly. Untagged CMYK without source characterization is rejected with a
+source-preserving partial error.
 
-SOURCE IMG records source count, selected count 1, omitted count, unit, policy and
-actual decoder. Deliberate omission is the normal informational static-output
-policy and retains exit 0 on successful runs. Source bytes/times, mirrored naming,
-no-overwrite finalization, verified videos, success-based heuristic duplicate
-links, size cap/scales/JPEG flags and public BAT/positional forms retain their
-established behavior. The bootstrap, dependency pins and workflow were not
-changed.
+Auto-orientation precedes colour conversion. RGB transforms precede compositing
+over white in encoded sRGB; alpha is then disabled and
+ICC/EXIF/GPS/XMP/IPTC/comments are removed. Every 100, 90, 80, 70, 60 and 50
+percent attempt uses that same order and white-alpha policy. The inherited
+alpha-dropping 100-percent retry is removed so a retry cannot change the
+background policy.
 
-Decision D24 records the scoped frame/page policy. Frame/page counts and deliberate omissions remain visible.
-Actual codec/sequence observations are in M2-T01.json; do not infer arbitrary HEIC
-sequence support from a codec name or static decode. Covered M1 source preservation,
-two-run isolation, deterministic collision plan, validated transactional finalization
-and exact owned cleanup remain mandatory combined regressions.
+Malformed/mismatched profiles, ambiguous inspection and nonempty native diagnostic
+output cannot claim accurate successful conversion. Existing transactional full
+single-JPEG validation and no-overwrite finalization still decide whether output
+is retained; later valid files continue after a source error, and exact owned
+cleanup preserves unrelated entries.
 
-M2-T02 must inspect embedded ICC profiles before stripping, convert known tagged
-colour into sRGB through a verified profile-aware path, and only then apply the
-privacy metadata policy. Define tagged/untagged RGB and CMYK behavior, alpha order,
-malformed profiles and the output profile policy; preserve auto-orientation and the
-declared first-frame/page selection. Use licensed, provenance-recorded reference
-profiles/fixtures and tolerant colour-managed comparisons. Remove GPS/EXIF/XMP/IPTC
-and unwanted profiles under the declared policy; keep uncertain cases visible.
-Do not begin later size/native argv/lifecycle/cancellation/report/publication tasks.
+The established positional/BAT interface, 1,048,576-byte default, scale sequence
+and best-effort boundary, first-frame/page selection with informational omissions,
+mirrored naming, source preservation, copied videos and success-only duplicate
+links remain the regression baseline. No runtime dependency or dependency pin
+changes; the runtime target profile is embedded rather than downloaded.
 
-Desktop PS 5.1/PS 7 passed 185/185, zero skipped. Controls each 186 total,
-185 passed, one T007 false assertion, exit 1. Push/PR Windows Server matrices
-passed at the implementation SHA. Exact raw/Git bindings, versions, codec evidence,
-saved artifacts, histories and internal review are in the two M2-T01 evidence files.
+Three CC0 source/target profiles and an optional reproducible independent Pillow
+12.3.0/LittleCMS 2.19 recipe provide synthetic references. Mandatory tests use
+checked reference data, with distinct 3/255 pre-JPEG and 12/255 JPEG interior
+patch tolerances, and require the actual T032-T036
+RGB/CMYK/malformed-ICC/orientation/metadata/alpha cases.
+
+Decision D25 records the tested colour/profile and metadata policy. Keep source/profile/metadata preservation and privacy policy honest.
+M1 transactional safety and M2-T01 frame/page selection remain mandatory combined
+regressions; actual HEIC still-collection evidence does not establish timed animation.
+
+M2-T03 must verify both PowerShell argv and ImageMagick input/output grammar at real
+Windows paths. Exercise percent/brackets, quoted spaces, ampersands, apostrophes,
+Unicode and supported long/UNC/root boundaries through direct calls and the batch
+launcher. Use neutral owned staging or supported literal behavior where needed;
+never append unexamined selectors, strip literal identity, truncate paths or
+introduce shell evaluation. Document unsupported path environments clearly without
+source mutation. Preserve the colour transform, alpha order, metadata policy,
+orientation and explicit first-frame/page selection.
+Do not begin later size quality, process lifecycle, cancellation, reporting or release work.
+
+Desktop PS 5.1/PS 7 passed 210/210, zero skipped. Controls each 211 total,
+210 passed, one T007 false assertion, exit 1. Push/PR Windows Server matrices
+passed at the implementation SHA. Exact raw/Git bindings, actual environments,
+reference/provenance/tolerance evidence, artifacts and internal review are in the
+two M2-T02 evidence files.
 
 Commands, separately in each fresh Windows shell:
 
@@ -65,31 +80,35 @@ Commands, separately in each fresh Windows shell:
 
 Pinned development bootstrap reuses verified archives or explicitly downloads only
 to ignored scratch; no installer/runtime bootstrap/persistent PATH or policy change.
-Children clear inherited PSModulePath; never redefine USERPROFILE. Keep media,
-tools and raw artifacts ignored, and retain real failures rather than weakening tests.
+Children clear inherited PSModulePath; never redefine USERPROFILE. Keep private
+media, tools and raw artifacts ignored, and preserve genuine failures for diagnosis.
 
-Actual T031 HEIC/HEIF evidence is a genuine two-image top-level still collection
-through two aliases. Timed HEIC animation, thumbnails, auxiliary images and
-arbitrary codec builds remain unverified; container counts describe only images
-exposed by the pinned decoder. The pinned native build reads HEIC/HEIF but cannot
-generate the fixture; one verified official development wheel produced the
-synthetic bytes in ignored scratch, with no installation, runtime/CI generator
-dependency or distributed generator binary.
+The selected CGATS001Compat CMYK profile contains only an A2B0 perceptual forward
+display mapping. Requested Relative intent uses LittleCMS fallback to that
+available mapping; evidence covers this source fixture rather than general
+relative-colorimetric printing accuracy, all rendering intents or reverse CMYK
+conversion.
 
-Snapshot length/modification-time checks and duplicate keys are stability
-heuristics, not proof of content identity. General native argument/input-grammar
-safety and source changes retaining identical metadata remain outside this narrow
-neutral-snapshot policy. Owned cleanup deliberately preserves unknown entries and
-may return partial exit 2 after a valid JPEG has finalized.
+The ICC guard checks bounded structure and decoded model consistency, not complete
+ICC semantic conformance. Synthetic patch and metadata fixtures do not prove
+arbitrary ICC profiles, every codec, production photography or subjective owner
+quality.
 
-Tagged colour/profile conversion before metadata removal is next M2-T02. Broader
-alpha/colour/reference fidelity, size-search quality, process timeout/resource
-budgets, cancellation, reporting and publication remain later tasks. Automated
-internal peer review does not grant owner aesthetic acceptance or authorize merge,
-release, deployment, tags or default-branch changes.
+Length/modification checks remain a source stability heuristic rather than content
+identity. Duplicate matching remains the documented same-name/time/length
+heuristic; mandatory hashing, content databases and original removal remain
+excluded.
 
-Keep the feature branch and draft PR #10; if the owner merged it, inspect exact
+Actual HEIC/HEIF coverage retains the two-image still collection from M2-T01.
+Timed HEIC animation, thumbnails and auxiliary-image behavior remain unverified.
+
+General literal-safe filenames, supported long/UNC/root boundaries,
+process/resource/cancellation controls, later quality/reporting/release work and
+owner aesthetic/default acceptance remain later explicit gates. No merge, tag,
+release, website deployment or owner quality approval is implied.
+
+Keep the feature branch and draft PR #11; if the owner merged it, inspect exact
 remote/tree identity and create one successor draft without rewriting history.
 Normal scoped feature commits/pushes remain authorized; merge/default-branch changes,
-tags/releases/settings/deployment and owner quality approval are separate gates.
-Stop after M2-T01; begin M2-T02 only when next requested.
+tags/releases/settings/deployment and owner quality approval remain separate gates.
+Stop after M2-T02; begin M2-T03 only when next requested.

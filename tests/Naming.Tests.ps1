@@ -299,7 +299,9 @@ Describe 'M1-T03 collision integration and final-arrival preservation (T017-T019
         }
         $result = Invoke-NamingRun -Source $source -OutputParent $parent -ProcessRunner $runner
         $result.Code | Should -Be 2
-        $trace.Allocations | Should -Be 2
+        # The first source snapshot allocation fails; the later image receives
+        # its own source snapshot and separate JPEG candidate allocation.
+        $trace.Allocations | Should -Be 3
         $trace.Conversions | Should -Be 1
         $run = Get-NamingRun $parent
         Test-Path -LiteralPath (Join-Path $run 'first.jpeg') | Should -BeFalse
@@ -392,16 +394,26 @@ Describe 'M1-T03 collision integration and final-arrival preservation (T017-T019
         Mock Get-WinImgSourceImageInfo {
             return [pscustomobject]@{ SourceCount = 1; Omitted = 0; Unit = 'Images'; Policy = 'DecoderPrimaryOrFirstImage'; Decoder = 'HEIC' }
         }
+        Mock Get-WinImgColourInfo {
+            return [pscustomobject]@{ ColourSpace = 'sRGB'; HasIcc = $false; Policy = 'AssumeSrgb' }
+        }
         $trace = New-Object 'Collections.Generic.List[string]'
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
-            $trace.Add($Arguments[1])
+            $inputIndex = if ($Arguments[2] -eq '-define') { 4 } else { 2 }
+            $trace.Add($Arguments[$inputIndex])
             [IO.File]::WriteAllBytes($Arguments[-1].Substring('JPEG:'.Length), $jpegBytes)
             return 0
         }
         $result = Invoke-NamingRun -Source $source -OutputParent $parent -ProcessRunner $runner
         $result.Code | Should -Be 0 -Because $result.Text
         $trace.Count | Should -Be 3
+        foreach ($inputPath in $trace) {
+            $snapshotPath = ConvertFrom-NamingNativePath $inputPath
+            $snapshotPath.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
+            [IO.Path]::GetFileNameWithoutExtension($snapshotPath) | Should -Be 'source'
+            Test-Path -LiteralPath $snapshotPath | Should -BeFalse
+        }
         $run = Get-NamingRun $parent
         foreach ($extension in @('heic', 'jpg', 'png')) {
             $target = Join-Path $run ('photo__' + $extension + '.jpeg')
