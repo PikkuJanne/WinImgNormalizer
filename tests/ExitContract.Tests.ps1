@@ -30,14 +30,22 @@ BeforeAll {
     $imagePin = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'legacy/toolchain.json') -Raw | ConvertFrom-Json
     (Get-FileHash -LiteralPath $magick).Hash.ToLowerInvariant() | Should -Be $imagePin.portable_imagemagick.executable_sha256
     $hostExecutable = (Get-Process -Id $PID).Path
+    $consoleFixtureSource = Join-Path $PSScriptRoot 'fixtures/LauncherConsoleFixture.cs'
+    $consoleFixtureCompiler = Join-Path $env:SystemRoot 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
+    $consoleFixtureExecutable = Join-Path $ownedRoot 'LauncherConsoleFixture.exe'
+    Assert-ExitAncestors $consoleFixtureSource; Assert-ExitAncestors $consoleFixtureCompiler
+    if (-not [IO.File]::Exists($consoleFixtureSource) -or -not [IO.File]::Exists($consoleFixtureCompiler)) { throw 'Shared console fixture source and existing Windows Framework compiler required.' }
     $fixed = [DateTime]::Parse('2019-04-05T06:07:08Z').ToUniversalTime()
     $observations = New-Object 'Collections.Generic.List[object]'
     function Get-ExitBindings {
-        foreach ($path in @($application, $launcher, (Join-Path $PSScriptRoot 'ExitContract.Tests.ps1'), $magick)) {
+        foreach ($path in @($application, $launcher, (Join-Path $PSScriptRoot 'ExitContract.Tests.ps1'), $consoleFixtureSource, $consoleFixtureCompiler, $magick)) {
             [pscustomobject]@{ Path = $path; Sha256 = (Get-FileHash -LiteralPath $path).Hash.ToLowerInvariant() }
         }
     }
     $bindingsBefore = @(Get-ExitBindings)
+    & $consoleFixtureCompiler /nologo /target:winexe /reference:System.Web.Extensions.dll ('/out:' + $consoleFixtureExecutable) $consoleFixtureSource *> (Join-Path $ownedRoot 'console-fixture-compiler.log')
+    if ($LASTEXITCODE -ne 0) { throw 'Shared hidden console fixture compilation failed.' }
+    $consoleFixtureExecutableHash = (Get-FileHash -LiteralPath $consoleFixtureExecutable).Hash.ToLowerInvariant()
     $policyBefore = @(Get-ExecutionPolicy -List | Where-Object Scope -ne Process | ForEach-Object { $_.Scope.ToString() + '=' + $_.ExecutionPolicy.ToString() }) -join '|'
     function New-ExitDirectory([string]$Relative) {
         $path = [IO.Path]::GetFullPath((Join-Path $ownedRoot $Relative))
@@ -201,12 +209,21 @@ exit $code
             $start.FileName = Join-Path $env:SystemRoot 'System32/cmd.exe'
             $start.Arguments = '/d /s /c ""' + $batchPath + '" "' + $Case.Source + '""'
             $start.RedirectStandardInput = $true
+            # The fixture owns a hidden private console and gives the unchanged
+            # CMD/BAT actual console stdin. Its main process waits only for CMD;
+            # the background key reader cannot manufacture a blocked pause.
+            $start.EnvironmentVariables['WINIMG_TEST_PRIVATE_CONSOLE_CMD'] = $start.FileName
+            $start.EnvironmentVariables['WINIMG_TEST_PRIVATE_CONSOLE_ARGUMENTS'] = $start.Arguments
+            $start.EnvironmentVariables['WINIMG_TEST_PRIVATE_CONSOLE_RECORD'] = Join-Path $Case.Work 'private-console.json'
+            $start.FileName = $consoleFixtureExecutable
+            $start.Arguments = ''
         } else {
             $start.FileName = $hostExecutable
             $tokens = @('-NoLogo', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', $Case.Driver) + $Case.Arguments
             $start.Arguments = ($tokens | ForEach-Object { ConvertTo-ExitWindowsArgument ([string]$_) }) -join ' '
         }
         $start.WorkingDirectory = $Case.Work; $start.UseShellExecute = $false; $start.CreateNoWindow = $true
+        $start.WindowStyle = [Diagnostics.ProcessWindowStyle]::Hidden
         $start.RedirectStandardOutput = $true; $start.RedirectStandardError = $true
         foreach ($key in @($start.EnvironmentVariables.Keys)) {
             if ([string]::Equals([string]$key, 'PSModulePath', [StringComparison]::OrdinalIgnoreCase)) { $start.EnvironmentVariables.Remove([string]$key) }
@@ -242,8 +259,14 @@ exit $code
                 $process.StandardInput.WriteLine('x'); $process.StandardInput.Flush(); $process.StandardInput.Close()
             }
             if (-not $process.WaitForExit(45000)) {
-                & (Join-Path $env:SystemRoot 'System32/taskkill.exe') /PID $process.Id /T /F 2>&1 | Out-Null
-                if (-not $process.WaitForExit(5000)) { $process.Kill() }
+                if ($Batch) {
+                    # Terminate this exact fixture handle. Its private job owns
+                    # CMD and descendants and closes when the fixture exits.
+                    $process.Kill(); $null = $process.WaitForExit(5000)
+                } else {
+                    & (Join-Path $env:SystemRoot 'System32/taskkill.exe') /PID $process.Id /T /F 2>&1 | Out-Null
+                    if (-not $process.WaitForExit(5000)) { $process.Kill() }
+                }
                 throw 'Owned exit-contract child exceeded its 45-second bound.'
             }
             if (-not $stdout.Wait(5000) -or -not $stderr.Wait(5000)) { throw 'Exit-contract child streams did not finish.' }
@@ -253,14 +276,18 @@ exit $code
             $record = [pscustomobject]@{ Batch = [bool]$Batch; Mode = $Case.Mode; ExitCode = $process.ExitCode; StdOut = $out; StdErr = $err;
                 ChildState = if ([IO.File]::Exists($Case.StatePath)) { Get-Content -LiteralPath $Case.StatePath -Raw | ConvertFrom-Json } else { $null };
                 Executable = $start.FileName; Arguments = $start.Arguments; Work = $Case.Work;
+                ConsoleFixtureRecord = if ($Batch -and [IO.File]::Exists((Join-Path $Case.Work 'private-console.json'))) { Get-Content -LiteralPath (Join-Path $Case.Work 'private-console.json') -Raw | ConvertFrom-Json } else { $null };
                 PauseWasPending = $pauseWasPending; DriverExitedBeforePauseRelease = $driverExitedBeforePauseRelease;
                 DriverSha256 = (Get-FileHash -LiteralPath $Case.Driver).Hash; SourceBefore = $Case.Before; SourceAfter = Get-ExitSourceState $Case.Source }
             $observations.Add($record)
             return $record
         } finally {
             if ($process.Id -and -not $process.HasExited) {
-                & (Join-Path $env:SystemRoot 'System32/taskkill.exe') /PID $process.Id /T /F 2>&1 | Out-Null
-                $null = $process.WaitForExit(5000)
+                if ($Batch) { $process.Kill(); $null = $process.WaitForExit(5000) }
+                else {
+                    & (Join-Path $env:SystemRoot 'System32/taskkill.exe') /PID $process.Id /T /F 2>&1 | Out-Null
+                    $null = $process.WaitForExit(5000)
+                }
             }
             $process.Dispose()
         }
@@ -279,6 +306,16 @@ exit $code
             $Result.ChildState.HostVersion | Should -Match '^5\.1\.'
             $Result.PauseWasPending | Should -BeTrue
             $Result.DriverExitedBeforePauseRelease | Should -BeTrue
+            $Result.ConsoleFixtureRecord | Should -Not -BeNullOrEmpty
+            $Result.ConsoleFixtureRecord.PrivateConsoleAllocated | Should -BeTrue
+            $Result.ConsoleFixtureRecord.PrivateJobAssignedBeforeCmd | Should -BeTrue
+            $Result.ConsoleFixtureRecord.HarnessError | Should -BeNullOrEmpty
+            $Result.ConsoleFixtureRecord.ExitCode | Should -Be $ExpectedCode
+            $Result.ConsoleFixtureRecord.ControllerExitCode | Should -Be $ExpectedCode
+            $Result.ConsoleFixtureRecord.KeyRecordsWritten | Should -Be 2
+            @($Result.ConsoleFixtureRecord.MembersBeforeKey).Count | Should -Be 2
+            $Result.ConsoleFixtureRecord.MembersBeforeKey | Should -Contain $Result.ConsoleFixtureRecord.CmdId
+            $Result.ConsoleFixtureRecord.MembersBeforeKey | Should -Contain $Result.ConsoleFixtureRecord.ControllerId
         } else {
             $Result.ChildState.HostEdition | Should -Be $PSVersionTable.PSEdition
             $Result.ChildState.HostVersion | Should -Be $PSVersionTable.PSVersion.ToString()
@@ -409,13 +446,15 @@ AfterAll {
     $record = [ordered]@{ SchemaVersion = 1; Task = 'M3-T05'; ObservedAtUtc = [DateTime]::UtcNow.ToString('o');
         HostExecutable = $hostExecutable; HostVersion = $PSVersionTable.PSVersion.ToString(); HostEdition = $PSVersionTable.PSEdition;
         BindingsBefore = $bindingsBefore; BindingsAfter = $bindingsAfter; PolicyBefore = $policyBefore; PolicyAfter = $policyAfter;
+        ConsoleFixtureExecutableSha256 = $consoleFixtureExecutableHash;
         Observations = @($observations.ToArray());
         Limitations = @('Driver calls unchanged application Command with an owned OutputParent; production entry with real Pictures is not executed.',
             'Cancellation and unexpected run-level throw are controlled callbacks; actual native host exit, video copy, corrupt-image failure, retained outputs and cleanup are asserted.',
-            'BAT is copied byte-for-byte beside the safe application driver and invokes its existing actual PS5.1 host. Redirected CRLF releases its real pause; no physical desktop drag event is claimed.',
+            'BAT is copied byte-for-byte beside the safe application driver and invokes its existing actual PS5.1 host. A shared test-only hidden private console supplies two key records only to its owned CMD after the application host exits and the real pause is observed. No physical desktop drag event is claimed.',
             'Profile inventory and persistent policy equality are observations. No existing profile or global policy is changed.') }
     [IO.File]::WriteAllText((Join-Path $ownedRoot 'observations.json'), (ConvertTo-Json -InputObject $record -Depth 18), [Text.UTF8Encoding]::new($false))
     Write-Host ('Owned M3-T05 exit observations: ' + (Join-Path $ownedRoot 'observations.json'))
     (ConvertTo-Json -InputObject $bindingsAfter -Depth 4 -Compress) | Should -BeExactly (ConvertTo-Json -InputObject $bindingsBefore -Depth 4 -Compress)
+    (Get-FileHash -LiteralPath $consoleFixtureExecutable).Hash.ToLowerInvariant() | Should -BeExactly $consoleFixtureExecutableHash
     $policyAfter | Should -BeExactly $policyBefore
 }

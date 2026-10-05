@@ -82,6 +82,14 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'ImageMagick version command failed.' }
     $summary.imagemagick_version_output = $imageVersion
     $summary.script_analyzer_versions_available = @(Get-Module PSScriptAnalyzer -ListAvailable | ForEach-Object { $_.Version.ToString() })
+    # Existing Windows Framework compiler used only by the private-console fixture.
+    $fixtureCompiler = Join-Path $env:SystemRoot 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
+    if (Test-Path -LiteralPath $fixtureCompiler -PathType Leaf) {
+        $summary.test_fixture_compiler = [ordered]@{
+            file_version = ([Diagnostics.FileVersionInfo]::GetVersionInfo($fixtureCompiler)).FileVersion
+            sha256 = (Get-FileHash -LiteralPath $fixtureCompiler -Algorithm SHA256).Hash.ToLowerInvariant()
+        }
+    }
     [Environment]::SetEnvironmentVariable('WINIMG_TEST_MAGICK', $dependencies.MagickPath, 'Process')
     Write-Host ('Windows PowerShell host: {0} {1}; Pester: {2}; OS: {3}; {4}-bit; locale: {5}' -f $PSVersionTable.PSEdition, $summary.powershell_version, $summary.pester_version, $summary.os_version, $summary.architecture_bits, $summary.culture)
     $imageVersion | ForEach-Object { Write-Host $_ }
@@ -123,6 +131,7 @@ try {
         $files += @(Get-ChildItem -LiteralPath $colourFixtureRoot -Recurse -File -Force | ForEach-Object { $_.FullName })
         # Bind the procedural size/quality measurement recipe with the gate.
         $files += Join-Path $PSScriptRoot 'Measure-SizeQuality.ps1'
+        $files += Join-Path $PSScriptRoot 'fixtures/LauncherConsoleFixture.cs'
         foreach ($testPath in $Path) {
             if (Test-Path -LiteralPath $testPath -PathType Container) {
                 $files += @(Get-ChildItem -LiteralPath $testPath -Recurse -Filter '*.Tests.ps1' | ForEach-Object { $_.FullName })

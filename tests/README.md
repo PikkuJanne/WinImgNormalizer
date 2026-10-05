@@ -412,3 +412,15 @@ Command in a safe -File driver with internal scratch output/dependency paths,
 including genuine media processing and controlled cancellation/run-level faults.
 These controlled seams are identified in the test names and evidence. They do not
 claim a physical Explorer gesture or owner workflow approval; that remains M3-T07.
+
+The pause checks compile `fixtures/LauncherConsoleFixture.cs` with the existing
+Windows .NET Framework compiler into owned ignored scratch. This test-only fixture
+gives CMD a hidden private console, forwards its actual output and native exit, and
+sends key records only after observing the blocked pause. A readiness marker binds
+the owned CMD identity. A separate command must exit 37 promptly while parent input
+remains open and without any key, so fixture waiting cannot manufacture a pause.
+The fixture assigns itself to a private kill-on-close job before creating CMD;
+bounded timeout cleanup uses the exact fixture process handle. The runner records
+source/compiler hashes and compiler version. This adds no application dependency.
+Initial hosted PS5.1 redirected-input pause failures are retained in task evidence;
+their underlying host difference was not independently reproduced on the desktop.

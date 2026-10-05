@@ -3,6 +3,7 @@ BeforeAll {
     $repository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
     $launcher = Join-Path $repository 'WinImgNormalizer.bat'
     $suitePath = Join-Path $PSScriptRoot 'Launcher.Tests.ps1'
+    $fixtureSource = Join-Path $PSScriptRoot 'fixtures/LauncherConsoleFixture.cs'
     $scratch = [IO.Path]::GetFullPath((Join-Path $repository '.scratch'))
 
     function Assert-LauncherNoReparseAncestors([string]$Path) {
@@ -33,12 +34,24 @@ BeforeAll {
     [IO.File]::WriteAllText((Join-Path $ownedRoot 'fixture-owner.txt'), 'Owned synthetic Windows launcher fixtures; no real Pictures, persistent environment/policy change or recursive cleanup.', [Text.UTF8Encoding]::new($false))
     $observations = New-Object 'Collections.Generic.List[object]'
     $productionBytes = [IO.File]::ReadAllBytes($launcher)
-    $bindingsBefore = @($launcher, $suitePath) | ForEach-Object {
+    $bindingsBefore = @($launcher, $suitePath, $fixtureSource) | ForEach-Object {
         [pscustomobject]@{ Path = $_.Substring($repository.Length + 1).Replace('\', '/'); Sha256 = (Get-FileHash -LiteralPath $_ -Algorithm SHA256).Hash.ToLowerInvariant() }
     }
     $cmd = Join-Path $env:SystemRoot 'System32/cmd.exe'
     $legacyHost = Join-Path $env:SystemRoot 'System32/WindowsPowerShell/v1.0/powershell.exe'
     if (-not [IO.File]::Exists($cmd) -or -not [IO.File]::Exists($legacyHost)) { throw 'Required Windows launcher hosts are missing.' }
+    $fixtureCompiler = Join-Path $env:SystemRoot 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
+    if (-not [IO.File]::Exists($fixtureCompiler)) { throw 'The existing Windows Framework compiler is required for the owned console fixture.' }
+    $consoleFixture = Join-Path $ownedRoot 'LauncherConsoleFixture.exe'
+    & $fixtureCompiler /nologo /target:winexe /reference:System.Web.Extensions.dll ('/out:' + $consoleFixture) $fixtureSource *> (Join-Path $ownedRoot 'fixture-compiler.log')
+    if ($LASTEXITCODE -ne 0 -or -not [IO.File]::Exists($consoleFixture)) { throw 'The owned console fixture did not compile.' }
+    $fixtureBinding = [ordered]@{
+        SourceSha256 = (Get-FileHash -LiteralPath $fixtureSource -Algorithm SHA256).Hash.ToLowerInvariant()
+        CompilerSha256 = (Get-FileHash -LiteralPath $fixtureCompiler -Algorithm SHA256).Hash.ToLowerInvariant()
+        CompilerFileVersion = [Diagnostics.FileVersionInfo]::GetVersionInfo($fixtureCompiler).FileVersion
+        ExecutableSha256 = (Get-FileHash -LiteralPath $consoleFixture -Algorithm SHA256).Hash.ToLowerInvariant()
+    }
+    [IO.File]::WriteAllText((Join-Path $ownedRoot 'fixture-binding.json'), ($fixtureBinding | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
 
     function Get-LauncherSecurityState {
         [pscustomobject]@{
@@ -127,9 +140,10 @@ exit ([int]$env:WINIMG_LAUNCHER_CODE)
     }
 
     function Invoke-LauncherChild {
-        param($Case, [string[]]$Arguments, [int]$Code = 0, [switch]$ExpectDriver, [switch]$VerifyPause, [hashtable]$Environment)
+        param($Case, [string[]]$Arguments, [int]$Code = 0, [switch]$ExpectDriver, [switch]$VerifyPause, [hashtable]$Environment,
+            [string]$CommandLine, [switch]$LeaveInputOpen, [int]$PauseObservationMilliseconds = 300)
         $start = New-Object Diagnostics.ProcessStartInfo
-        $start.FileName = $cmd
+        $start.FileName = $consoleFixture
         # CMD expands each environment reference once; literal percent signs in
         # the resulting value are not re-expanded. CALL would add another parse.
         $command = '"%WINIMG_LAUNCHER_BAT%"'
@@ -144,10 +158,13 @@ exit ([int]$env:WINIMG_LAUNCHER_CODE)
                 $command += ' "%' + $key + '%"'
             }
         }
-        $start.Arguments = '/d /v:off /s /c "' + $command + '"'
+        $cmdArguments = '/d /v:off /s /c "' + $command + '"'
+        if ($CommandLine) { $cmdArguments = $CommandLine }
+        $start.Arguments = ''
         $start.WorkingDirectory = $Case.Root
         $start.UseShellExecute = $false
         $start.CreateNoWindow = $true
+        $start.WindowStyle = [Diagnostics.ProcessWindowStyle]::Hidden
         $start.RedirectStandardInput = $true
         $start.RedirectStandardOutput = $true
         $start.RedirectStandardError = $true
@@ -164,6 +181,10 @@ exit ([int]$env:WINIMG_LAUNCHER_CODE)
         $start.EnvironmentVariables['WINIMG_LAUNCHER_CODE'] = [string]$Code
         $start.EnvironmentVariables['WINIMG_TEST_PERCENT'] = 'MUST-NOT-EXPAND-PERCENT'
         $start.EnvironmentVariables['WINIMG_TEST_BANG'] = 'MUST-NOT-EXPAND-BANG'
+        $consoleRecord = Join-Path $Case.Root 'private-console-observation.json'
+        $start.EnvironmentVariables['WINIMG_TEST_PRIVATE_CONSOLE_CMD'] = $cmd
+        $start.EnvironmentVariables['WINIMG_TEST_PRIVATE_CONSOLE_ARGUMENTS'] = $cmdArguments
+        $start.EnvironmentVariables['WINIMG_TEST_PRIVATE_CONSOLE_RECORD'] = $consoleRecord
         if ($Environment) {
             foreach ($key in $Environment.Keys) { $start.EnvironmentVariables[[string]$key] = [string]$Environment[$key] }
         }
@@ -177,6 +198,13 @@ exit ([int]$env:WINIMG_LAUNCHER_CODE)
             $started = $true
             $stdout = $process.StandardOutput.ReadToEndAsync()
             $stderr = $process.StandardError.ReadToEndAsync()
+            $readinessClock = [Diagnostics.Stopwatch]::StartNew()
+            while (-not [IO.File]::Exists($consoleRecord + '.ready') -and -not $process.HasExited -and $readinessClock.ElapsedMilliseconds -lt 15000) { Start-Sleep -Milliseconds 20 }
+            if (-not [IO.File]::Exists($consoleRecord + '.ready')) { throw 'Owned CMD console readiness marker is missing.' }
+            $consoleIdentity = [IO.File]::ReadAllText($consoleRecord + '.identity.json') | ConvertFrom-Json
+            $consoleIdentity.ControllerId | Should -Be $process.Id
+            $consoleIdentity.PrivateConsoleAllocated | Should -BeTrue
+            $consoleIdentity.PrivateJobAssignedBeforeCmd | Should -BeTrue
             if ($ExpectDriver) {
                 $clock = [Diagnostics.Stopwatch]::StartNew()
                 while (-not [IO.File]::Exists($Case.Record + '.ready') -and -not $process.HasExited -and $clock.ElapsedMilliseconds -lt 15000) { Start-Sleep -Milliseconds 20 }
@@ -196,22 +224,37 @@ exit ([int]$env:WINIMG_LAUNCHER_CODE)
                     if ($sameDriver) { throw 'Synthetic PowerShell driver did not exit within its readiness bound.' }
                 }
             }
-            if ($VerifyPause) { $pauseObserved = -not $process.WaitForExit(300) }
-            if (-not $process.HasExited) {
+            if ($VerifyPause) { $pauseObserved = -not $process.WaitForExit($PauseObservationMilliseconds) }
+            if (-not $process.HasExited -and -not $LeaveInputOpen) {
                 $process.StandardInput.WriteLine('x')
                 $process.StandardInput.Flush()
                 $process.StandardInput.Close()
             }
             if (-not $process.WaitForExit(15000)) { throw 'Owned CMD launcher child exceeded its 15-second completion bound.' }
             if (-not $stdout.Wait(5000) -or -not $stderr.Wait(5000)) { throw 'Owned CMD launcher streams did not finish.' }
-            $result = [pscustomobject]@{ ExitCode = $process.ExitCode; StdOut = $stdout.GetAwaiter().GetResult(); StdErr = $stderr.GetAwaiter().GetResult(); PauseObserved = $pauseObserved; Driver = $driver }
-            $observations.Add([pscustomobject]@{ Case = $Case.Root; Arguments = @($Arguments); RequestedCode = $Code; Result = $result; ProductionBatSha256 = $bindingsBefore[0].Sha256 })
+            if (-not [IO.File]::Exists($consoleRecord)) { throw 'Owned console fixture observation is missing.' }
+            $consoleObservation = [IO.File]::ReadAllText($consoleRecord) | ConvertFrom-Json
+            $consoleObservation.HarnessError | Should -BeNullOrEmpty
+            $consoleObservation.PrivateConsoleAllocated | Should -BeTrue
+            $consoleObservation.PrivateJobAssignedBeforeCmd | Should -BeTrue
+            $consoleObservation.ExitCode | Should -Be $process.ExitCode
+            $consoleObservation.ControllerExitCode | Should -Be $process.ExitCode
+            if (-not $LeaveInputOpen) {
+                $consoleObservation.KeyRecordsWritten | Should -Be 2
+                @($consoleObservation.MembersBeforeKey).Count | Should -Be 2
+                @($consoleObservation.MembersBeforeKey) | Should -Contain $consoleObservation.ControllerId
+                @($consoleObservation.MembersBeforeKey) | Should -Contain $consoleObservation.CmdId
+            }
+            $result = [pscustomobject]@{ ExitCode = $process.ExitCode; StdOut = $stdout.GetAwaiter().GetResult(); StdErr = $stderr.GetAwaiter().GetResult(); PauseObserved = $pauseObserved; Driver = $driver; ConsoleFixture = $consoleObservation }
+            $observations.Add([pscustomobject]@{ Case = $Case.Root; Arguments = @($Arguments); RequestedCode = $Code; Result = $result; ProductionBatSha256 = $bindingsBefore[0].Sha256; ProductionBatInvoked = (-not $CommandLine); FixtureBinding = $fixtureBinding })
             [IO.File]::WriteAllText((Join-Path $Case.Root 'launcher-result.json'), ($result | ConvertTo-Json -Depth 8), [Text.UTF8Encoding]::new($false))
             return $result
         } finally {
             if ($started -and -not $process.HasExited) {
-                & (Join-Path $env:SystemRoot 'System32/taskkill.exe') /PID $process.Id /T /F 2>&1 | Out-Null
-                if (-not $process.WaitForExit(5000)) { $process.Kill() }
+                # Closing the fixture's private job on process exit terminates
+                # only its CMD descendants, including a still-running driver.
+                $process.Kill()
+                if (-not $process.WaitForExit(5000)) { throw 'Owned console fixture did not terminate within its cleanup bound.' }
             }
             $process.Dispose()
         }
@@ -226,6 +269,8 @@ AfterAll {
         [IO.File]::WriteAllText((Join-Path $ownedRoot 'security-observation.json'), ([ordered]@{ Before = ($securityBefore | ConvertFrom-Json); After = ($securityAfter | ConvertFrom-Json); LegacyPoliciesBefore = ($legacyPoliciesBefore | ConvertFrom-Json); LegacyPoliciesAfter = ($legacyPoliciesAfter | ConvertFrom-Json); Unchanged = ($securityBefore -eq $securityAfter -and $legacyPoliciesBefore -eq $legacyPoliciesAfter); SourceBindings = $bindingsBefore } | ConvertTo-Json -Depth 8), [Text.UTF8Encoding]::new($false))
         $securityAfter | Should -BeExactly $securityBefore
         $legacyPoliciesAfter | Should -BeExactly $legacyPoliciesBefore
+        (Get-FileHash -LiteralPath $consoleFixture -Algorithm SHA256).Hash.ToLowerInvariant() | Should -BeExactly $fixtureBinding.ExecutableSha256
+        (Get-FileHash -LiteralPath $fixtureCompiler -Algorithm SHA256).Hash.ToLowerInvariant() | Should -BeExactly $fixtureBinding.CompilerSha256
         foreach ($binding in $bindingsBefore) {
             (Get-FileHash -LiteralPath (Join-Path $repository $binding.Path) -Algorithm SHA256).Hash.ToLowerInvariant() | Should -BeExactly $binding.Sha256
         }
@@ -233,6 +278,19 @@ AfterAll {
 }
 
 Describe 'M3-T05 actual Windows CMD launcher contract' {
+    It 'T061 console fixture returns native37 promptly for a no-pause command while parent stdin stays open' {
+        $case = New-LauncherCase 'console-fixture-control'
+        $control = Join-Path $case.Root 'no-pause.cmd'
+        [IO.File]::WriteAllText($control, "@echo off`r`necho Console fixture credibility control`r`nexit /b 37`r`n", [Text.ASCIIEncoding]::new())
+        $result = Invoke-LauncherChild -Case $case -VerifyPause -LeaveInputOpen -PauseObservationMilliseconds 2000 -CommandLine '/d /v:off /s /c ""%WINIMG_LAUNCHER_NO_PAUSE%""' -Environment @{ WINIMG_LAUNCHER_NO_PAUSE = $control }
+        $result.ExitCode | Should -Be 37
+        $result.PauseObserved | Should -BeFalse
+        $result.StdOut | Should -Match 'Console fixture credibility control'
+        $result.StdErr | Should -BeNullOrEmpty
+        $result.ConsoleFixture.KeyRecordsWritten | Should -BeNullOrEmpty
+        [IO.File]::Exists($case.Record) | Should -BeFalse
+    }
+
     It 'T061 preserves native exit <Code> after real child exit, message and blocked pause' -ForEach @(
         @{ Code = 0; Message = 'Completed successfully.' },
         @{ Code = 1; Message = 'ERROR: Processing did not complete reliably (exit code 1).' },
@@ -337,8 +395,9 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
         $inputArgument = $case.Source + $Separator
         $expectedArgument = $inputArgument
         if ($Separator) { $expectedArgument += '.' }
-        $result = Invoke-LauncherChild -Case $case -Arguments @($inputArgument) -ExpectDriver
+        $result = Invoke-LauncherChild -Case $case -Arguments @($inputArgument) -ExpectDriver -VerifyPause
         $result.ExitCode | Should -Be 0
+        $result.PauseObserved | Should -BeTrue
         $result.StdOut | Should -Match 'Completed successfully\.'
         $result.StdErr | Should -BeNullOrEmpty
         @($result.Driver.Arguments).Count | Should -Be 1
