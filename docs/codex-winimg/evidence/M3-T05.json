@@ -1,0 +1,3474 @@
+{
+  "schema_version": 1,
+  "cases": [
+    "T061",
+    "T062",
+    "T063"
+  ],
+  "observed_at_utc": "2026-10-05T14:25:54.000489+00:00",
+  "tested_implementation": "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+  "acceptance_artifact_prefix": "M3-T05-attempt2",
+  "starting_checkpoint": "2ec018decc833d4b4004818f1175058bd61c11a0",
+  "owner_merged_previous_pr": {
+    "number": 19,
+    "merge_commit": "fa2672f42be3f51cf2bfd0b00cb47ae0308d44b6",
+    "starting_tree_equal": true
+  },
+  "commands": [
+    "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory <owned ignored result directory>",
+    "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory <owned ignored result directory>",
+    "Repeat each with -DeliberateFailure; parent records the actual native exit immediately.",
+    "python tools/codex-winimg/handoff.py plan --repo .",
+    "git diff --check"
+  ],
+  "desktop_runs": [
+    {
+      "host": "ps51",
+      "kind": "final",
+      "started_at_utc": "2026-10-05T14:11:28.3647091Z",
+      "completed_at_utc": "2026-10-05T14:17:47.2985628Z",
+      "native_exit": 0,
+      "summary_exit": 0,
+      "total": 392,
+      "passed": 392,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "environment": {
+        "powershell_version": "5.1.26100.9444",
+        "powershell_edition": "Desktop",
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "ui_culture": "en-US",
+        "pester_version": "5.9.1",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ]
+      },
+      "test_fixture_compiler": {
+        "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+        "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+      },
+      "artifacts": {
+        "summary.json": "6dbfaa3f0cfb515df0d835965a93d684bde61be46cb9e69c4529ddd0ce515244",
+        "results.xml": "817a4f3bf8a9e8e3ec94466527f3e72a0008e5c19f628751c0f4d75db6033f72",
+        "M3-T05-attempt2-final-ps51-console.log": "46491020f79a907c479e066d093a6e6a3c3ad7a7758354a0cf57e58dedf2f9b2"
+      }
+    },
+    {
+      "host": "ps51",
+      "kind": "control",
+      "started_at_utc": "2026-10-05T14:17:47.5127307Z",
+      "completed_at_utc": "2026-10-05T14:24:25.7880509Z",
+      "native_exit": 1,
+      "summary_exit": 1,
+      "total": 393,
+      "passed": 392,
+      "failed": 1,
+      "skipped": 0,
+      "not_run": 0,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "environment": {
+        "powershell_version": "5.1.26100.9444",
+        "powershell_edition": "Desktop",
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "ui_culture": "en-US",
+        "pester_version": "5.9.1",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ]
+      },
+      "test_fixture_compiler": {
+        "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+        "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+      },
+      "artifacts": {
+        "summary.json": "31dcfc53a843ecbfadd21e7eb4635d522d3f1ff556a80555d1d8f734db9ca6a4",
+        "results.xml": "f25ac6fff8d0b2b1bafc5717624dd82bf14bd59c0a6a0b7a5799616d243b46f4",
+        "M3-T05-attempt2-control-ps51-console.log": "f8a756551afc2250802197420b625c2b8931d2eee6491258d9e306f4440ec1d7"
+      }
+    },
+    {
+      "host": "ps7",
+      "kind": "final",
+      "started_at_utc": "2026-10-05T14:11:29.5390973Z",
+      "completed_at_utc": "2026-10-05T14:18:23.4694648Z",
+      "native_exit": 0,
+      "summary_exit": 0,
+      "total": 392,
+      "passed": 392,
+      "failed": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "environment": {
+        "powershell_version": "7.6.5",
+        "powershell_edition": "Core",
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "ui_culture": "en-US",
+        "pester_version": "5.9.1",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ]
+      },
+      "test_fixture_compiler": {
+        "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+        "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+      },
+      "artifacts": {
+        "summary.json": "14da22956aae3882b4cd4f0dc9f5180eeaf4aeaa2a134828f83bbd4640a79e05",
+        "results.xml": "2dcd214b36e48fa2413cb89c4f915cabf2c19c6dfcd9a9aed46a7cc774c66d65",
+        "M3-T05-attempt2-final-ps7-console.log": "5b237ecda1e26191e1526e6f1b7de8fcc2221c9068f7ead89505eb866823db49"
+      }
+    },
+    {
+      "host": "ps7",
+      "kind": "control",
+      "started_at_utc": "2026-10-05T14:18:23.6738264Z",
+      "completed_at_utc": "2026-10-05T14:25:18.9035849Z",
+      "native_exit": 1,
+      "summary_exit": 1,
+      "total": 393,
+      "passed": 392,
+      "failed": 1,
+      "skipped": 0,
+      "not_run": 0,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "environment": {
+        "powershell_version": "7.6.5",
+        "powershell_edition": "Core",
+        "os_caption": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "os_version": "10.0.26300",
+        "architecture_bits": 64,
+        "culture": "fi-FI",
+        "ui_culture": "en-US",
+        "pester_version": "5.9.1",
+        "imagemagick_version_output": [
+          "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+          "Copyright: (C) 1999 ImageMagick Studio LLC",
+          "License: https://imagemagick.org/license/",
+          "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+          "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+          "Compiler: Visual Studio 2026 (195136257)"
+        ]
+      },
+      "test_fixture_compiler": {
+        "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+        "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+      },
+      "artifacts": {
+        "summary.json": "8eff30460e6093601d662b44d2cbaca38f05f8d041a1bc1bb02475b76ee7149b",
+        "results.xml": "318099a235bbfdab1b695e4028bc284658b530dcaefc6d79ab074765b39c77c6",
+        "M3-T05-attempt2-control-ps7-console.log": "21e935a91768a7e566898aea76af46ffd8065b8a931d4dc1aa942d5f047b7ddc"
+      }
+    }
+  ],
+  "tested_source_bindings": [
+    {
+      "path": "WinImgNormalizer.ps1",
+      "observed_sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7",
+      "git_blob": "0f3f860babccc39e0962d7f2b0a545994172087e",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "0ad63d3ca12cc2a981c17dd938d9b3ad295ef548f6c41f10cdfee2a1b761bbb3"
+    },
+    {
+      "path": "WinImgNormalizer.bat",
+      "observed_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "git_blob": "9ce2bca5b18bfb3388a9eed10aef397ba3084d54",
+      "binding": "exact_bytes",
+      "git_content_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+    },
+    {
+      "path": "tests/Invoke-Tests.ps1",
+      "observed_sha256": "5f6a2c8d1589ff1fa672d2e0f637c51d7e4c35b662f7dde1ec17957e9dd9a82c",
+      "git_blob": "02341db95586825a0efc5ba8a3e0c45c0d18df2a",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "f3a86b276c419466a62357ba7919dd007cbe08d002cb7215ad03e7c6ebac7e39"
+    },
+    {
+      "path": "tests/Initialize-TestDependencies.ps1",
+      "observed_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+      "git_blob": "1f9b2b7a8277a30d2fc01538850b3b58663d2f73",
+      "binding": "exact_bytes",
+      "git_content_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+    },
+    {
+      "path": "tests/dependencies.json",
+      "observed_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+      "git_blob": "4fa77d9a4de6d374b58de0035fbeb42c3ebf7b6e",
+      "binding": "exact_bytes",
+      "git_content_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+    },
+    {
+      "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+      "observed_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+      "git_blob": "47fb1b1e89b20e2accc57353c300ff2155215a95",
+      "binding": "exact_bytes",
+      "git_content_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+    },
+    {
+      "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+      "observed_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+      "git_blob": "b5a73495bfc7509837b300800d8197d94e83fab7",
+      "binding": "exact_bytes",
+      "git_content_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+    },
+    {
+      "path": "tests/fixtures/colour/Generate-Reference.py",
+      "observed_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+      "git_blob": "7354688df526c8065364eb75314ba2d3dbb5e4f1",
+      "binding": "exact_bytes",
+      "git_content_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+    },
+    {
+      "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+      "observed_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+      "git_blob": "550e190e5c9ddeff82695fd411ca16edc5e4980e",
+      "binding": "exact_bytes",
+      "git_content_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+    },
+    {
+      "path": "tests/fixtures/colour/MANIFEST.json",
+      "observed_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+      "git_blob": "4dbb39a80b93cd4a07aa3755e18c4bc7c74f33ac",
+      "binding": "exact_bytes",
+      "git_content_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+    },
+    {
+      "path": "tests/fixtures/colour/README.md",
+      "observed_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+      "git_blob": "ed3ea20c38b1ac9a16483013bc045c70379239f6",
+      "binding": "exact_bytes",
+      "git_content_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+    },
+    {
+      "path": "tests/fixtures/colour/REFERENCE.json",
+      "observed_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+      "git_blob": "e8a0a73ac9def4b59ea73c1db93d5afd1b17cb41",
+      "binding": "exact_bytes",
+      "git_content_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+    },
+    {
+      "path": "tests/fixtures/colour/sRGB-v4.icc",
+      "observed_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "git_blob": "d9f3c055bd4d7573124090569e1b9533932214eb",
+      "binding": "exact_bytes",
+      "git_content_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+    },
+    {
+      "path": "tests/Measure-SizeQuality.ps1",
+      "observed_sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94",
+      "git_blob": "16c7434896b37fab6b2906b94a017f1b713f483c",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387"
+    },
+    {
+      "path": "tests/fixtures/LauncherConsoleFixture.cs",
+      "observed_sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d",
+      "git_blob": "35564e68bffb0ea07e58258f38a17687e65648a8",
+      "binding": "exact_bytes",
+      "git_content_sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+    },
+    {
+      "path": "tests/Normalizer.Tests.ps1",
+      "observed_sha256": "f59e5da4831f93aa204edf60dab6b8405cd38b4c408b8783dec8316dc38d9b5a",
+      "git_blob": "18e2ecabb1f1877ec03d2735ffe5b24310ec23d5",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "937930a8502a442758a077a2af522b33b4f90127af218b6978e8c9bac347ce6c"
+    },
+    {
+      "path": "tests/Preflight.Tests.ps1",
+      "observed_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+      "git_blob": "6f75075b0eba1dbbe89bf7057893b18ed0979eb9",
+      "binding": "exact_bytes",
+      "git_content_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+    },
+    {
+      "path": "tests/Traversal.Tests.ps1",
+      "observed_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+      "git_blob": "9cf1315ef0fee7bb71e6e61d601617fe0a876b46",
+      "binding": "exact_bytes",
+      "git_content_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+    },
+    {
+      "path": "tests/Naming.Tests.ps1",
+      "observed_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+      "git_blob": "752d240d3011bb7add2b56943081fcd8306881f5",
+      "binding": "exact_bytes",
+      "git_content_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+    },
+    {
+      "path": "tests/Transactions.Tests.ps1",
+      "observed_sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48",
+      "git_blob": "0492f0668445394d03d5c1eaae0c1687260a444e",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "43eccca35bee98132fe057955f09ea00ed5e0f48e9c4ab4b8ed8f9f491d1db2f"
+    },
+    {
+      "path": "tests/Duplicates.Tests.ps1",
+      "observed_sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f",
+      "git_blob": "13bb10677e14083166aeb0323a63dedb48415a02",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "b809ea01b3c32d330a2e230d43559964bb7036fd98dcd0674acecc6f28750d03"
+    },
+    {
+      "path": "tests/SafetyRegression.Tests.ps1",
+      "observed_sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee",
+      "git_blob": "418cfa3a783791f0f739ba41c09eb7db353d1a43",
+      "binding": "exact_bytes",
+      "git_content_sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+    },
+    {
+      "path": "tests/Frames.Tests.ps1",
+      "observed_sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a",
+      "git_blob": "2ef7f0e1412b1a8d386570f1989aba4917236389",
+      "binding": "exact_bytes",
+      "git_content_sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+    },
+    {
+      "path": "tests/Colour.Tests.ps1",
+      "observed_sha256": "8810eb6ae3e821094eaf016e53ff928dd313053797ffd53f3f59818e3074252f",
+      "git_blob": "a0c7fc54f0e5c6a113f0052728cd1989f581d640",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "780dc425dd6a2e095361d5be5434babc519db6e8cd4c9e6036022492cd38fbd4"
+    },
+    {
+      "path": "tests/Paths.Tests.ps1",
+      "observed_sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287",
+      "git_blob": "07d571f38a2bba9538671f9ce8dfde311b410ce4",
+      "binding": "exact_bytes",
+      "git_content_sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+    },
+    {
+      "path": "tests/Sizing.Tests.ps1",
+      "observed_sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0",
+      "git_blob": "c279bc38584e738252c6b2f91bf568b9ca2c0d39",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "5e18e11a1c82bb7e5464f8035d6bcd3fed92b91b59db2d1956680d4c45aab232"
+    },
+    {
+      "path": "tests/Diagnostics.Tests.ps1",
+      "observed_sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6",
+      "git_blob": "4f2015c2579584f891cd301d5fe21d2fc19c984f",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "0a3d905c5d6e907692cb4a33871673ee4b06f7d64819f659da2e502d0c2f5231"
+    },
+    {
+      "path": "tests/ConversionRegression.Tests.ps1",
+      "observed_sha256": "69707f0e020bd455c4a872ab103ca887163009fae04fcf5b68547e7362765b0d",
+      "git_blob": "6857651d4d893b2efc54196c1b207c4fc38f7e15",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "ad640c984b320ecf0be55f35a48be87590d24887f47c77446ff85ae770272e36"
+    },
+    {
+      "path": "tests/RecoveryReporting.Tests.ps1",
+      "observed_sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+      "git_blob": "bc69c65c9a6032780cd35609bcd7136c6a03ccb7",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc"
+    },
+    {
+      "path": "tests/NativeLifetime.Tests.ps1",
+      "observed_sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538",
+      "git_blob": "74928e4bc44cb9d35b53abf558d16a63dedf0daf",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "1bf52a3a7b2795395e2730572232c3c9e7005f7039ed0f64d575d74ff789272d"
+    },
+    {
+      "path": "tests/Cancellation.Tests.ps1",
+      "observed_sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e",
+      "git_blob": "ea2b91077ae71e279beb2b6ee640558e43ac5fcb",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "6cc52b8fde1c22bad0b7fe715da819d7ab7fd7b7e077d47a3b586dd7bc10fbb6"
+    },
+    {
+      "path": "tests/Reporting.Tests.ps1",
+      "observed_sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437",
+      "git_blob": "4163f281fdbaaa809c26fab5341aedaaa3a327ae",
+      "binding": "verified_text_crlf_to_lf",
+      "git_content_sha256": "2451119df80b60bae78b90ec3dbd38655a8d8e00fdf7c3c91cb15425880d86f9"
+    },
+    {
+      "path": "tests/Launcher.Tests.ps1",
+      "observed_sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062",
+      "git_blob": "c10436a50f9592be5349cc4490248043e29c3b08",
+      "binding": "exact_bytes",
+      "git_content_sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+    },
+    {
+      "path": "tests/ExitContract.Tests.ps1",
+      "observed_sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154",
+      "git_blob": "9a1f6a1e19f3d307126f1476b5f9defdb909af50",
+      "binding": "exact_bytes",
+      "git_content_sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+    }
+  ],
+  "desktop_controller": {
+    "source_sha256": "b1e0b1292cc9761b729001ffe1124298b1c9921a9748a3b8cdfa07baf2767fd7",
+    "native_records": {
+      "ps51": "5a5adb1f5693694d149f2e515f80f9124d5422d4e37abcdaf9b559dabb71e365",
+      "ps7": "5e5f3957eddf55ff448df43afdcbb06f73aa5f6e4dc8b78f606a54cf31f92285"
+    },
+    "command_template": ".scratch/M3-T05-run-desktop.ps1 -HostExecutable <actual pinned Windows shell executable> -HostLabel <ps51 or ps7> -Implementation 5df7a83ed3fd340479972366f95a59e8e51b1b41 -ArtifactPrefix M3-T05-attempt2"
+  },
+  "test_fixture_compiler_binding": {
+    "existing_windows_compiler": "Framework64/v4.0.30319/csc.exe",
+    "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+    "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00",
+    "qualification": "Actual runner version/hash observations and current compiler bytes agree across the completed desktop normal/control runs. This is a development-only fixture compiler, not an application dependency."
+  },
+  "evidence_runtime": {
+    "python_version": "3.12.14",
+    "recorder_sha256": "0abde3c3492a7f95a2c1baf0a09ae0e9e1a4715a70f8f0cc3bf9936f543bef7e"
+  },
+  "configuration_binding": {
+    "path": ".gitattributes",
+    "observed_sha256": "e59c8b12c57a6bdb236432f0d28a26d76ffb89c6ab41814eca064f2326fa3de4",
+    "git_blob": "5b7ddee699a4bba145cf391ddcd63c3c188c54bc",
+    "git_content_sha256": "e59c8b12c57a6bdb236432f0d28a26d76ffb89c6ab41814eca064f2326fa3de4"
+  },
+  "archive_byte_check": {
+    "implementation": "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+    "bat_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+    "git_blob_exact": true,
+    "git_archive_exact": true,
+    "archive_sha256": "14728549121b06a60942f964c2cf7e84d05590ebf667faf9b62f5c4fc37e502d",
+    "crlf_lines": 57,
+    "command": "git archive --format=zip 5df7a83ed3fd340479972366f95a59e8e51b1b41 WinImgNormalizer.bat .gitattributes",
+    "archive_member_scope": [
+      "WinImgNormalizer.bat",
+      ".gitattributes"
+    ],
+    "previous_implementation": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+    "production_bytes_unchanged_from_previous": [
+      {
+        "path": "WinImgNormalizer.bat",
+        "git_content_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+        "unchanged": true
+      },
+      {
+        "path": "WinImgNormalizer.ps1",
+        "git_content_sha256": "0ad63d3ca12cc2a981c17dd938d9b3ad295ef548f6c41f10cdfee2a1b761bbb3",
+        "unchanged": true
+      },
+      {
+        "path": ".gitattributes",
+        "git_content_sha256": "e59c8b12c57a6bdb236432f0d28a26d76ffb89c6ab41814eca064f2326fa3de4",
+        "unchanged": true
+      },
+      {
+        "path": "README.md",
+        "git_content_sha256": "f6f80f35b176916600b5daac6739fda84f8513d0d16b481bcddb93cfa121b90c",
+        "unchanged": true
+      }
+    ],
+    "observed_at_utc": "2026-10-05T14:12:38.378391+00:00"
+  },
+  "implementation_sync_observation": {
+    "local_head": "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+    "remote_head": "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+    "worktree_clean": true,
+    "branch": "codex/winimg-hardening",
+    "fetch_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "push_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "extra_push_mapping_absent": true,
+    "pull_request": {
+      "baseRefName": "main",
+      "baseRefOid": "fa2672f42be3f51cf2bfd0b00cb47ae0308d44b6",
+      "headRefOid": "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+      "isDraft": true,
+      "state": "OPEN",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/20"
+    },
+    "qualification": "Actual clean local/live feature and open draft PR head at the recorded time; CI, final-record acceptance and owner approval remain separate.",
+    "task_id": "M3-T05",
+    "observer_sha256": "06eeb730068c31cbb1c7f8ece7efb770fe564a3cd558a3ec62b5f5736b172a39",
+    "observed_at_utc": "2026-10-05T14:12:06.815697Z"
+  },
+  "prior_implementation_history": {
+    "implementation": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+    "qualification": "First clean I1 desktop normal runs passed 391/391 on both hosts; deliberate controls had 392 total, 391 passed and only the intended assertion failed. Both hosted I1 PS5.1 normal jobs failed 22 pause assertions (391 total, 369 passed); hosted PS7 normal/control passed. Local detached probes did not reproduce the hosted pause behavior, so its exact cause remains unconfirmed. These frozen I1 records are not current I2 acceptance.",
+    "frozen_desktop_artifact": {
+      "path": "M3-T05-initial-desktop.json",
+      "sha256": "b5a99f9eadc37e1100cc198f26ad801948c8193936526a00daf20a6434a648b3"
+    },
+    "frozen_ci_artifact": {
+      "path": "M3-T05-initial-ci.json",
+      "sha256": "8f24ec1ec8041c2860db376e8052175f6bcccba816d648d0d1ec1f4eddf07892"
+    },
+    "desktop": {
+      "schema_version": 1,
+      "task": "M3-T05",
+      "cases": [
+        "T061",
+        "T062",
+        "T063"
+      ],
+      "observed_at_utc": "2026-10-05T14:03:04.604807+00:00",
+      "tested_implementation": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+      "starting_checkpoint": "2ec018decc833d4b4004818f1175058bd61c11a0",
+      "owner_merged_previous_pr": {
+        "number": 19,
+        "merge_commit": "fa2672f42be3f51cf2bfd0b00cb47ae0308d44b6",
+        "starting_tree_equal": true
+      },
+      "commands": [
+        "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory <owned ignored result directory>",
+        "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory <owned ignored result directory>",
+        "Repeat each with -DeliberateFailure; parent records the actual native exit immediately.",
+        "python tools/codex-winimg/handoff.py plan --repo .",
+        "git diff --check"
+      ],
+      "desktop_runs": [
+        {
+          "host": "ps51",
+          "kind": "final",
+          "started_at_utc": "2026-10-05T13:48:26.4224829Z",
+          "completed_at_utc": "2026-10-05T13:54:27.5533686Z",
+          "native_exit": 0,
+          "summary_exit": 0,
+          "total": 391,
+          "passed": 391,
+          "failed": 0,
+          "skipped": 0,
+          "not_run": 0,
+          "failed_tests": [],
+          "persistent_policy_unchanged": true,
+          "environment": {
+            "powershell_version": "5.1.26100.9444",
+            "powershell_edition": "Desktop",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_build": "26300",
+            "os_version": "10.0.26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "ui_culture": "en-US",
+            "pester_version": "5.9.1",
+            "imagemagick_version_output": [
+              "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+              "Copyright: (C) 1999 ImageMagick Studio LLC",
+              "License: https://imagemagick.org/license/",
+              "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+              "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+              "Compiler: Visual Studio 2026 (195136257)"
+            ]
+          },
+          "artifacts": {
+            "summary.json": "77107d5815b6dd03ad8935d175050502d7d9ed5d5ae5ddcf9bb87b5155e210dd",
+            "results.xml": "190d48e8f60285178d8822f37894e32d9bbdf7ae8ad3985b5f742155875f0291",
+            "M3-T05-final-ps51-console.log": "80362a2ede01f03172371f0fa00b656c992920a0c618fd1a05ab6e8aab834c7a"
+          }
+        },
+        {
+          "host": "ps51",
+          "kind": "control",
+          "started_at_utc": "2026-10-05T13:54:27.7346795Z",
+          "completed_at_utc": "2026-10-05T14:01:14.8349105Z",
+          "native_exit": 1,
+          "summary_exit": 1,
+          "total": 392,
+          "passed": 391,
+          "failed": 1,
+          "skipped": 0,
+          "not_run": 0,
+          "failed_tests": [
+            "T007 runner credibility control.deliberate assertion must fail"
+          ],
+          "persistent_policy_unchanged": true,
+          "environment": {
+            "powershell_version": "5.1.26100.9444",
+            "powershell_edition": "Desktop",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_build": "26300",
+            "os_version": "10.0.26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "ui_culture": "en-US",
+            "pester_version": "5.9.1",
+            "imagemagick_version_output": [
+              "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+              "Copyright: (C) 1999 ImageMagick Studio LLC",
+              "License: https://imagemagick.org/license/",
+              "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+              "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+              "Compiler: Visual Studio 2026 (195136257)"
+            ]
+          },
+          "artifacts": {
+            "summary.json": "3acdab551af46e89033b27726a3756a85833493983d7f8c9572740b626fff301",
+            "results.xml": "0514140e603204a11af82a9e4a3249d828174ebba1dbfb815b09f8a4f44cb23f",
+            "M3-T05-control-ps51-console.log": "9473f888a8098740fcf4b6129465a077c620c329625d787396bc1f109e979723"
+          }
+        },
+        {
+          "host": "ps7",
+          "kind": "final",
+          "started_at_utc": "2026-10-05T13:48:27.1776408Z",
+          "completed_at_utc": "2026-10-05T13:54:53.6350669Z",
+          "native_exit": 0,
+          "summary_exit": 0,
+          "total": 391,
+          "passed": 391,
+          "failed": 0,
+          "skipped": 0,
+          "not_run": 0,
+          "failed_tests": [],
+          "persistent_policy_unchanged": true,
+          "environment": {
+            "powershell_version": "7.6.5",
+            "powershell_edition": "Core",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_build": "26300",
+            "os_version": "10.0.26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "ui_culture": "en-US",
+            "pester_version": "5.9.1",
+            "imagemagick_version_output": [
+              "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+              "Copyright: (C) 1999 ImageMagick Studio LLC",
+              "License: https://imagemagick.org/license/",
+              "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+              "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+              "Compiler: Visual Studio 2026 (195136257)"
+            ]
+          },
+          "artifacts": {
+            "summary.json": "f1e8397449350ed8678227c0aea4b274f8d17a2996f7b15d7ec33424cf70c6ee",
+            "results.xml": "8c43b7366fca37d37a1455cd29cebbc0da49e6a4f1f84f6052508f09c0966537",
+            "M3-T05-final-ps7-console.log": "2c94d32be0f6072aae4ccf1161270202b02c41afa62d9e9f91550aa556fcc379"
+          }
+        },
+        {
+          "host": "ps7",
+          "kind": "control",
+          "started_at_utc": "2026-10-05T13:54:53.8458225Z",
+          "completed_at_utc": "2026-10-05T14:01:59.6899798Z",
+          "native_exit": 1,
+          "summary_exit": 1,
+          "total": 392,
+          "passed": 391,
+          "failed": 1,
+          "skipped": 0,
+          "not_run": 0,
+          "failed_tests": [
+            "T007 runner credibility control.deliberate assertion must fail"
+          ],
+          "persistent_policy_unchanged": true,
+          "environment": {
+            "powershell_version": "7.6.5",
+            "powershell_edition": "Core",
+            "os_caption": "Microsoft Windows 11 Pro",
+            "os_build": "26300",
+            "os_version": "10.0.26300",
+            "architecture_bits": 64,
+            "culture": "fi-FI",
+            "ui_culture": "en-US",
+            "pester_version": "5.9.1",
+            "imagemagick_version_output": [
+              "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+              "Copyright: (C) 1999 ImageMagick Studio LLC",
+              "License: https://imagemagick.org/license/",
+              "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+              "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+              "Compiler: Visual Studio 2026 (195136257)"
+            ]
+          },
+          "artifacts": {
+            "summary.json": "a8a12cfea048fe6a6b2e76f62bdbb4c07382f5e997d5cff95905a0c54fe4f9d3",
+            "results.xml": "26315f60852098c09d7276081049f5953d6943e669d2f22fa14570bc70793940",
+            "M3-T05-control-ps7-console.log": "3886888769f1346381a5f85d91bff93635896d5242b1ebb1c14260f9d057d365"
+          }
+        }
+      ],
+      "tested_source_bindings": [
+        {
+          "path": "WinImgNormalizer.ps1",
+          "observed_sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7",
+          "git_blob": "0f3f860babccc39e0962d7f2b0a545994172087e",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "0ad63d3ca12cc2a981c17dd938d9b3ad295ef548f6c41f10cdfee2a1b761bbb3"
+        },
+        {
+          "path": "WinImgNormalizer.bat",
+          "observed_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+          "git_blob": "9ce2bca5b18bfb3388a9eed10aef397ba3084d54",
+          "binding": "exact_bytes",
+          "git_content_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "observed_sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427",
+          "git_blob": "4e8b838ddad5852e5ee1968b372447f1deb4b532",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "d32983fa60a5ede9de7457b4ee56bce0dad9fbc210e95192c95a3daeacfc192d"
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "observed_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+          "git_blob": "1f9b2b7a8277a30d2fc01538850b3b58663d2f73",
+          "binding": "exact_bytes",
+          "git_content_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+        },
+        {
+          "path": "tests/dependencies.json",
+          "observed_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+          "git_blob": "4fa77d9a4de6d374b58de0035fbeb42c3ebf7b6e",
+          "binding": "exact_bytes",
+          "git_content_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+        },
+        {
+          "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+          "observed_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+          "git_blob": "47fb1b1e89b20e2accc57353c300ff2155215a95",
+          "binding": "exact_bytes",
+          "git_content_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+        },
+        {
+          "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+          "observed_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+          "git_blob": "b5a73495bfc7509837b300800d8197d94e83fab7",
+          "binding": "exact_bytes",
+          "git_content_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+        },
+        {
+          "path": "tests/fixtures/colour/Generate-Reference.py",
+          "observed_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+          "git_blob": "7354688df526c8065364eb75314ba2d3dbb5e4f1",
+          "binding": "exact_bytes",
+          "git_content_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+        },
+        {
+          "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+          "observed_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+          "git_blob": "550e190e5c9ddeff82695fd411ca16edc5e4980e",
+          "binding": "exact_bytes",
+          "git_content_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+        },
+        {
+          "path": "tests/fixtures/colour/MANIFEST.json",
+          "observed_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+          "git_blob": "4dbb39a80b93cd4a07aa3755e18c4bc7c74f33ac",
+          "binding": "exact_bytes",
+          "git_content_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+        },
+        {
+          "path": "tests/fixtures/colour/README.md",
+          "observed_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+          "git_blob": "ed3ea20c38b1ac9a16483013bc045c70379239f6",
+          "binding": "exact_bytes",
+          "git_content_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+        },
+        {
+          "path": "tests/fixtures/colour/REFERENCE.json",
+          "observed_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+          "git_blob": "e8a0a73ac9def4b59ea73c1db93d5afd1b17cb41",
+          "binding": "exact_bytes",
+          "git_content_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+        },
+        {
+          "path": "tests/fixtures/colour/sRGB-v4.icc",
+          "observed_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+          "git_blob": "d9f3c055bd4d7573124090569e1b9533932214eb",
+          "binding": "exact_bytes",
+          "git_content_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "observed_sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94",
+          "git_blob": "16c7434896b37fab6b2906b94a017f1b713f483c",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387"
+        },
+        {
+          "path": "tests/Normalizer.Tests.ps1",
+          "observed_sha256": "f59e5da4831f93aa204edf60dab6b8405cd38b4c408b8783dec8316dc38d9b5a",
+          "git_blob": "18e2ecabb1f1877ec03d2735ffe5b24310ec23d5",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "937930a8502a442758a077a2af522b33b4f90127af218b6978e8c9bac347ce6c"
+        },
+        {
+          "path": "tests/Preflight.Tests.ps1",
+          "observed_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+          "git_blob": "6f75075b0eba1dbbe89bf7057893b18ed0979eb9",
+          "binding": "exact_bytes",
+          "git_content_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+        },
+        {
+          "path": "tests/Traversal.Tests.ps1",
+          "observed_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+          "git_blob": "9cf1315ef0fee7bb71e6e61d601617fe0a876b46",
+          "binding": "exact_bytes",
+          "git_content_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+        },
+        {
+          "path": "tests/Naming.Tests.ps1",
+          "observed_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+          "git_blob": "752d240d3011bb7add2b56943081fcd8306881f5",
+          "binding": "exact_bytes",
+          "git_content_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+        },
+        {
+          "path": "tests/Transactions.Tests.ps1",
+          "observed_sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48",
+          "git_blob": "0492f0668445394d03d5c1eaae0c1687260a444e",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "43eccca35bee98132fe057955f09ea00ed5e0f48e9c4ab4b8ed8f9f491d1db2f"
+        },
+        {
+          "path": "tests/Duplicates.Tests.ps1",
+          "observed_sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f",
+          "git_blob": "13bb10677e14083166aeb0323a63dedb48415a02",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "b809ea01b3c32d330a2e230d43559964bb7036fd98dcd0674acecc6f28750d03"
+        },
+        {
+          "path": "tests/SafetyRegression.Tests.ps1",
+          "observed_sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee",
+          "git_blob": "418cfa3a783791f0f739ba41c09eb7db353d1a43",
+          "binding": "exact_bytes",
+          "git_content_sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+        },
+        {
+          "path": "tests/Frames.Tests.ps1",
+          "observed_sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a",
+          "git_blob": "2ef7f0e1412b1a8d386570f1989aba4917236389",
+          "binding": "exact_bytes",
+          "git_content_sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+        },
+        {
+          "path": "tests/Colour.Tests.ps1",
+          "observed_sha256": "8810eb6ae3e821094eaf016e53ff928dd313053797ffd53f3f59818e3074252f",
+          "git_blob": "a0c7fc54f0e5c6a113f0052728cd1989f581d640",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "780dc425dd6a2e095361d5be5434babc519db6e8cd4c9e6036022492cd38fbd4"
+        },
+        {
+          "path": "tests/Paths.Tests.ps1",
+          "observed_sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287",
+          "git_blob": "07d571f38a2bba9538671f9ce8dfde311b410ce4",
+          "binding": "exact_bytes",
+          "git_content_sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+        },
+        {
+          "path": "tests/Sizing.Tests.ps1",
+          "observed_sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0",
+          "git_blob": "c279bc38584e738252c6b2f91bf568b9ca2c0d39",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "5e18e11a1c82bb7e5464f8035d6bcd3fed92b91b59db2d1956680d4c45aab232"
+        },
+        {
+          "path": "tests/Diagnostics.Tests.ps1",
+          "observed_sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6",
+          "git_blob": "4f2015c2579584f891cd301d5fe21d2fc19c984f",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "0a3d905c5d6e907692cb4a33871673ee4b06f7d64819f659da2e502d0c2f5231"
+        },
+        {
+          "path": "tests/ConversionRegression.Tests.ps1",
+          "observed_sha256": "69707f0e020bd455c4a872ab103ca887163009fae04fcf5b68547e7362765b0d",
+          "git_blob": "6857651d4d893b2efc54196c1b207c4fc38f7e15",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "ad640c984b320ecf0be55f35a48be87590d24887f47c77446ff85ae770272e36"
+        },
+        {
+          "path": "tests/RecoveryReporting.Tests.ps1",
+          "observed_sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+          "git_blob": "bc69c65c9a6032780cd35609bcd7136c6a03ccb7",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc"
+        },
+        {
+          "path": "tests/NativeLifetime.Tests.ps1",
+          "observed_sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538",
+          "git_blob": "74928e4bc44cb9d35b53abf558d16a63dedf0daf",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "1bf52a3a7b2795395e2730572232c3c9e7005f7039ed0f64d575d74ff789272d"
+        },
+        {
+          "path": "tests/Cancellation.Tests.ps1",
+          "observed_sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e",
+          "git_blob": "ea2b91077ae71e279beb2b6ee640558e43ac5fcb",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "6cc52b8fde1c22bad0b7fe715da819d7ab7fd7b7e077d47a3b586dd7bc10fbb6"
+        },
+        {
+          "path": "tests/Reporting.Tests.ps1",
+          "observed_sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437",
+          "git_blob": "4163f281fdbaaa809c26fab5341aedaaa3a327ae",
+          "binding": "verified_text_crlf_to_lf",
+          "git_content_sha256": "2451119df80b60bae78b90ec3dbd38655a8d8e00fdf7c3c91cb15425880d86f9"
+        },
+        {
+          "path": "tests/Launcher.Tests.ps1",
+          "observed_sha256": "0cce8bd1743fd4852465d42f2442b95fa6a17872b6f8572838d71ff239a9502d",
+          "git_blob": "45c7152e8c4cb0c34f3cd87f7e5bf668f97bb733",
+          "binding": "exact_bytes",
+          "git_content_sha256": "0cce8bd1743fd4852465d42f2442b95fa6a17872b6f8572838d71ff239a9502d"
+        },
+        {
+          "path": "tests/ExitContract.Tests.ps1",
+          "observed_sha256": "3b62565af42f9e918037bb87d59e0786474d21ae17cc6716459f0dc966abdc9a",
+          "git_blob": "99fefc74546bf5541579bce15a27cfd654942e84",
+          "binding": "exact_bytes",
+          "git_content_sha256": "3b62565af42f9e918037bb87d59e0786474d21ae17cc6716459f0dc966abdc9a"
+        }
+      ],
+      "desktop_controller": {
+        "source_sha256": "b1e0b1292cc9761b729001ffe1124298b1c9921a9748a3b8cdfa07baf2767fd7",
+        "native_records": {
+          "ps51": "889bb1ecb5cd1975abfc8bb4b7dd5ea8bcd25f7c4f930a90d0a6539d0a8001cd",
+          "ps7": "a35e6b4b12bb829a55e2cab27c8a4355277b70478ce4ec6264b98d88ee8b9378"
+        },
+        "command_template": ".scratch/M3-T05-run-desktop.ps1 -HostExecutable <actual pinned Windows shell executable> -HostLabel <ps51 or ps7> -Implementation 5cff9f22e0149d3acb6f339494094a93c67aeb5c"
+      },
+      "evidence_runtime": {
+        "python_version": "3.12.14",
+        "recorder_sha256": "fb2634a19f08a36d0fe83b7316b01d9865518f28683e785b66bf3e707222ab9b"
+      },
+      "configuration_binding": {
+        "path": ".gitattributes",
+        "observed_sha256": "e59c8b12c57a6bdb236432f0d28a26d76ffb89c6ab41814eca064f2326fa3de4",
+        "git_blob": "5b7ddee699a4bba145cf391ddcd63c3c188c54bc",
+        "git_content_sha256": "e59c8b12c57a6bdb236432f0d28a26d76ffb89c6ab41814eca064f2326fa3de4"
+      },
+      "archive_byte_check": {
+        "implementation": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+        "bat_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+        "git_blob_exact": true,
+        "git_archive_exact": true,
+        "archive_sha256": "b50599c281d34db6756f2daaa873014779e919400e9d4bf77e23fafd1a5f8cff",
+        "crlf_lines": 57,
+        "command": "git archive --format=zip 5cff9f22e0149d3acb6f339494094a93c67aeb5c WinImgNormalizer.bat .gitattributes",
+        "archive_member_scope": [
+          "WinImgNormalizer.bat",
+          ".gitattributes"
+        ]
+      },
+      "implementation_sync_observation": {
+        "local_head": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+        "remote_head": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+        "worktree_clean": true,
+        "branch": "codex/winimg-hardening",
+        "fetch_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+        "push_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+        "extra_push_mapping_absent": true,
+        "pull_request": {
+          "baseRefName": "main",
+          "baseRefOid": "fa2672f42be3f51cf2bfd0b00cb47ae0308d44b6",
+          "headRefOid": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+          "isDraft": true,
+          "state": "OPEN",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/20"
+        },
+        "qualification": "Actual clean local/live feature and open draft PR head at the recorded time; CI, final-record acceptance and owner approval remain separate.",
+        "task_id": "M3-T05",
+        "observer_sha256": "06eeb730068c31cbb1c7f8ece7efb770fe564a3cd558a3ec62b5f5736b172a39",
+        "observed_at_utc": "2026-10-05T13:51:30.895577Z"
+      },
+      "development_history": {
+        "qualification": "Precommit draft runs are separately recorded by actual runner hashes/counts, not claimed as clean implementation acceptance.",
+        "runs": [
+          {
+            "suite": "Launcher",
+            "draft": 1,
+            "host": "ps51",
+            "native_exit": 1,
+            "summary_exit": 1,
+            "total": 26,
+            "passed": 25,
+            "failed": 1,
+            "failed_blocks": 0,
+            "failed_containers": 0,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [
+              "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty first argument with usage code before starting PowerShell"
+            ],
+            "artifacts": {
+              "summary.json": "fd3153edd877e49df319e740228a9c6b0129345b1cf16320c00f1974cc2e47a1",
+              "results.xml": "21c67924f7ce70a09bb878758ff2afcde82fbd485a3f5cffdd11900535fa4343",
+              "M3-T05-launcher-focused-ps51-v1.console.log": "71e8fcc7ceef137f71dc9b5cdc919f68fdf0485536e3279ed7a9427b66b1c1a6",
+              "M3-T05-launcher-focused-ps51-v1.console.log.native.json": "cfd7006a134b7e4961723c292c869154591e102e341b88330e4042515c18125d"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "1decbc0bcce3c2eb18b139a5e14c26ad8a5ce953bdf4366bdecbeae083344122"
+              }
+            ]
+          },
+          {
+            "suite": "Launcher",
+            "draft": 2,
+            "host": "ps51",
+            "native_exit": 1,
+            "summary_exit": 1,
+            "total": 27,
+            "passed": 24,
+            "failed": 3,
+            "failed_blocks": 0,
+            "failed_containers": 0,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [
+              "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty extra argument with usage code before starting PowerShell",
+              "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty second argument followed by a third with usage code before starting PowerShell",
+              "M3-T05 actual Windows CMD launcher contract.T062 rejects two empty extra arguments with usage code before starting PowerShell"
+            ],
+            "artifacts": {
+              "summary.json": "751f407837243cc3883a605bcb979b97de348da7940b9079387bbbed1fb72a26",
+              "results.xml": "619024d51603a6d7765bf14001bfe8543b6bf1f7a3f8d269a10c2e7728616f78",
+              "M3-T05-launcher-focused-ps51-v2.console.log": "06e5a8c7d9a6fc434426071fcebef6b9c03b12071b877783b2946841f475d577",
+              "M3-T05-launcher-focused-ps51-v2.console.log.native.json": "c094f44079f4beeaffabd8c95fb356b054e14c51024ee34045e125e6b6351ece"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "de043d38a6ec185895491a737e1bf77d0ffe26f57a76b2196264dc21533cc32c"
+              }
+            ]
+          },
+          {
+            "suite": "Launcher",
+            "draft": 3,
+            "host": "ps51",
+            "native_exit": 0,
+            "summary_exit": 0,
+            "total": 28,
+            "passed": 28,
+            "failed": 0,
+            "failed_blocks": 0,
+            "failed_containers": 0,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [],
+            "artifacts": {
+              "summary.json": "a94560f108e7d806608e3b384683668311cfb177aa52314501cf5ef18a88d806",
+              "results.xml": "a48a6825baac8ee4622952f04525b4e2030ced7e1f9569670c79960a42be1fa2",
+              "M3-T05-launcher-focused-ps51-v3.console.log": "9b1c60d01841f5818ec213faa193369015b33717b0b3f60fa0b0aba6e0a3d304",
+              "M3-T05-launcher-focused-ps51-v3.console.log.native.json": "8fd634a291e865160791108c2cba9902f69763da95707a4e74ab5c91007005f1"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "0cce8bd1743fd4852465d42f2442b95fa6a17872b6f8572838d71ff239a9502d"
+              }
+            ]
+          },
+          {
+            "suite": "Launcher",
+            "draft": 1,
+            "host": "ps7",
+            "native_exit": 1,
+            "summary_exit": 1,
+            "total": 26,
+            "passed": 24,
+            "failed": 2,
+            "failed_blocks": 0,
+            "failed_containers": 0,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [
+              "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty first argument with usage code before starting PowerShell",
+              "M3-T05 actual Windows CMD launcher contract.T063 retains the legacy host, process-only Bypass, user identity and persistent security context"
+            ],
+            "artifacts": {
+              "summary.json": "8333701cda6a0c03bce18a00e16e799106c9d33afe91dd2b06ecc998e839982c",
+              "results.xml": "f616131c172871dda56448d23a76ee497e84e1dc674c6a25110d22ec4de6fa52",
+              "M3-T05-launcher-focused-ps7-v1.console.log": "ec0dffce6dd6440887a8f70e0a79ea3be027d9d8808d9799bc8169b34ad9d77d",
+              "M3-T05-launcher-focused-ps7-v1.console.log.native.json": "6bde23dc76b96103f0251618a0950c35bb6fe0ac1c45499d74d2e52b6f7b5d36"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "1decbc0bcce3c2eb18b139a5e14c26ad8a5ce953bdf4366bdecbeae083344122"
+              }
+            ]
+          },
+          {
+            "suite": "Launcher",
+            "draft": 2,
+            "host": "ps7",
+            "native_exit": 1,
+            "summary_exit": 1,
+            "total": 27,
+            "passed": 24,
+            "failed": 3,
+            "failed_blocks": 0,
+            "failed_containers": 0,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [
+              "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty extra argument with usage code before starting PowerShell",
+              "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty second argument followed by a third with usage code before starting PowerShell",
+              "M3-T05 actual Windows CMD launcher contract.T062 rejects two empty extra arguments with usage code before starting PowerShell"
+            ],
+            "artifacts": {
+              "summary.json": "512b2a1ae9135ed9a9598b558bff5b25a318d61ae9e38b2c421d0c21e19449d0",
+              "results.xml": "e938f875b32406061bdaffb2486633a447bd2b4a2c950e0e7fd8eb380e0ce619",
+              "M3-T05-launcher-focused-ps7-v2.console.log": "3a8d761a7d645c8b3b68ebd5f6848ed87657a2beea3ec23268ce0cd603188426",
+              "M3-T05-launcher-focused-ps7-v2.console.log.native.json": "64ee30ae18b576c582753be55e2fa9fb26cb63855a8e04424f5ba72e97ff97d8"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "de043d38a6ec185895491a737e1bf77d0ffe26f57a76b2196264dc21533cc32c"
+              }
+            ]
+          },
+          {
+            "suite": "Launcher",
+            "draft": 3,
+            "host": "ps7",
+            "native_exit": 0,
+            "summary_exit": 0,
+            "total": 28,
+            "passed": 28,
+            "failed": 0,
+            "failed_blocks": 0,
+            "failed_containers": 0,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [],
+            "artifacts": {
+              "summary.json": "76c7edd8ed6fbd831fd750e7f0eab13c6929c2a817323d13e5ec0914ee29f5df",
+              "results.xml": "35ebf2681cf3123257dff38481cbbc05c9aed280694f4c0fb3f14ee29158701f",
+              "M3-T05-launcher-focused-ps7-v3.console.log": "31386b2d6f6b04274a2c7600ee8504fd53530c5d2f399466b8f8777f8aa7e9b5",
+              "M3-T05-launcher-focused-ps7-v3.console.log.native.json": "bf79a621dc1422eb00d6f2ab9182a25a2d7dee56af81f1f92b90eeb3ec44566e"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/Launcher.Tests.ps1",
+                "sha256": "0cce8bd1743fd4852465d42f2442b95fa6a17872b6f8572838d71ff239a9502d"
+              }
+            ]
+          },
+          {
+            "suite": "ExitContract",
+            "draft_label": "M3-T05-exit-dev1-PS7",
+            "summary_exit": 1,
+            "total": 13,
+            "passed": 4,
+            "failed": 9,
+            "failed_blocks": 0,
+            "failed_containers": 0,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [
+              "M3-T05 actual script command exit contract (T061/T063).returns native 0 for ignored input through the unchanged Command on the actual host",
+              "M3-T05 actual script command exit contract (T061/T063).returns native 0 for empty input through the unchanged Command on the actual host",
+              "M3-T05 actual script command exit contract (T061/T063).returns native 1 for controlled unexpected run-level failure through the unchanged Command on the actual host",
+              "M3-T05 actual script command exit contract (T061/T063).returns native 2 for actual corrupt image with retained video through the unchanged Command on the actual host",
+              "M3-T05 actual script command exit contract (T061/T063).returns native 130 for controlled cancellation during actual copy through the unchanged Command on the actual host",
+              "M3-T05 complete application flow through the exact production BAT (T061/T063).preserves application 0 after the actual BAT echo and pause for completed ignored input",
+              "M3-T05 complete application flow through the exact production BAT (T061/T063).preserves application 1 after the actual BAT echo and pause for controlled global failure",
+              "M3-T05 complete application flow through the exact production BAT (T061/T063).preserves application 2 after the actual BAT echo and pause for actual file failure with kept output",
+              "M3-T05 complete application flow through the exact production BAT (T061/T063).preserves application 130 after the actual BAT echo and pause for controlled cooperative interruption"
+            ],
+            "artifacts": {
+              "summary.json": "b9219237a2c56734673256ab6982dfb53c13e492508168ae01eee58395189811",
+              "results.xml": "c1bab036be96b829cd9be7a4cfcb244c2fc68f131d3959aa0d2070d775232890"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/ExitContract.Tests.ps1",
+                "sha256": "2ea7ab2aa1fa69468659f4fb8e5adadf7f393b0e2a3faf9b70f6ca234f26613a"
+              }
+            ]
+          },
+          {
+            "suite": "ExitContract",
+            "draft_label": "M3-T05-exit-dev2-PS7",
+            "summary_exit": 1,
+            "total": 15,
+            "passed": 14,
+            "failed": 1,
+            "failed_blocks": 0,
+            "failed_containers": 1,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [
+              "M3-T05 outer Command exception boundary controls (T061).propagates a controlled stopped pipeline without inventing application completion or cancellation"
+            ],
+            "artifacts": {
+              "summary.json": "90e0c4d6a50160d692d2fa34da0ba3dc0a25378268240b5bb85e8bf3d80c74eb",
+              "results.xml": "4ea266a818d44ca80a30b0f0ccae55c31aeb45b98b3856dd8662c66901c2d61f"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/ExitContract.Tests.ps1",
+                "sha256": "0e626ed80b4d8dbe122c1b2e8ae68b1860258ec014eca77fc5bdcd0e3edd0ecb"
+              }
+            ]
+          },
+          {
+            "suite": "ExitContract",
+            "draft_label": "M3-T05-exit-dev3-PS51",
+            "summary_exit": 0,
+            "total": 15,
+            "passed": 15,
+            "failed": 0,
+            "failed_blocks": 0,
+            "failed_containers": 0,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [],
+            "artifacts": {
+              "summary.json": "a5df34349e667be9d422ea83b1ae84e38d5fc8fe4e685e979be24930ae910b07",
+              "results.xml": "c0d6d93f5dd8d603232cb319fbe10172a6d6faa6ffd49c403d3dbbb6b5d6c02c"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/ExitContract.Tests.ps1",
+                "sha256": "3b62565af42f9e918037bb87d59e0786474d21ae17cc6716459f0dc966abdc9a"
+              }
+            ]
+          },
+          {
+            "suite": "ExitContract",
+            "draft_label": "M3-T05-exit-dev3-PS7",
+            "summary_exit": 0,
+            "total": 15,
+            "passed": 15,
+            "failed": 0,
+            "failed_blocks": 0,
+            "failed_containers": 0,
+            "skipped": 0,
+            "not_run": 0,
+            "failed_tests": [],
+            "artifacts": {
+              "summary.json": "b2ca7bacbcab9e995cec52bace49cf47c018ce8262b11ead95182c5cfd3bf27f",
+              "results.xml": "cc0ad7910d459b5eb441e69260a1bcd6ed62c893901ad3786e3ec6e25bab3624"
+            },
+            "recorded_draft_source_hashes": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+              },
+              {
+                "path": "WinImgNormalizer.bat",
+                "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+              },
+              {
+                "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+                "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+              },
+              {
+                "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+                "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+              },
+              {
+                "path": "tests/fixtures/colour/Generate-Reference.py",
+                "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+              },
+              {
+                "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+                "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+              },
+              {
+                "path": "tests/fixtures/colour/MANIFEST.json",
+                "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+              },
+              {
+                "path": "tests/fixtures/colour/README.md",
+                "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+              },
+              {
+                "path": "tests/fixtures/colour/REFERENCE.json",
+                "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+              },
+              {
+                "path": "tests/fixtures/colour/sRGB-v4.icc",
+                "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/ExitContract.Tests.ps1",
+                "sha256": "3b62565af42f9e918037bb87d59e0786474d21ae17cc6716459f0dc966abdc9a"
+              }
+            ]
+          }
+        ],
+        "findings": [
+          "Initial launcher probes exposed empty-argument environment transport and differing same-edition policy baselines. Harness transport/baseline were corrected; original failures retained.",
+          "Second focused launcher runs exposed actual LF-only CMD empty-extra GOTO label failure. An isolated LF versus CRLF native probe reproduced it. Production raw CRLF is now preserved in both Git blobs/source archives and checkouts; unchanged code with CRLF passes.",
+          "Initial ExitContract driver serialization used a generic-list array expression that PowerShell could not bind; exact Rows.ToArray fixed the driver, not the application.",
+          "A running draft source-binding check correctly detected the concurrent BAT newline repair; that failed draft is preserved.",
+          "Stopped-pipeline test methodology was repaired to observe nested engine Stopped state and PipelineStoppedException without relying on post-stop statements in the stopped pipeline. Final focused suites pass without skipping or reducing application outcome assertions."
+        ]
+      },
+      "case_results": [
+        {
+          "case": "T061",
+          "result": "passed",
+          "scope": "Real Windows CMD/BAT/PS child exits and observed pause; exact BAT with synthetic exit observer separately from real Command processing in isolated -File drivers. Codes 0,1,2,130 and unexpected native outcomes; inherited ERRORLEVEL cannot override actual status."
+        },
+        {
+          "case": "T062",
+          "result": "passed",
+          "scope": "Actual native single-folder argument flow and same-basename script resolution under spaces, Unicode, percent expressions, exclamation marks, ampersands, parentheses, brackets and trailing separators. Zero/extra/empty extra arguments reject before processing. Real application output uses owned synthetic scratch."
+        },
+        {
+          "case": "T063",
+          "result": "passed",
+          "scope": "Actual child observes Windows PowerShell 5.1, same user identity and process Bypass; persistent execution policies and PATH unchanged. No admin prompt or installation introduced."
+        }
+      ],
+      "limitations": [
+        "Automated native Windows launcher argument flow is verified. Physical Explorer drag-and-drop, keyboard interaction and subjective owner approval remain the separate M3-T07 owner gate.",
+        "Application cancellation seams are controlled; actual Ctrl+C/forced-exit observations remain independently covered and qualified by the existing cancellation suite. Force termination/stopped pipelines can bypass cleanup, reporting or launcher pause; no universal exit130 guarantee.",
+        "Caller-side CMD expansion can alter percent/bang expressions before the BAT receives them. No launcher can reconstruct already altered arguments.",
+        "Media/default/colour/size/native-ownership behavior remains covered by the existing suite. No merge, release or deployment approval is inferred."
+      ],
+      "checkpoint_synchronization": "pending_verification"
+    },
+    "ci": {
+      "schema_version": 1,
+      "task": "M3-T05",
+      "implementation": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+      "observed_at_utc": "2026-10-05T14:04:16.705689+00:00",
+      "runs": [
+        {
+          "event": "push",
+          "run_id": 37319730601,
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37319730601",
+          "head_sha": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "pwsh on Windows",
+              "conclusion": "success",
+              "id": 111795424886
+            },
+            {
+              "name": "powershell on Windows",
+              "conclusion": "failure",
+              "id": 111795425177
+            }
+          ],
+          "observed_counts": [
+            [
+              391,
+              391,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              392,
+              391,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              391,
+              369,
+              22,
+              0,
+              0,
+              1
+            ]
+          ],
+          "raw_log_sha256": "44e0da19ac94e255aad7041b21dc811444e5ccc33bb9ee0a900572a67d189409"
+        },
+        {
+          "event": "pull_request",
+          "run_id": 37319738277,
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37319738277",
+          "head_sha": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "powershell on Windows",
+              "conclusion": "failure",
+              "id": 111795450752
+            },
+            {
+              "name": "pwsh on Windows",
+              "conclusion": "success",
+              "id": 111795451427
+            }
+          ],
+          "observed_counts": [
+            [
+              391,
+              369,
+              22,
+              0,
+              0,
+              1
+            ],
+            [
+              391,
+              391,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              392,
+              391,
+              1,
+              0,
+              0,
+              1
+            ]
+          ],
+          "raw_log_sha256": "2a88b132a4bba8e9c69693fd02f80978a8c1786104b00690bf1adae37b0df0c2"
+        }
+      ],
+      "finding": "Initial hosted PS5.1 normal runs had22 blocked-pause assertions fail (391total,369pass); hostedPS7 normal and intended-failure controls pass. Desktop both fullnormal/control pass. Local detached experiments did not reproduce hosted behavior; exact cause is unconfirmed. Repair makes test-only console/input ownership explicit without changing productionBAT/script or weakening pause assertions."
+    }
+  },
+  "development_history": {
+    "qualification": "Precommit draft runs are separately recorded by actual runner hashes/counts, not claimed as clean implementation acceptance.",
+    "runs": [
+      {
+        "suite": "Launcher",
+        "draft": 1,
+        "host": "ps51",
+        "native_exit": 1,
+        "summary_exit": 1,
+        "total": 26,
+        "passed": 25,
+        "failed": 1,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [
+          "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty first argument with usage code before starting PowerShell"
+        ],
+        "artifacts": {
+          "summary.json": "fd3153edd877e49df319e740228a9c6b0129345b1cf16320c00f1974cc2e47a1",
+          "results.xml": "21c67924f7ce70a09bb878758ff2afcde82fbd485a3f5cffdd11900535fa4343",
+          "M3-T05-launcher-focused-ps51-v1.console.log": "71e8fcc7ceef137f71dc9b5cdc919f68fdf0485536e3279ed7a9427b66b1c1a6",
+          "M3-T05-launcher-focused-ps51-v1.console.log.native.json": "cfd7006a134b7e4961723c292c869154591e102e341b88330e4042515c18125d"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "1decbc0bcce3c2eb18b139a5e14c26ad8a5ce953bdf4366bdecbeae083344122"
+          }
+        ]
+      },
+      {
+        "suite": "Launcher",
+        "draft": 2,
+        "host": "ps51",
+        "native_exit": 1,
+        "summary_exit": 1,
+        "total": 27,
+        "passed": 24,
+        "failed": 3,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [
+          "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty extra argument with usage code before starting PowerShell",
+          "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty second argument followed by a third with usage code before starting PowerShell",
+          "M3-T05 actual Windows CMD launcher contract.T062 rejects two empty extra arguments with usage code before starting PowerShell"
+        ],
+        "artifacts": {
+          "summary.json": "751f407837243cc3883a605bcb979b97de348da7940b9079387bbbed1fb72a26",
+          "results.xml": "619024d51603a6d7765bf14001bfe8543b6bf1f7a3f8d269a10c2e7728616f78",
+          "M3-T05-launcher-focused-ps51-v2.console.log": "06e5a8c7d9a6fc434426071fcebef6b9c03b12071b877783b2946841f475d577",
+          "M3-T05-launcher-focused-ps51-v2.console.log.native.json": "c094f44079f4beeaffabd8c95fb356b054e14c51024ee34045e125e6b6351ece"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "de043d38a6ec185895491a737e1bf77d0ffe26f57a76b2196264dc21533cc32c"
+          }
+        ]
+      },
+      {
+        "suite": "Launcher",
+        "draft": 3,
+        "host": "ps51",
+        "native_exit": 0,
+        "summary_exit": 0,
+        "total": 28,
+        "passed": 28,
+        "failed": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [],
+        "artifacts": {
+          "summary.json": "a94560f108e7d806608e3b384683668311cfb177aa52314501cf5ef18a88d806",
+          "results.xml": "a48a6825baac8ee4622952f04525b4e2030ced7e1f9569670c79960a42be1fa2",
+          "M3-T05-launcher-focused-ps51-v3.console.log": "9b1c60d01841f5818ec213faa193369015b33717b0b3f60fa0b0aba6e0a3d304",
+          "M3-T05-launcher-focused-ps51-v3.console.log.native.json": "8fd634a291e865160791108c2cba9902f69763da95707a4e74ab5c91007005f1"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "0cce8bd1743fd4852465d42f2442b95fa6a17872b6f8572838d71ff239a9502d"
+          }
+        ]
+      },
+      {
+        "suite": "Launcher",
+        "draft": 1,
+        "host": "ps7",
+        "native_exit": 1,
+        "summary_exit": 1,
+        "total": 26,
+        "passed": 24,
+        "failed": 2,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [
+          "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty first argument with usage code before starting PowerShell",
+          "M3-T05 actual Windows CMD launcher contract.T063 retains the legacy host, process-only Bypass, user identity and persistent security context"
+        ],
+        "artifacts": {
+          "summary.json": "8333701cda6a0c03bce18a00e16e799106c9d33afe91dd2b06ecc998e839982c",
+          "results.xml": "f616131c172871dda56448d23a76ee497e84e1dc674c6a25110d22ec4de6fa52",
+          "M3-T05-launcher-focused-ps7-v1.console.log": "ec0dffce6dd6440887a8f70e0a79ea3be027d9d8808d9799bc8169b34ad9d77d",
+          "M3-T05-launcher-focused-ps7-v1.console.log.native.json": "6bde23dc76b96103f0251618a0950c35bb6fe0ac1c45499d74d2e52b6f7b5d36"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "1decbc0bcce3c2eb18b139a5e14c26ad8a5ce953bdf4366bdecbeae083344122"
+          }
+        ]
+      },
+      {
+        "suite": "Launcher",
+        "draft": 2,
+        "host": "ps7",
+        "native_exit": 1,
+        "summary_exit": 1,
+        "total": 27,
+        "passed": 24,
+        "failed": 3,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [
+          "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty extra argument with usage code before starting PowerShell",
+          "M3-T05 actual Windows CMD launcher contract.T062 rejects an empty second argument followed by a third with usage code before starting PowerShell",
+          "M3-T05 actual Windows CMD launcher contract.T062 rejects two empty extra arguments with usage code before starting PowerShell"
+        ],
+        "artifacts": {
+          "summary.json": "512b2a1ae9135ed9a9598b558bff5b25a318d61ae9e38b2c421d0c21e19449d0",
+          "results.xml": "e938f875b32406061bdaffb2486633a447bd2b4a2c950e0e7fd8eb380e0ce619",
+          "M3-T05-launcher-focused-ps7-v2.console.log": "3a8d761a7d645c8b3b68ebd5f6848ed87657a2beea3ec23268ce0cd603188426",
+          "M3-T05-launcher-focused-ps7-v2.console.log.native.json": "64ee30ae18b576c582753be55e2fa9fb26cb63855a8e04424f5ba72e97ff97d8"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "de043d38a6ec185895491a737e1bf77d0ffe26f57a76b2196264dc21533cc32c"
+          }
+        ]
+      },
+      {
+        "suite": "Launcher",
+        "draft": 3,
+        "host": "ps7",
+        "native_exit": 0,
+        "summary_exit": 0,
+        "total": 28,
+        "passed": 28,
+        "failed": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [],
+        "artifacts": {
+          "summary.json": "76c7edd8ed6fbd831fd750e7f0eab13c6929c2a817323d13e5ec0914ee29f5df",
+          "results.xml": "35ebf2681cf3123257dff38481cbbc05c9aed280694f4c0fb3f14ee29158701f",
+          "M3-T05-launcher-focused-ps7-v3.console.log": "31386b2d6f6b04274a2c7600ee8504fd53530c5d2f399466b8f8777f8aa7e9b5",
+          "M3-T05-launcher-focused-ps7-v3.console.log.native.json": "bf79a621dc1422eb00d6f2ab9182a25a2d7dee56af81f1f92b90eeb3ec44566e"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "0cce8bd1743fd4852465d42f2442b95fa6a17872b6f8572838d71ff239a9502d"
+          }
+        ]
+      },
+      {
+        "suite": "ExitContract",
+        "draft_label": "M3-T05-exit-dev1-PS7",
+        "summary_exit": 1,
+        "total": 13,
+        "passed": 4,
+        "failed": 9,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [
+          "M3-T05 actual script command exit contract (T061/T063).returns native 0 for ignored input through the unchanged Command on the actual host",
+          "M3-T05 actual script command exit contract (T061/T063).returns native 0 for empty input through the unchanged Command on the actual host",
+          "M3-T05 actual script command exit contract (T061/T063).returns native 1 for controlled unexpected run-level failure through the unchanged Command on the actual host",
+          "M3-T05 actual script command exit contract (T061/T063).returns native 2 for actual corrupt image with retained video through the unchanged Command on the actual host",
+          "M3-T05 actual script command exit contract (T061/T063).returns native 130 for controlled cancellation during actual copy through the unchanged Command on the actual host",
+          "M3-T05 complete application flow through the exact production BAT (T061/T063).preserves application 0 after the actual BAT echo and pause for completed ignored input",
+          "M3-T05 complete application flow through the exact production BAT (T061/T063).preserves application 1 after the actual BAT echo and pause for controlled global failure",
+          "M3-T05 complete application flow through the exact production BAT (T061/T063).preserves application 2 after the actual BAT echo and pause for actual file failure with kept output",
+          "M3-T05 complete application flow through the exact production BAT (T061/T063).preserves application 130 after the actual BAT echo and pause for controlled cooperative interruption"
+        ],
+        "artifacts": {
+          "summary.json": "b9219237a2c56734673256ab6982dfb53c13e492508168ae01eee58395189811",
+          "results.xml": "c1bab036be96b829cd9be7a4cfcb244c2fc68f131d3959aa0d2070d775232890"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "6dcd5b69344106804f3a6da1cfc16e1ef459a1e5b2bb81070a3642daae415906"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/ExitContract.Tests.ps1",
+            "sha256": "2ea7ab2aa1fa69468659f4fb8e5adadf7f393b0e2a3faf9b70f6ca234f26613a"
+          }
+        ]
+      },
+      {
+        "suite": "ExitContract",
+        "draft_label": "M3-T05-exit-dev2-PS7",
+        "summary_exit": 1,
+        "total": 15,
+        "passed": 14,
+        "failed": 1,
+        "failed_blocks": 0,
+        "failed_containers": 1,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [
+          "M3-T05 outer Command exception boundary controls (T061).propagates a controlled stopped pipeline without inventing application completion or cancellation"
+        ],
+        "artifacts": {
+          "summary.json": "90e0c4d6a50160d692d2fa34da0ba3dc0a25378268240b5bb85e8bf3d80c74eb",
+          "results.xml": "4ea266a818d44ca80a30b0f0ccae55c31aeb45b98b3856dd8662c66901c2d61f"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/ExitContract.Tests.ps1",
+            "sha256": "0e626ed80b4d8dbe122c1b2e8ae68b1860258ec014eca77fc5bdcd0e3edd0ecb"
+          }
+        ]
+      },
+      {
+        "suite": "ExitContract",
+        "draft_label": "M3-T05-exit-dev3-PS51",
+        "summary_exit": 0,
+        "total": 15,
+        "passed": 15,
+        "failed": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [],
+        "artifacts": {
+          "summary.json": "a5df34349e667be9d422ea83b1ae84e38d5fc8fe4e685e979be24930ae910b07",
+          "results.xml": "c0d6d93f5dd8d603232cb319fbe10172a6d6faa6ffd49c403d3dbbb6b5d6c02c"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/ExitContract.Tests.ps1",
+            "sha256": "3b62565af42f9e918037bb87d59e0786474d21ae17cc6716459f0dc966abdc9a"
+          }
+        ]
+      },
+      {
+        "suite": "ExitContract",
+        "draft_label": "M3-T05-exit-dev3-PS7",
+        "summary_exit": 0,
+        "total": 15,
+        "passed": 15,
+        "failed": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [],
+        "artifacts": {
+          "summary.json": "b2ca7bacbcab9e995cec52bace49cf47c018ce8262b11ead95182c5cfd3bf27f",
+          "results.xml": "cc0ad7910d459b5eb441e69260a1bcd6ed62c893901ad3786e3ec6e25bab3624"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "af56d2ef14b917367b4e18a898bb62b81b68de4c36275d47b4232625817a0427"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/ExitContract.Tests.ps1",
+            "sha256": "3b62565af42f9e918037bb87d59e0786474d21ae17cc6716459f0dc966abdc9a"
+          }
+        ]
+      },
+      {
+        "suite": "Launcher",
+        "draft_label": "console-v1",
+        "qualification": "Historical focused run only. Source hashes are the runner's recorded observations and are not matched to current I2 source bytes.",
+        "host": "Desktop",
+        "host_version": "5.1.26100.9444",
+        "observed_at_utc": "2026-10-05T14:06:06.8863151Z",
+        "summary_exit": 1,
+        "total": 29,
+        "passed": 24,
+        "failed": 5,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with percent signs",
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with exclamation marks",
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with parentheses",
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with all characters",
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with all characters and trailing backslash"
+        ],
+        "persistent_policy_unchanged": true,
+        "test_fixture_compiler": {
+          "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+          "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "5f6a2c8d1589ff1fa672d2e0f637c51d7e4c35b662f7dde1ec17957e9dd9a82c"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/fixtures/LauncherConsoleFixture.cs",
+            "sha256": "639742858ebe65b232aadc0b21fd239d9301fb6a6abe1ee21da20582bc4e79e2"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "970fa8eae74573e58b16e230b2f15ecbe6c233fd7ba7c20cb378117f653c596d"
+          }
+        ],
+        "native_exit": 1,
+        "artifacts": {
+          "M3-T05-launcher-console-focused-ps51-v1/summary.json": "9912428c7668b86ff72d8da6c64ad849384e01b9fbae642a1751048cbad73669",
+          "M3-T05-launcher-console-focused-ps51-v1/results.xml": "7d14f3ed72f89767db1cd00513836cb1f9a59ab69eb1d0b40c12c6a73e94748f",
+          "M3-T05-launcher-console-focused-ps51-v1.console.log.native.json": "f1d4df2097e38396134ed6811c390c32b59d752bfe877142917aeb4ed75f61f0",
+          "M3-T05-launcher-console-focused-ps51-v1.console.log": "525549a997956e9fb0670d9195e2575b3602403162141760a6a8b235f60b1923"
+        }
+      },
+      {
+        "suite": "Launcher",
+        "draft_label": "console-v2",
+        "qualification": "Historical focused run only. Source hashes are the runner's recorded observations and are not matched to current I2 source bytes.",
+        "host": "Desktop",
+        "host_version": "5.1.26100.9444",
+        "observed_at_utc": "2026-10-05T14:09:10.2880414Z",
+        "summary_exit": 0,
+        "total": 29,
+        "passed": 29,
+        "failed": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [],
+        "persistent_policy_unchanged": true,
+        "test_fixture_compiler": {
+          "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+          "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "5f6a2c8d1589ff1fa672d2e0f637c51d7e4c35b662f7dde1ec17957e9dd9a82c"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/fixtures/LauncherConsoleFixture.cs",
+            "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+          }
+        ],
+        "native_exit": 0,
+        "artifacts": {
+          "M3-T05-launcher-console-focused-ps51-v2/summary.json": "d49d9a28717c855ad4fd8b1932caf4c5ef8fa4f1b48d9d60a4adbdbfe77513a0",
+          "M3-T05-launcher-console-focused-ps51-v2/results.xml": "d409cf8cedad1c7f2aa8524bb69e4e041c6a10e1b54bc0fa66e4e14274234108",
+          "M3-T05-launcher-console-focused-ps51-v2.console.log.native.json": "d17fc8433a48af775785c7a7160ee3dfedf2c70cb461cb52a905f17926304648",
+          "M3-T05-launcher-console-focused-ps51-v2.console.log": "470b118d51013e1ad5a750c50ad0eab972377e5a8277543ce18d2e2bfe5749b0"
+        }
+      },
+      {
+        "suite": "Launcher",
+        "draft_label": "console-v1",
+        "qualification": "Historical focused run only. Source hashes are the runner's recorded observations and are not matched to current I2 source bytes.",
+        "host": "Core",
+        "host_version": "7.6.5",
+        "observed_at_utc": "2026-10-05T14:06:08.1991298Z",
+        "summary_exit": 1,
+        "total": 29,
+        "passed": 23,
+        "failed": 6,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with spaces",
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with Unicode",
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with percent signs",
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with exclamation marks",
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with all characters and trailing backslash",
+          "M3-T05 actual Windows CMD launcher contract.T062 preserves a single literal source and companion path with all characters and trailing slash"
+        ],
+        "persistent_policy_unchanged": true,
+        "test_fixture_compiler": {
+          "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+          "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "5f6a2c8d1589ff1fa672d2e0f637c51d7e4c35b662f7dde1ec17957e9dd9a82c"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/fixtures/LauncherConsoleFixture.cs",
+            "sha256": "639742858ebe65b232aadc0b21fd239d9301fb6a6abe1ee21da20582bc4e79e2"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "970fa8eae74573e58b16e230b2f15ecbe6c233fd7ba7c20cb378117f653c596d"
+          }
+        ],
+        "native_exit": 1,
+        "artifacts": {
+          "M3-T05-launcher-console-focused-ps7-v1/summary.json": "91ddedbfe709840cf6137990190d7abdab70c514fecee1476f8132de15802fc3",
+          "M3-T05-launcher-console-focused-ps7-v1/results.xml": "4894aaef0bad3df294bab7ece148da2067d6ea7569d512958f2541e44be8b068",
+          "M3-T05-launcher-console-focused-ps7-v1.console.log.native.json": "d93e4e7052baa74e59449344d8163865e2c85efab2610bf1aa397e1e5bcb44ac",
+          "M3-T05-launcher-console-focused-ps7-v1.console.log": "e8724e9975d5b744f2cd1716ad1338cc209732d91d5e3338c7893bfcca163ec9"
+        }
+      },
+      {
+        "suite": "Launcher",
+        "draft_label": "console-v2",
+        "qualification": "Historical focused run only. Source hashes are the runner's recorded observations and are not matched to current I2 source bytes.",
+        "host": "Core",
+        "host_version": "7.6.5",
+        "observed_at_utc": "2026-10-05T14:09:11.6551586Z",
+        "summary_exit": 0,
+        "total": 29,
+        "passed": 29,
+        "failed": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [],
+        "persistent_policy_unchanged": true,
+        "test_fixture_compiler": {
+          "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+          "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "5f6a2c8d1589ff1fa672d2e0f637c51d7e4c35b662f7dde1ec17957e9dd9a82c"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/fixtures/LauncherConsoleFixture.cs",
+            "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+          },
+          {
+            "path": "tests/Launcher.Tests.ps1",
+            "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+          }
+        ],
+        "native_exit": 0,
+        "artifacts": {
+          "M3-T05-launcher-console-focused-ps7-v2/summary.json": "6bd7f666b75401be1e00518b38985338c20bef213f68f50281a3037cb8763cf2",
+          "M3-T05-launcher-console-focused-ps7-v2/results.xml": "3f10dc4f4fb8c738b12a4f4c05c87df117c48011e6484939371941fcfaaae399",
+          "M3-T05-launcher-console-focused-ps7-v2.console.log.native.json": "e070b85aa8888fb8556c39e967b7e913d4125d79218c0c93d64682c22d22039c",
+          "M3-T05-launcher-console-focused-ps7-v2.console.log": "8bb2dba860905f3b64f4b312ccc3a38fc8ff6d8f95a2bb71717a6d96d38b7855"
+        }
+      },
+      {
+        "suite": "ExitContract",
+        "draft_label": "M3-T05-exit-console-final1-PS51",
+        "qualification": "Historical focused run only. Source hashes are the runner's recorded observations and are not matched to current I2 source bytes.",
+        "host": "Desktop",
+        "host_version": "5.1.26100.9444",
+        "observed_at_utc": "2026-10-05T14:06:19.0891911Z",
+        "summary_exit": 0,
+        "total": 15,
+        "passed": 15,
+        "failed": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [],
+        "persistent_policy_unchanged": true,
+        "test_fixture_compiler": {
+          "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+          "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "5f6a2c8d1589ff1fa672d2e0f637c51d7e4c35b662f7dde1ec17957e9dd9a82c"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/fixtures/LauncherConsoleFixture.cs",
+            "sha256": "639742858ebe65b232aadc0b21fd239d9301fb6a6abe1ee21da20582bc4e79e2"
+          },
+          {
+            "path": "tests/ExitContract.Tests.ps1",
+            "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+          }
+        ],
+        "artifacts": {
+          "test-results/M3-T05-exit-console-final1-PS51/summary.json": "e68da8ef0b5456d0760d74389f48d0a27616e9b4505ceb240b10bb942e715407",
+          "test-results/M3-T05-exit-console-final1-PS51/results.xml": "a17a2d017db4a0d5088745a2ee615d226dfb7ed6a8c411416bc4b5fb7df5e368",
+          "M3-T05-exit-2d2803eadafc498c850f2627d79477d8/observations.json": "b8e3e948d7e194b37e103ad78d47b8e386a6cb4ca063f452ec4ed87dfb511ad1"
+        }
+      },
+      {
+        "suite": "ExitContract",
+        "draft_label": "M3-T05-exit-console-final1-PS7",
+        "qualification": "Historical focused run only. Source hashes are the runner's recorded observations and are not matched to current I2 source bytes.",
+        "host": "Core",
+        "host_version": "7.6.5",
+        "observed_at_utc": "2026-10-05T14:06:18.2371005Z",
+        "summary_exit": 0,
+        "total": 15,
+        "passed": 15,
+        "failed": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "failed_tests": [],
+        "persistent_policy_unchanged": true,
+        "test_fixture_compiler": {
+          "file_version": "4.8.9221.0 built by: NET481REL1LAST_25H2",
+          "sha256": "46809206887326d2d24db1eff1f3064de972c3451abe766b49111450a5e08e00"
+        },
+        "recorded_draft_source_hashes": [
+          {
+            "path": "WinImgNormalizer.ps1",
+            "sha256": "2d1703915bb80f10bff7839abfd4e11724a8165e1a40cdaded46cac17beb74a7"
+          },
+          {
+            "path": "WinImgNormalizer.bat",
+            "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+          },
+          {
+            "path": "tests/Invoke-Tests.ps1",
+            "sha256": "5f6a2c8d1589ff1fa672d2e0f637c51d7e4c35b662f7dde1ec17957e9dd9a82c"
+          },
+          {
+            "path": "tests/Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "path": "tests/dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          },
+          {
+            "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          },
+          {
+            "path": "tests/fixtures/colour/Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          },
+          {
+            "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          },
+          {
+            "path": "tests/fixtures/colour/MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          },
+          {
+            "path": "tests/fixtures/colour/README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          },
+          {
+            "path": "tests/fixtures/colour/REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          },
+          {
+            "path": "tests/fixtures/colour/sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          },
+          {
+            "path": "tests/Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          },
+          {
+            "path": "tests/fixtures/LauncherConsoleFixture.cs",
+            "sha256": "639742858ebe65b232aadc0b21fd239d9301fb6a6abe1ee21da20582bc4e79e2"
+          },
+          {
+            "path": "tests/ExitContract.Tests.ps1",
+            "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+          }
+        ],
+        "artifacts": {
+          "test-results/M3-T05-exit-console-final1-PS7/summary.json": "98aab6db35f3eca77f79cd12e579ad6c9f5520c6eaae7b1f9f46056e5e5734b0",
+          "test-results/M3-T05-exit-console-final1-PS7/results.xml": "74084f476611729dc70ab683e5fdb57dfb6ae0b4bbc7834538dbccceefe4d584",
+          "M3-T05-exit-fdd733d569c3462080217e2c159aa780/observations.json": "278c95be894d560f9e2d1da7df4f23b5041d91d445be61722fd56f5783888abc"
+        }
+      }
+    ],
+    "findings": [
+      "Initial launcher probes exposed empty-argument environment transport and differing same-edition policy baselines. Harness transport/baseline were corrected; original failures retained.",
+      "Second focused launcher runs exposed actual LF-only CMD empty-extra GOTO label failure. An isolated LF versus CRLF native probe reproduced it. Production raw CRLF is now preserved in both Git blobs/source archives and checkouts; unchanged code with CRLF passes.",
+      "Initial ExitContract driver serialization used a generic-list array expression that PowerShell could not bind; exact Rows.ToArray fixed the driver, not the application.",
+      "A running draft source-binding check correctly detected the concurrent BAT newline repair; that failed draft is preserved.",
+      "Stopped-pipeline test methodology was repaired to observe nested engine Stopped state and PipelineStoppedException without relying on post-stop statements in the stopped pipeline. Final focused suites pass without skipping or reducing application outcome assertions.",
+      "Initial clean I1 desktop normal/control results passed, while both hosted PS5.1 normal jobs failed 22 retained-pause assertions. The exact hosted cause remains unconfirmed; local detached experiments did not reproduce it. The test-only console fixture explicitly owns its console/input and CMD descendants without changing production script/BAT bytes or weakening pause assertions.",
+      "Console-focused Launcher v1 retained 5 PS5.1 and 6 PS7 path-case timeouts after keys were supplied before the real pause. V2 waits for actual CMD startup and the retained pause in every path case; both 29/29 focused runs pass. A no-pause native37 control proves that the fixture does not wait on its own input thread or invent a pause.",
+      "Exit console final1 historical runs each passed 15/15 against the recorded suite be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154 and fixture 639742858ebe65b232aadc0b21fd239d9301fb6a6abe1ee21da20582bc4e79e2 hashes. Those historical bytes are not relabeled as current I2 sources."
+    ]
+  },
+  "case_results": [
+    {
+      "scope": "Real Windows CMD/BAT/PS child exits and observed pause in a hidden private console with its own preassigned job. Exact BAT with synthetic exit observer is separate from real Command processing in isolated -File drivers. Codes 0,1,2,130 and unexpected native outcomes; inherited ERRORLEVEL cannot override actual status. Native37 without a pause proves the test fixture cannot manufacture one.",
+      "case_id": "T061",
+      "state": "passed"
+    },
+    {
+      "scope": "Actual native single-folder argument flow and same-basename script resolution under spaces, Unicode, percent expressions, exclamation marks, ampersands, parentheses, brackets and trailing separators. Zero/extra/empty extra arguments reject before processing. Real application output uses owned synthetic scratch.",
+      "case_id": "T062",
+      "state": "passed"
+    },
+    {
+      "scope": "Actual child observes Windows PowerShell 5.1, same user identity and process Bypass; persistent execution policies and PATH unchanged. No admin prompt or installation introduced.",
+      "case_id": "T063",
+      "state": "passed"
+    }
+  ],
+  "limitations": [
+    "Automated native Windows launcher argument flow is verified. Physical Explorer drag-and-drop, keyboard interaction and subjective owner approval remain the separate M3-T07 owner gate.",
+    "Application cancellation seams are controlled; actual Ctrl+C/forced-exit observations remain independently covered and qualified by the existing cancellation suite. Force termination/stopped pipelines can bypass cleanup, reporting or launcher pause; no universal exit130 guarantee.",
+    "Caller-side CMD expansion can alter percent/bang expressions before the BAT receives them. No launcher can reconstruct already altered arguments.",
+    "The prior hosted PS5.1 pause failures are retained; their exact environmental cause remains unconfirmed. Historical focused and I1 source hashes are observations of those earlier bytes, not bindings to current I2.",
+    "Media/default/colour/size/native-ownership behavior remains covered by the existing suite. No merge, release or deployment approval is inferred."
+  ],
+  "checkpoint_synchronization": "pending_verification",
+  "task_id": "M3-T05",
+  "documentation_checks": [
+    {
+      "command": "python tools/codex-winimg/handoff.py plan --repo .",
+      "state": "failed",
+      "error": "Evidence task ID mismatch.",
+      "qualification": "Initial evidence draft used task/case/result fields. Corrected to the existing canonical task_id/case_id/state schema before checkpoint; application and test bytes are unchanged."
+    },
+    {
+      "command": "python tools/codex-winimg/handoff.py plan --repo .",
+      "state": "passed",
+      "native_exit": 0,
+      "observed_at_utc": "2026-10-05T14:27:33.351174+00:00",
+      "result": {
+        "tasks": 28,
+        "cases": 75,
+        "review_items_covered": 18,
+        "tasks_done": 20,
+        "next_task": "M3-T06",
+        "scope": "Structural plan validation only; no application tests or approval authentication."
+      },
+      "stdout_sha256": "1c19068906b4f56d4c1c8cb589fb27af6ffc2dc9b71263f39fa6c33114dcb495"
+    },
+    {
+      "command": "git diff --check",
+      "state": "passed",
+      "native_exit": 0
+    }
+  ],
+  "evidence_schema_transform": {
+    "source_sha256": "1a62b4f4f964453594dde6177d78439276b6097a7309022796ad9d20f0033d97",
+    "qualification": "The recorded generator hash binds its preserved executed source; a later evidence-only transformer corrected canonical field names and retained the initial plan-check failure."
+  }
+}
