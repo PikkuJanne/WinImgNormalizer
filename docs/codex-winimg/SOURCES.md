@@ -260,3 +260,92 @@ drive/localhost C$ ancestor rejection supports this conservative preflight polic
 it does not certify arbitrary remote SMB equivalence or a hostile concurrent
 filesystem sandbox. Live UNC capability remains separately observed from the
 mandatory assertion count.
+
+## I9 — M2-T04 exact extent bytes and best-effort targeting, 5 October 2026
+
+[ImageMagick's defines reference](https://imagemagick.org/defines/) describes
+`jpeg:extent` as an encoder-quality search toward a file-size budget and notes the
+interaction with an explicit quality option. This task adds no quality option or
+floor and retains the existing six resize attempts and JPEG settings.
+
+The [pinned 7.1.2-32 JPEG encoder](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/coders/jpeg.c)
+parses the extent with `SiPrefixToDoubleInterval`, compares encoded trial blob
+lengths and selects a quality. The
+[pinned string helper](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/string-private.h)
+delegates that operand to
+[InterpretSiPrefixValue](https://raw.githubusercontent.com/ImageMagick/ImageMagick/7.1.2-32/MagickCore/string.c).
+Its K/M prefixes use decimal factors; an `i` selects the binary factor. Thus native
+`1KB` means 1,000 bytes and `1MB` means 1,000,000, while `1KiB` and `1MiB` mean
+1,024 and 1,048,576. PowerShell's binary `1KB`/`1MB` values must not be formatted
+back into these decimal suffixes. An invariant decimal byte operand such as
+`1048576B` removes that unit mismatch.
+
+Retained real probes of the pinned Windows executable confirm byte-identical JPEG
+pairs for `1KB`/`1000B`, `1KiB`/`1024B`, `1MB`/`1000000B` and
+`1MiB`/`1048576B`. The larger seeded-noise fixture produced distinct 964,543-byte
+decimal-MB and 1,011,926-byte binary-MiB outputs. A `1B` target still produced a
+fully decoded 527-byte JPEG with native exit 0 and no diagnostics. Those results
+support checking actual final length and preserving the existing valid-above-target
+fallback with an explicit warning; native success alone cannot establish size
+compliance.
+
+The parser returns a `double`, so not every integer above 2^53 can be represented
+exactly by the native search budget. The application keeps every accepted Int64
+digit in its byte operand and uses the validated file's exact Int64 length for the
+final at-or-below/above comparison. No huge-file experiment or universal native
+precision guarantee is claimed.
+
+Version-tagged source bytes, executable identity, synthetic recipes, native argv,
+full-decode results and hashes remain in the ignored extent-research artifact.
+Those unit probes and incidental timings are separate from T042's representative
+benchmark and from owner photographic/aesthetic approval.
+
+
+The reproducible development harness `tests/Measure-SizeQuality.ps1` compares
+the exact frozen baseline `f9b00d8befac93c4fa1116efcbc2e9d7144f4509` with corrected
+implementation `0e490cc5f972b5f22374d2599eed929e477b40ca`, using pinned ImageMagick
+7.1.2-32. The measured synthetic corpus contains 1600x1200 landscape gradients,
+1200x1600 portrait gradients, hard coloured edges with white/black line detail,
+seeded RGB noise and an existing lossy JPEG reference; a separate opaque video
+copy checks bytes and creation/modification times. Fresh PS5.1 and PS7 hosts ran
+sequentially after local correctness tests. At 1,048,576, 262,144, 65,537 and 1,024
+bytes, each host recorded 40 JPEG rows plus two video rows, with actual native
+child exit 0, unchanged conversion flags and scale prefixes except extent, and
+preserved source state. All five 65,537-byte control JPEGs are byte-identical
+between baseline and candidate in each shell.
+
+In the PS7 default-cap measurement, the seeded-noise JPEG changed from 979,962
+to 1,015,369 bytes at 100 percent; decoded source-grid PSNR changed from 12.39
+to 12.44 dB. The existing-lossy-JPEG case changed from 840,679 to 916,662 bytes
+at 100 percent and from 25.01 to 25.04 dB. These observations qualify the
+effective-budget correction rather than promise a universal quality improvement.
+At 1,024 bytes, all five valid JPEGs remained above target at the final 50-percent
+attempt: baseline returned 0 while the candidate returned 2 with exact warning
+bytes/dimensions/scale and SizeWarnings=5. Every opaque video copy remained
+byte-identical with its creation/modification times preserved.
+
+RGB8 MAE and PSNR compare output with the original resized to output dimensions;
+the separate source-grid metric compares upscaled output with the original
+decoded source. The already-lossy reference is its existing decoded JPEG.
+These encoded-sRGB metrics are not perceptual or photographic acceptance scores.
+Native timing sums actual conversion attempts; complete application timing
+includes validation, hash tracing and logging, and is reported per five-image
+batch. One repeat per host is descriptive, with no confidence interval,
+statistically controlled speed claim or subjective owner approval. The numeric
+default remains 1,048,576 bytes; no quality floor, scale, chroma or encoder tuning
+is introduced.
+
+Sanitized benchmark notes `.scratch/M2-T04-benchmark-notes.json` have SHA256
+`105d863414e201e6191b3dfb38bf39dfcf2cf994ffe1640c1ea70f277082c204`;
+the compact comparison table is `.scratch/M2-T04-benchmark-owner-review.md`.
+The notes retain raw/Git source bindings, fixture recipes/hashes, native parent
+exits, artifact hashes, all metrics/timings and separate exploratory tooling
+history. Raw native argv, transcripts and media remain ignored. Their scoped
+summary is recorded in [M2-T04 evidence](evidence/M2-T04.json), with the mandatory
+test/hosted gates and independent metric audit kept separate from owner approval.
+
+The independent NumPy audit `.scratch/M2-T04-benchmark-metric-audit.json`
+recomputed all 160 output-grid/source-grid metric pairs across the 84 rows and
+checked 188 actual native conversions plus the five raw/Git source bindings per
+host. This is an independent verification of the saved buffers and observations,
+not an additional timing repeat or subjective quality approval.
