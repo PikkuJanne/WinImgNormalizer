@@ -1453,3 +1453,288 @@ OS-maintained access time is not guaranteed. Existing pinned codec, colour and
 lossy-JPEG qualifications remain in prior evidence. This card does not tune conversion
 defaults or repeat the size/quality benchmark, and automated regression acceptance does
 not grant owner approval, release or deployment permission.
+
+## 2026-10-05 — M3-T02 completed
+
+Started clean at fa4ab9fd609918500a5dcec1c5972c24d23c2c37, equal to the live feature
+branch; owner-merged PR #16 main a2ef99ac52631e84988669905aa8e80d44682b79 had the same
+tree. Continued without changing checkout/history. Successor draft PR #17 contains this
+task. Implementation synchronization is a past exact-SHA observation. This record-only
+checkpoint's SHA/live synchronization remains pending_verification until separately
+observed after normal commit/push.
+
+An image now shares a 120,000-ms elapsed budget across its snapshot, frame/colour/ICC
+queries, conversion attempts, retries and complete JPEG validation. The final move
+requires time remaining. Every real image command requests process-local pixel-cache
+memory 512 MiB, map 1 GiB, disk 2 GiB, two threads and the remaining seconds; stricter
+installed ImageMagick policies still apply. A timeout or resource failure rejects that
+image and continues later usable image/video siblings with application warning/partial
+code 2.
+
+Native processes are created atomically inside a private kill-on-close Windows job and
+start only after two bounded stream readers are ready. Cleanup targets that job,
+confirms an empty tree and drains/cancels readers within one 3-second grace; it never
+selects unrelated processes by name or PID snapshots. The separate exclusive plain TEMP
+cache root is validated before output writes and kept outside the physical source tree.
+Media snapshots, ICC data and JPEG candidates keep output-volume staging. Unconfirmed
+tree termination rejects finalization and preserves all item scratch; ordinary cleanup
+is nonrecursive, removes only regular magick-* cache files and preserves unexpected
+entries with a warning.
+
+D30/I12 record the implementation policy and dated official Windows/ImageMagick advisory
+review. Public positional/BAT calls, exact size cap, six scales,
+JPEG/colour/white-alpha/frame selection, literal paths, no-overwrite transactions,
+source preservation, video bytes and successful duplicate retention remain within their
+existing contracts. The development Measure-SizeQuality trace now follows the current
+bounded native observer and separates leading resource-limit arguments from core image
+flags. Tiny compatibility checks are separate from representative quality/performance
+measurement and owner approval.
+
+T051 — passed: Actual wrapper/job root-child-grandchild timeout and normal-root cleanup;
+independent direct-parent plus creation-identity and held-file proof; flood and valid
+JPEG before stall remain unacceptable; actual selected phase sleepers share a finite
+file budget and later real media complete.
+
+T052 — passed: Actual benign large-cache native exhaustion under lower process-local
+memory/map/disk/thread ceilings; later tiny JPEG/video complete. Child-only environment
+and stricter private policy preserve installed policy/parent environment. Short cache
+ownership/path/source boundary and exact cleanup/refusal assertions pass.
+
+T053 — passed: An independently started actual pinned ImageMagick process stays alive
+with the same PID/start identity through another private job timeout. After a three-byte
+synchronization write it exits zero and produces exactly one full-decoded 1x1 red PNG
+from the independent first xc image; every decoded stdin image is discarded. The test
+does not assert received stdin byte count or alter host encoding.
+
+Actual development .scratch/M3-T02-target-ps7-1: 4/14 passed, 10 failed, native exit 1.
+Fixture switch Input collided with the PowerShell automatic enumerator variable. Large
+switch shadowed the large template path. GetNewClosure isolated callback command
+resolution from locally imported functions. The combined top-level limit/list resource
+probe is invalid on the pinned native CLI; identify subcommand fixes its actual
+MissingArgument exit11.
+
+Actual development .scratch/M3-T02-target-ps7-2: 8/14 passed, 6 failed, native exit 1.
+Immediate normal-root cleanup correctly returned without timeout; the original
+unconditional timeout expectation was incorrect. Actual generated ImageMagick cache
+filenames beneath deep output work exceeded MAX_PATH, blocking later images and the
+requested validation phase. The later sibling/cache/cumulative application assertions
+failed honestly; source file hashes and times remained preserved.
+
+Actual development .scratch/M3-T02-target-ps7-3: 13/17 passed, 4 failed, native exit 1.
+Three strict directory-mtime baselines differed by milliseconds around fixture creation;
+source hashes and file creation/modified times remained intact. Subsequent fixtures set
+all directory times after writes, deepest first, and snapshot objects are refreshed;
+exact equality remains mandatory. Source-contained cache rejection occurred after the
+destination write probe and changed output-parent directory mtime. Runtime validation
+moved before that probe; the original no-write assertion remains intact.
+
+Actual development .scratch/M3-T02-target-ps7-4: 17/17 passed, 0 failed, native exit 0.
+All actual assertions passed with complete summary/XML and native exit0.
+
+Actual development .scratch/M3-T02-target-ps51-1: 17/17 passed, 0 failed, native exit 0.
+All actual assertions passed with complete summary/XML and native exit0.
+
+Actual development .scratch/M3-T02-target-ps51-2: 17/17 passed, 0 failed, native exit 0.
+The narrow unrelated-process fixture repair passed: real ImageMagick stays alive with
+the same creation identity during another private job timeout, then produces exactly one
+independently generated red PNG after stdin synchronization.
+
+Actual development .scratch/M3-T02-target-ps7-5: 17/17 passed, 0 failed, native exit 0.
+The narrow unrelated-process fixture repair passed: real ImageMagick stays alive with
+the same creation identity during another private job timeout, then produces exactly one
+independently generated red PNG after stdin synchronization.
+
+Actual M3-T02 focused PS7 development runs retained 14 total/4 passed/10 failed, then
+14/8/6, then 17/13/4, each native exit 1 with zero excluded/container/block counts.
+These are 20 failed assertions across three real runs, with fixture errors and genuine
+runtime defects distinguished below. Initial-I1-focused PS7 attempt 4 and PS5.1 attempt
+1 each passed 17/17 with actual native exit 0 and no incomplete tests. Their raw source
+snapshots, summary/XML/native/console records and owned observations are preserved; no
+earlier result was overwritten or relabeled as a clean implementation gate.
+
+The first focused run exposed fixture Input/Large names shadowing automatic variables or
+paths, GetNewClosure command-resolution isolation, and an invalid combined converter
+limit/list-resource query. The actual native query returned MissingArgument/exit 11 even
+though its exploratory script returned 0; the corrected identify query is the valid
+route. Separate initial API/resource probes also retain a child Unicode-console mismatch
+and query error. These are test/probe preparation failures, not invented runtime
+success.
+
+The second focused run incorrectly expected every normal-root/remaining-descendant
+cleanup to time out; prompt normal-root cleanup was correct and that assertion was
+repaired. It also exposed a genuine runtime path defect: ImageMagick's generated cache
+files below deep output work exceeded ordinary path limits. An independently preserved
+always-extended TEMP/TMP/MAGICK_TEMPORARY_PATH probe likewise failed native execution; a
+later plain short cache-anchor probe completed native 0. Production now allocates an
+exclusive WinImgNormalizer-cache-GUID directory beneath a validated existing process
+TEMP root rather than depending on an extended cache prefix or universal 8.3 support.
+The frozen early design artifact's output-tree cache description is superseded by this
+final policy, with original source/probe bytes retained.
+
+The third focused run retained three strict directory-mtime failures from fixture
+creation order/cached metadata; fixtures now set directory times after all writes,
+deepest first, and refresh snapshot objects while retaining exact equality. It also
+exposed a genuine setup-order defect: source-contained native TEMP rejection occurred
+after the destination write probe and changed the output-parent directory timestamp.
+Root moved the physical temporary-root validation before that probe; the no-output-write
+assertion remained intact. No source/hash/time preservation assertion was removed.
+Initial-I1-focused executable runtime, suite and runner bytes stayed fixed through those
+two green focused children; a later T053 test-only repair is recorded separately below.
+Tests README prose/Markdown/UNC-sentence restoration happened afterward and is
+explicitly bound to its frozen final SHA rather than claimed as the earlier focused
+document bytes.
+
+The measurement compatibility work retained an initial native-exit-1 tiny square-fixture
+run: 128x128 landscape/portrait fixtures had identical bytes and made fixtureByHash
+mapping ambiguous. The trace also exposed its existing automatic Input variable
+collision. A rectangular 128x160 synthetic corpus and nativeInputs trace normalization
+corrected the tooling. A first literal writer asserted the wrong substring count and
+exited before editing. Successful fresh PS5.1 and PS7 smokes each returned native 0 with
+ten actual image conversions and two opaque-video rows, preserving source/harness bytes
+and policy. Both successful native records bind the same final runtime raw SHA256
+791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e and adapter SHA256
+f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94. An initial reviewer
+message and the immutable adapter audit's first limitation mistakenly said the PS5.1
+smoke preceded the setup-order correction; actual equal hashes and the final exact-I
+review supersede that chronology. The original PS5.1 controller prose says 128x128 while
+its saved dimensions/argv prove 128x160; original artifacts stay unchanged. These twelve
+rows per host establish a compatibility smoke, not a representative benchmark rerun or
+quality/performance result.
+
+The reviewer authored the native C# block and measurement adapter under explicit root
+delegation; root independently reviewed those blocks. The final exact-I peer artifact
+discloses this boundary and does not present author review as independent third-party
+authorship review. The saved current upstream advisories and tagged source/API bytes are
+primary provenance, not malicious-exploit execution. Controlled unconfirmed-tree
+preservation changes a result flag only after a real successfully killed tree; it is
+separate from actual owned-tree timeout and actual unrelated-process survival.
+
+Initial committed implementation 66780bb8f3584f0fd1b38edf55d71af53209f77a (I1) passed
+both actual desktop normal suites 304/304 with native exit 0. Both desktop controls had
+305 total, 304 passed and exactly T007 deliberate failure/native exit 1, with zero
+incomplete tests. The four completed gates and all 29 raw tested-source snapshots are
+preserved in M3-T02-initial-I-committed-history.json, with separate Git blob bindings.
+These are genuine passing but superseded desktop observations, not final
+repaired-revision acceptance.
+
+Both initial automatic hosted workflows failed: push 37284113766 and PR 37284122322.
+Each PS7 job passed normal 304/304 and control 305/304/one T007. Each PS5.1 normal job
+instead had 304 total, 303 passed, one T053 failure/native exit 1; its control workflow
+step was skipped after that failure and is not an observed passing control or a skipped
+mandatory test. The unrelated actual ImageMagick process had passed
+survival/PID-creation checks and returned native 0, but the expected single
+unrelated.png was missing. Original metadata/raw logs, unchanged original collector JSON
+and separately enriched actual I1 merge proof remain retained. No hosted success is
+inferred from the passing desktop run or from native zero alone.
+
+The original byte-level diagnosis reproduced a BOM appended during Close with an
+explicit AutoFlush=false writer and suggested closing BaseStream directly. That
+close-only suggestion is superseded by the preserved authoritative supplement. Microsoft
+Framework Process.Start creates redirected StandardInput as a StreamWriter using
+Console.InputEncoding and immediately enables AutoFlush. AutoFlush can emit an encoding
+preamble before any raw payload; closing BaseStream cannot remove an already emitted
+BOM. Actual forced-BOM AutoFlush controls on both shells received EF-BB-BF before
+E0-20-20, and the original raw-only recipe produced two numbered PNGs at native exit 0.
+Original hosted stdin encoding/bytes and numbered output files were not captured, so BOM
+causation for those two hosted T053 failures remains a supported inference, not a
+directly observed hosted byte dump or a production tree-isolation defect.
+
+The narrow test-only repair supplies a declared xc:#E02020 image first, uses 1x1 RGB
+stdin only as blocking synchronization, deletes all stdin-derived frames with -delete
+1--1, then closes the binary pipe after writing and flushing the intended three bytes.
+Its output oracle is the declared first image, not the raw stdin payload. Actual default
+and forced-BOM candidate probes passed in fresh PS5.1 and PS7: the unrelated process was
+blocked before payload, then returned native 0 and produced exactly one independently
+Pillow-decoded 1x1 PNG with RGB 224/32/32. The test retains same process creation
+identity/aliveness through owned-tree timeout and exact one-image/pixel checks.
+Subsequent repaired focused, committed desktop and hosted gates must remain separately
+revision-bound; these byte probes are not replacement acceptance gates. This final-ready
+draft does not infer repaired full/hosted acceptance or a containing checkpoint
+synchronization observation.
+
+The byte-probe tooling originally accessed StandardInputEncoding, unavailable on .NET
+Framework, after its first branch had run; the corrected explicit writer controls and
+original script/artifacts are preserved. Two later PS5.1 candidate-probe launches failed
+only because inherited PSMODULEPATH prevented Get-FileHash discovery. The first
+process-only removal used case-sensitive lookup and missed the uppercase key; the
+corrected fresh child excludes it case-insensitively without changing parent or
+persistent environment. Both failed native records/logs and the successful corrected
+candidate controls remain separately retained. Completed-job gh run view --log was
+unavailable while the matrix was active, so completed-job API retrieval saved the actual
+raw logs; later whole-matrix collection is separate. These are tooling limitations, not
+runtime/process isolation outcomes. The root-owned final PR body should explicitly state
+I1's passing desktop versus failed hosted result and the qualified fixture repair.
+Accepted final-I gates will be reported separately, and the containing record checkpoint
+synchronization must remain pending_verification until externally observed.
+
+Corrected implementation 73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a (I2) is actually
+committed and pushed. Relative to I1, only the T053 synchronization fixture changes
+(seven inserted and three deleted test lines); runtime raw SHA256
+791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e is unchanged. Fresh
+focused PS7 attempt 5 and PS5.1 attempt 2 each passed all 17 cases with actual native
+exit 0. Their corrected v2 notes retain all seven focused histories and the original
+note hash, and the separate exact-I2 peer review binds this test-only scope. At v3 draft
+preparation the M3-T02-attempt2 desktop/full-control children and I2 automatic push/PR
+workflows were pending. They have since closed: both clean-I2 desktop normal suites
+passed 304/304 with actual native exit 0; each control recorded 305 total, 304 passed,
+exactly one intended T007 failure and native exit 1. All incomplete/skip counts are zero
+and persistent policies unchanged. The exact-revision validator binds all 29 raw
+tested-source paths to separate Git blobs. Both automatic I2 hosted push and PR matrices
+passed all four Windows PS5.1/PS7 jobs with the same normal/control counts, actual
+native exits and hashed raw transcripts. Those separate immutable gates establish
+repaired-revision acceptance; no earlier failure or probe is relabeled.
+
+Development end-of-run hashes are observations, not proof of immutable imported bytes.
+Final clean-I desktop normal/control and hosted matrices are separate acceptance gates.
+Prior card histories remain in their original evidence.
+
+Tested clean implementation: 73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a.
+On actual Microsoft Windows 11 Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5, Pester
+5.9.1, each normal suite passed 304/304 with native exit 0 and zero skipped or
+incomplete tests. Each control had 305 total, 304 passed, exactly one T007 deliberate
+failure and native exit 1. Summary/XML, parent native records and console hashes bind 29
+tested source paths, including the native lifetime suite and all eight colour/reference
+assets, to observed raw bytes and separate Git blobs. Only verified text CRLF-to-LF
+normalization is allowed; ICC bytes remain exact. Persistent execution policies were
+unchanged.
+
+Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37286018683); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37286024093).
+Evidence: evidence/M3-T02.json and evidence/M3-T02-ci.json.
+
+Accepted 17/28 tasks and exercised T001-T053, with the first four characterization cases unchanged. Next: M3-T03 — Implement and test clean cooperative cancellation. This containing checkpoint changes only 6 reviewed handoff/evidence records; its own synchronization remains pending_verification. Raw media/private paths/argv remain ignored. No owner merge, release, deployment or owner approval is inferred.
+
+Windows 10/Server 2016 JOB_LIST support and compatible inherited-job restrictions are
+required. Unsupported atomic assignment fails closed. ImageMagick memory/map/disk limits
+govern pixel cache, not every decoder/delegate heap allocation or arbitrary write; these
+controls do not certify an exploit-proof sandbox.
+
+The shared clock counts image-copy/retry elapsed time, but synchronous filesystem calls
+are not preemptible. Native termination/drain grace can add wall time. ImageMagick's own
+time limit is cooperative and SOURCE_DATE_EPOCH can disable it; the external wrapper
+deadline remains the native-hang authority. A noncooperative kernel driver can still
+delay completion of an I/O cancellation request; incomplete capture never permits
+finalization.
+
+Cleanup assumes the exclusively allocated cache namespace remains trustworthy. A
+concurrent regular magick-* arrival is indistinguishable from a native cache file;
+foreign names, directories and reparse entries remain with warnings. Unconfirmed
+termination preservation was tested with a controlled returned flag after an actual
+successfully terminated tree, not by reproducing an OS failure to kill.
+
+Development targets, saved API/resource probes and tiny 128x160 measurement smokes
+retain their own raw source/artifact bindings. They are separate from clean-I full
+normal/control and hosted acceptance. No representative benchmark rerun,
+quality/performance improvement, owner aesthetic approval or codec-wide exploit test is
+inferred. Existing HEIC still-collection and independent colour-reference qualifications
+remain in their original evidence.
+
+The unrelated-process fixture uses a declared first synthetic image as its completion
+oracle; RGB stdin only keeps the process blocked until synchronization ends, and all
+stdin-derived frames are discarded. Actual default and forced-BOM controls passed on
+both shells. The original hosted stdin bytes were not recorded, so its BOM explanation
+remains a supported inference. Repaired-revision full normal/control and hosted gates
+require their own immutable evidence.
+
+Real Ctrl+C/cooperative cancellation, interrupted-copy exit behavior and
+force-termination recovery remain M3-T03. This card stops after M3-T02 acceptance;
+releases, deployment and owner acceptance stay separate.
