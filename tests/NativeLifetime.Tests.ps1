@@ -309,19 +309,23 @@ Describe 'M3-T02 owned native lifetime and process-local resource regression' {
 
     It 'T053 leaves an actual unrelated ImageMagick stdin process alive and able to finish its own synthetic image after owned-tree timeout' {
         $root=New-LifetimeDirectory 'unrelated-isolation';$unrelatedOutput=Join-Path $root 'unrelated.png'
-        $outside=Start-LifetimeOutside $magick @('-define','registry:filename:literal=true','-size','1x1','-depth','8','RGB:-',('PNG:'+$unrelatedOutput)) -RedirectInput
+        # The first image is the output oracle. RGB stdin only blocks until the
+        # synchronization payload arrives; discard every decoded stdin image,
+        # including one produced by a host StreamWriter encoding preamble.
+        $outside=Start-LifetimeOutside $magick @('-define','registry:filename:literal=true','-size','1x1','xc:#E02020','-depth','8','RGB:-','-delete','1--1',('PNG:'+$unrelatedOutput)) -RedirectInput
         $outside.Process.WaitForExit(150)|Should -BeFalse
         $observer=Start-LifetimeObserver $root
         try{
             $r=Invoke-WinImgNativeProcess -Executable $fixture -Arguments @('tree',$root,'sleep','1','0','-','-') -TimeoutMilliseconds 2500
             $outside.Process.HasExited|Should -BeFalse;$outside.Process.StartTime.ToUniversalTime().Ticks|Should -Be $outside.StartTicks
-            $stream=$outside.Process.StandardInput.BaseStream;$stream.Write([byte[]]@(224,32,32),0,3);$stream.Flush();$outside.Process.StandardInput.Close()
+            $stream=$outside.Process.StandardInput.BaseStream;$stream.Write([byte[]]@(224,32,32),0,3);$stream.Flush();$stream.Close()
             $outside.Process.WaitForExit(5000)|Should -BeTrue;$outside.Process.ExitCode|Should -Be 0
         }finally{Complete-LifetimeObserver $observer $root;Stop-LifetimeOutside $outside}
         $r.TimedOut|Should -BeTrue;Assert-LifetimeTreeGone $root $r
+        $unrelatedPngs=@(Get-ChildItem -LiteralPath $root -File -Filter '*.png');$unrelatedPngs.Count|Should -Be 1;$unrelatedPngs[0].Name|Should -Be 'unrelated.png'
         Invoke-LifetimeMagick @('identify','+ping','-regard-warnings','-format','%m|%w|%h',$unrelatedOutput)|Should -Be 'PNG|1|1'
         Invoke-LifetimeMagick @($unrelatedOutput,'-format','%[fx:round(255*p{0,0}.r)]|%[fx:round(255*p{0,0}.g)]|%[fx:round(255*p{0,0}.b)]','info:')|Should -Be '224|32|32'
-        $observations.Add([pscustomobject]@{Kind='actual unrelated pinned ImageMagick isolation';Pid=$outside.Id;StartTicks=$outside.StartTicks;PendingSyntheticInputBytes=3;Survived=$true;CompletedExit=0;Output=$unrelatedOutput})
+        $observations.Add([pscustomobject]@{Kind='actual unrelated pinned ImageMagick isolation';Pid=$outside.Id;StartTicks=$outside.StartTicks;SynchronizationPayloadBytes=3;InputQualification='Raw stdin payload is synchronization only; host encoding preamble is not measured here. Output retains the independent first xc image.';Survived=$true;CompletedExit=0;IntendedPngCount=$unrelatedPngs.Count;Output=$unrelatedOutput})
     }
 
     It 'T052 passes owned temporary environment only to its native child and leaves the host and policy bytes unchanged' {
