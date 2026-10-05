@@ -1,0 +1,1404 @@
+{
+  "schema_version": 1,
+  "task_id": "M2-T05",
+  "recorded_utc": "2026-10-05T05:24:30.844368+00:00",
+  "tested_implementation_commit": "5ddbf4156f2c10534a045586a5b5e5e050255c30",
+  "evidence_status": "push_and_pull_request_matrices_passed",
+  "collection_method": "Actual gh run view metadata and per-job --log transcripts; hashes bind saved transcripts. Raw logs remain ignored and are not included.",
+  "collector_sha256": "99ae87dfcc424879a7f31a5dc45c6cb1df6bacafc33d9246ad6adab5af3ba66b",
+  "runs": [
+    {
+      "attempt": 1,
+      "conclusion": "success",
+      "createdAt": "2026-10-05T05:18:18Z",
+      "databaseId": 37267178588,
+      "event": "push",
+      "headBranch": "codex/winimg-hardening",
+      "headSha": "5ddbf4156f2c10534a045586a5b5e5e050255c30",
+      "status": "completed",
+      "updatedAt": "2026-10-05T05:23:20Z",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37267178588",
+      "jobs": [
+        {
+          "completedAt": "2026-10-05T05:21:31Z",
+          "conclusion": "success",
+          "databaseId": 111626346526,
+          "name": "pwsh on Windows",
+          "startedAt": "2026-10-05T05:18:20Z",
+          "status": "completed",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37267178588/job/111626346526",
+          "steps": [
+            {
+              "completedAt": "2026-10-05T05:18:22Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-05T05:18:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:18:31Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 2,
+              "startedAt": "2026-10-05T05:18:22Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:20:07Z",
+              "conclusion": "success",
+              "name": "Run mandatory tests with verified development dependencies",
+              "number": 3,
+              "startedAt": "2026-10-05T05:18:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:21:28Z",
+              "conclusion": "success",
+              "name": "Prove a broken assertion returns failure",
+              "number": 4,
+              "startedAt": "2026-10-05T05:20:07Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:21:30Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 8,
+              "startedAt": "2026-10-05T05:21:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:21:30Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-05T05:21:30Z",
+              "status": "completed"
+            }
+          ],
+          "observed_versions": [
+            "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+          ],
+          "observed_imagemagick": [
+            "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+          ],
+          "observed_os": [
+            "Microsoft Windows Server 2025"
+          ],
+          "observed_os_version": [
+            "10.0.26100"
+          ],
+          "observed_os_edition": [
+            "Datacenter"
+          ],
+          "observed_runner_image": [
+            "windows-2025-vs2026"
+          ],
+          "observed_runner_image_version": [
+            "20260925.250.1"
+          ],
+          "test_gate_results": [
+            {
+              "total": 269,
+              "passed": 269,
+              "failed": 0,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 0,
+              "step": "Run mandatory tests with verified development dependencies"
+            },
+            {
+              "total": 270,
+              "passed": 269,
+              "failed": 1,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 1,
+              "step": "Prove a broken assertion returns failure"
+            }
+          ],
+          "observed_failed_tests": [
+            "deliberate assertion must fail"
+          ],
+          "deliberate_failure_gate_verified": true,
+          "mandatory_gate_verified": true,
+          "raw_log_sha256": "48a6f404f842738a455eb9d35168f180a1096fe41e3c83984a47fbe6d21bd930",
+          "environment_observations_complete": true
+        },
+        {
+          "completedAt": "2026-10-05T05:23:19Z",
+          "conclusion": "success",
+          "databaseId": 111626346679,
+          "name": "powershell on Windows",
+          "startedAt": "2026-10-05T05:18:20Z",
+          "status": "completed",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37267178588/job/111626346679",
+          "steps": [
+            {
+              "completedAt": "2026-10-05T05:18:22Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-05T05:18:21Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:18:29Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 2,
+              "startedAt": "2026-10-05T05:18:22Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:21:04Z",
+              "conclusion": "success",
+              "name": "Run mandatory tests with verified development dependencies",
+              "number": 3,
+              "startedAt": "2026-10-05T05:18:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:23:16Z",
+              "conclusion": "success",
+              "name": "Prove a broken assertion returns failure",
+              "number": 4,
+              "startedAt": "2026-10-05T05:21:04Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:23:18Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 8,
+              "startedAt": "2026-10-05T05:23:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:23:18Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-05T05:23:18Z",
+              "status": "completed"
+            }
+          ],
+          "observed_versions": [
+            "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+          ],
+          "observed_imagemagick": [
+            "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+          ],
+          "observed_os": [
+            "Microsoft Windows Server 2025"
+          ],
+          "observed_os_version": [
+            "10.0.26100"
+          ],
+          "observed_os_edition": [
+            "Datacenter"
+          ],
+          "observed_runner_image": [
+            "windows-2025-vs2026"
+          ],
+          "observed_runner_image_version": [
+            "20260925.250.1"
+          ],
+          "test_gate_results": [
+            {
+              "total": 269,
+              "passed": 269,
+              "failed": 0,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 0,
+              "step": "Run mandatory tests with verified development dependencies"
+            },
+            {
+              "total": 270,
+              "passed": 269,
+              "failed": 1,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 1,
+              "step": "Prove a broken assertion returns failure"
+            }
+          ],
+          "observed_failed_tests": [
+            "deliberate assertion must fail"
+          ],
+          "deliberate_failure_gate_verified": true,
+          "mandatory_gate_verified": true,
+          "raw_log_sha256": "f20d649769f774f3fb6b3599ce66937a27665966ae778822f6d462ffb4a1a9c1",
+          "environment_observations_complete": true
+        }
+      ]
+    },
+    {
+      "attempt": 1,
+      "conclusion": "success",
+      "createdAt": "2026-10-05T05:18:21Z",
+      "databaseId": 37267182413,
+      "event": "pull_request",
+      "headBranch": "codex/winimg-hardening",
+      "headSha": "5ddbf4156f2c10534a045586a5b5e5e050255c30",
+      "status": "completed",
+      "updatedAt": "2026-10-05T05:22:18Z",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37267182413",
+      "jobs": [
+        {
+          "completedAt": "2026-10-05T05:22:13Z",
+          "conclusion": "success",
+          "databaseId": 111626366074,
+          "name": "pwsh on Windows",
+          "startedAt": "2026-10-05T05:18:26Z",
+          "status": "completed",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37267182413/job/111626366074",
+          "steps": [
+            {
+              "completedAt": "2026-10-05T05:18:27Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-05T05:18:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:18:33Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 2,
+              "startedAt": "2026-10-05T05:18:27Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:20:25Z",
+              "conclusion": "success",
+              "name": "Run mandatory tests with verified development dependencies",
+              "number": 3,
+              "startedAt": "2026-10-05T05:18:33Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:22:10Z",
+              "conclusion": "success",
+              "name": "Prove a broken assertion returns failure",
+              "number": 4,
+              "startedAt": "2026-10-05T05:20:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:22:12Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 8,
+              "startedAt": "2026-10-05T05:22:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:22:12Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-05T05:22:12Z",
+              "status": "completed"
+            }
+          ],
+          "observed_versions": [
+            "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+          ],
+          "observed_imagemagick": [
+            "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+          ],
+          "observed_os": [
+            "Microsoft Windows Server 2025"
+          ],
+          "observed_os_version": [
+            "10.0.26100"
+          ],
+          "observed_os_edition": [
+            "Datacenter"
+          ],
+          "observed_runner_image": [
+            "windows-2025-vs2026"
+          ],
+          "observed_runner_image_version": [
+            "20260925.250.1"
+          ],
+          "test_gate_results": [
+            {
+              "total": 269,
+              "passed": 269,
+              "failed": 0,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 0,
+              "step": "Run mandatory tests with verified development dependencies"
+            },
+            {
+              "total": 270,
+              "passed": 269,
+              "failed": 1,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 1,
+              "step": "Prove a broken assertion returns failure"
+            }
+          ],
+          "observed_failed_tests": [
+            "deliberate assertion must fail"
+          ],
+          "deliberate_failure_gate_verified": true,
+          "mandatory_gate_verified": true,
+          "raw_log_sha256": "d5682392dd316d5681a19b5670e095ba79a781c7fe8ed2d7bf01ac3a3ac1d2f3",
+          "environment_observations_complete": true
+        },
+        {
+          "completedAt": "2026-10-05T05:22:18Z",
+          "conclusion": "success",
+          "databaseId": 111626366212,
+          "name": "powershell on Windows",
+          "startedAt": "2026-10-05T05:18:26Z",
+          "status": "completed",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37267182413/job/111626366212",
+          "steps": [
+            {
+              "completedAt": "2026-10-05T05:18:27Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-05T05:18:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:18:33Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 2,
+              "startedAt": "2026-10-05T05:18:27Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:20:35Z",
+              "conclusion": "success",
+              "name": "Run mandatory tests with verified development dependencies",
+              "number": 3,
+              "startedAt": "2026-10-05T05:18:33Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:22:15Z",
+              "conclusion": "success",
+              "name": "Prove a broken assertion returns failure",
+              "number": 4,
+              "startedAt": "2026-10-05T05:20:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:22:17Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 8,
+              "startedAt": "2026-10-05T05:22:15Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T05:22:17Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-05T05:22:17Z",
+              "status": "completed"
+            }
+          ],
+          "observed_versions": [
+            "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+          ],
+          "observed_imagemagick": [
+            "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+          ],
+          "observed_os": [
+            "Microsoft Windows Server 2025"
+          ],
+          "observed_os_version": [
+            "10.0.26100"
+          ],
+          "observed_os_edition": [
+            "Datacenter"
+          ],
+          "observed_runner_image": [
+            "windows-2025-vs2026"
+          ],
+          "observed_runner_image_version": [
+            "20260925.250.1"
+          ],
+          "test_gate_results": [
+            {
+              "total": 269,
+              "passed": 269,
+              "failed": 0,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 0,
+              "step": "Run mandatory tests with verified development dependencies"
+            },
+            {
+              "total": 270,
+              "passed": 269,
+              "failed": 1,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 1,
+              "step": "Prove a broken assertion returns failure"
+            }
+          ],
+          "observed_failed_tests": [
+            "deliberate assertion must fail"
+          ],
+          "deliberate_failure_gate_verified": true,
+          "mandatory_gate_verified": true,
+          "raw_log_sha256": "77d4fee0ae0f1d00b91c69ba6503d1608eafd870d55edf65ae450b685424cfbe",
+          "environment_observations_complete": true
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Push tests the actual feature revision; PR jobs use the GitHub PR merge ref associated with the recorded head SHA.",
+    "Hosted Windows Server matrix is separate from Windows 11 desktop evidence.",
+    "Only allowlisted metadata, environment observations and count/failure gates are exported; raw logs, user paths and media remain ignored."
+  ],
+  "pull_request_merge_content_observation": {
+    "observed_at_utc": "2026-10-05T05:24:33.560108Z",
+    "pull_request": "https://github.com/PikkuJanne/WinImgNormalizer/pull/14",
+    "base_commit": "590241944033c1332105e21a9dab49578a939941",
+    "head_commit": "5ddbf4156f2c10534a045586a5b5e5e050255c30",
+    "synthetic_merge_commit": "5be9c477a56ead1c915c6210edeff42126aef69c",
+    "synthetic_merge_tree": "b71cd3d6ff496a4805c25e921d609e0650fae733",
+    "tested_feature_tree": "b71cd3d6ff496a4805c25e921d609e0650fae733",
+    "synthetic_merge_parents": [
+      "590241944033c1332105e21a9dab49578a939941",
+      "5ddbf4156f2c10534a045586a5b5e5e050255c30"
+    ],
+    "parents_verified": true,
+    "tree_equal": true,
+    "method": "Read-only fetch of PR merge ref; both parents and identical tree independently resolved. No checkout, branch update, merge or reset.",
+    "source_artifact": ".scratch/M2-T05-I3-prmerge.json",
+    "source_artifact_sha256": "a3e2c756dd6807de397feaab494e1603c900f3ee1daef88e835af6a0c9c2781b"
+  },
+  "historical_observations": [
+    {
+      "schema_version": 1,
+      "task_id": "M2-T05",
+      "recorded_utc": "2026-10-05T05:02:53.074211+00:00",
+      "tested_implementation_commit": "d70171d3fd88d2d88bf9f48e33cf183473ed1b4a",
+      "evidence_status": "push_and_pull_request_matrices_failed",
+      "collection_method": "Actual gh run view metadata and per-job --log transcripts; hashes bind saved transcripts. Raw logs remain ignored and are not included.",
+      "collector_sha256": "99ae87dfcc424879a7f31a5dc45c6cb1df6bacafc33d9246ad6adab5af3ba66b",
+      "runs": [
+        {
+          "attempt": 1,
+          "conclusion": "failure",
+          "createdAt": "2026-10-05T04:59:45Z",
+          "databaseId": 37265843227,
+          "event": "push",
+          "headBranch": "codex/winimg-hardening",
+          "headSha": "d70171d3fd88d2d88bf9f48e33cf183473ed1b4a",
+          "status": "completed",
+          "updatedAt": "2026-10-05T05:02:32Z",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37265843227",
+          "jobs": [
+            {
+              "completedAt": "2026-10-05T05:01:53Z",
+              "conclusion": "failure",
+              "databaseId": 111622383981,
+              "name": "pwsh on Windows",
+              "startedAt": "2026-10-05T04:59:47Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37265843227/job/111622383981",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T04:59:48Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T04:59:48Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T04:59:58Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T04:59:48Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:01:49Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T04:59:58Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:01:49Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T05:01:49Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:01:51Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T05:01:49Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:01:51Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T05:01:51Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 269,
+                  "passed": 268,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T005 routes conversion arguments and a retry through the injected runner"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "25e804223aa168043305f4739fcf9699bb870737402de9800f71d1ebb257a8c8",
+              "environment_observations_complete": true
+            },
+            {
+              "completedAt": "2026-10-05T05:02:31Z",
+              "conclusion": "failure",
+              "databaseId": 111622384101,
+              "name": "powershell on Windows",
+              "startedAt": "2026-10-05T04:59:47Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37265843227/job/111622384101",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T04:59:48Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T04:59:47Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T04:59:54Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T04:59:48Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:02:27Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T04:59:54Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:02:27Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T05:02:27Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:02:30Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T05:02:27Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:02:30Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T05:02:30Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 269,
+                  "passed": 268,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T005 routes conversion arguments and a retry through the injected runner"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "2d5909cde16f18017c2187e0eb81e139bd38f3cabef449192563ea8270c4d9f3",
+              "environment_observations_complete": true
+            }
+          ]
+        },
+        {
+          "attempt": 1,
+          "conclusion": "failure",
+          "createdAt": "2026-10-05T05:00:12Z",
+          "databaseId": 37265876203,
+          "event": "pull_request",
+          "headBranch": "codex/winimg-hardening",
+          "headSha": "d70171d3fd88d2d88bf9f48e33cf183473ed1b4a",
+          "status": "completed",
+          "updatedAt": "2026-10-05T05:02:21Z",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37265876203",
+          "jobs": [
+            {
+              "completedAt": "2026-10-05T05:01:58Z",
+              "conclusion": "failure",
+              "databaseId": 111622478783,
+              "name": "powershell on Windows",
+              "startedAt": "2026-10-05T05:00:14Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37265876203/job/111622478783",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T05:00:15Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T05:00:15Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:00:22Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T05:00:16Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:01:55Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T05:00:22Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:01:55Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T05:01:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:01:57Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T05:01:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:01:57Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T05:01:57Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 269,
+                  "passed": 268,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T005 routes conversion arguments and a retry through the injected runner"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "e2b06cca1aadd89f4f61645afa75d3998a5c451be8c55301f5bd79e236606a9c",
+              "environment_observations_complete": true
+            },
+            {
+              "completedAt": "2026-10-05T05:02:20Z",
+              "conclusion": "failure",
+              "databaseId": 111622479020,
+              "name": "pwsh on Windows",
+              "startedAt": "2026-10-05T05:00:14Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37265876203/job/111622479020",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T05:00:15Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T05:00:15Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:00:22Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T05:00:15Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:02:17Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T05:00:22Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:02:17Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T05:02:17Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:02:19Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T05:02:17Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:02:19Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T05:02:19Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 269,
+                  "passed": 268,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T005 routes conversion arguments and a retry through the injected runner"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "c222ae6a7839325378adcca7235e754b8fe5f79cb9a5868e2698e243293ed799",
+              "environment_observations_complete": true
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Push tests the actual feature revision; PR jobs use the GitHub PR merge ref associated with the recorded head SHA.",
+        "Hosted Windows Server matrix is separate from Windows 11 desktop evidence.",
+        "Only allowlisted metadata, environment observations and count/failure gates are exported; raw logs, user paths and media remain ignored."
+      ],
+      "source_artifact": ".scratch/M2-T05-ci-collected.json",
+      "source_artifact_sha256": "b3ce7b01eeadec0aa9608d7e46990bc95e4d181dfc9adf65b6fe03bb4bbb3fad"
+    },
+    {
+      "schema_version": 1,
+      "task_id": "M2-T05",
+      "recorded_utc": "2026-10-05T05:13:16.466854+00:00",
+      "tested_implementation_commit": "ab8f55a6a0e6b5b77ae2d51e4c5057c8d14b43e6",
+      "evidence_status": "push_and_pull_request_matrices_passed",
+      "collection_method": "Actual gh run view metadata and per-job --log transcripts; hashes bind saved transcripts. Raw logs remain ignored and are not included.",
+      "collector_sha256": "99ae87dfcc424879a7f31a5dc45c6cb1df6bacafc33d9246ad6adab5af3ba66b",
+      "runs": [
+        {
+          "attempt": 1,
+          "conclusion": "success",
+          "createdAt": "2026-10-05T05:07:52Z",
+          "databaseId": 37266408017,
+          "event": "push",
+          "headBranch": "codex/winimg-hardening",
+          "headSha": "ab8f55a6a0e6b5b77ae2d51e4c5057c8d14b43e6",
+          "status": "completed",
+          "updatedAt": "2026-10-05T05:12:10Z",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37266408017",
+          "jobs": [
+            {
+              "completedAt": "2026-10-05T05:11:51Z",
+              "conclusion": "success",
+              "databaseId": 111624077659,
+              "name": "powershell on Windows",
+              "startedAt": "2026-10-05T05:07:55Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37266408017/job/111624077659",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T05:07:56Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T05:07:56Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:08:03Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T05:07:56Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:10:05Z",
+                  "conclusion": "success",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T05:08:03Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:11:47Z",
+                  "conclusion": "success",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T05:10:05Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:11:49Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T05:11:47Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:11:49Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T05:11:49Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 269,
+                  "passed": 269,
+                  "failed": 0,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 0,
+                  "step": "Run mandatory tests with verified development dependencies"
+                },
+                {
+                  "total": 270,
+                  "passed": 269,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Prove a broken assertion returns failure"
+                }
+              ],
+              "observed_failed_tests": [
+                "deliberate assertion must fail"
+              ],
+              "deliberate_failure_gate_verified": true,
+              "mandatory_gate_verified": true,
+              "raw_log_sha256": "6e45b1ef507bea33ae8753513e62067fcb621c78be66499ec9e70274bf68813f",
+              "environment_observations_complete": true
+            },
+            {
+              "completedAt": "2026-10-05T05:12:09Z",
+              "conclusion": "success",
+              "databaseId": 111624077804,
+              "name": "pwsh on Windows",
+              "startedAt": "2026-10-05T05:07:54Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37266408017/job/111624077804",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T05:07:55Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T05:07:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:08:03Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T05:07:55Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:10:14Z",
+                  "conclusion": "success",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T05:08:03Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:12:06Z",
+                  "conclusion": "success",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T05:10:14Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:12:08Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T05:12:06Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:12:08Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T05:12:08Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 269,
+                  "passed": 269,
+                  "failed": 0,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 0,
+                  "step": "Run mandatory tests with verified development dependencies"
+                },
+                {
+                  "total": 270,
+                  "passed": 269,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Prove a broken assertion returns failure"
+                }
+              ],
+              "observed_failed_tests": [
+                "deliberate assertion must fail"
+              ],
+              "deliberate_failure_gate_verified": true,
+              "mandatory_gate_verified": true,
+              "raw_log_sha256": "28c93092f3e764bf186406bf0027fe1798e30866af2d36f83e0ab72a7f90d4ed",
+              "environment_observations_complete": true
+            }
+          ]
+        },
+        {
+          "attempt": 1,
+          "conclusion": "success",
+          "createdAt": "2026-10-05T05:07:55Z",
+          "databaseId": 37266411686,
+          "event": "pull_request",
+          "headBranch": "codex/winimg-hardening",
+          "headSha": "ab8f55a6a0e6b5b77ae2d51e4c5057c8d14b43e6",
+          "status": "completed",
+          "updatedAt": "2026-10-05T05:12:51Z",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37266411686",
+          "jobs": [
+            {
+              "completedAt": "2026-10-05T05:12:50Z",
+              "conclusion": "success",
+              "databaseId": 111624088125,
+              "name": "powershell on Windows",
+              "startedAt": "2026-10-05T05:07:57Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37266411686/job/111624088125",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T05:07:59Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T05:07:58Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:08:06Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T05:07:59Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:10:37Z",
+                  "conclusion": "success",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T05:08:06Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:12:46Z",
+                  "conclusion": "success",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T05:10:37Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:12:48Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T05:12:46Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:12:48Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T05:12:48Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 269,
+                  "passed": 269,
+                  "failed": 0,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 0,
+                  "step": "Run mandatory tests with verified development dependencies"
+                },
+                {
+                  "total": 270,
+                  "passed": 269,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Prove a broken assertion returns failure"
+                }
+              ],
+              "observed_failed_tests": [
+                "deliberate assertion must fail"
+              ],
+              "deliberate_failure_gate_verified": true,
+              "mandatory_gate_verified": true,
+              "raw_log_sha256": "55653fc193cf75d71200a84b47662787692e91972fb78c1432bed916aff2f405",
+              "environment_observations_complete": true
+            },
+            {
+              "completedAt": "2026-10-05T05:10:46Z",
+              "conclusion": "success",
+              "databaseId": 111624088265,
+              "name": "pwsh on Windows",
+              "startedAt": "2026-10-05T05:07:57Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37266411686/job/111624088265",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T05:07:58Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T05:07:58Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:08:04Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T05:07:58Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:09:30Z",
+                  "conclusion": "success",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T05:08:04Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:10:43Z",
+                  "conclusion": "success",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T05:09:30Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:10:45Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T05:10:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T05:10:45Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T05:10:45Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 269,
+                  "passed": 269,
+                  "failed": 0,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 0,
+                  "step": "Run mandatory tests with verified development dependencies"
+                },
+                {
+                  "total": 270,
+                  "passed": 269,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Prove a broken assertion returns failure"
+                }
+              ],
+              "observed_failed_tests": [
+                "deliberate assertion must fail"
+              ],
+              "deliberate_failure_gate_verified": true,
+              "mandatory_gate_verified": true,
+              "raw_log_sha256": "ae2c5639fcdccb01afa335506a49f2cc41dc7edae2d5ac07df68cdf6928924fb",
+              "environment_observations_complete": true
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Push tests the actual feature revision; PR jobs use the GitHub PR merge ref associated with the recorded head SHA.",
+        "Hosted Windows Server matrix is separate from Windows 11 desktop evidence.",
+        "Only allowlisted metadata, environment observations and count/failure gates are exported; raw logs, user paths and media remain ignored."
+      ],
+      "source_artifact": ".scratch/M2-T05-attempt2-ci-collected.json",
+      "source_artifact_sha256": "cb4eb45c2b6033b6110bb4e4a2b946ac96bd74e936aa48015b67aaec5640dab2"
+    }
+  ]
+}
