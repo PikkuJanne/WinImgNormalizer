@@ -1142,3 +1142,153 @@ reporting/BAT exit propagation remain later M3 gates. Fixed character capture is
 CPU/disk/lifetime sandbox. Controlled warning, retry and process-local resource fixtures
 remain qualified; prior codec/colour/provider limits and owner quality/default approval
 are unchanged. Full limitations and raw artifact bindings are in evidence/M2-T05.json.
+
+## 2026-10-05 — M2-T06 completed; M2 milestone closed
+
+Started clean at c062b835c4acb2734f42f87d81b8e47164af827a, equal to the live feature
+branch; owner-merged PR #14 main e24461bb22155902984784aba7e30d4db0e63147 had the same
+tree. Continued without changing checkout/history. Successor draft PR #15 contains this
+task. Implementation synchronization is a past exact-SHA observation; this record-only
+checkpoint's SHA/live synchronization remains pending_verification until observed
+externally after normal commit/push.
+
+T046 exercises colour handling, frame/page selection, literal names, orientation and
+exact byte-cap sizing together through the actual pinned native runner on approved
+synthetic inputs. The combined checks preserve source bytes and recorded
+creation/modified times, byte-identical video copying, deterministic output mapping and
+earlier outputs across repeated runs. Concrete fixture/cap counts and outcomes are
+recorded below rather than inferred from the prior task.
+
+Each recorded mixed-tree batch retained 12 fully decoded JPEGs and 1 byte-identical
+video, skipped 1 heuristic duplicate, and returned application code 0. The omitted
+default cap was 1,048,576 bytes; the explicit exact cap was 65,537 bytes. Source state
+and the complete earlier output/log tree stayed unchanged. Focused development and
+immutable-I observations remain separately labeled in the comparison evidence.
+
+T046 — passed: Both default1048576-byte and exact65537-byte actual unmocked mixed-tree
+cases passed in every fresh PS5.1/PS7 clean-I normal/control invocation, plus focused
+development. Eight exact-I comparison runs bind27 gate source files and actual
+tool/fixture/output/log/buffer bytes; only T007 deliberately failed in controls.
+All12JPEG+1video+1duplicate per normalization and mandatory
+frame/ICC/privacy/literal-path/exact-cap/source/prior-run checks passed.
+
+Focused development run 1, .scratch/M2-T06-target-ps7-1: 0/2 passed, 2 failed, actual
+child exit 1; incomplete counts {'skipped_count': 0, 'not_run_count': 0,
+'inconclusive_count': 0, 'failed_blocks_count': 0, 'failed_containers_count': 1}. Raw
+summary/XML and case-note artifacts remain preserved. These precommit observations are
+separate from clean-I acceptance.  Focused development run 2,
+.scratch/M2-T06-target-ps7-2: 0/2 passed, 2 failed, actual child exit 1; incomplete
+counts {'skipped_count': 0, 'not_run_count': 0, 'inconclusive_count': 0,
+'failed_blocks_count': 0, 'failed_containers_count': 1}. Raw summary/XML and case-note
+artifacts remain preserved. These precommit observations are separate from clean-I
+acceptance.  Focused development run 3, .scratch/M2-T06-target-ps7-3: 0/2 passed, 2
+failed, actual child exit 1; incomplete counts {'skipped_count': 0, 'not_run_count': 0,
+'inconclusive_count': 0, 'failed_blocks_count': 0, 'failed_containers_count': 1}. Raw
+summary/XML and case-note artifacts remain preserved. These precommit observations are
+separate from clean-I acceptance.  Focused development run 4,
+.scratch/M2-T06-target-ps7-4: 0/2 passed, 2 failed, actual child exit 1; incomplete
+counts {'skipped_count': 0, 'not_run_count': 0, 'inconclusive_count': 0,
+'failed_blocks_count': 0, 'failed_containers_count': 1}. Raw summary/XML and case-note
+artifacts remain preserved. These precommit observations are separate from clean-I
+acceptance.  Focused development run 5, .scratch/M2-T06-target-ps7-5: 0/2 passed, 2
+failed, actual child exit 1; incomplete counts {'skipped_count': 0, 'not_run_count': 0,
+'inconclusive_count': 0, 'failed_blocks_count': 0, 'failed_containers_count': 0}. Raw
+summary/XML and case-note artifacts remain preserved. These precommit observations are
+separate from clean-I acceptance.  Focused development run 6,
+.scratch/M2-T06-target-ps7-6: 0/2 passed, 2 failed, actual child exit 1; incomplete
+counts {'skipped_count': 0, 'not_run_count': 0, 'inconclusive_count': 0,
+'failed_blocks_count': 0, 'failed_containers_count': 0}. Raw summary/XML and case-note
+artifacts remain preserved. These precommit observations are separate from clean-I
+acceptance.  Focused development run 7, .scratch/M2-T06-target-ps7-7: 0/2 passed, 2
+failed, actual child exit 1; incomplete counts {'skipped_count': 0, 'not_run_count': 0,
+'inconclusive_count': 0, 'failed_blocks_count': 0, 'failed_containers_count': 0}. Raw
+summary/XML and case-note artifacts remain preserved. These precommit observations are
+separate from clean-I acceptance.  Focused development run 8,
+.scratch/M2-T06-target-ps7-8: 2/2 passed, 0 failed, actual child exit 0; incomplete
+counts {'skipped_count': 0, 'not_run_count': 0, 'inconclusive_count': 0,
+'failed_blocks_count': 0, 'failed_containers_count': 0}. Raw summary/XML and case-note
+artifacts remain preserved. These precommit observations are separate from clean-I
+acceptance.  Focused development run 9, .scratch/M2-T06-target-ps51-1: 0/2 passed, 2
+failed, actual child exit 1; incomplete counts {'skipped_count': 0, 'not_run_count': 0,
+'inconclusive_count': 0, 'failed_blocks_count': 0, 'failed_containers_count': 0}. Raw
+summary/XML and case-note artifacts remain preserved. These precommit observations are
+separate from clean-I acceptance.  Focused development run 10,
+.scratch/M2-T06-target-ps51-2: 2/2 passed, 0 failed, actual child exit 0; incomplete
+counts {'skipped_count': 0, 'not_run_count': 0, 'inconclusive_count': 0,
+'failed_blocks_count': 0, 'failed_containers_count': 0}. Raw summary/XML and case-note
+artifacts remain preserved. These precommit observations are separate from clean-I
+acceptance.  The first four focused PS7 development runs each discovered two cases and
+passed zero, failed two, recorded one failed BeforeAll container and returned native
+host exit 1. They were fixture/setup failures before application execution and are not
+acceptance runs.  Run 1: native multi-image fixture generation returned zero but
+numbered the output instead of writing the intended literal source name. The generator
+was changed to neutral owned files followed by literal byte copies into the declared
+source tree; actual image count, geometry and pixels remain asserted.  Run 2: native
+CRLF separators were compared to an LF-only expected string. Only comparison text
+normalization changed; the original native process records remain retained.  Run 3: the
+source identification assertion saw HEIC where the fixture expected HEIF. The initial
+interpretation was an equivalent container-label alias, but retrospective inspection of
+the retained native source/arguments shows this was the extensionless primary-heif
+fixture caused by the missing concatenation operator later diagnosed in run 5. The
+original notes are preserved with that initial interpretation; the final notes correct
+it. The repaired literal .heic/.heif sources separately assert both images'
+geometry/content and the runtime selection labels. This remains a two-image still
+collection, not evidence of timed animation.  Run 4: the fixture helper incorrectly
+prepended file-literal options to the standalone version query, which made ImageMagick
+require an output filename. The version-only query is executed directly; file operations
+retain explicit literal handling.  Run 5 reached two real application batches, each
+returning 0, but the independent summary assertion failed before the later comparison
+assertions completed. A missing concatenation operator omitted the HEIC/HEIF extensions
+from two fixture names, so the media inventory excluded them. The fixture names were
+repaired and a precondition now checks every declared image exists with an eligible
+extension. The expected unsupported count was also corrected to the established
+inventory policy: unrelated text files are excluded, preserved and checked in the
+complete source state. No runtime behavior changed and no assertion of required image
+content was removed.  Run 6 reached both actual application batches with 12 converted
+images, one copied video, one duplicate and exit 0. The independent BMP sample assertion
+then failed because PowerShell flattened the one-element nested expected/point arrays;
+the actual native sample was 32/208/65. Unary-comma construction repairs that singleton
+tuple, and preconditions now verify every expected RGB tuple and coordinate pair has the
+declared shape. The colour tolerance is unchanged.  No runtime/default change, completed
+independent quality comparison or immutable-I acceptance is inferred from these
+development failures. Their actual summaries, XML, consoles, native outcomes, partial
+comparison records and original source snapshots are retained in ignored scratch and
+bound by the case notes.  PS7 run 7 and PS5.1 run 1 each discovered two cases, passed
+zero, failed two, recorded no failed container and returned native exit 1. Both actual
+application batches returned 0 and produced the required mixed corpus. The JPEG
+structure assertion incorrectly required three RGB components for genuinely Gray seeded
+noise, whose progressive JPEG correctly has one luminance component. The oracle now
+permits that one-component SOF2 form only for the declared Gray noise fixture; coloured
+outputs still require progressive three-component RGB 4:2:0. No runtime, encoder default
+or colour tolerance changed.  PS7 run 8 and PS5.1 run 2 each passed both focused cases
+with native exit 0, no skips and no failed containers. Their saved RGB buffers and
+descriptive quality metrics were independently recomputed. These are
+development/frozen-source observations, preserved separately from the subsequent clean
+implementation-revision full-suite and deliberate-failure-control acceptance gates.
+Focused counts above are actual retained development results and remain qualified by
+their original source observations. Immutable-I desktop normal/control and hosted
+push/PR gates are separate acceptance evidence supplied by root after execution.
+Previous M2 task histories and benchmarks remain bound to their own task revisions; this
+card does not relabel them.
+
+Tested clean implementation: 11ee247154a00d79aaa49a438d1f526457b22fdf.
+Actual Microsoft Windows 11 Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5, Pester
+5.9.1: each normal run passed 271/271 with native exit 0 and zero skipped or incomplete
+tests. Each control had 272 total, 271 passed, one exact T007 deliberate failure and
+native exit 1. Summary/XML, parent native records and console hashes bind 27 tested
+source paths, including the integrated suite and all eight independent colour/reference
+assets, to raw checkout and separate Git blobs. Only verified text CRLF-to-LF
+normalization is allowed; ICC bytes match exactly. Persistent execution policies were
+unchanged.
+
+Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37272249221); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37272253545).
+Evidence: evidence/M2-T06.json and evidence/M2-T06-ci.json.
+
+Accepted 15/28 tasks and exercised T001-T046, with the first four characterization cases unchanged. Next: M3-T01 — Recover from inaccessible folders and expose ancillary failures. This containing checkpoint changes only six handoff/evidence files; its own synchronization remains pending_verification. Raw media/private paths/argv remain ignored. No owner merge, release, deployment or subjective quality approval is inferred.
+
+JPEG derivatives are lossy and do not replace preserved originals. The comparison
+evidence applies to the approved synthetic corpus and pinned decoder/profile behavior;
+codec/build and reference-intent qualifications remain explicit. Inaccessible subtrees
+and ancillary reporting are next M3-T01; general deadlines, cancellation and native
+descendant lifetime remain later M3 gates. Owner acceptance, releases and deployment
+remain separate.

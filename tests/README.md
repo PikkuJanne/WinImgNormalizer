@@ -1,4 +1,4 @@
-# Windows checks (through M2-T04)
+# Windows checks (through M2-T06)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -38,7 +38,8 @@ tests use owned synthetic scratch trees and controlled process failures. The pub
 The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1`,
 `Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1`, `Frames.Tests.ps1`,
-`Colour.Tests.ps1`, `Paths.Tests.ps1` and `Sizing.Tests.ps1`.
+`Colour.Tests.ps1`, `Paths.Tests.ps1`, `Sizing.Tests.ps1`, `Diagnostics.Tests.ps1`
+and `ConversionRegression.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -57,8 +58,7 @@ run normalization against the real Pictures tree, private media or drive roots.
 
 The CI matrix uses Windows Server runners. Desktop results are recorded separately
 in `docs/codex-winimg/evidence/M0-T03.json`; Server CI does not prove desktop launcher
-or interruption behavior. PSScriptAnalyzer and the complete corpus belong to later
-tasks.
+or interruption behavior. PSScriptAnalyzer checks belong to later tasks.
 
 Traversal tests verify nested destinations are rejected before probes/enumeration,
 case-insensitive segment comparisons, real disposable looping/outside/dangling
@@ -273,3 +273,28 @@ six valid size attempts plus two transient retries. Sources and videos retain
 hashes/timestamps, and exact owned scratch is checked after every case. These
 checks cover stream retention and retry bounds; general conversion timeouts and
 cancellation remain later milestone work.
+
+The integrated conversion regression (T046) normalizes the same owned mixed tree
+twice with actual native processes: the default 1,048,576-byte target and an exact
+65,537-byte target. Tagged RGB/alpha and genuine CMYK, EXIF orientation/privacy,
+GIF/WebP displayed canvases, the first oriented TIFF page, and the approved
+two-image HEIC/HEIF still collections share literal percent/bracket/Unicode paths.
+Assertions cover declared source/output maps, exact per-image cap/scale/status,
+full JPEG decoding, progressive coding and RGB 4:2:0 sampling, mirrored directories, duplicate
+retention, opaque video bytes, all source hashes/creation/modified times, and the
+complete first output tree after the second run. No application process results
+are mocked in these two cases.
+
+Colour references reuse the committed independent Pillow/LittleCMS tuples and
+their `REFERENCE.json` tolerances: 3/255 before JPEG and 12/255 at uniform patch
+centers. Known frame/canvas corners use the same narrowly scoped JPEG coding
+tolerance. The CMYK profile's requested Relative intent uses its available A2B0
+mapping; this verifies the synthetic fixture rather than general print accuracy.
+The seeded noise is genuinely gray; its progressive JPEG has one component and
+does not carry RGB chroma. Noise comparisons retain original-to-output-grid lossless sRGB references,
+decoded PNG/RGB8 buffers and descriptive MAE/RMSE/PSNR, without a perceptual
+quality threshold. Actual recipe, fixture/output/log hashes, source/runtime/test/
+profile/reference/tool bindings and native/delegate versions remain in marked
+ignored scratch. Seeded fixture bytes and JPEG outputs may vary by codec/build;
+these checks do not require cross-build byte identity or certify timed HEIC
+animation or all possible decoder implementations.
