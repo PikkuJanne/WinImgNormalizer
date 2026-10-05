@@ -1,4 +1,4 @@
-# Windows checks (through M2-T06)
+# Windows checks (through M3-T02)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -39,7 +39,7 @@ The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1`,
 `Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1`, `Frames.Tests.ps1`,
 `Colour.Tests.ps1`, `Paths.Tests.ps1`, `Sizing.Tests.ps1`, `Diagnostics.Tests.ps1`,
-`ConversionRegression.Tests.ps1`, and `RecoveryReporting.Tests.ps1`.
+`ConversionRegression.Tests.ps1`, `RecoveryReporting.Tests.ps1`, and `NativeLifetime.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -321,3 +321,34 @@ warning duplicate status without inventing another failed file. Source hashes,
 creation/modified times and directory/link state are compared, and source,
 runtime, test, dependency/tool bindings and actual observations remain under
 marker-owned ignored scratch. No application permission recovery is attempted.
+
+Native lifetime regressions (T051-T053) compile benign Windows process fixtures
+only into marked ignored scratch. An independent Toolhelp32 observer records the
+owned root, child and grandchild with direct-parent IDs and creation identities.
+Actual deadlines must terminate that tree, release held files and inherited output
+pipes, and return within a bounded drain allowance. Concurrent stream flooding and
+a valid JPEG written before a stall cannot turn timeout into accepted media. An
+unrelated actual ImageMagick process waits for three synthetic RGB stdin bytes;
+it must survive the owned timeout and then complete its own valid PNG.
+
+Internal lower-only ceilings exercise a shared per-image deadline across source
+inspection, ICC extraction, conversion and full candidate validation. A narrowly
+controlled observer routes selected phases to actual benign sleepers, or adds
+finite native delays; it returns actual wrapper outcomes. Other phases and later
+image/video siblings use real ImageMagick and unchanged source bytes. Actual benign
+cache exhaustion uses small child-local memory/map/disk limits, with owned temporary
+environment paths and no machine resource pressure or installed policy changes.
+A private stricter policy copy retains original restrictions and verifies that its lower memory ceiling wins.
+Checks retain native exits, job/lifetime details, source hashes/creation/modified
+and directory state, full JPEG pixels, opaque video bytes, exact scratch cleanup,
+and source/runtime/test/compiler/tool bindings. Unexpected neighboring files survive
+nonrecursive cleanup. These checks cover timeout ownership and resource budgets;
+real Ctrl+C and host shutdown remain separate lifecycle verification.
+
+The cache uses an exclusive short directory under a validated ordinary Windows
+temporary root, separately from the output-volume JPEG/ICC/snapshot candidates.
+Tests supply only their marker-owned ignored root, reject source-contained and
+overlong roots, and require exact cleanup. A controlled unconfirmed tree flag
+retains affected scratch and refuses finalization; it does not claim an actual
+failed process kill. Source directory timestamps are fixed after all fixture writes
+and freshly read, alongside the unchanged file bytes and timestamps.

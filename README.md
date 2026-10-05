@@ -261,7 +261,31 @@ lossless-to-lossy notice is accepted, after full JPEG validation; every other
 conversion diagnostic fails. An accepted notice counts as NativeWarnings and
 returns application warning code 2. Source/ICC inspection and candidate validation
 remain strict. The production -quiet/-regard-warnings flags remain enabled.
-General per-file deadlines and cancellation are planned separately.
+Each image has one shared 120-second runtime budget across frame/colour inspection,
+ICC extraction, conversion attempts, backoffs and full JPEG validation. A timeout
+ends that item, discards its candidate and continues accessible siblings with
+application code 2. Each ImageMagick invocation sets pixel-cache ceilings of
+512 MiB memory, 1 GiB mapped cache and 2 GiB disk, at most two worker threads and
+a native time ceiling derived from the remaining budget. Stricter installed
+security policies stay effective; the tool does not replace or edit policy files.
+These are practical cache limits, not a total decoder/delegate heap cap or an
+exploit-proof sandbox. Synchronous filesystem reads/copies are not preempted.
+
+Native processes enter a private Windows job at creation, with only their explicit
+stdin/stdout/stderr handles inherited. Timeout or return closes the owned process
+tree, including descendants that outlive the parent; unrelated ImageMagick
+processes survive. Failure to establish that ownership fails the native start.
+Termination and pipe draining have a short bounded grace after the deadline.
+TEMP, TMP and MAGICK_TEMPORARY_PATH point to an exclusively allocated per-image
+scratch directory under the existing Windows temporary root, separate from deep output
+paths. A long, linked, unavailable or source-contained temporary root fails setup
+without changing it. Cleanup removes only regular magick-* cache files there;
+unexpected or linked entries remain with a warning. The private directory and
+reserved cache names establish ownership; concurrent same-pattern filesystem
+mutation is outside this check. Unconfirmed tree termination preserves all scratch
+for that item with a warning. Completed outputs are retained.
+Real Ctrl+C/cooperative cancellation and its host-specific exit behavior remain
+planned separately.
 Output creation and modified timestamps are restored separately from the captured
 source times. A failed setter retains the valid output, names the failed field and
 adds one TimestampWarnings attribute to that finalized image/video; the application

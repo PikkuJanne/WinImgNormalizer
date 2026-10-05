@@ -1,118 +1,124 @@
 # Project status
 
-Updated: 2026-10-05 — M3-T01 completed.
+Updated: 2026-10-05 — M3-T02 completed.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested implementation: 66f609ad32637d82ce1e9918ea1600400378422e
-Next task: **M3-T02 — Bound processing and own native process lifetime**
-Task progress: **16 / 28 accepted**
-Specified cases exercised: **T001-T050 (50 / 75); T001-T004 are characterization**
-Pester suite: **287/287 passed in each desktop shell, zero skipped**
-Failure controls: **288 total, 287 passed, one intended failure; native exit 1**
+Tested implementation: 73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a
+Next task: **M3-T03 — Implement and test clean cooperative cancellation**
+Task progress: **17 / 28 accepted**
+Specified cases exercised: **T001-T053 (53 / 75); T001-T004 are characterization**
+Pester suite: **304/304 passed in each desktop shell, zero skipped**
+Failure controls: **305 total, 304 passed, one intended failure; native exit 1**
 CI: **implementation push/PR Windows matrices passed, including controls**
 Containing evidence checkpoint synchronization: **pending_verification**
 
 ## Current behavior
 
-A denied folder or uninspectable source entry leaves the scan incomplete while readable
-siblings continue. The report separates inaccessible-directory, uninspectable-entry and
-skipped-link counts; it does not invent a file count for unreadable contents.
-Directory/file reparse points are skipped and reported without following loops or
-outside targets. These omissions return application code 2, even when no eligible media
-was readable; linked roots and ancestors remain setup rejections.
+An image now shares a 120,000-ms elapsed budget across its snapshot, frame/colour/ICC
+queries, conversion attempts, retries and complete JPEG validation. The final move
+requires time remaining. Every real image command requests process-local pixel-cache
+memory 512 MiB, map 1 GiB, disk 2 GiB, two threads and the remaining seconds; stricter
+installed ImageMagick policies still apply. A timeout or resource failure rejects that
+image and continues later usable image/video siblings with application warning/partial
+code 2.
 
-Log creation or append failure disables the failed disk sink once and marks reporting
-degraded while valid media work continues. A visible console/stderr fallback retains at
-most 8,192 UTF-16 characters, limits each stored line to 1,024 characters, escapes
-control characters and reports dropped/truncated lines. Final reporting exposes
-LogWarnings and DiskLogIncomplete, including failure on the last required log write, and
-returns application code 2.
+Native processes are created atomically inside a private kill-on-close Windows job and
+start only after two bounded stream readers are ready. Cleanup targets that job,
+confirms an empty tree and drains/cancels readers within one 3-second grace; it never
+selects unrelated processes by name or PID snapshots. The separate exclusive plain TEMP
+cache root is validated before output writes and kept outside the physical source tree.
+Media snapshots, ICC data and JPEG candidates keep output-volume staging. Unconfirmed
+tree termination rejects finalization and preserves all item scratch; ordinary cleanup
+is nonrecursive, removes only regular magick-* cache files and preserves unexpected
+entries with a warning.
 
-Creation and modified timestamps are restored independently from captured source
-metadata after JPEG/video finalization. A failed field is named, valid finalized bytes
-stay retained, and TimestampWarnings counts the affected output once within completed
-image/video totals. Processing continues, application code 2 exposes the warning, and a
-later heuristic duplicate links to the retained warning status. Public arguments, the
-default byte cap, scale/JPEG/colour/frame policies and byte-identical video copying are
-unchanged.
+D30/I12 record the implementation policy and dated official Windows/ImageMagick advisory
+review. Public positional/BAT calls, exact size cap, six scales,
+JPEG/colour/white-alpha/frame selection, literal paths, no-overwrite transactions,
+source preservation, video bytes and successful duplicate retention remain within their
+existing contracts. The development Measure-SizeQuality trace now follows the current
+bounded native observer and separates leading resource-limit arguments from core image
+flags. Tiny compatibility checks are separate from representative quality/performance
+measurement and owner approval.
 
-T047 — passed: Both actual fresh Windows hosts establish UnauthorizedAccess directory
-enumeration using an explicit owned ListDirectory deny ACE. Accessible native JPEG/video
-siblings complete; denied-only batch returns warning outcome; scan reports one
-incomplete directory and unknown files remain uncounted. Applied source ACL is not
-changed by the application, original DACL restored exactly in finally, and source
-hashes/creation/modified/directory state match. The denied-only fixture explicitly
-establishes a no-auto-inheritance original descriptor before the source baseline.
-Original full requested mask7 owner/group/DACL descriptor bytes, DACL bytes, SDDL and
-control flags are restored exactly using a fixture-only selected native DACL write,
-while natural auto-inherited originals retain Set-Acl. Applied descriptor/control/DACL
-hashes remain unchanged by the application before finally restoration.
+T051 — passed: Actual wrapper/job root-child-grandchild timeout and normal-root cleanup;
+independent direct-parent plus creation-identity and held-file proof; flood and valid
+JPEG before stall remain unacceptable; actual selected phase sleepers share a finite
+file budget and later real media complete.
 
-T048 — passed: Actual owned junction loop and outside junction are skipped with
-accessible native siblings, two skipped links and warning outcome; outside/source state
-retained. Actual source-root junction alias fails setup before output creation. Optional
-real file-symlink attempt is unavailable with Win32 1314 and is explicitly not actual
-file-symlink coverage; existing controlled file-reparse tests remain separate.
+T052 — passed: Actual benign large-cache native exhaustion under lower process-local
+memory/map/disk/thread ceilings; later tiny JPEG/video complete. Child-only environment
+and stricter private policy preserve installed policy/parent environment. Short cache
+ownership/path/source boundary and exact cleanup/refusal assertions pass.
 
-T049 — passed: Controlled initial log creation and late SUMMARY/Processing-ended append
-failures retain actual validated JPEG/video media and persist one degraded warning.
-Exclusively held real log makes actual Add-Content append fail during delegated native
-conversion. Bounded fallback retains quiet diagnostics, counts dropped/truncated lines,
-disables failed sink after one attempt, emits once and catches unavailable emergency
-stderr. Fresh-child PipelineStopped helper state proves propagation is not ordinary log
-I/O degradation; no Ctrl+C lifecycle claim.
-
-T050 — passed: Four actual-media runs independently inject LastWriteTimeUtc or
-CreationTimeUtc setter failure on finalized image/video. Each attempts the other field,
-retains valid data and exact video bytes, completes later siblings, reports one
-timestamp warning/zero file errors, preserves warning duplicate status, retains sources
-and empties owned work.
+T053 — passed: An independently started actual pinned ImageMagick process stays alive
+with the same PID/start identity through another private job timeout. After a three-byte
+synchronization write it exits zero and produces exactly one full-decoded 1x1 red PNG
+from the independent first xc image; every decoded stdin image is discarded. The test
+does not assert received stdin byte count or alter host encoding.
 
 ## Verification and handoff
 
 On actual Microsoft Windows 11 Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5, Pester
-5.9.1, each normal suite passed 287/287 with native exit 0 and zero skipped or
-incomplete tests. Each control had 288 total, 287 passed, exactly one T007 deliberate
-failure and native exit 1. Summary/XML, parent native records and console hashes bind 28
-tested source paths, including the recovery suite and all eight colour/reference assets,
-to observed raw bytes and separate Git blobs. Only verified text CRLF-to-LF
+5.9.1, each normal suite passed 304/304 with native exit 0 and zero skipped or
+incomplete tests. Each control had 305 total, 304 passed, exactly one T007 deliberate
+failure and native exit 1. Summary/XML, parent native records and console hashes bind 29
+tested source paths, including the native lifetime suite and all eight colour/reference
+assets, to observed raw bytes and separate Git blobs. Only verified text CRLF-to-LF
 normalization is allowed; ICC bytes remain exact. Persistent execution policies were
 unchanged.
 
-Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37277567021); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37277571157).
-Evidence: evidence/M3-T01.json and evidence/M3-T01-ci.json.
+Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37286018683); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37286024093).
+Evidence: evidence/M3-T02.json and evidence/M3-T02-ci.json.
 
 Actual development results and their source/artifact qualifications are retained in
-evidence/M3-T01.json and SESSION_LOG.md. Clean implementation desktop and hosted gates
+evidence/M3-T02.json and SESSION_LOG.md. Clean implementation desktop and hosted gates
 are separate acceptance observations; earlier task histories retain their original
 revisions.
 
-Started clean at 5cbaa2246923f5bd94066feea34f71e0faafce00, equal to the live feature
-branch; owner-merged PR #15 main 446683923f7d4b2aed7a5c9a00e1bf11d2924b68 had the same
-tree. Continued without changing checkout/history. Successor draft PR #16 contains this
+Started clean at fa4ab9fd609918500a5dcec1c5972c24d23c2c37, equal to the live feature
+branch; owner-merged PR #16 main a2ef99ac52631e84988669905aa8e80d44682b79 had the same
+tree. Continued without changing checkout/history. Successor draft PR #17 contains this
 task. Implementation synchronization is a past exact-SHA observation. This record-only
 checkpoint's SHA/live synchronization remains pending_verification until separately
 observed after normal commit/push.
 
-ACL and link observations apply to the actual owned Windows fixtures and available local
-capabilities. Controlled log-sink and timestamp-setter failures must be identified
-separately from real permission or media failures; neither kind of probe establishes
-every filesystem or remote provider. Root/ancestor link rejection remains conservative,
-and concurrent hostile filesystem changes remain outside the isolation guarantee.
+Windows 10/Server 2016 JOB_LIST support and compatible inherited-job restrictions are
+required. Unsupported atomic assignment fails closed. ImageMagick memory/map/disk limits
+govern pixel cache, not every decoder/delegate heap allocation or arbitrary write; these
+controls do not certify an exploit-proof sandbox.
 
-The fallback is bounded and may drop lines; it cannot reconstruct a complete disk log.
-Direct stderr is best effort when the console is absent/closed or the host pipeline has
-stopped. Explicit PipelineStoppedException propagation and helper-state observations do
-not establish actual Ctrl+C, a cancellation exit contract, an I/O deadline, or native
-descendant termination. Per-file bounds/process lifetime, cooperative cancellation and
-complete report/CSV accounting remain later cards.
+The shared clock counts image-copy/retry elapsed time, but synchronous filesystem calls
+are not preemptible. Native termination/drain grace can add wall time. ImageMagick's own
+time limit is cooperative and SOURCE_DATE_EPOCH can disable it; the external wrapper
+deadline remains the native-hang authority. A noncooperative kernel driver can still
+delay completion of an I/O cancellation request; incomplete capture never permits
+finalization.
 
-Original bytes and captured creation/modified metadata remain the preservation targets;
-OS-maintained access time is not guaranteed. Existing pinned codec, colour and
-lossy-JPEG qualifications remain in prior evidence. This card does not tune conversion
-defaults or repeat the size/quality benchmark, and automated regression acceptance does
-not grant owner approval, release or deployment permission.
+Cleanup assumes the exclusively allocated cache namespace remains trustworthy. A
+concurrent regular magick-* arrival is indistinguishable from a native cache file;
+foreign names, directories and reparse entries remain with warnings. Unconfirmed
+termination preservation was tested with a controlled returned flag after an actual
+successfully terminated tree, not by reproducing an OS failure to kill.
 
-This session stops at M3-T01. Begin M3-T02 only when requested.
+Development targets, saved API/resource probes and tiny 128x160 measurement smokes
+retain their own raw source/artifact bindings. They are separate from clean-I full
+normal/control and hosted acceptance. No representative benchmark rerun,
+quality/performance improvement, owner aesthetic approval or codec-wide exploit test is
+inferred. Existing HEIC still-collection and independent colour-reference qualifications
+remain in their original evidence.
+
+The unrelated-process fixture uses a declared first synthetic image as its completion
+oracle; RGB stdin only keeps the process blocked until synchronization ends, and all
+stdin-derived frames are discarded. Actual default and forced-BOM controls passed on
+both shells. The original hosted stdin bytes were not recorded, so its BOM explanation
+remains a supported inference. Repaired-revision full normal/control and hosted gates
+require their own immutable evidence.
+
+Real Ctrl+C/cooperative cancellation, interrupted-copy exit behavior and
+force-termination recovery remain M3-T03. This card stops after M3-T02 acceptance;
+releases, deployment and owner acceptance stay separate.
+
+This session stops at M3-T02. Begin M3-T03 only when requested.

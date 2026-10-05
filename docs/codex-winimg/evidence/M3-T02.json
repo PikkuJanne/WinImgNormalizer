@@ -1,0 +1,3545 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T02",
+  "recorded_at_utc": "2026-10-05T09:06:42.886067+00:00",
+  "tested_implementation_commit": "73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a",
+  "implementation_scope": {
+    "task_id": "M3-T02",
+    "baseline_commit": "fa4ab9fd609918500a5dcec1c5972c24d23c2c37",
+    "paths": [
+      "README.md",
+      "WinImgNormalizer.ps1",
+      "docs/codex-winimg/DECISIONS.md",
+      "docs/codex-winimg/SOURCES.md",
+      "tests/Invoke-Tests.ps1",
+      "tests/Measure-SizeQuality.ps1",
+      "tests/NativeLifetime.Tests.ps1",
+      "tests/README.md"
+    ],
+    "source_artifact": ".scratch/M3-T02-implementation-scope.json",
+    "source_artifact_sha256": "8d0c4dc1161423cb73450304c986da7dfe69cd7752c5c04d3fba07dcb1610063"
+  },
+  "tested_files_sha256": {
+    "WinImgNormalizer.ps1": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e",
+    "WinImgNormalizer.bat": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+    "tests/Invoke-Tests.ps1": "6ad32f5c306e9010a5b1363976492bdcb2120918f890046a452bce71ab211484",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+    "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+    "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+    "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+    "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+    "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+    "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+    "tests/Measure-SizeQuality.ps1": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94",
+    "tests/Normalizer.Tests.ps1": "75ae2f894449bc237cfd333943020ed25ab3601e3e469178e8f96f32405f2680",
+    "tests/Preflight.Tests.ps1": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+    "tests/Traversal.Tests.ps1": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+    "tests/Naming.Tests.ps1": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+    "tests/Transactions.Tests.ps1": "a61fc822a93406bebd37b9a84e403ea560722ba4c1270dfed819200dd17e713d",
+    "tests/Duplicates.Tests.ps1": "31c20b0edc144f96625cb0d033d2f4160fd98f00e46fe37605cf33f817d63200",
+    "tests/SafetyRegression.Tests.ps1": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+    "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+    "tests/Colour.Tests.ps1": "7a4636687a588878b2a225ec62f9dbda5a28912fc187049e2a11289eef40a6a1",
+    "tests/Paths.Tests.ps1": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+    "tests/Sizing.Tests.ps1": "e47608222e85abd7a053caed0c82fbe98708db494ae8fb861727bcaba7f56ad2",
+    "tests/Diagnostics.Tests.ps1": "d9386f20b5f3d5e00cb762fd9a882735140a350dc1eda002d2657c75a2a2087f",
+    "tests/ConversionRegression.Tests.ps1": "fed12f7ba26194f89cbbcd242133d32f0867d7dd56f0cf20a5fe951b314b0334",
+    "tests/RecoveryReporting.Tests.ps1": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+    "tests/NativeLifetime.Tests.ps1": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c"
+  },
+  "committed_blob_sha256": {
+    "WinImgNormalizer.ps1": "c1fcecac29275facbae39341796900624a10b8ee3297f2fb8634da4d1a474f40",
+    "WinImgNormalizer.bat": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+    "tests/Invoke-Tests.ps1": "fe70c132f363214ce527847b6261e800ac7729004393a30f827adede8ec40cf7",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+    "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+    "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+    "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+    "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+    "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+    "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+    "tests/Measure-SizeQuality.ps1": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387",
+    "tests/Normalizer.Tests.ps1": "79346cbd0e12ddd91ad5b87091143c7d58002e3fcc6b63c03e5701a697223fab",
+    "tests/Preflight.Tests.ps1": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+    "tests/Traversal.Tests.ps1": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+    "tests/Naming.Tests.ps1": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+    "tests/Transactions.Tests.ps1": "e9938010562dcdf4ccc2eb1c66e35077af450778fb75bd1d22a906bbf049d4fc",
+    "tests/Duplicates.Tests.ps1": "6eace9dce4f17f997a865541fbbc74d34d8789a2600e7d87778e8e22d2d58dba",
+    "tests/SafetyRegression.Tests.ps1": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+    "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+    "tests/Colour.Tests.ps1": "8f91a674d1dd995ef454bd6c51dd9d38e4b94b9e1613c74e8594599e9258b17d",
+    "tests/Paths.Tests.ps1": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+    "tests/Sizing.Tests.ps1": "60451813374debac44fe53171edbdb298b2b06adeaf11f6430e65a0744e1e273",
+    "tests/Diagnostics.Tests.ps1": "b5a492e9313e142a7b5bf0b95cdfdcc959df2c25db588c27ed912951406b40e9",
+    "tests/ConversionRegression.Tests.ps1": "1e9fe7201be9d9fb9ef4f0f7550ca8624c713a84991f8a461f0a049c93069703",
+    "tests/RecoveryReporting.Tests.ps1": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc",
+    "tests/NativeLifetime.Tests.ps1": "0d759d6bafad03115164c21350099f2869dad8cda56cb599f15d78f498784de1"
+  },
+  "checkout_line_endings": {
+    "policy": "Observed tested raw checkout bytes bind committed Git blobs by exact bytes or verified CRLF-to-LF only; no files were normalized during execution.",
+    "normalized_bindings": [
+      {
+        "path": "WinImgNormalizer.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Measure-SizeQuality.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Normalizer.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Transactions.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Duplicates.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Colour.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Sizing.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Diagnostics.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/ConversionRegression.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/RecoveryReporting.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/NativeLifetime.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      }
+    ]
+  },
+  "starting_observation": {
+    "task_id": "M3-T02",
+    "observed_at_utc": "2026-10-05T07:58:43.329441Z",
+    "local_head": "fa4ab9fd609918500a5dcec1c5972c24d23c2c37",
+    "remote_head": "fa4ab9fd609918500a5dcec1c5972c24d23c2c37",
+    "worktree_clean": true,
+    "branch": "codex/winimg-hardening",
+    "fetch_urls": [
+      "https://github.com/PikkuJanne/WinImgNormalizer.git"
+    ],
+    "push_urls": [
+      "https://github.com/PikkuJanne/WinImgNormalizer.git"
+    ],
+    "extra_push_mapping": false,
+    "main_commit": "a2ef99ac52631e84988669905aa8e80d44682b79",
+    "feature_tree": "4204860a6360a4a11ff6dc3e3142dec2cc76a699",
+    "main_tree": "4204860a6360a4a11ff6dc3e3142dec2cc76a699",
+    "owner_merged_pull_request": {
+      "headRefOid": "fa4ab9fd609918500a5dcec1c5972c24d23c2c37",
+      "mergeCommit": {
+        "oid": "a2ef99ac52631e84988669905aa8e80d44682b79"
+      },
+      "mergedAt": "2026-10-05T07:54:57Z",
+      "state": "MERGED",
+      "title": "fix: M3-T01 report scan and ancillary failures",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/16"
+    },
+    "tree_equal": true,
+    "method": "Actual clean checkout, canonical single fetch/push URL, live ls-remote, owner merge metadata, read-only main fetch and equal tree. No checkout or branch update.",
+    "controller_sha256": "e2207bdbd81713b98386bdeccd49ed74d9c58375322903dd82e3800aa0d6efdd",
+    "starting_commit": "fa4ab9fd609918500a5dcec1c5972c24d23c2c37",
+    "advertised_feature_commit": "fa4ab9fd609918500a5dcec1c5972c24d23c2c37",
+    "starting_tree": "4204860a6360a4a11ff6dc3e3142dec2cc76a699",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "fetch_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "push_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "normalization": "Aliases preserve the original root observation fields; canonical single URLs, exact local/live SHA and equal starting/main tree were checked.",
+    "source_artifact": ".scratch/M3-T02-start-observation.json",
+    "source_artifact_sha256": "3e1da6fb87a135c36dea50c70559eb44449bb26f07ca84555d23cfc5d54252fc"
+  },
+  "environment": {
+    "ps51": {
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    },
+    "ps7": {
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    }
+  },
+  "runs": [
+    {
+      "observed_at_utc": "2026-10-05T08:49:23.8679252Z",
+      "result": "Passed",
+      "total_count": 304,
+      "passed_count": 304,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 275.1910483,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M3-T02-attempt2-final-ps51",
+      "artifact_path": ".scratch/M3-T02-attempt2-final-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M3-T02-attempt2-final-ps51/summary.json": "ac45224e8eeb224dc23196dcd5d32449bbf391700f16cadc2caafed2e2f0b081",
+        ".scratch/M3-T02-attempt2-final-ps51/results.xml": "636f32b28186598e7e31fd5180ce422d8a83027d234a94bb5ba2c635ccb54cad",
+        ".scratch/M3-T02-attempt2-final-ps51-console.log": "2b1b43640a30b6a8048ee982c65d0bda460c3213a9890eebb75f26a92696caf8"
+      },
+      "observed_native_child_exit_code": 0
+    },
+    {
+      "observed_at_utc": "2026-10-05T08:54:03.7043104Z",
+      "result": "Failed",
+      "total_count": 305,
+      "passed_count": 304,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 275.04449719999997,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M3-T02-attempt2-control-ps51",
+      "artifact_path": ".scratch/M3-T02-attempt2-control-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M3-T02-attempt2-control-ps51/summary.json": "1b8aa26466b98488f1ba809989b315be92bc8037fe9a4ff267925d5454b4a0a3",
+        ".scratch/M3-T02-attempt2-control-ps51/results.xml": "6ba3b67116d63e9bba5beff10c2fff588c5cf8e07dae59e6a17beb88fd63b4a4",
+        ".scratch/M3-T02-attempt2-control-ps51-console.log": "562bfac00d14b13ce6a4eb3a99e08e5a710bbbf5d3b33ed76597a9302cf5085c"
+      },
+      "observed_native_child_exit_code": 1
+    },
+    {
+      "observed_at_utc": "2026-10-05T08:49:25.7537435Z",
+      "result": "Passed",
+      "total_count": 304,
+      "passed_count": 304,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 294.9734095,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M3-T02-attempt2-final-ps7",
+      "artifact_path": ".scratch/M3-T02-attempt2-final-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M3-T02-attempt2-final-ps7/summary.json": "225709938c62cc89b6e6ac816bd884fab7a8dcbc543e47ea780b5f88be34d843",
+        ".scratch/M3-T02-attempt2-final-ps7/results.xml": "9b0c868cafa252e336e4e1baa8dbdd887cbd649ca7d9f8a91d6ce30f2438662a",
+        ".scratch/M3-T02-attempt2-final-ps7-console.log": "82be9dfc1a23ce646ca49b38dab5b8ca03f61a4cb27a7628a65dfbce46e6c2f0"
+      },
+      "observed_native_child_exit_code": 0
+    },
+    {
+      "observed_at_utc": "2026-10-05T08:54:26.4986954Z",
+      "result": "Failed",
+      "total_count": 305,
+      "passed_count": 304,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 292.9084798,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M3-T02-attempt2-control-ps7",
+      "artifact_path": ".scratch/M3-T02-attempt2-control-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M3-T02-attempt2-control-ps7/summary.json": "7e71a2aef9e507fa9fbb1122df19cfff82ddb91d6fd905a6b853af90c96722ce",
+        ".scratch/M3-T02-attempt2-control-ps7/results.xml": "d937733ed1837c4530d2f2c9e5ed9a1b75ae58708093f5b4a136ee8ba32e9b54",
+        ".scratch/M3-T02-attempt2-control-ps7-console.log": "4b352565be6fccce4aa1c8d056a8ac37189322d8627b05d0020e247cabb1fdaf"
+      },
+      "observed_native_child_exit_code": 1
+    }
+  ],
+  "desktop_native_child_verification": {
+    "implementation": "73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a",
+    "observed_at_utc": "2026-10-05T08:59:43.860644+00:00",
+    "clean": true,
+    "raw_git_source_bindings": 29,
+    "binding_audit": {
+      "path": ".scratch/M3-T02-attempt2-desktop-binding-audit.json",
+      "sha256": "ba775c8694077a3d45b2e7542ac8019325af92591d1e91d089563634a33e1d2e"
+    },
+    "controller": {
+      "path": ".scratch/M3-T02-run-desktop.ps1",
+      "sha256": "250cc955f98e474c7aa61bf5352491f5d3b998fea76b2761d8eda85c94def5bf"
+    },
+    "native_records": [
+      {
+        "path": ".scratch/M3-T02-attempt2-desktop-native-ps51.json",
+        "sha256": "497fb275758fc4dc9443b19ea9c00e50b95c5d1e54b4781d5cedb630753e17af"
+      },
+      {
+        "path": ".scratch/M3-T02-attempt2-desktop-native-ps7.json",
+        "sha256": "f0a0e0eea7fc5eebf4e353ffabb47852f5f231255377a87470c1735e29c507f4"
+      }
+    ],
+    "runs": [
+      {
+        "label": "final-ps51",
+        "exit": 0,
+        "total": 304,
+        "passed": 304,
+        "failed": 0,
+        "console_path": ".scratch/M3-T02-attempt2-final-ps51-console.log",
+        "console_sha256": "2b1b43640a30b6a8048ee982c65d0bda460c3213a9890eebb75f26a92696caf8",
+        "started_at_utc": "2026-10-05T08:49:23.4670104Z",
+        "completed_at_utc": "2026-10-05T08:54:03.2346310Z"
+      },
+      {
+        "label": "control-ps51",
+        "exit": 1,
+        "total": 305,
+        "passed": 304,
+        "failed": 1,
+        "console_path": ".scratch/M3-T02-attempt2-control-ps51-console.log",
+        "console_sha256": "562bfac00d14b13ce6a4eb3a99e08e5a710bbbf5d3b33ed76597a9302cf5085c",
+        "started_at_utc": "2026-10-05T08:54:03.4055385Z",
+        "completed_at_utc": "2026-10-05T08:58:43.1693846Z"
+      },
+      {
+        "label": "final-ps7",
+        "exit": 0,
+        "total": 304,
+        "passed": 304,
+        "failed": 0,
+        "console_path": ".scratch/M3-T02-attempt2-final-ps7-console.log",
+        "console_sha256": "82be9dfc1a23ce646ca49b38dab5b8ca03f61a4cb27a7628a65dfbce46e6c2f0",
+        "started_at_utc": "2026-10-05T08:49:24.6604583Z",
+        "completed_at_utc": "2026-10-05T08:54:24.9408795Z"
+      },
+      {
+        "label": "control-ps7",
+        "exit": 1,
+        "total": 305,
+        "passed": 304,
+        "failed": 1,
+        "console_path": ".scratch/M3-T02-attempt2-control-ps7-console.log",
+        "console_sha256": "4b352565be6fccce4aa1c8d056a8ac37189322d8627b05d0020e247cabb1fdaf",
+        "started_at_utc": "2026-10-05T08:54:25.2194107Z",
+        "completed_at_utc": "2026-10-05T08:59:24.3270567Z"
+      }
+    ],
+    "source_artifact": ".scratch/M3-T02-attempt2-desktop-verification.json",
+    "source_artifact_sha256": "4c7c434ce52ecdcc5ae631b7678295ce52bd60aa4581b70485bb49d05f3a7199"
+  },
+  "case_results": [
+    {
+      "case_id": "T051",
+      "state": "passed",
+      "reason": "Actual wrapper/job root-child-grandchild timeout and normal-root cleanup; independent direct-parent plus creation-identity and held-file proof; flood and valid JPEG before stall remain unacceptable; actual selected phase sleepers share a finite file budget and later real media complete."
+    },
+    {
+      "case_id": "T052",
+      "state": "passed",
+      "reason": "Actual benign large-cache native exhaustion under lower process-local memory/map/disk/thread ceilings; later tiny JPEG/video complete. Child-only environment and stricter private policy preserve installed policy/parent environment. Short cache ownership/path/source boundary and exact cleanup/refusal assertions pass."
+    },
+    {
+      "case_id": "T053",
+      "state": "passed",
+      "reason": "An independently started actual pinned ImageMagick process stays alive with the same PID/start identity through another private job timeout. After a three-byte synchronization write it exits zero and produces exactly one full-decoded 1x1 red PNG from the independent first xc image; every decoded stdin image is discarded. The test does not assert received stdin byte count or alter host encoding."
+    }
+  ],
+  "case_notes": {
+    "task_id": "M3-T02",
+    "suite": "tests/NativeLifetime.Tests.ps1",
+    "suite_sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c",
+    "frozen_source_bindings": [
+      {
+        "path": "WinImgNormalizer.ps1",
+        "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+      },
+      {
+        "path": "tests/NativeLifetime.Tests.ps1",
+        "sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c"
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "sha256": "6ad32f5c306e9010a5b1363976492bdcb2120918f890046a452bce71ab211484"
+      },
+      {
+        "path": "tests/README.md",
+        "sha256": "21578953b3a49a871961761b82e2bb6fb74a21e2b81fea716ef18d6760285126"
+      }
+    ],
+    "case_results": [
+      {
+        "case_id": "T051",
+        "state": "passed",
+        "reason": "Actual wrapper/job root-child-grandchild timeout and normal-root cleanup; independent direct-parent plus creation-identity and held-file proof; flood and valid JPEG before stall remain unacceptable; actual selected phase sleepers share a finite file budget and later real media complete."
+      },
+      {
+        "case_id": "T052",
+        "state": "passed",
+        "reason": "Actual benign large-cache native exhaustion under lower process-local memory/map/disk/thread ceilings; later tiny JPEG/video complete. Child-only environment and stricter private policy preserve installed policy/parent environment. Short cache ownership/path/source boundary and exact cleanup/refusal assertions pass."
+      },
+      {
+        "case_id": "T053",
+        "state": "passed",
+        "reason": "An independently started actual pinned ImageMagick process stays alive with the same PID/start identity through another private job timeout. After a three-byte synchronization write it exits zero and produces exactly one full-decoded 1x1 red PNG from the independent first xc image; every decoded stdin image is discarded. The test does not assert received stdin byte count or alter host encoding."
+      }
+    ],
+    "targeted_histories": [
+      {
+        "host": "ps7",
+        "attempt": 1,
+        "result_directory": ".scratch/M3-T02-target-ps7-1",
+        "total": 14,
+        "passed": 4,
+        "failed": 10,
+        "native_child_exit": 1,
+        "excluded_counts": {
+          "skipped_count": 0,
+          "not_run_count": 0,
+          "inconclusive_count": 0,
+          "failed_blocks_count": 0,
+          "failed_containers_count": 0
+        },
+        "persistent_policy_unchanged": true,
+        "process_psmodulepath_cleared_before_launch": true,
+        "outer_process_psmodulepath_restored": true,
+        "source_bindings_unchanged_during_child": true,
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T02-target-ps7-1/summary.json",
+            "sha256": "07afd0d6e849d5d11f3e191229680334daf7725ad838920d0efaf5101c84a521"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-1/results.xml",
+            "sha256": "d5de1f70efaca178318144382b8174a2b0f38cd016fc4de3fcd59f36e24bd4d3"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-1-console.log",
+            "sha256": "9b7aed21f1277a7ebf1a6e0c3b0ece7cfe7e433044a0c3bacc5e5b333c90ef9e"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-1-native.json",
+            "sha256": "2f7c8ad5b52e0b4fbca93cfe7320ce09c4d193c926f79ed1bedb49eb4e92eb59"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-1-suite.ps1",
+            "sha256": "dd7062cc1365ea92800b5fb3146c42ec4028f007b5fd14978c7bf20a38568f12"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-1-runtime.ps1",
+            "sha256": "9f41a27e1ec3f3c2fc3efa7df90d50020bfae31262ce607dceaa9b60a29baa42"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-c0565b18f1c845499cf904eb609f78ac/native-lifetime-observations.json",
+            "sha256": "cdf674d724a8e1998b55afc7f1fed827b96aafc187175052479a1a9c897b0f67"
+          }
+        ],
+        "diagnosis": [
+          "Fixture switch Input collided with the PowerShell automatic enumerator variable.",
+          "Large switch shadowed the large template path.",
+          "GetNewClosure isolated callback command resolution from locally imported functions.",
+          "The combined top-level limit/list resource probe is invalid on the pinned native CLI; identify subcommand fixes its actual MissingArgument exit11."
+        ],
+        "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+      },
+      {
+        "host": "ps7",
+        "attempt": 2,
+        "result_directory": ".scratch/M3-T02-target-ps7-2",
+        "total": 14,
+        "passed": 8,
+        "failed": 6,
+        "native_child_exit": 1,
+        "excluded_counts": {
+          "skipped_count": 0,
+          "not_run_count": 0,
+          "inconclusive_count": 0,
+          "failed_blocks_count": 0,
+          "failed_containers_count": 0
+        },
+        "persistent_policy_unchanged": true,
+        "process_psmodulepath_cleared_before_launch": true,
+        "outer_process_psmodulepath_restored": true,
+        "source_bindings_unchanged_during_child": true,
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T02-target-ps7-2/summary.json",
+            "sha256": "4bc8d3b04c9ad234755fe53985894be396657e695164118f923136a2900d5d53"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-2/results.xml",
+            "sha256": "0ef6ef526e5bffd82f2156685504e95e114993d4e9005523a76674d52c3eebb4"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-2-console.log",
+            "sha256": "5b5e466716008b86312abd3921bcd79522ff5f9866a47b311af30fcdad905588"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-2-native.json",
+            "sha256": "3b05e55a9efab32fb40f0025605ec1b612154fc7124087285c5794d2f2d06091"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-2-suite.ps1",
+            "sha256": "b9cfbb4835c350ce2e0d6cd04d7c165f975420bfa2f058b6da5fa34d3950a744"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-2-runtime.ps1",
+            "sha256": "9f41a27e1ec3f3c2fc3efa7df90d50020bfae31262ce607dceaa9b60a29baa42"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-c89ccf2a59c741dfb427286338f6bf1a/native-lifetime-observations.json",
+            "sha256": "d27824dd7d458f1acfe4a7300db521dea776165b4f8f7f94ea7f4a5861e20b74"
+          }
+        ],
+        "diagnosis": [
+          "Immediate normal-root cleanup correctly returned without timeout; the original unconditional timeout expectation was incorrect.",
+          "Actual generated ImageMagick cache filenames beneath deep output work exceeded MAX_PATH, blocking later images and the requested validation phase.",
+          "The later sibling/cache/cumulative application assertions failed honestly; source file hashes and times remained preserved."
+        ],
+        "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+      },
+      {
+        "host": "ps7",
+        "attempt": 3,
+        "result_directory": ".scratch/M3-T02-target-ps7-3",
+        "total": 17,
+        "passed": 13,
+        "failed": 4,
+        "native_child_exit": 1,
+        "excluded_counts": {
+          "skipped_count": 0,
+          "not_run_count": 0,
+          "inconclusive_count": 0,
+          "failed_blocks_count": 0,
+          "failed_containers_count": 0
+        },
+        "persistent_policy_unchanged": true,
+        "process_psmodulepath_cleared_before_launch": true,
+        "outer_process_psmodulepath_restored": true,
+        "source_bindings_unchanged_during_child": true,
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T02-target-ps7-3/summary.json",
+            "sha256": "edd3119048d284b480eda12bab0cd8e4f7644f3c5ec1842824066344cf7ea3d5"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-3/results.xml",
+            "sha256": "164d7d3a01061c5f146875fa1d2fffe431d09b685519132b21eb7e7dd06e228a"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-3-console.log",
+            "sha256": "e15a1a701a176ad9a52ed33940e1ca77102356f649a7a1de6d7416e7fe7b94b2"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-3-native.json",
+            "sha256": "f941c1046a3b776e7f45d2e8676c8cfca09b6691e17294be7fc561e63e73130f"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-3-suite.ps1",
+            "sha256": "75380bc84c42e0417bee2127d1a69388c91dc545f67c91ab7993ea911a1fddd0"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-3-runtime.ps1",
+            "sha256": "954e536a670a56e4700cace2d31905e529c26d5bc9915c915190be8142040a80"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-6a0bb4dfd63e4381b1aa0718860a166d/native-lifetime-observations.json",
+            "sha256": "5af17583cceb41f1536059860600ea188524a2ea14712b4c2050ba62cad91c45"
+          }
+        ],
+        "diagnosis": [
+          "Three strict directory-mtime baselines differed by milliseconds around fixture creation; source hashes and file creation/modified times remained intact. Subsequent fixtures set all directory times after writes, deepest first, and snapshot objects are refreshed; exact equality remains mandatory.",
+          "Source-contained cache rejection occurred after the destination write probe and changed output-parent directory mtime. Runtime validation moved before that probe; the original no-write assertion remains intact."
+        ],
+        "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+      },
+      {
+        "host": "ps7",
+        "attempt": 4,
+        "result_directory": ".scratch/M3-T02-target-ps7-4",
+        "total": 17,
+        "passed": 17,
+        "failed": 0,
+        "native_child_exit": 0,
+        "excluded_counts": {
+          "skipped_count": 0,
+          "not_run_count": 0,
+          "inconclusive_count": 0,
+          "failed_blocks_count": 0,
+          "failed_containers_count": 0
+        },
+        "persistent_policy_unchanged": true,
+        "process_psmodulepath_cleared_before_launch": true,
+        "outer_process_psmodulepath_restored": true,
+        "source_bindings_unchanged_during_child": true,
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T02-target-ps7-4/summary.json",
+            "sha256": "1207d5eff015b0636b3fd0d234f3849f5083b2744bc19edd21aeddd90e077774"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-4/results.xml",
+            "sha256": "942c2948a6e9eefa0c7237c981f24cc3db43be19f269851d359cadc360ddfeb1"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-4-console.log",
+            "sha256": "9779c62675f814f3ca6e2a3a59e787366c3fff9fac162d359eb13a7c44310734"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-4-native.json",
+            "sha256": "6a449b2788a00910bd13d3b89051b9256182c5051ece92c56cfe154aa34688ae"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-4-suite.ps1",
+            "sha256": "9aebef55d20faaf613f28d819521f898af4100768fe5da2ec8c43acaae261123"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-4-runtime.ps1",
+            "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/native-lifetime-observations.json",
+            "sha256": "0e0a1d28b454d22cf70405e0bc94f7173e3de21b51d563d6cfe6f1686a02f8e6"
+          }
+        ],
+        "diagnosis": [
+          "All actual assertions passed with complete summary/XML and native exit0."
+        ],
+        "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+      },
+      {
+        "host": "ps51",
+        "attempt": 1,
+        "result_directory": ".scratch/M3-T02-target-ps51-1",
+        "total": 17,
+        "passed": 17,
+        "failed": 0,
+        "native_child_exit": 0,
+        "excluded_counts": {
+          "skipped_count": 0,
+          "not_run_count": 0,
+          "inconclusive_count": 0,
+          "failed_blocks_count": 0,
+          "failed_containers_count": 0
+        },
+        "persistent_policy_unchanged": true,
+        "process_psmodulepath_cleared_before_launch": true,
+        "outer_process_psmodulepath_restored": true,
+        "source_bindings_unchanged_during_child": true,
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T02-target-ps51-1/summary.json",
+            "sha256": "ad996e804064f7985c2b8c5a57a4d47cae47f92e9229cafb7d4ef7df7a89c5ac"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-1/results.xml",
+            "sha256": "1e9a72d4ddd72f0f6cf4f97dba15b5d4b42331b419c8eb05b0724c6ce5099243"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-1-console.log",
+            "sha256": "7e0903e5fae5dbaa3d6f1dc472f0bd69066ba9cb569462838d1c7e1f8c624d76"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-1-native.json",
+            "sha256": "9d8b2538813b30527f6aed10c06e646e39ad31490b810cb7778f6763733ad36c"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-1-suite.ps1",
+            "sha256": "9aebef55d20faaf613f28d819521f898af4100768fe5da2ec8c43acaae261123"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-1-runtime.ps1",
+            "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/native-lifetime-observations.json",
+            "sha256": "4ac9b82e8f92cfd91c0a9c62654d0a5867de8d7369e1d98d527df4d2b4187b03"
+          }
+        ],
+        "diagnosis": [
+          "All actual assertions passed with complete summary/XML and native exit0."
+        ],
+        "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+      },
+      {
+        "host": "ps51",
+        "attempt": 2,
+        "result_directory": ".scratch/M3-T02-target-ps51-2",
+        "total": 17,
+        "passed": 17,
+        "failed": 0,
+        "native_child_exit": 0,
+        "excluded_counts": {
+          "skipped_count": 0,
+          "not_run_count": 0,
+          "inconclusive_count": 0,
+          "failed_blocks_count": 0,
+          "failed_containers_count": 0
+        },
+        "persistent_policy_unchanged": true,
+        "process_psmodulepath_cleared_before_launch": true,
+        "outer_process_psmodulepath_restored": true,
+        "source_bindings_unchanged_during_child": true,
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T02-target-ps51-2/summary.json",
+            "sha256": "e8ae2a7a2b1919e6966f58782ff5fde0f6ea500d248cb3f3df7a42fbd27b1585"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-2/results.xml",
+            "sha256": "f9aff38e80efa660d3a9e592ab0cb371c7fe9d60f7dc01723f3fc88c4c1bd8df"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-2-console.log",
+            "sha256": "c6aa056ed96176d27a305af7bfd28c8e4ea573c63d8d3de03e6f4dd457c13fa1"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-2-native.json",
+            "sha256": "9a81d0901810c7c52bbf3018a585fbd53dac5e8a1c4b1319aa25add2ad6b03c0"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-2-suite.ps1",
+            "sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps51-2-runtime.ps1",
+            "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/native-lifetime-observations.json",
+            "sha256": "793ef80fdf5b03c0281f21c3da9e39926d7429cc60da3e2c6e3ca3f63edb2b6c"
+          }
+        ],
+        "diagnosis": [
+          "The narrow unrelated-process fixture repair passed: real ImageMagick stays alive with the same creation identity during another private job timeout, then produces exactly one independently generated red PNG after stdin synchronization."
+        ],
+        "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+      },
+      {
+        "host": "ps7",
+        "attempt": 5,
+        "result_directory": ".scratch/M3-T02-target-ps7-5",
+        "total": 17,
+        "passed": 17,
+        "failed": 0,
+        "native_child_exit": 0,
+        "excluded_counts": {
+          "skipped_count": 0,
+          "not_run_count": 0,
+          "inconclusive_count": 0,
+          "failed_blocks_count": 0,
+          "failed_containers_count": 0
+        },
+        "persistent_policy_unchanged": true,
+        "process_psmodulepath_cleared_before_launch": true,
+        "outer_process_psmodulepath_restored": true,
+        "source_bindings_unchanged_during_child": true,
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T02-target-ps7-5/summary.json",
+            "sha256": "78e1a6edc8d87463a221e6f0ab1925959e8ce233a9623ab77152e06b76aebf88"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-5/results.xml",
+            "sha256": "9b3aa62ba9f5326d139e503b8b4210e6b2d6b0b61b3ca8772835e277e7457499"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-5-console.log",
+            "sha256": "82aaf723cf757476848acc4cdfc092ac4ff84889134cf9093ff22de76a80a31c"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-5-native.json",
+            "sha256": "283da8485b171c2908da36266eb80ac94d09d355c3c54de0b113e03b5606d3ff"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-5-suite.ps1",
+            "sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c"
+          },
+          {
+            "path": ".scratch/M3-T02-target-ps7-5-runtime.ps1",
+            "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/native-lifetime-observations.json",
+            "sha256": "47973bfe12ebecd7ee346d476ea8dff14bb2138ae140ce9064e0750a5902cc0a"
+          }
+        ],
+        "diagnosis": [
+          "The narrow unrelated-process fixture repair passed: real ImageMagick stays alive with the same creation identity during another private job timeout, then produces exactly one independently generated red PNG after stdin synchronization."
+        ],
+        "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+      }
+    ],
+    "native_lifetime_observations": [
+      {
+        "phase": "focused_development",
+        "host": "ps7",
+        "suite_raw_sha256": "9aebef55d20faaf613f28d819521f898af4100768fe5da2ec8c43acaae261123",
+        "runtime_raw_sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e",
+        "evidence_artifact": {
+          "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/native-lifetime-observations.json",
+          "sha256": "0e0a1d28b454d22cf70405e0bc94f7173e3de21b51d563d6cfe6f1686a02f8e6"
+        },
+        "native_lifetime_results": [
+          {
+            "mode": "sleep",
+            "native_exit": null,
+            "timed_out": true,
+            "job_assigned": true,
+            "tree_terminated": true,
+            "streams_complete": true,
+            "drain_timed_out": false,
+            "actual_elapsed_ms": 2509
+          },
+          {
+            "mode": "exitroot",
+            "native_exit": 0,
+            "timed_out": false,
+            "job_assigned": true,
+            "tree_terminated": true,
+            "streams_complete": true,
+            "drain_timed_out": false,
+            "actual_elapsed_ms": 224
+          }
+        ],
+        "independent_tree_proofs": {
+          "count": 7,
+          "recorded_members_per_tree": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "held_handles_released": true,
+          "parent_and_creation_identity_assertions_passed": true
+        },
+        "flood_timeout": {
+          "TimedOut": true,
+          "StdOutCharacters": 2097152,
+          "StdErrCharacters": 2097152,
+          "StdOutTruncated": true,
+          "StdErrTruncated": true,
+          "CaptureLimit": 4096,
+          "StreamsComplete": true,
+          "TreeTerminated": true
+        },
+        "unrelated_real_magick": {
+          "written_synchronization_payload_bytes": 3,
+          "received_input_bytes_measured_in_this_test": false,
+          "survived_owned_timeout": true,
+          "then_native_exit": 0,
+          "full_decode": "PNG1x1; exact RGB224/32/32",
+          "output_oracle": "Original desktop fixture decoded the written raw RGB payload; hosted portability was later disproved.",
+          "exact_one_intended_png_asserted": false,
+          "qualification": "Passing desktop history retained honestly; this original fixture is superseded after the failed initial hosted PS5.1 matrix."
+        },
+        "stricter_private_policy": {
+          "requested_memory_bytes": 536870912,
+          "effective_ceiling_bytes": 1048576,
+          "resource_listing_exit": 0,
+          "installed_policy_stdout_equal_before_after": true
+        },
+        "resource_exhaustion": {
+          "recipe": "Benign1024x768 gradient PNG; later16x12 red PNG and opaque4097-byte video",
+          "limits": {
+            "memory_bytes": 131072,
+            "map_bytes": 0,
+            "disk_bytes": 0,
+            "threads": 1
+          },
+          "actual_nonzero_native_calls": 1,
+          "all_native_queries_and_encodes_delegated": true,
+          "later_media_complete": true
+        },
+        "cumulative_phase_budget": {
+          "configured_ms": 3000,
+          "actual_remaining_ms": [
+            2975,
+            2495,
+            1955
+          ],
+          "selected_phases": [
+            "actual tagged colour query",
+            "actual ICC extraction",
+            "conversion routed to finite native sleeper"
+          ],
+          "last_native_timed_out": true,
+          "qualification": "The observer deliberately adds native finite delays; actual wrapper outcomes and unchanged native queries are used, with no fabricated success/timeout result."
+        },
+        "application_observations": {
+          "count": 6,
+          "native_partial_exits": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "source_file_hashes_creation_modified_attributes_and_directory_state_exact": true,
+          "fixture_directory_baseline": "Every source directory fixed after fixture writes, deepest first; metadata freshly read, exact comparison retained.",
+          "later_jpeg_full_decode_pixels_creation_modified_verified": true,
+          "later_video_bytes_creation_modified_verified": true,
+          "output_parent_sentinel_bytes_creation_modified_verified": true,
+          "ordinary_owned_work_cleanup_except_controlled_unconfirmed_case": true,
+          "source_boundary_rejected_before_any_output_probe": true
+        },
+        "unconfirmed_tree_control": {
+          "actual_kill_failed": false,
+          "only_returned_tree_flag_changed": true,
+          "no_finalized_first_media": true,
+          "valid_candidate_and_snapshot_and_cache_retained": true,
+          "later_real_siblings_complete": true
+        },
+        "source_state_artifacts": [
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-001.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-002.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-003.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-004.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-005.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-006.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-007.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-008.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-009.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-010.json",
+            "sha256": "eaa8d227f0b8e3433fafc02d14c5b035234b571ea619a9f7242ab31831b819df"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-011.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-012.json",
+            "sha256": "eaa8d227f0b8e3433fafc02d14c5b035234b571ea619a9f7242ab31831b819df"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-013.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-014.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-015.json",
+            "sha256": "ffae65efeb7be14ae5a7d786b6263c15d14a1b84c36a0365e5bb505ab3fca63c"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-016.json",
+            "sha256": "ffae65efeb7be14ae5a7d786b6263c15d14a1b84c36a0365e5bb505ab3fca63c"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-017.json",
+            "sha256": "7c74033f7ac863b63078fe0d7a7106f036b4734e3652231c2c62d779ebf5ce1a"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-018.json",
+            "sha256": "7c74033f7ac863b63078fe0d7a7106f036b4734e3652231c2c62d779ebf5ce1a"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-019.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-020.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-021.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-022.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-023.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-024.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-025.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-026.json",
+            "sha256": "b82d99d6dca9616536370768077bca249d2fd2cb4f18a24c9f2d381efe8a9ae2"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/source-state-027.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          }
+        ],
+        "qualification": "Passing focused development on raw frozen suite/runtime; subsequent exact-I full gates must independently bind acceptance."
+      },
+      {
+        "phase": "focused_development",
+        "host": "ps51",
+        "suite_raw_sha256": "9aebef55d20faaf613f28d819521f898af4100768fe5da2ec8c43acaae261123",
+        "runtime_raw_sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e",
+        "evidence_artifact": {
+          "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/native-lifetime-observations.json",
+          "sha256": "4ac9b82e8f92cfd91c0a9c62654d0a5867de8d7369e1d98d527df4d2b4187b03"
+        },
+        "native_lifetime_results": [
+          {
+            "mode": "sleep",
+            "native_exit": null,
+            "timed_out": true,
+            "job_assigned": true,
+            "tree_terminated": true,
+            "streams_complete": true,
+            "drain_timed_out": false,
+            "actual_elapsed_ms": 2511
+          },
+          {
+            "mode": "exitroot",
+            "native_exit": 0,
+            "timed_out": false,
+            "job_assigned": true,
+            "tree_terminated": true,
+            "streams_complete": true,
+            "drain_timed_out": false,
+            "actual_elapsed_ms": 191
+          }
+        ],
+        "independent_tree_proofs": {
+          "count": 7,
+          "recorded_members_per_tree": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "held_handles_released": true,
+          "parent_and_creation_identity_assertions_passed": true
+        },
+        "flood_timeout": {
+          "TimedOut": true,
+          "StdOutCharacters": 2097152,
+          "StdErrCharacters": 2097152,
+          "StdOutTruncated": true,
+          "StdErrTruncated": true,
+          "CaptureLimit": 4096,
+          "StreamsComplete": true,
+          "TreeTerminated": true
+        },
+        "unrelated_real_magick": {
+          "written_synchronization_payload_bytes": 3,
+          "received_input_bytes_measured_in_this_test": false,
+          "survived_owned_timeout": true,
+          "then_native_exit": 0,
+          "full_decode": "PNG1x1; exact RGB224/32/32",
+          "output_oracle": "Original desktop fixture decoded the written raw RGB payload; hosted portability was later disproved.",
+          "exact_one_intended_png_asserted": false,
+          "qualification": "Passing desktop history retained honestly; this original fixture is superseded after the failed initial hosted PS5.1 matrix."
+        },
+        "stricter_private_policy": {
+          "requested_memory_bytes": 536870912,
+          "effective_ceiling_bytes": 1048576,
+          "resource_listing_exit": 0,
+          "installed_policy_stdout_equal_before_after": true
+        },
+        "resource_exhaustion": {
+          "recipe": "Benign1024x768 gradient PNG; later16x12 red PNG and opaque4097-byte video",
+          "limits": {
+            "memory_bytes": 131072,
+            "map_bytes": 0,
+            "disk_bytes": 0,
+            "threads": 1
+          },
+          "actual_nonzero_native_calls": 1,
+          "all_native_queries_and_encodes_delegated": true,
+          "later_media_complete": true
+        },
+        "cumulative_phase_budget": {
+          "configured_ms": 3000,
+          "actual_remaining_ms": [
+            2987,
+            2492,
+            1950
+          ],
+          "selected_phases": [
+            "actual tagged colour query",
+            "actual ICC extraction",
+            "conversion routed to finite native sleeper"
+          ],
+          "last_native_timed_out": true,
+          "qualification": "The observer deliberately adds native finite delays; actual wrapper outcomes and unchanged native queries are used, with no fabricated success/timeout result."
+        },
+        "application_observations": {
+          "count": 6,
+          "native_partial_exits": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "source_file_hashes_creation_modified_attributes_and_directory_state_exact": true,
+          "fixture_directory_baseline": "Every source directory fixed after fixture writes, deepest first; metadata freshly read, exact comparison retained.",
+          "later_jpeg_full_decode_pixels_creation_modified_verified": true,
+          "later_video_bytes_creation_modified_verified": true,
+          "output_parent_sentinel_bytes_creation_modified_verified": true,
+          "ordinary_owned_work_cleanup_except_controlled_unconfirmed_case": true,
+          "source_boundary_rejected_before_any_output_probe": true
+        },
+        "unconfirmed_tree_control": {
+          "actual_kill_failed": false,
+          "only_returned_tree_flag_changed": true,
+          "no_finalized_first_media": true,
+          "valid_candidate_and_snapshot_and_cache_retained": true,
+          "later_real_siblings_complete": true
+        },
+        "source_state_artifacts": [
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-001.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-002.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-003.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-004.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-005.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-006.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-007.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-008.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-009.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-010.json",
+            "sha256": "87ac2ff3fad69d8bdcc6c0c659e9f055304356d6b354ede892a89e9d05e7a324"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-011.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-012.json",
+            "sha256": "87ac2ff3fad69d8bdcc6c0c659e9f055304356d6b354ede892a89e9d05e7a324"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-013.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-014.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-015.json",
+            "sha256": "bce22aa5fb0ab2debd82d3b3d97c1c93cb9f297de52a6c1e2ceeac6080419b03"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-016.json",
+            "sha256": "bce22aa5fb0ab2debd82d3b3d97c1c93cb9f297de52a6c1e2ceeac6080419b03"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-017.json",
+            "sha256": "fbe7a271c01a0b7919090b42b10a2b072e5f2e6d2367eb4f270763166d527eb7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-018.json",
+            "sha256": "fbe7a271c01a0b7919090b42b10a2b072e5f2e6d2367eb4f270763166d527eb7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-019.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-020.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-021.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-022.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-023.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-024.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-025.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-026.json",
+            "sha256": "3f93158fa47782b954aa9cfcc16729001db8a41f878d80daafa0636f982839c8"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/source-state-027.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          }
+        ],
+        "qualification": "Passing focused development on raw frozen suite/runtime; subsequent exact-I full gates must independently bind acceptance."
+      },
+      {
+        "phase": "focused_development",
+        "host": "ps51",
+        "suite_raw_sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c",
+        "runtime_raw_sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e",
+        "evidence_artifact": {
+          "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/native-lifetime-observations.json",
+          "sha256": "793ef80fdf5b03c0281f21c3da9e39926d7429cc60da3e2c6e3ca3f63edb2b6c"
+        },
+        "native_lifetime_results": [
+          {
+            "mode": "sleep",
+            "native_exit": null,
+            "timed_out": true,
+            "job_assigned": true,
+            "tree_terminated": true,
+            "streams_complete": true,
+            "drain_timed_out": false,
+            "actual_elapsed_ms": 2505
+          },
+          {
+            "mode": "exitroot",
+            "native_exit": 0,
+            "timed_out": false,
+            "job_assigned": true,
+            "tree_terminated": true,
+            "streams_complete": true,
+            "drain_timed_out": false,
+            "actual_elapsed_ms": 283
+          }
+        ],
+        "independent_tree_proofs": {
+          "count": 7,
+          "recorded_members_per_tree": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "held_handles_released": true,
+          "parent_and_creation_identity_assertions_passed": true
+        },
+        "flood_timeout": {
+          "TimedOut": true,
+          "StdOutCharacters": 2097152,
+          "StdErrCharacters": 2097152,
+          "StdOutTruncated": true,
+          "StdErrTruncated": true,
+          "CaptureLimit": 4096,
+          "StreamsComplete": true,
+          "TreeTerminated": true
+        },
+        "unrelated_real_magick": {
+          "written_synchronization_payload_bytes": 3,
+          "received_input_bytes_measured_in_this_test": false,
+          "survived_owned_timeout": true,
+          "then_native_exit": 0,
+          "full_decode": "PNG1x1; exact RGB224/32/32",
+          "output_oracle": "Independent first xc:#E02020 image; all RGB stdin images discarded.",
+          "exact_one_intended_png_asserted": true,
+          "qualification": "Stdin is only synchronization; no actual received-byte-count or text-encoding assumption is needed."
+        },
+        "stricter_private_policy": {
+          "requested_memory_bytes": 536870912,
+          "effective_ceiling_bytes": 1048576,
+          "resource_listing_exit": 0,
+          "installed_policy_stdout_equal_before_after": true
+        },
+        "resource_exhaustion": {
+          "recipe": "Benign1024x768 gradient PNG; later16x12 red PNG and opaque4097-byte video",
+          "limits": {
+            "memory_bytes": 131072,
+            "map_bytes": 0,
+            "disk_bytes": 0,
+            "threads": 1
+          },
+          "actual_nonzero_native_calls": 1,
+          "all_native_queries_and_encodes_delegated": true,
+          "later_media_complete": true
+        },
+        "cumulative_phase_budget": {
+          "configured_ms": 3000,
+          "actual_remaining_ms": [
+            2983,
+            2499,
+            1997
+          ],
+          "selected_phases": [
+            "actual tagged colour query",
+            "actual ICC extraction",
+            "conversion routed to finite native sleeper"
+          ],
+          "last_native_timed_out": true,
+          "qualification": "The observer deliberately adds native finite delays; actual wrapper outcomes and unchanged native queries are used, with no fabricated success/timeout result."
+        },
+        "application_observations": {
+          "count": 6,
+          "native_partial_exits": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "source_file_hashes_creation_modified_attributes_and_directory_state_exact": true,
+          "fixture_directory_baseline": "Every source directory fixed after fixture writes, deepest first; metadata freshly read, exact comparison retained.",
+          "later_jpeg_full_decode_pixels_creation_modified_verified": true,
+          "later_video_bytes_creation_modified_verified": true,
+          "output_parent_sentinel_bytes_creation_modified_verified": true,
+          "ordinary_owned_work_cleanup_except_controlled_unconfirmed_case": true,
+          "source_boundary_rejected_before_any_output_probe": true
+        },
+        "unconfirmed_tree_control": {
+          "actual_kill_failed": false,
+          "only_returned_tree_flag_changed": true,
+          "no_finalized_first_media": true,
+          "valid_candidate_and_snapshot_and_cache_retained": true,
+          "later_real_siblings_complete": true
+        },
+        "source_state_artifacts": [
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-001.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-002.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-003.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-004.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-005.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-006.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-007.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-008.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-009.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-010.json",
+            "sha256": "f4e8f17405f73e48fc94a69f37d2fac6ede43f3ef1ddb0d6b4e1ba8bea126b50"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-011.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-012.json",
+            "sha256": "f4e8f17405f73e48fc94a69f37d2fac6ede43f3ef1ddb0d6b4e1ba8bea126b50"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-013.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-014.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-015.json",
+            "sha256": "7fe461c83d053ca2d4f99e14c63bbf7e559e0a1ec66119ab7890241aa6f4857a"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-016.json",
+            "sha256": "7fe461c83d053ca2d4f99e14c63bbf7e559e0a1ec66119ab7890241aa6f4857a"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-017.json",
+            "sha256": "db29930ffcba1209b0eb78214230122bc465c44dd03dc445346e68b0069850da"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-018.json",
+            "sha256": "db29930ffcba1209b0eb78214230122bc465c44dd03dc445346e68b0069850da"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-019.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-020.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-021.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-022.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-023.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-024.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-025.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-026.json",
+            "sha256": "15a5355f0a71895064c5f69ae05f6702c656458a59fb4bf8fdc570c154833fc7"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/source-state-027.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          }
+        ],
+        "qualification": "Passing focused development on raw frozen suite/runtime; subsequent exact-I full gates must independently bind acceptance."
+      },
+      {
+        "phase": "focused_development",
+        "host": "ps7",
+        "suite_raw_sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c",
+        "runtime_raw_sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e",
+        "evidence_artifact": {
+          "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/native-lifetime-observations.json",
+          "sha256": "47973bfe12ebecd7ee346d476ea8dff14bb2138ae140ce9064e0750a5902cc0a"
+        },
+        "native_lifetime_results": [
+          {
+            "mode": "sleep",
+            "native_exit": null,
+            "timed_out": true,
+            "job_assigned": true,
+            "tree_terminated": true,
+            "streams_complete": true,
+            "drain_timed_out": false,
+            "actual_elapsed_ms": 2581
+          },
+          {
+            "mode": "exitroot",
+            "native_exit": 0,
+            "timed_out": false,
+            "job_assigned": true,
+            "tree_terminated": true,
+            "streams_complete": true,
+            "drain_timed_out": false,
+            "actual_elapsed_ms": 308
+          }
+        ],
+        "independent_tree_proofs": {
+          "count": 7,
+          "recorded_members_per_tree": [
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3
+          ],
+          "held_handles_released": true,
+          "parent_and_creation_identity_assertions_passed": true
+        },
+        "flood_timeout": {
+          "TimedOut": true,
+          "StdOutCharacters": 2097152,
+          "StdErrCharacters": 2097152,
+          "StdOutTruncated": true,
+          "StdErrTruncated": true,
+          "CaptureLimit": 4096,
+          "StreamsComplete": true,
+          "TreeTerminated": true
+        },
+        "unrelated_real_magick": {
+          "written_synchronization_payload_bytes": 3,
+          "received_input_bytes_measured_in_this_test": false,
+          "survived_owned_timeout": true,
+          "then_native_exit": 0,
+          "full_decode": "PNG1x1; exact RGB224/32/32",
+          "output_oracle": "Independent first xc:#E02020 image; all RGB stdin images discarded.",
+          "exact_one_intended_png_asserted": true,
+          "qualification": "Stdin is only synchronization; no actual received-byte-count or text-encoding assumption is needed."
+        },
+        "stricter_private_policy": {
+          "requested_memory_bytes": 536870912,
+          "effective_ceiling_bytes": 1048576,
+          "resource_listing_exit": 0,
+          "installed_policy_stdout_equal_before_after": true
+        },
+        "resource_exhaustion": {
+          "recipe": "Benign1024x768 gradient PNG; later16x12 red PNG and opaque4097-byte video",
+          "limits": {
+            "memory_bytes": 131072,
+            "map_bytes": 0,
+            "disk_bytes": 0,
+            "threads": 1
+          },
+          "actual_nonzero_native_calls": 1,
+          "all_native_queries_and_encodes_delegated": true,
+          "later_media_complete": true
+        },
+        "cumulative_phase_budget": {
+          "configured_ms": 3000,
+          "actual_remaining_ms": [
+            2982,
+            2495,
+            1973
+          ],
+          "selected_phases": [
+            "actual tagged colour query",
+            "actual ICC extraction",
+            "conversion routed to finite native sleeper"
+          ],
+          "last_native_timed_out": true,
+          "qualification": "The observer deliberately adds native finite delays; actual wrapper outcomes and unchanged native queries are used, with no fabricated success/timeout result."
+        },
+        "application_observations": {
+          "count": 6,
+          "native_partial_exits": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "source_file_hashes_creation_modified_attributes_and_directory_state_exact": true,
+          "fixture_directory_baseline": "Every source directory fixed after fixture writes, deepest first; metadata freshly read, exact comparison retained.",
+          "later_jpeg_full_decode_pixels_creation_modified_verified": true,
+          "later_video_bytes_creation_modified_verified": true,
+          "output_parent_sentinel_bytes_creation_modified_verified": true,
+          "ordinary_owned_work_cleanup_except_controlled_unconfirmed_case": true,
+          "source_boundary_rejected_before_any_output_probe": true
+        },
+        "unconfirmed_tree_control": {
+          "actual_kill_failed": false,
+          "only_returned_tree_flag_changed": true,
+          "no_finalized_first_media": true,
+          "valid_candidate_and_snapshot_and_cache_retained": true,
+          "later_real_siblings_complete": true
+        },
+        "source_state_artifacts": [
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-001.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-002.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-003.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-004.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-005.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-006.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-007.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-008.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-009.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-010.json",
+            "sha256": "5bcce2274a57fbfe6412600bb857f44ca3860434e4525886a653396321a054c5"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-011.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-012.json",
+            "sha256": "5bcce2274a57fbfe6412600bb857f44ca3860434e4525886a653396321a054c5"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-013.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-014.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-015.json",
+            "sha256": "062f9b11ef129643ff828001c21ba9001ae3c52eb6c14ecbd6d4b79f8b28fe8a"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-016.json",
+            "sha256": "062f9b11ef129643ff828001c21ba9001ae3c52eb6c14ecbd6d4b79f8b28fe8a"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-017.json",
+            "sha256": "10e788bc5965c908feee877264a61d4f8067a67c27cb33c49f88c051b3583200"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-018.json",
+            "sha256": "10e788bc5965c908feee877264a61d4f8067a67c27cb33c49f88c051b3583200"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-019.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-020.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-021.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-022.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-023.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-024.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-025.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-026.json",
+            "sha256": "b59b915f380e52ecc43b96a11423a9a892b223a81bbd9b04abe725350fd16076"
+          },
+          {
+            "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/source-state-027.json",
+            "sha256": "a9c3097c3fb921ff9b4ef2c2d37feeac6bdec85d30ef28de473c88500be734b9"
+          }
+        ],
+        "qualification": "Passing focused development on raw frozen suite/runtime; subsequent exact-I full gates must independently bind acceptance."
+      }
+    ],
+    "additional_probe_artifacts": [
+      {
+        "path": ".scratch/M3-T02-probe-stricter.ps1",
+        "sha256": "14d752454afa3b5a9e47d87a0767673dbca9718ad3f53d155a8b688edffb02b7"
+      },
+      {
+        "path": ".scratch/M3-T02-stricter-probe-result.json",
+        "sha256": "02570421954c92524cdd1aa0b314b20b7fa684a117fa7cf6a3c77ed6e479edc7"
+      },
+      {
+        "path": ".scratch/M3-T02-probe-short-path.ps1",
+        "sha256": "49f28587731cf85cec779ffcdb5fce5d290ff0bba4ad6608ebbd4f85271b2c47"
+      },
+      {
+        "path": ".scratch/M3-T02-probe-short-cache.ps1",
+        "sha256": "0c44c5076a11566368e063d4cccc94528f1898a9b740db77158897e21c13df1d"
+      },
+      {
+        "path": ".scratch/M3-T02-short-path-probe-d90af69437d240b8b050f586bb8c4bbe/observation.json",
+        "sha256": "84fc8092ef6abfc09ab3bf55f07940992f6ebd25c2c6b5dfb761990fd3b3808c"
+      },
+      {
+        "path": ".scratch/M3-T02-short-path-probe-d90af69437d240b8b050f586bb8c4bbe/actual-cache-observation.json",
+        "sha256": "7aba3cb5e5f79386647fe8a4311382aa69bcef3f8979e8ce93f1b5994b8f9174"
+      },
+      {
+        "path": ".scratch/M3-T02-cache-path-probe-5c459b0d6aa544ebb0662c4498508e23/observation.json",
+        "sha256": "77ae6222fe90069417424e2c1c5bba04a84844a7c3a4303dc9d30524379f1551"
+      },
+      {
+        "path": ".scratch/M3-T02-cache-anchor-probe-1a69d826a4e9473a8b394cf5188691ac/observation.json",
+        "sha256": "fe759043d0c644e2c8a0612a74f23aec41264f4978b3be6729b7726e8b7a2526"
+      },
+      {
+        "path": ".scratch/M3-T02-initial-I-ps51-raw-log-manifest.json",
+        "sha256": "7345d7620404a7cb00ce9b5af3092b7bca4cadfaa2ef3e8ece1b4ab07fc16e2b"
+      },
+      {
+        "path": ".scratch/M3-T02-initial-I-push-ps51-job.log",
+        "sha256": "0865cf8a88096ad894e3ca7433ae9341f7d947403b97822ed46f9017df21f47f"
+      },
+      {
+        "path": ".scratch/M3-T02-initial-I-pr-ps51-job.log",
+        "sha256": "b16b521b6601d355bd373cf8c55621eed54d08cdfe9f52f3e43d04982800d58e"
+      },
+      {
+        "path": ".scratch/M3-T02-unrelated-input-ps51-autoflush-66ecfd1edbb04721b5de58408b092104/observations.json",
+        "sha256": "4e81e2a82bd695d17a2eb61e097aea069703f140288f7f889ff809529c9b60e7"
+      },
+      {
+        "path": ".scratch/M3-T02-unrelated-input-ps7-autoflush-7369bd4b77b34caea826504d8677c9f4/observations.json",
+        "sha256": "89e8a9405e3807d04d694c67138954731f3320b0f5aca81c490e048e09be395e"
+      }
+    ],
+    "additional_probe_qualifications": [
+      "The combined top-level limit/list resource probe genuinely exits11/MissingArgument; identify is the valid combined query. Its saved probe host exit0 is not native success.",
+      "An always-extended ImageMagick cache environment was independently rejected by internal path normalization; root preserved that failure before the ordinary short-anchor fix.",
+      "Actual GetShortPathNameW/8.3 cache feasibility is positive on this desktop only; the production anchor does not depend on 8.3 availability.",
+      "An initial nested-here-string probe-builder command failed parsing before it invoked or generated any probe; corrected saved probe executes native0. This is tooling history, not an application run."
+    ],
+    "primary_references": [
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getshortpathnamew",
+        "observation": "Windows can return the original long path when short names do not exist; successful API return alone is not portable 8.3 capability."
+      }
+    ],
+    "limitations": [
+      "No malicious media, machine exhaustion, process-name-wide kills, global environment/settings/policy changes, share changes, or private media/Pictures operations.",
+      "Controlled observer routes are distinguished from genuine native resource failure; unconfirmed termination changes only a returned flag after an actual already-terminated tree, not a reproduced failed kill.",
+      "Budget is finite for native phases and checked around copy/finalization; synchronous filesystem APIs and host shutdown are not proven hard deadlines here.",
+      "Real Ctrl+C/cancellation is the next task scope, not established by these timeout tests.",
+      "Final focused runtime/suite/runner hashes stayed unchanged through both children. README formatting changed only after both closed; original target doc hash retained in native records.",
+      "No clean implementation/full desktop/hosted acceptance claimed by these precommit observations.",
+      "Fresh repaired focused passes are source-bound development observations; clean corrected-I desktop and hosted gates must independently establish acceptance.",
+      "No global console/stdin encoding or policy changes were made; the synchronization recipe deliberately avoids dependence on a text writer preamble."
+    ],
+    "original_case_notes_preserved": {
+      "path": ".scratch/M3-T02-native-lifetime-case-notes.json",
+      "sha256": "23b79b4867708e6a62f0a499c45e719f85caa794ad950fd56a393467773e048e"
+    },
+    "fixture_repair": {
+      "scope": "Only T053 unrelated actual ImageMagick fixture in tests/NativeLifetime.Tests.ps1; 17 cases retained without exclusions.",
+      "runtime_raw_sha256_unchanged": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e",
+      "prior_suite_snapshot": {
+        "path": ".scratch/M3-T02-T053-before-repair-I1.ps1",
+        "sha256": "9aebef55d20faaf613f28d819521f898af4100768fe5da2ec8c43acaae261123"
+      },
+      "recipe": "First native xc:#E02020 1x1 image; RGB:- blocks for synchronization; -delete 1--1 discards all stdin images; close binary BaseStream after writing the intended three-byte payload.",
+      "kept_assertions": [
+        "PID plus start-time identity survives owned timeout",
+        "actual unrelated child exit zero",
+        "exact one intended PNG with no numbered output",
+        "full PNG decode 1x1 and exact known red RGB224/32/32",
+        "private owned tree/held-pipe cleanup and all remaining source/resource assertions"
+      ],
+      "encoding_qualification": "Hosted received bytes were not directly inspected. Actual owned default/BOM AutoFlush controls plus primary Framework semantics support the encoding diagnosis, which supersedes the earlier close-only proposal."
+    },
+    "initial_committed_implementation_history": {
+      "implementation_commit": "66780bb8f3584f0fd1b38edf55d71af53209f77a",
+      "desktop_artifact": {
+        "path": ".scratch/M3-T02-initial-I-committed-history.json",
+        "sha256": "ed6760dce0c22c774d0201a7e6c10986d0c65a3b1468f1d10b24d91ec6e5e7ef"
+      },
+      "source_binding_count": 29,
+      "desktop_runs": [
+        {
+          "label": "final-ps51",
+          "total": 304,
+          "passed": 304,
+          "failed": 0,
+          "exit": 0,
+          "observed_native_child_exit": 0,
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "control-ps51",
+          "total": 305,
+          "passed": 304,
+          "failed": 1,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "final-ps7",
+          "total": 304,
+          "passed": 304,
+          "failed": 0,
+          "exit": 0,
+          "observed_native_child_exit": 0,
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "control-ps7",
+          "total": 305,
+          "passed": 304,
+          "failed": 1,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        }
+      ],
+      "hosted_original_artifact": {
+        "path": ".scratch/M3-T02-initial-I-ci-collected-original.json",
+        "sha256": "371d3944248d95518815c105b3ee56a68be950cd7d303251323a416f84c70c88"
+      },
+      "hosted_enriched_artifact": {
+        "path": ".scratch/M3-T02-initial-I-ci-collected.json",
+        "sha256": "ff4c571e86cf001b5369069240479db795ca575e30fa95761c52554a40f1bd24"
+      },
+      "hosted_runs": [
+        {
+          "event": "push",
+          "run_id": 37284113766,
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "pwsh on Windows",
+              "conclusion": "success",
+              "test_gate_results": [
+                {
+                  "total": 304,
+                  "passed": 304,
+                  "failed": 0,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 0,
+                  "step": "Run mandatory tests with verified development dependencies"
+                },
+                {
+                  "total": 305,
+                  "passed": 304,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Prove a broken assertion returns failure"
+                }
+              ],
+              "observed_failed_tests": [
+                "deliberate assertion must fail"
+              ],
+              "qualification": "Both actual normal and deliberate-failure control were executed."
+            },
+            {
+              "name": "powershell on Windows",
+              "conclusion": "failure",
+              "test_gate_results": [
+                {
+                  "total": 304,
+                  "passed": 303,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T053 leaves an actual unrelated ImageMagick stdin process alive and able to finish its own synthetic image after owned-tree timeout"
+              ],
+              "qualification": "The PS5.1 control step was skipped after its actual normal T053 fixture failure."
+            }
+          ]
+        },
+        {
+          "event": "pull_request",
+          "run_id": 37284122322,
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "powershell on Windows",
+              "conclusion": "failure",
+              "test_gate_results": [
+                {
+                  "total": 304,
+                  "passed": 303,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T053 leaves an actual unrelated ImageMagick stdin process alive and able to finish its own synthetic image after owned-tree timeout"
+              ],
+              "qualification": "The PS5.1 control step was skipped after its actual normal T053 fixture failure."
+            },
+            {
+              "name": "pwsh on Windows",
+              "conclusion": "success",
+              "test_gate_results": [
+                {
+                  "total": 304,
+                  "passed": 304,
+                  "failed": 0,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 0,
+                  "step": "Run mandatory tests with verified development dependencies"
+                },
+                {
+                  "total": 305,
+                  "passed": 304,
+                  "failed": 1,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Prove a broken assertion returns failure"
+                }
+              ],
+              "observed_failed_tests": [
+                "deliberate assertion must fail"
+              ],
+              "qualification": "Both actual normal and deliberate-failure control were executed."
+            }
+          ]
+        }
+      ],
+      "qualification": "Prior committed I1 passes on this desktop did not establish hosted portability. Both initial hosted PS5.1 normals actually failed only the unrelated-process fixture; no failed matrix is acceptance evidence."
+    },
+    "supplemental_encoding_diagnosis": {
+      "original": {
+        "path": ".scratch/M3-T02-initial-I-hosted-ps51-diagnosis.json",
+        "sha256": "8089eea9b8f0acf0065f73d4aca4ea568df157cb8704ddb06be96ca338fe14ff"
+      },
+      "supplement": {
+        "path": ".scratch/M3-T02-initial-I-hosted-ps51-diagnosis-supplement.json",
+        "sha256": "4a4901f9a2d270ee0b66d54bced1393618c48ae23889e4c52d643f9ca4daf657"
+      },
+      "observations": "Framework redirected input uses Console.InputEncoding and sets AutoFlush=true, which can emit a BOM before raw writes. Forced AutoFlush/BOM controls actually echo six bytes and demonstrate original multi-output behavior; revised first-image/discard-stdin controls pass on both hosts.",
+      "qualification": "The original hosted logs directly show survival, zero child exit, and missing intended PNG. Exact hosted input encoding/received bytes were not observed; no claim of directly measured hosted BOM is made."
+    }
+  },
+  "case_notes_artifact": ".scratch/M3-T02-native-lifetime-case-notes-v2.json",
+  "case_notes_artifact_sha256": "efa1b031162506728906f64d1b11e5e2ef583da4e7675d5ecd537c36a9560200",
+  "historical_run_results": [
+    {
+      "host": "ps7",
+      "attempt": 1,
+      "result_directory": ".scratch/M3-T02-target-ps7-1",
+      "total": 14,
+      "passed": 4,
+      "failed": 10,
+      "native_child_exit": 1,
+      "excluded_counts": {
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "persistent_policy_unchanged": true,
+      "process_psmodulepath_cleared_before_launch": true,
+      "outer_process_psmodulepath_restored": true,
+      "source_bindings_unchanged_during_child": true,
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T02-target-ps7-1/summary.json",
+          "sha256": "07afd0d6e849d5d11f3e191229680334daf7725ad838920d0efaf5101c84a521"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-1/results.xml",
+          "sha256": "d5de1f70efaca178318144382b8174a2b0f38cd016fc4de3fcd59f36e24bd4d3"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-1-console.log",
+          "sha256": "9b7aed21f1277a7ebf1a6e0c3b0ece7cfe7e433044a0c3bacc5e5b333c90ef9e"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-1-native.json",
+          "sha256": "2f7c8ad5b52e0b4fbca93cfe7320ce09c4d193c926f79ed1bedb49eb4e92eb59"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-1-suite.ps1",
+          "sha256": "dd7062cc1365ea92800b5fb3146c42ec4028f007b5fd14978c7bf20a38568f12"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-1-runtime.ps1",
+          "sha256": "9f41a27e1ec3f3c2fc3efa7df90d50020bfae31262ce607dceaa9b60a29baa42"
+        },
+        {
+          "path": ".scratch/M3-T02-lifetime-c0565b18f1c845499cf904eb609f78ac/native-lifetime-observations.json",
+          "sha256": "cdf674d724a8e1998b55afc7f1fed827b96aafc187175052479a1a9c897b0f67"
+        }
+      ],
+      "diagnosis": [
+        "Fixture switch Input collided with the PowerShell automatic enumerator variable.",
+        "Large switch shadowed the large template path.",
+        "GetNewClosure isolated callback command resolution from locally imported functions.",
+        "The combined top-level limit/list resource probe is invalid on the pinned native CLI; identify subcommand fixes its actual MissingArgument exit11."
+      ],
+      "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+    },
+    {
+      "host": "ps7",
+      "attempt": 2,
+      "result_directory": ".scratch/M3-T02-target-ps7-2",
+      "total": 14,
+      "passed": 8,
+      "failed": 6,
+      "native_child_exit": 1,
+      "excluded_counts": {
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "persistent_policy_unchanged": true,
+      "process_psmodulepath_cleared_before_launch": true,
+      "outer_process_psmodulepath_restored": true,
+      "source_bindings_unchanged_during_child": true,
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T02-target-ps7-2/summary.json",
+          "sha256": "4bc8d3b04c9ad234755fe53985894be396657e695164118f923136a2900d5d53"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-2/results.xml",
+          "sha256": "0ef6ef526e5bffd82f2156685504e95e114993d4e9005523a76674d52c3eebb4"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-2-console.log",
+          "sha256": "5b5e466716008b86312abd3921bcd79522ff5f9866a47b311af30fcdad905588"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-2-native.json",
+          "sha256": "3b05e55a9efab32fb40f0025605ec1b612154fc7124087285c5794d2f2d06091"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-2-suite.ps1",
+          "sha256": "b9cfbb4835c350ce2e0d6cd04d7c165f975420bfa2f058b6da5fa34d3950a744"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-2-runtime.ps1",
+          "sha256": "9f41a27e1ec3f3c2fc3efa7df90d50020bfae31262ce607dceaa9b60a29baa42"
+        },
+        {
+          "path": ".scratch/M3-T02-lifetime-c89ccf2a59c741dfb427286338f6bf1a/native-lifetime-observations.json",
+          "sha256": "d27824dd7d458f1acfe4a7300db521dea776165b4f8f7f94ea7f4a5861e20b74"
+        }
+      ],
+      "diagnosis": [
+        "Immediate normal-root cleanup correctly returned without timeout; the original unconditional timeout expectation was incorrect.",
+        "Actual generated ImageMagick cache filenames beneath deep output work exceeded MAX_PATH, blocking later images and the requested validation phase.",
+        "The later sibling/cache/cumulative application assertions failed honestly; source file hashes and times remained preserved."
+      ],
+      "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+    },
+    {
+      "host": "ps7",
+      "attempt": 3,
+      "result_directory": ".scratch/M3-T02-target-ps7-3",
+      "total": 17,
+      "passed": 13,
+      "failed": 4,
+      "native_child_exit": 1,
+      "excluded_counts": {
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "persistent_policy_unchanged": true,
+      "process_psmodulepath_cleared_before_launch": true,
+      "outer_process_psmodulepath_restored": true,
+      "source_bindings_unchanged_during_child": true,
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T02-target-ps7-3/summary.json",
+          "sha256": "edd3119048d284b480eda12bab0cd8e4f7644f3c5ec1842824066344cf7ea3d5"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-3/results.xml",
+          "sha256": "164d7d3a01061c5f146875fa1d2fffe431d09b685519132b21eb7e7dd06e228a"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-3-console.log",
+          "sha256": "e15a1a701a176ad9a52ed33940e1ca77102356f649a7a1de6d7416e7fe7b94b2"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-3-native.json",
+          "sha256": "f941c1046a3b776e7f45d2e8676c8cfca09b6691e17294be7fc561e63e73130f"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-3-suite.ps1",
+          "sha256": "75380bc84c42e0417bee2127d1a69388c91dc545f67c91ab7993ea911a1fddd0"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-3-runtime.ps1",
+          "sha256": "954e536a670a56e4700cace2d31905e529c26d5bc9915c915190be8142040a80"
+        },
+        {
+          "path": ".scratch/M3-T02-lifetime-6a0bb4dfd63e4381b1aa0718860a166d/native-lifetime-observations.json",
+          "sha256": "5af17583cceb41f1536059860600ea188524a2ea14712b4c2050ba62cad91c45"
+        }
+      ],
+      "diagnosis": [
+        "Three strict directory-mtime baselines differed by milliseconds around fixture creation; source hashes and file creation/modified times remained intact. Subsequent fixtures set all directory times after writes, deepest first, and snapshot objects are refreshed; exact equality remains mandatory.",
+        "Source-contained cache rejection occurred after the destination write probe and changed output-parent directory mtime. Runtime validation moved before that probe; the original no-write assertion remains intact."
+      ],
+      "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+    },
+    {
+      "host": "ps7",
+      "attempt": 4,
+      "result_directory": ".scratch/M3-T02-target-ps7-4",
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "native_child_exit": 0,
+      "excluded_counts": {
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "persistent_policy_unchanged": true,
+      "process_psmodulepath_cleared_before_launch": true,
+      "outer_process_psmodulepath_restored": true,
+      "source_bindings_unchanged_during_child": true,
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T02-target-ps7-4/summary.json",
+          "sha256": "1207d5eff015b0636b3fd0d234f3849f5083b2744bc19edd21aeddd90e077774"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-4/results.xml",
+          "sha256": "942c2948a6e9eefa0c7237c981f24cc3db43be19f269851d359cadc360ddfeb1"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-4-console.log",
+          "sha256": "9779c62675f814f3ca6e2a3a59e787366c3fff9fac162d359eb13a7c44310734"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-4-native.json",
+          "sha256": "6a449b2788a00910bd13d3b89051b9256182c5051ece92c56cfe154aa34688ae"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-4-suite.ps1",
+          "sha256": "9aebef55d20faaf613f28d819521f898af4100768fe5da2ec8c43acaae261123"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-4-runtime.ps1",
+          "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+        },
+        {
+          "path": ".scratch/M3-T02-lifetime-289642115f504cc9b344f7390bfaa2bf/native-lifetime-observations.json",
+          "sha256": "0e0a1d28b454d22cf70405e0bc94f7173e3de21b51d563d6cfe6f1686a02f8e6"
+        }
+      ],
+      "diagnosis": [
+        "All actual assertions passed with complete summary/XML and native exit0."
+      ],
+      "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+    },
+    {
+      "host": "ps51",
+      "attempt": 1,
+      "result_directory": ".scratch/M3-T02-target-ps51-1",
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "native_child_exit": 0,
+      "excluded_counts": {
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "persistent_policy_unchanged": true,
+      "process_psmodulepath_cleared_before_launch": true,
+      "outer_process_psmodulepath_restored": true,
+      "source_bindings_unchanged_during_child": true,
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T02-target-ps51-1/summary.json",
+          "sha256": "ad996e804064f7985c2b8c5a57a4d47cae47f92e9229cafb7d4ef7df7a89c5ac"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-1/results.xml",
+          "sha256": "1e9a72d4ddd72f0f6cf4f97dba15b5d4b42331b419c8eb05b0724c6ce5099243"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-1-console.log",
+          "sha256": "7e0903e5fae5dbaa3d6f1dc472f0bd69066ba9cb569462838d1c7e1f8c624d76"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-1-native.json",
+          "sha256": "9d8b2538813b30527f6aed10c06e646e39ad31490b810cb7778f6763733ad36c"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-1-suite.ps1",
+          "sha256": "9aebef55d20faaf613f28d819521f898af4100768fe5da2ec8c43acaae261123"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-1-runtime.ps1",
+          "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+        },
+        {
+          "path": ".scratch/M3-T02-lifetime-b911ac92d6684ae897df47ce89393789/native-lifetime-observations.json",
+          "sha256": "4ac9b82e8f92cfd91c0a9c62654d0a5867de8d7369e1d98d527df4d2b4187b03"
+        }
+      ],
+      "diagnosis": [
+        "All actual assertions passed with complete summary/XML and native exit0."
+      ],
+      "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+    },
+    {
+      "host": "ps51",
+      "attempt": 2,
+      "result_directory": ".scratch/M3-T02-target-ps51-2",
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "native_child_exit": 0,
+      "excluded_counts": {
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "persistent_policy_unchanged": true,
+      "process_psmodulepath_cleared_before_launch": true,
+      "outer_process_psmodulepath_restored": true,
+      "source_bindings_unchanged_during_child": true,
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T02-target-ps51-2/summary.json",
+          "sha256": "e8ae2a7a2b1919e6966f58782ff5fde0f6ea500d248cb3f3df7a42fbd27b1585"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-2/results.xml",
+          "sha256": "f9aff38e80efa660d3a9e592ab0cb371c7fe9d60f7dc01723f3fc88c4c1bd8df"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-2-console.log",
+          "sha256": "c6aa056ed96176d27a305af7bfd28c8e4ea573c63d8d3de03e6f4dd457c13fa1"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-2-native.json",
+          "sha256": "9a81d0901810c7c52bbf3018a585fbd53dac5e8a1c4b1319aa25add2ad6b03c0"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-2-suite.ps1",
+          "sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps51-2-runtime.ps1",
+          "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+        },
+        {
+          "path": ".scratch/M3-T02-lifetime-e0d60afb9f834563a11095b14ebebc6c/native-lifetime-observations.json",
+          "sha256": "793ef80fdf5b03c0281f21c3da9e39926d7429cc60da3e2c6e3ca3f63edb2b6c"
+        }
+      ],
+      "diagnosis": [
+        "The narrow unrelated-process fixture repair passed: real ImageMagick stays alive with the same creation identity during another private job timeout, then produces exactly one independently generated red PNG after stdin synchronization."
+      ],
+      "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+    },
+    {
+      "host": "ps7",
+      "attempt": 5,
+      "result_directory": ".scratch/M3-T02-target-ps7-5",
+      "total": 17,
+      "passed": 17,
+      "failed": 0,
+      "native_child_exit": 0,
+      "excluded_counts": {
+        "skipped_count": 0,
+        "not_run_count": 0,
+        "inconclusive_count": 0,
+        "failed_blocks_count": 0,
+        "failed_containers_count": 0
+      },
+      "persistent_policy_unchanged": true,
+      "process_psmodulepath_cleared_before_launch": true,
+      "outer_process_psmodulepath_restored": true,
+      "source_bindings_unchanged_during_child": true,
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T02-target-ps7-5/summary.json",
+          "sha256": "78e1a6edc8d87463a221e6f0ab1925959e8ce233a9623ab77152e06b76aebf88"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-5/results.xml",
+          "sha256": "9b3aa62ba9f5326d139e503b8b4210e6b2d6b0b61b3ca8772835e277e7457499"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-5-console.log",
+          "sha256": "82aaf723cf757476848acc4cdfc092ac4ff84889134cf9093ff22de76a80a31c"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-5-native.json",
+          "sha256": "283da8485b171c2908da36266eb80ac94d09d355c3c54de0b113e03b5606d3ff"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-5-suite.ps1",
+          "sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c"
+        },
+        {
+          "path": ".scratch/M3-T02-target-ps7-5-runtime.ps1",
+          "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+        },
+        {
+          "path": ".scratch/M3-T02-lifetime-1d74f5b829bb4590b2b6a7c0656cfdfe/native-lifetime-observations.json",
+          "sha256": "47973bfe12ebecd7ee346d476ea8dff14bb2138ae140ce9064e0750a5902cc0a"
+        }
+      ],
+      "diagnosis": [
+        "The narrow unrelated-process fixture repair passed: real ImageMagick stays alive with the same creation identity during another private job timeout, then produces exactly one independently generated red PNG after stdin synchronization."
+      ],
+      "qualification": "Uncommitted focused development, bound to observed raw source snapshots; not clean implementation acceptance."
+    }
+  ],
+  "development_focused_runs": [],
+  "historical_committed_desktop": [
+    {
+      "task_id": "M3-T02",
+      "recorded_at_utc": "2026-10-05T08:44:13.477344+00:00",
+      "tested_implementation_commit": "66780bb8f3584f0fd1b38edf55d71af53209f77a",
+      "tested_source_bindings": [
+        {
+          "source_path": "WinImgNormalizer.bat",
+          "observed_checkout_sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+          "committed_blob_sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/000-WinImgNormalizer.bat",
+            "sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46"
+          }
+        },
+        {
+          "source_path": "WinImgNormalizer.ps1",
+          "observed_checkout_sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e",
+          "committed_blob_sha256": "c1fcecac29275facbae39341796900624a10b8ee3297f2fb8634da4d1a474f40",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/001-WinImgNormalizer.ps1",
+            "sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e"
+          }
+        },
+        {
+          "source_path": "tests/Colour.Tests.ps1",
+          "observed_checkout_sha256": "7a4636687a588878b2a225ec62f9dbda5a28912fc187049e2a11289eef40a6a1",
+          "committed_blob_sha256": "8f91a674d1dd995ef454bd6c51dd9d38e4b94b9e1613c74e8594599e9258b17d",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/002-Colour.Tests.ps1",
+            "sha256": "7a4636687a588878b2a225ec62f9dbda5a28912fc187049e2a11289eef40a6a1"
+          }
+        },
+        {
+          "source_path": "tests/ConversionRegression.Tests.ps1",
+          "observed_checkout_sha256": "fed12f7ba26194f89cbbcd242133d32f0867d7dd56f0cf20a5fe951b314b0334",
+          "committed_blob_sha256": "1e9fe7201be9d9fb9ef4f0f7550ca8624c713a84991f8a461f0a049c93069703",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/003-ConversionRegression.Tests.ps1",
+            "sha256": "fed12f7ba26194f89cbbcd242133d32f0867d7dd56f0cf20a5fe951b314b0334"
+          }
+        },
+        {
+          "source_path": "tests/Diagnostics.Tests.ps1",
+          "observed_checkout_sha256": "d9386f20b5f3d5e00cb762fd9a882735140a350dc1eda002d2657c75a2a2087f",
+          "committed_blob_sha256": "b5a492e9313e142a7b5bf0b95cdfdcc959df2c25db588c27ed912951406b40e9",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/004-Diagnostics.Tests.ps1",
+            "sha256": "d9386f20b5f3d5e00cb762fd9a882735140a350dc1eda002d2657c75a2a2087f"
+          }
+        },
+        {
+          "source_path": "tests/Duplicates.Tests.ps1",
+          "observed_checkout_sha256": "31c20b0edc144f96625cb0d033d2f4160fd98f00e46fe37605cf33f817d63200",
+          "committed_blob_sha256": "6eace9dce4f17f997a865541fbbc74d34d8789a2600e7d87778e8e22d2d58dba",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/005-Duplicates.Tests.ps1",
+            "sha256": "31c20b0edc144f96625cb0d033d2f4160fd98f00e46fe37605cf33f817d63200"
+          }
+        },
+        {
+          "source_path": "tests/Frames.Tests.ps1",
+          "observed_checkout_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+          "committed_blob_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/006-Frames.Tests.ps1",
+            "sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963"
+          }
+        },
+        {
+          "source_path": "tests/Initialize-TestDependencies.ps1",
+          "observed_checkout_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+          "committed_blob_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/007-Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          }
+        },
+        {
+          "source_path": "tests/Invoke-Tests.ps1",
+          "observed_checkout_sha256": "6ad32f5c306e9010a5b1363976492bdcb2120918f890046a452bce71ab211484",
+          "committed_blob_sha256": "fe70c132f363214ce527847b6261e800ac7729004393a30f827adede8ec40cf7",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/008-Invoke-Tests.ps1",
+            "sha256": "6ad32f5c306e9010a5b1363976492bdcb2120918f890046a452bce71ab211484"
+          }
+        },
+        {
+          "source_path": "tests/Measure-SizeQuality.ps1",
+          "observed_checkout_sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94",
+          "committed_blob_sha256": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/009-Measure-SizeQuality.ps1",
+            "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+          }
+        },
+        {
+          "source_path": "tests/Naming.Tests.ps1",
+          "observed_checkout_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+          "committed_blob_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/010-Naming.Tests.ps1",
+            "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+          }
+        },
+        {
+          "source_path": "tests/NativeLifetime.Tests.ps1",
+          "observed_checkout_sha256": "9aebef55d20faaf613f28d819521f898af4100768fe5da2ec8c43acaae261123",
+          "committed_blob_sha256": "4db7786c420d9ff8838a74d34ea45cb254144593d22e24da7384c5562bc5674d",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/011-NativeLifetime.Tests.ps1",
+            "sha256": "9aebef55d20faaf613f28d819521f898af4100768fe5da2ec8c43acaae261123"
+          }
+        },
+        {
+          "source_path": "tests/Normalizer.Tests.ps1",
+          "observed_checkout_sha256": "75ae2f894449bc237cfd333943020ed25ab3601e3e469178e8f96f32405f2680",
+          "committed_blob_sha256": "79346cbd0e12ddd91ad5b87091143c7d58002e3fcc6b63c03e5701a697223fab",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/012-Normalizer.Tests.ps1",
+            "sha256": "75ae2f894449bc237cfd333943020ed25ab3601e3e469178e8f96f32405f2680"
+          }
+        },
+        {
+          "source_path": "tests/Paths.Tests.ps1",
+          "observed_checkout_sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+          "committed_blob_sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/013-Paths.Tests.ps1",
+            "sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76"
+          }
+        },
+        {
+          "source_path": "tests/Preflight.Tests.ps1",
+          "observed_checkout_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+          "committed_blob_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/014-Preflight.Tests.ps1",
+            "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+          }
+        },
+        {
+          "source_path": "tests/RecoveryReporting.Tests.ps1",
+          "observed_checkout_sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+          "committed_blob_sha256": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/015-RecoveryReporting.Tests.ps1",
+            "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+          }
+        },
+        {
+          "source_path": "tests/SafetyRegression.Tests.ps1",
+          "observed_checkout_sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+          "committed_blob_sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/016-SafetyRegression.Tests.ps1",
+            "sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4"
+          }
+        },
+        {
+          "source_path": "tests/Sizing.Tests.ps1",
+          "observed_checkout_sha256": "e47608222e85abd7a053caed0c82fbe98708db494ae8fb861727bcaba7f56ad2",
+          "committed_blob_sha256": "60451813374debac44fe53171edbdb298b2b06adeaf11f6430e65a0744e1e273",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/017-Sizing.Tests.ps1",
+            "sha256": "e47608222e85abd7a053caed0c82fbe98708db494ae8fb861727bcaba7f56ad2"
+          }
+        },
+        {
+          "source_path": "tests/Transactions.Tests.ps1",
+          "observed_checkout_sha256": "a61fc822a93406bebd37b9a84e403ea560722ba4c1270dfed819200dd17e713d",
+          "committed_blob_sha256": "e9938010562dcdf4ccc2eb1c66e35077af450778fb75bd1d22a906bbf049d4fc",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/018-Transactions.Tests.ps1",
+            "sha256": "a61fc822a93406bebd37b9a84e403ea560722ba4c1270dfed819200dd17e713d"
+          }
+        },
+        {
+          "source_path": "tests/Traversal.Tests.ps1",
+          "observed_checkout_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+          "committed_blob_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/019-Traversal.Tests.ps1",
+            "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+          }
+        },
+        {
+          "source_path": "tests/dependencies.json",
+          "observed_checkout_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+          "committed_blob_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/020-dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+          "observed_checkout_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+          "committed_blob_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/021-AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+          "observed_checkout_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+          "committed_blob_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/022-CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/Generate-Reference.py",
+          "observed_checkout_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+          "committed_blob_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/023-Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/LICENSE-CC0.txt",
+          "observed_checkout_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+          "committed_blob_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/024-LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/MANIFEST.json",
+          "observed_checkout_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+          "committed_blob_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/025-MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/README.md",
+          "observed_checkout_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+          "committed_blob_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/026-README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/REFERENCE.json",
+          "observed_checkout_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+          "committed_blob_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/027-REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/sRGB-v4.icc",
+          "observed_checkout_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+          "committed_blob_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T02-initial-I-source-snapshots/028-sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          }
+        }
+      ],
+      "runs": [
+        {
+          "label": "final-ps51",
+          "result_directory": ".scratch/M3-T02-final-ps51",
+          "total": 304,
+          "passed": 304,
+          "failed": 0,
+          "exit": 0,
+          "observed_native_child_exit": 0,
+          "failed_tests": [],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T02-final-ps51/summary.json",
+              "sha256": "f654a09596529fdead53bfba6bc4f6161fe9381c47a882dd288b744c8cc25478"
+            },
+            {
+              "path": ".scratch/M3-T02-final-ps51/results.xml",
+              "sha256": "73ba63978962076070fe9ba26ade9fa8f2a00847f55684937e416b8d3227710a"
+            },
+            {
+              "path": ".scratch/M3-T02-final-ps51-console.log",
+              "sha256": "c02e029f8d01247dfc5cf17dab62faef45491b9fbf010e3fd477b4f7943fa015"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "control-ps51",
+          "result_directory": ".scratch/M3-T02-control-ps51",
+          "total": 305,
+          "passed": 304,
+          "failed": 1,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "T007 runner credibility control.deliberate assertion must fail"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T02-control-ps51/summary.json",
+              "sha256": "2a36a5f101c819e645e2b7ac1d090d267b4c63694677da237ddd19d647b9e06e"
+            },
+            {
+              "path": ".scratch/M3-T02-control-ps51/results.xml",
+              "sha256": "efcad2722047c785b6c6d07be71b347615a0fec0d19208f7b004267f03e7d8e5"
+            },
+            {
+              "path": ".scratch/M3-T02-control-ps51-console.log",
+              "sha256": "a6473fe3cb057774519bf75436de7dc763975a0487da4a4f951297fe4f298e8a"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "final-ps7",
+          "result_directory": ".scratch/M3-T02-final-ps7",
+          "total": 304,
+          "passed": 304,
+          "failed": 0,
+          "exit": 0,
+          "observed_native_child_exit": 0,
+          "failed_tests": [],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T02-final-ps7/summary.json",
+              "sha256": "4fe37b584ff409d30cb0fbbed35488723a3344ff18ed5c3bca6583a1dd5618f6"
+            },
+            {
+              "path": ".scratch/M3-T02-final-ps7/results.xml",
+              "sha256": "b8711374083525e240e7aa008f0af8a6adb1f0a3c7c456e02f0802b118a8a8e3"
+            },
+            {
+              "path": ".scratch/M3-T02-final-ps7-console.log",
+              "sha256": "fd0ab9ff19be7370aa7ba5f49353ba08a595c651171d92c67898be488f8fcc76"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "control-ps7",
+          "result_directory": ".scratch/M3-T02-control-ps7",
+          "total": 305,
+          "passed": 304,
+          "failed": 1,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "T007 runner credibility control.deliberate assertion must fail"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T02-control-ps7/summary.json",
+              "sha256": "c6a733d9777f2c3d919092790eedde54fa5c06757a78b70827e1f14016e00bcb"
+            },
+            {
+              "path": ".scratch/M3-T02-control-ps7/results.xml",
+              "sha256": "dd6b83fe0e4efa0d8b318fb32c88c9065aaffa5a25af9d51cd48e0dbd79a5d99"
+            },
+            {
+              "path": ".scratch/M3-T02-control-ps7-console.log",
+              "sha256": "72df4315a2ed6e99a1f337b795af15ee34617dfb6b021c91a64359ce2fc838a6"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        }
+      ],
+      "native_records": [
+        {
+          "path": ".scratch/M3-T02-desktop-native-ps51.json",
+          "sha256": "d5452d8ed08133ce163c39f7dcc7b494012f52293e8786a4f53c5a80f06e5dd9"
+        },
+        {
+          "path": ".scratch/M3-T02-desktop-native-ps7.json",
+          "sha256": "f7db906dcfe72a1fe6ae43387bf5399afb2b2d6d315ffdf30564d36d83bd0338"
+        }
+      ],
+      "qualification": "Completed exact committed revision, including failures or superseded passes. All raw source snapshots were captured before repair; not final acceptance evidence.",
+      "source_artifact": ".scratch/M3-T02-initial-I-committed-history.json",
+      "source_artifact_sha256": "ed6760dce0c22c774d0201a7e6c10986d0c65a3b1468f1d10b24d91ec6e5e7ef"
+    }
+  ],
+  "history_interpretation": "Actual development .scratch/M3-T02-target-ps7-1: 4/14 passed, 10 failed, native exit 1. Fixture switch Input collided with the PowerShell automatic enumerator variable. Large switch shadowed the large template path. GetNewClosure isolated callback command resolution from locally imported functions. The combined top-level limit/list resource probe is invalid on the pinned native CLI; identify subcommand fixes its actual MissingArgument exit11.\n\nActual development .scratch/M3-T02-target-ps7-2: 8/14 passed, 6 failed, native exit 1. Immediate normal-root cleanup correctly returned without timeout; the original unconditional timeout expectation was incorrect. Actual generated ImageMagick cache filenames beneath deep output work exceeded MAX_PATH, blocking later images and the requested validation phase. The later sibling/cache/cumulative application assertions failed honestly; source file hashes and times remained preserved.\n\nActual development .scratch/M3-T02-target-ps7-3: 13/17 passed, 4 failed, native exit 1. Three strict directory-mtime baselines differed by milliseconds around fixture creation; source hashes and file creation/modified times remained intact. Subsequent fixtures set all directory times after writes, deepest first, and snapshot objects are refreshed; exact equality remains mandatory. Source-contained cache rejection occurred after the destination write probe and changed output-parent directory mtime. Runtime validation moved before that probe; the original no-write assertion remains intact.\n\nActual development .scratch/M3-T02-target-ps7-4: 17/17 passed, 0 failed, native exit 0. All actual assertions passed with complete summary/XML and native exit0.\n\nActual development .scratch/M3-T02-target-ps51-1: 17/17 passed, 0 failed, native exit 0. All actual assertions passed with complete summary/XML and native exit0.\n\nActual development .scratch/M3-T02-target-ps51-2: 17/17 passed, 0 failed, native exit 0. The narrow unrelated-process fixture repair passed: real ImageMagick stays alive with the same creation identity during another private job timeout, then produces exactly one independently generated red PNG after stdin synchronization.\n\nActual development .scratch/M3-T02-target-ps7-5: 17/17 passed, 0 failed, native exit 0. The narrow unrelated-process fixture repair passed: real ImageMagick stays alive with the same creation identity during another private job timeout, then produces exactly one independently generated red PNG after stdin synchronization.\n\nActual M3-T02 focused PS7 development runs retained 14 total/4 passed/10 failed, then 14/8/6, then 17/13/4, each native exit 1 with zero excluded/container/block counts. These are 20 failed assertions across three real runs, with fixture errors and genuine runtime defects distinguished below. Initial-I1-focused PS7 attempt 4 and PS5.1 attempt 1 each passed 17/17 with actual native exit 0 and no incomplete tests. Their raw source snapshots, summary/XML/native/console records and owned observations are preserved; no earlier result was overwritten or relabeled as a clean implementation gate.\n\nThe first focused run exposed fixture Input/Large names shadowing automatic variables or paths, GetNewClosure command-resolution isolation, and an invalid combined converter limit/list-resource query. The actual native query returned MissingArgument/exit 11 even though its exploratory script returned 0; the corrected identify query is the valid route. Separate initial API/resource probes also retain a child Unicode-console mismatch and query error. These are test/probe preparation failures, not invented runtime success.\n\nThe second focused run incorrectly expected every normal-root/remaining-descendant cleanup to time out; prompt normal-root cleanup was correct and that assertion was repaired. It also exposed a genuine runtime path defect: ImageMagick's generated cache files below deep output work exceeded ordinary path limits. An independently preserved always-extended TEMP/TMP/MAGICK_TEMPORARY_PATH probe likewise failed native execution; a later plain short cache-anchor probe completed native 0. Production now allocates an exclusive WinImgNormalizer-cache-GUID directory beneath a validated existing process TEMP root rather than depending on an extended cache prefix or universal 8.3 support. The frozen early design artifact's output-tree cache description is superseded by this final policy, with original source/probe bytes retained.\n\nThe third focused run retained three strict directory-mtime failures from fixture creation order/cached metadata; fixtures now set directory times after all writes, deepest first, and refresh snapshot objects while retaining exact equality. It also exposed a genuine setup-order defect: source-contained native TEMP rejection occurred after the destination write probe and changed the output-parent directory timestamp. Root moved the physical temporary-root validation before that probe; the no-output-write assertion remained intact. No source/hash/time preservation assertion was removed. Initial-I1-focused executable runtime, suite and runner bytes stayed fixed through those two green focused children; a later T053 test-only repair is recorded separately below. Tests README prose/Markdown/UNC-sentence restoration happened afterward and is explicitly bound to its frozen final SHA rather than claimed as the earlier focused document bytes.\n\nThe measurement compatibility work retained an initial native-exit-1 tiny square-fixture run: 128x128 landscape/portrait fixtures had identical bytes and made fixtureByHash mapping ambiguous. The trace also exposed its existing automatic Input variable collision. A rectangular 128x160 synthetic corpus and nativeInputs trace normalization corrected the tooling. A first literal writer asserted the wrong substring count and exited before editing. Successful fresh PS5.1 and PS7 smokes each returned native 0 with ten actual image conversions and two opaque-video rows, preserving source/harness bytes and policy. Both successful native records bind the same final runtime raw SHA256 791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e and adapter SHA256 f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94. An initial reviewer message and the immutable adapter audit's first limitation mistakenly said the PS5.1 smoke preceded the setup-order correction; actual equal hashes and the final exact-I review supersede that chronology. The original PS5.1 controller prose says 128x128 while its saved dimensions/argv prove 128x160; original artifacts stay unchanged. These twelve rows per host establish a compatibility smoke, not a representative benchmark rerun or quality/performance result.\n\nThe reviewer authored the native C# block and measurement adapter under explicit root delegation; root independently reviewed those blocks. The final exact-I peer artifact discloses this boundary and does not present author review as independent third-party authorship review. The saved current upstream advisories and tagged source/API bytes are primary provenance, not malicious-exploit execution. Controlled unconfirmed-tree preservation changes a result flag only after a real successfully killed tree; it is separate from actual owned-tree timeout and actual unrelated-process survival.\n\nInitial committed implementation 66780bb8f3584f0fd1b38edf55d71af53209f77a (I1) passed both actual desktop normal suites 304/304 with native exit 0. Both desktop controls had 305 total, 304 passed and exactly T007 deliberate failure/native exit 1, with zero incomplete tests. The four completed gates and all 29 raw tested-source snapshots are preserved in M3-T02-initial-I-committed-history.json, with separate Git blob bindings. These are genuine passing but superseded desktop observations, not final repaired-revision acceptance.\n\nBoth initial automatic hosted workflows failed: push 37284113766 and PR 37284122322. Each PS7 job passed normal 304/304 and control 305/304/one T007. Each PS5.1 normal job instead had 304 total, 303 passed, one T053 failure/native exit 1; its control workflow step was skipped after that failure and is not an observed passing control or a skipped mandatory test. The unrelated actual ImageMagick process had passed survival/PID-creation checks and returned native 0, but the expected single unrelated.png was missing. Original metadata/raw logs, unchanged original collector JSON and separately enriched actual I1 merge proof remain retained. No hosted success is inferred from the passing desktop run or from native zero alone.\n\nThe original byte-level diagnosis reproduced a BOM appended during Close with an explicit AutoFlush=false writer and suggested closing BaseStream directly. That close-only suggestion is superseded by the preserved authoritative supplement. Microsoft Framework Process.Start creates redirected StandardInput as a StreamWriter using Console.InputEncoding and immediately enables AutoFlush. AutoFlush can emit an encoding preamble before any raw payload; closing BaseStream cannot remove an already emitted BOM. Actual forced-BOM AutoFlush controls on both shells received EF-BB-BF before E0-20-20, and the original raw-only recipe produced two numbered PNGs at native exit 0. Original hosted stdin encoding/bytes and numbered output files were not captured, so BOM causation for those two hosted T053 failures remains a supported inference, not a directly observed hosted byte dump or a production tree-isolation defect.\n\nThe narrow test-only repair supplies a declared xc:#E02020 image first, uses 1x1 RGB stdin only as blocking synchronization, deletes all stdin-derived frames with -delete 1--1, then closes the binary pipe after writing and flushing the intended three bytes. Its output oracle is the declared first image, not the raw stdin payload. Actual default and forced-BOM candidate probes passed in fresh PS5.1 and PS7: the unrelated process was blocked before payload, then returned native 0 and produced exactly one independently Pillow-decoded 1x1 PNG with RGB 224/32/32. The test retains same process creation identity/aliveness through owned-tree timeout and exact one-image/pixel checks. Subsequent repaired focused, committed desktop and hosted gates must remain separately revision-bound; these byte probes are not replacement acceptance gates. This final-ready draft does not infer repaired full/hosted acceptance or a containing checkpoint synchronization observation.\n\nThe byte-probe tooling originally accessed StandardInputEncoding, unavailable on .NET Framework, after its first branch had run; the corrected explicit writer controls and original script/artifacts are preserved. Two later PS5.1 candidate-probe launches failed only because inherited PSMODULEPATH prevented Get-FileHash discovery. The first process-only removal used case-sensitive lookup and missed the uppercase key; the corrected fresh child excludes it case-insensitively without changing parent or persistent environment. Both failed native records/logs and the successful corrected candidate controls remain separately retained. Completed-job gh run view --log was unavailable while the matrix was active, so completed-job API retrieval saved the actual raw logs; later whole-matrix collection is separate. These are tooling limitations, not runtime/process isolation outcomes. The root-owned final PR body should explicitly state I1's passing desktop versus failed hosted result and the qualified fixture repair. Accepted final-I gates will be reported separately, and the containing record checkpoint synchronization must remain pending_verification until externally observed.\n\nCorrected implementation 73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a (I2) is actually committed and pushed. Relative to I1, only the T053 synchronization fixture changes (seven inserted and three deleted test lines); runtime raw SHA256 791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e is unchanged. Fresh focused PS7 attempt 5 and PS5.1 attempt 2 each passed all 17 cases with actual native exit 0. Their corrected v2 notes retain all seven focused histories and the original note hash, and the separate exact-I2 peer review binds this test-only scope. At v3 draft preparation the M3-T02-attempt2 desktop/full-control children and I2 automatic push/PR workflows were pending. They have since closed: both clean-I2 desktop normal suites passed 304/304 with actual native exit 0; each control recorded 305 total, 304 passed, exactly one intended T007 failure and native exit 1. All incomplete/skip counts are zero and persistent policies unchanged. The exact-revision validator binds all 29 raw tested-source paths to separate Git blobs. Both automatic I2 hosted push and PR matrices passed all four Windows PS5.1/PS7 jobs with the same normal/control counts, actual native exits and hashed raw transcripts. Those separate immutable gates establish repaired-revision acceptance; no earlier failure or probe is relabeled.\n\nDevelopment end-of-run hashes are observations, not proof of immutable imported bytes. Final clean-I desktop normal/control and hosted matrices are separate acceptance gates. Prior card histories remain in their original evidence.",
+  "internal_peer_review": {
+    "task_id": "M3-T02",
+    "review_kind": "Scoped internal peer code review; not owner acceptance or clean-I execution acceptance",
+    "observed_at_utc": "2026-10-05T08:49:23.970577+00:00",
+    "baseline_commit": "fa4ab9fd609918500a5dcec1c5972c24d23c2c37",
+    "audited_commit": "73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a",
+    "audited_tree": "e38bfeec7498f74c8cb8ad9a53f18b5a2dc0378d",
+    "implementation_diff_sha256": "ac2b7ca3dc68fc72421f26d37b3a6b285d6f0a67fe7bd6360aaca4ae2a4a77f2",
+    "reviewed_paths": [
+      "README.md",
+      "WinImgNormalizer.ps1",
+      "docs/codex-winimg/DECISIONS.md",
+      "docs/codex-winimg/SOURCES.md",
+      "tests/Invoke-Tests.ps1",
+      "tests/Measure-SizeQuality.ps1",
+      "tests/NativeLifetime.Tests.ps1",
+      "tests/README.md"
+    ],
+    "reviewed_file_bindings": [
+      {
+        "path": "README.md",
+        "observed_checkout_sha256": "5fc0e6c8338d451e6f3539cabc2b2d619241fe310680751ccfe0b406230bfb17",
+        "reviewed_git_blob_sha256": "d4a1c363e3fada32e16588344776657d93e5f77e6f5286a3e48cdae64e647829",
+        "reviewed_git_blob_oid": "1607d41dee85c6b9845c34aafd7bda414004ef70",
+        "newline_binding": "verified_CRLF_to_LF_only",
+        "observed_length": 22581,
+        "git_blob_length": 22264
+      },
+      {
+        "path": "WinImgNormalizer.ps1",
+        "observed_checkout_sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e",
+        "reviewed_git_blob_sha256": "c1fcecac29275facbae39341796900624a10b8ee3297f2fb8634da4d1a474f40",
+        "reviewed_git_blob_oid": "e82d1db68882e8c1d8e8c75831179c47541c6b45",
+        "newline_binding": "verified_CRLF_to_LF_only",
+        "observed_length": 119152,
+        "git_blob_length": 117252
+      },
+      {
+        "path": "docs/codex-winimg/DECISIONS.md",
+        "observed_checkout_sha256": "60b15188a9e29f19d6a04d65a19fffe5b8f420de944330e9ad354e11f6f9c9fc",
+        "reviewed_git_blob_sha256": "a473a2b18ff19e8a565c3afeba3d851d423d81d6306b9c5beaec7a112e35f4f0",
+        "reviewed_git_blob_oid": "9b67cd1e7224530c3e4385de5f460201af97c813",
+        "newline_binding": "verified_CRLF_to_LF_only",
+        "observed_length": 23790,
+        "git_blob_length": 23751
+      },
+      {
+        "path": "docs/codex-winimg/SOURCES.md",
+        "observed_checkout_sha256": "4e77722d773aa098bd8f47bc4d649cbe8ff70cd70bbc83cf0e65ff18ace8ae6f",
+        "reviewed_git_blob_sha256": "60357a5401b6a149fb862de8b6606f1ae2689ca33415118659c1c53f180c6652",
+        "reviewed_git_blob_oid": "b848f56eecd8bdcf7fb9d94edb35cfb032629e4f",
+        "newline_binding": "verified_CRLF_to_LF_only",
+        "observed_length": 34749,
+        "git_blob_length": 34362
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "observed_checkout_sha256": "6ad32f5c306e9010a5b1363976492bdcb2120918f890046a452bce71ab211484",
+        "reviewed_git_blob_sha256": "fe70c132f363214ce527847b6261e800ac7729004393a30f827adede8ec40cf7",
+        "reviewed_git_blob_oid": "dd4c1e9f3bebe409437f75da2df128fd240e0220",
+        "newline_binding": "verified_CRLF_to_LF_only",
+        "observed_length": 10547,
+        "git_blob_length": 10378
+      },
+      {
+        "path": "tests/Measure-SizeQuality.ps1",
+        "observed_checkout_sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94",
+        "reviewed_git_blob_sha256": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387",
+        "reviewed_git_blob_oid": "16c7434896b37fab6b2906b94a017f1b713f483c",
+        "newline_binding": "verified_CRLF_to_LF_only",
+        "observed_length": 34159,
+        "git_blob_length": 33820
+      },
+      {
+        "path": "tests/NativeLifetime.Tests.ps1",
+        "observed_checkout_sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c",
+        "reviewed_git_blob_sha256": "0d759d6bafad03115164c21350099f2869dad8cda56cb599f15d78f498784de1",
+        "reviewed_git_blob_oid": "6f325d9618a68562dde4520703b8ddee8577c7ed",
+        "newline_binding": "verified_CRLF_to_LF_only",
+        "observed_length": 47975,
+        "git_blob_length": 47473
+      },
+      {
+        "path": "tests/README.md",
+        "observed_checkout_sha256": "21578953b3a49a871961761b82e2bb6fb74a21e2b81fea716ef18d6760285126",
+        "reviewed_git_blob_sha256": "5c05df52ddf8d252a40a407f45b87bf027bd50877c42fd179c613ba84b0f99e1",
+        "reviewed_git_blob_oid": "2d213f066bdca1f10bc21d6e8e32e9c4cf4a79ea",
+        "newline_binding": "verified_CRLF_to_LF_only",
+        "observed_length": 25059,
+        "git_blob_length": 24705
+      }
+    ],
+    "review_completed": true,
+    "no_blocking_findings": true,
+    "reviewer_authorship": "Root explicitly delegated the ignored native C# implementation and tracked Measure compatibility adapter to this reviewer. Root independently reviewed these blocks; this artifact does not present their author as an independent third-party reviewer.",
+    "findings": [
+      {
+        "topic": "Atomic native ownership and bounded draining",
+        "result": "passed",
+        "details": "CreateProcessW uses JOB_LIST and HANDLE_LIST atomically with a noninheritable kill-on-close private job and suspended initial thread; resumes after reader readiness. Normal parent exit and timeout terminate that job, verify active processes zero, and drain/cancel fixed-buffer readers within the shared 3-second grace. Startup/capture failures fail closed with no process-name kill or uncontained fallback."
+      },
+      {
+        "topic": "Shared deadline and local resources",
+        "result": "passed",
+        "details": "One lower-only 120000-ms image context begins before stable source snapshot and covers frame/colour/ICC queries, all conversion/validation phases and retry waits. Five limits precede reads; a final remaining-time check gates no-overwrite move. Installed stricter policy stays effective. Timeout/resource/unsafe-tree outcomes stop that item and preserve sibling processing."
+      },
+      {
+        "topic": "Temporary ownership, setup order and unsafe-tree preservation",
+        "result": "passed",
+        "details": "Existing regular canonical plain temporary root <=160 characters, no linked ancestors and physical source overlap rejection are validated before destination write probe. Exclusive per-image cache directory uses child-only environment. Candidate/ICC/snapshot staging stays on output volume. Unconfirmed returned TreeTerminated is directly rejected and makes CleanupSafe=false sticky; all item scratch is preserved. Confirmed cleanup is nonrecursive and only regular reserved magick-* names are eligible."
+      },
+      {
+        "topic": "Default/public/safety scope",
+        "result": "passed",
+        "details": "Exactly eight declared paths changed. BAT, CI workflow, bootstrap/dependencies and profile assets remain unchanged. Public positional forms, exact cap, six scales, colour/alpha/frame policy, literal filename guards, source/no-overwrite, timestamps, duplicates and video paths remain within existing contracts. Real Ctrl+C and cancellation remain M3-T03 scope."
+      },
+      {
+        "topic": "Meaningful regression fixtures",
+        "result": "passed",
+        "details": "Seventeen cases use owned benign compiled processes, independent Toolhelp direct-parent/PID-creation identities, held handles and real pinned native siblings. Covers descendant-held pipes after parent exit, floods, valid JPEG before stall, unrelated ImageMagick survival/completion, real constrained cache, stricter private copied policy, cumulative phases, exact source/namespace preservation and setup boundaries. Unconfirmed-kill flag is controlled after actual successful kill and explicitly qualified."
+      },
+      {
+        "topic": "Measurement compatibility",
+        "result": "passed",
+        "details": "Current measurement trace delegates the actual bounded observer path and retains resource/environment/shared-budget traces; historical image algorithms retain their flags while using the captured current wrapper to avoid type overload collision. Only leading limit triplets are separated from core image flags. Both successful tiny smokes bind the final runtime 791e8484... and final adapter bytes; initial square-fixture ambiguity and raw controller dimension-label erratum remain preserved. No representative quality/performance benchmark rerun is claimed."
+      },
+      {
+        "topic": "Primary security/API provenance",
+        "result": "passed",
+        "details": "D30/I12 cite official Windows atomic job and cancellation semantics, pinned ImageMagick resource/JPEG source and dated current upstream notices. Pin 7.1.2-32 meets the declared reviewed patched versions. No crafted exploit execution, generic sandbox certification or owner quality approval is asserted."
+      }
+    ],
+    "limitations": [
+      "Pixel-cache ceilings do not cap every decoder/delegate heap allocation or arbitrary file writes; these are practical defenses, not an exploit-proof sandbox.",
+      "Synchronous filesystem copying/creation is counted where specified but not preemptible; termination and drain grace can extend wall time.",
+      "Kernel I/O cancellation is requested but cannot guarantee completion against a noncooperative driver; incomplete capture never authorizes output.",
+      "Reserved magick-* names in the exclusive cache namespace cannot distinguish concurrent same-pattern external arrivals; hostile filesystem mutation is outside this containment check.",
+      "Unsupported JOB_LIST/HANDLE_LIST or incompatible inherited-job restrictions fail closed, rather than falling back.",
+      "Development focus and tiny compatibility smokes are separate from actual immutable implementation full/control and hosted acceptance; no future result is inferred.",
+      "Original design/probe histories remain immutable. Later plain short-cache-root correction supersedes any earlier output-tree cache design statement."
+    ],
+    "focused_observations": [
+      {
+        "host": "7.6.5",
+        "total": 17,
+        "passed": 17,
+        "native_exit": 0,
+        "summary": {
+          "path": ".scratch/M3-T02-target-ps7-5/summary.json",
+          "sha256": "78e1a6edc8d87463a221e6f0ab1925959e8ce233a9623ab77152e06b76aebf88",
+          "length": 5319
+        },
+        "xml": {
+          "path": ".scratch/M3-T02-target-ps7-5/results.xml",
+          "sha256": "9b3aa62ba9f5326d139e503b8b4210e6b2d6b0b61b3ca8772835e277e7457499",
+          "length": 9883
+        },
+        "native": {
+          "path": ".scratch/M3-T02-target-ps7-5-native.json",
+          "sha256": "283da8485b171c2908da36266eb80ac94d09d355c3c54de0b113e03b5606d3ff",
+          "length": 2280
+        },
+        "console": {
+          "path": ".scratch/M3-T02-target-ps7-5-console.log",
+          "sha256": "82aaf723cf757476848acc4cdfc092ac4ff84889134cf9093ff22de76a80a31c",
+          "length": 3538
+        },
+        "qualification": "Development focus on exact observed runtime, test and runner bytes; tests README was subsequently corrected in prose only. Full clean implementation gates are not asserted here."
+      },
+      {
+        "host": "5.1.26100.9444",
+        "total": 17,
+        "passed": 17,
+        "native_exit": 0,
+        "summary": {
+          "path": ".scratch/M3-T02-target-ps51-2/summary.json",
+          "sha256": "e8ae2a7a2b1919e6966f58782ff5fde0f6ea500d248cb3f3df7a42fbd27b1585",
+          "length": 8381
+        },
+        "xml": {
+          "path": ".scratch/M3-T02-target-ps51-2/results.xml",
+          "sha256": "f9aff38e80efa660d3a9e592ab0cb371c7fe9d60f7dc01723f3fc88c4c1bd8df",
+          "length": 9893
+        },
+        "native": {
+          "path": ".scratch/M3-T02-target-ps51-2-native.json",
+          "sha256": "9a81d0901810c7c52bbf3018a585fbd53dac5e8a1c4b1319aa25add2ad6b03c0",
+          "length": 2238
+        },
+        "console": {
+          "path": ".scratch/M3-T02-target-ps51-2-console.log",
+          "sha256": "c6aa056ed96176d27a305af7bfd28c8e4ea573c63d8d3de03e6f4dd457c13fa1",
+          "length": 3553
+        },
+        "qualification": "Development focus on exact observed runtime, test and runner bytes; tests README was subsequently corrected in prose only. Full clean implementation gates are not asserted here."
+      }
+    ],
+    "bound_artifacts": [
+      {
+        "path": ".scratch/M3-T02-implementation-scope.json",
+        "sha256": "8d0c4dc1161423cb73450304c986da7dfe69cd7752c5c04d3fba07dcb1610063",
+        "length": 355
+      },
+      {
+        "path": ".scratch/M3-T02-native-api.cs",
+        "sha256": "3db962ff2304cefa8c877a29ea3e200c9fd23d46f26417441dbf1585a0e96f99",
+        "length": 19588
+      },
+      {
+        "path": ".scratch/M3-T02-primary-research/complete-manifest.json",
+        "sha256": "3b65753b66a939c6eba8c5906390357b2d33d6b60da0b612c07de87cea58aba0",
+        "length": 7336
+      },
+      {
+        "path": ".scratch/M3-T02-design-security-peer-review.json",
+        "sha256": "d5ef84b4b1520ac4ba5afc09d8f3c787cfff9b54871c3bcc5e6ece27895dac9d",
+        "length": 8094
+      },
+      {
+        "path": ".scratch/M3-T02-measure-adapter-peer-review.json",
+        "sha256": "57ac00fe638f24af8f0c64e7c6442a3376e6d3ed41806c8f5bea08177894fcf5",
+        "length": 6597
+      },
+      {
+        "path": ".scratch/M3-T02-peer-review.json",
+        "sha256": "938d27f75d2983c0e27bd9aa7c975c4d6d7ff09ddda7847cb9523875cad4d231",
+        "length": 13163
+      },
+      {
+        "path": ".scratch/M3-T02-initial-I-committed-history.json",
+        "sha256": "ed6760dce0c22c774d0201a7e6c10986d0c65a3b1468f1d10b24d91ec6e5e7ef",
+        "length": 20188
+      },
+      {
+        "path": ".scratch/M3-T02-initial-I-ps51-raw-log-manifest.json",
+        "sha256": "7345d7620404a7cb00ce9b5af3092b7bca4cadfaa2ef3e8ece1b4ab07fc16e2b",
+        "length": 1142
+      },
+      {
+        "path": ".scratch/M3-T02-initial-I-hosted-ps51-diagnosis.json",
+        "sha256": "8089eea9b8f0acf0065f73d4aca4ea568df157cb8704ddb06be96ca338fe14ff",
+        "length": 12665
+      },
+      {
+        "path": ".scratch/M3-T02-initial-I-hosted-ps51-diagnosis-supplement.json",
+        "sha256": "4a4901f9a2d270ee0b66d54bced1393618c48ae23889e4c52d643f9ca4daf657",
+        "length": 18078
+      }
+    ],
+    "full_and_hosted_acceptance": "Not asserted by this code review; separate completed exact-revision artifacts are required.",
+    "initial_implementation_and_repair": {
+      "initial_implementation_commit": "66780bb8f3584f0fd1b38edf55d71af53209f77a",
+      "repair_changed_paths": [
+        "tests/NativeLifetime.Tests.ps1"
+      ],
+      "repair_diff_sha256": "de66a8633115263433e16abc47898d0be977b3b5264975d9cb039ed2548b5da5",
+      "runtime_unchanged": true,
+      "details": "Only the existing T053 fixture changes: first native red image supplies output, raw RGB stdin blocks for synchronization, all later frames are discarded, binary pipe closes directly, exactly one PNG is required, and previous full decode/pixel/process identity checks remain. Initial PS5.1 hosted jobs failed303/304 only for missing single PNG; initial full desktop succeeded and all actual histories remain preserved. Framework preamble is a supported inference about original hosted bytes, not a direct hosted measurement. Original Close-only diagnosis is explicitly corrected by the bound AutoFlush supplement."
+    },
+    "source_artifact": ".scratch/M3-T02-peer-review-v2.json",
+    "source_artifact_sha256": "e19af17ef14f5ee758befb3e7150896281dcdc6081ed872ceee3512c3ac00090",
+    "verified_diff_arguments": [
+      "--full-index",
+      "--binary",
+      "fa4ab9fd609918500a5dcec1c5972c24d23c2c37",
+      "73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a"
+    ]
+  },
+  "provenance": {
+    "task_id": "M3-T02",
+    "prepared_at_utc": "2026-10-05T09:00:49.356586+00:00",
+    "reviewed_implementation_commit": "73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a",
+    "implementation_tree": "e38bfeec7498f74c8cb8ad9a53f18b5a2dc0378d",
+    "implementation_scope": {
+      "path": ".scratch/M3-T02-implementation-scope.json",
+      "sha256": "8d0c4dc1161423cb73450304c986da7dfe69cd7752c5c04d3fba07dcb1610063"
+    },
+    "starting_commit": "fa4ab9fd609918500a5dcec1c5972c24d23c2c37",
+    "implementation_change_paths": [
+      "README.md",
+      "WinImgNormalizer.ps1",
+      "docs/codex-winimg/DECISIONS.md",
+      "docs/codex-winimg/SOURCES.md",
+      "tests/Invoke-Tests.ps1",
+      "tests/Measure-SizeQuality.ps1",
+      "tests/NativeLifetime.Tests.ps1",
+      "tests/README.md"
+    ],
+    "full_index_binary_diff_sha256": "ac2b7ca3dc68fc72421f26d37b3a6b285d6f0a67fe7bd6360aaca4ae2a4a77f2",
+    "source_raw_git_bindings": [
+      {
+        "path": "WinImgNormalizer.ps1",
+        "observed_checkout_sha256": "791e8484851f13e6a340374cd6e913cdffa95e32e126de77a5ca4b6031357f3e",
+        "committed_blob_sha256": "c1fcecac29275facbae39341796900624a10b8ee3297f2fb8634da4d1a474f40",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "WinImgNormalizer.bat",
+        "observed_checkout_sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+        "committed_blob_sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "observed_checkout_sha256": "6ad32f5c306e9010a5b1363976492bdcb2120918f890046a452bce71ab211484",
+        "committed_blob_sha256": "fe70c132f363214ce527847b6261e800ac7729004393a30f827adede8ec40cf7",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Initialize-TestDependencies.ps1",
+        "observed_checkout_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "committed_blob_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/dependencies.json",
+        "observed_checkout_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "committed_blob_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+        "observed_checkout_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "committed_blob_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+        "observed_checkout_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "committed_blob_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/Generate-Reference.py",
+        "observed_checkout_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "committed_blob_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+        "observed_checkout_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "committed_blob_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/MANIFEST.json",
+        "observed_checkout_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "committed_blob_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/README.md",
+        "observed_checkout_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "committed_blob_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/REFERENCE.json",
+        "observed_checkout_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "committed_blob_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/sRGB-v4.icc",
+        "observed_checkout_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "committed_blob_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Measure-SizeQuality.ps1",
+        "observed_checkout_sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94",
+        "committed_blob_sha256": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Normalizer.Tests.ps1",
+        "observed_checkout_sha256": "75ae2f894449bc237cfd333943020ed25ab3601e3e469178e8f96f32405f2680",
+        "committed_blob_sha256": "79346cbd0e12ddd91ad5b87091143c7d58002e3fcc6b63c03e5701a697223fab",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Preflight.Tests.ps1",
+        "observed_checkout_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+        "committed_blob_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Traversal.Tests.ps1",
+        "observed_checkout_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+        "committed_blob_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Naming.Tests.ps1",
+        "observed_checkout_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+        "committed_blob_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Transactions.Tests.ps1",
+        "observed_checkout_sha256": "a61fc822a93406bebd37b9a84e403ea560722ba4c1270dfed819200dd17e713d",
+        "committed_blob_sha256": "e9938010562dcdf4ccc2eb1c66e35077af450778fb75bd1d22a906bbf049d4fc",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Duplicates.Tests.ps1",
+        "observed_checkout_sha256": "31c20b0edc144f96625cb0d033d2f4160fd98f00e46fe37605cf33f817d63200",
+        "committed_blob_sha256": "6eace9dce4f17f997a865541fbbc74d34d8789a2600e7d87778e8e22d2d58dba",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/SafetyRegression.Tests.ps1",
+        "observed_checkout_sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+        "committed_blob_sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Frames.Tests.ps1",
+        "observed_checkout_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+        "committed_blob_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Colour.Tests.ps1",
+        "observed_checkout_sha256": "7a4636687a588878b2a225ec62f9dbda5a28912fc187049e2a11289eef40a6a1",
+        "committed_blob_sha256": "8f91a674d1dd995ef454bd6c51dd9d38e4b94b9e1613c74e8594599e9258b17d",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Paths.Tests.ps1",
+        "observed_checkout_sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+        "committed_blob_sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Sizing.Tests.ps1",
+        "observed_checkout_sha256": "e47608222e85abd7a053caed0c82fbe98708db494ae8fb861727bcaba7f56ad2",
+        "committed_blob_sha256": "60451813374debac44fe53171edbdb298b2b06adeaf11f6430e65a0744e1e273",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Diagnostics.Tests.ps1",
+        "observed_checkout_sha256": "d9386f20b5f3d5e00cb762fd9a882735140a350dc1eda002d2657c75a2a2087f",
+        "committed_blob_sha256": "b5a492e9313e142a7b5bf0b95cdfdcc959df2c25db588c27ed912951406b40e9",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/ConversionRegression.Tests.ps1",
+        "observed_checkout_sha256": "fed12f7ba26194f89cbbcd242133d32f0867d7dd56f0cf20a5fe951b314b0334",
+        "committed_blob_sha256": "1e9fe7201be9d9fb9ef4f0f7550ca8624c713a84991f8a461f0a049c93069703",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/RecoveryReporting.Tests.ps1",
+        "observed_checkout_sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+        "committed_blob_sha256": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/NativeLifetime.Tests.ps1",
+        "observed_checkout_sha256": "294abff89d1a45417bad42cecdf83ba0b3877910519c5ecc6e65b1826792324c",
+        "committed_blob_sha256": "0d759d6bafad03115164c21350099f2869dad8cda56cb599f15d78f498784de1",
+        "binding": "verified CRLF-to-LF only"
+      }
+    ],
+    "case_notes": {
+      "path": ".scratch/M3-T02-native-lifetime-case-notes-v2.json",
+      "sha256": "efa1b031162506728906f64d1b11e5e2ef583da4e7675d5ecd537c36a9560200"
+    },
+    "peer_review": {
+      "path": ".scratch/M3-T02-peer-review-v2.json",
+      "sha256": "e19af17ef14f5ee758befb3e7150896281dcdc6081ed872ceee3512c3ac00090"
+    },
+    "root_behavior": {
+      "path": ".scratch/M3-T02-root-final-behavior.json",
+      "sha256": "c5e8267fcccd081fe566876abc8f16105b8ff0a96a00936ec0e3c71bbe6ac03b"
+    },
+    "root_limitations": {
+      "path": ".scratch/M3-T02-root-final-limitations.json",
+      "sha256": "edbf1369a7174b7b1ee76ed60803972b51fe2068e25b924b0736950857e9b78d"
+    },
+    "independent_reference_assets": [
+      {
+        "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+        "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+      },
+      {
+        "path": "tests/fixtures/colour/Generate-Reference.py",
+        "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+      },
+      {
+        "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+        "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+      },
+      {
+        "path": "tests/fixtures/colour/MANIFEST.json",
+        "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+      },
+      {
+        "path": "tests/fixtures/colour/README.md",
+        "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+      },
+      {
+        "path": "tests/fixtures/colour/REFERENCE.json",
+        "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+      },
+      {
+        "path": "tests/fixtures/colour/sRGB-v4.icc",
+        "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+      }
+    ],
+    "additional_artifacts": [
+      {
+        "path": ".scratch/M3-T02-independent-I2-notes-audit.json",
+        "sha256": "91cda021ec889f53e8a387cb1c17bc3e19a956719257d3246e396231177c97e9"
+      },
+      {
+        "path": ".scratch/M3-T02-I2-hosted-peer-audit.json",
+        "sha256": "3520b2be71dc32e1d78d6fdd3f73917808f95044d493f14157490a85827a59c3"
+      },
+      {
+        "path": ".scratch/M3-T02-initial-I-hosted-ps51-diagnosis-supplement.json",
+        "sha256": "4a4901f9a2d270ee0b66d54bced1393618c48ae23889e4c52d643f9ca4daf657"
+      },
+      {
+        "path": ".scratch/M3-T02-root-final-prose-readiness.json",
+        "sha256": "9724230ef254a14dc0b3edd7f81779061a006bed7e85158f161cf81cc091bf48"
+      },
+      {
+        "path": ".scratch/M3-T02-I2-ci-collected-original.json",
+        "sha256": "816027b46e9f98bf4aa57ac12b23752e0abf5bed55439972fb1fd6aa35fdd443"
+      },
+      {
+        "path": ".scratch/M3-T02-initial-history-readiness.json",
+        "sha256": "b8647f5f8acce6d2d612ff35e3526415cecbf1a467e21325a59eab8ee11fbd91"
+      }
+    ],
+    "helper_bindings": [
+      {
+        "path": ".scratch/M3-T02-evidence-core.py",
+        "sha256": "82bb710aac4288f234cfb5a0d20ebc37b3314a092e72da25def2eae0c26b7242"
+      },
+      {
+        "path": ".scratch/M3-T02-record.py",
+        "sha256": "3d1b3ceb28d09f1f6440a7d1f89111ca162a8c44c8120a84c4912eeb1b221921"
+      },
+      {
+        "path": ".scratch/M3-T02-handoff.py",
+        "sha256": "10415d16cd97f281be7dd89329a9716c350a57bddea1c0a1653165d00639301f"
+      },
+      {
+        "path": ".scratch/M3-T02-validate-records.py",
+        "sha256": "ba0ccf4478b83e3e4567fc93eea84a6be69b144b57984f9b5375f257b0c33965"
+      },
+      {
+        "path": ".scratch/M3-T02-freeze-records.py",
+        "sha256": "0b13ec78962c628e790e655bccf4a41eb52ec148663e635a4636b300508b0f33"
+      },
+      {
+        "path": ".scratch/M3-T02-collect-ci.py",
+        "sha256": "e04a6f3726da4a0c8a1cab26fa7a9dc8a58f0d1e4308ed71a789af02cbbcebda"
+      },
+      {
+        "path": ".scratch/M3-T02-run-desktop.ps1",
+        "sha256": "250cc955f98e474c7aa61bf5352491f5d3b998fea76b2761d8eda85c94def5bf"
+      },
+      {
+        "path": ".scratch/M3-T02-validate-desktop.py",
+        "sha256": "b19080b919ea0d7cd5c100197e6a841e70bf3df8030449a5696334d5c4b3cb4e"
+      },
+      {
+        "path": ".scratch/M3-T02-build-curated-inputs.py",
+        "sha256": "60d40070fa07b61667678440c284775521a94fe8a544872d8d6f09b49ff988d9"
+      },
+      {
+        "path": ".scratch/M3-T02-write-records.ps1",
+        "sha256": "33a959d56de1447792c6996e7fe88bbf9271455f35d8fc5c9c359d6706240b04"
+      }
+    ],
+    "qualification": "Preparation validates preserved inputs against clean I; it does not execute acceptance tests or grant owner approval.",
+    "development_diagnosis": {
+      "path": ".scratch/M3-T02-development-diagnosis-final.txt",
+      "sha256": "4e81f90d71088b5095cc0b1ac1fc6d7ed8fc93927e2519e6a03a4232b06986e0"
+    },
+    "source_artifact": ".scratch/M3-T02-final-provenance.json",
+    "source_artifact_sha256": "048506bbb11c416f2000d6e250965995374a7f66d4d6e071125f9902e3aa45c0"
+  },
+  "additional_artifacts": [
+    {
+      "path": ".scratch/M3-T02-I2-hosted-peer-audit.json",
+      "sha256": "3520b2be71dc32e1d78d6fdd3f73917808f95044d493f14157490a85827a59c3"
+    }
+  ],
+  "implementation_notes": [
+    "An image now shares a 120,000-ms elapsed budget across its snapshot, frame/colour/ICC queries, conversion attempts, retries and complete JPEG validation. The final move requires time remaining. Every real image command requests process-local pixel-cache memory 512 MiB, map 1 GiB, disk 2 GiB, two threads and the remaining seconds; stricter installed ImageMagick policies still apply. A timeout or resource failure rejects that image and continues later usable image/video siblings with application warning/partial code 2.",
+    "Native processes are created atomically inside a private kill-on-close Windows job and start only after two bounded stream readers are ready. Cleanup targets that job, confirms an empty tree and drains/cancels readers within one 3-second grace; it never selects unrelated processes by name or PID snapshots. The separate exclusive plain TEMP cache root is validated before output writes and kept outside the physical source tree. Media snapshots, ICC data and JPEG candidates keep output-volume staging. Unconfirmed tree termination rejects finalization and preserves all item scratch; ordinary cleanup is nonrecursive, removes only regular magick-* cache files and preserves unexpected entries with a warning.",
+    "D30/I12 record the implementation policy and dated official Windows/ImageMagick advisory review. Public positional/BAT calls, exact size cap, six scales, JPEG/colour/white-alpha/frame selection, literal paths, no-overwrite transactions, source preservation, video bytes and successful duplicate retention remain within their existing contracts. The development Measure-SizeQuality trace now follows the current bounded native observer and separates leading resource-limit arguments from core image flags. Tiny compatibility checks are separate from representative quality/performance measurement and owner approval."
+  ],
+  "limitations": [
+    "Windows 10/Server 2016 JOB_LIST support and compatible inherited-job restrictions are required. Unsupported atomic assignment fails closed. ImageMagick memory/map/disk limits govern pixel cache, not every decoder/delegate heap allocation or arbitrary write; these controls do not certify an exploit-proof sandbox.",
+    "The shared clock counts image-copy/retry elapsed time, but synchronous filesystem calls are not preemptible. Native termination/drain grace can add wall time. ImageMagick's own time limit is cooperative and SOURCE_DATE_EPOCH can disable it; the external wrapper deadline remains the native-hang authority. A noncooperative kernel driver can still delay completion of an I/O cancellation request; incomplete capture never permits finalization.",
+    "Cleanup assumes the exclusively allocated cache namespace remains trustworthy. A concurrent regular magick-* arrival is indistinguishable from a native cache file; foreign names, directories and reparse entries remain with warnings. Unconfirmed termination preservation was tested with a controlled returned flag after an actual successfully terminated tree, not by reproducing an OS failure to kill.",
+    "Development targets, saved API/resource probes and tiny 128x160 measurement smokes retain their own raw source/artifact bindings. They are separate from clean-I full normal/control and hosted acceptance. No representative benchmark rerun, quality/performance improvement, owner aesthetic approval or codec-wide exploit test is inferred. Existing HEIC still-collection and independent colour-reference qualifications remain in their original evidence.",
+    "The unrelated-process fixture uses a declared first synthetic image as its completion oracle; RGB stdin only keeps the process blocked until synchronization ends, and all stdin-derived frames are discarded. Actual default and forced-BOM controls passed on both shells. The original hosted stdin bytes were not recorded, so its BOM explanation remains a supported inference. Repaired-revision full normal/control and hosted gates require their own immutable evidence.",
+    "Real Ctrl+C/cooperative cancellation, interrupted-copy exit behavior and force-termination recovery remain M3-T03. This card stops after M3-T02 acceptance; releases, deployment and owner acceptance stay separate."
+  ],
+  "implementation_sync_observation": {
+    "local_head": "73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a",
+    "remote_head": "73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a",
+    "worktree_clean": true,
+    "branch": "codex/winimg-hardening",
+    "fetch_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "push_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "pull_request": {
+      "baseRefName": "main",
+      "baseRefOid": "a2ef99ac52631e84988669905aa8e80d44682b79",
+      "headRefOid": "73bb2764ecf3ce3bf0fcb9e82feec434005f1e4a",
+      "isDraft": true,
+      "state": "OPEN",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/17"
+    },
+    "qualification": "Actual clean local/live feature and open draft PR head at the recorded time; CI and owner acceptance are separate.",
+    "observed_at_utc": "2026-10-05T08:49:25.411857Z",
+    "source_artifact": ".scratch/M3-T02-I2-sync.json",
+    "source_artifact_sha256": "966b1959629daa8752ec5f87508007dac4255a7d593f6048ddbb88296c7ff860"
+  },
+  "containing_checkpoint_sync": "pending_verification",
+  "draft_pr": "https://github.com/PikkuJanne/WinImgNormalizer/pull/17",
+  "owner_acceptance": "not requested / not granted"
+}
