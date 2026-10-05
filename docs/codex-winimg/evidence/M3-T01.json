@@ -1,0 +1,2748 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T01",
+  "recorded_at_utc": "2026-10-05T07:36:34.109913+00:00",
+  "tested_implementation_commit": "66f609ad32637d82ce1e9918ea1600400378422e",
+  "tested_files_sha256": {
+    "WinImgNormalizer.ps1": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e",
+    "WinImgNormalizer.bat": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+    "tests/Invoke-Tests.ps1": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+    "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+    "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+    "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+    "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+    "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+    "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+    "tests/Measure-SizeQuality.ps1": "0f4795d028b54e1865c32c8734c1bc287e1cd4a3854a7396329536a1c91e3b7f",
+    "tests/Normalizer.Tests.ps1": "75ae2f894449bc237cfd333943020ed25ab3601e3e469178e8f96f32405f2680",
+    "tests/Preflight.Tests.ps1": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+    "tests/Traversal.Tests.ps1": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+    "tests/Naming.Tests.ps1": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+    "tests/Transactions.Tests.ps1": "a61fc822a93406bebd37b9a84e403ea560722ba4c1270dfed819200dd17e713d",
+    "tests/Duplicates.Tests.ps1": "31c20b0edc144f96625cb0d033d2f4160fd98f00e46fe37605cf33f817d63200",
+    "tests/SafetyRegression.Tests.ps1": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+    "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+    "tests/Colour.Tests.ps1": "7a4636687a588878b2a225ec62f9dbda5a28912fc187049e2a11289eef40a6a1",
+    "tests/Paths.Tests.ps1": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+    "tests/Sizing.Tests.ps1": "e47608222e85abd7a053caed0c82fbe98708db494ae8fb861727bcaba7f56ad2",
+    "tests/Diagnostics.Tests.ps1": "d9386f20b5f3d5e00cb762fd9a882735140a350dc1eda002d2657c75a2a2087f",
+    "tests/ConversionRegression.Tests.ps1": "fed12f7ba26194f89cbbcd242133d32f0867d7dd56f0cf20a5fe951b314b0334",
+    "tests/RecoveryReporting.Tests.ps1": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+  },
+  "committed_blob_sha256": {
+    "WinImgNormalizer.ps1": "56d7c047f48d0fa3d7893f3d268af7149bd2d3cc89e918f200bc8af5c4ba65b4",
+    "WinImgNormalizer.bat": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+    "tests/Invoke-Tests.ps1": "41ad7da86bbad3f355c523763ed954a8686a6b9bcd3d5046ae50ed0ae0823399",
+    "tests/Initialize-TestDependencies.ps1": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+    "tests/dependencies.json": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+    "tests/fixtures/colour/AdobeCompat-v2.icc": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+    "tests/fixtures/colour/CGATS001Compat-v2-micro.icc": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+    "tests/fixtures/colour/Generate-Reference.py": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+    "tests/fixtures/colour/LICENSE-CC0.txt": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+    "tests/fixtures/colour/MANIFEST.json": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+    "tests/fixtures/colour/README.md": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+    "tests/fixtures/colour/REFERENCE.json": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "tests/fixtures/colour/sRGB-v4.icc": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+    "tests/Measure-SizeQuality.ps1": "9617a19392fcd80145e110498ce3278d3bb5a47785f08dabe8146de97c530987",
+    "tests/Normalizer.Tests.ps1": "79346cbd0e12ddd91ad5b87091143c7d58002e3fcc6b63c03e5701a697223fab",
+    "tests/Preflight.Tests.ps1": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+    "tests/Traversal.Tests.ps1": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+    "tests/Naming.Tests.ps1": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+    "tests/Transactions.Tests.ps1": "e9938010562dcdf4ccc2eb1c66e35077af450778fb75bd1d22a906bbf049d4fc",
+    "tests/Duplicates.Tests.ps1": "6eace9dce4f17f997a865541fbbc74d34d8789a2600e7d87778e8e22d2d58dba",
+    "tests/SafetyRegression.Tests.ps1": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+    "tests/Frames.Tests.ps1": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+    "tests/Colour.Tests.ps1": "8f91a674d1dd995ef454bd6c51dd9d38e4b94b9e1613c74e8594599e9258b17d",
+    "tests/Paths.Tests.ps1": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+    "tests/Sizing.Tests.ps1": "60451813374debac44fe53171edbdb298b2b06adeaf11f6430e65a0744e1e273",
+    "tests/Diagnostics.Tests.ps1": "b5a492e9313e142a7b5bf0b95cdfdcc959df2c25db588c27ed912951406b40e9",
+    "tests/ConversionRegression.Tests.ps1": "1e9fe7201be9d9fb9ef4f0f7550ca8624c713a84991f8a461f0a049c93069703",
+    "tests/RecoveryReporting.Tests.ps1": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc"
+  },
+  "checkout_line_endings": {
+    "policy": "Observed tested raw checkout bytes bind committed Git blobs by exact bytes or verified CRLF-to-LF only; no files were normalized during execution.",
+    "normalized_bindings": [
+      {
+        "path": "WinImgNormalizer.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Measure-SizeQuality.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Normalizer.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Transactions.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Duplicates.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Colour.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Sizing.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Diagnostics.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/ConversionRegression.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/RecoveryReporting.Tests.ps1",
+        "binding": "verified CRLF-to-LF only"
+      }
+    ]
+  },
+  "starting_observation": {
+    "task_id": "M3-T01",
+    "observed_at_utc": "2026-10-05T06:56:11.524557Z",
+    "local_head": "5cbaa2246923f5bd94066feea34f71e0faafce00",
+    "remote_head": "5cbaa2246923f5bd94066feea34f71e0faafce00",
+    "worktree_clean": true,
+    "branch": "codex/winimg-hardening",
+    "fetch_urls": [
+      "https://github.com/PikkuJanne/WinImgNormalizer.git"
+    ],
+    "push_urls": [
+      "https://github.com/PikkuJanne/WinImgNormalizer.git"
+    ],
+    "extra_push_mapping": false,
+    "main_commit": "446683923f7d4b2aed7a5c9a00e1bf11d2924b68",
+    "feature_tree": "dac8ebecc070128b3e406ffff8824974d94edb79",
+    "main_tree": "dac8ebecc070128b3e406ffff8824974d94edb79",
+    "owner_merged_pull_request": {
+      "headRefOid": "5cbaa2246923f5bd94066feea34f71e0faafce00",
+      "mergeCommit": {
+        "oid": "446683923f7d4b2aed7a5c9a00e1bf11d2924b68"
+      },
+      "mergedAt": "2026-10-05T06:54:16Z",
+      "state": "MERGED",
+      "title": "test: M2-T06 verify integrated conversion correctness",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/15"
+    },
+    "tree_equal": true,
+    "method": "Actual clean checkout, canonical single fetch/push URL, live ls-remote, owner merge metadata, read-only main fetch and equal tree. No checkout or branch update.",
+    "controller_sha256": "53e56df3c8b374881b23f4d9033be38ec8594352544d9eb3855f9a794298e198",
+    "starting_commit": "5cbaa2246923f5bd94066feea34f71e0faafce00",
+    "advertised_feature_commit": "5cbaa2246923f5bd94066feea34f71e0faafce00",
+    "starting_tree": "dac8ebecc070128b3e406ffff8824974d94edb79",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "fetch_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "push_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "normalization": "Aliases preserve the original root observation fields; canonical single URLs, exact local/live SHA and equal starting/main tree were checked.",
+    "source_artifact": ".scratch/M3-T01-start-observation.json",
+    "source_artifact_sha256": "500d8582065e03659d813a1d803029e1d81f935da468798ac812ffcccfbf1438"
+  },
+  "environment": {
+    "ps51": {
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    },
+    "ps7": {
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_version": "10.0.26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "ui_culture": "en-US",
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version_output": [
+        "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org",
+        "Copyright: (C) 1999 ImageMagick Studio LLC",
+        "License: https://imagemagick.org/license/",
+        "Features: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) ",
+        "Delegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+        "Compiler: Visual Studio 2026 (195136257)"
+      ],
+      "script_analyzer_versions_available": []
+    }
+  },
+  "runs": [
+    {
+      "observed_at_utc": "2026-10-05T07:24:49.1699165Z",
+      "result": "Passed",
+      "total_count": 287,
+      "passed_count": 287,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 225.41133489999999,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M3-T01-attempt2-final-ps51",
+      "artifact_path": ".scratch/M3-T01-attempt2-final-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M3-T01-attempt2-final-ps51/summary.json": "e9b44ddb60ef3d3deaec0ffce03aaf0fc622bfb99c07d69117f09e8e8fc1679b",
+        ".scratch/M3-T01-attempt2-final-ps51/results.xml": "505942fa4141d86c0bd3440d651652ee150bef01537b51ec39d3345af0d09618",
+        ".scratch/M3-T01-attempt2-final-ps51-console.log": "344e5f0c0882eb5dd19ee90cbb7e5f5dc2d9e60384a2decc9651761d2654d316"
+      },
+      "observed_native_child_exit_code": 0
+    },
+    {
+      "observed_at_utc": "2026-10-05T07:28:39.6189147Z",
+      "result": "Failed",
+      "total_count": 288,
+      "passed_count": 287,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 222.9132028,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M3-T01-attempt2-control-ps51",
+      "artifact_path": ".scratch/M3-T01-attempt2-control-ps51/summary.json",
+      "artifact_sha256": {
+        ".scratch/M3-T01-attempt2-control-ps51/summary.json": "fc12cb12b91fd2b32d6579cb037babe2fc38d592a58a15586d1e100e862b41fc",
+        ".scratch/M3-T01-attempt2-control-ps51/results.xml": "98aa04a55d582875e73f6765e8c2bf4108afbcbd0cf3a641efaa43977d8f814b",
+        ".scratch/M3-T01-attempt2-control-ps51-console.log": "0cd3dbfd120579c21cadcc0c032e3326b28f9364936327082a5a910a58b2c60e"
+      },
+      "observed_native_child_exit_code": 1
+    },
+    {
+      "observed_at_utc": "2026-10-05T07:24:51.0390778Z",
+      "result": "Passed",
+      "total_count": 287,
+      "passed_count": 287,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "duration_seconds": 238.7905426,
+      "failed_tests": [],
+      "persistent_policy_unchanged": true,
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -ResultDirectory .scratch/M3-T01-attempt2-final-ps7",
+      "artifact_path": ".scratch/M3-T01-attempt2-final-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M3-T01-attempt2-final-ps7/summary.json": "9119dab7980473a87b3169075b0b55b9794e5bd8900997d11de0856e305eb5e1",
+        ".scratch/M3-T01-attempt2-final-ps7/results.xml": "766415d85037950aa5fc144cff34ea5e21e394e4735ba9105d759482095fc4b1",
+        ".scratch/M3-T01-attempt2-final-ps7-console.log": "a362413bced21bbd73213162d37a93e6f6dc43bab88a232911d49d6cb159c181"
+      },
+      "observed_native_child_exit_code": 0
+    },
+    {
+      "observed_at_utc": "2026-10-05T07:28:55.0503547Z",
+      "result": "Failed",
+      "total_count": 288,
+      "passed_count": 287,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "not_run_count": 0,
+      "inconclusive_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "duration_seconds": 232.6305651,
+      "failed_tests": [
+        "T007 runner credibility control.deliberate assertion must fail"
+      ],
+      "persistent_policy_unchanged": true,
+      "command": "pwsh.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File tests/Invoke-Tests.ps1 -DeliberateFailure -ResultDirectory .scratch/M3-T01-attempt2-control-ps7",
+      "artifact_path": ".scratch/M3-T01-attempt2-control-ps7/summary.json",
+      "artifact_sha256": {
+        ".scratch/M3-T01-attempt2-control-ps7/summary.json": "59a2a2a5e3eef6f197486384f976df3e516eb4ebc376bb2e4360c23fef64c19a",
+        ".scratch/M3-T01-attempt2-control-ps7/results.xml": "b356c61d8ff5ee4f84c8ceee3c2f58e908d8a78f2614d44e2159ec2521748b80",
+        ".scratch/M3-T01-attempt2-control-ps7-console.log": "79a5520c5d7686e73cc0cffe267189c3b53b547eb6c2cfdc19a35497ccce7ee0"
+      },
+      "observed_native_child_exit_code": 1
+    }
+  ],
+  "desktop_native_child_verification": {
+    "implementation": "66f609ad32637d82ce1e9918ea1600400378422e",
+    "observed_at_utc": "2026-10-05T07:32:58.345908+00:00",
+    "clean": true,
+    "raw_git_source_bindings": 28,
+    "binding_audit": {
+      "path": ".scratch/M3-T01-attempt2-desktop-binding-audit.json",
+      "sha256": "c08f06bf46eb0245c966c7b3a73c521bfbb976c1c5f952ca58aef5a227b019f4"
+    },
+    "controller": {
+      "path": ".scratch/M3-T01-run-desktop.ps1",
+      "sha256": "6614d9c2d3a0a155f78dde86eb298b638b683f4d2d9f3479bf4ae749fff8e483"
+    },
+    "native_records": [
+      {
+        "path": ".scratch/M3-T01-attempt2-desktop-native-ps51.json",
+        "sha256": "b9e4eac83b5b29ce07424f67aaa8ccef5853bcbb4d5a37ad8c5c2d5efe659fc1"
+      },
+      {
+        "path": ".scratch/M3-T01-attempt2-desktop-native-ps7.json",
+        "sha256": "9f8280f43e4de40d0367c1420de5745421c5f7b857a925add67c09d884fdf8b3"
+      }
+    ],
+    "runs": [
+      {
+        "label": "final-ps51",
+        "exit": 0,
+        "total": 287,
+        "passed": 287,
+        "failed": 0,
+        "console_path": ".scratch/M3-T01-attempt2-final-ps51-console.log",
+        "console_sha256": "344e5f0c0882eb5dd19ee90cbb7e5f5dc2d9e60384a2decc9651761d2654d316",
+        "started_at_utc": "2026-10-05T07:24:48.7978743Z",
+        "completed_at_utc": "2026-10-05T07:28:39.0171804Z"
+      },
+      {
+        "label": "control-ps51",
+        "exit": 1,
+        "total": 288,
+        "passed": 287,
+        "failed": 1,
+        "console_path": ".scratch/M3-T01-attempt2-control-ps51-console.log",
+        "console_sha256": "0cd3dbfd120579c21cadcc0c032e3326b28f9364936327082a5a910a58b2c60e",
+        "started_at_utc": "2026-10-05T07:28:39.2324468Z",
+        "completed_at_utc": "2026-10-05T07:32:27.7432597Z"
+      },
+      {
+        "label": "final-ps7",
+        "exit": 0,
+        "total": 287,
+        "passed": 287,
+        "failed": 0,
+        "console_path": ".scratch/M3-T01-attempt2-final-ps7-console.log",
+        "console_sha256": "a362413bced21bbd73213162d37a93e6f6dc43bab88a232911d49d6cb159c181",
+        "started_at_utc": "2026-10-05T07:24:50.0340161Z",
+        "completed_at_utc": "2026-10-05T07:28:53.7895575Z"
+      },
+      {
+        "label": "control-ps7",
+        "exit": 1,
+        "total": 288,
+        "passed": 287,
+        "failed": 1,
+        "console_path": ".scratch/M3-T01-attempt2-control-ps7-console.log",
+        "console_sha256": "79a5520c5d7686e73cc0cffe267189c3b53b547eb6c2cfdc19a35497ccce7ee0",
+        "started_at_utc": "2026-10-05T07:28:53.9646088Z",
+        "completed_at_utc": "2026-10-05T07:32:51.8426560Z"
+      }
+    ],
+    "source_artifact": ".scratch/M3-T01-attempt2-desktop-verification.json",
+    "source_artifact_sha256": "06e395ff6769a3234ae55293e2438b4f2554bf7ae8d0397cad789ed393ae540a"
+  },
+  "case_results": [
+    {
+      "case_id": "T047",
+      "state": "passed",
+      "reason": "Both actual fresh Windows hosts establish UnauthorizedAccess directory enumeration using an explicit owned ListDirectory deny ACE. Accessible native JPEG/video siblings complete; denied-only batch returns warning outcome; scan reports one incomplete directory and unknown files remain uncounted. Applied source ACL is not changed by the application, original DACL restored exactly in finally, and source hashes/creation/modified/directory state match. The denied-only fixture explicitly establishes a no-auto-inheritance original descriptor before the source baseline. Original full requested mask7 owner/group/DACL descriptor bytes, DACL bytes, SDDL and control flags are restored exactly using a fixture-only selected native DACL write, while natural auto-inherited originals retain Set-Acl. Applied descriptor/control/DACL hashes remain unchanged by the application before finally restoration."
+    },
+    {
+      "case_id": "T048",
+      "state": "passed",
+      "reason": "Actual owned junction loop and outside junction are skipped with accessible native siblings, two skipped links and warning outcome; outside/source state retained. Actual source-root junction alias fails setup before output creation. Optional real file-symlink attempt is unavailable with Win32 1314 and is explicitly not actual file-symlink coverage; existing controlled file-reparse tests remain separate."
+    },
+    {
+      "case_id": "T049",
+      "state": "passed",
+      "reason": "Controlled initial log creation and late SUMMARY/Processing-ended append failures retain actual validated JPEG/video media and persist one degraded warning. Exclusively held real log makes actual Add-Content append fail during delegated native conversion. Bounded fallback retains quiet diagnostics, counts dropped/truncated lines, disables failed sink after one attempt, emits once and catches unavailable emergency stderr. Fresh-child PipelineStopped helper state proves propagation is not ordinary log I/O degradation; no Ctrl+C lifecycle claim."
+    },
+    {
+      "case_id": "T050",
+      "state": "passed",
+      "reason": "Four actual-media runs independently inject LastWriteTimeUtc or CreationTimeUtc setter failure on finalized image/video. Each attempts the other field, retains valid data and exact video bytes, completes later siblings, reports one timestamp warning/zero file errors, preserves warning duplicate status, retains sources and empties owned work."
+    }
+  ],
+  "case_notes": {
+    "task_id": "M3-T01",
+    "suite": "tests/RecoveryReporting.Tests.ps1",
+    "suite_sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+    "suite_bindings": [
+      {
+        "path": "tests/RecoveryReporting.Tests.ps1",
+        "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "sha256": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86"
+      },
+      {
+        "path": "tests/README.md",
+        "sha256": "eed7cb9591409f6e877d4cebc083c4a6589d2a39acad8613a639d9aee26a81a9"
+      }
+    ],
+    "qualification": "Corrected frozen test implementation. Five actual focused development histories and initial committed failures are separate from subsequent exact-I2 full normal/control gates; no final acceptance claim before those gates.",
+    "case_results": [
+      {
+        "id": "T047",
+        "state": "passed",
+        "reason": "Both actual fresh Windows hosts establish UnauthorizedAccess directory enumeration using an explicit owned ListDirectory deny ACE. Accessible native JPEG/video siblings complete; denied-only batch returns warning outcome; scan reports one incomplete directory and unknown files remain uncounted. Applied source ACL is not changed by the application, original DACL restored exactly in finally, and source hashes/creation/modified/directory state match. The denied-only fixture explicitly establishes a no-auto-inheritance original descriptor before the source baseline. Original full requested mask7 owner/group/DACL descriptor bytes, DACL bytes, SDDL and control flags are restored exactly using a fixture-only selected native DACL write, while natural auto-inherited originals retain Set-Acl. Applied descriptor/control/DACL hashes remain unchanged by the application before finally restoration."
+      },
+      {
+        "id": "T048",
+        "state": "passed",
+        "reason": "Actual owned junction loop and outside junction are skipped with accessible native siblings, two skipped links and warning outcome; outside/source state retained. Actual source-root junction alias fails setup before output creation. Optional real file-symlink attempt is unavailable with Win32 1314 and is explicitly not actual file-symlink coverage; existing controlled file-reparse tests remain separate."
+      },
+      {
+        "id": "T049",
+        "state": "passed",
+        "reason": "Controlled initial log creation and late SUMMARY/Processing-ended append failures retain actual validated JPEG/video media and persist one degraded warning. Exclusively held real log makes actual Add-Content append fail during delegated native conversion. Bounded fallback retains quiet diagnostics, counts dropped/truncated lines, disables failed sink after one attempt, emits once and catches unavailable emergency stderr. Fresh-child PipelineStopped helper state proves propagation is not ordinary log I/O degradation; no Ctrl+C lifecycle claim."
+      },
+      {
+        "id": "T050",
+        "state": "passed",
+        "reason": "Four actual-media runs independently inject LastWriteTimeUtc or CreationTimeUtc setter failure on finalized image/video. Each attempts the other field, retains valid data and exact video bytes, completes later siblings, reports one timestamp warning/zero file errors, preserves warning duplicate status, retains sources and empties owned work."
+      }
+    ],
+    "targeted_histories": [
+      {
+        "result_directory": ".scratch/M3-T01-target-ps7-1",
+        "host": "ps7",
+        "attempt": 1,
+        "phase": "initial focused",
+        "total": 16,
+        "passed": 15,
+        "failed": 1,
+        "native_child_exit": 1,
+        "skipped": 0,
+        "not_run": 0,
+        "inconclusive": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "persistent_policy_unchanged": true,
+        "source_bindings_unchanged": true,
+        "xml_failed_tests": [
+          "M3-T01 inaccessible traversal and ancillary reporting (T047-T050).T048 skips a real junction loop/outside junction and available file symlink while preserving native siblings and outside content"
+        ],
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T01-target-ps7-1/summary.json",
+            "sha256": "451e9ccbfb32b077ab809f47e13893d063445e7240e4246ceb7ec41f07af3576"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-1/results.xml",
+            "sha256": "3415b4659c2f5260e16419995956eeaccca238ecbf9f29aa315be6afdcbff78b"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-1-console.log",
+            "sha256": "de8d936825c5924f101e6688c2085a3278c6f4d87f80aab8fba1977421ad97e0"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-1-native.json",
+            "sha256": "911cef4be319628ccc3ab3753a891c1a60f9cca702350562c14c5bc9f1e25cef"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-1-suite.ps1",
+            "sha256": "75dec6e56254df8e0c63d891cae930852bb80303a24a6474ea77db1ed00afb30"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-1-runtime.ps1",
+            "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          },
+          {
+            "path": ".scratch/M3-T01-recovery-89a85de919bc476dbdd7b8e573a8529f/recovery-observations.json",
+            "sha256": "61e0f5311fa5fb0b0aedd724b9c4f351b1ca2a573942426d1e9579ce053649cf"
+          }
+        ],
+        "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate.",
+        "diagnosis": "Only file-symlink fixture precondition failed before that traversal invocation. Default P/Invoke bool marshaling falsely reported success for a BOOLEAN return; no link existed. Byte-return MarshalAs(I1) probe established Win32 1314 privilege absence. All other 15 cases passed; original result and bytes retained."
+      },
+      {
+        "result_directory": ".scratch/M3-T01-target-ps7-2",
+        "host": "ps7",
+        "attempt": 2,
+        "phase": "initial focused",
+        "total": 16,
+        "passed": 16,
+        "failed": 0,
+        "native_child_exit": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "inconclusive": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "persistent_policy_unchanged": true,
+        "source_bindings_unchanged": true,
+        "xml_failed_tests": [],
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T01-target-ps7-2/summary.json",
+            "sha256": "aa1207598f63109bf86ab0ba5f3e3d3db795ed07fd479dca6b9fcc872498b1c3"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-2/results.xml",
+            "sha256": "a39465ae4fb65900a2ef78d57994a2dbe68eb9156d3c3ab27d2ed725333a2a8c"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-2-console.log",
+            "sha256": "774491b815ee53b9ab9244ccfb265fb435e5b740e379e9978a850b5b3a44c0e1"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-2-native.json",
+            "sha256": "52bf11aadd9afda0c8805102ca55d4d898b17a2b36add32c0766887763fc6c8a"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-2-suite.ps1",
+            "sha256": "4d2b48aa6e3162ccafb66a0e89646698358660345642f834ef3d22c1855f964a"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-2-runtime.ps1",
+            "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          },
+          {
+            "path": ".scratch/M3-T01-recovery-abc13e0a74d849ae81ddf9c409dba9e1/recovery-observations.json",
+            "sha256": "efe1c9ffe594cc6d83f6064205e65774d76315a75c7969fda7521526926d120d"
+          }
+        ],
+        "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate."
+      },
+      {
+        "result_directory": ".scratch/M3-T01-target-ps51-1",
+        "host": "ps51",
+        "attempt": 1,
+        "phase": "initial focused",
+        "total": 16,
+        "passed": 16,
+        "failed": 0,
+        "native_child_exit": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "inconclusive": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "persistent_policy_unchanged": true,
+        "source_bindings_unchanged": true,
+        "xml_failed_tests": [],
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T01-target-ps51-1/summary.json",
+            "sha256": "5dbc38e1e3f8b9ae72524d04d89e76d02ff8889d7a2ef0d212152ce623039d88"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-1/results.xml",
+            "sha256": "ab31374c1b836e3052ba7c53a7dafc786e0cfbac88de6aab222cb07721b40b20"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-1-console.log",
+            "sha256": "687f03f21545f372daf7cb2053e40177dd65b551a41a3c81830928cf3d3aa9f6"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-1-native.json",
+            "sha256": "241c30b3b67eb5c0378a55a98ffc58cbfc09dfef276e564e8b3f7b24e3ecb2c3"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-1-suite.ps1",
+            "sha256": "4d2b48aa6e3162ccafb66a0e89646698358660345642f834ef3d22c1855f964a"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-1-runtime.ps1",
+            "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          },
+          {
+            "path": ".scratch/M3-T01-recovery-24f4d90698fc495aa53e3d9fdb9925d0/recovery-observations.json",
+            "sha256": "38ccecc820df2e07bbcab6c0737a157e5738ba58778ee76f61fc15fa0225aedf"
+          }
+        ],
+        "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate."
+      },
+      {
+        "result_directory": ".scratch/M3-T01-target-ps7-3",
+        "host": "ps7",
+        "attempt": 3,
+        "phase": "corrected fixture focused",
+        "total": 16,
+        "passed": 16,
+        "failed": 0,
+        "native_child_exit": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "inconclusive": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "persistent_policy_unchanged": true,
+        "source_bindings_unchanged": true,
+        "xml_failed_tests": [],
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T01-target-ps7-3/summary.json",
+            "sha256": "15364b05b4d64bdef28562ab144b4d6c2088bcb895de109d84b44578206ffe0c"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-3/results.xml",
+            "sha256": "d8ff944d28d40cf0cebc03a63550a681adb0a3f1ac305a55627424ed02274070"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-3-console.log",
+            "sha256": "634b11d780c46bae83053e69f31c1aa55fa4a21c399b20988ff296e15c1a03bb"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-3-native.json",
+            "sha256": "1b96c107687a7d908e846a753b0e1e555e806a916717b7565b29a1f86eb012e3"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-3-suite.ps1",
+            "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps7-3-runtime.ps1",
+            "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          },
+          {
+            "path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/recovery-observations.json",
+            "sha256": "9cfa5ca2ca5863da02c3b2f1d382c580caff2bafd7fddbf1f57356c6abb6eca4"
+          }
+        ],
+        "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate."
+      },
+      {
+        "result_directory": ".scratch/M3-T01-target-ps51-2",
+        "host": "ps51",
+        "attempt": 2,
+        "phase": "corrected fixture focused",
+        "total": 16,
+        "passed": 16,
+        "failed": 0,
+        "native_child_exit": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "inconclusive": 0,
+        "failed_blocks": 0,
+        "failed_containers": 0,
+        "persistent_policy_unchanged": true,
+        "source_bindings_unchanged": true,
+        "xml_failed_tests": [],
+        "artifacts": [
+          {
+            "path": ".scratch/M3-T01-target-ps51-2/summary.json",
+            "sha256": "db1260edd756157a668d42ca6bea9cd032e51fb9687c2e60d79c92b8841d8e3d"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-2/results.xml",
+            "sha256": "514e5dcbdcf7be1af7b09dde3cd2790a3d993f9ff6c001604695198ea89cae2f"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-2-console.log",
+            "sha256": "b07d848595e4a4b30e9a5c889d768e7b1ccec70a963e0fe8c18308789dc0d0bc"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-2-native.json",
+            "sha256": "0533485ba53ca128e8acdd6ebdb3daa994f0bd909c8c6aaf7c5c542aad018192"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-2-suite.ps1",
+            "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+          },
+          {
+            "path": ".scratch/M3-T01-target-ps51-2-runtime.ps1",
+            "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          },
+          {
+            "path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/recovery-observations.json",
+            "sha256": "e37ed1fbd01d4ef8502f6c5efa075d7981f270bf7cf9e98aa79f8192d8788236"
+          }
+        ],
+        "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate."
+      }
+    ],
+    "recovery_observations": [
+      {
+        "host": "ps7",
+        "phase": "corrected fixture focused",
+        "actual_acl_descriptors": [
+          {
+            "EligibleSiblings": true,
+            "OriginalAutoInherited": true,
+            "OriginalControl": 33796,
+            "RestoredControl": 33796,
+            "OriginalDescriptorSha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2",
+            "RestoredDescriptorSha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2",
+            "OriginalDaclSha256": "0acec45260e411525e1857ddb92cdaa5aa06a8111905786e9434bb15ba86b654",
+            "RestoredDaclSha256": "0acec45260e411525e1857ddb92cdaa5aa06a8111905786e9434bb15ba86b654",
+            "DescriptorArtifacts": [
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-siblings-natural-descriptor.bin",
+                "Sha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-siblings-original-descriptor.bin",
+                "Sha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-siblings-applied-descriptor.bin",
+                "Sha256": "a1be8d1f19b31a5be583df26bf57997d90aa94e47f82f1d3fef6f4658d877bac"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-siblings-after-application-descriptor.bin",
+                "Sha256": "a1be8d1f19b31a5be583df26bf57997d90aa94e47f82f1d3fef6f4658d877bac"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-siblings-restored-descriptor.bin",
+                "Sha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2"
+              }
+            ]
+          },
+          {
+            "EligibleSiblings": false,
+            "OriginalAutoInherited": false,
+            "OriginalControl": 32772,
+            "RestoredControl": 32772,
+            "OriginalDescriptorSha256": "8748f71b36b375631fd5bed2f5e5e5b9c255a2b612310c3252c008acb008f44c",
+            "RestoredDescriptorSha256": "8748f71b36b375631fd5bed2f5e5e5b9c255a2b612310c3252c008acb008f44c",
+            "OriginalDaclSha256": "0acec45260e411525e1857ddb92cdaa5aa06a8111905786e9434bb15ba86b654",
+            "RestoredDaclSha256": "0acec45260e411525e1857ddb92cdaa5aa06a8111905786e9434bb15ba86b654",
+            "DescriptorArtifacts": [
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-denied-only-natural-descriptor.bin",
+                "Sha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-denied-only-original-descriptor.bin",
+                "Sha256": "8748f71b36b375631fd5bed2f5e5e5b9c255a2b612310c3252c008acb008f44c"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-denied-only-applied-descriptor.bin",
+                "Sha256": "a1be8d1f19b31a5be583df26bf57997d90aa94e47f82f1d3fef6f4658d877bac"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-denied-only-after-application-descriptor.bin",
+                "Sha256": "a1be8d1f19b31a5be583df26bf57997d90aa94e47f82f1d3fef6f4658d877bac"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/acl-denied-only-restored-descriptor.bin",
+                "Sha256": "8748f71b36b375631fd5bed2f5e5e5b9c255a2b612310c3252c008acb008f44c"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/recovery-observations.json",
+          "sha256": "9cfa5ca2ca5863da02c3b2f1d382c580caff2bafd7fddbf1f57356c6abb6eca4"
+        },
+        "environment": {
+          "PowerShell": "7.6.5",
+          "Edition": "Core",
+          "Culture": "fi-FI",
+          "ArchitectureBits": 64
+        },
+        "native_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org\r\nCopyright: (C) 1999 ImageMagick Studio LLC\r\nLicense: https://imagemagick.org/license/\r\nFeatures: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) \r\nDelegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd\r\nCompiler: Visual Studio 2026 (195136257)\r\n",
+        "actual_acl_denial_cases": 2,
+        "original_dacl_restored_exactly": true,
+        "source_hash_creation_modified_directory_state_unchanged": true,
+        "application_invocations": 13,
+        "actual_full_jpeg_decode_observations": 12,
+        "file_symlink": {
+          "state": "unavailable",
+          "native_error": 1314,
+          "reason": "Host lacks required privilege; no actual file symlink exists and no file-symlink traversal pass is claimed."
+        },
+        "actual_junction_loop_outside_and_root_alias": "passed; no linked outside content normalized",
+        "isolated_pipeline_stop": {
+          "native_child_exit": 0,
+          "finally_state_saved": true,
+          "continuation_reached": false,
+          "ordinary_log_failure_count": 0,
+          "qualification": "Controlled helper PipelineStoppedException in fresh same-host child; not Ctrl+C or process lifetime validation."
+        },
+        "source_and_tool_bindings": [
+          {
+            "Path": "WinImgNormalizer.ps1",
+            "Sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          },
+          {
+            "Path": "WinImgNormalizer.bat",
+            "Sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46"
+          },
+          {
+            "Path": "tests/RecoveryReporting.Tests.ps1",
+            "Sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+          },
+          {
+            "Path": "tests/Invoke-Tests.ps1",
+            "Sha256": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86"
+          },
+          {
+            "Path": "tests/Initialize-TestDependencies.ps1",
+            "Sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "Path": "tests/dependencies.json",
+            "Sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "Path": "verified ImageMagick executable",
+            "Sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          }
+        ],
+        "retained_artifact_count": 111
+      },
+      {
+        "host": "ps51",
+        "phase": "corrected fixture focused",
+        "actual_acl_descriptors": [
+          {
+            "EligibleSiblings": true,
+            "OriginalAutoInherited": true,
+            "OriginalControl": 33796,
+            "RestoredControl": 33796,
+            "OriginalDescriptorSha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2",
+            "RestoredDescriptorSha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2",
+            "OriginalDaclSha256": "0acec45260e411525e1857ddb92cdaa5aa06a8111905786e9434bb15ba86b654",
+            "RestoredDaclSha256": "0acec45260e411525e1857ddb92cdaa5aa06a8111905786e9434bb15ba86b654",
+            "DescriptorArtifacts": [
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-siblings-natural-descriptor.bin",
+                "Sha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-siblings-original-descriptor.bin",
+                "Sha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-siblings-applied-descriptor.bin",
+                "Sha256": "a1be8d1f19b31a5be583df26bf57997d90aa94e47f82f1d3fef6f4658d877bac"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-siblings-after-application-descriptor.bin",
+                "Sha256": "a1be8d1f19b31a5be583df26bf57997d90aa94e47f82f1d3fef6f4658d877bac"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-siblings-restored-descriptor.bin",
+                "Sha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2"
+              }
+            ]
+          },
+          {
+            "EligibleSiblings": false,
+            "OriginalAutoInherited": false,
+            "OriginalControl": 32772,
+            "RestoredControl": 32772,
+            "OriginalDescriptorSha256": "8748f71b36b375631fd5bed2f5e5e5b9c255a2b612310c3252c008acb008f44c",
+            "RestoredDescriptorSha256": "8748f71b36b375631fd5bed2f5e5e5b9c255a2b612310c3252c008acb008f44c",
+            "OriginalDaclSha256": "0acec45260e411525e1857ddb92cdaa5aa06a8111905786e9434bb15ba86b654",
+            "RestoredDaclSha256": "0acec45260e411525e1857ddb92cdaa5aa06a8111905786e9434bb15ba86b654",
+            "DescriptorArtifacts": [
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-denied-only-natural-descriptor.bin",
+                "Sha256": "1b51ceb9162d311b2e62674195e165b43902ebffdca8b160eef198d6a8655ad2"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-denied-only-original-descriptor.bin",
+                "Sha256": "8748f71b36b375631fd5bed2f5e5e5b9c255a2b612310c3252c008acb008f44c"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-denied-only-applied-descriptor.bin",
+                "Sha256": "a1be8d1f19b31a5be583df26bf57997d90aa94e47f82f1d3fef6f4658d877bac"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-denied-only-after-application-descriptor.bin",
+                "Sha256": "a1be8d1f19b31a5be583df26bf57997d90aa94e47f82f1d3fef6f4658d877bac"
+              },
+              {
+                "Path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/acl-denied-only-restored-descriptor.bin",
+                "Sha256": "8748f71b36b375631fd5bed2f5e5e5b9c255a2b612310c3252c008acb008f44c"
+              }
+            ]
+          }
+        ],
+        "evidence": {
+          "path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/recovery-observations.json",
+          "sha256": "e37ed1fbd01d4ef8502f6c5efa075d7981f270bf7cf9e98aa79f8192d8788236"
+        },
+        "environment": {
+          "PowerShell": "5.1.26100.9444",
+          "Edition": "Desktop",
+          "Culture": "fi-FI",
+          "ArchitectureBits": 64
+        },
+        "native_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org\r\nCopyright: (C) 1999 ImageMagick Studio LLC\r\nLicense: https://imagemagick.org/license/\r\nFeatures: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) \r\nDelegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd\r\nCompiler: Visual Studio 2026 (195136257)\r\n",
+        "actual_acl_denial_cases": 2,
+        "original_dacl_restored_exactly": true,
+        "source_hash_creation_modified_directory_state_unchanged": true,
+        "application_invocations": 13,
+        "actual_full_jpeg_decode_observations": 12,
+        "file_symlink": {
+          "state": "unavailable",
+          "native_error": 1314,
+          "reason": "Host lacks required privilege; no actual file symlink exists and no file-symlink traversal pass is claimed."
+        },
+        "actual_junction_loop_outside_and_root_alias": "passed; no linked outside content normalized",
+        "isolated_pipeline_stop": {
+          "native_child_exit": 0,
+          "finally_state_saved": true,
+          "continuation_reached": false,
+          "ordinary_log_failure_count": 0,
+          "qualification": "Controlled helper PipelineStoppedException in fresh same-host child; not Ctrl+C or process lifetime validation."
+        },
+        "source_and_tool_bindings": [
+          {
+            "Path": "WinImgNormalizer.ps1",
+            "Sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          },
+          {
+            "Path": "WinImgNormalizer.bat",
+            "Sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46"
+          },
+          {
+            "Path": "tests/RecoveryReporting.Tests.ps1",
+            "Sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+          },
+          {
+            "Path": "tests/Invoke-Tests.ps1",
+            "Sha256": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86"
+          },
+          {
+            "Path": "tests/Initialize-TestDependencies.ps1",
+            "Sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "Path": "tests/dependencies.json",
+            "Sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "Path": "verified ImageMagick executable",
+            "Sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          }
+        ],
+        "retained_artifact_count": 111
+      }
+    ],
+    "traversal_policy_observations": [
+      "Folder-by-folder enumeration continues accessible siblings and reports ScanComplete=False with an explicit incomplete-directory count; unreadable unknown files are not invented in counters.",
+      "No application ACL change, linked-target traversal or source-root alias normalization is permitted. Test-only owned DACL setup is restored in finally."
+    ],
+    "reporting_policy_observations": [
+      "One ordinary sink failure disables disk logging. Shared mutable state remains degraded; final reporting state is emitted after the last required log write, including late summary/end failures.",
+      "Fallback budget is 8192 UTF-16 characters, each line capped at 1024; truncation/drop counts and quiet content are asserted. Emergency stderr is best effort and cannot recurse.",
+      "PipelineStoppedException classification proof is controlled and isolated in a child; native zero alone is never accepted without the saved finally-state artifact."
+    ],
+    "timestamp_policy_observations": [
+      "Timestamp writes are separate postfinalization ancillary operations; one failed field does not roll back valid media or prevent trying the other field.",
+      "One warning attribute per output, not another failed file. Retained duplicate mappings use ConvertedWithWarning/CopiedVideoWithWarning."
+    ],
+    "fixture_probe": {
+      "path": ".scratch/M3-T01-link-probe-7448d6d6675a463e85111b7a8bbbef55/capability.json",
+      "sha256": "4d827ba4768824bd29be0772672226b766cdc0e274bd404d9a0f51e835e13749"
+    },
+    "limitations": [
+      "Actual file symlink capability was unavailable on this desktop (Win32 1314); mandatory real junction coverage passed. Hosted capability may differ.",
+      "Logging creation/late-write/broken-stderr and timestamp-field failures are deterministic controlled primitives. Held-log append and native media processing are actual operations.",
+      "These tests do not establish cancellation/deadline/Ctrl+C process lifecycle, recovery from unreadable private media, or all network/filesystem variants."
+    ],
+    "development_diagnosis": {
+      "initial_target_preserved": true,
+      "initial_failure": "Native fixture BOOLEAN return lacked I1 marshaling and falsely reported link creation. Correct byte-return probe established no link and privilege 1314; the optional capability observation was qualified, mandatory junction assertions unchanged.",
+      "runtime_changed_for_correction": false,
+      "runtime_sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e",
+      "hosted_acl_failure": "Initial hosted restoration used Set-Acl for a legacy no-AI original. Windows added the DACL auto-inherited control flag, so exact original SDDL restoration failed in both T047 variants. This failure is retained; no SDDL comparison was stripped or relaxed.",
+      "fixture_repair": "Preserve native original mask7 descriptor and selected DACL bytes/control. Use Set-Acl only for original auto-inherited state; otherwise write the original binary descriptor with SetFileSecurityW mask4. Explicit owned no-AI denied-only baseline precedes source snapshot; all exact byte/hash/control/Sddl checks remain mandatory."
+    },
+    "historical_recovery_observations": [
+      {
+        "host": "ps7",
+        "phase": "initial focused",
+        "actual_acl_descriptors": [],
+        "evidence": {
+          "path": ".scratch/M3-T01-recovery-abc13e0a74d849ae81ddf9c409dba9e1/recovery-observations.json",
+          "sha256": "efe1c9ffe594cc6d83f6064205e65774d76315a75c7969fda7521526926d120d"
+        },
+        "environment": {
+          "PowerShell": "7.6.5",
+          "Edition": "Core",
+          "Culture": "fi-FI",
+          "ArchitectureBits": 64
+        },
+        "native_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org\r\nCopyright: (C) 1999 ImageMagick Studio LLC\r\nLicense: https://imagemagick.org/license/\r\nFeatures: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) \r\nDelegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd\r\nCompiler: Visual Studio 2026 (195136257)\r\n",
+        "actual_acl_denial_cases": 2,
+        "original_dacl_restored_exactly": true,
+        "source_hash_creation_modified_directory_state_unchanged": true,
+        "application_invocations": 13,
+        "actual_full_jpeg_decode_observations": 12,
+        "file_symlink": {
+          "state": "unavailable",
+          "native_error": 1314,
+          "reason": "Host lacks required privilege; no actual file symlink exists and no file-symlink traversal pass is claimed."
+        },
+        "actual_junction_loop_outside_and_root_alias": "passed; no linked outside content normalized",
+        "isolated_pipeline_stop": {
+          "native_child_exit": 0,
+          "finally_state_saved": true,
+          "continuation_reached": false,
+          "ordinary_log_failure_count": 0,
+          "qualification": "Controlled helper PipelineStoppedException in fresh same-host child; not Ctrl+C or process lifetime validation."
+        },
+        "source_and_tool_bindings": [
+          {
+            "Path": "WinImgNormalizer.ps1",
+            "Sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          },
+          {
+            "Path": "WinImgNormalizer.bat",
+            "Sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46"
+          },
+          {
+            "Path": "tests/RecoveryReporting.Tests.ps1",
+            "Sha256": "4d2b48aa6e3162ccafb66a0e89646698358660345642f834ef3d22c1855f964a"
+          },
+          {
+            "Path": "tests/Invoke-Tests.ps1",
+            "Sha256": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86"
+          },
+          {
+            "Path": "tests/Initialize-TestDependencies.ps1",
+            "Sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "Path": "tests/dependencies.json",
+            "Sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "Path": "verified ImageMagick executable",
+            "Sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          }
+        ],
+        "retained_artifact_count": 101
+      },
+      {
+        "host": "ps51",
+        "phase": "initial focused",
+        "actual_acl_descriptors": [],
+        "evidence": {
+          "path": ".scratch/M3-T01-recovery-24f4d90698fc495aa53e3d9fdb9925d0/recovery-observations.json",
+          "sha256": "38ccecc820df2e07bbcab6c0737a157e5738ba58778ee76f61fc15fa0225aedf"
+        },
+        "environment": {
+          "PowerShell": "5.1.26100.9444",
+          "Edition": "Desktop",
+          "Culture": "fi-FI",
+          "ArchitectureBits": 64
+        },
+        "native_version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org\r\nCopyright: (C) 1999 ImageMagick Studio LLC\r\nLicense: https://imagemagick.org/license/\r\nFeatures: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) \r\nDelegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd\r\nCompiler: Visual Studio 2026 (195136257)\r\n",
+        "actual_acl_denial_cases": 2,
+        "original_dacl_restored_exactly": true,
+        "source_hash_creation_modified_directory_state_unchanged": true,
+        "application_invocations": 13,
+        "actual_full_jpeg_decode_observations": 12,
+        "file_symlink": {
+          "state": "unavailable",
+          "native_error": 1314,
+          "reason": "Host lacks required privilege; no actual file symlink exists and no file-symlink traversal pass is claimed."
+        },
+        "actual_junction_loop_outside_and_root_alias": "passed; no linked outside content normalized",
+        "isolated_pipeline_stop": {
+          "native_child_exit": 0,
+          "finally_state_saved": true,
+          "continuation_reached": false,
+          "ordinary_log_failure_count": 0,
+          "qualification": "Controlled helper PipelineStoppedException in fresh same-host child; not Ctrl+C or process lifetime validation."
+        },
+        "source_and_tool_bindings": [
+          {
+            "Path": "WinImgNormalizer.ps1",
+            "Sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          },
+          {
+            "Path": "WinImgNormalizer.bat",
+            "Sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46"
+          },
+          {
+            "Path": "tests/RecoveryReporting.Tests.ps1",
+            "Sha256": "4d2b48aa6e3162ccafb66a0e89646698358660345642f834ef3d22c1855f964a"
+          },
+          {
+            "Path": "tests/Invoke-Tests.ps1",
+            "Sha256": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86"
+          },
+          {
+            "Path": "tests/Initialize-TestDependencies.ps1",
+            "Sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          },
+          {
+            "Path": "tests/dependencies.json",
+            "Sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          },
+          {
+            "Path": "verified ImageMagick executable",
+            "Sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          }
+        ],
+        "retained_artifact_count": 101
+      }
+    ],
+    "original_focused_notes": {
+      "path": ".scratch/M3-T01-recovery-case-notes.json",
+      "sha256": "f2bd8b9a1e4e33fa51f3faa3eb3739fcf4e69873c7c091fb36021b31fc1b498f"
+    },
+    "initial_committed_failure_history": {
+      "desktop": {
+        "path": ".scratch/M3-T01-initial-I-committed-history.json",
+        "sha256": "10367e41da038374881965d36e976f6d0e566ccbb4f44a3e905fa295c891f27d"
+      },
+      "ci_original": {
+        "path": ".scratch/M3-T01-initial-I-ci-collected-original.json",
+        "sha256": "ae9c54a3550400bb6b1aef769ad628600a3753e0d7697b5b1e6ff9c3377c11e5"
+      },
+      "implementation_commit": "9b95901f96afe033dd2b4836e4fdb15d0324a0e7",
+      "qualification": "Initial committed failures remain historical evidence; they are not relabeled as corrected acceptance."
+    },
+    "probe_provenance": {
+      "source": {
+        "path": ".scratch/M3-T01-probe-dacl.ps1",
+        "sha256": "e5889cc50bf24e02e8892f19e58f29b6c00d9e4b6a41adc5540b85cbd6e91152"
+      },
+      "results": [
+        {
+          "path": ".scratch/M3-T01-dacl-probe-ps7-7179c03e9a504d4a90f1096b81f4890e/dacl-control-results.json",
+          "sha256": "936a3cace620d9df6fa21aa826fbe4275966697c585811a5be8028128ee7dbb2"
+        },
+        {
+          "path": ".scratch/M3-T01-dacl-probe-ps51-5c674841ffa5435ca2403f06c261daf7/dacl-control-results.json",
+          "sha256": "f18a58119325a0d051bd1b184d0c9a357bb06a00092ffa7d9658c9fb38eb420d"
+        }
+      ],
+      "consoles": [
+        {
+          "path": ".scratch/M3-T01-dacl-probe-ps7-console.log",
+          "sha256": "61d648374b37ac96d2c12f65058f9535edc596c58435e576ea54a218eee6b25d"
+        },
+        {
+          "path": ".scratch/M3-T01-dacl-probe-ps51-console.log",
+          "sha256": "89309e093f1bd20578af4e8beb69cb5d29bf6663fd614e3a61ad3c1fcf228027"
+        }
+      ],
+      "ps51_native": {
+        "path": ".scratch/M3-T01-dacl-probe-ps51-native.json",
+        "sha256": "571b918f823512e9d9f6b75a06e2c01872357460aa968936543e841f99e2b559"
+      },
+      "observed_scenario_count": 4,
+      "actual_denial_and_full_descriptor_dacl_sddl_control_restore": "All four actual local natural/no-AI scenarios passed.",
+      "ps7_native_record_qualification": "Actual native0 was reported from LASTEXITCODE in the tool transcript; no standalone PS7 native record file was saved or invented.",
+      "primary_references": [
+        "https://learn.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-setfilesecurityw",
+        "https://learn.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-getfilesecurityw",
+        "https://learn.microsoft.com/en-us/windows/win32/secauthz/automatic-propagation-of-inheritable-aces"
+      ],
+      "scope": "Owned fixture-only DACL changes; no application permission recovery, global ACL/policy/privilege changes or SACL writes."
+    },
+    "prepared_against_implementation_commit": "66f609ad32637d82ce1e9918ea1600400378422e"
+  },
+  "case_notes_artifact": ".scratch/M3-T01-final-recovery-case-notes.json",
+  "case_notes_artifact_sha256": "a3cbcc841920524fc0fcba955b7b227a6dfd54b45afc36f862d24c96e925534e",
+  "historical_run_results": [
+    {
+      "result_directory": ".scratch/M3-T01-target-ps7-1",
+      "host": "ps7",
+      "attempt": 1,
+      "phase": "initial focused",
+      "total": 16,
+      "passed": 15,
+      "failed": 1,
+      "native_child_exit": 1,
+      "skipped": 0,
+      "not_run": 0,
+      "inconclusive": 0,
+      "failed_blocks": 0,
+      "failed_containers": 0,
+      "persistent_policy_unchanged": true,
+      "source_bindings_unchanged": true,
+      "xml_failed_tests": [
+        "M3-T01 inaccessible traversal and ancillary reporting (T047-T050).T048 skips a real junction loop/outside junction and available file symlink while preserving native siblings and outside content"
+      ],
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T01-target-ps7-1/summary.json",
+          "sha256": "451e9ccbfb32b077ab809f47e13893d063445e7240e4246ceb7ec41f07af3576"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-1/results.xml",
+          "sha256": "3415b4659c2f5260e16419995956eeaccca238ecbf9f29aa315be6afdcbff78b"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-1-console.log",
+          "sha256": "de8d936825c5924f101e6688c2085a3278c6f4d87f80aab8fba1977421ad97e0"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-1-native.json",
+          "sha256": "911cef4be319628ccc3ab3753a891c1a60f9cca702350562c14c5bc9f1e25cef"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-1-suite.ps1",
+          "sha256": "75dec6e56254df8e0c63d891cae930852bb80303a24a6474ea77db1ed00afb30"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-1-runtime.ps1",
+          "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+        },
+        {
+          "path": ".scratch/M3-T01-recovery-89a85de919bc476dbdd7b8e573a8529f/recovery-observations.json",
+          "sha256": "61e0f5311fa5fb0b0aedd724b9c4f351b1ca2a573942426d1e9579ce053649cf"
+        }
+      ],
+      "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate.",
+      "diagnosis": "Only file-symlink fixture precondition failed before that traversal invocation. Default P/Invoke bool marshaling falsely reported success for a BOOLEAN return; no link existed. Byte-return MarshalAs(I1) probe established Win32 1314 privilege absence. All other 15 cases passed; original result and bytes retained."
+    },
+    {
+      "result_directory": ".scratch/M3-T01-target-ps7-2",
+      "host": "ps7",
+      "attempt": 2,
+      "phase": "initial focused",
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "native_child_exit": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "inconclusive": 0,
+      "failed_blocks": 0,
+      "failed_containers": 0,
+      "persistent_policy_unchanged": true,
+      "source_bindings_unchanged": true,
+      "xml_failed_tests": [],
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T01-target-ps7-2/summary.json",
+          "sha256": "aa1207598f63109bf86ab0ba5f3e3d3db795ed07fd479dca6b9fcc872498b1c3"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-2/results.xml",
+          "sha256": "a39465ae4fb65900a2ef78d57994a2dbe68eb9156d3c3ab27d2ed725333a2a8c"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-2-console.log",
+          "sha256": "774491b815ee53b9ab9244ccfb265fb435e5b740e379e9978a850b5b3a44c0e1"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-2-native.json",
+          "sha256": "52bf11aadd9afda0c8805102ca55d4d898b17a2b36add32c0766887763fc6c8a"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-2-suite.ps1",
+          "sha256": "4d2b48aa6e3162ccafb66a0e89646698358660345642f834ef3d22c1855f964a"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-2-runtime.ps1",
+          "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+        },
+        {
+          "path": ".scratch/M3-T01-recovery-abc13e0a74d849ae81ddf9c409dba9e1/recovery-observations.json",
+          "sha256": "efe1c9ffe594cc6d83f6064205e65774d76315a75c7969fda7521526926d120d"
+        }
+      ],
+      "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate."
+    },
+    {
+      "result_directory": ".scratch/M3-T01-target-ps51-1",
+      "host": "ps51",
+      "attempt": 1,
+      "phase": "initial focused",
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "native_child_exit": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "inconclusive": 0,
+      "failed_blocks": 0,
+      "failed_containers": 0,
+      "persistent_policy_unchanged": true,
+      "source_bindings_unchanged": true,
+      "xml_failed_tests": [],
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T01-target-ps51-1/summary.json",
+          "sha256": "5dbc38e1e3f8b9ae72524d04d89e76d02ff8889d7a2ef0d212152ce623039d88"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-1/results.xml",
+          "sha256": "ab31374c1b836e3052ba7c53a7dafc786e0cfbac88de6aab222cb07721b40b20"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-1-console.log",
+          "sha256": "687f03f21545f372daf7cb2053e40177dd65b551a41a3c81830928cf3d3aa9f6"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-1-native.json",
+          "sha256": "241c30b3b67eb5c0378a55a98ffc58cbfc09dfef276e564e8b3f7b24e3ecb2c3"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-1-suite.ps1",
+          "sha256": "4d2b48aa6e3162ccafb66a0e89646698358660345642f834ef3d22c1855f964a"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-1-runtime.ps1",
+          "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+        },
+        {
+          "path": ".scratch/M3-T01-recovery-24f4d90698fc495aa53e3d9fdb9925d0/recovery-observations.json",
+          "sha256": "38ccecc820df2e07bbcab6c0737a157e5738ba58778ee76f61fc15fa0225aedf"
+        }
+      ],
+      "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate."
+    },
+    {
+      "result_directory": ".scratch/M3-T01-target-ps7-3",
+      "host": "ps7",
+      "attempt": 3,
+      "phase": "corrected fixture focused",
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "native_child_exit": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "inconclusive": 0,
+      "failed_blocks": 0,
+      "failed_containers": 0,
+      "persistent_policy_unchanged": true,
+      "source_bindings_unchanged": true,
+      "xml_failed_tests": [],
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T01-target-ps7-3/summary.json",
+          "sha256": "15364b05b4d64bdef28562ab144b4d6c2088bcb895de109d84b44578206ffe0c"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-3/results.xml",
+          "sha256": "d8ff944d28d40cf0cebc03a63550a681adb0a3f1ac305a55627424ed02274070"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-3-console.log",
+          "sha256": "634b11d780c46bae83053e69f31c1aa55fa4a21c399b20988ff296e15c1a03bb"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-3-native.json",
+          "sha256": "1b96c107687a7d908e846a753b0e1e555e806a916717b7565b29a1f86eb012e3"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-3-suite.ps1",
+          "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps7-3-runtime.ps1",
+          "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+        },
+        {
+          "path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/recovery-observations.json",
+          "sha256": "9cfa5ca2ca5863da02c3b2f1d382c580caff2bafd7fddbf1f57356c6abb6eca4"
+        }
+      ],
+      "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate."
+    },
+    {
+      "result_directory": ".scratch/M3-T01-target-ps51-2",
+      "host": "ps51",
+      "attempt": 2,
+      "phase": "corrected fixture focused",
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "native_child_exit": 0,
+      "skipped": 0,
+      "not_run": 0,
+      "inconclusive": 0,
+      "failed_blocks": 0,
+      "failed_containers": 0,
+      "persistent_policy_unchanged": true,
+      "source_bindings_unchanged": true,
+      "xml_failed_tests": [],
+      "artifacts": [
+        {
+          "path": ".scratch/M3-T01-target-ps51-2/summary.json",
+          "sha256": "db1260edd756157a668d42ca6bea9cd032e51fb9687c2e60d79c92b8841d8e3d"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-2/results.xml",
+          "sha256": "514e5dcbdcf7be1af7b09dde3cd2790a3d993f9ff6c001604695198ea89cae2f"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-2-console.log",
+          "sha256": "b07d848595e4a4b30e9a5c889d768e7b1ccec70a963e0fe8c18308789dc0d0bc"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-2-native.json",
+          "sha256": "0533485ba53ca128e8acdd6ebdb3daa994f0bd909c8c6aaf7c5c542aad018192"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-2-suite.ps1",
+          "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+        },
+        {
+          "path": ".scratch/M3-T01-target-ps51-2-runtime.ps1",
+          "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+        },
+        {
+          "path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/recovery-observations.json",
+          "sha256": "e37ed1fbd01d4ef8502f6c5efa075d7981f270bf7cf9e98aa79f8192d8788236"
+        }
+      ],
+      "qualification": "Uncommitted development target with actual raw start/end byte bindings; not a clean-I acceptance gate."
+    }
+  ],
+  "development_focused_runs": [],
+  "historical_committed_desktop": [
+    {
+      "task_id": "M3-T01",
+      "recorded_at_utc": "2026-10-05T07:20:30.798479+00:00",
+      "tested_implementation_commit": "9b95901f96afe033dd2b4836e4fdb15d0324a0e7",
+      "tested_source_bindings": [
+        {
+          "source_path": "WinImgNormalizer.bat",
+          "observed_checkout_sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+          "committed_blob_sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/000-WinImgNormalizer.bat",
+            "sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46"
+          }
+        },
+        {
+          "source_path": "WinImgNormalizer.ps1",
+          "observed_checkout_sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e",
+          "committed_blob_sha256": "56d7c047f48d0fa3d7893f3d268af7149bd2d3cc89e918f200bc8af5c4ba65b4",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/001-WinImgNormalizer.ps1",
+            "sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e"
+          }
+        },
+        {
+          "source_path": "tests/Colour.Tests.ps1",
+          "observed_checkout_sha256": "7a4636687a588878b2a225ec62f9dbda5a28912fc187049e2a11289eef40a6a1",
+          "committed_blob_sha256": "8f91a674d1dd995ef454bd6c51dd9d38e4b94b9e1613c74e8594599e9258b17d",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/002-Colour.Tests.ps1",
+            "sha256": "7a4636687a588878b2a225ec62f9dbda5a28912fc187049e2a11289eef40a6a1"
+          }
+        },
+        {
+          "source_path": "tests/ConversionRegression.Tests.ps1",
+          "observed_checkout_sha256": "fed12f7ba26194f89cbbcd242133d32f0867d7dd56f0cf20a5fe951b314b0334",
+          "committed_blob_sha256": "1e9fe7201be9d9fb9ef4f0f7550ca8624c713a84991f8a461f0a049c93069703",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/003-ConversionRegression.Tests.ps1",
+            "sha256": "fed12f7ba26194f89cbbcd242133d32f0867d7dd56f0cf20a5fe951b314b0334"
+          }
+        },
+        {
+          "source_path": "tests/Diagnostics.Tests.ps1",
+          "observed_checkout_sha256": "d9386f20b5f3d5e00cb762fd9a882735140a350dc1eda002d2657c75a2a2087f",
+          "committed_blob_sha256": "b5a492e9313e142a7b5bf0b95cdfdcc959df2c25db588c27ed912951406b40e9",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/004-Diagnostics.Tests.ps1",
+            "sha256": "d9386f20b5f3d5e00cb762fd9a882735140a350dc1eda002d2657c75a2a2087f"
+          }
+        },
+        {
+          "source_path": "tests/Duplicates.Tests.ps1",
+          "observed_checkout_sha256": "31c20b0edc144f96625cb0d033d2f4160fd98f00e46fe37605cf33f817d63200",
+          "committed_blob_sha256": "6eace9dce4f17f997a865541fbbc74d34d8789a2600e7d87778e8e22d2d58dba",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/005-Duplicates.Tests.ps1",
+            "sha256": "31c20b0edc144f96625cb0d033d2f4160fd98f00e46fe37605cf33f817d63200"
+          }
+        },
+        {
+          "source_path": "tests/Frames.Tests.ps1",
+          "observed_checkout_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+          "committed_blob_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/006-Frames.Tests.ps1",
+            "sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963"
+          }
+        },
+        {
+          "source_path": "tests/Initialize-TestDependencies.ps1",
+          "observed_checkout_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+          "committed_blob_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/007-Initialize-TestDependencies.ps1",
+            "sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef"
+          }
+        },
+        {
+          "source_path": "tests/Invoke-Tests.ps1",
+          "observed_checkout_sha256": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86",
+          "committed_blob_sha256": "41ad7da86bbad3f355c523763ed954a8686a6b9bcd3d5046ae50ed0ae0823399",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/008-Invoke-Tests.ps1",
+            "sha256": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86"
+          }
+        },
+        {
+          "source_path": "tests/Measure-SizeQuality.ps1",
+          "observed_checkout_sha256": "0f4795d028b54e1865c32c8734c1bc287e1cd4a3854a7396329536a1c91e3b7f",
+          "committed_blob_sha256": "9617a19392fcd80145e110498ce3278d3bb5a47785f08dabe8146de97c530987",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/009-Measure-SizeQuality.ps1",
+            "sha256": "0f4795d028b54e1865c32c8734c1bc287e1cd4a3854a7396329536a1c91e3b7f"
+          }
+        },
+        {
+          "source_path": "tests/Naming.Tests.ps1",
+          "observed_checkout_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+          "committed_blob_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/010-Naming.Tests.ps1",
+            "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+          }
+        },
+        {
+          "source_path": "tests/Normalizer.Tests.ps1",
+          "observed_checkout_sha256": "db63550b1bd681753faeef671b4dbb6cdc348947057151386b7b8df90c02d517",
+          "committed_blob_sha256": "a05c93eeb4c7944627ffd68229a7366cc2675e37f826c8d0cc959858c8af4c6d",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/011-Normalizer.Tests.ps1",
+            "sha256": "db63550b1bd681753faeef671b4dbb6cdc348947057151386b7b8df90c02d517"
+          }
+        },
+        {
+          "source_path": "tests/Paths.Tests.ps1",
+          "observed_checkout_sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+          "committed_blob_sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/012-Paths.Tests.ps1",
+            "sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76"
+          }
+        },
+        {
+          "source_path": "tests/Preflight.Tests.ps1",
+          "observed_checkout_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+          "committed_blob_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/013-Preflight.Tests.ps1",
+            "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+          }
+        },
+        {
+          "source_path": "tests/RecoveryReporting.Tests.ps1",
+          "observed_checkout_sha256": "4d2b48aa6e3162ccafb66a0e89646698358660345642f834ef3d22c1855f964a",
+          "committed_blob_sha256": "71342ede7091fe405dfaa9ae5379517624adb19e77483ea31d16b353cfa80dba",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/014-RecoveryReporting.Tests.ps1",
+            "sha256": "4d2b48aa6e3162ccafb66a0e89646698358660345642f834ef3d22c1855f964a"
+          }
+        },
+        {
+          "source_path": "tests/SafetyRegression.Tests.ps1",
+          "observed_checkout_sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+          "committed_blob_sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/015-SafetyRegression.Tests.ps1",
+            "sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4"
+          }
+        },
+        {
+          "source_path": "tests/Sizing.Tests.ps1",
+          "observed_checkout_sha256": "e47608222e85abd7a053caed0c82fbe98708db494ae8fb861727bcaba7f56ad2",
+          "committed_blob_sha256": "60451813374debac44fe53171edbdb298b2b06adeaf11f6430e65a0744e1e273",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/016-Sizing.Tests.ps1",
+            "sha256": "e47608222e85abd7a053caed0c82fbe98708db494ae8fb861727bcaba7f56ad2"
+          }
+        },
+        {
+          "source_path": "tests/Transactions.Tests.ps1",
+          "observed_checkout_sha256": "a61fc822a93406bebd37b9a84e403ea560722ba4c1270dfed819200dd17e713d",
+          "committed_blob_sha256": "e9938010562dcdf4ccc2eb1c66e35077af450778fb75bd1d22a906bbf049d4fc",
+          "binding": "verified CRLF-to-LF only",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/017-Transactions.Tests.ps1",
+            "sha256": "a61fc822a93406bebd37b9a84e403ea560722ba4c1270dfed819200dd17e713d"
+          }
+        },
+        {
+          "source_path": "tests/Traversal.Tests.ps1",
+          "observed_checkout_sha256": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+          "committed_blob_sha256": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/018-Traversal.Tests.ps1",
+            "sha256": "c6e57787ca639f471063825e150c4370e711bb7616133766716b21617281cb0b"
+          }
+        },
+        {
+          "source_path": "tests/dependencies.json",
+          "observed_checkout_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+          "committed_blob_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/019-dependencies.json",
+            "sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+          "observed_checkout_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+          "committed_blob_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/020-AdobeCompat-v2.icc",
+            "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+          "observed_checkout_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+          "committed_blob_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/021-CGATS001Compat-v2-micro.icc",
+            "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/Generate-Reference.py",
+          "observed_checkout_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+          "committed_blob_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/022-Generate-Reference.py",
+            "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/LICENSE-CC0.txt",
+          "observed_checkout_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+          "committed_blob_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/023-LICENSE-CC0.txt",
+            "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/MANIFEST.json",
+          "observed_checkout_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+          "committed_blob_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/024-MANIFEST.json",
+            "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/README.md",
+          "observed_checkout_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+          "committed_blob_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/025-README.md",
+            "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/REFERENCE.json",
+          "observed_checkout_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+          "committed_blob_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/026-REFERENCE.json",
+            "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+          }
+        },
+        {
+          "source_path": "tests/fixtures/colour/sRGB-v4.icc",
+          "observed_checkout_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+          "committed_blob_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+          "binding": "exact bytes",
+          "raw_source_snapshot": {
+            "path": ".scratch/M3-T01-initial-I-source-snapshots/027-sRGB-v4.icc",
+            "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+          }
+        }
+      ],
+      "runs": [
+        {
+          "label": "final-ps51",
+          "result_directory": ".scratch/M3-T01-final-ps51",
+          "total": 287,
+          "passed": 284,
+          "failed": 3,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+            "M1-T02 generated namespace reservations (T016).fails without overwriting a generated log arrival or falling back to TEMP"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T01-final-ps51/summary.json",
+              "sha256": "104f554c099756162a7141ef394ae4f8fb849c037bb0e220616158085f3d5cf4"
+            },
+            {
+              "path": ".scratch/M3-T01-final-ps51/results.xml",
+              "sha256": "89463f5ce835ee5bff6c68d00ef5bdeac872d19eef479421ba984cb03524c36a"
+            },
+            {
+              "path": ".scratch/M3-T01-final-ps51-console.log",
+              "sha256": "f9d8cfd4dfd0625542facad062b118947c9976a12b39d8cd1fe51853e0439679"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "control-ps51",
+          "result_directory": ".scratch/M3-T01-control-ps51",
+          "total": 288,
+          "passed": 284,
+          "failed": 4,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "T007 runner credibility control.deliberate assertion must fail",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+            "M1-T02 generated namespace reservations (T016).fails without overwriting a generated log arrival or falling back to TEMP"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T01-control-ps51/summary.json",
+              "sha256": "2aa3ec926a2e4212c11404c672ad1df2868bac6541b2556a50ae312fc63a19d7"
+            },
+            {
+              "path": ".scratch/M3-T01-control-ps51/results.xml",
+              "sha256": "501a2704641423645ef292f32110f91a57510506a556175077b408c2037293fb"
+            },
+            {
+              "path": ".scratch/M3-T01-control-ps51-console.log",
+              "sha256": "b892fc45544c2f040cf16f07b4cd91fa2b743816aa3df08053cbb56ce9c03121"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "final-ps7",
+          "result_directory": ".scratch/M3-T01-final-ps7",
+          "total": 287,
+          "passed": 284,
+          "failed": 3,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+            "M1-T02 generated namespace reservations (T016).fails without overwriting a generated log arrival or falling back to TEMP"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T01-final-ps7/summary.json",
+              "sha256": "884ce74fb6c50df0f96b9535b06f3959806254724d77f865e1331e71e3a789ce"
+            },
+            {
+              "path": ".scratch/M3-T01-final-ps7/results.xml",
+              "sha256": "247d4242d3442c91cdb2c07d95510cf08849ba556301703afcb22daea7765a0d"
+            },
+            {
+              "path": ".scratch/M3-T01-final-ps7-console.log",
+              "sha256": "b71d12de3b658bc6a29f98fda89d16dedd7e1616e8ca386ef6efd52d3e26b1a9"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "control-ps7",
+          "result_directory": ".scratch/M3-T01-control-ps7",
+          "total": 288,
+          "passed": 284,
+          "failed": 4,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "T007 runner credibility control.deliberate assertion must fail",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+            "M1-T02 generated namespace reservations (T016).fails without overwriting a generated log arrival or falling back to TEMP"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T01-control-ps7/summary.json",
+              "sha256": "b1bdabdbd50d49fe49eee4d69db45e998fe7b3256bd47f8534dbe1b067aea96b"
+            },
+            {
+              "path": ".scratch/M3-T01-control-ps7/results.xml",
+              "sha256": "a687533d5c216bb7f2836c2b442e0a6746291e349ddcd67ee5ef1776f040181c"
+            },
+            {
+              "path": ".scratch/M3-T01-control-ps7-console.log",
+              "sha256": "8597cec691611c872b7e673104fa413810acd7b039373669aac22688208f1b34"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        }
+      ],
+      "native_records": [
+        {
+          "path": ".scratch/M3-T01-desktop-native-ps51.json",
+          "sha256": "219524759bc5785f83b216e9da9b9b563020844e63de99d8518bf4ddae219ebb"
+        },
+        {
+          "path": ".scratch/M3-T01-desktop-native-ps7.json",
+          "sha256": "9f0553a909e22c7edf797a83f093c7b7857a23890621f71c522629caa8565ffe"
+        }
+      ],
+      "qualification": "Completed exact committed revision, including failures or superseded passes. All raw source snapshots were captured before repair; not final acceptance evidence.",
+      "source_artifact": ".scratch/M3-T01-initial-I-committed-history.json",
+      "source_artifact_sha256": "10367e41da038374881965d36e976f6d0e566ccbb4f44a3e905fa295c891f27d"
+    }
+  ],
+  "history_interpretation": "Actual development .scratch/M3-T01-target-ps7-1: 15/16 passed, 1 failed, native exit 1. Only file-symlink fixture precondition failed before that traversal invocation. Default P/Invoke bool marshaling falsely reported success for a BOOLEAN return; no link existed. Byte-return MarshalAs(I1) probe established Win32 1314 privilege absence. All other 15 cases passed; original result and bytes retained.\n\nActual development .scratch/M3-T01-target-ps7-2: 16/16 passed, 0 failed, native exit 0. Details and original source observations are retained in the case notes.\n\nActual development .scratch/M3-T01-target-ps51-1: 16/16 passed, 0 failed, native exit 0. Details and original source observations are retained in the case notes.\n\nActual development .scratch/M3-T01-target-ps7-3: 16/16 passed, 0 failed, native exit 0. Details and original source observations are retained in the case notes.\n\nActual development .scratch/M3-T01-target-ps51-2: 16/16 passed, 0 failed, native exit 0. Details and original source observations are retained in the case notes.\n\nActual early focused history remains in the original M3-T01-recovery-case-notes.json with original summaries/XML/native/console and raw runtime/suite snapshots. PowerShell 7 attempt 1 discovered 16 tests, passed 15 and failed 1, with native exit 1. Its only failure was the T048 file-symlink fixture precondition: default P/Invoke bool return marshaling did not match native one-byte BOOLEAN and falsely reported success while no link existed. A separately preserved byte-return probe established false/Win32 1314 (required privilege not held). The narrow MarshalAs(I1) test correction left runtime bytes unchanged. Corrected PS7 attempt 2 and fresh PS5.1 attempt 1 each passed 16/16 with native exit 0, no incomplete tests and unchanged policies. These early focused results are separate from committed acceptance gates and remain bound to their original source snapshots.\n\nInitial committed implementation 9b95901f96afe033dd2b4836e4fdb15d0324a0e7 then ran four actual desktop gates. Each normal discovered 287 tests, passed 284 and failed 3, with native exit 1; each control discovered 288 tests, passed 284 and failed 4, with native exit 1. The normal failures were both T006 positional variants expecting the obsolete Completed log label, and the old T016 arriving-log assertion expecting setup code 1/no copied video instead of the newly documented warning code 2/retained media policy. Controls additionally failed the intended T007. All four summaries/XML/native/console and 28 raw source snapshots were captured under M3-T01-initial-I-committed-history before repair. These failed controls are not accepted runner-credibility gates because they contain additional failures.\n\nAutomatic initial-I push 37276366241 and PR 37276387760 completed on both hosted shells. Each normal discovered 287 tests, passed 282 and failed 5, with native exit 1; the later control steps were skipped. The same three stale assertions failed, plus both T047 fixture restoration comparisons: Set-Acl added the DACL auto-inherited control flag (D:AI) to an original descriptor lacking it, despite matching ACEs. The application denied-enumeration and sibling/outcome assertions preceded this fixture finally-restoration failure. Original four job transcripts and the original collection bytes remain preserved; no rerun or dispatch was substituted.\n\nThe narrow test repair keeps complete T006 media/default/source/timestamp checks and asserts Processing ended plus actual final clean reporting state. The arriving-log test now requires warning code 2, one copied byte-identical video with original timestamps, one log warning and authoritative degraded final state, exact unchanged foreign log bytes/content/length, empty owned work and no TEMP fallback. Runtime remains frozen. Recovery T047 retains exact ACL equality: owned native DACL probes on both desktop shells compare full descriptor/SDDL/DACL bytes and control flags after real denial, for natural and explicitly no-auto-inherited originals. The fixture restores original binary DACL with SetFileSecurityW(mask 4) only when the original lacks DACL_AUTO_INHERITED; the natural auto-inherited branch retains Set-Acl. The denied-only case establishes the no-AI baseline before recording source state. This is fixture cleanup, not application permission recovery or a change to global security policy.\n\nSeparate tiny peer exception probes and fresh-host controlled PipelineStopped helper observations establish no ordinary continuation and independently written finally state; native zero alone is not completion. They do not establish real Ctrl+C, native deadlines, cancellation or descendant cleanup. Optional actual file-symlink absence on the desktop remains qualified; hosted logs do not establish a positive file-symlink capability. The first prose drafts remain preserved as planning history. Final repaired focused histories and subsequent clean-I normal/control plus automatic hosted matrices are bound separately through actual case notes and evidence. Automated results do not grant owner acceptance.\n\nDevelopment end-of-run hashes are observations, not proof of immutable imported bytes. Final clean-I desktop normal/control and hosted matrices are separate acceptance gates. Prior card histories remain in their original evidence.",
+  "internal_peer_review": {
+    "task_id": "M3-T01",
+    "review_kind": "internal peer final code/test review; not owner or immutable full-suite acceptance",
+    "audited_commit": "66f609ad32637d82ce1e9918ea1600400378422e",
+    "audited_tree": "339fcb783b3b3ab019519ba4078552b5cfc378fe",
+    "baseline_commit": "5cbaa2246923f5bd94066feea34f71e0faafce00",
+    "observed_at_utc": "2026-10-05T07:26:24.870150+00:00",
+    "implementation_diff_sha256": "5ae4381bef817dd4a93891a49b23464a6e975f6c6ff5a3245c711787d4935f09",
+    "implementation_diff_artifact": {
+      "path": ".scratch/M3-T01-final-I-reviewed-implementation.diff",
+      "sha256": "5ae4381bef817dd4a93891a49b23464a6e975f6c6ff5a3245c711787d4935f09",
+      "length": 89716
+    },
+    "reviewed_paths": [
+      "README.md",
+      "WinImgNormalizer.ps1",
+      "docs/codex-winimg/DECISIONS.md",
+      "docs/codex-winimg/SOURCES.md",
+      "tests/Invoke-Tests.ps1",
+      "tests/Normalizer.Tests.ps1",
+      "tests/README.md",
+      "tests/RecoveryReporting.Tests.ps1",
+      "tests/Traversal.Tests.ps1"
+    ],
+    "reviewed_file_bindings": [
+      {
+        "path": "README.md",
+        "observed_checkout_sha256": "f04811aca8a46271bbcb1839d3bcce6c0ec5dca423e6c8cbf713bbd09fc41b49",
+        "reviewed_git_blob_sha256": "79e21227ed9cda6f33040dbfaa52ebb94c7bb8093f2d14cdba46f0c0af3006c9",
+        "reviewed_git_blob_object": "4dbf3360b1a14700ad62a5b47d1d9b6a3f980c5d",
+        "checkout_to_git_normalization": "checkout CRLF to Git LF only; BOM retained"
+      },
+      {
+        "path": "WinImgNormalizer.ps1",
+        "observed_checkout_sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e",
+        "reviewed_git_blob_sha256": "56d7c047f48d0fa3d7893f3d268af7149bd2d3cc89e918f200bc8af5c4ba65b4",
+        "reviewed_git_blob_object": "e8464cbdd6db3b45dfcd3ac4946221362481810e",
+        "checkout_to_git_normalization": "checkout CRLF to Git LF only; BOM retained"
+      },
+      {
+        "path": "docs/codex-winimg/DECISIONS.md",
+        "observed_checkout_sha256": "e31870f4b654b74a48454ccf6f8d59d818478339022587e01c2f70e16a0fcf2d",
+        "reviewed_git_blob_sha256": "c3968215d2a2fa55fbf4c11812fda72b0cf87c71d5e174478088d1c93e6399af",
+        "reviewed_git_blob_object": "cadee0287a519942aac84f94515d9ff058049e3e",
+        "checkout_to_git_normalization": "checkout CRLF to Git LF only; BOM retained"
+      },
+      {
+        "path": "docs/codex-winimg/SOURCES.md",
+        "observed_checkout_sha256": "c50ff4b18ca7a19bb8c0e6a58c131293fb7ce3244e13d8620ee2dfca2f83794a",
+        "reviewed_git_blob_sha256": "e4c4ce5735635bd87564cc21eb4cb43e5043e1dcf4ab94e4d5e90e55a785fa17",
+        "reviewed_git_blob_object": "a000bfea2175a5b3df4953b4068a3db669dcf390",
+        "checkout_to_git_normalization": "checkout CRLF to Git LF only; BOM retained"
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "observed_checkout_sha256": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86",
+        "reviewed_git_blob_sha256": "41ad7da86bbad3f355c523763ed954a8686a6b9bcd3d5046ae50ed0ae0823399",
+        "reviewed_git_blob_object": "1df2f9e04e73ce1b36237f6bdbd5b174944cbb54",
+        "checkout_to_git_normalization": "checkout CRLF to Git LF only; BOM retained"
+      },
+      {
+        "path": "tests/Normalizer.Tests.ps1",
+        "observed_checkout_sha256": "75ae2f894449bc237cfd333943020ed25ab3601e3e469178e8f96f32405f2680",
+        "reviewed_git_blob_sha256": "79346cbd0e12ddd91ad5b87091143c7d58002e3fcc6b63c03e5701a697223fab",
+        "reviewed_git_blob_object": "4f0ae4b3553d05a799b0d4714872813ae900d04d",
+        "checkout_to_git_normalization": "checkout CRLF to Git LF only; BOM retained"
+      },
+      {
+        "path": "tests/README.md",
+        "observed_checkout_sha256": "eed7cb9591409f6e877d4cebc083c4a6589d2a39acad8613a639d9aee26a81a9",
+        "reviewed_git_blob_sha256": "3d137524a284780fbbb09a4b86e6ccc89866f660b56df6da2d53c6f5c1aa1cb7",
+        "reviewed_git_blob_object": "fd1d2ffb9a361458acd3339c927f899b6151fcb8",
+        "checkout_to_git_normalization": "checkout CRLF to Git LF only; BOM retained"
+      },
+      {
+        "path": "tests/RecoveryReporting.Tests.ps1",
+        "observed_checkout_sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+        "reviewed_git_blob_sha256": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc",
+        "reviewed_git_blob_object": "bc69c65c9a6032780cd35609bcd7136c6a03ccb7",
+        "checkout_to_git_normalization": "checkout CRLF to Git LF only; BOM retained"
+      },
+      {
+        "path": "tests/Traversal.Tests.ps1",
+        "observed_checkout_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+        "reviewed_git_blob_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+        "reviewed_git_blob_object": "9cf1315ef0fee7bb71e6e61d601617fe0a876b46",
+        "checkout_to_git_normalization": "none; exact bytes"
+      }
+    ],
+    "unchanged_boundary_bindings": [
+      {
+        "path": "WinImgNormalizer.bat",
+        "git_blob_sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+        "unchanged_across_task": true
+      },
+      {
+        "path": ".github/workflows/windows-tests.yml",
+        "git_blob_sha256": "e166fdec3c7fd1bf2d1c47d520990ac1b0b5ca454763eef0f60d610ff5a0ac1f",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/Initialize-TestDependencies.ps1",
+        "git_blob_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/dependencies.json",
+        "git_blob_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/Measure-SizeQuality.ps1",
+        "git_blob_sha256": "9617a19392fcd80145e110498ce3278d3bb5a47785f08dabe8146de97c530987",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+        "git_blob_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+        "git_blob_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/fixtures/colour/Generate-Reference.py",
+        "git_blob_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+        "git_blob_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/fixtures/colour/MANIFEST.json",
+        "git_blob_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/fixtures/colour/README.md",
+        "git_blob_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/fixtures/colour/REFERENCE.json",
+        "git_blob_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "unchanged_across_task": true
+      },
+      {
+        "path": "tests/fixtures/colour/sRGB-v4.icc",
+        "git_blob_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "unchanged_across_task": true
+      }
+    ],
+    "review_completed": true,
+    "no_blocking_findings": true,
+    "findings": [
+      {
+        "topic": "scope and public contract",
+        "result": "passed",
+        "details": "Nine cumulative scoped paths, including the narrow two existing-test repairs. BAT, workflow, dependencies/assets, public positional forms, native capture/deadlines, encoder flags/scales, colour/frame/literal policy and source transaction guards remain within the reviewed boundary; the four-path I1-to-I2 correction contains only tests and test documentation."
+      },
+      {
+        "topic": "traversal and preserved roots",
+        "result": "passed",
+        "details": "Existing folder stack and root/ancestor/physical-alias rejection stay in place. Scan failure counts distinguish inaccessible directories/uninspectable entries from deliberate link skips; unknown media counts are not invented. Real denied ACL enumeration and mandatory junction loop/outside/root fixtures preserve source state."
+      },
+      {
+        "topic": "log degradation",
+        "result": "passed",
+        "details": "Mutable sink state persists across calls, disk is disabled on first I/O failure, escaped single-line fallback retains at most 8192 UTF-16 characters with 1024-character stored bodies/drop/truncation counts. Final reporting state follows required writes; initial, append, quiet native details, SUMMARY and final-write cases cover warning code 2 and complete valid media."
+      },
+      {
+        "topic": "timestamp finalization and duplicate status",
+        "result": "passed",
+        "details": "Image immutable source creation/modified times and video verified-copy times are used. Independent field setters occur after finalized bytes and before retained duplicate registration; one warning attribute per output keeps data and sibling processing, with warning duplicate status and no invented failed file."
+      },
+      {
+        "topic": "control flow qualification",
+        "result": "passed",
+        "details": "Typed PipelineStoppedException propagation is consistent. Fresh-host helper control requires actual finally state, no continuation and no ordinary I/O degradation; separately inspected actual native zero/complete untruncated streams. Neither this nor minimal prior probes establishes Ctrl+C, cooperative cancellation, native lifetime or cleanup guarantees."
+      },
+      {
+        "topic": "Win32 fixture correction",
+        "result": "passed",
+        "details": "Microsoft declares CreateSymbolicLinkW return BOOLEAN; explicit I1 marshals the one-byte return. Established Traversal fixture already uses I1. Corrected owned probe returns false/error1314 and missing file; mandatory junction coverage remains distinct."
+      },
+      {
+        "topic": "old-policy regression repairs",
+        "result": "passed",
+        "details": "Normalizer T006 now asserts Processing ended and actual clean final reporting state; Traversal T016 retains exact arriving foreign log hash/length/content and no-TEMP, adds one degraded outcome with actual byte-identical timestamp-restored copied video, exactly one foreign log/run/video, empty owned work and unchanged source. Same test cases remain enabled."
+      },
+      {
+        "topic": "strict ACL fixture restoration",
+        "result": "passed",
+        "details": "Recovery retains real denied enumeration; natural inheritance is observed and denied-only explicitly establishes no-AI before source baseline. Fixture-only native mask7 descriptor read/mask4 selected DACL restoration retains owner/group/DACL bytes, DACL bytes, control and SDDL exactly, including applied-vs-after-app equality. Both focused hosts bind ten decoded descriptor artifacts with strict equality; no normalization or runtime permission repair."
+      },
+      {
+        "topic": "historical gate separation",
+        "result": "passed",
+        "details": "Initial I source review is preserved as code review. Its four failed desktop gates, exact28 raw snapshots/Git blobs and failed hosted collections remain distinct; final I2 changes only four test/doc paths relative to I1, runtime is byte-equivalent. Fresh full desktop/control/CI acceptance is required and not asserted here."
+      }
+    ],
+    "initial_implementation": {
+      "commit": "9b95901f96afe033dd2b4836e4fdb15d0324a0e7",
+      "peer_review": {
+        "path": ".scratch/M3-T01-peer-review.json",
+        "sha256": "88849d10ddfefd56a49a64689caa3af71feeec521749735f8afd81635fc3e046",
+        "length": 13594
+      },
+      "committed_failed_desktop_history": {
+        "path": ".scratch/M3-T01-initial-I-committed-history.json",
+        "sha256": "10367e41da038374881965d36e976f6d0e566ccbb4f44a3e905fa295c891f27d",
+        "length": 21451
+      },
+      "four_initial_failed_runs_verified": [
+        {
+          "label": "final-ps51",
+          "result_directory": ".scratch/M3-T01-final-ps51",
+          "total": 287,
+          "passed": 284,
+          "failed": 3,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+            "M1-T02 generated namespace reservations (T016).fails without overwriting a generated log arrival or falling back to TEMP"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T01-final-ps51/summary.json",
+              "sha256": "104f554c099756162a7141ef394ae4f8fb849c037bb0e220616158085f3d5cf4"
+            },
+            {
+              "path": ".scratch/M3-T01-final-ps51/results.xml",
+              "sha256": "89463f5ce835ee5bff6c68d00ef5bdeac872d19eef479421ba984cb03524c36a"
+            },
+            {
+              "path": ".scratch/M3-T01-final-ps51-console.log",
+              "sha256": "f9d8cfd4dfd0625542facad062b118947c9976a12b39d8cd1fe51853e0439679"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "control-ps51",
+          "result_directory": ".scratch/M3-T01-control-ps51",
+          "total": 288,
+          "passed": 284,
+          "failed": 4,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "T007 runner credibility control.deliberate assertion must fail",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+            "M1-T02 generated namespace reservations (T016).fails without overwriting a generated log arrival or falling back to TEMP"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T01-control-ps51/summary.json",
+              "sha256": "2aa3ec926a2e4212c11404c672ad1df2868bac6541b2556a50ae312fc63a19d7"
+            },
+            {
+              "path": ".scratch/M3-T01-control-ps51/results.xml",
+              "sha256": "501a2704641423645ef292f32110f91a57510506a556175077b408c2037293fb"
+            },
+            {
+              "path": ".scratch/M3-T01-control-ps51-console.log",
+              "sha256": "b892fc45544c2f040cf16f07b4cd91fa2b743816aa3df08053cbb56ce9c03121"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "final-ps7",
+          "result_directory": ".scratch/M3-T01-final-ps7",
+          "total": 287,
+          "passed": 284,
+          "failed": 3,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+            "M1-T02 generated namespace reservations (T016).fails without overwriting a generated log arrival or falling back to TEMP"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T01-final-ps7/summary.json",
+              "sha256": "884ce74fb6c50df0f96b9535b06f3959806254724d77f865e1331e71e3a789ce"
+            },
+            {
+              "path": ".scratch/M3-T01-final-ps7/results.xml",
+              "sha256": "247d4242d3442c91cdb2c07d95510cf08849ba556301703afcb22daea7765a0d"
+            },
+            {
+              "path": ".scratch/M3-T01-final-ps7-console.log",
+              "sha256": "b71d12de3b658bc6a29f98fda89d16dedd7e1616e8ca386ef6efd52d3e26b1a9"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        },
+        {
+          "label": "control-ps7",
+          "result_directory": ".scratch/M3-T01-control-ps7",
+          "total": 288,
+          "passed": 284,
+          "failed": 4,
+          "exit": 1,
+          "observed_native_child_exit": 1,
+          "failed_tests": [
+            "T007 runner credibility control.deliberate assertion must fail",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-only positional -File form and ordinary image/video behavior",
+            "M0-T03 callable boundary and positional compatibility.T006 preserves the source-plus-1048576 positional -File form and ordinary image/video behavior",
+            "M1-T02 generated namespace reservations (T016).fails without overwriting a generated log arrival or falling back to TEMP"
+          ],
+          "artifacts": [
+            {
+              "path": ".scratch/M3-T01-control-ps7/summary.json",
+              "sha256": "b1bdabdbd50d49fe49eee4d69db45e998fe7b3256bd47f8534dbe1b067aea96b"
+            },
+            {
+              "path": ".scratch/M3-T01-control-ps7/results.xml",
+              "sha256": "a687533d5c216bb7f2836c2b442e0a6746291e349ddcd67ee5ef1776f040181c"
+            },
+            {
+              "path": ".scratch/M3-T01-control-ps7-console.log",
+              "sha256": "8597cec691611c872b7e673104fa413810acd7b039373669aac22688208f1b34"
+            }
+          ],
+          "incomplete_counts": {
+            "skipped_count": 0,
+            "not_run_count": 0,
+            "inconclusive_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0
+          }
+        }
+      ],
+      "source_snapshot_git_bindings_verified": 28,
+      "failed_hosted_collections": [
+        {
+          "path": ".scratch/M3-T01-initial-I-ci-collected-original.json",
+          "sha256": "ae9c54a3550400bb6b1aef769ad628600a3753e0d7697b5b1e6ff9c3377c11e5",
+          "length": 17894
+        },
+        {
+          "path": ".scratch/M3-T01-initial-I-ci-collected.json",
+          "sha256": "f425274a53952c8594385c49accdd7734fd0416a711c7b807fa69029d83de564",
+          "length": 18937
+        }
+      ],
+      "qualification": "No initial failed gate is accepted or relabeled; hosted failure details are bound in preserved collection and final task evidence."
+    },
+    "initial_to_final_repair": {
+      "changed_paths": [
+        "tests/Normalizer.Tests.ps1",
+        "tests/README.md",
+        "tests/RecoveryReporting.Tests.ps1",
+        "tests/Traversal.Tests.ps1"
+      ],
+      "full_index_binary_diff_sha256": "db4a6f786f9d6bcb5df674e11b16fa085bb909c42d33ad142e5d458393c8cd41",
+      "runtime_unchanged": true,
+      "test_repair_source_freeze": {
+        "path": ".scratch/M3-T01-existing-test-repair-freeze-peer-review.json",
+        "sha256": "7492fbf231582f029988427e4cf98bf19f07370069f25d3fcf3817505d5fb197",
+        "length": 3478
+      },
+      "dacl_probe_peer_review": {
+        "path": ".scratch/M3-T01-dacl-probe-peer-review.json",
+        "sha256": "cecebeed1f7c8844a62f8f01b95dde70deb8018192d6354dadd0037e5f6adc23",
+        "length": 5758
+      }
+    },
+    "focused_development_runs": [
+      {
+        "run": "M3-T01-target-ps7-3",
+        "edition": "Core",
+        "total": 16,
+        "passed": 16,
+        "failed": 0,
+        "native_exit": 0,
+        "zero_incomplete_counts": true,
+        "summary": {
+          "path": ".scratch/M3-T01-target-ps7-3/summary.json",
+          "sha256": "15364b05b4d64bdef28562ab144b4d6c2088bcb895de109d84b44578206ffe0c",
+          "length": 5325
+        },
+        "xml": {
+          "path": ".scratch/M3-T01-target-ps7-3/results.xml",
+          "sha256": "d8ff944d28d40cf0cebc03a63550a681adb0a3f1ac305a55627424ed02274070",
+          "length": 10795
+        },
+        "native": {
+          "path": ".scratch/M3-T01-target-ps7-3-native.json",
+          "sha256": "1b96c107687a7d908e846a753b0e1e555e806a916717b7565b29a1f86eb012e3",
+          "length": 2286
+        },
+        "console": {
+          "path": ".scratch/M3-T01-target-ps7-3-console.log",
+          "sha256": "634b11d780c46bae83053e69f31c1aa55fa4a21c399b20988ff296e15c1a03bb",
+          "length": 3882
+        },
+        "recovery_observations": {
+          "path": ".scratch/M3-T01-recovery-8caea104c8f2421294671e59f0a49a6e/recovery-observations.json",
+          "sha256": "9cfa5ca2ca5863da02c3b2f1d382c580caff2bafd7fddbf1f57356c6abb6eca4",
+          "length": 163510
+        },
+        "owned_artifacts_verified": 111,
+        "native_descriptors_decoded": 10,
+        "exact_applied_after_app_and_original_restored_bytes": true,
+        "explicit_no_ai_baseline": true,
+        "file_symlink_capability": {
+          "created": false,
+          "native_error": 1314,
+          "qualification": "Only actual creation is positive coverage; absence remains unavailable"
+        },
+        "controlled_stop_state_and_native_exit_verified": true,
+        "qualification": "Edited-source focused development, not immutable full acceptance"
+      },
+      {
+        "run": "M3-T01-target-ps51-2",
+        "edition": "Desktop",
+        "total": 16,
+        "passed": 16,
+        "failed": 0,
+        "native_exit": 0,
+        "zero_incomplete_counts": true,
+        "summary": {
+          "path": ".scratch/M3-T01-target-ps51-2/summary.json",
+          "sha256": "db1260edd756157a668d42ca6bea9cd032e51fb9687c2e60d79c92b8841d8e3d",
+          "length": 8379
+        },
+        "xml": {
+          "path": ".scratch/M3-T01-target-ps51-2/results.xml",
+          "sha256": "514e5dcbdcf7be1af7b09dde3cd2790a3d993f9ff6c001604695198ea89cae2f",
+          "length": 10801
+        },
+        "native": {
+          "path": ".scratch/M3-T01-target-ps51-2-native.json",
+          "sha256": "0533485ba53ca128e8acdd6ebdb3daa994f0bd909c8c6aaf7c5c542aad018192",
+          "length": 2244
+        },
+        "console": {
+          "path": ".scratch/M3-T01-target-ps51-2-console.log",
+          "sha256": "b07d848595e4a4b30e9a5c889d768e7b1ccec70a963e0fe8c18308789dc0d0bc",
+          "length": 3902
+        },
+        "recovery_observations": {
+          "path": ".scratch/M3-T01-recovery-f1d6614a242a4c5da2957dd6e4cf6af7/recovery-observations.json",
+          "sha256": "e37ed1fbd01d4ef8502f6c5efa075d7981f270bf7cf9e98aa79f8192d8788236",
+          "length": 229453
+        },
+        "owned_artifacts_verified": 111,
+        "native_descriptors_decoded": 10,
+        "exact_applied_after_app_and_original_restored_bytes": true,
+        "explicit_no_ai_baseline": true,
+        "file_symlink_capability": {
+          "created": false,
+          "native_error": 1314,
+          "qualification": "Only actual creation is positive coverage; absence remains unavailable"
+        },
+        "controlled_stop_state_and_native_exit_verified": true,
+        "qualification": "Edited-source focused development, not immutable full acceptance"
+      }
+    ],
+    "primary_research_artifacts": [
+      {
+        "path": ".scratch/M3-T01-design-peer-review.json",
+        "sha256": "27d5de64d6ff217d82d2827d54b170dee9b51ca2ea08443f886d2ab84a1819ec",
+        "length": 9295
+      },
+      {
+        "path": ".scratch/M3-T01-control-flow-peer-probes.json",
+        "sha256": "79a82a238a8bc3f0ab9ea448a646e49dbd0490ac400d63fd5f2ff05eb0c39c3b",
+        "length": 3565
+      }
+    ],
+    "primary_references": [
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-createsymboliclinkw",
+        "finding": "CreateSymbolicLinkW returns BOOLEAN; zero failure uses GetLastError; unprivileged creation depends on host Developer Mode."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/dotnet/standard/native-interop/customize-struct-marshalling",
+        "finding": "Default Boolean uses Win32 BOOL; I1/U1 represents a one-byte native Boolean."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/api/securitybaseapi/nf-securitybaseapi-setfilesecurityw",
+        "finding": "Obsolete SetFileSecurityW remains documented on Windows; BOOL return and DACL permission are explicit, and directory security is not inherited by children."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/secauthz/automatic-propagation-of-inheritable-aces",
+        "finding": "SetNamedSecurityInfo/SetSecurityInfo impose current inheritance model and set AUTO_INHERITED bits."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/api/aclapi/nf-aclapi-setnamedsecurityinfow",
+        "finding": "Current named-security API automatically propagates inheritable ACEs to existing children."
+      }
+    ],
+    "limitations": [
+      "Fresh immutable final-I desktop/control/hosted gates remain separate and are not claimed by this artifact.",
+      "Natural/no-AI descriptor equality certifies requested owner/group/DACL for these owned fixtures, not SACL/global privileges or arbitrary providers/protection combinations.",
+      "Controlled log/timestamp/helper-stop injections stay distinct from actual ACL/junction/locked-log/native media observations; file-symlink availability remains explicitly qualified.",
+      "PipelineStopped helper proof and minimal host probes do not certify real Ctrl+C/cooperative cancellation/native lifetime/cleanup.",
+      "The reviewer authored only the parent-authorized two-file existing-test patch; root independently reviewed it. Runtime, new Recovery suite and other paths were authored by parent/tests agent.",
+      "Full report/CSV accounting, later deadlines/resources/cancellation and final owner acceptance remain later gates."
+    ],
+    "source_artifact": ".scratch/M3-T01-final-peer-review.json",
+    "source_artifact_sha256": "0f339b5403eadd361c0915c2f8a9a1b0dcf059bee9b7c97470d0137deb6bc8d8",
+    "verified_diff_arguments": [
+      "--full-index",
+      "--binary",
+      "5cbaa2246923f5bd94066feea34f71e0faafce00",
+      "66f609ad32637d82ce1e9918ea1600400378422e"
+    ]
+  },
+  "provenance": {
+    "task_id": "M3-T01",
+    "prepared_at_utc": "2026-10-05T07:33:39.614567+00:00",
+    "reviewed_implementation_commit": "66f609ad32637d82ce1e9918ea1600400378422e",
+    "implementation_tree": "339fcb783b3b3ab019519ba4078552b5cfc378fe",
+    "starting_commit": "5cbaa2246923f5bd94066feea34f71e0faafce00",
+    "implementation_change_paths": [
+      "README.md",
+      "WinImgNormalizer.ps1",
+      "docs/codex-winimg/DECISIONS.md",
+      "docs/codex-winimg/SOURCES.md",
+      "tests/Invoke-Tests.ps1",
+      "tests/Normalizer.Tests.ps1",
+      "tests/README.md",
+      "tests/RecoveryReporting.Tests.ps1",
+      "tests/Traversal.Tests.ps1"
+    ],
+    "full_index_binary_diff_sha256": "5ae4381bef817dd4a93891a49b23464a6e975f6c6ff5a3245c711787d4935f09",
+    "source_raw_git_bindings": [
+      {
+        "path": "WinImgNormalizer.ps1",
+        "observed_checkout_sha256": "8343c6fec090b479a34181f0503cb4e58efca38190cb944dff6b941096eab05e",
+        "committed_blob_sha256": "56d7c047f48d0fa3d7893f3d268af7149bd2d3cc89e918f200bc8af5c4ba65b4",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "WinImgNormalizer.bat",
+        "observed_checkout_sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+        "committed_blob_sha256": "928244eae3e1dbff2f2adcb92fe2ca7f7385d41572d71cb61ba97fd7ce373c46",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Invoke-Tests.ps1",
+        "observed_checkout_sha256": "2f2343e07c10a383d8832864a66fed452d23c0fb27f3bf66e96f3f2b791b9a86",
+        "committed_blob_sha256": "41ad7da86bbad3f355c523763ed954a8686a6b9bcd3d5046ae50ed0ae0823399",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Initialize-TestDependencies.ps1",
+        "observed_checkout_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "committed_blob_sha256": "2a52a1fefba95fd0fac104d301d407cf2c51ac235a8c8d730a2764778ef3f7ef",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/dependencies.json",
+        "observed_checkout_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "committed_blob_sha256": "60982029b53a78b058ff232e461f8563ae1542005d71e6b60ff163e6eb1c870a",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+        "observed_checkout_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "committed_blob_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+        "observed_checkout_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "committed_blob_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/Generate-Reference.py",
+        "observed_checkout_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "committed_blob_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+        "observed_checkout_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "committed_blob_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/MANIFEST.json",
+        "observed_checkout_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "committed_blob_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/README.md",
+        "observed_checkout_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "committed_blob_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/REFERENCE.json",
+        "observed_checkout_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "committed_blob_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/fixtures/colour/sRGB-v4.icc",
+        "observed_checkout_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "committed_blob_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Measure-SizeQuality.ps1",
+        "observed_checkout_sha256": "0f4795d028b54e1865c32c8734c1bc287e1cd4a3854a7396329536a1c91e3b7f",
+        "committed_blob_sha256": "9617a19392fcd80145e110498ce3278d3bb5a47785f08dabe8146de97c530987",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Normalizer.Tests.ps1",
+        "observed_checkout_sha256": "75ae2f894449bc237cfd333943020ed25ab3601e3e469178e8f96f32405f2680",
+        "committed_blob_sha256": "79346cbd0e12ddd91ad5b87091143c7d58002e3fcc6b63c03e5701a697223fab",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Preflight.Tests.ps1",
+        "observed_checkout_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+        "committed_blob_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Traversal.Tests.ps1",
+        "observed_checkout_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+        "committed_blob_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Naming.Tests.ps1",
+        "observed_checkout_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+        "committed_blob_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Transactions.Tests.ps1",
+        "observed_checkout_sha256": "a61fc822a93406bebd37b9a84e403ea560722ba4c1270dfed819200dd17e713d",
+        "committed_blob_sha256": "e9938010562dcdf4ccc2eb1c66e35077af450778fb75bd1d22a906bbf049d4fc",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Duplicates.Tests.ps1",
+        "observed_checkout_sha256": "31c20b0edc144f96625cb0d033d2f4160fd98f00e46fe37605cf33f817d63200",
+        "committed_blob_sha256": "6eace9dce4f17f997a865541fbbc74d34d8789a2600e7d87778e8e22d2d58dba",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/SafetyRegression.Tests.ps1",
+        "observed_checkout_sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+        "committed_blob_sha256": "83eec44278d5dc74e43d96ee081bffbe0c207c90477782d049f1efa9e84acee4",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Frames.Tests.ps1",
+        "observed_checkout_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+        "committed_blob_sha256": "6abeb3b73b3e16fe65e17883179eadb6a7c977439888f5fbe2275df62a25a963",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Colour.Tests.ps1",
+        "observed_checkout_sha256": "7a4636687a588878b2a225ec62f9dbda5a28912fc187049e2a11289eef40a6a1",
+        "committed_blob_sha256": "8f91a674d1dd995ef454bd6c51dd9d38e4b94b9e1613c74e8594599e9258b17d",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Paths.Tests.ps1",
+        "observed_checkout_sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+        "committed_blob_sha256": "f1454db3abb242843e13f4ba60572654b137626069a7f05ffabd288036450b76",
+        "binding": "exact bytes"
+      },
+      {
+        "path": "tests/Sizing.Tests.ps1",
+        "observed_checkout_sha256": "e47608222e85abd7a053caed0c82fbe98708db494ae8fb861727bcaba7f56ad2",
+        "committed_blob_sha256": "60451813374debac44fe53171edbdb298b2b06adeaf11f6430e65a0744e1e273",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/Diagnostics.Tests.ps1",
+        "observed_checkout_sha256": "d9386f20b5f3d5e00cb762fd9a882735140a350dc1eda002d2657c75a2a2087f",
+        "committed_blob_sha256": "b5a492e9313e142a7b5bf0b95cdfdcc959df2c25db588c27ed912951406b40e9",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/ConversionRegression.Tests.ps1",
+        "observed_checkout_sha256": "fed12f7ba26194f89cbbcd242133d32f0867d7dd56f0cf20a5fe951b314b0334",
+        "committed_blob_sha256": "1e9fe7201be9d9fb9ef4f0f7550ca8624c713a84991f8a461f0a049c93069703",
+        "binding": "verified CRLF-to-LF only"
+      },
+      {
+        "path": "tests/RecoveryReporting.Tests.ps1",
+        "observed_checkout_sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+        "committed_blob_sha256": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc",
+        "binding": "verified CRLF-to-LF only"
+      }
+    ],
+    "case_notes": {
+      "path": ".scratch/M3-T01-final-recovery-case-notes.json",
+      "sha256": "a3cbcc841920524fc0fcba955b7b227a6dfd54b45afc36f862d24c96e925534e"
+    },
+    "peer_review": {
+      "path": ".scratch/M3-T01-final-peer-review.json",
+      "sha256": "0f339b5403eadd361c0915c2f8a9a1b0dcf059bee9b7c97470d0137deb6bc8d8"
+    },
+    "root_behavior": {
+      "path": ".scratch/M3-T01-behavior-draft.json",
+      "sha256": "856d8a47edb2b67f00458f8932b4be649d3389655af93f7349f0d4d15f4adbb3"
+    },
+    "root_limitations": {
+      "path": ".scratch/M3-T01-limitations-draft.json",
+      "sha256": "5396d959505bca89a8985a462536afe8fa6a44a31249e1749a95027db741b26c"
+    },
+    "independent_reference_assets": [
+      {
+        "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+        "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+      },
+      {
+        "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+        "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+      },
+      {
+        "path": "tests/fixtures/colour/Generate-Reference.py",
+        "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+      },
+      {
+        "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+        "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+      },
+      {
+        "path": "tests/fixtures/colour/MANIFEST.json",
+        "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+      },
+      {
+        "path": "tests/fixtures/colour/README.md",
+        "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+      },
+      {
+        "path": "tests/fixtures/colour/REFERENCE.json",
+        "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+      },
+      {
+        "path": "tests/fixtures/colour/sRGB-v4.icc",
+        "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+      }
+    ],
+    "additional_artifacts": [
+      {
+        "path": ".scratch/M3-T01-clean-I-desktop-peer-review.json",
+        "sha256": "e498a4bf32b22ff661315bcafb7bc18afa77425ae8c1f027a5e9c50348781c61"
+      },
+      {
+        "path": ".scratch/M3-T01-I2-input-readiness.json",
+        "sha256": "f60884002fa494cacb1fd9e2de73b040b3b1a5e96232f037b8894c454a233296"
+      },
+      {
+        "path": ".scratch/M3-T01-dacl-probe-peer-review.json",
+        "sha256": "cecebeed1f7c8844a62f8f01b95dde70deb8018192d6354dadd0037e5f6adc23"
+      },
+      {
+        "path": ".scratch/M3-T01-existing-test-repair-freeze-peer-review.json",
+        "sha256": "7492fbf231582f029988427e4cf98bf19f07370069f25d3fcf3817505d5fb197"
+      }
+    ],
+    "helper_bindings": [
+      {
+        "path": ".scratch/M3-T01-evidence-core.py",
+        "sha256": "2748f7d508236e9c84f6eb55f4db0dea8896e82623048865b01f2d1cc7fd5d3e"
+      },
+      {
+        "path": ".scratch/M3-T01-record.py",
+        "sha256": "f6df481e23d930bd540d809e6d1625e26f456bc18b16d2f1c2e283646d5e7082"
+      },
+      {
+        "path": ".scratch/M3-T01-handoff.py",
+        "sha256": "f1ec0bfb0bcdabd3daa0f524cbbd98d6f07efa6e430de97f2e0f57582b0a4d5b"
+      },
+      {
+        "path": ".scratch/M3-T01-validate-records.py",
+        "sha256": "351b92afde2dc29cc198dd80dddc47976774e69affc3705932aca7d8163246c0"
+      },
+      {
+        "path": ".scratch/M3-T01-freeze-records.py",
+        "sha256": "9eb92529368e533a6d56c8ae262b8c908290d1c434587ce66b13beaf04903437"
+      },
+      {
+        "path": ".scratch/M3-T01-collect-ci.py",
+        "sha256": "76bd79dad91245854fe34e2449b17c5cba80ddfef29003abad7d4cc5097fc92c"
+      },
+      {
+        "path": ".scratch/M3-T01-run-desktop.ps1",
+        "sha256": "6614d9c2d3a0a155f78dde86eb298b638b683f4d2d9f3479bf4ae749fff8e483"
+      },
+      {
+        "path": ".scratch/M3-T01-validate-desktop.py",
+        "sha256": "5db0b1ccca57496cc59c7e43a2fdc20a913b0e949a1411993c9dde17ff69d286"
+      },
+      {
+        "path": ".scratch/M3-T01-build-curated-inputs.py",
+        "sha256": "2923df3bcf4f3fc75baaf65f41a9dc4a6c98cee4e5acbf7efe1c20c2ae63f2a2"
+      },
+      {
+        "path": ".scratch/M3-T01-write-records.ps1",
+        "sha256": "b113f017ef5e7e91f2ad06a1b4f163f69831f1aa41541fb1591f173500b5e6e2"
+      }
+    ],
+    "qualification": "Preparation validates preserved inputs against clean I; it does not execute acceptance tests or grant owner approval.",
+    "development_diagnosis": {
+      "path": ".scratch/M3-T01-development-diagnosis-final2.txt",
+      "sha256": "b89ac09b225df002da22ec9115e54812f85b50dc7979de17ef469655af60f397"
+    },
+    "source_artifact": ".scratch/M3-T01-provenance.json",
+    "source_artifact_sha256": "c67f62f01f58bf38e6f659544636780302adb3573e9a4fd22993d158684882ec"
+  },
+  "additional_artifacts": [],
+  "implementation_notes": [
+    "A denied folder or uninspectable source entry leaves the scan incomplete while readable siblings continue. The report separates inaccessible-directory, uninspectable-entry and skipped-link counts; it does not invent a file count for unreadable contents. Directory/file reparse points are skipped and reported without following loops or outside targets. These omissions return application code 2, even when no eligible media was readable; linked roots and ancestors remain setup rejections.",
+    "Log creation or append failure disables the failed disk sink once and marks reporting degraded while valid media work continues. A visible console/stderr fallback retains at most 8,192 UTF-16 characters, limits each stored line to 1,024 characters, escapes control characters and reports dropped/truncated lines. Final reporting exposes LogWarnings and DiskLogIncomplete, including failure on the last required log write, and returns application code 2.",
+    "Creation and modified timestamps are restored independently from captured source metadata after JPEG/video finalization. A failed field is named, valid finalized bytes stay retained, and TimestampWarnings counts the affected output once within completed image/video totals. Processing continues, application code 2 exposes the warning, and a later heuristic duplicate links to the retained warning status. Public arguments, the default byte cap, scale/JPEG/colour/frame policies and byte-identical video copying are unchanged."
+  ],
+  "limitations": [
+    "ACL and link observations apply to the actual owned Windows fixtures and available local capabilities. Controlled log-sink and timestamp-setter failures must be identified separately from real permission or media failures; neither kind of probe establishes every filesystem or remote provider. Root/ancestor link rejection remains conservative, and concurrent hostile filesystem changes remain outside the isolation guarantee.",
+    "The fallback is bounded and may drop lines; it cannot reconstruct a complete disk log. Direct stderr is best effort when the console is absent/closed or the host pipeline has stopped. Explicit PipelineStoppedException propagation and helper-state observations do not establish actual Ctrl+C, a cancellation exit contract, an I/O deadline, or native descendant termination. Per-file bounds/process lifetime, cooperative cancellation and complete report/CSV accounting remain later cards.",
+    "Original bytes and captured creation/modified metadata remain the preservation targets; OS-maintained access time is not guaranteed. Existing pinned codec, colour and lossy-JPEG qualifications remain in prior evidence. This card does not tune conversion defaults or repeat the size/quality benchmark, and automated regression acceptance does not grant owner approval, release or deployment permission."
+  ],
+  "implementation_sync_observation": {
+    "local_head": "66f609ad32637d82ce1e9918ea1600400378422e",
+    "remote_head": "66f609ad32637d82ce1e9918ea1600400378422e",
+    "worktree_clean": true,
+    "branch": "codex/winimg-hardening",
+    "fetch_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "push_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "pull_request": {
+      "baseRefName": "main",
+      "baseRefOid": "446683923f7d4b2aed7a5c9a00e1bf11d2924b68",
+      "headRefOid": "66f609ad32637d82ce1e9918ea1600400378422e",
+      "isDraft": true,
+      "state": "OPEN",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/16"
+    },
+    "qualification": "Actual clean local/live feature and open draft PR head at the recorded time; CI and owner acceptance are separate.",
+    "observed_at_utc": "2026-10-05T07:24:49.211121Z",
+    "source_artifact": ".scratch/M3-T01-I2-sync.json",
+    "source_artifact_sha256": "06b44884064dac8a47324b406de032c664e379e77ba202a13826f74b4b1ff725"
+  },
+  "containing_checkpoint_sync": "pending_verification",
+  "draft_pr": "https://github.com/PikkuJanne/WinImgNormalizer/pull/16",
+  "owner_acceptance": "not requested / not granted"
+}

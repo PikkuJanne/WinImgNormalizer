@@ -1292,3 +1292,164 @@ codec/build and reference-intent qualifications remain explicit. Inaccessible su
 and ancillary reporting are next M3-T01; general deadlines, cancellation and native
 descendant lifetime remain later M3 gates. Owner acceptance, releases and deployment
 remain separate.
+
+## 2026-10-05 — M3-T01 completed
+
+Started clean at 5cbaa2246923f5bd94066feea34f71e0faafce00, equal to the live feature
+branch; owner-merged PR #15 main 446683923f7d4b2aed7a5c9a00e1bf11d2924b68 had the same
+tree. Continued without changing checkout/history. Successor draft PR #16 contains this
+task. Implementation synchronization is a past exact-SHA observation. This record-only
+checkpoint's SHA/live synchronization remains pending_verification until separately
+observed after normal commit/push.
+
+A denied folder or uninspectable source entry leaves the scan incomplete while readable
+siblings continue. The report separates inaccessible-directory, uninspectable-entry and
+skipped-link counts; it does not invent a file count for unreadable contents.
+Directory/file reparse points are skipped and reported without following loops or
+outside targets. These omissions return application code 2, even when no eligible media
+was readable; linked roots and ancestors remain setup rejections.
+
+Log creation or append failure disables the failed disk sink once and marks reporting
+degraded while valid media work continues. A visible console/stderr fallback retains at
+most 8,192 UTF-16 characters, limits each stored line to 1,024 characters, escapes
+control characters and reports dropped/truncated lines. Final reporting exposes
+LogWarnings and DiskLogIncomplete, including failure on the last required log write, and
+returns application code 2.
+
+Creation and modified timestamps are restored independently from captured source
+metadata after JPEG/video finalization. A failed field is named, valid finalized bytes
+stay retained, and TimestampWarnings counts the affected output once within completed
+image/video totals. Processing continues, application code 2 exposes the warning, and a
+later heuristic duplicate links to the retained warning status. Public arguments, the
+default byte cap, scale/JPEG/colour/frame policies and byte-identical video copying are
+unchanged.
+
+T047 — passed: Both actual fresh Windows hosts establish UnauthorizedAccess directory
+enumeration using an explicit owned ListDirectory deny ACE. Accessible native JPEG/video
+siblings complete; denied-only batch returns warning outcome; scan reports one
+incomplete directory and unknown files remain uncounted. Applied source ACL is not
+changed by the application, original DACL restored exactly in finally, and source
+hashes/creation/modified/directory state match. The denied-only fixture explicitly
+establishes a no-auto-inheritance original descriptor before the source baseline.
+Original full requested mask7 owner/group/DACL descriptor bytes, DACL bytes, SDDL and
+control flags are restored exactly using a fixture-only selected native DACL write,
+while natural auto-inherited originals retain Set-Acl. Applied descriptor/control/DACL
+hashes remain unchanged by the application before finally restoration.
+
+T048 — passed: Actual owned junction loop and outside junction are skipped with
+accessible native siblings, two skipped links and warning outcome; outside/source state
+retained. Actual source-root junction alias fails setup before output creation. Optional
+real file-symlink attempt is unavailable with Win32 1314 and is explicitly not actual
+file-symlink coverage; existing controlled file-reparse tests remain separate.
+
+T049 — passed: Controlled initial log creation and late SUMMARY/Processing-ended append
+failures retain actual validated JPEG/video media and persist one degraded warning.
+Exclusively held real log makes actual Add-Content append fail during delegated native
+conversion. Bounded fallback retains quiet diagnostics, counts dropped/truncated lines,
+disables failed sink after one attempt, emits once and catches unavailable emergency
+stderr. Fresh-child PipelineStopped helper state proves propagation is not ordinary log
+I/O degradation; no Ctrl+C lifecycle claim.
+
+T050 — passed: Four actual-media runs independently inject LastWriteTimeUtc or
+CreationTimeUtc setter failure on finalized image/video. Each attempts the other field,
+retains valid data and exact video bytes, completes later siblings, reports one
+timestamp warning/zero file errors, preserves warning duplicate status, retains sources
+and empties owned work.
+
+Actual development .scratch/M3-T01-target-ps7-1: 15/16 passed, 1 failed, native exit 1.
+Only file-symlink fixture precondition failed before that traversal invocation. Default
+P/Invoke bool marshaling falsely reported success for a BOOLEAN return; no link existed.
+Byte-return MarshalAs(I1) probe established Win32 1314 privilege absence. All other 15
+cases passed; original result and bytes retained.  Actual development
+.scratch/M3-T01-target-ps7-2: 16/16 passed, 0 failed, native exit 0. Details and
+original source observations are retained in the case notes.  Actual development
+.scratch/M3-T01-target-ps51-1: 16/16 passed, 0 failed, native exit 0. Details and
+original source observations are retained in the case notes.  Actual development
+.scratch/M3-T01-target-ps7-3: 16/16 passed, 0 failed, native exit 0. Details and
+original source observations are retained in the case notes.  Actual development
+.scratch/M3-T01-target-ps51-2: 16/16 passed, 0 failed, native exit 0. Details and
+original source observations are retained in the case notes.  Actual early focused
+history remains in the original M3-T01-recovery-case-notes.json with original
+summaries/XML/native/console and raw runtime/suite snapshots. PowerShell 7 attempt 1
+discovered 16 tests, passed 15 and failed 1, with native exit 1. Its only failure was
+the T048 file-symlink fixture precondition: default P/Invoke bool return marshaling did
+not match native one-byte BOOLEAN and falsely reported success while no link existed. A
+separately preserved byte-return probe established false/Win32 1314 (required privilege
+not held). The narrow MarshalAs(I1) test correction left runtime bytes unchanged.
+Corrected PS7 attempt 2 and fresh PS5.1 attempt 1 each passed 16/16 with native exit 0,
+no incomplete tests and unchanged policies. These early focused results are separate
+from committed acceptance gates and remain bound to their original source snapshots.
+Initial committed implementation 9b95901f96afe033dd2b4836e4fdb15d0324a0e7 then ran four
+actual desktop gates. Each normal discovered 287 tests, passed 284 and failed 3, with
+native exit 1; each control discovered 288 tests, passed 284 and failed 4, with native
+exit 1. The normal failures were both T006 positional variants expecting the obsolete
+Completed log label, and the old T016 arriving-log assertion expecting setup code 1/no
+copied video instead of the newly documented warning code 2/retained media policy.
+Controls additionally failed the intended T007. All four summaries/XML/native/console
+and 28 raw source snapshots were captured under M3-T01-initial-I-committed-history
+before repair. These failed controls are not accepted runner-credibility gates because
+they contain additional failures.  Automatic initial-I push 37276366241 and PR
+37276387760 completed on both hosted shells. Each normal discovered 287 tests, passed
+282 and failed 5, with native exit 1; the later control steps were skipped. The same
+three stale assertions failed, plus both T047 fixture restoration comparisons: Set-Acl
+added the DACL auto-inherited control flag (D:AI) to an original descriptor lacking it,
+despite matching ACEs. The application denied-enumeration and sibling/outcome assertions
+preceded this fixture finally-restoration failure. Original four job transcripts and the
+original collection bytes remain preserved; no rerun or dispatch was substituted.  The
+narrow test repair keeps complete T006 media/default/source/timestamp checks and asserts
+Processing ended plus actual final clean reporting state. The arriving-log test now
+requires warning code 2, one copied byte-identical video with original timestamps, one
+log warning and authoritative degraded final state, exact unchanged foreign log
+bytes/content/length, empty owned work and no TEMP fallback. Runtime remains frozen.
+Recovery T047 retains exact ACL equality: owned native DACL probes on both desktop
+shells compare full descriptor/SDDL/DACL bytes and control flags after real denial, for
+natural and explicitly no-auto-inherited originals. The fixture restores original binary
+DACL with SetFileSecurityW(mask 4) only when the original lacks DACL_AUTO_INHERITED; the
+natural auto-inherited branch retains Set-Acl. The denied-only case establishes the
+no-AI baseline before recording source state. This is fixture cleanup, not application
+permission recovery or a change to global security policy.  Separate tiny peer exception
+probes and fresh-host controlled PipelineStopped helper observations establish no
+ordinary continuation and independently written finally state; native zero alone is not
+completion. They do not establish real Ctrl+C, native deadlines, cancellation or
+descendant cleanup. Optional actual file-symlink absence on the desktop remains
+qualified; hosted logs do not establish a positive file-symlink capability. The first
+prose drafts remain preserved as planning history. Final repaired focused histories and
+subsequent clean-I normal/control plus automatic hosted matrices are bound separately
+through actual case notes and evidence. Automated results do not grant owner acceptance.
+Development end-of-run hashes are observations, not proof of immutable imported bytes.
+Final clean-I desktop normal/control and hosted matrices are separate acceptance gates.
+Prior card histories remain in their original evidence.
+
+Tested clean implementation: 66f609ad32637d82ce1e9918ea1600400378422e.
+On actual Microsoft Windows 11 Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5, Pester
+5.9.1, each normal suite passed 287/287 with native exit 0 and zero skipped or
+incomplete tests. Each control had 288 total, 287 passed, exactly one T007 deliberate
+failure and native exit 1. Summary/XML, parent native records and console hashes bind 28
+tested source paths, including the recovery suite and all eight colour/reference assets,
+to observed raw bytes and separate Git blobs. Only verified text CRLF-to-LF
+normalization is allowed; ICC bytes remain exact. Persistent execution policies were
+unchanged.
+
+Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37277567021); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37277571157).
+Evidence: evidence/M3-T01.json and evidence/M3-T01-ci.json.
+
+Accepted 16/28 tasks and exercised T001-T050, with the first four characterization cases unchanged. Next: M3-T02 — Bound processing and own native process lifetime. This containing checkpoint changes only 6 reviewed handoff/evidence records; its own synchronization remains pending_verification. Raw media/private paths/argv remain ignored. No owner merge, release, deployment or owner approval is inferred.
+
+ACL and link observations apply to the actual owned Windows fixtures and available local
+capabilities. Controlled log-sink and timestamp-setter failures must be identified
+separately from real permission or media failures; neither kind of probe establishes
+every filesystem or remote provider. Root/ancestor link rejection remains conservative,
+and concurrent hostile filesystem changes remain outside the isolation guarantee.
+
+The fallback is bounded and may drop lines; it cannot reconstruct a complete disk log.
+Direct stderr is best effort when the console is absent/closed or the host pipeline has
+stopped. Explicit PipelineStoppedException propagation and helper-state observations do
+not establish actual Ctrl+C, a cancellation exit contract, an I/O deadline, or native
+descendant termination. Per-file bounds/process lifetime, cooperative cancellation and
+complete report/CSV accounting remain later cards.
+
+Original bytes and captured creation/modified metadata remain the preservation targets;
+OS-maintained access time is not guaranteed. Existing pinned codec, colour and
+lossy-JPEG qualifications remain in prior evidence. This card does not tune conversion
+defaults or repeat the size/quality benchmark, and automated regression acceptance does
+not grant owner approval, release or deployment permission.
