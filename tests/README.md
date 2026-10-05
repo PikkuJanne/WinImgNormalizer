@@ -301,7 +301,11 @@ animation or all possible decoder implementations.
 
 The recovery/reporting regression (T047-T050) establishes actual denied directory
 enumeration on an owned Windows ACL fixture, continues accessible native image
-and video siblings, and restores the original DACL in a finally block. Real
+and video siblings, and restores the original DACL in a finally block.
+The denied-only case explicitly starts without auto-inheritance. Its fixture-only
+native DACL restoration preserves the complete requested owner/group/DACL
+descriptor bytes, DACL bytes and control flags exactly; no SDDL text is ignored
+or normalized. Original auto-inherited descriptors retain the Set-Acl path. Real
 junction loops, outside targets and a root alias are mandatory; a separately
 attempted file symlink reports its actual host capability. Missing symlink
 privilege does not count as actual file-symlink coverage.

@@ -356,6 +356,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         $log = Get-Content -LiteralPath $logs[0].FullName -Raw
         $log | Should -Match 'SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0'
         $log | Should -Match 'MaxBytes: 1048576 bytes \(1 MiB; best-effort target\)'
-        $log | Should -Match 'Completed '
+        $log | Should -Match 'Processing ended '
+        $result.StdOut | Should -Match 'Final reporting state: LogWarnings=0 DiskLogIncomplete=False FallbackDropped=0'
     }
 }

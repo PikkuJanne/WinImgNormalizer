@@ -100,8 +100,37 @@ BeforeAll {
         $Text|Should -Match ('SUMMARY ConvertedImages='+$Images+' CopiedVideos='+$Videos+' Duplicates='+$Duplicates+' Unsupported=0 Errors=0 SizeWarnings=0 NativeWarnings=0')
         $Text|Should -Match ('TimestampWarnings='+$TimestampWarnings+';?\s+ScanComplete='+$ScanComplete+';?\s+IncompleteDirectories='+$Directories+';?\s+UninspectableEntries=0;?\s+SkippedLinks='+$Links+';?\s+LogWarnings='+$LogWarnings+';?\s+FallbackDropped=\d+')
     }
+    function Get-RecoveryByteHash([byte[]]$Bytes){
+        $sha=[Security.Cryptography.SHA256]::Create()
+        try{return ([BitConverter]::ToString($sha.ComputeHash($Bytes))).Replace('-','').ToLowerInvariant()}finally{$sha.Dispose()}
+    }
+    function Get-RecoveryAclState([string]$Path,[string]$Label){
+        Assert-RecoveryAncestors $Path
+        $descriptor=[WinImgRecoveryFixtures]::ReadDescriptor((Get-WinImgNativeOutputPath $Path))
+        $raw=[Security.AccessControl.RawSecurityDescriptor]::new($descriptor,0)
+        $dacl=New-Object byte[] $raw.DiscretionaryAcl.BinaryLength;$raw.DiscretionaryAcl.GetBinaryForm($dacl,0)
+        $artifact=Join-Path $ownedRoot ($Label+'-descriptor.bin')
+        if([IO.File]::Exists($artifact)){throw 'Recovery ACL evidence collision.'}
+        [IO.File]::WriteAllBytes($artifact,$descriptor)
+        $acl=Get-Acl -LiteralPath $Path -ErrorAction Stop
+        return [pscustomobject]@{AclObject=$acl;DescriptorBytes=$descriptor;DescriptorSha256=(Get-RecoveryByteHash $descriptor);DaclSha256=(Get-RecoveryByteHash $dacl);Control=[int]$raw.ControlFlags;AutoInherited=([int]$raw.ControlFlags -band 0x400) -ne 0;Sddl=$acl.GetSecurityDescriptorSddlForm([Security.AccessControl.AccessControlSections]::All);Artifact=[pscustomobject]@{Path=$artifact.Substring($repository.Length+1).Replace('\','/');Sha256=(Get-FileHash -LiteralPath $artifact).Hash.ToLowerInvariant()}}
+    }
+    function Set-RecoveryFixtureDacl([string]$Path,[byte[]]$Descriptor){
+        if(-not ([IO.Path]::GetFullPath($Path)).StartsWith($ownedRoot+'\',[StringComparison]::OrdinalIgnoreCase)){throw 'ACL fixture escaped ownership.'}
+        Assert-RecoveryAncestors $Path
+        # Fixture only: DACL_SECURITY_INFORMATION does not write owner/group/SACL
+        # or impose the auto-inheritance algorithm on existing child files.
+        [WinImgRecoveryFixtures]::WriteDacl((Get-WinImgNativeOutputPath $Path),$Descriptor)
+    }
+    function Restore-RecoveryFixtureDacl([string]$Path,[object]$Original){
+        # Set-Acl imposes current inheritance and can add D:AI. Preserve an
+        # original legacy no-AI descriptor with the selected native DACL write.
+        if($Original.AutoInherited){Set-Acl -LiteralPath $Path -AclObject $Original.AclObject -ErrorAction Stop}
+        else{Set-RecoveryFixtureDacl $Path $Original.DescriptorBytes}
+    }
     if(-not ('WinImgRecoveryFixtures' -as [type])){Add-Type -TypeDefinition @'
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -109,6 +138,20 @@ public static class WinImgRecoveryFixtures {
     [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)]
     [return:MarshalAs(UnmanagedType.I1)]
     public static extern bool CreateSymbolicLinkW(string link,string target,int flags);
+    [DllImport("advapi32.dll",CharSet=CharSet.Unicode,SetLastError=true)]
+    static extern bool GetFileSecurityW(string path,uint information,byte[] descriptor,uint length,out uint needed);
+    [DllImport("advapi32.dll",CharSet=CharSet.Unicode,SetLastError=true)]
+    static extern bool SetFileSecurityW(string path,uint information,byte[] descriptor);
+    public static byte[] ReadDescriptor(string path) {
+        uint needed;GetFileSecurityW(path,7,null,0,out needed);
+        if(needed==0)throw new Win32Exception(Marshal.GetLastWin32Error());
+        byte[] descriptor=new byte[needed];
+        if(!GetFileSecurityW(path,7,descriptor,needed,out needed))throw new Win32Exception(Marshal.GetLastWin32Error());
+        return descriptor;
+    }
+    public static void WriteDacl(string path,byte[] descriptor) {
+        if(!SetFileSecurityW(path,4,descriptor))throw new Win32Exception(Marshal.GetLastWin32Error());
+    }
 }
 public sealed class WinImgRecoveryBrokenWriter : TextWriter {
     public override Encoding Encoding { get { return Encoding.UTF8; } }
@@ -143,28 +186,39 @@ Describe 'M3-T01 inaccessible traversal and ancillary reporting (T047-T050)' {
         $suffix=if($Eligible){'siblings'}else{'denied-only'};$source=New-RecoveryDirectory ('acl-'+$suffix+'/source');$parent=New-RecoveryDirectory ('acl-'+$suffix+'/output')
         $denied=Join-Path $source 'denied[1]%d';$null=[IO.Directory]::CreateDirectory($denied);New-RecoveryImage (Join-Path $denied 'unknown.png')
         if($Eligible){New-RecoveryImage (Join-Path $source 'accessible/image.png');New-RecoveryVideo (Join-Path $source 'z sibling/video.mp4')}
+        $natural=Get-RecoveryAclState $denied ('acl-'+$suffix+'-natural')
+        if(-not $Eligible){
+            # Establish the hosted legacy no-AI descriptor state explicitly,
+            # before the source baseline, without normalizing comparison text.
+            Set-RecoveryFixtureDacl $denied $natural.DescriptorBytes
+        }
+        $original=Get-RecoveryAclState $denied ('acl-'+$suffix+'-original')
+        if(-not $Eligible){$original.AutoInherited|Should -BeFalse -Because 'The denied-only fixture must exercise original no-auto-inheritance restoration.'}
         $before=Get-RecoveryState $source
-        $original=Get-Acl -LiteralPath $denied -ErrorAction Stop;$originalSddl=$original.GetSecurityDescriptorSddlForm([Security.AccessControl.AccessControlSections]::All)
-        $changed=[Security.AccessControl.DirectorySecurity]::new();$changed.SetSecurityDescriptorBinaryForm($original.GetSecurityDescriptorBinaryForm())
+        $changed=[Security.AccessControl.DirectorySecurity]::new();$changed.SetSecurityDescriptorBinaryForm($original.AclObject.GetSecurityDescriptorBinaryForm())
         $sid=[Security.Principal.WindowsIdentity]::GetCurrent().User
         $rule=[Security.AccessControl.FileSystemAccessRule]::new($sid,[Security.AccessControl.FileSystemRights]::ListDirectory,[Security.AccessControl.InheritanceFlags]::None,[Security.AccessControl.PropagationFlags]::None,[Security.AccessControl.AccessControlType]::Deny)
         $null=$changed.AddAccessRule($rule);$deniedObserved=$false;$result=$null
         try{
             Set-Acl -LiteralPath $denied -AclObject $changed -ErrorAction Stop
-            $applied=(Get-Acl -LiteralPath $denied).GetSecurityDescriptorSddlForm([Security.AccessControl.AccessControlSections]::All)
+            $applied=Get-RecoveryAclState $denied ('acl-'+$suffix+'-applied')
             try{$null=[IO.Directory]::GetFileSystemEntries($denied)}catch{if($_.Exception.InnerException -is [UnauthorizedAccessException] -or $_.Exception -is [UnauthorizedAccessException]){$deniedObserved=$true}else{throw}}
             $deniedObserved|Should -BeTrue -Because 'A mandatory real ACL test must establish actual denied access, never substitute a mock or skip.'
             $result=Invoke-RecoveryRun $source $parent;$result.Code|Should -Be 2
             $combined=$result.Text+"`n"+$result.EmergencyText
             $combined|Should -Match 'Incomplete source scan';$combined|Should -Match ([regex]::Escape('denied[1]%d'))
             Assert-RecoverySummary $combined $(if($Eligible){1}else{0}) $(if($Eligible){1}else{0}) -ScanComplete $false -Directories 1
-            (Get-Acl -LiteralPath $denied).GetSecurityDescriptorSddlForm([Security.AccessControl.AccessControlSections]::All)|Should -Be $applied
+            $afterApplication=Get-RecoveryAclState $denied ('acl-'+$suffix+'-after-application')
+            $afterApplication.Sddl|Should -Be $applied.Sddl;$afterApplication.Control|Should -Be $applied.Control
+            $afterApplication.DescriptorSha256|Should -Be $applied.DescriptorSha256;$afterApplication.DaclSha256|Should -Be $applied.DaclSha256
             [IO.File]::Exists((Join-Path $result.Run 'denied[1]%d/unknown.jpeg'))|Should -BeFalse
             if($Eligible){Assert-RecoveryMedia $result @('accessible/image.jpeg') @('z sibling/video.mp4') $source}
-        }finally{Set-Acl -LiteralPath $denied -AclObject $original -ErrorAction Stop}
-        (Get-Acl -LiteralPath $denied).GetSecurityDescriptorSddlForm([Security.AccessControl.AccessControlSections]::All)|Should -Be $originalSddl
+        }finally{Restore-RecoveryFixtureDacl $denied $original}
+        $restored=Get-RecoveryAclState $denied ('acl-'+$suffix+'-restored')
+        $restored.Sddl|Should -Be $original.Sddl;$restored.Control|Should -Be $original.Control
+        $restored.DescriptorSha256|Should -Be $original.DescriptorSha256;$restored.DaclSha256|Should -Be $original.DaclSha256
         Get-RecoveryState $source|Should -Be $before
-        $observations.Add([pscustomobject]@{Kind='actual ACL enumeration denial';EligibleSiblings=$Eligible;DeniedAccessEstablished=$deniedObserved;AclRestoredExactly=$true;SourceStateBefore=$before;SourceStateAfter=(Get-RecoveryState $source)})
+        $observations.Add([pscustomobject]@{Kind='actual ACL enumeration denial';EligibleSiblings=$Eligible;DeniedAccessEstablished=$deniedObserved;AclRestoredExactly=$true;OriginalAutoInherited=$original.AutoInherited;OriginalControl=$original.Control;RestoredControl=$restored.Control;OriginalDescriptorSha256=$original.DescriptorSha256;RestoredDescriptorSha256=$restored.DescriptorSha256;OriginalDaclSha256=$original.DaclSha256;RestoredDaclSha256=$restored.DaclSha256;DescriptorArtifacts=@($natural.Artifact,$original.Artifact,$applied.Artifact,$afterApplication.Artifact,$restored.Artifact);SourceStateBefore=$before;SourceStateAfter=(Get-RecoveryState $source)})
     }
 
     It 'T048 skips a real junction loop/outside junction and available file symlink while preserving native siblings and outside content' {

@@ -515,7 +515,7 @@ Describe 'M1-T02 generated namespace reservations (T016)' {
         Get-WinImgGeneratedName -TopLevelNames @('work', 'reports', '.WinImgNormalizerBackup') | Should -Be '.WinImgNormalizer'
     }
 
-    It 'fails without overwriting a generated log arrival or falling back to TEMP' {
+    It 'continues with warning without overwriting a generated log arrival or falling back to TEMP' {
         $work = New-TraversalDirectory 'log-arrival'
         $source = Join-Path $work 'source'
         $parent = Join-Path $work 'output'
@@ -524,7 +524,7 @@ Describe 'M1-T02 generated namespace reservations (T016)' {
         $null = [IO.Directory]::CreateDirectory($temporary)
         [IO.File]::WriteAllBytes((Join-Path $source 'original.mp4'), [byte[]](91, 92, 93))
         $before = Get-TraversalSourceState $source
-        $arrival = @{ Path = ''; Hash = '' }
+        $arrival = @{ Path = ''; Hash = ''; Length = 0 }
         Mock Get-Date { return '20000101_010203' } -ParameterFilter { $Format -eq 'yyyyMMdd_HHmmss' }
         Mock New-WinImgExclusiveDirectory {
             param([string]$Path)
@@ -533,6 +533,7 @@ Describe 'M1-T02 generated namespace reservations (T016)' {
                 $arrival.Path = Join-Path $Path 'WinImgNormalizer_20000101_010203.log'
                 [IO.File]::WriteAllText($arrival.Path, 'Unrelated arriving log must not be overwritten.')
                 $arrival.Hash = (Get-FileHash -LiteralPath $arrival.Path -Algorithm SHA256).Hash
+                $arrival.Length = (Get-Item -LiteralPath $arrival.Path -Force).Length
             }
             return $created
         }
@@ -541,12 +542,29 @@ Describe 'M1-T02 generated namespace reservations (T016)' {
             $env:TEMP = $temporary
             $result = Invoke-TraversalRun -Source $source -OutputParent $parent
         } finally { $env:TEMP = $previousTemp }
-        $result.Code | Should -Be 1
-        $result.Text | Should -Match '(?i)(create|creation).*log'
+        $result.Code | Should -Be 2
+        $result.Text | Should -Match '(?i)Log warning: Creation failed'
+        $result.Text | Should -Match 'SUMMARY ConvertedImages=0 CopiedVideos=1 Duplicates=0 Unsupported=0 Errors=0 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0'
+        $result.Text | Should -Match 'ScanComplete=True IncompleteDirectories=0 UninspectableEntries=0 SkippedLinks=0 LogWarnings=1 FallbackDropped=0'
+        $result.Text | Should -Match 'Final reporting state: LogWarnings=1 DiskLogIncomplete=True FallbackDropped=0'
         $arrival.Path | Should -Not -BeNullOrEmpty
         (Get-FileHash -LiteralPath $arrival.Path -Algorithm SHA256).Hash | Should -Be $arrival.Hash
+        (Get-Item -LiteralPath $arrival.Path -Force).Length | Should -Be $arrival.Length
+        [IO.File]::ReadAllText($arrival.Path) | Should -Be 'Unrelated arriving log must not be overwritten.'
+        $runs = @(Get-ChildItem -LiteralPath $parent -Directory)
+        $runs.Count | Should -Be 1
+        $logs = @(Get-ChildItem -LiteralPath $runs[0].FullName -Recurse -File -Filter '*.log')
+        $logs.Count | Should -Be 1
+        $logs[0].FullName | Should -Be $arrival.Path
+        $videos = @(Get-ChildItem -LiteralPath $runs[0].FullName -Recurse -File -Filter '*.mp4')
+        $videos.Count | Should -Be 1
+        $videos[0].FullName | Should -Be (Join-Path $runs[0].FullName 'original.mp4')
+        $original = Get-Item -LiteralPath (Join-Path $source 'original.mp4') -Force
+        (Get-FileHash -LiteralPath $videos[0].FullName -Algorithm SHA256).Hash | Should -Be (Get-FileHash -LiteralPath $original.FullName -Algorithm SHA256).Hash
+        $videos[0].CreationTimeUtc.Ticks | Should -Be $original.CreationTimeUtc.Ticks
+        $videos[0].LastWriteTimeUtc.Ticks | Should -Be $original.LastWriteTimeUtc.Ticks
+        @(Get-ChildItem -LiteralPath (Join-Path $runs[0].FullName '.WinImgNormalizer/work') -Force).Count | Should -Be 0
         @(Get-ChildItem -LiteralPath $temporary -Force).Count | Should -Be 0
-        @(Get-ChildItem -LiteralPath $parent -Recurse -File -Filter '*.mp4').Count | Should -Be 0
         Get-TraversalSourceState $source | Should -Be $before
     }
 
