@@ -59,12 +59,13 @@ private copies; JPEG and extracted-profile writes disable ImageMagick filename
 formatting before a literal filesystem move to the planned final name. This also
 protects percent expressions in source and destination parent directories.
 
-Long paths and UNC locations require support from the Windows host, filesystem,
-permissions and installed tools. Extended native paths are used for long scratch
-names; unsupported or inaccessible paths report a setup or item failure instead
-of truncating a path or redirecting output. The local tests cover supported long
-paths and an existing localhost UNC share; they do not establish every remote
-server, Windows policy or network provider as supported.
+Long local paths require support from the Windows host, filesystem, permissions
+and installed tools. Extended native paths are used for long scratch names;
+unsupported or inaccessible paths report a setup or item failure instead of
+truncating a path or redirecting output. Live UNC/network-share validation and
+support are outside the project's owner-approved scope. Local long-path tests
+and lexical drive/UNC-root safety checks remain required; they do not establish
+live network-share support.
 
 Traversal skips and logs directory/file reparse points (links and junctions) without
 following them. Inaccessible subtrees are reported as an incomplete scan; other

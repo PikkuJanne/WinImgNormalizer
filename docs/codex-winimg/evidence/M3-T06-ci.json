@@ -1,0 +1,459 @@
+{
+  "task": "M3-T06",
+  "stage": "I4",
+  "implementation": "17a405bfe0150607486248e845f93ba82e1d0d52",
+  "result": "four_hosted_jobs_and_controls_passed",
+  "task_acceptance_is_parent_owned": true,
+  "four_windows_jobs_and_controls_verified": true,
+  "full_fractional_utc_inside_actual_job_intervals_verified": true,
+  "timestamp_evidence_limit": "Raw summaries were not uploaded. Exported values retain full fractions and UTC and agree with authoritative GitHub job step UTC intervals; exact original observation-time bytes cannot be reconstructed from source summary hashes.",
+  "source_inventory_and_artifact_byte_hashes_verified": true,
+  "runs": [
+    {
+      "proof_file": "37333526329/proof.json",
+      "proof_file_sha256": "5b931fd32b5561e59bdc1c541e8ac4be6d73476de8e5d5d375d2940df0d17b78",
+      "verification": {
+        "run_id": 37333526329,
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37333526329",
+        "event": "push",
+        "head_sha": "17a405bfe0150607486248e845f93ba82e1d0d52",
+        "status": "completed",
+        "conclusion": "success",
+        "observed_at_utc": "2026-10-05T15:44:07.547177+00:00",
+        "qualified": true,
+        "implementation_stage": "I4",
+        "task_acceptance_is_parent_owned": true,
+        "raw_log_sha256": "24de4e58ee233f240ca03fc66d3087a136d861d985e51f77dd5dfc0b5cde80f8",
+        "checkout_sha": "17a405bfe0150607486248e845f93ba82e1d0d52",
+        "feature_tree_sha": "5fa84fb015a15e3d22213239c98495806652259e",
+        "merge_parents": [
+          "e6b50d60937e81409dbb481e09bd42fa69c25111",
+          "17a405bfe0150607486248e845f93ba82e1d0d52"
+        ],
+        "github_actions_runner_versions": [
+          "2.337.0"
+        ],
+        "actual_image_names_in_setup_logs": [
+          "windows-2025-vs2026"
+        ],
+        "runtime_contents_read_only_verified": true,
+        "artifacts": [
+          {
+            "shell": "powershell",
+            "artifact_id": 11356121977,
+            "artifact_name": "synthetic-evidence-powershell-17a405bfe0150607486248e845f93ba82e1d0d52",
+            "archive_sha256": "b942347e2a30a142d854606c35ecb66ec79e8e935fd17ad5c8f675b3d3d7f9e4",
+            "files": [
+              {
+                "name": "static-analysis-evidence.json",
+                "sha256": "1169887079de7bbc351753713c6ad08e047a51da754d7dbf386e3457f14042cb",
+                "bytes": 11498
+              },
+              {
+                "name": "test-evidence.json",
+                "sha256": "e681e5f6012cd958de985529f829ea2bad4e54d1f813a186d275e5e9268a4a8f",
+                "bytes": 62548
+              }
+            ],
+            "source_binding_count": 45,
+            "full_expected_source_inventory_verified": true,
+            "timestamp_observations": [
+              {
+                "evidence_filename": "test-evidence.json",
+                "deliberate_failure": false,
+                "exported_observed_at_utc": "2026-10-05T15:31:49.1858065Z",
+                "github_step_started_at": "2026-10-05T15:31:45Z",
+                "github_step_completed_at": "2026-10-05T15:38:03Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "test-evidence.json",
+                "deliberate_failure": true,
+                "exported_observed_at_utc": "2026-10-05T15:38:11.6160335Z",
+                "github_step_started_at": "2026-10-05T15:38:11Z",
+                "github_step_completed_at": "2026-10-05T15:43:02Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "static-analysis-evidence.json",
+                "deliberate_failure": false,
+                "exported_observed_at_utc": "2026-10-05T15:38:03.3553594Z",
+                "github_step_started_at": "2026-10-05T15:38:03Z",
+                "github_step_completed_at": "2026-10-05T15:38:11Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "static-analysis-evidence.json",
+                "deliberate_failure": true,
+                "exported_observed_at_utc": "2026-10-05T15:43:02.8679993Z",
+                "github_step_started_at": "2026-10-05T15:43:02Z",
+                "github_step_completed_at": "2026-10-05T15:43:10Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              }
+            ],
+            "timestamp_evidence_limit": "Exact raw summary times were not uploaded; exported fractional UTC values are verified within GitHub job step intervals and UTC raw log minutes.",
+            "source_binding_methods": [
+              "Windows CRLF checkout of Git blob",
+              "exact Git blob"
+            ],
+            "normal_test_counts": {
+              "total": 468,
+              "passed": 468,
+              "failed": 0,
+              "exit_code": 0
+            },
+            "assertion_control_counts": {
+              "total": 469,
+              "passed": 468,
+              "failed": 1,
+              "exit_code": 1
+            },
+            "real_codec_tests_passed": 10,
+            "analyzer_files": 7,
+            "analyzer_normal_findings": 0,
+            "analyzer_control_findings": 1,
+            "native_controls_verified_in_logs": true,
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "5.1.26100.33438",
+            "powershell_edition": "Desktop",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32",
+            "synthetic_json_allowlist_verified": true,
+            "clean_source_bindings_verified": true
+          },
+          {
+            "shell": "pwsh",
+            "artifact_id": 11355607221,
+            "artifact_name": "synthetic-evidence-pwsh-17a405bfe0150607486248e845f93ba82e1d0d52",
+            "archive_sha256": "74058803f6e1f9b6a22f70cf1f3fd7b6b5da08e1bb88b5960354351ffda86fa7",
+            "files": [
+              {
+                "name": "static-analysis-evidence.json",
+                "sha256": "634d3fbddf6028fe73aedc54e663d81fd35055600d9a17ae749ac2ef8d87886b",
+                "bytes": 6883
+              },
+              {
+                "name": "test-evidence.json",
+                "sha256": "f8271c62af8c0d3e9a25e4af6436b24e0901ed75f22a7e57ffcace40d2f6046b",
+                "bytes": 28169
+              }
+            ],
+            "source_binding_count": 45,
+            "full_expected_source_inventory_verified": true,
+            "timestamp_observations": [
+              {
+                "evidence_filename": "test-evidence.json",
+                "deliberate_failure": false,
+                "exported_observed_at_utc": "2026-10-05T15:31:45.4828442Z",
+                "github_step_started_at": "2026-10-05T15:31:44Z",
+                "github_step_completed_at": "2026-10-05T15:37:02Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "test-evidence.json",
+                "deliberate_failure": true,
+                "exported_observed_at_utc": "2026-10-05T15:37:09.8173437Z",
+                "github_step_started_at": "2026-10-05T15:37:09Z",
+                "github_step_completed_at": "2026-10-05T15:41:23Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "static-analysis-evidence.json",
+                "deliberate_failure": false,
+                "exported_observed_at_utc": "2026-10-05T15:37:03.2875245Z",
+                "github_step_started_at": "2026-10-05T15:37:02Z",
+                "github_step_completed_at": "2026-10-05T15:37:09Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "static-analysis-evidence.json",
+                "deliberate_failure": true,
+                "exported_observed_at_utc": "2026-10-05T15:41:24.0419769Z",
+                "github_step_started_at": "2026-10-05T15:41:23Z",
+                "github_step_completed_at": "2026-10-05T15:41:30Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              }
+            ],
+            "timestamp_evidence_limit": "Exact raw summary times were not uploaded; exported fractional UTC values are verified within GitHub job step intervals and UTC raw log minutes.",
+            "source_binding_methods": [
+              "Windows CRLF checkout of Git blob",
+              "exact Git blob"
+            ],
+            "normal_test_counts": {
+              "total": 468,
+              "passed": 468,
+              "failed": 0,
+              "exit_code": 0
+            },
+            "assertion_control_counts": {
+              "total": 469,
+              "passed": 468,
+              "failed": 1,
+              "exit_code": 1
+            },
+            "real_codec_tests_passed": 10,
+            "analyzer_files": 7,
+            "analyzer_normal_findings": 0,
+            "analyzer_control_findings": 1,
+            "native_controls_verified_in_logs": true,
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "7.6.6",
+            "powershell_edition": "Core",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32",
+            "synthetic_json_allowlist_verified": true,
+            "clean_source_bindings_verified": true
+          }
+        ]
+      }
+    },
+    {
+      "proof_file": "37333528830/proof.json",
+      "proof_file_sha256": "36ee2c22a45d0cc759d2772c9a3ac2a3ee6efe831627bf286878e5169533fec0",
+      "verification": {
+        "run_id": 37333528830,
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37333528830",
+        "event": "pull_request",
+        "head_sha": "17a405bfe0150607486248e845f93ba82e1d0d52",
+        "status": "completed",
+        "conclusion": "success",
+        "observed_at_utc": "2026-10-05T15:47:32.657519+00:00",
+        "qualified": true,
+        "implementation_stage": "I4",
+        "task_acceptance_is_parent_owned": true,
+        "raw_log_sha256": "1b507a30f4594ba63e280428291ce89a40518f421aa31883fbbf99de0b478286",
+        "checkout_sha": "ccd1a3982e88ca58b1102f284e3af813e439ebe9",
+        "feature_tree_sha": "5fa84fb015a15e3d22213239c98495806652259e",
+        "merge_parents": [
+          "e6b50d60937e81409dbb481e09bd42fa69c25111",
+          "17a405bfe0150607486248e845f93ba82e1d0d52"
+        ],
+        "github_actions_runner_versions": [
+          "2.337.0"
+        ],
+        "actual_image_names_in_setup_logs": [
+          "windows-2025-vs2026"
+        ],
+        "runtime_contents_read_only_verified": true,
+        "artifacts": [
+          {
+            "shell": "powershell",
+            "artifact_id": 11356596001,
+            "artifact_name": "synthetic-evidence-powershell-ccd1a3982e88ca58b1102f284e3af813e439ebe9",
+            "archive_sha256": "1cc172b5afa816cd69f75f9f231bc2667fcbd5785c9e6698443a2140c0e23c8a",
+            "files": [
+              {
+                "name": "static-analysis-evidence.json",
+                "sha256": "6f9a74c56baed3f94ac89f843a2809b9d4c81b96d009d525564faae58f2b0a38",
+                "bytes": 11498
+              },
+              {
+                "name": "test-evidence.json",
+                "sha256": "c84b9a8e2feb6354f20d6bf9a834864f69522c63b7c1d59c808e9ec55f090b98",
+                "bytes": 62548
+              }
+            ],
+            "source_binding_count": 45,
+            "full_expected_source_inventory_verified": true,
+            "timestamp_observations": [
+              {
+                "evidence_filename": "test-evidence.json",
+                "deliberate_failure": false,
+                "exported_observed_at_utc": "2026-10-05T15:31:50.4793276Z",
+                "github_step_started_at": "2026-10-05T15:31:46Z",
+                "github_step_completed_at": "2026-10-05T15:40:15Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "test-evidence.json",
+                "deliberate_failure": true,
+                "exported_observed_at_utc": "2026-10-05T15:40:28.6440802Z",
+                "github_step_started_at": "2026-10-05T15:40:27Z",
+                "github_step_completed_at": "2026-10-05T15:46:58Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "static-analysis-evidence.json",
+                "deliberate_failure": false,
+                "exported_observed_at_utc": "2026-10-05T15:40:15.8505422Z",
+                "github_step_started_at": "2026-10-05T15:40:15Z",
+                "github_step_completed_at": "2026-10-05T15:40:27Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "static-analysis-evidence.json",
+                "deliberate_failure": true,
+                "exported_observed_at_utc": "2026-10-05T15:46:58.8884739Z",
+                "github_step_started_at": "2026-10-05T15:46:58Z",
+                "github_step_completed_at": "2026-10-05T15:47:10Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              }
+            ],
+            "timestamp_evidence_limit": "Exact raw summary times were not uploaded; exported fractional UTC values are verified within GitHub job step intervals and UTC raw log minutes.",
+            "source_binding_methods": [
+              "Windows CRLF checkout of Git blob",
+              "exact Git blob"
+            ],
+            "normal_test_counts": {
+              "total": 468,
+              "passed": 468,
+              "failed": 0,
+              "exit_code": 0
+            },
+            "assertion_control_counts": {
+              "total": 469,
+              "passed": 468,
+              "failed": 1,
+              "exit_code": 1
+            },
+            "real_codec_tests_passed": 10,
+            "analyzer_files": 7,
+            "analyzer_normal_findings": 0,
+            "analyzer_control_findings": 1,
+            "native_controls_verified_in_logs": true,
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "5.1.26100.33438",
+            "powershell_edition": "Desktop",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32",
+            "synthetic_json_allowlist_verified": true,
+            "clean_source_bindings_verified": true
+          },
+          {
+            "shell": "pwsh",
+            "artifact_id": 11356426039,
+            "artifact_name": "synthetic-evidence-pwsh-ccd1a3982e88ca58b1102f284e3af813e439ebe9",
+            "archive_sha256": "5325ae4a3ad351a454df73a6368f4b0be46001a05aeddd5d79b74cfd3e29c49f",
+            "files": [
+              {
+                "name": "static-analysis-evidence.json",
+                "sha256": "4fa8b621a9ca81dc886320a571709969805d39807ee2fe750bd38c338822a3cc",
+                "bytes": 6883
+              },
+              {
+                "name": "test-evidence.json",
+                "sha256": "3ca6f7c9f32f9e2c64ddccd3a21b39c6f7772fec63ad42f058762a38e73ccf72",
+                "bytes": 28169
+              }
+            ],
+            "source_binding_count": 45,
+            "full_expected_source_inventory_verified": true,
+            "timestamp_observations": [
+              {
+                "evidence_filename": "test-evidence.json",
+                "deliberate_failure": false,
+                "exported_observed_at_utc": "2026-10-05T15:31:46.5714096Z",
+                "github_step_started_at": "2026-10-05T15:31:45Z",
+                "github_step_completed_at": "2026-10-05T15:38:26Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "test-evidence.json",
+                "deliberate_failure": true,
+                "exported_observed_at_utc": "2026-10-05T15:38:36.4878362Z",
+                "github_step_started_at": "2026-10-05T15:38:35Z",
+                "github_step_completed_at": "2026-10-05T15:44:09Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "static-analysis-evidence.json",
+                "deliberate_failure": false,
+                "exported_observed_at_utc": "2026-10-05T15:38:27.2636370Z",
+                "github_step_started_at": "2026-10-05T15:38:26Z",
+                "github_step_completed_at": "2026-10-05T15:38:35Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              },
+              {
+                "evidence_filename": "static-analysis-evidence.json",
+                "deliberate_failure": true,
+                "exported_observed_at_utc": "2026-10-05T15:44:10.4215654Z",
+                "github_step_started_at": "2026-10-05T15:44:09Z",
+                "github_step_completed_at": "2026-10-05T15:44:19Z",
+                "full_fractional_utc_verified": true,
+                "within_actual_step_interval": true
+              }
+            ],
+            "timestamp_evidence_limit": "Exact raw summary times were not uploaded; exported fractional UTC values are verified within GitHub job step intervals and UTC raw log minutes.",
+            "source_binding_methods": [
+              "Windows CRLF checkout of Git blob",
+              "exact Git blob"
+            ],
+            "normal_test_counts": {
+              "total": 468,
+              "passed": 468,
+              "failed": 0,
+              "exit_code": 0
+            },
+            "assertion_control_counts": {
+              "total": 469,
+              "passed": 468,
+              "failed": 1,
+              "exit_code": 1
+            },
+            "real_codec_tests_passed": 10,
+            "analyzer_files": 7,
+            "analyzer_normal_findings": 0,
+            "analyzer_control_findings": 1,
+            "native_controls_verified_in_logs": true,
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "7.6.6",
+            "powershell_edition": "Core",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32",
+            "synthetic_json_allowlist_verified": true,
+            "clean_source_bindings_verified": true
+          }
+        ]
+      }
+    }
+  ],
+  "task_id": "M3-T06",
+  "observation_proof_sha256": "2b4f8e8229addf429ccb9a1086ccfc3b487b98610d641abcf14e2ffe0eb6bdf4"
+}

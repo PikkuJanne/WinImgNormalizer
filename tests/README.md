@@ -1,4 +1,4 @@
-# Windows checks (through M3-T05)
+# Windows checks (through M3-T06)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -18,8 +18,8 @@ formula-safe CSV text and degraded sinks. Launcher and command checks (T061-T063
 exercise actual Windows child hosts, pause/exit propagation, zero/extra arguments,
 literal paths and unchanged persistent policies.
 
-Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
-and portable ImageMagick into ignored `.scratch`. It verifies the archives and
+Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester,
+PSScriptAnalyzer and portable ImageMagick into ignored `.scratch`. It verifies the archives and
 extracts private copies without an installer, permanent PATH change, or persistent
 execution-policy change. Normal image processing never calls this bootstrap.
 
@@ -27,6 +27,7 @@ execution-policy change. Normal image processing never calls this bootstrap.
 # Run separately in Windows PowerShell 5.1 and PowerShell 7 on Windows.
 .\tests\Initialize-TestDependencies.ps1 -Download
 .\tests\Invoke-Tests.ps1
+.\tests\Invoke-StaticAnalysis.ps1
 ```
 
 The runner records actual host/tool versions, counts and NUnit results in ignored
@@ -47,7 +48,19 @@ The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `Colour.Tests.ps1`, `Paths.Tests.ps1`, `Sizing.Tests.ps1`, `Diagnostics.Tests.ps1`,
 `ConversionRegression.Tests.ps1`, `RecoveryReporting.Tests.ps1`,
 `NativeLifetime.Tests.ps1`, `Cancellation.Tests.ps1`, `Reporting.Tests.ps1`,
-`Launcher.Tests.ps1`, and `ExitContract.Tests.ps1`.
+`Launcher.Tests.ps1`, `ExitContract.Tests.ps1`, `Compatibility.Tests.ps1`,
+`CodecCompatibility.Tests.ps1`, `StaticAnalysis.Tests.ps1`, and `WorkflowSecurity.Tests.ps1`.
+`mandatory-tests.json` is the reviewed inventory: absent or unregistered top-level
+suites fail the default gate. Every required suite must discover nonzero tests;
+T005-T066 (except separate T007 control) must appear in actually passed test paths.
+T001-T004 remain historical characterization. Explicit `-Path` runs are marked
+focused and cannot stand in for mandatory acceptance. Ten exact real codec test
+outcomes must pass, including the existing T031 HEIC/HEIF collection tests. Compiled
+capabilities alone do not establish that coverage. Missing readers are controlled
+application-negative tests with real supported siblings; no Pester codec skips are
+permitted by this pinned baseline. Owner/packaging gates remain separate. Live UNC
+validation is outside the owner-approved scope, not a pending gate; local long-path
+and lexical root-safety coverage remains mandatory.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -66,7 +79,28 @@ run normalization against the real Pictures tree, private media or drive roots.
 
 The CI matrix uses Windows Server runners. Desktop results are recorded separately
 in `docs/codex-winimg/evidence/M0-T03.json`; Server CI does not prove desktop launcher
-or interruption behavior. PSScriptAnalyzer checks belong to later tasks.
+or interruption behavior. M3-T06 records exact Windows Server 2025 image/OS, host,
+commit, dependency hashes and counts separately from local desktop automation.
+
+Static analysis uses verified PSScriptAnalyzer 1.25.0 and the explicit security,
+defect and Windows PowerShell 5.1/PowerShell 7 syntax rules in
+`PSScriptAnalyzerSettings.psd1`. It scans the application and maintained top-level
+test infrastructure scripts; Pester DSL bodies, legacy reproduction and vendor
+code are outside that scope. Every diagnostic and empty scope fails. The sole
+production cleanup renames a local variable that shadowed automatic `$Error`.
+`Invoke-StaticAnalysis.ps1 -DeliberateFailure` analyzes an unsafe expression as text,
+without executing it, and must return native 1 for exactly that one finding.
+Package tampering and unsafe extraction fail before module import. Static analysis
+complements actual native/codec tests and does not certify API compatibility.
+
+Both gates bind source bytes before/after execution. CI also requires clean exact
+checkout identity. Workflows use read-only contents permissions, credential-free
+checkout and verified full action SHAs. Two fixed JSON artifact filenames contain
+only allowlisted synthetic counts, relative source hashes, tool/environment values
+and executed codec coverage. Raw local JSON/XML, diagnostic text, absolute paths,
+test names, images and logs stay in ignored scratch. `Export-TestEvidence.ps1`
+rejects reparse ancestors/files and unsafe fields; uploads cannot select raw trees.
+Assertion, zero-discovery, skip and analyzer controls exercise honest failure.
 
 Traversal tests verify nested destinations are rejected before probes/enumeration,
 case-insensitive segment comparisons, real disposable looping/outside/dangling
@@ -221,7 +255,11 @@ existing localhost administrative alias of the owned fixture. When available,
 actual direct UNC input/output and BAT UNC-source conversions verify argv, complete JPEG pixels and source
 preservation; unavailable capability is recorded as `not_run` outside the mandatory
 Pester count. No share is created, configured or searched, and lexical checks never
-establish live UNC support. Raw capability observations remain in owned scratch.
+establish live UNC support. Localhost availability is not required; any diagnostic
+assertions that execute retain normal failure semantics. The owner excluded live network-share validation
+on 2026-10-05 because no suitable server is available; no server/share setup or
+owner-run UNC verification is required. Historical capability observations remain
+in their original evidence and owned scratch.
 
 Sizing tests (T040-T042) require exact invariant byte extent arguments for the
 default, non-KiB values and Int64 maximum under a hostile numeric culture. Genuine

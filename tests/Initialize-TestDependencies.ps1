@@ -2,14 +2,14 @@
 [CmdletBinding()]
 param(
     [switch]$Download,
-    [string]$MagickPath
+    [string]$MagickPath,
+    [switch]$StaticAnalysisOnly
 )
 
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
 $scratchRoot = Join-Path $repositoryRoot '.scratch'
 $specification = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'dependencies.json') -Raw | ConvertFrom-Json
-$imageSpecification = (Get-Content -LiteralPath (Join-Path $PSScriptRoot $specification.imagemagick_specification) -Raw | ConvertFrom-Json).portable_imagemagick
 
 function Assert-NoReparseDirectory {
     param([string]$Directory)
@@ -55,31 +55,50 @@ function Get-VerifiedArchive {
     return $File
 }
 
-Assert-NoReparseDirectory $scratchRoot
-$pesterArchive = Get-VerifiedArchive -File (Join-Path $scratchRoot ('tools/Pester-' + $specification.pester.version + '/Pester.' + $specification.pester.version + '.nupkg')) -Url $specification.pester.url -Sha256 $specification.pester.sha256 -Bytes $specification.pester.bytes
-
 # Extract from verified bytes on every invocation; do not trust an old extracted module.
+Assert-NoReparseDirectory $scratchRoot
 $extractRoot = Join-Path $scratchRoot ('test-dependencies/' + [guid]::NewGuid().ToString('N'))
 Assert-NoReparseDirectory $extractRoot
 if (Test-Path -LiteralPath $extractRoot) { throw 'Development extraction directory already exists.' }
 [IO.Directory]::CreateDirectory($extractRoot) | Out-Null
-$pesterDirectory = Join-Path $extractRoot 'Pester'
-[IO.Directory]::CreateDirectory($pesterDirectory) | Out-Null
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-$zip = [IO.Compression.ZipFile]::OpenRead($pesterArchive)
-try {
-    $prefix = [IO.Path]::GetFullPath($pesterDirectory) + [IO.Path]::DirectorySeparatorChar
-    foreach ($entry in $zip.Entries) {
-        $destination = [IO.Path]::GetFullPath((Join-Path $pesterDirectory $entry.FullName))
-        if (-not $destination.StartsWith($prefix, [StringComparison]::OrdinalIgnoreCase)) {
-            throw 'Dependency package contains an unsafe archive entry.'
+
+function Expand-VerifiedModuleArchive {
+    param([string]$Archive, [string]$ModuleName, [string]$ManifestSha256)
+    $moduleDirectory = Join-Path $extractRoot $ModuleName
+    [IO.Directory]::CreateDirectory($moduleDirectory) | Out-Null
+    $zip = [IO.Compression.ZipFile]::OpenRead($Archive)
+    try {
+        $prefix = [IO.Path]::GetFullPath($moduleDirectory) + [IO.Path]::DirectorySeparatorChar
+        $destinations = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+        foreach ($entry in $zip.Entries) {
+            $destination = [IO.Path]::GetFullPath((Join-Path $moduleDirectory $entry.FullName))
+            if ([IO.Path]::IsPathRooted($entry.FullName) -or $entry.FullName -match ':' -or
+                -not $destination.StartsWith($prefix, [StringComparison]::OrdinalIgnoreCase) -or
+                -not $destinations.Add($destination)) {
+                throw 'Dependency package contains an unsafe or duplicate archive entry.'
+            }
         }
     }
+    finally { $zip.Dispose() }
+    [IO.Compression.ZipFile]::ExtractToDirectory($Archive, $moduleDirectory)
+    $manifest = Join-Path $moduleDirectory ($ModuleName + '.psd1')
+    Assert-VerifiedFile -File $manifest -Sha256 $ManifestSha256
+    return $manifest
 }
-finally { $zip.Dispose() }
-[IO.Compression.ZipFile]::ExtractToDirectory($pesterArchive, $pesterDirectory)
-$pesterManifest = Join-Path $pesterDirectory 'Pester.psd1'
-Assert-VerifiedFile -File $pesterManifest -Sha256 $specification.pester.manifest_sha256
+
+$analyzerArchive = Get-VerifiedArchive -File (Join-Path $scratchRoot ('tools/PSScriptAnalyzer-' + $specification.psscriptanalyzer.version + '/PSScriptAnalyzer.' + $specification.psscriptanalyzer.version + '.nupkg')) -Url $specification.psscriptanalyzer.url -Sha256 $specification.psscriptanalyzer.sha256 -Bytes $specification.psscriptanalyzer.bytes
+$analyzerManifest = Expand-VerifiedModuleArchive -Archive $analyzerArchive -ModuleName 'PSScriptAnalyzer' -ManifestSha256 $specification.psscriptanalyzer.manifest_sha256
+if ($StaticAnalysisOnly) {
+    return [pscustomobject]@{
+        PSScriptAnalyzerManifest = $analyzerManifest
+        PSScriptAnalyzerVersion = $specification.psscriptanalyzer.version
+        PSScriptAnalyzerPackageSha256 = $specification.psscriptanalyzer.sha256
+    }
+}
+$pesterArchive = Get-VerifiedArchive -File (Join-Path $scratchRoot ('tools/Pester-' + $specification.pester.version + '/Pester.' + $specification.pester.version + '.nupkg')) -Url $specification.pester.url -Sha256 $specification.pester.sha256 -Bytes $specification.pester.bytes
+$pesterManifest = Expand-VerifiedModuleArchive -Archive $pesterArchive -ModuleName 'Pester' -ManifestSha256 $specification.pester.manifest_sha256
+$imageSpecification = (Get-Content -LiteralPath (Join-Path $PSScriptRoot $specification.imagemagick_specification) -Raw | ConvertFrom-Json).portable_imagemagick
 
 if ([string]::IsNullOrWhiteSpace($MagickPath)) {
     $imageArchive = Get-VerifiedArchive -File (Join-Path $scratchRoot ('tools/ImageMagick-' + $imageSpecification.version + '-Q16-x64/' + $imageSpecification.asset)) -Url $imageSpecification.url -Sha256 $imageSpecification.sha256 -Bytes $imageSpecification.bytes
@@ -105,6 +124,9 @@ Assert-NoReparseDirectory (Split-Path -Parent $MagickPath)
 Assert-VerifiedFile -File $MagickPath -Sha256 $imageSpecification.executable_sha256
 
 [pscustomobject]@{
+    PSScriptAnalyzerManifest = $analyzerManifest
+    PSScriptAnalyzerVersion = $specification.psscriptanalyzer.version
+    PSScriptAnalyzerPackageSha256 = $specification.psscriptanalyzer.sha256
     PesterManifest = $pesterManifest
     PesterVersion = $specification.pester.version
     PesterPackageSha256 = $specification.pester.sha256

@@ -2089,12 +2089,12 @@ function Invoke-WinImgNormalizer {
         try { $nativeResult = Invoke-WinImgImageProcess -Executable $MagickCmd -Arguments $nativeArguments -Context $NativeContext -ProcessRunner $ProcessRunner }
         catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
         catch { if (Test-WinImgCancellationException $_) { throw };
-          $error = $_.Exception
-          while ($error.InnerException) { $error = $error.InnerException }
-          $win32 = if ($error -is [ComponentModel.Win32Exception]) { $error.NativeErrorCode }
-            elseif ($error -is [IO.IOException] -and ($error.HResult -band 0xFFFF0000L) -eq 0x80070000L) { $error.HResult -band 0xFFFF }
+          $nativeException = $_.Exception
+          while ($nativeException.InnerException) { $nativeException = $nativeException.InnerException }
+          $win32 = if ($nativeException -is [ComponentModel.Win32Exception]) { $nativeException.NativeErrorCode }
+            elseif ($nativeException -is [IO.IOException] -and ($nativeException.HResult -band 0xFFFF0000L) -eq 0x80070000L) { $nativeException.HResult -band 0xFFFF }
             else { 0 }
-          $nativeResult = [pscustomobject]@{ ExitCode=$null; StartError=Get-WinImgBoundedText $error.Message 512; Win32ErrorCode=$win32; TimedOut=($error -is [TimeoutException]) }
+          $nativeResult = [pscustomobject]@{ ExitCode=$null; StartError=Get-WinImgBoundedText $nativeException.Message 512; Win32ErrorCode=$win32; TimedOut=($nativeException -is [TimeoutException]) }
         }
         $outcome = Get-WinImgNativeOutcome -Result $nativeResult
         $exit = if ($null -eq $outcome.ExitCode) { 'none' } else { [string]$outcome.ExitCode }

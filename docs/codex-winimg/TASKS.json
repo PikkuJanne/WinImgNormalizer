@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "PikkuJanne/WinImgNormalizer",
   "baseline_commit": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
-  "next_task": "M3-T06",
+  "next_task": "M3-T07",
   "state_semantics": "done = task acceptance verified; remote synchronization and CI are separate observations. Owner-gate tasks cannot be done without owner evidence.",
   "allowed_states": [
     "pending",
@@ -444,7 +444,7 @@
       "scope": [
         "Test both PowerShell and ImageMagick parsing layers for difficult input/output paths.",
         "Use supported literal-output behavior or neutral temporary names plus filesystem rename; stage ambiguous input names under a neutral controlled name when needed.",
-        "Handle Unicode, long/UNC paths and root boundaries without introducing shell evaluation or filename-format expansion."
+        "Handle Unicode, local long paths and lexical drive/UNC-root boundaries without introducing shell evaluation or filename-format expansion. Live network-share validation/support is outside owner-approved scope (D35)."
       ],
       "acceptance": [
         "Percent and bracket filenames retain their literal identity in final names.",
@@ -813,8 +813,12 @@
       "depends_on": [
         "M3-T05"
       ],
-      "state": "pending",
-      "evidence": [],
+      "state": "done",
+      "evidence": [
+        "evidence/M3-T06.json",
+        "evidence/M3-T06-ci.json",
+        "evidence/M3-T06-scope.json"
+      ],
       "blocked_reason": null,
       "card": "tasks/M3-T06.md"
     },

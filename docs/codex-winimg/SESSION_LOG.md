@@ -2256,3 +2256,77 @@ merge, release, settings change or deployment is inferred.
 Development failures remain in ignored raw artifacts and sanitized evidence.
 This containing checkpoint synchronization is pending_verification; final SHA and
 post-push live equality are observed externally. Stop at M3-T05; next M3-T06.
+
+## 2026-10-05 — M3-T06 complete Windows corpus, scoped analysis and secure CI
+
+Continued the clean dedicated branch from fd4b60cd0e9a3107ee48e85b0589c837e4084f7e.
+Owner-merged PR20 main e6b50d60937e81409dbb481e09bd42fa69c25111 has the same tree;
+no checkout/history/default-branch change or snapshot modification. Opened successor
+draft PR21 for this one task.
+
+The final implementation 17a405bfe0150607486248e845f93ba82e1d0d52 inventories 23 maintained
+suites, requires 61 actual corrected case IDs and ten exact real codec outcomes,
+and rejects empty discovery/skips/unrun/inconclusive/block/container/source failures.
+Typed FileInfo/ScriptBlock Pester results have a real fresh-host regression. Ten
+missing-reader controls retain real supported sibling/video processing; JPEG writer
+absence fails setup. Pinned analyzer 1.25.0 verification/extraction,15 scoped rules
+and both failure controls complement actual tests. Production change only renames
+the caught exception variable shadowing automatic $Error.
+
+CI uses Windows2025 powershell/pwsh, contents:read, reviewed immutable actions,
+credentials disabled and two fixed allowlisted synthetic JSON artifacts. Exporter
+regressions reject nested environment/list/source/codec fields and preserve exact
+UTC fractional timestamps. No raw logs/XML/media/private diagnostic text uploaded.
+
+Clean Windows 11 Pro build 26300 PS 5.1.26100.9444 and PS 7.6.5 normal gates each 468/468/native 0,
+zero skips/unrun; each full control 469 total/468 passed/one exact T007 failure/native 1.
+Normal analyzer7 files/0 findings/native 0; both deliberate controls exact 1/native 1.
+All 45 source bindings verify exact bytes or CRLF/LF-only equivalence against tested
+Git blobs. Native records, summary/XML/console hashes, unchanged source/commit/policies
+and measured fixture compiler remain in
+evidence/M3-T06.json. Hosted push 37333526329 and PR 37333528830 passed all four jobs
+and controls; Server 2025 Datacenter 26100, image win25-vs2026/20260925.250.1,
+runner 2.337.0, PS 5.1.26100.33438/PS 7.6.6, x64 en-US observed. Independent downloaded
+artifact/content/privacy/source/merge checks are in evidence/M3-T06-ci.json.
+
+Development history is preserved: early codec/workflow/export fixture failures;
+source-bound rejection of superseded desktop runs; I2 hosted459 assertions passed
+but23 real FileInfo suites rejected by the overly narrow guard, leaving both matrices
+failed. I3 full desktop/hosted461/461 and both controls passed, then review demonstrated
+nested-array retention and lossy UTC timestamp serialization in the exporter. I3
+actual uploads were clean; frozen proof and separate timestamp qualification remain.
+I4 fixes the boundaries, preserves date kind/fractions, and adds seven regressions;
+focused27/27 in both shells passed before the final clean-commit matrices.
+
+T064-T066 accepted; task progress 21/28, next M3-T07. T001-T004 remain characterization,
+T007 separate control, live UNC not_run. Analyzer scope is declared, signatures and
+owner quality/Explorer approval are not inferred. This containing evidence checkpoint
+sync is pending_verification; its final SHA/live equality are reported externally
+after normal commit/push. Stop at M3-T06; no owner/merge/release operation performed.
+
+Initial closeout plan validation rejected the evidence wrapper because the CI record lacked task_id; explicit T064-T066 case outcomes were also required. Added those verified annotations without changing frozen observations or tested source, then repeated structural validation before staging.
+
+## 2026-10-05 — M3-T06 owner scope clarification: live UNC excluded
+
+The owner stated: "Ok, there is no server to do this kind of testing. If you cannot
+do it, it is out of scope for this project." No suitable live-share target is
+available. D35 records live UNC/network-share validation and support as
+out_of_scope, without an outstanding acceptance/release gate or a requirement to
+provide/configure a server. Local long-path, lexical drive/UNC-root, containment
+and local identity coverage remains mandatory T039. The 23 suites, 61 corrected
+mandatory case IDs, ten codec outcomes, 75 specified cases and 28 task states are
+unchanged. M3-T06 stays done; next M3-T07 remains pending and has not started.
+
+This documentation/manifest-description follow-up preserves executable runtime,
+test, fixture and workflow bytes. Historical M2-T03 localhost results and later
+not_run observations remain unchanged; no live-share pass or remote-provider
+support is inferred. No new share probe, server setup or application run was
+performed. Structural validation and exact predecessor bindings are recorded in
+evidence/M3-T06-scope.json.
+
+Started clean at fdb44c18f9f37cb711dc7d2ca64368bd413fa25c, equal to the advertised
+feature branch; main remained e6b50d60937e81409dbb481e09bd42fa69c25111. Its push
+37336261529 and PR 37336267864 CI runs completed successfully. These are metadata
+observations, separate from the fully verified I4 implementation artifacts.
+This containing scope checkpoint's own SHA/live synchronization remains
+pending_verification until independently observed after normal commit/push.

@@ -13,6 +13,18 @@
     "signature_claim": "No Authenticode verification or publisher-authentication claim. Checksums bind the reviewed package bytes.",
     "manifest_sha256": "5ce1ff3d5aa9e6c84a20f36e082937b1c263277f4753529dc8db2e22fd964dca"
   },
+  "psscriptanalyzer": {
+    "version": "1.25.0",
+    "url": "https://www.powershellgallery.com/api/v2/package/PSScriptAnalyzer/1.25.0",
+    "sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+    "sha512_base64": "5/tXMmLmBLqymRSuYpIdJLl8L4i1GbQSd7QD72zhY/FLfRs23HNEmmjlrlqNlQKJGxDCZBMf0YE63ym/ExwWYw==",
+    "bytes": 14658674,
+    "provenance": "Official Microsoft PowerShell/PSScriptAnalyzer 1.25.0 release and PowerShell Gallery OData SHA512 metadata; downloaded package matched the publisher checksum and length on 2026-10-05.",
+    "release_url": "https://github.com/PowerShell/PSScriptAnalyzer/releases/tag/1.25.0",
+    "metadata_url": "https://www.powershellgallery.com/api/v2/Packages(Id='PSScriptAnalyzer',Version='1.25.0')",
+    "signature_claim": "No Authenticode, NuGet signature or publisher-authentication verification claim. Checksums bind the reviewed package bytes.",
+    "manifest_sha256": "2b219f688bcdd67101040f845e530b22907d39bbf49089b4b5b2afaba7996791"
+  },
   "imagemagick_specification": "legacy/toolchain.json",
   "checkout_action": {
     "major_version": "v4",
