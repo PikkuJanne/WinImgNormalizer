@@ -174,7 +174,7 @@ mismatches and zero native exits with diagnostics must not finalize an inaccurat
 JPEG. A structurally valid ICC with an invalid curve also exercises the actual
 default native runner's rejection. An unsupported ICC version independently
 demonstrates a real native zero exit with diagnostics and a fully decoded JPEG;
-the default runner must still reject and clean its attempts. A genuine ICC remains
+the default runner must still stop on the first failure and clean its candidate. A genuine ICC remains
 active despite spoofed free metadata properties.
 
 Eight actual EXIF orientation tags have synthetic GPS, XMP, Photoshop/IPTC, comments
@@ -251,3 +251,25 @@ caps may differ because the old decimal suffix understated them. Raw media,
 transcripts, JSON and CSV remain ignored. Single-machine synthetic timings include
 tracing/validation overhead; these measurements are neither perceptual scores nor
 owner approval. No runtime tool installation or algorithm change is introduced.
+
+Diagnostics tests (T043-T045) use an owned native executable compiled with the
+Windows .NET Framework compiler and genuine pinned ImageMagick derivatives.
+They independently verify separated streams/native exits under both PowerShell
+hosts, multi-MiB concurrent output without newlines, fixed retained character
+bounds and fail-closed overflow. Genuine no-regard lossless-to-lossy JPEG warning,
+unknown-coder, truncated-input and exclusively locked-source probes establish
+native diagnostic provenance. The warning also gets explicitly re-emitted by a
+controlled child after real production-argv encoding to exercise application
+acceptance; this does not claim that the unchanged production quiet/regard flags
+naturally produce that zero-exit warning.
+
+Permanent categories must stop once; explicitly diagnosed sharing/lock violations
+can retry only twice per image, with logged 100/200 ms backoff, fresh candidates,
+the same scale and identical colour/alpha operations. Generic Permission denied
+remains permanent even when a held source lock caused it. Tests verify ICC/white
+pixel results, native-warning duplicate status/counters, zero-exit ICC/unknown
+errors, nonzero valid JPEG rejection, and a combined maximum of eight calls across
+six valid size attempts plus two transient retries. Sources and videos retain
+hashes/timestamps, and exact owned scratch is checked after every case. These
+checks cover stream retention and retry bounds; general conversion timeouts and
+cancellation remain later milestone work.

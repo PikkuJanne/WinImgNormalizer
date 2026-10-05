@@ -409,7 +409,7 @@ Describe 'M2-T02 malformed profiles and native diagnostic handling (T034)' {
             return [pscustomobject]@{ ExitCode = 0; DiagnosticOutput = 'ColorspaceColorProfileMismatch: controlled diagnostic despite zero native exit.' }
         }
         $result = Invoke-ColourRun -Case $case -Runner $runner
-        $colourTrace.Calls | Should -BeGreaterThan 0
+        $colourTrace.Calls | Should -Be 1
         Assert-ColourFailed $result
         Get-ColourSourceState $case.Source | Should -Be $before
     }
@@ -441,7 +441,8 @@ Describe 'M2-T02 malformed profiles and native diagnostic handling (T034)' {
         # This log follows source ICC extraction and the structural/model guard;
         # the actual LCMS conversion must still reject the semantic error.
         $result.Log | Should -Match 'COLOUR IMG: curve.jpg \(SourceSpace=sRGB; SourceICC=True; Policy=ProfileToSrgb;'
-        $result.Log | Should -Match 'did not return a successful native outcome; no accurate conversion was claimed'
+        $result.Log | Should -Match 'Native conversion stopped: Category=DamagedInput'
+        $result.Log | Should -Match 'NATIVE DETAILS:'
         Assert-ColourFailed $result
         Get-ColourSourceState $case.Source | Should -Be $before
     }
@@ -478,10 +479,11 @@ Describe 'M2-T02 malformed profiles and native diagnostic handling (T034)' {
             FullyDecoded = $true; JpegBytes = [IO.File]::ReadAllBytes($probePath).Length
         } | ConvertTo-Json))
         # No injected ProcessRunner: the default implementation must capture the
-        # same native diagnostics and reject all attempts despite valid JPEG bytes.
+        # same native diagnostics and stop immediately despite valid JPEG bytes.
         $result = Invoke-ColourRun $case
         $result.Log | Should -Match 'COLOUR IMG: version.jpg \(SourceSpace=sRGB; SourceICC=True; Policy=ProfileToSrgb;'
-        $result.Log | Should -Match 'did not return a successful native outcome; no accurate conversion was claimed'
+        $result.Log | Should -Match 'Native conversion stopped: Category=DamagedInput'
+        $result.Log | Should -Match 'NATIVE DETAILS:'
         Assert-ColourFailed $result
         Get-ColourSourceState $case.Source | Should -Be $before
     }

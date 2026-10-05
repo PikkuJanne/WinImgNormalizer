@@ -389,6 +389,214 @@ function Assert-WinImgOutputAvailable {
   if (Test-Path -LiteralPath $Path) { throw 'The planned output is already occupied; the existing entry was preserved.' }
 }
 
+function Initialize-WinImgProcessApi {
+  if ('WinImgNormalizer.NativeProcess' -as [type]) { return }
+  # Fixed buffers on two readers avoid both pipe deadlocks and unbounded
+  # ReadToEnd/ReadLine allocations (a native diagnostic need not contain LF).
+  Add-Type -TypeDefinition @'
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+using System.Threading;
+namespace WinImgNormalizer {
+  public sealed class NativeResult {
+    public int? ExitCode;
+    public string StdOut = "", StdErr = "", StartError = "";
+    public long StdOutCharacters, StdErrCharacters;
+    public bool StdOutTruncated, StdErrTruncated, TimedOut, Cancelled;
+    public bool StreamsComplete = true;
+    public int Win32ErrorCode, CaptureLimit;
+  }
+  internal sealed class BoundedCapture {
+    private readonly char[] ring, head;
+    private int next;
+    private long total;
+    private readonly object gate = new object();
+    public string ReadError = "";
+    public BoundedCapture(int limit) { ring = new char[limit]; head = new char[limit / 4]; }
+    public void Drain(StreamReader reader) {
+      char[] block = new char[4096];
+      try {
+        int count;
+        while ((count = reader.Read(block, 0, block.Length)) != 0) {
+          lock (gate) {
+            for (int i = 0; i < count; i++) {
+              if (total < head.Length) head[(int)total] = block[i];
+              ring[next] = block[i]; next = (next + 1) % ring.Length; total++;
+            }
+          }
+        }
+      } catch (Exception error) { ReadError = error.GetType().Name; }
+    }
+    public long Count { get { lock (gate) { return total; } } }
+    public bool Truncated { get { lock (gate) { return total > ring.Length; } } }
+    public string Text() {
+      lock (gate) {
+        if (total <= ring.Length) return new string(ring, 0, (int)total);
+        string marker = "\n[... truncated; total " + total.ToString(System.Globalization.CultureInfo.InvariantCulture) + " characters ...]\n";
+        int tailLength = ring.Length - head.Length - marker.Length;
+        StringBuilder text = new StringBuilder(ring.Length);
+        text.Append(head); text.Append(marker);
+        int start = (next - tailLength + ring.Length) % ring.Length;
+        for (int i = 0; i < tailLength; i++) text.Append(ring[(start + i) % ring.Length]);
+        return text.ToString();
+      }
+    }
+  }
+  public static class NativeProcess {
+    // The Windows CRT grammar is shared by .NET Framework and modern .NET.
+    // Always quote, doubling backslashes before quotes and the closing quote.
+    public static string Quote(string value) {
+      if (value == null) value = "";
+      StringBuilder text = new StringBuilder(); text.Append('"'); int slashes = 0;
+      foreach (char ch in value) {
+        if (ch == '\\') { slashes++; continue; }
+        if (ch == '"') { text.Append('\\', slashes * 2 + 1); text.Append(ch); }
+        else { text.Append('\\', slashes); text.Append(ch); }
+        slashes = 0;
+      }
+      text.Append('\\', slashes * 2); text.Append('"'); return text.ToString();
+    }
+    public static NativeResult Run(string executable, string[] arguments, int limit, int timeout, bool killTree) {
+      NativeResult result = new NativeResult();
+      result.CaptureLimit = limit;
+      BoundedCapture stdout = new BoundedCapture(limit), stderr = new BoundedCapture(limit);
+      using (Process process = new Process()) {
+        ProcessStartInfo info = new ProcessStartInfo();
+        info.FileName = executable; info.UseShellExecute = false; info.CreateNoWindow = true;
+        info.RedirectStandardOutput = true; info.RedirectStandardError = true;
+        info.StandardOutputEncoding = new UTF8Encoding(false, false);
+        info.StandardErrorEncoding = new UTF8Encoding(false, false);
+        StringBuilder command = new StringBuilder();
+        foreach (string argument in arguments) { if (command.Length != 0) command.Append(' '); command.Append(Quote(argument)); }
+        info.Arguments = command.ToString(); process.StartInfo = info;
+        try { if (!process.Start()) throw new InvalidOperationException("Native process did not start."); }
+        catch (Exception error) {
+          string message = error.Message; result.StartError = message.Length > 512 ? message.Substring(0, 512) : message;
+          Win32Exception native = error as Win32Exception;
+          if (native != null) result.Win32ErrorCode = native.NativeErrorCode;
+          return result;
+        }
+        StreamReader outStream = process.StandardOutput, errStream = process.StandardError;
+        Thread outReader = new Thread(delegate() { stdout.Drain(outStream); });
+        Thread errReader = new Thread(delegate() { stderr.Drain(errStream); });
+        outReader.IsBackground = true; errReader.IsBackground = true; outReader.Start(); errReader.Start();
+        try {
+          if (timeout == 0) process.WaitForExit();
+          else if (!process.WaitForExit(timeout)) {
+            result.TimedOut = true;
+            // Preserve the existing preflight-only deadline and owned PID tree
+            // termination. Conversion deadlines/cancellation remain later work.
+            if (killTree) {
+              try {
+                string taskkill = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "taskkill.exe");
+                Run(taskkill, new string[] { "/PID", process.Id.ToString(System.Globalization.CultureInfo.InvariantCulture), "/T", "/F" }, 8192, 5000, false);
+              } catch { }
+            }
+            if (!process.WaitForExit(5000)) { try { process.Kill(); } catch { } }
+            process.WaitForExit(5000);
+          }
+          if (process.HasExited) result.ExitCode = process.ExitCode;
+          bool outComplete = outReader.Join(5000), errComplete = errReader.Join(5000);
+          result.StreamsComplete = outComplete && errComplete && stdout.ReadError.Length == 0 && stderr.ReadError.Length == 0;
+        } finally {
+          process.StandardOutput.Close(); process.StandardError.Close();
+          outReader.Join(1000); errReader.Join(1000);
+        }
+        result.StdOut = stdout.Text(); result.StdErr = stderr.Text();
+        result.StdOutCharacters = stdout.Count; result.StdErrCharacters = stderr.Count;
+        result.StdOutTruncated = stdout.Truncated; result.StdErrTruncated = stderr.Truncated;
+      }
+      return result;
+    }
+  }
+}
+'@
+}
+
+function Invoke-WinImgNativeProcess {
+  param([string]$Executable, [string[]]$Arguments,
+    [ValidateRange(1024,262144)][int]$OutputLimit = 16384,
+    [ValidateRange(0,2147483647)][int]$TimeoutMilliseconds = 0)
+  Initialize-WinImgProcessApi
+  return [WinImgNormalizer.NativeProcess]::Run($Executable, $Arguments, $OutputLimit, $TimeoutMilliseconds, $true)
+}
+
+function Get-WinImgBoundedText {
+  param([string]$Text, [int]$Limit = 16384)
+  if ($Text.Length -le $Limit) { return $Text }
+  return $Text.Substring(0, $Limit / 4) + "`n[... truncated ...]`n" + $Text.Substring($Text.Length - ($Limit * 3 / 4 - 32))
+}
+
+function Get-WinImgNativeOutcome {
+  param([object]$Result, [switch]$AllowStdOut, [switch]$Strict)
+  $code = $null; $stdout = ''; $stderr = ''; $startError = ''; $win32 = 0
+  $category = 'InvalidResult'; $warning = $false; $acceptable = $false; $retryable = $false
+  $outCount = 0L; $errCount = 0L; $overflow = $false; $incomplete = $false; $captureLimit = 16384
+  if ($Result -is [int] -or $Result -is [long]) { $code = $Result; $category = 'NativeFailure' }
+  elseif ($null -ne $Result -and $Result -isnot [array] -and $Result.PSObject.Properties['ExitCode']) {
+    $value = $Result.ExitCode
+    if ($value -is [int] -or $value -is [long]) { $code = $value; $category = 'NativeFailure' }
+    if ($Result.PSObject.Properties['StdOut']) { $stdout = [string]$Result.StdOut }
+    if ($Result.PSObject.Properties['StdErr']) { $stderr = [string]$Result.StdErr }
+    elseif ($Result.PSObject.Properties['DiagnosticOutput']) { $stderr = [string]$Result.DiagnosticOutput }
+    $outCount = $stdout.Length; $errCount = $stderr.Length
+    if ($Result.PSObject.Properties['StdOutCharacters']) { $outCount = [long]$Result.StdOutCharacters }
+    if ($Result.PSObject.Properties['StdErrCharacters']) { $errCount = [long]$Result.StdErrCharacters }
+    if ($Result.PSObject.Properties['CaptureLimit'] -and $Result.CaptureLimit -ge 1024 -and $Result.CaptureLimit -le 262144) { $captureLimit = [int]$Result.CaptureLimit }
+    $overflow = $stdout.Length -gt $captureLimit -or $stderr.Length -gt $captureLimit -or $Result.StdOutTruncated -or $Result.StdErrTruncated
+    $stdout = Get-WinImgBoundedText $stdout $captureLimit; $stderr = Get-WinImgBoundedText $stderr $captureLimit
+    $startError = Get-WinImgBoundedText ([string]$Result.StartError) 512
+    if ($Result.PSObject.Properties['Win32ErrorCode']) { $win32 = [int]$Result.Win32ErrorCode }
+    if ($Result.TimedOut) { $category = 'Timeout' }
+    elseif ($Result.Cancelled) { $category = 'Cancelled' }
+    elseif ($overflow) { $category = 'OutputLimit' }
+    elseif ($Result.PSObject.Properties['StreamsComplete'] -and -not $Result.StreamsComplete) { $category = 'NativeFailure'; $incomplete = $true }
+    elseif ($startError) { $category = if ($win32 -in @(32,33)) { 'TransientIO' } elseif ($win32 -eq 5) { 'AccessDenied' } else { 'StartFailure' } }
+  }
+  $terminal = $category -in @('InvalidResult','Timeout','Cancelled','OutputLimit','StartFailure') -or
+    $incomplete
+  if (-not $terminal -and -not $startError) {
+    $diagnostics = $stderr + "`n" + $(if (-not $AllowStdOut) { $stdout } else { '' })
+    $lines = @($stderr -split '\r?\n' | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+    # Only the pinned JPEG writer's intended lossless-to-lossy derivative notice
+    # is allowed, and only at native exit zero. ICC/decode/unknown messages fail.
+    $benign = $lines.Count -gt 0 -and @($lines | Where-Object {
+      $_ -notmatch "^magick(?:\.exe)?: lossless to lossy JPEG conversion [\x60'].*' @ warning/jpeg\.c/WriteJPEGImage_/\d+\.$"
+    }).Count -eq 0
+    if ($code -eq 0 -and ([string]::IsNullOrWhiteSpace($stdout) -or $AllowStdOut) -and [string]::IsNullOrWhiteSpace($stderr)) { $category = 'Success'; $acceptable = $true }
+    elseif ($code -eq 0 -and $benign -and -not $Strict -and ([string]::IsNullOrWhiteSpace($stdout) -or $AllowStdOut)) { $category = 'Warning'; $acceptable = $true; $warning = $true }
+    elseif ($diagnostics -match '(?i)cache resources exhausted|memory allocation failed|no space left on device|disk quota exceeded|exceeds (?:user )?limit|time limit exceeded') { $category = 'ResourceExhaustion' }
+    elseif ($diagnostics -match '(?i)permission denied|access is denied|operation not permitted|not authorized|security policy') { $category = 'AccessDenied' }
+    elseif ($diagnostics -match '(?i)no (?:decode|encode) delegate for this image format|unable to load module|delegate library support not built-in') { $category = 'MissingCodec' }
+    elseif ($diagnostics -match '(?i)improper image header|corrupt image|insufficient image data|unexpected end.of.file|premature end|invalid (?:image|profile)|colorspacecolorprofilemismatch|unable to create color transform|profile.*(?:mismatch|invalid|corrupt)|CRC error') { $category = 'DamagedInput' }
+    elseif ($code -ne 0 -and [string]::IsNullOrWhiteSpace($stdout) -and $lines.Count -gt 0 -and @($lines | Where-Object {
+      # Match a reason in a bounded whole native line, never a quoted filename.
+      $_ -notmatch "^magick(?:\.exe)?: (?:(?:sharing|lock) violation|unable to open image [\x60'][^\r\n]*': (?:sharing violation|lock violation|The process cannot access the file because it is being used by another process)\.?) @ error/blob\.c/OpenBlob/\d+\.$"
+    }).Count -eq 0) { $category = 'TransientIO' }
+    else { $category = if ($code -eq 0) { 'DiagnosticFailure' } else { 'NativeFailure' } }
+  }
+  $retryable = $category -eq 'TransientIO'
+  $displayCode = if ($null -eq $code) { 'none' } else { $code.ToString([Globalization.CultureInfo]::InvariantCulture) }
+  $detail = 'Exit=' + $displayCode + '; Category=' + $category + '; StdOutCharacters=' + $outCount + '; StdErrCharacters=' + $errCount + '; Truncated=' + $overflow
+  if ($startError) { $detail += "`nStartError: " + $startError + '; Win32ErrorCode=' + $win32 }
+  if ($stdout) { $detail += "`nStdOut: " + $stdout }
+  if ($stderr) { $detail += "`nStdErr: " + $stderr }
+  return [pscustomobject]@{ ExitCode=$code; Category=$category; Acceptable=$acceptable; Retryable=$retryable; Warning=$warning; DiagnosticText=$detail }
+}
+
+function Assert-WinImgNativeQuery {
+  param([object]$Result, [string]$Context, [switch]$AllowStdOut)
+  $outcome = Get-WinImgNativeOutcome -Result $Result -AllowStdOut:$AllowStdOut -Strict
+  if (-not $outcome.Acceptable) {
+    $exception = [InvalidOperationException]::new($Context + ' failed (Category=' + $outcome.Category + '; Exit=' + $outcome.ExitCode + '); see native details.')
+    $exception.Data['WinImgNativeDetail'] = $outcome.DiagnosticText
+    throw $exception
+  }
+}
+
 function New-WinImgImageCandidate {
   param([string]$WorkRoot)
   Assert-WinImgNoReparseAncestors $WorkRoot
@@ -497,16 +705,10 @@ function Test-WinImgImageCandidate {
   $length = $before.Length
   $modified = $before.LastWriteTimeUtc
   $nativePath = Get-WinImgNativeOutputPath $CandidatePath
-  $previousPreference = $ErrorActionPreference
-  $ErrorActionPreference = 'Continue'
-  try {
-    # Explicit +ping decodes pixels; -regard-warnings rejects recovered/truncated
-    # JPEGs. Do not force an input coder: inspect the actual stored format.
-    $metadata = @(& $MagickPath identify +ping -regard-warnings -define registry:filename:literal=true -format '%m|%w|%h|%n' $nativePath 2>&1)
-    $decodeExit = $LASTEXITCODE
-  } finally { $ErrorActionPreference = $previousPreference }
-  $text = $metadata -join "`n"
-  if ($decodeExit -ne 0 -or $text -notmatch '^JPEG\|([1-9][0-9]*)\|([1-9][0-9]*)\|1$') {
+  # Explicit +ping fully decodes pixels; warnings remain fatal for validation.
+  $result = Invoke-WinImgNativeProcess -Executable $MagickPath -Arguments @('identify','+ping','-regard-warnings','-define','registry:filename:literal=true','-format','%m|%w|%h|%n',$nativePath)
+  Assert-WinImgNativeQuery -Result $result -Context 'Candidate full JPEG decode' -AllowStdOut
+  if ($result.StdOut -notmatch '^JPEG\|([1-9][0-9]*)\|([1-9][0-9]*)\|1$') {
     throw 'Candidate failed full single-frame JPEG decode or dimension validation.'
   }
   $width = [long]$Matches[1]
@@ -556,15 +758,13 @@ function Get-WinImgSourceImageInfo {
   param([string]$SnapshotPath, [string]$MagickPath)
   Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($SnapshotPath))
   $nativePath = Get-WinImgNativeOutputPath $SnapshotPath
-  $previousPreference = $ErrorActionPreference
-  $ErrorActionPreference = 'Continue'
-  try {
-    # Count every image exposed by this decoder without applying the first-image
-    # define. Header inspection is not the final JPEG's full-decode validation.
-    $metadata = @(& $MagickPath identify -ping -regard-warnings -define registry:filename:literal=true -format '%m|%n|%w|%h\n' $nativePath 2>&1)
-    $inspectExit = $LASTEXITCODE
-  } finally { $ErrorActionPreference = $previousPreference }
-  if ($inspectExit -ne 0 -or $metadata.Count -eq 0) { throw 'Source frame/page inspection failed; no image was selected.' }
+  # Count all images before the selected first-image read. This is header
+  # inspection; the final JPEG separately receives a full pixel decode.
+  $result = Invoke-WinImgNativeProcess -Executable $MagickPath -Arguments @('identify','-ping','-regard-warnings','-define','registry:filename:literal=true','-format','%m|%n|%w|%h\n',$nativePath)
+  Assert-WinImgNativeQuery -Result $result -Context 'Source frame/page inspection' -AllowStdOut
+  $text = $result.StdOut -replace '\r?\n$', ''
+  if ([string]::IsNullOrEmpty($text)) { throw 'Source frame/page inspection failed; no image was selected.' }
+  $metadata = @($text -split '\r?\n')
   $count = $metadata.Count
   $decoder = $null
   foreach ($line in $metadata) {
@@ -588,16 +788,10 @@ function Get-WinImgColourInfo {
   param([string]$SnapshotPath, [string]$MagickPath)
   Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($SnapshotPath))
   $nativePath = Get-WinImgNativeOutputPath $SnapshotPath
-  $previousPreference = $ErrorActionPreference
-  $ErrorActionPreference = 'Continue'
-  try {
-    # profiles=none is an option fallback for an absent profile list, avoiding
-    # an unknown-property warning. Never set the profiles image property.
-    $metadata = @(& $MagickPath identify -ping -regard-warnings -define registry:filename:literal=true -define image:frames=0 -define profiles=none +set profiles +set colorspace -format '%[colorspace]|%[profiles]' $nativePath 2>&1)
-    $inspectExit = $LASTEXITCODE
-  } finally { $ErrorActionPreference = $previousPreference }
-  if ($inspectExit -ne 0 -or $metadata.Count -ne 1 -or
-      [string]$metadata[0] -notmatch '^([A-Za-z][A-Za-z0-9]*)\|([A-Za-z0-9, _:-]+)$') {
+  # profiles=none is an option fallback; leave the real ICC attached.
+  $result = Invoke-WinImgNativeProcess -Executable $MagickPath -Arguments @('identify','-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0','-define','profiles=none','+set','profiles','+set','colorspace','-format','%[colorspace]|%[profiles]',$nativePath)
+  Assert-WinImgNativeQuery -Result $result -Context 'Colour/profile inspection' -AllowStdOut
+  if ($result.StdOut -notmatch '^([A-Za-z][A-Za-z0-9]*)\|([A-Za-z0-9, _:-]+)$') {
     throw 'Colour/profile inspection failed or was ambiguous; no accurate conversion was claimed.'
   }
   $colourSpace = $Matches[1]
@@ -627,16 +821,9 @@ function New-WinImgSourceIccProfile {
   $reservation.Dispose()
   $nativeSource = Get-WinImgNativeOutputPath $SnapshotPath
   $nativeProfile = Get-WinImgNativeOutputPath $profilePath
-  $previousPreference = $ErrorActionPreference
-  $ErrorActionPreference = 'Continue'
-  try {
-    # Extract only the selected embedded profile; do not attach a replacement.
-    $messages = @(& $MagickPath -ping -regard-warnings -define registry:filename:literal=true -define image:frames=0 $nativeSource ('ICC:' + $nativeProfile) 2>&1)
-    $extractExit = $LASTEXITCODE
-  } finally { $ErrorActionPreference = $previousPreference }
-  if ($extractExit -ne 0 -or $messages.Count -ne 0) {
-    throw 'Embedded ICC extraction reported an error or warning; accurate colour conversion was not claimed.'
-  }
+  # Extract only the selected embedded ICC; every diagnostic is fatal here.
+  $result = Invoke-WinImgNativeProcess -Executable $MagickPath -Arguments @('-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0',$nativeSource,('ICC:' + $nativeProfile))
+  Assert-WinImgNativeQuery -Result $result -Context 'Embedded ICC extraction'
   Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($profilePath))
   $item = Get-Item -LiteralPath $profilePath -Force -ErrorAction Stop
   if ($item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $item.Length -lt 132) {
@@ -758,27 +945,8 @@ function Resolve-WinImgMagickApplication {
 function Invoke-WinImgPreflightProcess {
   param([string]$Executable, [string[]]$Arguments)
   if (($Arguments -join ' ') -notin @('-version', '-list format')) { throw 'Unexpected preflight query.' }
-  $start = New-Object Diagnostics.ProcessStartInfo
-  $start.FileName = $Executable
-  $start.Arguments = $Arguments -join ' '
-  $start.UseShellExecute = $false
-  $start.CreateNoWindow = $true
-  $start.RedirectStandardOutput = $true
-  $start.RedirectStandardError = $true
-  $process = New-Object Diagnostics.Process
-  $process.StartInfo = $start
-  try {
-    if (-not $process.Start()) { throw 'ImageMagick query could not start.' }
-    $stdout = $process.StandardOutput.ReadToEndAsync()
-    $stderr = $process.StandardError.ReadToEndAsync()
-    $timedOut = -not $process.WaitForExit(15000)
-    if ($timedOut) {
-      & (Join-Path $env:SystemRoot 'System32\taskkill.exe') /PID $process.Id /T /F 1>$null 2>$null
-      if (-not $process.WaitForExit(5000)) { $process.Kill() }
-    }
-    if (-not $stdout.Wait(5000) -or -not $stderr.Wait(5000)) { throw 'ImageMagick query streams did not complete.' }
-    return [pscustomobject]@{ ExitCode = $process.ExitCode; StdOut = $stdout.GetAwaiter().GetResult(); StdErr = $stderr.GetAwaiter().GetResult(); TimedOut = $timedOut }
-  } finally { $process.Dispose() }
+  # Format tables have a larger, still bounded budget than per-item details.
+  return Invoke-WinImgNativeProcess -Executable $Executable -Arguments $Arguments -OutputLimit 262144 -TimeoutMilliseconds 15000
 }
 
 function Get-WinImgMagickInfo {
@@ -786,14 +954,14 @@ function Get-WinImgMagickInfo {
   $executable = Resolve-WinImgMagickApplication $MagickPath
   if (-not $PreflightRunner) { $PreflightRunner = { param($Executable, $Arguments) Invoke-WinImgPreflightProcess $Executable $Arguments } }
   $version = & $PreflightRunner $executable @('-version')
-  if ($version.TimedOut -or $version.ExitCode -ne 0) { throw 'ImageMagick version query failed or timed out; no files were processed.' }
+  Assert-WinImgNativeQuery -Result $version -Context 'ImageMagick version query; no files were processed' -AllowStdOut
   $match = [regex]::Match($version.StdOut, '(?m)^Version: ImageMagick (7)\.(\d+)\.(\d+)-(\d+)\b')
   if (-not $match.Success) { throw 'Unrecognized ImageMagick version; use a supported ImageMagick 7 build.' }
   $build = [version]($match.Groups[1].Value + '.' + $match.Groups[2].Value + '.' + $match.Groups[3].Value + '.' + $match.Groups[4].Value)
   # Reviewed 2026-10-04: 7.1.2-32 includes jpeg:extent hang and JPEG/GIF/XMP fixes.
   if ($build -lt [version]'7.1.2.32') { throw 'ImageMagick 7.1.2-32 or newer supported 7.x build is required; update the dependency before running.' }
   $formatResult = & $PreflightRunner $executable @('-list','format')
-  if ($formatResult.TimedOut -or $formatResult.ExitCode -ne 0) { throw 'ImageMagick format query failed or timed out; no files were processed.' }
+  Assert-WinImgNativeQuery -Result $formatResult -Context 'ImageMagick format query; no files were processed' -AllowStdOut
   $formats = @{}
   foreach ($line in ($formatResult.StdOut -split '\r?\n')) {
     if ($line -match '^\s*([A-Z0-9]+)\*?\s+(?:\S+\s+)?([r-][w-][+-])\s') {
@@ -864,12 +1032,7 @@ function Invoke-WinImgNormalizer {
     [scriptblock]$PreflightRunner,
     [scriptblock]$ProcessRunner = {
       param([string]$Executable, [string[]]$Arguments)
-      $LASTEXITCODE = 0
-      # Some ICC failures still return zero after a later image write. Preserve
-      # diagnostics so a decodable JPEG cannot conceal a failed colour transform.
-      $messages = @(& $Executable @Arguments 2>&1)
-      $nativeExit = $LASTEXITCODE
-      return [pscustomobject]@{ ExitCode = $nativeExit; DiagnosticOutput = ($messages -join "`n") }
+      Invoke-WinImgNativeProcess -Executable $Executable -Arguments $Arguments
     }
   )
 
@@ -915,15 +1078,20 @@ function Invoke-WinImgNormalizer {
     $pictures = $destinationInfo.Path
   } catch {
     Write-Host ('Setup error: ' + $_.Exception.Message) -ForegroundColor Red
+    if ($_.Exception.Data['WinImgNativeDetail']) {
+      # No run log exists before setup succeeds. Keep its native reason visible
+      # within a small console bound without creating output during preflight.
+      Write-Host ('Native setup details: ' + (Get-WinImgBoundedText ([string]$_.Exception.Data['WinImgNativeDetail']) 512)) -ForegroundColor Red
+    }
     return 1
   }
 
   # --------- Logger, literal-safe ---
   $LogPath = $null
   function Write-Log {
-    param([string]$Message, [ValidateSet('INFO','OK','SKIP','WARN','ERR')]$Level='INFO')
+    param([string]$Message, [ValidateSet('INFO','OK','SKIP','WARN','ERR')]$Level='INFO', [switch]$Quiet)
     $line = '{0} [{1}] {2}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $Level, $Message
-    switch ($Level) { 'ERR'{Write-Host $line -ForegroundColor Red}; 'WARN'{Write-Host $line -ForegroundColor Yellow}; 'OK'{Write-Host $line -ForegroundColor Green}; default{Write-Host $line} }
+    if (-not $Quiet) { switch ($Level) { 'ERR'{Write-Host $line -ForegroundColor Red}; 'WARN'{Write-Host $line -ForegroundColor Yellow}; 'OK'{Write-Host $line -ForegroundColor Green}; default{Write-Host $line} } }
     if ($LogPath) { try { Add-Content -LiteralPath $LogPath -Value $line -Encoding UTF8 } catch {} }
   }
 
@@ -1003,7 +1171,7 @@ function Invoke-WinImgNormalizer {
   # --------- Dedupe + stats ---
   $retained = New-Object 'Collections.Generic.Dictionary[string,object]' ([StringComparer]::Ordinal)
   $hasDuplicateWarnings = $false
-  $stats = [ordered]@{ Converted=0; CopiedVideo=0; SkippedDuplicate=0; Unsupported=0; Errors=0; SizeWarnings=0 }
+  $stats = [ordered]@{ Converted=0; CopiedVideo=0; SkippedDuplicate=0; Unsupported=0; Errors=0; SizeWarnings=0; NativeWarnings=0 }
   Write-Log 'Heuristic duplicate matching uses lowercase filename, LastWriteTimeUtc and equal input byte length after successful finalization; same-key/same-length content can still differ.'
 
   # --------- IM helpers ---
@@ -1020,72 +1188,76 @@ function Invoke-WinImgNormalizer {
 
     $extent = Get-ExtentString $MaxBytes
     $scales = 100,90,80,70,60,50
-    $lastFailure = 'ImageMagick conversion failed'
-    $attemptCount = 0
+    $attemptCount = 0; $transientRetries = 0
     foreach ($p in $scales) {
-      # Every scale attempt has a fresh path and retains the full colour/alpha policy.
-      if ($attemptCount -gt 0) {
-        $previous = $OwnedCandidates[$OwnedCandidates.Count - 1]
-        try { Remove-WinImgOwnedCandidate -CandidatePath $previous.Path -FileOwned $previous.FileOwned; $previous.Removed = $true }
-        catch { Write-Log ('Could not remove superseded image scratch: ' + $_.Exception.Message) 'WARN' }
-        $DestPath = New-WinImgImageCandidate -WorkRoot $WorkRoot
-        $OwnedCandidates.Add([pscustomobject]@{ Path = $DestPath; FileOwned = $false; Removed = $false })
+      while ($true) {
+        # Every size attempt or diagnosed transient retry gets a new candidate.
+        if ($attemptCount -gt 0) {
+          $previous = $OwnedCandidates[$OwnedCandidates.Count - 1]
+          try { Remove-WinImgOwnedCandidate -CandidatePath $previous.Path -FileOwned $previous.FileOwned; $previous.Removed = $true }
+          catch { Write-Log ('Could not remove superseded image scratch: ' + $_.Exception.Message) 'WARN' }
+          $DestPath = New-WinImgImageCandidate -WorkRoot $WorkRoot
+          $OwnedCandidates.Add([pscustomobject]@{ Path = $DestPath; FileOwned = $false; Removed = $false })
+        }
+        $ownership = $OwnedCandidates[$OwnedCandidates.Count - 1]
+        $stream = [IO.FileStream]::new($DestPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+        $ownership.FileOwned = $true; $stream.Dispose(); $attemptCount++
+        $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
+        $nativeArguments = @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true')
+        if ($SourceInfo) { $nativeArguments += @('-define', 'image:frames=0') }
+        $nativeArguments += Get-WinImgNativeOutputPath $SourcePath
+        if ($SourceInfo -and $SourceInfo.Policy -eq 'FirstDisplayedFrame') { $nativeArguments += '-coalesce' }
+        if ($SourceInfo) { $nativeArguments += '+repage' }
+        $nativeArguments += '-auto-orient'
+        if ($ColourInfo.HasIcc) {
+          $nativeArguments += @('+black-point-compensation', '-intent', 'Relative', '-profile', (Get-WinImgNativeOutputPath $SrgbProfilePath))
+        } else { $nativeArguments += @('-colorspace', 'sRGB') }
+        # White composition and all JPEG/colour flags are identical on retries.
+        $nativeArguments += @('-background','white','-alpha','remove','-alpha','off',
+          '-strip','-sampling-factor','4:2:0','-interlace','Line')
+        $nativeArguments += @('-resize', "$p%", '-define', "jpeg:extent=$extent", ('JPEG:' + $nativeDestPath))
+        try { $nativeResult = & $ProcessRunner $MagickCmd $nativeArguments }
+        catch {
+          $error = $_.Exception
+          while ($error.InnerException) { $error = $error.InnerException }
+          $win32 = if ($error -is [ComponentModel.Win32Exception]) { $error.NativeErrorCode }
+            elseif ($error -is [IO.IOException] -and ($error.HResult -band 0xFFFF0000L) -eq 0x80070000L) { $error.HResult -band 0xFFFF }
+            else { 0 }
+          $nativeResult = [pscustomobject]@{ ExitCode=$null; StartError=Get-WinImgBoundedText $error.Message 512; Win32ErrorCode=$win32 }
+        }
+        $outcome = Get-WinImgNativeOutcome -Result $nativeResult
+        $exit = if ($null -eq $outcome.ExitCode) { 'none' } else { [string]$outcome.ExitCode }
+        Write-Log ('NATIVE IMG: Attempt={0}; Scale={1}%; Category={2}; Exit={3}; TransientRetries={4}/2' -f $attemptCount,$p,$outcome.Category,$exit,$transientRetries) -Quiet
+        if (-not $outcome.Acceptable -or $outcome.Warning) { Write-Log ('NATIVE DETAILS: ' + $outcome.DiagnosticText) -Quiet }
+        if (-not $outcome.Acceptable) {
+          if ($outcome.Retryable -and $transientRetries -lt 2) {
+            $transientRetries++; $delay = 100 * $transientRetries
+            Write-Log ('RETRY IMG: Category=TransientIO; Attempt={0}; Scale={1}%; Retry={2}/2; DelayMs={3}; Reason=sharing or lock violation; unchanged colour/alpha policy' -f $attemptCount,$p,$transientRetries,$delay) 'WARN'
+            Start-Sleep -Milliseconds $delay
+            continue
+          }
+          return @{ Status='Error'; Attempts=$attemptCount; Note=('Native conversion stopped: Category={0}; Exit={1}; TransientRetries={2}/2; see NATIVE DETAILS in log' -f $outcome.Category,$exit,$transientRetries) }
+        }
+        try { $validation = Test-WinImgImageCandidate -CandidatePath $DestPath -MagickPath $MagickCmd }
+        catch {
+          if ($_.Exception.Data['WinImgNativeDetail']) { Write-Log ('NATIVE DETAILS: ' + $_.Exception.Data['WinImgNativeDetail']) -Quiet }
+          return @{ Status='Error'; Attempts=$attemptCount; Note=('Candidate validation failed; no retry or earlier candidate retained: ' + $_.Exception.Message) }
+        }
+        if ($validation.BytesOut -le $MaxBytes -or $p -eq 50) {
+          $aboveTarget = $validation.BytesOut -gt $MaxBytes
+          $notes = @()
+          if ($aboveTarget) { $notes += 'Could not reach target; best-effort saved' }
+          if ($outcome.Warning) { $notes += 'Accepted native lossless-to-lossy JPEG notice; see NATIVE DETAILS in log' }
+          return @{ Status=$(if ($aboveTarget -or $outcome.Warning) { 'ConvertedWithWarning' } else { 'Converted' });
+            CandidatePath=$DestPath; BytesOut=$validation.BytesOut; Width=$validation.Width; Height=$validation.Height;
+            Scale=$p; Attempts=$attemptCount; SizeWarning=$aboveTarget; NativeWarning=$outcome.Warning; Note=($notes -join '; ') }
+        }
+        # A valid above-cap result advances the size sequence. Native failures
+        # never advance it or recover a previously superseded image.
+        break
       }
-      $ownership = $OwnedCandidates[$OwnedCandidates.Count - 1]
-      $stream = [IO.FileStream]::new($DestPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
-      $ownership.FileOwned = $true
-      $stream.Dispose()
-      $attemptCount++
-      $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
-      # Disable filename interpretation before selected input reads as well as
-      # output writes: even neutral basenames have user-controlled parents.
-      $nativeArguments = @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true')
-      if ($SourceInfo) { $nativeArguments += @('-define', 'image:frames=0') }
-      $nativeArguments += Get-WinImgNativeOutputPath $SourcePath
-      # Coalesce only the selected first animation frame onto its logical
-      # canvas. Document pages/HEIC images must never be overlaid together.
-      if ($SourceInfo -and $SourceInfo.Policy -eq 'FirstDisplayedFrame') { $nativeArguments += '-coalesce' }
-      if ($SourceInfo) { $nativeArguments += '+repage' }
-      $nativeArguments += '-auto-orient'
-      if ($ColourInfo.HasIcc) {
-        # Transform the actual embedded source ICC before any profile stripping.
-        $nativeArguments += @('+black-point-compensation', '-intent', 'Relative', '-profile', (Get-WinImgNativeOutputPath $SrgbProfilePath))
-      } else {
-        # The inspector rejected uncharacterized CMYK/unknown spaces. sRGB is
-        # assumed for ordinary untagged RGB; RGB/LinearGray retain linear semantics.
-        $nativeArguments += @('-colorspace', 'sRGB')
-      }
-      # Composite in known, encoded sRGB, then remove all source/target profiles
-      # and privacy metadata. No retry can drop the white/alpha operations.
-      $nativeArguments += @('-background','white','-alpha','remove','-alpha','off',
-        '-strip','-sampling-factor','4:2:0','-interlace','Line')
-      $nativeArguments += @('-resize', "$p%", '-define', "jpeg:extent=$extent", ('JPEG:' + $nativeDestPath))
-      $previousPreference = $ErrorActionPreference
-      $ErrorActionPreference = 'Continue'
-      try { $nativeResult = & $ProcessRunner $MagickCmd $nativeArguments }
-      finally { $ErrorActionPreference = $previousPreference }
-      # Keep the inherited integer seam and allow a future structured native
-      # result. Missing, ambiguous and timeout/cancellation results fail closed.
-      $successful = (($nativeResult -is [int] -or $nativeResult -is [long]) -and $nativeResult -eq 0)
-      if ($null -ne $nativeResult -and $nativeResult -isnot [array] -and
-          $null -ne $nativeResult.PSObject.Properties['ExitCode']) {
-        $successful = (($nativeResult.ExitCode -is [int] -or $nativeResult.ExitCode -is [long]) -and
-          $nativeResult.ExitCode -eq 0 -and -not $nativeResult.TimedOut -and -not $nativeResult.Cancelled -and
-          [string]::IsNullOrWhiteSpace([string]$nativeResult.DiagnosticOutput))
-      }
-      if (-not $successful) { $lastFailure = 'Colour/ICC conversion or JPEG attempt did not return a successful native outcome; no accurate conversion was claimed'; continue }
-      try { $validation = Test-WinImgImageCandidate -CandidatePath $DestPath -MagickPath $MagickCmd }
-      catch { $lastFailure = $_.Exception.Message; continue }
-      if ($validation.BytesOut -le $MaxBytes -or $p -eq 50) {
-        $aboveTarget = $validation.BytesOut -gt $MaxBytes
-        $note = if ($aboveTarget) { 'Could not reach target; best-effort saved' } else { $null }
-        return @{ Status=$(if ($aboveTarget) { 'ConvertedWithWarning' } else { 'Converted' }); CandidatePath=$DestPath; BytesOut=$validation.BytesOut;
-          Width=$validation.Width; Height=$validation.Height; Scale=$p; Attempts=$attemptCount; Note=$note }
-      }
-      # This valid above-target attempt is superseded. A later failure may not
-      # reuse it or mislabel it with a later scale. Only the last attempt counts.
     }
-    return @{ Status='Error'; Attempts=$attemptCount; Note=$lastFailure }
+    return @{ Status='Error'; Attempts=$attemptCount; Note='No valid final candidate was retained.' }
   }
 
   # --------- Main loop ---
@@ -1164,7 +1336,8 @@ function Invoke-WinImgNormalizer {
           try { Move-WinImgPlannedImage -CandidatePath $res.CandidatePath -DestinationPath $destPath }
           catch { $hasNamingWarnings = $true; throw }
           $stats.Converted++
-          if ($res.Status -eq 'ConvertedWithWarning') { $stats.SizeWarnings++ }
+          if ($res.SizeWarning) { $stats.SizeWarnings++ }
+          if ($res.NativeWarning) { $stats.NativeWarnings++ }
           try {
             Assert-WinImgNoReparseAncestors $f.DirectoryName
             $current = Get-Item -LiteralPath $f.FullName -Force -ErrorAction Stop
@@ -1212,6 +1385,7 @@ function Invoke-WinImgNormalizer {
         $stats.Unsupported++; Write-Log "Unsupported skipped: $rel" 'WARN'
       }
     } catch {
+      if ($_.Exception.Data['WinImgNativeDetail']) { Write-Log ('NATIVE DETAILS: ' + $_.Exception.Data['WinImgNativeDetail']) -Quiet }
       $stats.Errors++; Write-Log "Exception processing: $rel ($($_.Exception.Message))" 'ERR'
     } finally {
       foreach ($owned in $ownedCandidates) {
@@ -1231,16 +1405,17 @@ function Invoke-WinImgNormalizer {
   Write-Host "Summary:" -ForegroundColor Cyan
   Write-Host ("  Converted images : {0}" -f $stats.Converted)
   Write-Host ("  Above byte target: {0} (included in converted images)" -f $stats.SizeWarnings)
+  Write-Host ("  Native warnings: {0} (included in converted images)" -f $stats.NativeWarnings)
   Write-Host ("  Copied videos    : {0}" -f $stats.CopiedVideo)
   Write-Host ("  Duplicates       : {0}" -f $stats.SkippedDuplicate)
   Write-Host ("  Unsupported      : {0}" -f $stats.Unsupported)
   Write-Host ("  Errors           : {0}" -f $stats.Errors)
   Write-Host ("  Log file         : {0}" -f $LogPath)
 
-  Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4} SizeWarnings={5}" -f $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors,$stats.SizeWarnings)
+  Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4} SizeWarnings={5} NativeWarnings={6}" -f $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors,$stats.SizeWarnings,$stats.NativeWarnings)
   Write-Log "Completed $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
-  if ($stats.Errors -gt 0 -or $stats.SizeWarnings -gt 0 -or $missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings -or $hasDuplicateWarnings) { return 2 }
+  if ($stats.Errors -gt 0 -or $stats.SizeWarnings -gt 0 -or $stats.NativeWarnings -gt 0 -or $missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings -or $hasDuplicateWarnings) { return 2 }
   return 0
 }
 
