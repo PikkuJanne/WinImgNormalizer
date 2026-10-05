@@ -255,7 +255,8 @@ Describe 'M1-T06 complete mixed-tree source preservation and run isolation (T028
             }
             $actualMedia = @(Get-ChildItem -LiteralPath $run -Recurse -Force -File | ForEach-Object { $_.FullName.Substring($run.Length + 1) } | Where-Object { -not $_.StartsWith($generatedName + '\', [StringComparison]::OrdinalIgnoreCase) })
             Get-SafetyOrdinalSignature $actualMedia | Should -Be (Get-SafetyOrdinalSignature $expectedMedia)
-            @(Get-ChildItem -LiteralPath $run -Recurse -Force -File).Count | Should -Be ($expectedMedia.Count + 1)
+            @(Get-ChildItem -LiteralPath $run -Recurse -Force -File).Count | Should -Be ($expectedMedia.Count + 2)
+            @(Get-ChildItem -LiteralPath (Join-Path $run ($generatedName + '\reports')) -File -Filter '*.csv').Count | Should -Be 1
             $log = Get-SafetyLog -Run $run -GeneratedName $generatedName
             $planLines = @(Get-SafetyLogLines -Log $log -Level 'INFO' -Prefix 'PLAN ')
             Get-SafetyOrdinalSignature $planLines | Should -Be $expectedPlanSignature
@@ -263,7 +264,7 @@ Describe 'M1-T06 complete mixed-tree source preservation and run isolation (T028
             $skipLines = @(Get-SafetyLogLines -Log $log -Level 'SKIP' -Prefix 'Heuristic duplicate skipped: ')
             Get-SafetyOrdinalSignature $skipLines | Should -Be $expectedSkipSignature
             $skipLines.Count | Should -Be 2
-            $log | Should -Match 'SUMMARY ConvertedImages=8 CopiedVideos=2 Duplicates=2 Unsupported=0 Errors=0'
+            $log | Should -Match 'SUMMARY ConvertedImages=8 CopiedVideos=2 Duplicates=2 Unsupported=3 Errors=0'
             if ($iteration -eq 1) {
                 $firstRun = $run
                 $firstRunBefore = Get-SafetyTreeState $run

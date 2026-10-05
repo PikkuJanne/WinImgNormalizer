@@ -149,7 +149,7 @@ public static class DiagnosticFixture {
         $video=Join-Path $Result.Run 'nested/unchanged.MP4'
         (Get-FileHash -LiteralPath $video).Hash | Should -Be (Get-FileHash -LiteralPath $Case.Video).Hash
         ([IO.FileInfo]::new($video)).LastWriteTimeUtc.Ticks | Should -Be ([IO.FileInfo]::new($Case.Video)).LastWriteTimeUtc.Ticks
-        $files=@(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object Extension -ne '.log' | ForEach-Object {$_.FullName.Substring($Result.Run.Length+1)} | Sort-Object)
+        $files=@(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object { $_.Extension -notin @('.log','.csv') } | ForEach-Object {$_.FullName.Substring($Result.Run.Length+1)} | Sort-Object)
         $expected=@('nested\unchanged.MP4'); if ($Image) { $expected+='single.jpeg' }
         ($files -join '|') | Should -Be (($expected | Sort-Object) -join '|')
         @(Get-ChildItem -LiteralPath (Join-Path $Result.Run '.WinImgNormalizer/work') -Force).Count | Should -Be 0
@@ -542,7 +542,13 @@ Describe 'M2-T05 bounded output cannot conceal errors (T045)' {
         $trace.Result.ExitCode | Should -Be 0; $trace.Result.StdOutTruncated | Should -BeTrue; $trace.Result.StdErrTruncated | Should -BeTrue
         $result.Log | Should -Match 'Category=OutputLimit'; $result.Log | Should -Match 'stdout useful last detail'
         $result.Log | Should -Not -Match 'OK IMG:|WARN IMG:|DelayMs='
-        $result.Text.Length | Should -BeLessThan 4096
+        # Keep the native-diagnostic console budget; bound the two new report lines separately.
+        $consoleLines=@($result.Text -split '\r?\n')
+        $reportLines=@($consoleLines | Where-Object { $_ -match '^(ACCOUNTING Discovered=|Final report outcome: State=)' })
+        $reportLines.Count | Should -Be 2
+        @($reportLines | Where-Object { $_ -match '^ACCOUNTING ' })[0].Length | Should -BeLessOrEqual 2048
+        @($reportLines | Where-Object { $_ -match '^Final report outcome: ' })[0].Length | Should -BeLessOrEqual 1024
+        (@($consoleLines | Where-Object { $_ -notmatch '^(ACCOUNTING Discovered=|Final report outcome: State=)' }) -join [Environment]::NewLine).Length | Should -BeLessThan 4096
         $result.Text | Should -Not -Match 'O{64}|E{64}'
         $result.Log.Length | Should -BeLessThan 40000
         Assert-DiagnosticsPreserved $case $result

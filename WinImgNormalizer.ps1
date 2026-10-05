@@ -1828,10 +1828,12 @@ function Complete-WinImgReport {
     $s.ImageInputBytes.ToString([Globalization.CultureInfo]::InvariantCulture),$s.ImageOutputBytes.ToString([Globalization.CultureInfo]::InvariantCulture),$s.ImageSavingsBytes.ToString([Globalization.CultureInfo]::InvariantCulture),$s.VideoBytes.ToString([Globalization.CultureInfo]::InvariantCulture),
     $s.ElapsedSeconds.ToString('F3',[Globalization.CultureInfo]::InvariantCulture),$(if ($null -ne $s.FilesPerSecond) { $s.FilesPerSecond.ToString('F3',[Globalization.CultureInfo]::InvariantCulture) } else { 'unknown' }),$State.ReportWarnings,$State.ReportComplete,$State.ProgressWarnings,
     $(if ($null -ne $s.ImageSavingsPercent) { $s.ImageSavingsPercent.ToString('F3',[Globalization.CultureInfo]::InvariantCulture) } else { 'unknown' }),$w.SizeWarnings,$w.NativeWarnings,$w.TimestampWarnings,$w.AncillaryWarnings,$w.FramesOmitted,$State.ConsoleWarnings,$State.ProcessingWarnings
+  $line=Get-WinImgBoundedText $line 2048
+  $csvHint=Get-WinImgBoundedText (ConvertTo-WinImgLogText ([string]$State.CsvPath)) 512
   if ($LogState) { Write-WinImgRunLog -State $LogState -Message $line -Quiet }
   # The aggregate line's own log write can fail; observe that degradation last.
   if ($LogState -and $LogState.Degraded -and -not $Interrupted) { $State.RunState='Partial' }
-  try { Write-Host $line; Write-Host ('Final report outcome: State={0} ReportWarnings={1} ReportComplete={2} LogWarnings={3}; CSV={4}' -f $State.RunState,$State.ReportWarnings,$State.ReportComplete,$(if ($LogState) { $LogState.FailureCount } else { 0 }),$State.CsvPath) }
+  try { Write-Host $line; Write-Host ('Final report outcome: State={0} ReportWarnings={1} ReportComplete={2} LogWarnings={3}; CSV={4}' -f $State.RunState,$State.ReportWarnings,$State.ReportComplete,$(if ($LogState) { $LogState.FailureCount } else { 0 }),$csvHint) }
   catch [Management.Automation.PipelineStoppedException] { throw }
   catch {
     if (Test-WinImgCancellationException $_) { throw }

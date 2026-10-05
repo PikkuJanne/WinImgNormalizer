@@ -71,7 +71,7 @@ BeforeAll {
         Invoke-SizingMagick @('identify','+ping','-regard-warnings','-define','registry:filename:literal=true','-format','%m|%w|%h|%n',(Get-WinImgNativeOutputPath $Path)) | Should -Be ('JPEG|'+$Width+'|'+$Height+'|1')
     }
     function Assert-SizingCleanup([object]$Result,[string[]]$Files) {
-        $actual=@(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object Extension -ne '.log' | ForEach-Object {$_.FullName.Substring($Result.Run.Length+1)} | Sort-Object)
+        $actual=@(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object { $_.Extension -notin @('.log','.csv') } | ForEach-Object {$_.FullName.Substring($Result.Run.Length+1)} | Sort-Object)
         ($actual -join '|') | Should -Be (@($Files | Sort-Object) -join '|')
         @(Get-ChildItem -LiteralPath (Join-Path $Result.Run '.WinImgNormalizer/work') -Force).Count | Should -Be 0
     }

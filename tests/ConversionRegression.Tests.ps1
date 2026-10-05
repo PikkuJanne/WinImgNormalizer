@@ -251,16 +251,16 @@ Describe 'M2-T06 integrated conversion corpus (T046)' {
         $codes=@($output | Where-Object{$_ -is [int] -or $_ -is [long]});$codes.Count|Should -Be 1;$codes[0]|Should -Be 0 -Because ($output -join "`n")
         $runs=@(Get-ChildItem -LiteralPath $parent -Directory | Sort-Object CreationTimeUtc)
         $runs.Count|Should -Be $(if($Label -eq 'default'){1}else{2}); $run=$runs[-1].FullName
-        $logs=@(Get-ChildItem -LiteralPath (Join-Path $run '.WinImgNormalizer/reports') -File);$logs.Count|Should -Be 1;$log=[IO.File]::ReadAllText($logs[0].FullName)
-        # Unsupported files are outside the runtime media inventory; their
+        $logs=@(Get-ChildItem -LiteralPath (Join-Path $run '.WinImgNormalizer/reports') -File -Filter '*.log');$logs.Count|Should -Be 1;$log=[IO.File]::ReadAllText($logs[0].FullName)
+        # Unsupported files are excluded from media planning and counted as ignored; their
         # unchanged bytes/times are part of the complete source-state check.
-        $log|Should -Match ('MaxBytes: '+$Cap+' bytes');$log|Should -Match 'SUMMARY ConvertedImages=12 CopiedVideos=1 Duplicates=1 Unsupported=0 Errors=0 SizeWarnings=0 NativeWarnings=0'
+        $log|Should -Match ('MaxBytes: '+$Cap+' bytes');$log|Should -Match 'SUMMARY ConvertedImages=12 CopiedVideos=1 Duplicates=1 Unsupported=2 Errors=0 SizeWarnings=0 NativeWarnings=0'
         $log|Should -Not -Match 'ERR IMG:|WARN IMG:|RETRY IMG:'
         Get-CorpusState $source|Should -Be $before
         (Get-FileHash -LiteralPath $sentinel).Hash|Should -Be $sentinelBefore
         ([IO.FileInfo]::new($sentinel)).CreationTimeUtc.Ticks|Should -Be $fixed.Ticks;([IO.FileInfo]::new($sentinel)).LastWriteTimeUtc.Ticks|Should -Be $fixed.Ticks
         $wanted=@($entries.ToArray() | ForEach-Object{$_.Output})+@($videoRel)
-        $actual=@(Get-ChildItem -LiteralPath $run -Recurse -Force -File | Where-Object Extension -ne '.log' | ForEach-Object{$_.FullName.Substring($run.Length+1)})
+        $actual=@(Get-ChildItem -LiteralPath $run -Recurse -Force -File | Where-Object { $_.Extension -notin @('.log','.csv') } | ForEach-Object{$_.FullName.Substring($run.Length+1)})
         Corpus-Ordinal $actual|Should -Be (Corpus-Ordinal $wanted)
         foreach($dir in @((ConvertFrom-Json $before).Directories | Where-Object Path -ne '.')){[IO.Directory]::Exists((Join-Path $run $dir.Path))|Should -BeTrue}
         @(Get-ChildItem -LiteralPath (Join-Path $run '.WinImgNormalizer/work') -Force).Count|Should -Be 0
