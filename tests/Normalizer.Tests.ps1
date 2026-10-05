@@ -244,7 +244,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         Get-Content -LiteralPath $logs[0].FullName -Raw | Should -Match 'No images or videos found\.'
     }
 
-    It 'T005 routes conversion arguments and a retry through the injected runner' {
+    It 'T005 routes conversion arguments and a diagnosed sharing retry through the injected runner' {
         $source = New-OwnedDirectory 'runner-source'
         $parent = New-OwnedDirectory 'runner-output'
         $sourceImage = Join-Path $source 'single.png'
@@ -256,7 +256,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
             $trace.Add([pscustomobject]@{ Executable = $Executable; Arguments = @($Arguments) })
-            if ($trace.Count -eq 1) { return 9 }
+            if ($trace.Count -eq 1) { return [pscustomobject]@{ ExitCode = 9; StdErr = "magick.exe: sharing violation @ error/blob.c/OpenBlob/3590." } }
             $target = $Arguments[-1].Substring('JPEG:'.Length)
             if (-not $target.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase)) {
                 throw 'Injected conversion escaped its owned output parent.'
@@ -286,7 +286,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         ($retry -join '|') | Should -Be (
             @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true', $first[4], '-auto-orient', '-colorspace', 'sRGB',
                 '-background', 'white', '-alpha', 'remove', '-alpha', 'off', '-strip',
-                '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '90%', '-define',
+                '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '100%', '-define',
                 'jpeg:extent=1048576B', $retry[-1]) -join '|')
         $retry[-1] | Should -Not -Be $first[-1]
         $trace[0].Executable | Should -Be $magick

@@ -1049,3 +1049,96 @@ remain ignored.
 Hosts were measured sequentially after local Pester completion. One repeat per
 machine/runtime/cap is descriptive only; no confidence interval or statistically
 controlled speed claim.
+
+## 2026-10-05 — M2-T05 completed
+
+Started clean at 2e30cf9948669f7af32533efc9d842472693be6d, equal to the live feature
+branch; owner-merged PR #13 main 590241944033c1332105e21a9dab49578a939941 had the same
+tree. Continued without changing checkout/history. Successor draft PR #14 contains this
+task. Implementation synchronization is a past exact-SHA observation; this record-only
+checkpoint's SHA/live synchronization remains pending_verification until observed
+externally after normal commit/push.
+
+A native failure now stops that image at its current scale even if the encoder leaves a
+decodable JPEG. Valid later files continue. Only an exact known JPEG notice with native
+exit 0 and full validation can be retained as ConvertedWithWarning; it adds
+NativeWarnings within ConvertedImages and returns application code 2. SizeWarnings
+remains a separate retained-output attribute.
+
+Stdout and stderr drain independently with bounded retained text; truncation fails. Only
+explicit sharing/lock failures can retry twice total per image, after 100/200 ms, at the
+same scale with identical flags and fresh owned scratch. Six smaller-size attempts are
+reached only from valid above-cap output, giving at most eight conversions including
+retries. Source/video preservation, no-overwrite safety, colour/white-alpha/strip
+policy, exact byte cap and JPEG settings remain.
+
+T043 — passed: Both actual Windows hosts capture native stdout/stderr/exit independently
+under ErrorActionPreference Stop. Genuine pinned lossless-to-lossy warning provenance
+distinguishes exit0 without regard-warnings from nonzero with regard-warnings, both with
+decoded JPEGs. Controlled native re-emission after actual production conversion
+finalizes explicit warning/exit2 with valid white/red JPEG and warning duplicate status;
+nonzero, truncated, unknown or ICC-mixed outcomes cannot finalize.
+
+T044 — passed: Actual owned unknown-coder, truncated-JPEG and exclusive-lock diagnostics
+classify permanently; the native Permission denied text remains nonretryable. Controlled
+native missing-codec, damage, denied, resource and unknown failures stop once despite
+valid JPEG bytes. Only explicit sharing text or trusted Win32 HRESULT 32/33 retries;
+another facility with low word 32 stops. Two 100/200 ms-backoff retries per file
+preserve scale/ICC/alpha arguments and fresh candidates. The actual eight-call case
+contains two controlled sharing failures and six real valid above-cap size conversions,
+ending in a 541-byte 32x24 JPEG/size warning/exit2 with source/video preservation.
+
+T045 — passed: Two actual concurrent newline-free child streams each emitted 4194330
+characters and native exit9; retained prefix/tail were bounded 1024 characters per
+stream, counts exact and streams complete without deadlock. At production capture
+limits, a controlled zero-exit native process that wrote a valid JPEG while overflowing
+streams is rejected once as OutputLimit; useful tail details remain in the bounded log
+and console output stays below 4096 characters.
+
+The initial Diagnostics target passed 10/23 and failed 13 because the owned managed
+fixture could not handle generated long paths and the pixel oracle used invalid FX
+syntax. Some rejection assertions could pass for the unintended fixture crash, so later
+tests require the intended native exit, complete streams and actual candidate. Corrected
+intermediate targets passed 26/26 in both shells; final targets passed 27/27 with the
+actual eight-call boundary. Separately, both first focused runs passed 131/132: the
+invalid-curve native work was safely rejected but the new category assertion expected
+DamagedInput. A narrow classifier reason correction produced 132/132 reruns. Runtime
+edits overlapped those first focused runs, so their end hashes do not prove immutable
+import bytes.  The first clean committed implementation failed each desktop normal
+268/269 and control 268/270 (T005 plus deliberate T007), and all four hosted normals
+failed 268/269 with control steps skipped. T005 still expected an unexplained exit 9 to
+retry. A three-line test-only correction supplied an explicit transient reason; both
+focused Normalizer reruns passed 6/6. Runtime bytes were unchanged. The original commit,
+raw source snapshots, summaries/XML/native records, hosted logs and independent
+diagnosis are retained. Final acceptance uses a separate clean corrected revision.
+Tooling-only inspection mistakes contribute no application or Pester acceptance counts.
+The second clean committed implementation passed all four desktop gates and both hosted
+matrices (269/269 normal; 270 total, 269 passed and exact T007 control). A separate
+actual native result-shape probe then found that the unchanged development measurement
+trace recorded absent DiagnosticOutput as null, bypassing its strict diagnostic guard.
+Its narrow adapter now records bounded separate streams with legacy fallback and returns
+the original result unchanged. Actual saved-AST checks passed five cases per host, with
+full JPEG decode and genuine warning/quiet cases. Those probes observed I2 HEAD plus the
+edited tool, whose raw bytes match final I3; they are not relabeled as clean-I3 runs or
+a representative benchmark. I2 successful gates, all 26 raw source snapshots, original
+CI/merge/review and both omission/correction proofs remain preserved. Final task
+acceptance uses fresh full/hosted gates at I3.
+
+Tested clean implementation: 5ddbf4156f2c10534a045586a5b5e5e050255c30.
+Actual Microsoft Windows 11 Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5, Pester
+5.9.1: each normal run passed 269/269 with native exit 0 and zero skipped or incomplete
+tests. Each control had 270 total, 269 passed, one exact T007 deliberate failure and
+native exit 1. Summary/XML, parent native records and console hashes bind 26 tested
+source paths to raw checkout and separate Git blobs, with only verified CRLF-to-LF
+normalization where needed. Persistent execution policies were unchanged.
+
+Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37267178588); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37267182413).
+Evidence: evidence/M2-T05.json and evidence/M2-T05-ci.json.
+
+Accepted 14/28 tasks and exercised T001-T045, with the first four characterization cases unchanged. Next: M2-T06 — Close the conversion-correctness milestone. This containing checkpoint changes only handoff/evidence and reviewed D28/I10 when present; its own synchronization remains pending_verification. Raw media/private paths/argv remain ignored. No owner merge, release, deployment or subjective quality approval is inferred.
+
+General per-file deadlines, cancellation, native descendant lifecycle and final
+reporting/BAT exit propagation remain later M3 gates. Fixed character capture is not a
+CPU/disk/lifetime sandbox. Controlled warning, retry and process-local resource fixtures
+remain qualified; prior codec/colour/provider limits and owner quality/default approval
+are unchanged. Full limitations and raw artifact bindings are in evidence/M2-T05.json.

@@ -239,8 +239,25 @@ ImageMagick applies auto-orientation, an embedded-ICC to sRGB transform (or the
 explicit untagged RGB/grayscale policy), white alpha compositing, then metadata
 stripping. JPEG settings remain -sampling-factor 4:2:0 -interlace Line and
 -define jpeg:extent=<exact decimal bytes>B. The six scale attempts remain 100→50%; retries retain
-all colour and alpha operations. Strict source inspection, successful native
-outcomes with no reported diagnostics and full JPEG decode precede finalization.
+all colour and alpha operations. Strict source inspection and full JPEG decode
+precede finalization. Only valid above-target results advance to a smaller scale.
+Native failures stop the item; a diagnosed sharing/lock violation can retry the
+same scale twice, after 100 and 200 ms, with fresh scratch and identical flags.
+Generic access denial, missing codecs, damaged input, ICC errors and exhausted
+resources never trigger scale fallback. A nonzero native exit never finalizes.
+
+Stdout and stderr drain independently through fixed buffers on PS5.1 and PS7.
+Per-item capture retains at most 16,384 characters per stream (UTF-16 character
+storage), preserving the beginning and end plus a truncation marker and total
+counts. Overflow fails the item. Preflight format/version queries have a separate
+262,144-character bound and retain their initial 15-second deadline. Attempt,
+category, native exit and bounded details go to the log; the console shows compact
+item results and retry reasons. Only the pinned JPEG writer's zero-exit
+lossless-to-lossy notice is accepted, after full JPEG validation; every other
+conversion diagnostic fails. An accepted notice counts as NativeWarnings and
+returns application warning code 2. Source/ICC inspection and candidate validation
+remain strict. The production -quiet/-regard-warnings flags remain enabled.
+General per-file deadlines and cancellation are planned separately.
 Output file timestamps are set to the source file’s timestamps.
 
 **Tweaks (optional)**

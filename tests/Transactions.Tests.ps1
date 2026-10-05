@@ -243,7 +243,7 @@ Describe 'M1-T04 native result and full candidate validation (T020)' {
         }
         $result = Invoke-TransactionRun -Source $source -OutputParent $parent -ProcessRunner $runner
         $result.Code | Should -Be 2 -Because $result.Text
-        $trace.Calls | Should -BeGreaterThan 0
+        $trace.Calls | Should -Be 1
         @($trace.Paths | Select-Object -Unique).Count | Should -Be $trace.Calls
         @($trace.InitialLengths | Where-Object { $_ -ne 0 }).Count | Should -Be 0
         foreach ($candidate in $trace.Paths) { Test-Path -LiteralPath $candidate | Should -BeFalse }
@@ -254,7 +254,7 @@ Describe 'M1-T04 native result and full candidate validation (T020)' {
         Get-TransactionSourceState $source | Should -Be $before
     }
 
-    It 'T020 validates a fresh fallback after a native failure rather than rejecting a later valid attempt' {
+    It 'T020 validates a fresh candidate after a diagnosed transient sharing failure' {
         $source = New-TransactionDirectory 'fallback-source'
         $parent = New-TransactionDirectory 'fallback-output'
         [IO.File]::WriteAllBytes((Join-Path $source 'single.png'), $pngBytes)
@@ -265,7 +265,10 @@ Describe 'M1-T04 native result and full candidate validation (T020)' {
             $trace.Calls++
             $candidate = Assert-TransactionOwnedCandidate -CandidatePath $Arguments[-1].Substring('JPEG:'.Length) -OutputParent $parent
             $trace.Paths.Add($candidate)
-            if ($trace.Calls -eq 1) { [IO.File]::WriteAllText($candidate, 'Failed native partial.'); return 1 }
+            if ($trace.Calls -eq 1) {
+                [IO.File]::WriteAllText($candidate, 'Failed native partial.')
+                return [pscustomobject]@{ ExitCode = 1; StdErr = "magick.exe: sharing violation @ error/blob.c/OpenBlob/3590." }
+            }
             [IO.File]::WriteAllBytes($candidate, $jpegBytes)
             return [pscustomobject]@{ ExitCode = 0; TimedOut = $false; Cancelled = $false }
         }
@@ -304,7 +307,7 @@ Describe 'M1-T04 attempt freshness and final conflicts (T021-T022)' {
         }
         $result = Invoke-TransactionRun -Source $source -OutputParent $parent -MaxBytes 1 -ProcessRunner $runner
         $result.Code | Should -Be 2 -Because $result.Text
-        $trace.Calls | Should -BeGreaterThan 1
+        $trace.Calls | Should -Be 2
         @($trace.Paths | Select-Object -Unique).Count | Should -Be $trace.Calls
         @($trace.InitialLengths | Where-Object { $_ -ne 0 }).Count | Should -Be 0
         foreach ($candidate in $trace.Paths) { Test-Path -LiteralPath $candidate | Should -BeFalse }
