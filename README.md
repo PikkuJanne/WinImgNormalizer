@@ -221,7 +221,11 @@ or folder is never reused as a run. Inside you'll find the mirrored tree, conver
 first free suffix such as `.WinImgNormalizer__2` when a source entry uses that name.
 Its `reports` subfolder contains `WinImgNormalizer_<timestamp>.log`; `work` is
 reserved for temporary processing. Source directories with these names are mirrored
-normally. A log creation failure stops setup and retains the run for diagnosis.
+normally. If creating or appending the required log fails, valid media work continues
+with a visible warning and application code 2. The failed disk sink is disabled once;
+a console fallback retains at most 8,192 UTF-16 characters, limits each stored line
+to 1,024 characters and reports dropped/truncated lines. The final reporting status
+shows whether the disk log is incomplete, including a failure on its last write.
 
 **Batch wrapper (included)**
 The repo includes a minimal wrapper so you can drag a folder onto the .bat.
@@ -258,7 +262,20 @@ conversion diagnostic fails. An accepted notice counts as NativeWarnings and
 returns application warning code 2. Source/ICC inspection and candidate validation
 remain strict. The production -quiet/-regard-warnings flags remain enabled.
 General per-file deadlines and cancellation are planned separately.
-Output file timestamps are set to the source file’s timestamps.
+Output creation and modified timestamps are restored separately from the captured
+source times. A failed setter retains the valid output, names the failed field and
+adds one TimestampWarnings attribute to that finalized image/video; the application
+returns code 2. A later heuristic duplicate reports the retained warning status.
+
+Discovery visits folders independently. An unreadable folder or uninspectable entry
+makes ScanComplete=False while accessible siblings continue; unknown files inside
+that location are not counted as processed. Incomplete directory/entry counts are
+separate from skipped links and media totals. Directory and file reparse points are
+skipped and reported without traversal; such warnings also return code 2. Linked
+roots or ancestors are rejected before output creation; choose the actual directory.
+Log messages escape control characters so a path or diagnostic cannot create fake
+report lines. Direct stderr reporting is best effort if the host pipeline has stopped;
+this does not establish native cancellation, cleanup or a guaranteed Ctrl+C exit.
 
 **Tweaks (optional)**
 Different size cap: pass a second positional argument in bytes (for example 2097152 for 2 MiB).

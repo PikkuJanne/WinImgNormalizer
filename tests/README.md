@@ -38,8 +38,8 @@ tests use owned synthetic scratch trees and controlled process failures. The pub
 The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1`,
 `Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1`, `Frames.Tests.ps1`,
-`Colour.Tests.ps1`, `Paths.Tests.ps1`, `Sizing.Tests.ps1`, `Diagnostics.Tests.ps1`
-and `ConversionRegression.Tests.ps1`.
+`Colour.Tests.ps1`, `Paths.Tests.ps1`, `Sizing.Tests.ps1`, `Diagnostics.Tests.ps1`,
+`ConversionRegression.Tests.ps1`, and `RecoveryReporting.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -298,3 +298,26 @@ profile/reference/tool bindings and native/delegate versions remain in marked
 ignored scratch. Seeded fixture bytes and JPEG outputs may vary by codec/build;
 these checks do not require cross-build byte identity or certify timed HEIC
 animation or all possible decoder implementations.
+
+The recovery/reporting regression (T047-T050) establishes actual denied directory
+enumeration on an owned Windows ACL fixture, continues accessible native image
+and video siblings, and restores the original DACL in a finally block.
+The denied-only case explicitly starts without auto-inheritance. Its fixture-only
+native DACL restoration preserves the complete requested owner/group/DACL
+descriptor bytes, DACL bytes and control flags exactly; no SDDL text is ignored
+or normalized. Original auto-inherited descriptors retain the Set-Acl path. Real
+junction loops, outside targets and a root alias are mandatory; a separately
+attempted file symlink reports its actual host capability. Missing symlink
+privilege does not count as actual file-symlink coverage.
+
+Logging tests distinguish a controlled creation failure from an exclusively held
+real log during actual native conversion. They assert one persisted degraded
+outcome, bounded fallback/drop counts, quiet diagnostic retention and caught
+emergency-stderr failure. A controlled PipelineStoppedException tests helper
+classification only; it does not establish Ctrl+C/process lifetime behavior.
+Independent timestamp setter failures for images and videos must retain full
+validated media, attempt the other field, continue siblings and register a
+warning duplicate status without inventing another failed file. Source hashes,
+creation/modified times and directory/link state are compared, and source,
+runtime, test, dependency/tool bindings and actual observations remain under
+marker-owned ignored scratch. No application permission recovery is attempted.
