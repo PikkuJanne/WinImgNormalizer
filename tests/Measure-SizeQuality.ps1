@@ -193,7 +193,9 @@ for ($repeat=1; $repeat -le $RepeatCount; $repeat++) {
                 $shape=@($Arguments | ForEach-Object {if($_ -eq $input[0]){'<owned-input>'}elseif($_ -like 'JPEG:*'){'JPEG:<owned-output>'}elseif($_ -like 'jpeg:extent=*'){'jpeg:extent=<budget>'}else{$_}})
                 $clock=[Diagnostics.Stopwatch]::StartNew()
                 try {$result=& $actualRunner $Executable $Arguments} finally {$clock.Stop()}
-                $attempts.Add([ordered]@{ fixture=$fixture.name; scale=$scale; extent=$extent; arguments=$Arguments.Clone(); normalized_flags=$shape; native_exit=$result.ExitCode; diagnostics=$result.DiagnosticOutput; native_elapsed_ms=$clock.Elapsed.TotalMilliseconds })
+                # Preserve diagnostics from the separated result and older Git runtimes.
+                $measurementDiagnostics = if ($result.PSObject.Properties['StdOut'] -and $result.PSObject.Properties['StdErr']) { [string]$result.StdOut + "`n" + [string]$result.StdErr } else { [string]$result.DiagnosticOutput }
+                $attempts.Add([ordered]@{ fixture=$fixture.name; scale=$scale; extent=$extent; arguments=$Arguments.Clone(); normalized_flags=$shape; native_exit=$result.ExitCode; diagnostics=$measurementDiagnostics; native_elapsed_ms=$clock.Elapsed.TotalMilliseconds })
                 return $result
             }.GetNewClosure()
             $parent=Join-Path $ResultDirectory ('outputs-'+$runtimeLabel+'-'+$repeat+'-'+$cap); $null=[IO.Directory]::CreateDirectory($parent)
