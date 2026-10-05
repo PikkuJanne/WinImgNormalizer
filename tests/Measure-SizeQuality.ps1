@@ -162,6 +162,20 @@ foreach ($fixture in $definitions) {
     Export-BenchRgb $fixture.path $fixture.reference_rgb
     if (([IO.FileInfo]::new($fixture.reference_rgb)).Length -ne $fixture.width*$fixture.height*3) { throw 'Unexpected original RGB8 dimensions.' }
 }
+# Historical/current snapshots share a host and cannot replace an Add-Type
+# class. Initialize the current wrapper once and restore it after each import;
+# the older algorithm/default conversion scriptblock still supplies its flags.
+$currentTokens=$null; $currentErrors=$null
+$currentAst=[Management.Automation.Language.Parser]::ParseFile($candidatePath,[ref]$currentTokens,[ref]$currentErrors)
+if ($currentErrors.Count) { throw 'Current snapshot runtime did not parse.' }
+$currentFunction=$currentAst.Find({param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq 'Invoke-WinImgNormalizer'},$true)
+$currentHasObserver=@($currentFunction.Body.ParamBlock.Parameters | Where-Object {$_.Name.VariablePath.UserPath -eq 'NativeProcessObserver'}).Count -eq 1
+$boundedNativeWrapper=$null
+if ($currentHasObserver) {
+    . $candidatePath
+    Initialize-WinImgProcessApi
+    $boundedNativeWrapper=(Get-Command Invoke-WinImgNativeProcess -CommandType Function).ScriptBlock
+}
 $rows=[Collections.Generic.List[object]]::new(); $applicationRuns=[Collections.Generic.List[object]]::new()
 $flagShapes=@{}; $baselineNonDivisible=@{}
 for ($repeat=1; $repeat -le $RepeatCount; $repeat++) {
@@ -173,34 +187,55 @@ for ($repeat=1; $repeat -le $RepeatCount; $repeat++) {
         $ast=[Management.Automation.Language.Parser]::ParseFile($selectedPath,[ref]$tokens,[ref]$parseErrors)
         if ($parseErrors.Count) { throw 'Snapshot runtime did not parse.' }
         $function=$ast.Find({param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq 'Invoke-WinImgNormalizer'},$true)
+        if ($boundedNativeWrapper) { Set-Item -LiteralPath Function:Invoke-WinImgNativeProcess -Value $boundedNativeWrapper }
+        $useNativeObserver=@($function.Body.ParamBlock.Parameters | Where-Object {$_.Name.VariablePath.UserPath -eq 'NativeProcessObserver'}).Count -eq 1
         $parameter=@($function.Body.ParamBlock.Parameters | Where-Object {$_.Name.VariablePath.UserPath -eq 'ProcessRunner'})[0]
-        $actualRunner=$parameter.DefaultValue.ScriptBlock.GetScriptBlock()
+        $actualRunner=$null
+        if (-not $useNativeObserver) {
+            if (-not $parameter.DefaultValue) { throw 'Historical conversion runner is unavailable.' }
+            $actualRunner=$parameter.DefaultValue.ScriptBlock.GetScriptBlock()
+        }
         foreach ($cap in $Caps) {
             $attempts=[Collections.Generic.List[object]]::new(); $inputHashes=@{}
             $tracedRunner={
-                param([string]$Executable,[string[]]$Arguments)
-                $input=@($Arguments | Where-Object { $_ -match '(?i)source\.(png|jpg)$' })
-                if ($input.Count -ne 1) { throw 'Cannot identify the actual owned benchmark source snapshot.' }
-                $path=$input[0]; if($path.StartsWith('\\?\')){$path=$path.Substring(4)}
+                param([string]$Executable,[string[]]$Arguments,[int]$RemainingMilliseconds,[hashtable]$ChildEnvironment)
+                if ($useNativeObserver -and -not $Arguments[-1].StartsWith('JPEG:',[StringComparison]::Ordinal)) {
+                    return & $boundedNativeWrapper -Executable $Executable -Arguments $Arguments -TimeoutMilliseconds $RemainingMilliseconds -Environment $ChildEnvironment
+                }
+                # Retain actual native limits in the trace. Compare only the
+                # existing image operations after the leading limit triplets.
+                $skip=0; $resourceLimits=@()
+                while ($skip+2 -lt $Arguments.Length -and $Arguments[$skip] -eq '-limit') {
+                    if ($Arguments[$skip+1] -notin @('memory','map','disk','thread','time')) { throw 'Unexpected native resource operand.' }
+                    $resourceLimits += [ordered]@{name=$Arguments[$skip+1];value=$Arguments[$skip+2]}; $skip+=3
+                }
+                $coreArguments=[string[]]@($Arguments | Select-Object -Skip $skip)
+                $nativeInputs=@($coreArguments | Where-Object { $_ -match '(?i)source\.(png|jpg)$' })
+                if ($nativeInputs.Count -ne 1) { throw 'Cannot identify the actual owned benchmark source snapshot.' }
+                $path=$nativeInputs[0]; if($path.StartsWith('\\?\')){$path=$path.Substring(4)}
                 if (-not $inputHashes.ContainsKey($path)) {
                     $hasher=[Security.Cryptography.SHA256]::Create()
                     try { $inputHashes[$path]=[BitConverter]::ToString($hasher.ComputeHash([IO.File]::ReadAllBytes($path))).Replace('-','').ToLowerInvariant() }
                     finally { $hasher.Dispose() }
                 }
                 $fixture=$fixtureByHash[$inputHashes[$path]]; if(-not $fixture){throw 'Native source bytes do not match a benchmark fixture.'}
-                $resize=[Array]::IndexOf($Arguments,'-resize'); $scale=[int]$Arguments[$resize+1].TrimEnd('%')
-                $extent=@($Arguments | Where-Object {$_ -like 'jpeg:extent=*'})[0]
-                $shape=@($Arguments | ForEach-Object {if($_ -eq $input[0]){'<owned-input>'}elseif($_ -like 'JPEG:*'){'JPEG:<owned-output>'}elseif($_ -like 'jpeg:extent=*'){'jpeg:extent=<budget>'}else{$_}})
+                $resize=[Array]::IndexOf($coreArguments,'-resize'); $scale=[int]$coreArguments[$resize+1].TrimEnd('%')
+                $extent=@($coreArguments | Where-Object {$_ -like 'jpeg:extent=*'})[0]
+                $shape=@($coreArguments | ForEach-Object {if($_ -eq $nativeInputs[0]){'<owned-input>'}elseif($_ -like 'JPEG:*'){'JPEG:<owned-output>'}elseif($_ -like 'jpeg:extent=*'){'jpeg:extent=<budget>'}else{$_}})
                 $clock=[Diagnostics.Stopwatch]::StartNew()
-                try {$result=& $actualRunner $Executable $Arguments} finally {$clock.Stop()}
+                try {
+                    $result=if ($useNativeObserver) { & $boundedNativeWrapper -Executable $Executable -Arguments $Arguments -TimeoutMilliseconds $RemainingMilliseconds -Environment $ChildEnvironment } else { & $actualRunner $Executable $Arguments }
+                } finally {$clock.Stop()}
                 # Preserve diagnostics from the separated result and older Git runtimes.
                 $measurementDiagnostics = if ($result.PSObject.Properties['StdOut'] -and $result.PSObject.Properties['StdErr']) { [string]$result.StdOut + "`n" + [string]$result.StdErr } else { [string]$result.DiagnosticOutput }
-                $attempts.Add([ordered]@{ fixture=$fixture.name; scale=$scale; extent=$extent; arguments=$Arguments.Clone(); normalized_flags=$shape; native_exit=$result.ExitCode; diagnostics=$measurementDiagnostics; native_elapsed_ms=$clock.Elapsed.TotalMilliseconds })
+                $attempts.Add([ordered]@{ fixture=$fixture.name; scale=$scale; extent=$extent; arguments=$Arguments.Clone(); normalized_flags=$shape; resource_limits=$resourceLimits; remaining_budget_ms=$(if($useNativeObserver){$RemainingMilliseconds}else{$null}); native_exit=$result.ExitCode; diagnostics=$measurementDiagnostics; native_elapsed_ms=$clock.Elapsed.TotalMilliseconds })
                 return $result
             }.GetNewClosure()
             $parent=Join-Path $ResultDirectory ('outputs-'+$runtimeLabel+'-'+$repeat+'-'+$cap); $null=[IO.Directory]::CreateDirectory($parent)
             $clock=[Diagnostics.Stopwatch]::StartNew()
-            $output=@(& Invoke-WinImgNormalizerCommand -Arguments @($images,$cap) -OutputParent $parent -MagickPath $MagickPath -ProcessRunner $tracedRunner 6>&1 3>&1 2>&1)
+            $output=if ($useNativeObserver) {
+                @(& Invoke-WinImgNormalizer -Source $images -MaxBytes $cap -OutputParent $parent -MagickPath $MagickPath -NativeProcessObserver $tracedRunner 6>&1 3>&1 2>&1)
+            } else { @(& Invoke-WinImgNormalizerCommand -Arguments @($images,$cap) -OutputParent $parent -MagickPath $MagickPath -ProcessRunner $tracedRunner 6>&1 3>&1 2>&1) }
             $clock.Stop(); $codes=@($output | Where-Object {$_ -is [int] -or $_ -is [long]})
             if ($codes.Count -ne 1 -or $codes[0] -notin @(0,2)) { throw 'Benchmark application returned an unexpected result.' }
             $children=@([IO.Directory]::GetDirectories($parent)); if($children.Count -ne 1){throw 'Expected one isolated application run.'}
@@ -295,7 +330,7 @@ foreach($binding in $sourceBindings) {
 if((Get-BenchHash $candidatePath) -ne $sourceBindings[0].observed_checkout_sha256){throw 'Candidate runtime snapshot no longer matches its starting raw hash.'}
 if(-not $Exploratory -and ((git rev-parse HEAD).Trim() -ne $ImplementationCommit -or (git status --porcelain=v1 --untracked-files=all))){throw 'Clean-I checkpoint changed during the benchmark.'}
 $operatingSystem=Get-CimInstance Win32_OperatingSystem
-$record=[ordered]@{schema_version=1;task_id='M2-T04';observed_at_utc=[datetime]::UtcNow.ToString('o');classification=$(if($Exploratory){'uncommitted exploratory benchmark on owned copied runtime bytes'}else{'clean implementation benchmark'});implementation_commit=$ImplementationCommit;baseline_commit=$BaselineCommit;baseline_git_blob_sha256=Get-BenchHash $baselinePath;candidate_tested_raw_sha256=Get-BenchHash $candidatePath;candidate_checkout_snapshot_binding='Exact raw bytes copied at benchmark start; baseline is exact Git blob bytes, whose line endings can differ from checkout bytes.';source_bindings=$sourceBindings;environment=[ordered]@{powershell_version=$PSVersionTable.PSVersion.ToString();powershell_edition=$PSVersionTable.PSEdition;os_version=$operatingSystem.Version;os_caption=$operatingSystem.Caption;os_build=$operatingSystem.BuildNumber;host_executable=(Get-Process -Id $PID).Path;architecture_bits=[IntPtr]::Size*8;culture=[Globalization.CultureInfo]::CurrentCulture.Name;imagemagick_sha256=$dependencies.ImageMagickExecutableSha256;imagemagick_version=$version};caps=$Caps;repeat_count=$RepeatCount;fixture_dimensions=@($FixtureWidth,$FixtureHeight);fixture_seed='xorshift32 0x6d2b79f5';source_preservation=$before;source_preserved=$true;source_harness_start_end_hashes_equal=$true;candidate_warning_contract_verified=$true;persistent_policy_unchanged=$true;conversion_flags_equal_except_extent=$true;scale_sequence_prefix_verified=@(100,90,80,70,60,50);non_kib_divisible_65537B_comparison_identical=($Caps -contains 65537);metric_method='RGB8 MAE and PSNR calculated across every decoded channel sample. Output-grid reference is original resized to retained dimensions using pinned ImageMagick default resizing; source-grid metric upscales the actual output to original dimensions. Lossy-source reference is its existing decoded JPEG, not the earlier pristine source. These are synthetic encoded-sRGB metrics, not perceptual scores.';timing_method='Stopwatch native conversion latency and full application wall time; dependency bootstrap, fixture generation and metric decode are outside application timing. Application timing includes validation, source-hash tracing and log overhead. Fixed baseline/candidate order is reversed on even repeats. Single-machine synthetic runs are not statistically controlled performance or subjective owner-quality acceptance.';limitations=@('No new encoder/scale/chroma/default algorithm is proposed. Correcting decimal MB/KB to exact byte budgets can change default or binary-divisible output bytes/quality; 65537B provides an unchanged-budget comparison.','No arbitrary photography, print accuracy, owner aesthetic/default acceptance or cross-machine performance claim.','The public function return is captured; the invoking parent must separately preserve the fresh host native process exit. Raw paths, media and transcripts remain ignored.');application_runs=$applicationRuns.ToArray();rows=$rows.ToArray();native_operations=$nativeRecords.ToArray()}
+$record=[ordered]@{schema_version=1;task_id='M2-T04';observed_at_utc=[datetime]::UtcNow.ToString('o');classification=$(if($Exploratory){'uncommitted exploratory benchmark on owned copied runtime bytes'}else{'clean implementation benchmark'});implementation_commit=$ImplementationCommit;baseline_commit=$BaselineCommit;baseline_git_blob_sha256=Get-BenchHash $baselinePath;candidate_tested_raw_sha256=Get-BenchHash $candidatePath;candidate_checkout_snapshot_binding='Exact raw bytes copied at benchmark start; baseline is exact Git blob bytes, whose line endings can differ from checkout bytes.';source_bindings=$sourceBindings;environment=[ordered]@{powershell_version=$PSVersionTable.PSVersion.ToString();powershell_edition=$PSVersionTable.PSEdition;os_version=$operatingSystem.Version;os_caption=$operatingSystem.Caption;os_build=$operatingSystem.BuildNumber;host_executable=(Get-Process -Id $PID).Path;architecture_bits=[IntPtr]::Size*8;culture=[Globalization.CultureInfo]::CurrentCulture.Name;imagemagick_sha256=$dependencies.ImageMagickExecutableSha256;imagemagick_version=$version};caps=$Caps;repeat_count=$RepeatCount;fixture_dimensions=@($FixtureWidth,$FixtureHeight);fixture_seed='xorshift32 0x6d2b79f5';source_preservation=$before;source_preserved=$true;source_harness_start_end_hashes_equal=$true;candidate_warning_contract_verified=$true;persistent_policy_unchanged=$true;conversion_flags_equal_except_extent=$true;native_limit_trace_separate_from_core_image_flags=$true;historical_wrapper_compatibility=$(if($currentHasObserver){'Current bounded native wrapper restored after each runtime import; historical image algorithm and default runner flags preserved. Current observer calls retain actual resources, environment and shared remaining deadline.'}else{'Historical native wrapper/default runner unchanged.'});scale_sequence_prefix_verified=@(100,90,80,70,60,50);non_kib_divisible_65537B_comparison_identical=($Caps -contains 65537);metric_method='RGB8 MAE and PSNR calculated across every decoded channel sample. Output-grid reference is original resized to retained dimensions using pinned ImageMagick default resizing; source-grid metric upscales the actual output to original dimensions. Lossy-source reference is its existing decoded JPEG, not the earlier pristine source. These are synthetic encoded-sRGB metrics, not perceptual scores.';timing_method='Stopwatch native conversion latency and full application wall time; dependency bootstrap, fixture generation and metric decode are outside application timing. Application timing includes validation, source-hash tracing and log overhead. Fixed baseline/candidate order is reversed on even repeats. Single-machine synthetic runs are not statistically controlled performance or subjective owner-quality acceptance.';limitations=@('No new encoder/scale/chroma/default algorithm is proposed. Correcting decimal MB/KB to exact byte budgets can change default or binary-divisible output bytes/quality; 65537B provides an unchanged-budget comparison.','No arbitrary photography, print accuracy, owner aesthetic/default acceptance or cross-machine performance claim.','The public function return is captured; the invoking parent must separately preserve the fresh host native process exit. Raw paths, media and transcripts remain ignored.');application_runs=$applicationRuns.ToArray();rows=$rows.ToArray();native_operations=$nativeRecords.ToArray()}
 Write-BenchJson (Join-Path $ResultDirectory 'benchmark.json') $record
 $csv=Join-Path $ResultDirectory 'measurements.csv'
 $columns=@('runtime','repeat','fixture','cap_bytes','source_bytes','output_bytes','computed_status','width','height','selected_scale','attempt_count','encoder_quality_estimate','native_conversion_elapsed_ms','application_elapsed_ms','output_mae_rgb8','output_psnr_db','source_grid_mae_rgb8','source_grid_psnr_db','byte_identical','timestamps_preserved','application_return')

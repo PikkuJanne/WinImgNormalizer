@@ -411,19 +411,21 @@ function Initialize-WinImgProcessApi {
   # ReadToEnd/ReadLine allocations (a native diagnostic need not contain LF).
   Add-Type -TypeDefinition @'
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 namespace WinImgNormalizer {
   public sealed class NativeResult {
     public int? ExitCode;
     public string StdOut = "", StdErr = "", StartError = "";
-    public long StdOutCharacters, StdErrCharacters;
+    public long StdOutCharacters, StdErrCharacters, ElapsedMilliseconds;
     public bool StdOutTruncated, StdErrTruncated, TimedOut, Cancelled;
-    public bool StreamsComplete = true;
-    public int Win32ErrorCode, CaptureLimit;
+    public bool StreamsComplete = true, JobAssigned, TreeTerminated, DrainTimedOut;
+    public int Win32ErrorCode, CaptureLimit, ProcessId;
   }
   internal sealed class BoundedCapture {
     private readonly char[] ring, head;
@@ -432,19 +434,13 @@ namespace WinImgNormalizer {
     private readonly object gate = new object();
     public string ReadError = "";
     public BoundedCapture(int limit) { ring = new char[limit]; head = new char[limit / 4]; }
-    public void Drain(StreamReader reader) {
-      char[] block = new char[4096];
-      try {
-        int count;
-        while ((count = reader.Read(block, 0, block.Length)) != 0) {
-          lock (gate) {
-            for (int i = 0; i < count; i++) {
-              if (total < head.Length) head[(int)total] = block[i];
-              ring[next] = block[i]; next = (next + 1) % ring.Length; total++;
-            }
-          }
+    public void Append(char[] block, int count) {
+      lock (gate) {
+        for (int i = 0; i < count; i++) {
+          if (total < head.Length) head[(int)total] = block[i];
+          ring[next] = block[i]; next = (next + 1) % ring.Length; total++;
         }
-      } catch (Exception error) { ReadError = error.GetType().Name; }
+      }
     }
     public long Count { get { lock (gate) { return total; } } }
     public bool Truncated { get { lock (gate) { return total > ring.Length; } } }
@@ -461,9 +457,87 @@ namespace WinImgNormalizer {
       }
     }
   }
+  internal sealed class PipeDrain {
+    private IntPtr pipe;
+    internal IntPtr ThreadHandle;
+    private readonly object handleGate = new object();
+    private volatile bool stopping;
+    internal bool Started;
+    internal readonly ManualResetEvent Ready = new ManualResetEvent(false);
+    internal readonly Thread Worker;
+    internal readonly BoundedCapture Capture;
+    internal PipeDrain(IntPtr handle, BoundedCapture capture) {
+      pipe = handle; Capture = capture;
+      Worker = new Thread(Read); Worker.IsBackground = true;
+    }
+    internal void Start() { Worker.Start(); Started=true; }
+    private void Read() {
+      byte[] bytes = new byte[4096]; char[] chars = new char[4098];
+      Decoder decoder = new UTF8Encoding(false, false).GetDecoder();
+      try {
+        lock(handleGate) {
+          ThreadHandle = NativeProcess.OpenThread(1, false, NativeProcess.GetCurrentThreadId());
+          if (ThreadHandle == IntPtr.Zero) throw new Win32Exception(Marshal.GetLastWin32Error());
+        }
+        Ready.Set();
+        while (!stopping) {
+          uint count;
+          bool ok = NativeProcess.ReadFile(pipe, bytes, (uint)bytes.Length, out count, IntPtr.Zero);
+          if (!ok) {
+            int error = Marshal.GetLastWin32Error();
+            if (error == 109) break; // All whitelisted pipe writers have closed.
+            throw new Win32Exception(error);
+          }
+          if (count == 0) break;
+          int decoded = decoder.GetChars(bytes, 0, (int)count, chars, 0, false);
+          Capture.Append(chars, decoded);
+        }
+        Capture.Append(chars, decoder.GetChars(bytes, 0, 0, chars, 0, true));
+      } catch (Exception error) { Capture.ReadError = error.GetType().Name; }
+      finally { Ready.Set(); NativeProcess.Close(ref pipe); lock(handleGate) { NativeProcess.Close(ref ThreadHandle); } }
+    }
+    internal void Cancel() {
+      stopping=true;
+      lock(handleGate) { if (ThreadHandle != IntPtr.Zero) NativeProcess.CancelSynchronousIo(ThreadHandle); }
+    }
+    internal void FinishHandles() {
+      // A stuck background reader retains ownership of its pipe; never call
+      // StreamReader.Close on another thread or free a pending read's buffer.
+      if (!Started) NativeProcess.Close(ref pipe);
+      if (!Worker.IsAlive) Ready.Close();
+    }
+  }
   public static class NativeProcess {
-    // The Windows CRT grammar is shared by .NET Framework and modern .NET.
-    // Always quote, doubling backslashes before quotes and the closing quote.
+    [StructLayout(LayoutKind.Sequential)] private struct SECURITY_ATTRIBUTES { public int length; public IntPtr descriptor; [MarshalAs(UnmanagedType.Bool)] public bool inherit; }
+    [StructLayout(LayoutKind.Sequential)] private struct STARTUPINFO { public int cb; public IntPtr reserved, desktop, title; public uint x, y, xSize, ySize, xCountChars, yCountChars, fillAttribute, flags; public ushort showWindow, cbReserved2; public IntPtr reserved2, stdin, stdout, stderr; }
+    [StructLayout(LayoutKind.Sequential)] private struct STARTUPINFOEX { public STARTUPINFO info; public IntPtr attributes; }
+    [StructLayout(LayoutKind.Sequential)] private struct PROCESS_INFORMATION { public IntPtr process, thread; public uint processId, threadId; }
+    [StructLayout(LayoutKind.Sequential)] private struct JOB_BASIC_LIMIT { public long processTime, jobTime; public uint flags; public UIntPtr minWorkingSet, maxWorkingSet; public uint activeProcessLimit; public UIntPtr affinity; public uint priority, scheduling; }
+    [StructLayout(LayoutKind.Sequential)] private struct IO_COUNTERS { public ulong readOps, writeOps, otherOps, readBytes, writeBytes, otherBytes; }
+    [StructLayout(LayoutKind.Sequential)] private struct JOB_EXTENDED_LIMIT { public JOB_BASIC_LIMIT basic; public IO_COUNTERS io; public UIntPtr processMemory, jobMemory, peakProcessMemory, peakJobMemory; }
+    [StructLayout(LayoutKind.Sequential)] private struct JOB_ACCOUNTING { public long userTime, kernelTime, periodUserTime, periodKernelTime; public uint pageFaults, totalProcesses, activeProcesses, terminatedProcesses; }
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern IntPtr CreateJobObjectW(IntPtr attributes, IntPtr name);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool SetInformationJobObject(IntPtr job, int kind, ref JOB_EXTENDED_LIMIT value, uint length);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool QueryInformationJobObject(IntPtr job, int kind, out JOB_ACCOUNTING value, uint length, IntPtr returned);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool TerminateJobObject(IntPtr job, uint exitCode);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool IsProcessInJob(IntPtr process, IntPtr job, out bool inJob);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool CreatePipe(out IntPtr read, out IntPtr write, ref SECURITY_ATTRIBUTES attributes, uint size);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool SetHandleInformation(IntPtr handle, uint mask, uint flags);
+    [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] private static extern IntPtr CreateFileW(string path, uint access, uint share, ref SECURITY_ATTRIBUTES attributes, uint disposition, uint flags, IntPtr template);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool InitializeProcThreadAttributeList(IntPtr list, int count, int flags, ref IntPtr size);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool UpdateProcThreadAttribute(IntPtr list, uint flags, IntPtr attribute, IntPtr value, IntPtr size, IntPtr previous, IntPtr returned);
+    [DllImport("kernel32.dll")] private static extern void DeleteProcThreadAttributeList(IntPtr list);
+    [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] private static extern bool CreateProcessW(string application, StringBuilder command, IntPtr processAttributes, IntPtr threadAttributes, bool inheritHandles, uint flags, IntPtr environment, string directory, ref STARTUPINFOEX startup, out PROCESS_INFORMATION information);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern uint ResumeThread(IntPtr thread);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern uint WaitForSingleObject(IntPtr handle, uint milliseconds);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool GetExitCodeProcess(IntPtr process, out uint exitCode);
+    [DllImport("kernel32.dll", SetLastError=true)] internal static extern bool ReadFile(IntPtr handle, byte[] buffer, uint requested, out uint read, IntPtr overlapped);
+    [DllImport("kernel32.dll", SetLastError=true)] internal static extern IntPtr OpenThread(uint access, bool inherit, uint threadId);
+    [DllImport("kernel32.dll")] internal static extern uint GetCurrentThreadId();
+    [DllImport("kernel32.dll", SetLastError=true)] internal static extern bool CancelSynchronousIo(IntPtr thread);
+    [DllImport("kernel32.dll", SetLastError=true)] private static extern bool CloseHandle(IntPtr handle);
+    internal static void Close(ref IntPtr handle) { if (handle != IntPtr.Zero && handle != new IntPtr(-1)) { CloseHandle(handle); handle = IntPtr.Zero; } }
+    private static void Check(bool ok) { if (!ok) throw new Win32Exception(Marshal.GetLastWin32Error()); }
     public static string Quote(string value) {
       if (value == null) value = "";
       StringBuilder text = new StringBuilder(); text.Append('"'); int slashes = 0;
@@ -475,55 +549,119 @@ namespace WinImgNormalizer {
       }
       text.Append('\\', slashes * 2); text.Append('"'); return text.ToString();
     }
-    public static NativeResult Run(string executable, string[] arguments, int limit, int timeout, bool killTree) {
-      NativeResult result = new NativeResult();
-      result.CaptureLimit = limit;
-      BoundedCapture stdout = new BoundedCapture(limit), stderr = new BoundedCapture(limit);
-      using (Process process = new Process()) {
-        ProcessStartInfo info = new ProcessStartInfo();
-        info.FileName = executable; info.UseShellExecute = false; info.CreateNoWindow = true;
-        info.RedirectStandardOutput = true; info.RedirectStandardError = true;
-        info.StandardOutputEncoding = new UTF8Encoding(false, false);
-        info.StandardErrorEncoding = new UTF8Encoding(false, false);
-        StringBuilder command = new StringBuilder();
-        foreach (string argument in arguments) { if (command.Length != 0) command.Append(' '); command.Append(Quote(argument)); }
-        info.Arguments = command.ToString(); process.StartInfo = info;
-        try { if (!process.Start()) throw new InvalidOperationException("Native process did not start."); }
-        catch (Exception error) {
-          string message = error.Message; result.StartError = message.Length > 512 ? message.Substring(0, 512) : message;
-          Win32Exception native = error as Win32Exception;
-          if (native != null) result.Win32ErrorCode = native.NativeErrorCode;
-          return result;
+    private static IntPtr EnvironmentBlock(string[] names, string[] values) {
+      if (names == null || values == null || names.Length != values.Length) throw new ArgumentException("Environment override arrays must have matching lengths.");
+      if (names.Length == 0) return IntPtr.Zero;
+      SortedDictionary<string,string> environment = new SortedDictionary<string,string>(StringComparer.OrdinalIgnoreCase);
+      foreach (DictionaryEntry pair in Environment.GetEnvironmentVariables()) environment[(string)pair.Key] = (string)pair.Value;
+      for (int i=0; i<names.Length; i++) {
+        if (String.IsNullOrEmpty(names[i]) || names[i].IndexOf('=') >= 0 || names[i].IndexOf('\0') >= 0 || (values[i] != null && values[i].IndexOf('\0') >= 0)) throw new ArgumentException("Invalid environment override.");
+        if (values[i] == null) environment.Remove(names[i]); else environment[names[i]] = values[i];
+      }
+      StringBuilder block = new StringBuilder();
+      foreach (KeyValuePair<string,string> pair in environment) { block.Append(pair.Key); block.Append('='); block.Append(pair.Value); block.Append('\0'); }
+      block.Append('\0'); return Marshal.StringToHGlobalUni(block.ToString());
+    }
+    private static bool EmptyJob(IntPtr job) {
+      JOB_ACCOUNTING accounting;
+      Check(QueryInformationJobObject(job, 1, out accounting, (uint)Marshal.SizeOf(typeof(JOB_ACCOUNTING)), IntPtr.Zero));
+      return accounting.activeProcesses == 0;
+    }
+    private static int Remaining(Stopwatch clock, int deadline) { return (int)Math.Max(0L, deadline-clock.ElapsedMilliseconds); }
+    private static void Error(NativeResult result, Exception error) {
+      string message = error.Message; result.StartError = message.Length > 512 ? message.Substring(0,512) : message;
+      Win32Exception native = error as Win32Exception; if (native != null) result.Win32ErrorCode = native.NativeErrorCode;
+    }
+    public static NativeResult Run(string executable, string[] arguments, int limit, int timeout, string[] environmentNames, string[] environmentValues) {
+      NativeResult result = new NativeResult(); result.CaptureLimit = limit;
+      Stopwatch clock = Stopwatch.StartNew();
+      IntPtr job=IntPtr.Zero, outRead=IntPtr.Zero, outWrite=IntPtr.Zero, errRead=IntPtr.Zero, errWrite=IntPtr.Zero, input=IntPtr.Zero;
+      IntPtr attributes=IntPtr.Zero, jobValue=IntPtr.Zero, handleValues=IntPtr.Zero, environment=IntPtr.Zero;
+      PROCESS_INFORMATION process = new PROCESS_INFORMATION();
+      bool attributesReady=false, launched=false;
+      PipeDrain stdout=null, stderr=null;
+      BoundedCapture outCapture=null, errCapture=null;
+      try {
+        if (limit < 1024 || limit > 262144 || timeout <= 0) throw new ArgumentException("Bounded native capture requires a valid limit and positive deadline.");
+        outCapture = new BoundedCapture(limit); errCapture = new BoundedCapture(limit);
+        job = CreateJobObjectW(IntPtr.Zero,IntPtr.Zero); Check(job != IntPtr.Zero);
+        Check(SetHandleInformation(job,1,0));
+        JOB_EXTENDED_LIMIT jobLimits = new JOB_EXTENDED_LIMIT(); jobLimits.basic.flags=0x2000; // KILL_ON_JOB_CLOSE; no breakaway.
+        Check(SetInformationJobObject(job,9,ref jobLimits,(uint)Marshal.SizeOf(typeof(JOB_EXTENDED_LIMIT))));
+        SECURITY_ATTRIBUTES security = new SECURITY_ATTRIBUTES(); security.length=Marshal.SizeOf(typeof(SECURITY_ATTRIBUTES)); security.inherit=true;
+        Check(CreatePipe(out outRead,out outWrite,ref security,0)); Check(SetHandleInformation(outRead,1,0));
+        Check(CreatePipe(out errRead,out errWrite,ref security,0)); Check(SetHandleInformation(errRead,1,0));
+        input=CreateFileW("NUL",0x80000000,3,ref security,3,0,IntPtr.Zero); Check(input != new IntPtr(-1));
+        IntPtr size=IntPtr.Zero; InitializeProcThreadAttributeList(IntPtr.Zero,2,0,ref size);
+        if (size==IntPtr.Zero) throw new Win32Exception(Marshal.GetLastWin32Error());
+        attributes=Marshal.AllocHGlobal(size); Check(InitializeProcThreadAttributeList(attributes,2,0,ref size)); attributesReady=true;
+        jobValue=Marshal.AllocHGlobal(IntPtr.Size); Marshal.WriteIntPtr(jobValue,job);
+        Check(UpdateProcThreadAttribute(attributes,0,new IntPtr(0x2000D),jobValue,new IntPtr(IntPtr.Size),IntPtr.Zero,IntPtr.Zero));
+        handleValues=Marshal.AllocHGlobal(3*IntPtr.Size);
+        Marshal.WriteIntPtr(handleValues,0,input); Marshal.WriteIntPtr(handleValues,IntPtr.Size,outWrite); Marshal.WriteIntPtr(handleValues,2*IntPtr.Size,errWrite);
+        Check(UpdateProcThreadAttribute(attributes,0,new IntPtr(0x20002),handleValues,new IntPtr(3*IntPtr.Size),IntPtr.Zero,IntPtr.Zero));
+        environment=EnvironmentBlock(environmentNames,environmentValues);
+        STARTUPINFOEX startup=new STARTUPINFOEX(); startup.info.cb=Marshal.SizeOf(typeof(STARTUPINFOEX)); startup.info.flags=0x100;
+        startup.info.stdin=input; startup.info.stdout=outWrite; startup.info.stderr=errWrite; startup.attributes=attributes;
+        StringBuilder command=new StringBuilder(Quote(executable));
+        foreach(string argument in arguments) { command.Append(' '); command.Append(Quote(argument)); }
+        // JOB_LIST assigns atomically before the initial thread can execute.
+        Check(CreateProcessW(executable,command,IntPtr.Zero,IntPtr.Zero,true,0x08080404,environment,null,ref startup,out process));
+        launched=true; result.ProcessId=(int)process.processId;
+        bool inJob; Check(IsProcessInJob(process.process,job,out inJob));
+        if (!inJob) throw new InvalidOperationException("Native process was not assigned to its private job.");
+        result.JobAssigned=true;
+        Close(ref outWrite); Close(ref errWrite); Close(ref input);
+        stdout=new PipeDrain(outRead,outCapture); outRead=IntPtr.Zero; stdout.Start();
+        stderr=new PipeDrain(errRead,errCapture); errRead=IntPtr.Zero; stderr.Start();
+        if (!stdout.Ready.WaitOne(Math.Min(2000,Remaining(clock,timeout))) || !stderr.Ready.WaitOne(Math.Min(2000,Remaining(clock,timeout))) || outCapture.ReadError.Length!=0 || errCapture.ReadError.Length!=0) throw new InvalidOperationException("Native output readers could not initialize.");
+        if (Remaining(clock,timeout)==0) result.TimedOut=true;
+        else {
+          uint previous=ResumeThread(process.thread); if(previous==0xFFFFFFFF) throw new Win32Exception(Marshal.GetLastWin32Error());
+          uint wait=WaitForSingleObject(process.process,(uint)Remaining(clock,timeout));
+          if(wait==0x102) result.TimedOut=true;
+          else if(wait!=0) throw new Win32Exception(Marshal.GetLastWin32Error());
         }
-        StreamReader outStream = process.StandardOutput, errStream = process.StandardError;
-        Thread outReader = new Thread(delegate() { stdout.Drain(outStream); });
-        Thread errReader = new Thread(delegate() { stderr.Drain(errStream); });
-        outReader.IsBackground = true; errReader.IsBackground = true; outReader.Start(); errReader.Start();
-        try {
-          if (timeout == 0) process.WaitForExit();
-          else if (!process.WaitForExit(timeout)) {
-            result.TimedOut = true;
-            // Preserve the existing preflight-only deadline and owned PID tree
-            // termination. Conversion deadlines/cancellation remain later work.
-            if (killTree) {
-              try {
-                string taskkill = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "taskkill.exe");
-                Run(taskkill, new string[] { "/PID", process.Id.ToString(System.Globalization.CultureInfo.InvariantCulture), "/T", "/F" }, 8192, 5000, false);
-              } catch { }
+      } catch(Exception error) { Error(result,error); result.StreamsComplete=false; }
+      finally {
+        // Even a root that exits normally may leave descendants holding pipes.
+        // Termination is restricted to this private job, never PID snapshots.
+        Stopwatch cleanup=Stopwatch.StartNew();
+        if(launched && job!=IntPtr.Zero) {
+          try {
+            Check(TerminateJobObject(job,0xE0000001));
+            while(!EmptyJob(job) && cleanup.ElapsedMilliseconds<2000) Thread.Sleep(10);
+            result.TreeTerminated=EmptyJob(job);
+            if(!result.TreeTerminated) { result.StreamsComplete=false; result.StartError="Owned native job did not become empty within termination grace."; }
+            if(WaitForSingleObject(process.process,0)==0) { uint code; Check(GetExitCodeProcess(process.process,out code)); result.ExitCode=unchecked((int)code); }
+          } catch(Exception error) { Error(result,error); result.StreamsComplete=false; }
+        }
+        Close(ref outWrite); Close(ref errWrite); Close(ref input);
+        if(stdout!=null || stderr!=null) {
+          bool outDone=stdout!=null && stdout.Started && stdout.Worker.Join(Remaining(cleanup,2500));
+          bool errDone=stderr!=null && stderr.Started && stderr.Worker.Join(Remaining(cleanup,2500));
+          if(!outDone || !errDone) {
+            result.DrainTimedOut=true;
+            // A cancel can race the reader's next ReadFile. Mark it stopping
+            // and repeat cancellation during the same finite grace budget.
+            while(cleanup.ElapsedMilliseconds<3000 && (!outDone || !errDone)) {
+              if(stdout!=null && stdout.Started) { stdout.Cancel(); outDone=stdout.Worker.Join(Math.Min(10,Remaining(cleanup,3000))); }
+              if(stderr!=null && stderr.Started) { stderr.Cancel(); errDone=stderr.Worker.Join(Math.Min(10,Remaining(cleanup,3000))); }
             }
-            if (!process.WaitForExit(5000)) { try { process.Kill(); } catch { } }
-            process.WaitForExit(5000);
           }
-          if (process.HasExited) result.ExitCode = process.ExitCode;
-          bool outComplete = outReader.Join(5000), errComplete = errReader.Join(5000);
-          result.StreamsComplete = outComplete && errComplete && stdout.ReadError.Length == 0 && stderr.ReadError.Length == 0;
-        } finally {
-          process.StandardOutput.Close(); process.StandardError.Close();
-          outReader.Join(1000); errReader.Join(1000);
-        }
-        result.StdOut = stdout.Text(); result.StdErr = stderr.Text();
-        result.StdOutCharacters = stdout.Count; result.StdErrCharacters = stderr.Count;
-        result.StdOutTruncated = stdout.Truncated; result.StdErrTruncated = stderr.Truncated;
+          result.StreamsComplete=result.StreamsComplete && !result.DrainTimedOut && outDone && errDone && outCapture.ReadError.Length==0 && errCapture.ReadError.Length==0 && result.TreeTerminated;
+        } else if(launched) result.StreamsComplete=false;
+        Close(ref process.thread); Close(ref process.process); Close(ref job);
+        Close(ref outRead); Close(ref errRead);
+        if(stdout!=null) stdout.FinishHandles(); if(stderr!=null) stderr.FinishHandles();
+        if(attributesReady) DeleteProcThreadAttributeList(attributes);
+        if(attributes!=IntPtr.Zero) Marshal.FreeHGlobal(attributes);
+        if(jobValue!=IntPtr.Zero) Marshal.FreeHGlobal(jobValue);
+        if(handleValues!=IntPtr.Zero) Marshal.FreeHGlobal(handleValues);
+        if(environment!=IntPtr.Zero) Marshal.FreeHGlobal(environment);
+        if(outCapture!=null) { result.StdOut=outCapture.Text(); result.StdOutCharacters=outCapture.Count; result.StdOutTruncated=outCapture.Truncated; }
+        if(errCapture!=null) { result.StdErr=errCapture.Text(); result.StdErrCharacters=errCapture.Count; result.StdErrTruncated=errCapture.Truncated; }
+        result.ElapsedMilliseconds=clock.ElapsedMilliseconds;
       }
       return result;
     }
@@ -535,9 +673,128 @@ namespace WinImgNormalizer {
 function Invoke-WinImgNativeProcess {
   param([string]$Executable, [string[]]$Arguments,
     [ValidateRange(1024,262144)][int]$OutputLimit = 16384,
-    [ValidateRange(0,2147483647)][int]$TimeoutMilliseconds = 0)
+    [ValidateRange(1,2147483647)][int]$TimeoutMilliseconds = 15000,
+    [hashtable]$Environment = @{})
   Initialize-WinImgProcessApi
-  return [WinImgNormalizer.NativeProcess]::Run($Executable, $Arguments, $OutputLimit, $TimeoutMilliseconds, $true)
+  $names = [string[]]@($Environment.Keys | Sort-Object)
+  $values = [string[]]@($names | ForEach-Object { [string]$Environment[$_] })
+  return [WinImgNormalizer.NativeProcess]::Run($Executable, $Arguments, $OutputLimit, $TimeoutMilliseconds, $names, $values)
+}
+
+# Internal policies may lower these ceilings for synthetic controls, never raise
+# them. The public positional interface and installed policy stay unchanged.
+function New-WinImgExecutionPolicy {
+  param([ValidateRange(1,120000)][int]$TimeoutMilliseconds = 120000,
+    [ValidateRange(0,536870912)][long]$MemoryBytes = 536870912,
+    [ValidateRange(0,1073741824)][long]$MapBytes = 1073741824,
+    [ValidateRange(0,2147483648)][long]$DiskBytes = 2147483648,
+    [ValidateRange(1,2)][int]$Threads = 2)
+  $values = New-Object 'Collections.Generic.Dictionary[string,long]' ([StringComparer]::Ordinal)
+  $values.Add('TimeoutMilliseconds', $TimeoutMilliseconds)
+  $values.Add('MemoryBytes', $MemoryBytes); $values.Add('MapBytes', $MapBytes)
+  $values.Add('DiskBytes', $DiskBytes); $values.Add('Threads', $Threads)
+  return ,([Collections.ObjectModel.ReadOnlyDictionary[string,long]]::new($values))
+}
+
+function Resolve-WinImgNativeTemporaryRoot {
+  param([string]$Path, [string]$SourceRoot)
+  if (-not $Path) { $Path = [IO.Path]::GetTempPath() }
+  $root = Normalize-WinImgRootPath ([IO.Path]::GetFullPath($Path))
+  Assert-WinImgNoReparseAncestors $root
+  if ($SourceRoot) { $root = Assert-WinImgSafeDestination -SourceRoot $SourceRoot -OutputParent $root }
+  else { $root = Resolve-WinImgCanonicalDirectory $root }
+  # ImageMagick's internal cache path normalization does not preserve extended
+  # prefixes. Reserve room for the owned directory plus its magick-* filenames.
+  if ($root.Length -gt 160 -or $root.StartsWith('\\?\', [StringComparison]::Ordinal)) {
+    throw 'Native temporary root is too long for ImageMagick cache filenames; use a shorter process TMP/TEMP directory.'
+  }
+  Assert-WinImgNoReparseAncestors $root
+  $item = Get-Item -LiteralPath $root -Force -ErrorAction Stop
+  if (-not $item.PSIsContainer) { throw 'Native temporary root must be an existing regular directory.' }
+  return $root
+}
+
+function New-WinImgImageContext {
+  param([object]$Policy, [string]$WorkRoot, [scriptblock]$NativeProcessObserver, [string]$TemporaryRoot)
+  if (-not $Policy) { $Policy = New-WinImgExecutionPolicy }
+  # Validate/copy even an explicitly supplied test policy.
+  $policyCopy = New-WinImgExecutionPolicy -TimeoutMilliseconds $Policy.TimeoutMilliseconds -MemoryBytes $Policy.MemoryBytes -MapBytes $Policy.MapBytes -DiskBytes $Policy.DiskBytes -Threads $Policy.Threads
+  $root = Resolve-WinImgNativeTemporaryRoot $TemporaryRoot
+  $temporary = $null
+  for ($attempt = 0; $attempt -lt 8; $attempt++) {
+    $path = [IO.Path]::Combine($root, ('WinImgNormalizer-cache-' + [guid]::NewGuid().ToString('N')))
+    if (New-WinImgExclusiveDirectory $path) { $temporary = $path; break }
+  }
+  if (-not $temporary) { throw 'Could not allocate an exclusive native cache directory.' }
+  return [pscustomobject]@{ Policy=$policyCopy; Clock=[Diagnostics.Stopwatch]::StartNew(); TemporaryPath=$temporary; NativeProcessObserver=$NativeProcessObserver; CleanupSafe=$true }
+}
+
+function Get-WinImgRemainingTime {
+  param([object]$Context)
+  $remaining = [long]$Context.Policy.TimeoutMilliseconds - $Context.Clock.ElapsedMilliseconds
+  if ($remaining -le 0) {
+    $exception = [TimeoutException]::new('Per-image runtime budget exhausted (Category=Timeout); no further native work or finalization attempted.')
+    $exception.Data['WinImgNativeDetail'] = 'Exit=none; Category=Timeout; Shared per-image deadline exhausted.'
+    throw $exception
+  }
+  return [int]$remaining
+}
+
+function Invoke-WinImgImageProcess {
+  param([string]$Executable, [string[]]$Arguments, [object]$Context, [scriptblock]$ProcessRunner)
+  $policy = if ($Context) { $Context.Policy } else { New-WinImgExecutionPolicy }
+  $remaining = if ($Context) { Get-WinImgRemainingTime $Context } else { [int]$policy.TimeoutMilliseconds }
+  if ($ProcessRunner) {
+    # Preserve the established conversion fixture seam. The public command never
+    # supplies it; real execution always uses the bounded wrapper below.
+    $result = & $ProcessRunner $Executable $Arguments
+  } else {
+    $invariant = [Globalization.CultureInfo]::InvariantCulture
+    $limits = @('-limit','memory',($policy.MemoryBytes.ToString($invariant)+'B'),
+      '-limit','map',($policy.MapBytes.ToString($invariant)+'B'),
+      '-limit','disk',($policy.DiskBytes.ToString($invariant)+'B'),
+      '-limit','thread',$policy.Threads.ToString($invariant),
+      '-limit','time',([Math]::Ceiling($remaining / 1000.0)).ToString($invariant))
+    # identify's subcommand must precede its options; limits precede any decode.
+    $tokens = if ($Arguments[0] -eq 'identify') { @('identify') + $limits + @($Arguments | Select-Object -Skip 1) } else { $limits + $Arguments }
+    $environment = @{}
+    if ($Context) {
+      Assert-WinImgNoReparseAncestors $Context.TemporaryPath
+      foreach ($key in @('TEMP','TMP','MAGICK_TEMPORARY_PATH')) { $environment[$key] = $Context.TemporaryPath }
+    }
+    if ($Context -and $Context.NativeProcessObserver) {
+      $result = & $Context.NativeProcessObserver $Executable $tokens $remaining $environment
+    } else {
+      $result = Invoke-WinImgNativeProcess -Executable $Executable -Arguments $tokens -TimeoutMilliseconds $remaining -Environment $environment
+    }
+  }
+  if ($Context -and $result.PSObject.Properties['ProcessId'] -and $result.ProcessId -gt 0 -and
+      $result.PSObject.Properties['TreeTerminated'] -and -not $result.TreeTerminated) { $Context.CleanupSafe = $false }
+  if ($Context -and $Context.Clock.ElapsedMilliseconds -ge $policy.TimeoutMilliseconds -and -not $result.TimedOut) {
+    # A successful native exit arriving beyond the shared deadline cannot revive
+    # an earlier candidate or authorize another phase.
+    $null = Get-WinImgRemainingTime $Context
+  }
+  return $result
+}
+
+function Remove-WinImgImageContext {
+  param([object]$Context)
+  if (-not $Context) { return }
+  $Context.Clock.Stop()
+  if (-not $Context.CleanupSafe) { throw 'Native tree termination is unconfirmed; cache and item scratch were preserved.' }
+  Assert-WinImgNoReparseAncestors $Context.TemporaryPath
+  # The native job has stopped before this runs. Only ImageMagick's regular
+  # magick-* cache files in this exclusively allocated directory are eligible.
+  # Foreign names, subdirectories and reparse arrivals survive with a warning.
+  foreach ($entry in [IO.Directory]::EnumerateFileSystemEntries($Context.TemporaryPath)) {
+    $item = Get-Item -LiteralPath $entry -Force -ErrorAction Stop
+    if ($item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $item.Name -notmatch '^magick-[A-Za-z0-9_-]+$') {
+      throw 'Owned native temporary directory contains an unexpected entry; it was preserved.'
+    }
+    [IO.File]::Delete($entry)
+  }
+  [IO.Directory]::Delete($Context.TemporaryPath, $false)
 }
 
 function Get-WinImgBoundedText {
@@ -566,11 +823,13 @@ function Get-WinImgNativeOutcome {
     $stdout = Get-WinImgBoundedText $stdout $captureLimit; $stderr = Get-WinImgBoundedText $stderr $captureLimit
     $startError = Get-WinImgBoundedText ([string]$Result.StartError) 512
     if ($Result.PSObject.Properties['Win32ErrorCode']) { $win32 = [int]$Result.Win32ErrorCode }
+    $incomplete = ($Result.PSObject.Properties['StreamsComplete'] -and -not $Result.StreamsComplete) -or
+      ($Result.PSObject.Properties['ProcessId'] -and $Result.ProcessId -gt 0 -and $Result.PSObject.Properties['TreeTerminated'] -and -not $Result.TreeTerminated)
     if ($Result.TimedOut) { $category = 'Timeout' }
     elseif ($Result.Cancelled) { $category = 'Cancelled' }
     elseif ($overflow) { $category = 'OutputLimit' }
-    elseif ($Result.PSObject.Properties['StreamsComplete'] -and -not $Result.StreamsComplete) { $category = 'NativeFailure'; $incomplete = $true }
-    elseif ($startError) { $category = if ($win32 -in @(32,33)) { 'TransientIO' } elseif ($win32 -eq 5) { 'AccessDenied' } else { 'StartFailure' } }
+    elseif ($startError) { $category = if ($Result.PSObject.Properties['ProcessId'] -and $Result.ProcessId -gt 0) { 'NativeFailure' } elseif ($win32 -in @(32,33)) { 'TransientIO' } elseif ($win32 -eq 5) { 'AccessDenied' } else { 'StartFailure' } }
+    elseif ($incomplete) { $category = 'NativeFailure' }
   }
   $terminal = $category -in @('InvalidResult','Timeout','Cancelled','OutputLimit','StartFailure') -or
     $incomplete
@@ -597,6 +856,7 @@ function Get-WinImgNativeOutcome {
   $retryable = $category -eq 'TransientIO'
   $displayCode = if ($null -eq $code) { 'none' } else { $code.ToString([Globalization.CultureInfo]::InvariantCulture) }
   $detail = 'Exit=' + $displayCode + '; Category=' + $category + '; StdOutCharacters=' + $outCount + '; StdErrCharacters=' + $errCount + '; Truncated=' + $overflow
+  if ($null -ne $Result -and $Result.PSObject.Properties['JobAssigned']) { $detail += '; JobAssigned=' + $Result.JobAssigned + '; TreeTerminated=' + $Result.TreeTerminated + '; DrainTimedOut=' + $Result.DrainTimedOut + '; ElapsedMs=' + $Result.ElapsedMilliseconds }
   if ($startError) { $detail += "`nStartError: " + $startError + '; Win32ErrorCode=' + $win32 }
   if ($stdout) { $detail += "`nStdOut: " + $stdout }
   if ($stderr) { $detail += "`nStdErr: " + $stderr }
@@ -712,7 +972,7 @@ function Remove-WinImgOwnedCandidate {
 }
 
 function Test-WinImgImageCandidate {
-  param([string]$CandidatePath, [string]$MagickPath)
+  param([string]$CandidatePath, [string]$MagickPath, [object]$NativeContext)
   Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($CandidatePath))
   $before = Get-Item -LiteralPath $CandidatePath -Force -ErrorAction Stop
   if ($before.PSIsContainer -or ($before.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $before.Length -le 0) {
@@ -722,7 +982,7 @@ function Test-WinImgImageCandidate {
   $modified = $before.LastWriteTimeUtc
   $nativePath = Get-WinImgNativeOutputPath $CandidatePath
   # Explicit +ping fully decodes pixels; warnings remain fatal for validation.
-  $result = Invoke-WinImgNativeProcess -Executable $MagickPath -Arguments @('identify','+ping','-regard-warnings','-define','registry:filename:literal=true','-format','%m|%w|%h|%n',$nativePath)
+  $result = Invoke-WinImgImageProcess -Executable $MagickPath -Arguments @('identify','+ping','-regard-warnings','-define','registry:filename:literal=true','-format','%m|%w|%h|%n',$nativePath) -Context $NativeContext
   Assert-WinImgNativeQuery -Result $result -Context 'Candidate full JPEG decode' -AllowStdOut
   if ($result.StdOut -notmatch '^JPEG\|([1-9][0-9]*)\|([1-9][0-9]*)\|1$') {
     throw 'Candidate failed full single-frame JPEG decode or dimension validation.'
@@ -771,12 +1031,12 @@ function New-WinImgSourceSnapshot {
 }
 
 function Get-WinImgSourceImageInfo {
-  param([string]$SnapshotPath, [string]$MagickPath)
+  param([string]$SnapshotPath, [string]$MagickPath, [object]$NativeContext)
   Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($SnapshotPath))
   $nativePath = Get-WinImgNativeOutputPath $SnapshotPath
   # Count all images before the selected first-image read. This is header
   # inspection; the final JPEG separately receives a full pixel decode.
-  $result = Invoke-WinImgNativeProcess -Executable $MagickPath -Arguments @('identify','-ping','-regard-warnings','-define','registry:filename:literal=true','-format','%m|%n|%w|%h\n',$nativePath)
+  $result = Invoke-WinImgImageProcess -Executable $MagickPath -Arguments @('identify','-ping','-regard-warnings','-define','registry:filename:literal=true','-format','%m|%n|%w|%h\n',$nativePath) -Context $NativeContext
   Assert-WinImgNativeQuery -Result $result -Context 'Source frame/page inspection' -AllowStdOut
   $text = $result.StdOut -replace '\r?\n$', ''
   if ([string]::IsNullOrEmpty($text)) { throw 'Source frame/page inspection failed; no image was selected.' }
@@ -801,11 +1061,11 @@ function Get-WinImgSourceImageInfo {
 # Inspect the selected snapshot before stripping. Clear only free-form names
 # that could mask built-in metadata; the real ICC profile remains attached.
 function Get-WinImgColourInfo {
-  param([string]$SnapshotPath, [string]$MagickPath)
+  param([string]$SnapshotPath, [string]$MagickPath, [object]$NativeContext)
   Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($SnapshotPath))
   $nativePath = Get-WinImgNativeOutputPath $SnapshotPath
   # profiles=none is an option fallback; leave the real ICC attached.
-  $result = Invoke-WinImgNativeProcess -Executable $MagickPath -Arguments @('identify','-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0','-define','profiles=none','+set','profiles','+set','colorspace','-format','%[colorspace]|%[profiles]',$nativePath)
+  $result = Invoke-WinImgImageProcess -Executable $MagickPath -Arguments @('identify','-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0','-define','profiles=none','+set','profiles','+set','colorspace','-format','%[colorspace]|%[profiles]',$nativePath) -Context $NativeContext
   Assert-WinImgNativeQuery -Result $result -Context 'Colour/profile inspection' -AllowStdOut
   if ($result.StdOut -notmatch '^([A-Za-z][A-Za-z0-9]*)\|([A-Za-z0-9, _:-]+)$') {
     throw 'Colour/profile inspection failed or was ambiguous; no accurate conversion was claimed.'
@@ -827,7 +1087,7 @@ function Get-WinImgColourInfo {
 
 function New-WinImgSourceIccProfile {
   param([string]$SnapshotPath, [string]$MagickPath, [string]$ColourSpace,
-    [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates)
+    [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates, [object]$NativeContext)
   $allocated = New-WinImgImageCandidate -WorkRoot $WorkRoot
   $profilePath = [IO.Path]::Combine([IO.Path]::GetDirectoryName($allocated), 'source.icc')
   $ownership = [pscustomobject]@{ Path = $profilePath; FileOwned = $false; Removed = $false }
@@ -838,7 +1098,7 @@ function New-WinImgSourceIccProfile {
   $nativeSource = Get-WinImgNativeOutputPath $SnapshotPath
   $nativeProfile = Get-WinImgNativeOutputPath $profilePath
   # Extract only the selected embedded ICC; every diagnostic is fatal here.
-  $result = Invoke-WinImgNativeProcess -Executable $MagickPath -Arguments @('-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0',$nativeSource,('ICC:' + $nativeProfile))
+  $result = Invoke-WinImgImageProcess -Executable $MagickPath -Arguments @('-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0',$nativeSource,('ICC:' + $nativeProfile)) -Context $NativeContext
   Assert-WinImgNativeQuery -Result $result -Context 'Embedded ICC extraction'
   Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($profilePath))
   $item = Get-Item -LiteralPath $profilePath -Force -ErrorAction Stop
@@ -1177,10 +1437,10 @@ function Invoke-WinImgNormalizer {
     [string]$OutputParent,
     [string]$MagickPath,
     [scriptblock]$PreflightRunner,
-    [scriptblock]$ProcessRunner = {
-      param([string]$Executable, [string[]]$Arguments)
-      Invoke-WinImgNativeProcess -Executable $Executable -Arguments $Arguments
-    }
+    [scriptblock]$ProcessRunner,
+    [object]$ExecutionPolicy,
+    [scriptblock]$NativeProcessObserver,
+    [string]$NativeTemporaryRoot
   )
 
   $ErrorActionPreference = 'Stop'
@@ -1189,6 +1449,8 @@ function Invoke-WinImgNormalizer {
   # Complete basic setup before creating Pictures, run folders, logs or mirrors.
   try {
     $MaxBytes = ConvertTo-WinImgByteCap $MaxBytes
+    if (-not $ExecutionPolicy) { $ExecutionPolicy = New-WinImgExecutionPolicy }
+    $ExecutionPolicy = New-WinImgExecutionPolicy -TimeoutMilliseconds $ExecutionPolicy.TimeoutMilliseconds -MemoryBytes $ExecutionPolicy.MemoryBytes -MapBytes $ExecutionPolicy.MapBytes -DiskBytes $ExecutionPolicy.DiskBytes -Threads $ExecutionPolicy.Threads
     $srcRoot = Resolve-WinImgSourcePath $Source
     $pictures = $OutputParent
     if (-not $pictures) {
@@ -1222,6 +1484,7 @@ function Invoke-WinImgNormalizer {
       $coder = $imageCoders[$_.Extension.ToLowerInvariant()]
       -not $coder -or -not $missingCoders.ContainsKey($coder)
     })
+    if ($readableImages.Count -gt 0) { $NativeTemporaryRoot = Resolve-WinImgNativeTemporaryRoot -Path $NativeTemporaryRoot -SourceRoot $srcRoot }
     $destinationInfo = Get-WinImgDestinationInfo -Path $pictures -Files $spaceFiles -MaxBytes $MaxBytes
     $pictures = $destinationInfo.Path
   } catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
@@ -1274,6 +1537,7 @@ function Invoke-WinImgNormalizer {
   }
   Write-Log ("MaxBytes: {0} bytes ({1} MiB; best-effort target)" -f $MaxBytes.ToString([Globalization.CultureInfo]::InvariantCulture), [Math]::Round($MaxBytes/1MB,2))
 
+  Write-Log ('Per-image limits: RuntimeMs={0}; MemoryBytes={1}; MapBytes={2}; DiskBytes={3}; Threads={4}; stricter installed policies remain effective; timeout/resource failure ends this item and continues siblings.' -f $ExecutionPolicy.TimeoutMilliseconds,$ExecutionPolicy.MemoryBytes,$ExecutionPolicy.MapBytes,$ExecutionPolicy.DiskBytes,$ExecutionPolicy.Threads)
   Write-Log ('ImageMagick executable: ' + $MagickCmd)
   foreach ($line in ($magickInfo.VersionText -split '\r?\n')) { Write-Log $line }
   Write-Log ('Relevant formats: ' + (($imageCoders.Values | Select-Object -Unique | Sort-Object | ForEach-Object {
@@ -1331,7 +1595,7 @@ function Invoke-WinImgNormalizer {
   function Convert-ImageMagick {
     param([string]$SourcePath, [string]$DestPath, [long]$MaxBytes,
       [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates, [object]$SourceInfo,
-      [object]$ColourInfo, [string]$SrgbProfilePath)
+      [object]$ColourInfo, [string]$SrgbProfilePath, [object]$NativeContext)
 
     $extent = Get-ExtentString $MaxBytes
     $scales = 100,90,80,70,60,50
@@ -1364,7 +1628,7 @@ function Invoke-WinImgNormalizer {
         $nativeArguments += @('-background','white','-alpha','remove','-alpha','off',
           '-strip','-sampling-factor','4:2:0','-interlace','Line')
         $nativeArguments += @('-resize', "$p%", '-define', "jpeg:extent=$extent", ('JPEG:' + $nativeDestPath))
-        try { $nativeResult = & $ProcessRunner $MagickCmd $nativeArguments }
+        try { $nativeResult = Invoke-WinImgImageProcess -Executable $MagickCmd -Arguments $nativeArguments -Context $NativeContext -ProcessRunner $ProcessRunner }
         catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
         catch {
           $error = $_.Exception
@@ -1372,7 +1636,7 @@ function Invoke-WinImgNormalizer {
           $win32 = if ($error -is [ComponentModel.Win32Exception]) { $error.NativeErrorCode }
             elseif ($error -is [IO.IOException] -and ($error.HResult -band 0xFFFF0000L) -eq 0x80070000L) { $error.HResult -band 0xFFFF }
             else { 0 }
-          $nativeResult = [pscustomobject]@{ ExitCode=$null; StartError=Get-WinImgBoundedText $error.Message 512; Win32ErrorCode=$win32 }
+          $nativeResult = [pscustomobject]@{ ExitCode=$null; StartError=Get-WinImgBoundedText $error.Message 512; Win32ErrorCode=$win32; TimedOut=($error -is [TimeoutException]) }
         }
         $outcome = Get-WinImgNativeOutcome -Result $nativeResult
         $exit = if ($null -eq $outcome.ExitCode) { 'none' } else { [string]$outcome.ExitCode }
@@ -1387,7 +1651,7 @@ function Invoke-WinImgNormalizer {
           }
           return @{ Status='Error'; Attempts=$attemptCount; Note=('Native conversion stopped: Category={0}; Exit={1}; TransientRetries={2}/2; see NATIVE DETAILS in log' -f $outcome.Category,$exit,$transientRetries) }
         }
-        try { $validation = Test-WinImgImageCandidate -CandidatePath $DestPath -MagickPath $MagickCmd }
+        try { $validation = Test-WinImgImageCandidate -CandidatePath $DestPath -MagickPath $MagickCmd -NativeContext $NativeContext }
         catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
         catch {
           if ($_.Exception.Data['WinImgNativeDetail']) { Write-Log ('NATIVE DETAILS: ' + $_.Exception.Data['WinImgNativeDetail']) -Quiet }
@@ -1462,20 +1726,22 @@ function Invoke-WinImgNormalizer {
       continue
     }
     $ownedCandidates = New-Object 'System.Collections.Generic.List[object]'
+    $nativeContext = $null
     try {
       if ($imgExts -contains $ext) {
         # Inspection and every attempt use the same profile-bearing bytes.
+        $nativeContext = New-WinImgImageContext -Policy $ExecutionPolicy -WorkRoot $workRoot -NativeProcessObserver $NativeProcessObserver -TemporaryRoot $NativeTemporaryRoot
         $imageSource = New-WinImgSourceSnapshot -SourcePath $f.FullName -WorkRoot $workRoot -ExpectedLength $sourceLength -ExpectedModified $sourceModified -OwnedCandidates $ownedCandidates
         $sourceInfo = $null
         if ($ext -in @('.gif','.tif','.tiff','.webp','.heic','.heif')) {
-          $sourceInfo = Get-WinImgSourceImageInfo -SnapshotPath $imageSource -MagickPath $MagickCmd
+          $sourceInfo = Get-WinImgSourceImageInfo -SnapshotPath $imageSource -MagickPath $MagickCmd -NativeContext $nativeContext
           Write-Log ('SOURCE IMG: {0} (SourceCount={1}; Selected=1; Omitted={2}; Unit={3}; Policy={4}; Decoder={5})' -f
             $rel, $sourceInfo.SourceCount, $sourceInfo.Omitted, $sourceInfo.Unit, $sourceInfo.Policy, $sourceInfo.Decoder)
         }
-        $colourInfo = Get-WinImgColourInfo -SnapshotPath $imageSource -MagickPath $MagickCmd
+        $colourInfo = Get-WinImgColourInfo -SnapshotPath $imageSource -MagickPath $MagickCmd -NativeContext $nativeContext
         $srgbProfilePath = $null
         if ($colourInfo.HasIcc) {
-          $null = New-WinImgSourceIccProfile -SnapshotPath $imageSource -MagickPath $MagickCmd -ColourSpace $colourInfo.ColourSpace -WorkRoot $workRoot -OwnedCandidates $ownedCandidates
+          $null = New-WinImgSourceIccProfile -SnapshotPath $imageSource -MagickPath $MagickCmd -ColourSpace $colourInfo.ColourSpace -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -NativeContext $nativeContext
           $srgbProfilePath = New-WinImgSrgbProfile -WorkRoot $workRoot -OwnedCandidates $ownedCandidates
         }
         Write-Log ('COLOUR IMG: {0} (SourceSpace={1}; SourceICC={2}; Policy={3}; Intent={4}; Alpha=WhiteAfterSrgb; OutputICC=None)' -f
@@ -1484,8 +1750,9 @@ function Invoke-WinImgNormalizer {
         catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
         catch { $hasNamingWarnings = $true; throw }
         $ownedCandidates.Add([pscustomobject]@{ Path = $candidatePath; FileOwned = $false; Removed = $false })
-        $res = Convert-ImageMagick -SourcePath $imageSource -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -SourceInfo $sourceInfo -ColourInfo $colourInfo -SrgbProfilePath $srgbProfilePath
+        $res = Convert-ImageMagick -SourcePath $imageSource -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -SourceInfo $sourceInfo -ColourInfo $colourInfo -SrgbProfilePath $srgbProfilePath -NativeContext $nativeContext
         if ($res.Status -in @('Converted', 'ConvertedWithWarning')) {
+          $null = Get-WinImgRemainingTime $nativeContext
           try { Move-WinImgPlannedImage -CandidatePath $res.CandidatePath -DestinationPath $destPath }
           catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
           catch { $hasNamingWarnings = $true; throw }
@@ -1559,7 +1826,11 @@ function Invoke-WinImgNormalizer {
       if ($_.Exception.Data['WinImgNativeDetail']) { Write-Log ('NATIVE DETAILS: ' + $_.Exception.Data['WinImgNativeDetail']) -Quiet }
       $stats.Errors++; Write-Log "Exception processing: $rel ($($_.Exception.Message))" 'ERR'
     } finally {
+      try { Remove-WinImgImageContext $nativeContext }
+      catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
+      catch { $hasNamingWarnings = $true; Write-Log ('Could not remove owned native cache: ' + $_.Exception.Message) 'WARN' }
       foreach ($owned in $ownedCandidates) {
+        if ($nativeContext -and -not $nativeContext.CleanupSafe) { continue }
         if ($owned.Removed) { continue }
         try { Remove-WinImgOwnedCandidate -CandidatePath $owned.Path -FileOwned $owned.FileOwned }
         catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
