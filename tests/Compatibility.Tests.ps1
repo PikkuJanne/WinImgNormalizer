@@ -167,11 +167,49 @@ exit $exitCode
 }
 
 Describe 'T066 synthetic evidence export privacy and containment' {
+    It 'rejects a nested <Field> list entry containing an otherwise allowed identifier and private text' -ForEach @(
+        @{Field='passed_case_ids';Allowed='T064';Analysis=$false},
+        @{Field='required_case_ids';Allowed='T064';Analysis=$false},
+        @{Field='imagemagick_delegates';Allowed='jpeg';Analysis=$false},
+        @{Field='rules';Allowed='PSAvoidUsingInvokeExpression';Analysis=$true}
+    ) {
+        $directory=Join-Path $owned ('nested-list-' + $Field); [IO.Directory]::CreateDirectory($directory) | Out-Null
+        $summary=[ordered]@{tested_commit=('a'*40);source_sha256=@()}
+        # Preserve one inner array across JSON parsing. PowerShell array -match
+        # accepts its allowed member; exporting the original array leaks its peer.
+        $summary[$Field]=,@($Allowed, 'DO-NOT-UPLOAD-C:\Users\private-owner\media')
+        $name=if($Analysis){'static-analysis-summary.json'}else{'summary.json'}
+        $summary | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $directory $name) -Encoding UTF8
+        $parameters=@{OutputDirectory=(Join-Path $owned ('nested-list-output-' + $Field))}
+        if($Analysis){$parameters.StaticAnalysisDirectories=@($directory)}else{$parameters.ResultDirectories=@($directory)}
+        { & (Join-Path $PSScriptRoot 'Export-TestEvidence.ps1') @parameters } | Should -Throw '*must be scalar strings*'
+        Test-Path -LiteralPath $parameters.OutputDirectory | Should -BeFalse
+    }
+    It 'rejects structured source <Field> before coercion can hide additional values' -ForEach @(
+        @{Field='relative_path';Values=@('tests/synthetic.ps1','DO-NOT-UPLOAD-private-owner')},
+        @{Field='sha256';Values=@(('a'*64),('b'*64))}
+    ) {
+        $directory=Join-Path $owned ('structured-source-' + $Field); [IO.Directory]::CreateDirectory($directory) | Out-Null
+        $binding=[ordered]@{relative_path='tests/synthetic.ps1';sha256=('a'*64)}
+        $binding[$Field]=$Values
+        @{tested_commit=('a'*40);source_sha256=@($binding)} | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $directory 'summary.json') -Encoding UTF8
+        $output=Join-Path $owned ('structured-source-output-' + $Field)
+        { & (Join-Path $PSScriptRoot 'Export-TestEvidence.ps1') -ResultDirectories @($directory) -OutputDirectory $output } | Should -Throw '*must be scalar strings*'
+        Test-Path -LiteralPath $output | Should -BeFalse
+    }
+    It 'rejects a structured codec format even when every array member is an allowed codec' {
+        $directory=Join-Path $owned 'structured-codec'; [IO.Directory]::CreateDirectory($directory) | Out-Null
+        @{tested_commit=('a'*40);source_sha256=@();codec_capabilities=@(@{format=@('JPEG','HEIC');read=$true;write=$true})} | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $directory 'summary.json') -Encoding UTF8
+        $output=Join-Path $owned 'structured-codec-output'
+        { & (Join-Path $PSScriptRoot 'Export-TestEvidence.ps1') -ResultDirectories @($directory) -OutputDirectory $output } | Should -Throw '*must be a scalar string*'
+        Test-Path -LiteralPath $output | Should -BeFalse
+    }
     It 'exports counts and hashes while excluding diagnostic text, test names and private absolute paths' {
         $directory=Join-Path $owned 'export-input'; [IO.Directory]::CreateDirectory($directory) | Out-Null
         $privateText='DO-NOT-UPLOAD-C:\Users\private-owner\media'; $head=(git -C $repository rev-parse HEAD).Trim()
+        $timestamp='2026-10-05T15:12:34.2440815Z'
         $summary=@{ tested_commit=$head; source_worktree_dirty=$true; powershell_version=$PSVersionTable.PSVersion.ToString(); powershell_edition=$PSVersionTable.PSEdition;
-            os_caption='Microsoft Windows synthetic fixture'; source_sha256=@([pscustomobject]@{relative_path='WinImgNormalizer.ps1';sha256=('a'*64);path=$privateText});
+            observed_at_utc=$timestamp; os_caption='Microsoft Windows synthetic fixture'; source_sha256=@([pscustomobject]@{relative_path='WinImgNormalizer.ps1';sha256=('a'*64);path=$privateText});
             total_count=1;passed_count=1;exit_code=0;test_paths=@($privateText);failed_tests=@($privateText);infrastructure_error=$privateText;
             gate_failures=@($privateText);host_executable=$privateText;imagemagick_version_output=@($privateText);passed_case_ids=@('T064');required_case_ids=@('T064') }
         $summary | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $directory 'summary.json') -Encoding UTF8
@@ -179,6 +217,7 @@ Describe 'T066 synthetic evidence export privacy and containment' {
         & (Join-Path $PSScriptRoot 'Export-TestEvidence.ps1') -ResultDirectories @($directory) -OutputDirectory $output
         $text=Get-Content -LiteralPath (Join-Path $output 'test-evidence.json') -Raw -Encoding UTF8
         $text | Should -Not -Match 'DO-NOT-UPLOAD|private-owner|host_executable|test_paths|failed_tests|infrastructure_error|imagemagick_version_output'
+        $text | Should -Match ('"observed_at_utc"\s*:\s*"' + [regex]::Escape($timestamp) + '"')
         $data=$text | ConvertFrom-Json
         $data.runs[0].tested_commit | Should -Be $head
         $data.runs[0].total_count | Should -Be 1

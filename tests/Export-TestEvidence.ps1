@@ -21,12 +21,20 @@ function Assert-ExportPath {
 function Get-ExportSourceBindings {
     param([object[]]$Sources)
     foreach ($source in $Sources) {
-        $relative = if ($source.relative_path) { [string]$source.relative_path } else { [string]$source.path }
+        $relative = if ($source.relative_path) { $source.relative_path } else { $source.path }
+        if ($relative -isnot [string] -or $source.sha256 -isnot [string]) { throw 'Evidence source path and hash must be scalar strings.' }
         if ($relative -notmatch '^(?:tests/|\.github/workflows/|WinImgNormalizer\.(?:ps1|bat)$)' -or
             $relative -match '(?:^|/)\.\.(?:/|$)' -or $relative -match '[:\\\x00-\x1f]' -or $source.sha256 -notmatch '^[a-f0-9]{64}$') {
             throw 'Unsafe evidence source binding.'
         }
         [pscustomobject]@{ path = $relative; sha256 = [string]$source.sha256 }
+    }
+}
+function Get-ExportStrings {
+    param([object[]]$Values, [string]$Pattern)
+    foreach ($value in $Values) {
+        if ($value -isnot [string]) { throw 'Evidence text list elements must be scalar strings.' }
+        if ($value -match $Pattern) { [string]$value }
     }
 }
 function Read-ExportSummary {
@@ -49,7 +57,16 @@ function Get-ExportCommon {
     }
     if ($Summary.tested_commit -notmatch '^[a-f0-9]{40}$') { throw 'Evidence requires an exact tested Git commit.' }
     $fields.source_worktree_dirty = [bool]$Summary.source_worktree_dirty
-    if ($Summary.observed_at_utc) { $fields.observed_at_utc = [DateTime]::Parse([string]$Summary.observed_at_utc, [Globalization.CultureInfo]::InvariantCulture).ToUniversalTime().ToString('o') }
+    if ($Summary.observed_at_utc) {
+        # Core's JSON reader materializes ISO timestamps as DateTime; casting it
+        # back to string loses its zone and fractional seconds before parsing.
+        if ($Summary.observed_at_utc -is [DateTime]) { $observed = $Summary.observed_at_utc }
+        elseif ($Summary.observed_at_utc -is [string] -and $Summary.observed_at_utc -match '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]{1,7})?(?:Z|[+-][0-9]{2}:[0-9]{2})$') {
+            $observed = [DateTime]::Parse($Summary.observed_at_utc, [Globalization.CultureInfo]::InvariantCulture, [Globalization.DateTimeStyles]::RoundtripKind)
+        }
+        else { throw 'Evidence observation time must be a scalar ISO timestamp.' }
+        $fields.observed_at_utc = $observed.ToUniversalTime().ToString('o')
+    }
     $fields.source_sha256 = @(Get-ExportSourceBindings $Summary.source_sha256)
     return $fields
 }
@@ -76,8 +93,8 @@ $testExports = @(
         foreach ($key in @('total_count','passed_count','failed_count','skipped_count','inconclusive_count','not_run_count','failed_blocks_count','failed_containers_count','exit_code')) { $export[$key] = [int]$summary.$key }
         $export.deliberate_failure = [bool]$summary.deliberate_failure
         $export.suite_scope = if ($summary.suite_scope -eq 'mandatory') { 'mandatory' } else { 'focused' }
-        $export.passed_case_ids = @($summary.passed_case_ids | Where-Object { $_ -match '^T[0-9]{3}$' })
-        $export.required_case_ids = @($summary.required_case_ids | Where-Object { $_ -match '^T[0-9]{3}$' })
+        $export.passed_case_ids = @(Get-ExportStrings $summary.passed_case_ids '^T[0-9]{3}$')
+        $export.required_case_ids = @(Get-ExportStrings $summary.required_case_ids '^T[0-9]{3}$')
         $export.gate_failure_count = @($summary.gate_failures).Count
         $export.source_unchanged = [bool]$summary.source_unchanged
         $export.commit_unchanged = [bool]$summary.commit_unchanged
@@ -87,12 +104,14 @@ $testExports = @(
         $export.pester_package_sha256 = Get-ExportHash $summary.pester_package_sha256
         $export.imagemagick_executable_sha256 = Get-ExportHash $summary.imagemagick_executable_sha256
         $export.imagemagick_version = Get-ExportVersion $summary.imagemagick_version
-        $export.imagemagick_delegates = @($summary.imagemagick_delegates | Where-Object { $_ -match '^[A-Za-z0-9_-]+$' })
+        $export.imagemagick_delegates = @(Get-ExportStrings $summary.imagemagick_delegates '^[A-Za-z0-9_-]+$')
         $export.codec_capabilities = @($summary.codec_capabilities | Where-Object { $null -ne $_ } | ForEach-Object {
+            if ($_.format -isnot [string]) { throw 'Evidence codec format must be a scalar string.' }
             if ($_.format -notmatch '^(JPEG|PNG|BMP|TIFF|GIF|WEBP|HEIC|HEIF)$') { throw 'Unrecognized exported codec.' }
             [pscustomobject]@{ format = $_.format; read = [bool]$_.read; write = [bool]$_.write }
         })
         $export.codec_coverage = @($summary.codec_coverage | Where-Object { $null -ne $_ } | ForEach-Object {
+            if ($_.extension -isnot [string] -or $_.case_id -isnot [string]) { throw 'Evidence codec extension and case ID must be scalar strings.' }
             if ($_.extension -notin @('jpg','jpeg','png','bmp','tif','tiff','gif','webp','heic','heif') -or $_.case_id -notin @('T031','T065')) { throw 'Unrecognized codec coverage binding.' }
             [pscustomobject]@{ extension=$_.extension; case_id=$_.case_id; passed_test_count=[int]$_.passed_test_count; executed=[bool]$_.executed }
         })
@@ -114,7 +133,7 @@ $analysisExports = @(
         $export.control_source_sha256 = Get-ExportHash $summary.control_source_sha256
         $export.analyzer_version = Get-ExportVersion $summary.analyzer_version
         $export.analyzer_package_sha256 = Get-ExportHash $summary.analyzer_package_sha256
-        $export.rules = @($summary.rules | Where-Object { $_ -match '^PS[A-Za-z]+$' })
+        $export.rules = @(Get-ExportStrings $summary.rules '^PS[A-Za-z]+$')
         $export
     }
 )
