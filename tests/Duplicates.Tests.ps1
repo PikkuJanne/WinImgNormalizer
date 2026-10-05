@@ -556,7 +556,7 @@ Describe 'M1-T05 deterministic retained links and explicit heuristic limitation 
             return 0
         }
         $result = Invoke-DuplicateRun -Source $source -OutputParent $parent -ProcessRunner $runner -MaxBytes 1
-        $result.Code | Should -Be 0 -Because $result.Text
+        $result.Code | Should -Be 2 -Because $result.Text
         $trace.Calls | Should -Be 6
         @($trace.Sources | Where-Object { $_ -ne $first }).Count | Should -Be 0
         $run = Get-DuplicateRun $parent
@@ -566,11 +566,13 @@ Describe 'M1-T05 deterministic retained links and explicit heuristic limitation 
         (Get-Item -LiteralPath $target).Length | Should -BeGreaterThan 1
         Test-Path -LiteralPath (Join-Path $run 'b\photo.jpeg') | Should -BeFalse
         $log = Get-DuplicateLog $run
-        $log | Should -Match 'WARN: Could not reach target; best-effort saved'
-        $log | Should -Match ('\[' + [regex]::Escape(('{0:n0}' -f $jpegBytes.Length)) + ' bytes, Scale=50%\]')
+        $log | Should -Match 'WARN IMG:'
+        $log | Should -Not -Match 'OK IMG:'
+        $log | Should -Match 'Could not reach target; best-effort saved'
+        $log | Should -Match ('\[' + $jpegBytes.Length.ToString([Globalization.CultureInfo]::InvariantCulture) + ' bytes, MaxBytes=1, Width=24, Height=18, Scale=50%\]')
         Assert-DuplicateRetainedLink -Log $log -Skipped 'b\photo.png' -RetainedSource 'a\photo.png' -RetainedOutput 'a\photo.jpeg'
         $log | Should -Match 'retained status: ConvertedWithWarning'
-        $log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=1 Unsupported=0 Errors=0'
+        $log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=1 Unsupported=0 Errors=0 SizeWarnings=1'
         Get-DuplicateSourceState $source | Should -Be $before
     }
 }

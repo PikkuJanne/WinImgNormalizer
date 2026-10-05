@@ -475,9 +475,9 @@ $info = Get-WinImgMagickInfo
 }
 
 Describe 'M1-T01 per-format capability handling (T011)' {
-    It 'accepts a large Int64 cap and emits <ExpectedExtent> without narrowing its unit quotient' -ForEach @(
-        @{ Cap = '2251799813685248'; ExpectedExtent = '2147483648MB' },
-        @{ Cap = '2251799813686272'; ExpectedExtent = '2199023255553KB' }
+    It 'accepts a large Int64 cap and emits exact bytes <ExpectedExtent> without narrowing the full Int64 value' -ForEach @(
+        @{ Cap = '2251799813685248'; ExpectedExtent = '2251799813685248B' },
+        @{ Cap = '2251799813686272'; ExpectedExtent = '2251799813686272B' }
     ) {
         $work = New-PreflightDirectory 'large-cap-conversion'
         $source = Join-Path $work 'source'

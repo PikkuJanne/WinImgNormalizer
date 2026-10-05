@@ -575,7 +575,7 @@ Describe 'M2-T02 alpha composition and retry invariants (T036)' {
             return [pscustomobject]@{ ExitCode = $LASTEXITCODE; DiagnosticOutput = $nativeText -join "`n" }
         }
         $result = Invoke-ColourRun -Case $case -Runner $runner -MaxBytes 1
-        $result.Code | Should -Be 0 -Because $result.Text
+        $result.Code | Should -Be 2 -Because $result.Text
         $colourTrace.Arguments.Count | Should -Be 6
         @($colourTrace.TargetPaths | Select-Object -Unique).Count | Should -Be 1
         $colourTrace.TargetHashes.Count | Should -Be 6
