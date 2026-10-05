@@ -46,8 +46,25 @@ parent, or a drive root that contains Pictures is rejected before enumeration or
 any destination write, including probes. Choose a source subfolder instead; the
 tool does not silently relocate output. Path comparisons use canonical directories
 and case-insensitive whole path segments, so `PhotosBackup` is not inside `Photos`.
+Read-only 128-bit directory identities also reject an existing destination ancestor
+that aliases the source, including local drive/share aliases. A provider that
+cannot supply this identity fails setup because the alias boundary is unverified.
 Linked destination paths or ancestors are also rejected. Device paths and directory
 components with trailing dots/spaces are unsupported.
+
+Media names and directory components containing spaces, apostrophes, ampersands,
+parentheses, exclamation marks, percent signs, brackets, hashes, at-signs, leading
+hyphens and Unicode characters are treated literally. Images are read from neutral
+private copies; JPEG and extracted-profile writes disable ImageMagick filename
+formatting before a literal filesystem move to the planned final name. This also
+protects percent expressions in source and destination parent directories.
+
+Long paths and UNC locations require support from the Windows host, filesystem,
+permissions and installed tools. Extended native paths are used for long scratch
+names; unsupported or inaccessible paths report a setup or item failure instead
+of truncating a path or redirecting output. The local tests cover supported long
+paths and an existing localhost UNC share; they do not establish every remote
+server, Windows policy or network provider as supported.
 
 Traversal skips and logs directory/file reparse points (links and junctions) without
 following them. Inaccessible subtrees are reported as an incomplete scan; other
@@ -187,6 +204,12 @@ normally. A log creation failure stops setup and retains the run for diagnosis.
 The repo includes a minimal wrapper so you can drag a folder onto the .bat.
 It runs the .ps1 positionally (no named params), which is the safest path on PowerShell 5.1.
 Keep the .bat and .ps1 in the same folder and with the same base name.
+The wrapper disables inherited delayed expansion so `!` remains literal and
+preserves a trailing folder/root separator when forwarding its quoted argument.
+A command prompt can expand `%VARIABLE%` or `!VARIABLE!` before the wrapper receives
+the argument. For paths containing those expressions, invoke the PowerShell script
+with a single-quoted literal from PowerShell; the wrapper
+cannot reconstruct characters already expanded by its caller.
 
 **Technical details**
 ImageMagick applies auto-orientation, an embedded-ICC to sRGB transform (or the

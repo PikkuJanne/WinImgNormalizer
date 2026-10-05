@@ -546,8 +546,10 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         $trace[0].Arguments[0] | Should -Be '-quiet'
         $trace[0].Arguments[1] | Should -Be '-regard-warnings'
         $trace[0].Arguments[2] | Should -Be '-define'
-        $trace[0].Arguments[3] | Should -Be 'image:frames=0'
-        $snapshotPath = ConvertFrom-PreflightNativePath $trace[0].Arguments[4]
+        $trace[0].Arguments[3] | Should -Be 'registry:filename:literal=true'
+        $trace[0].Arguments[4] | Should -Be '-define'
+        $trace[0].Arguments[5] | Should -Be 'image:frames=0'
+        $snapshotPath = ConvertFrom-PreflightNativePath $trace[0].Arguments[6]
         $snapshotPath.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
         [IO.Path]::GetFileName($snapshotPath) | Should -Be 'source.heif'
         Test-Path -LiteralPath $snapshotPath | Should -BeFalse
@@ -585,7 +587,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         $conversionTrace[0].Executable | Should -Be $magick
         $conversionTrace[0].Arguments[0] | Should -Be '-quiet'
         $conversionTrace[0].Arguments[1] | Should -Be '-regard-warnings'
-        $snapshotPath = ConvertFrom-PreflightNativePath $conversionTrace[0].Arguments[2]
+        $snapshotPath = ConvertFrom-PreflightNativePath $conversionTrace[0].Arguments[4]
         $snapshotPath.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
         [IO.Path]::GetFileName($snapshotPath) | Should -Be 'source.png'
         $snapshotPath | Should -Not -Be $png

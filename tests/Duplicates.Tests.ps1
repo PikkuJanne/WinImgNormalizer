@@ -201,7 +201,7 @@ Describe 'M1-T05 register only finalized retained media (T025)' {
         }
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
-            $originalSource = $trace.SnapshotSources[$Arguments[2]]
+            $originalSource = $trace.SnapshotSources[$Arguments[4]]
             if (-not $originalSource) { throw 'Duplicate conversion input did not match an actual owned source snapshot.' }
             $trace.Sources.Add($originalSource)
             $candidate = Assert-DuplicateOwnedCandidate -Path $Arguments[-1].Substring('JPEG:'.Length) -OutputParent $parent
@@ -360,7 +360,7 @@ Describe 'M1-T05 deterministic retained links and explicit heuristic limitation 
         }
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
-            $originalSource = $trace.SnapshotSources[$Arguments[2]]
+            $originalSource = $trace.SnapshotSources[$Arguments[4]]
             if (-not $originalSource) { throw 'Duplicate conversion input did not match an actual owned source snapshot.' }
             $trace.Sources.Add($originalSource)
             $null = Assert-DuplicateOwnedCandidate -Path $Arguments[-1].Substring('JPEG:'.Length) -OutputParent $parent
@@ -548,7 +548,7 @@ Describe 'M1-T05 deterministic retained links and explicit heuristic limitation 
         $runner = {
             param([string]$Executable, [string[]]$Arguments)
             $trace.Calls++
-            $originalSource = $trace.SnapshotSources[$Arguments[2]]
+            $originalSource = $trace.SnapshotSources[$Arguments[4]]
             if (-not $originalSource) { throw 'Duplicate conversion input did not match an actual owned source snapshot.' }
             $trace.Sources.Add($originalSource)
             $candidate = Assert-DuplicateOwnedCandidate -Path $Arguments[-1].Substring('JPEG:'.Length) -OutputParent $parent

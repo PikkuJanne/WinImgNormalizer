@@ -269,22 +269,22 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         $trace.Count | Should -Be 2
         $first = $trace[0].Arguments
         $retry = $trace[1].Arguments
-        $snapshotPath = $first[2]
+        $snapshotPath = $first[4]
         if ($snapshotPath.StartsWith('\\?\', [StringComparison]::Ordinal)) { $snapshotPath = $snapshotPath.Substring(4) }
         $run = @(Get-ChildItem -LiteralPath $parent -Directory)
         $run.Count | Should -Be 1
         $snapshotPath.StartsWith((Join-Path $run[0].FullName '.WinImgNormalizer\work\'), [StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
         [IO.Path]::GetFileName($snapshotPath) | Should -Be 'source.png'
-        $first[2] | Should -Not -Be $sourceImage
-        $retry[2] | Should -Be $first[2]
+        $first[4] | Should -Not -Be $sourceImage
+        $retry[4] | Should -Be $first[4]
         Test-Path -LiteralPath $snapshotPath | Should -BeFalse
         ($first -join '|') | Should -Be (
-            @('-quiet', '-regard-warnings', $first[2], '-auto-orient', '-colorspace', 'sRGB',
+            @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true', $first[4], '-auto-orient', '-colorspace', 'sRGB',
                 '-background', 'white', '-alpha', 'remove', '-alpha', 'off', '-strip',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '100%', '-define',
                 'jpeg:extent=1MB', $first[-1]) -join '|')
         ($retry -join '|') | Should -Be (
-            @('-quiet', '-regard-warnings', $first[2], '-auto-orient', '-colorspace', 'sRGB',
+            @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true', $first[4], '-auto-orient', '-colorspace', 'sRGB',
                 '-background', 'white', '-alpha', 'remove', '-alpha', 'off', '-strip',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '90%', '-define',
                 'jpeg:extent=1MB', $retry[-1]) -join '|')
