@@ -9,7 +9,8 @@ Dependencies: ImageMagick 7.1.2-32+ supported 7.x (magick.exe in PATH), optional
 
 SYNOPSIS
     Recursively mirrors a source folder into a safe copy under the user’s Pictures folder,
-    converts all images to JPEG ≤ 1 MB (auto-orient, strip metadata, flatten alpha),
+    converts images to JPEG targeting 1,048,576 bytes (1 MiB), with auto-orient,
+    metadata stripping and white alpha flattening,
     copies videos as-is, skips heuristic duplicates by filename/time plus equal length,
     shows progress in terminal,
     and writes a detailed log file.
@@ -27,7 +28,8 @@ FEATURES
     - Deterministic collision suffixes; complete output plan; no replacement of arriving targets.
     - Supported images via ImageMagick: JPG/JPEG/PNG/BMP/TIF/TIFF/GIF/HEIC/HEIF/WebP.
     - Videos copied as-is (mp4/mov/mkv/avi/m4v/wmv/webm/mts/m2ts/3gp/3g2).
-    - JPEG ≤ 1 MB targeting with progressive scaling (100→50%) and quality sizing (jpeg:extent).
+    - JPEG targeting 1,048,576 bytes (1 MiB) with scaling (100→50%) and jpeg:extent.
+      Actual byte length determines compliance; valid above-target fallback is a warning.
     - EXIF auto-orientation; profiled colour to sRGB before white alpha flattening and metadata removal.
     - Heuristic skips match lowercase filename + LastWriteTimeUtc + input byte length.
       Only finalized successes register; every skip links its retained source and output.
@@ -64,7 +66,8 @@ NOTES
     - Timestamps on outputs are set to the source file times.
 
 LIMITATIONS
-    - Size targeting is best-effort, extremely noisy or huge images may not reach ≤ 1 MB even at 50%.
+    - Size targeting is best-effort; noisy or huge images may exceed the cap at 50%.
+      Valid above-target JPEGs are retained with a warning and application exit 2.
     - Duplicate detection is not content-hash based.
     - Untagged RGB is assumed sRGB; untagged CMYK/unknown colour is rejected rather than guessed.
     - Final known-sRGB JPEGs omit ICC and source metadata; profiled originals remain untouched.
@@ -961,7 +964,7 @@ function Invoke-WinImgNormalizer {
   foreach ($row in $outputPlan) {
     Write-Log ('PLAN {0}: {1} -> {2} ({3})' -f $row.Kind, $row.SourceRelativePath, $row.OutputRelativePath, $row.NamingReason)
   }
-  Write-Log ("MaxBytes: {0:n0} ({1} MB)" -f $MaxBytes, [Math]::Round($MaxBytes/1MB,2))
+  Write-Log ("MaxBytes: {0} bytes ({1} MiB; best-effort target)" -f $MaxBytes.ToString([Globalization.CultureInfo]::InvariantCulture), [Math]::Round($MaxBytes/1MB,2))
 
   Write-Log ('ImageMagick executable: ' + $MagickCmd)
   foreach ($line in ($magickInfo.VersionText -split '\r?\n')) { Write-Log $line }
@@ -1000,14 +1003,15 @@ function Invoke-WinImgNormalizer {
   # --------- Dedupe + stats ---
   $retained = New-Object 'Collections.Generic.Dictionary[string,object]' ([StringComparer]::Ordinal)
   $hasDuplicateWarnings = $false
-  $stats = [ordered]@{ Converted=0; CopiedVideo=0; SkippedDuplicate=0; Unsupported=0; Errors=0 }
+  $stats = [ordered]@{ Converted=0; CopiedVideo=0; SkippedDuplicate=0; Unsupported=0; Errors=0; SizeWarnings=0 }
   Write-Log 'Heuristic duplicate matching uses lowercase filename, LastWriteTimeUtc and equal input byte length after successful finalization; same-key/same-length content can still differ.'
 
   # --------- IM helpers ---
   function Get-ExtentString([long]$Bytes) {
-    if ($Bytes -ge 1MB -and ($Bytes % 1MB) -eq 0) { return "{0}MB" -f [long]([decimal]$Bytes/1MB) }
-    elseif ($Bytes -ge 1KB -and ($Bytes % 1KB) -eq 0) { return "{0}KB" -f [long]([decimal]$Bytes/1KB) }
-    else { return "{0}B" -f $Bytes }
+    # ImageMagick KB/MB are decimal; PowerShell 1KB/1MB are binary.
+    # Emit invariant decimal bytes. Its encoder search uses floating point;
+    # the validated file's Int64 length below remains the compliance authority.
+    return $Bytes.ToString([Globalization.CultureInfo]::InvariantCulture) + 'B'
   }
   function Convert-ImageMagick {
     param([string]$SourcePath, [string]$DestPath, [long]$MaxBytes,
@@ -1073,8 +1077,9 @@ function Invoke-WinImgNormalizer {
       try { $validation = Test-WinImgImageCandidate -CandidatePath $DestPath -MagickPath $MagickCmd }
       catch { $lastFailure = $_.Exception.Message; continue }
       if ($validation.BytesOut -le $MaxBytes -or $p -eq 50) {
-        $note = if ($validation.BytesOut -gt $MaxBytes) { 'WARN: Could not reach target; best-effort saved' } else { $null }
-        return @{ Status='Converted'; CandidatePath=$DestPath; BytesOut=$validation.BytesOut;
+        $aboveTarget = $validation.BytesOut -gt $MaxBytes
+        $note = if ($aboveTarget) { 'Could not reach target; best-effort saved' } else { $null }
+        return @{ Status=$(if ($aboveTarget) { 'ConvertedWithWarning' } else { 'Converted' }); CandidatePath=$DestPath; BytesOut=$validation.BytesOut;
           Width=$validation.Width; Height=$validation.Height; Scale=$p; Attempts=$attemptCount; Note=$note }
       }
       # This valid above-target attempt is superseded. A later failure may not
@@ -1155,10 +1160,11 @@ function Invoke-WinImgNormalizer {
         catch { $hasNamingWarnings = $true; throw }
         $ownedCandidates.Add([pscustomobject]@{ Path = $candidatePath; FileOwned = $false; Removed = $false })
         $res = Convert-ImageMagick -SourcePath $imageSource -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -SourceInfo $sourceInfo -ColourInfo $colourInfo -SrgbProfilePath $srgbProfilePath
-        if ($res.Status -eq 'Converted') {
+        if ($res.Status -in @('Converted', 'ConvertedWithWarning')) {
           try { Move-WinImgPlannedImage -CandidatePath $res.CandidatePath -DestinationPath $destPath }
           catch { $hasNamingWarnings = $true; throw }
           $stats.Converted++
+          if ($res.Status -eq 'ConvertedWithWarning') { $stats.SizeWarnings++ }
           try {
             Assert-WinImgNoReparseAncestors $f.DirectoryName
             $current = Get-Item -LiteralPath $f.FullName -Force -ErrorAction Stop
@@ -1169,7 +1175,7 @@ function Invoke-WinImgNormalizer {
             if (-not $retained.ContainsKey($dupKey)) {
               $retained.Add($dupKey, [pscustomobject]@{
                 SourceRelativePath = $rel; OutputRelativePath = $destRel
-                Status = $(if ($res.Note) { 'ConvertedWithWarning' } else { 'Converted' })
+                Status = $res.Status
               })
             }
           } catch {
@@ -1178,7 +1184,10 @@ function Invoke-WinImgNormalizer {
           }
           try { (Get-Item -LiteralPath $destPath).LastWriteTimeUtc = $f.LastWriteTimeUtc; (Get-Item -LiteralPath $destPath).CreationTimeUtc = $f.CreationTimeUtc } catch {}
           $note = if ($res.Note) { " ($($res.Note))" } else { "" }
-          Write-Log ("OK IMG: {0} -> {1} [{2:n0} bytes, Scale={3}%]{4}" -f $rel, $destRel, $res.BytesOut, $res.Scale, $note) 'OK'
+          $level = if ($res.Status -eq 'ConvertedWithWarning') { 'WARN' } else { 'OK' }
+          Write-Log ("{0} IMG: {1} -> {2} [{3} bytes, MaxBytes={4}, Width={5}, Height={6}, Scale={7}%]{8}" -f
+            $level, $rel, $destRel, $res.BytesOut.ToString([Globalization.CultureInfo]::InvariantCulture),
+            $MaxBytes.ToString([Globalization.CultureInfo]::InvariantCulture), $res.Width, $res.Height, $res.Scale, $note) $level
         } else {
           $stats.Errors++; Write-Log "ERR IMG: $rel ($($res.Note))" 'ERR'
         }
@@ -1221,16 +1230,17 @@ function Invoke-WinImgNormalizer {
   Write-Host ""
   Write-Host "Summary:" -ForegroundColor Cyan
   Write-Host ("  Converted images : {0}" -f $stats.Converted)
+  Write-Host ("  Above byte target: {0} (included in converted images)" -f $stats.SizeWarnings)
   Write-Host ("  Copied videos    : {0}" -f $stats.CopiedVideo)
   Write-Host ("  Duplicates       : {0}" -f $stats.SkippedDuplicate)
   Write-Host ("  Unsupported      : {0}" -f $stats.Unsupported)
   Write-Host ("  Errors           : {0}" -f $stats.Errors)
   Write-Host ("  Log file         : {0}" -f $LogPath)
 
-  Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4}" -f $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors)
+  Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4} SizeWarnings={5}" -f $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors,$stats.SizeWarnings)
   Write-Log "Completed $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 
-  if ($stats.Errors -gt 0 -or $missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings -or $hasDuplicateWarnings) { return 2 }
+  if ($stats.Errors -gt 0 -or $stats.SizeWarnings -gt 0 -or $missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings -or $hasDuplicateWarnings) { return 2 }
   return 0
 }
 

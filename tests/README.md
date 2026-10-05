@@ -1,4 +1,4 @@
-# Windows checks (through M2-T03)
+# Windows checks (through M2-T04)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -38,7 +38,7 @@ tests use owned synthetic scratch trees and controlled process failures. The pub
 The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `Traversal.Tests.ps1`, `Naming.Tests.ps1`, `Transactions.Tests.ps1`,
 `Duplicates.Tests.ps1`, `SafetyRegression.Tests.ps1`, `Frames.Tests.ps1`,
-`Colour.Tests.ps1` and `Paths.Tests.ps1`.
+`Colour.Tests.ps1`, `Paths.Tests.ps1` and `Sizing.Tests.ps1`.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -214,3 +214,40 @@ actual direct UNC input/output and BAT UNC-source conversions verify argv, compl
 preservation; unavailable capability is recorded as `not_run` outside the mandatory
 Pester count. No share is created, configured or searched, and lexical checks never
 establish live UNC support. Raw capability observations remain in owned scratch.
+
+Sizing tests (T040-T042) require exact invariant byte extent arguments for the
+default, non-KiB values and Int64 maximum under a hostile numeric culture. Genuine
+JPEG comment segments provide a controlled encoder-result length at cap minus one,
+equal to cap and cap plus one; actual native full decoding and file bytes decide
+status independently of rounded display values. This seam makes no privacy or
+quality claim. A real tagged-alpha tiny-cap conversion retains all six existing
+scales, managed colour, white alpha composition and stripping operations, then
+reports its valid above-target JPEG as a warning. Matching lossless probes require
+exact white before JPEG coding; this impossible one-byte cap permits 24/255 corner
+error after JPEG compression. Duplicate links retain that status
+and count the warning once. A later compliant scale supersedes an above-target trial
+without retaining its warning. Truncated, wrong-format or nonzero last attempts cannot
+reuse an earlier candidate. Real default conversion preserves geometry without new
+quality, sharpening or upscaling flags. Source hashes and creation/modified times,
+exact final names and owned scratch cleanup remain checked. Representative size
+and quality measurements are recorded separately; these regressions do not imply
+owner acceptance of a different resizing or quality algorithm.
+
+The development-only `Measure-SizeQuality.ps1` runs the previous frozen runtime
+and the clean implementation on owned, font-free gradient landscape/portrait,
+coloured edge/detail, seeded noise and already-lossy JPEG fixtures, plus an opaque
+video copy. In a fresh Windows PS5.1/PS7 host, after initializing the pinned test
+dependencies:
+
+```powershell
+.\tests\Measure-SizeQuality.ps1 -ImplementationCommit <full-SHA> -ResultDirectory .scratch\new-benchmark
+```
+
+It records native flags/exits, actual bytes/dimensions/scales, RGB8 MAE/PSNR at
+output and original grids, source/video hashes and timestamps, and native/application
+timings. Defaults include 1,048,576, 262,144, 65,537 and 1,024-byte targets. The
+65,537-byte comparison checks an unchanged native byte budget; binary-divisible
+caps may differ because the old decimal suffix understated them. Raw media,
+transcripts, JSON and CSV remain ignored. Single-machine synthetic timings include
+tracing/validation overhead; these measurements are neither perceptual scores nor
+owner approval. No runtime tool installation or algorithm change is introduced.

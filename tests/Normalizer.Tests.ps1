@@ -282,12 +282,12 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
             @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true', $first[4], '-auto-orient', '-colorspace', 'sRGB',
                 '-background', 'white', '-alpha', 'remove', '-alpha', 'off', '-strip',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '100%', '-define',
-                'jpeg:extent=1MB', $first[-1]) -join '|')
+                'jpeg:extent=1048576B', $first[-1]) -join '|')
         ($retry -join '|') | Should -Be (
             @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true', $first[4], '-auto-orient', '-colorspace', 'sRGB',
                 '-background', 'white', '-alpha', 'remove', '-alpha', 'off', '-strip',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '90%', '-define',
-                'jpeg:extent=1MB', $retry[-1]) -join '|')
+                'jpeg:extent=1048576B', $retry[-1]) -join '|')
         $retry[-1] | Should -Not -Be $first[-1]
         $trace[0].Executable | Should -Be $magick
         $trace[1].Executable | Should -Be $magick
@@ -355,7 +355,7 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         $logs.Count | Should -Be 1
         $log = Get-Content -LiteralPath $logs[0].FullName -Raw
         $log | Should -Match 'SUMMARY ConvertedImages=4 CopiedVideos=3 Duplicates=0 Unsupported=0 Errors=0'
-        $log | Should -Match 'MaxBytes:.*\(1 MB\)'
+        $log | Should -Match 'MaxBytes: 1048576 bytes \(1 MiB; best-effort target\)'
         $log | Should -Match 'Completed '
     }
 }

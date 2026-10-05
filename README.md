@@ -1,8 +1,8 @@
 # WinImgNormalizer — Non-destructive image normalizer for Windows (PowerShell + ImageMagick)
-Minimal, no-frills normalizer I use to prep mixed photo/video folders for archiving. It mirrors the tree into a safe copy, converts images to JPEG ≤ 1 MB, copies videos as-is, and skips simple duplicates. Purpose-built for my workflow, I don’t expect most people to need this. It trades options for speed and repeatability.
+Minimal, no-frills normalizer I use to prep mixed photo/video folders for archiving. It mirrors the tree into a safe copy, converts images to JPEG targeting 1,048,576 bytes (1 MiB), copies videos as-is, and skips simple duplicates. Purpose-built for my workflow, I don’t expect most people to need this. It trades options for speed and repeatability.
 
 **Synopsis**
-Recursively mirror a source folder under Pictures, convert images to JPEG (≤ 1 MB, auto-orient, convert profiled colour to sRGB, flatten alpha, strip metadata), copy videos unchanged, skip heuristic duplicates by filename/time plus equal byte length, show progress, write a detailed log.
+Recursively mirror a source folder under Pictures, convert images to JPEG (1 MiB best-effort target, auto-orient, convert profiled colour to sRGB, flatten alpha, strip metadata), copy videos unchanged, skip heuristic duplicates by filename/time plus equal byte length, show progress, write a detailed log.
 Drag-&-drop workflow: I drop a folder onto the .bat and find the normalized copy in Pictures.
 
 **Requirements**
@@ -29,9 +29,9 @@ Drag a folder (with photos/videos) onto WinImgNormalizer.bat.
 The normalized copy appears in: %USERPROFILE%\Pictures\<Source>_WinImgNormalized_<yyyyMMdd_HHmmss>_<runId>
 A log file is saved inside the output folder.
 2) Command line (positional args, avoids PS 5.1 param-set quirks)
-#Whole folder (recursive), default 1 MB cap
+#Whole folder (recursive), default 1,048,576-byte (1 MiB) target
 .\WinImgNormalizer.ps1 "D:\Photos\2024"
-#Whole folder with custom size cap (bytes), for example 2 MB
+#Whole folder with custom size cap (bytes), for example 2 MiB
 .\WinImgNormalizer.ps1 "D:\Photos\2024" 2097152
 
 Supply exactly one source directory and, optionally, a positive whole-number byte
@@ -90,15 +90,38 @@ can be decoded. Keep the installed security policy in place.
 
 **What it does**
 Non-destructive mirror: exact subfolder structure; image files become .jpeg (same base names when unique).
-Images: JPG/JPEG/PNG/BMP/TIF/TIFF/GIF/HEIC/HEIF/WebP → JPEG ≤ 1 MB.
+Images: JPG/JPEG/PNG/BMP/TIF/TIFF/GIF/HEIC/HEIF/WebP → JPEG targeting 1,048,576 bytes (1 MiB).
 Auto-orient via EXIF
 Strip metadata
 Convert to sRGB
 Flatten transparency to white
-Progressive attempt: scale 100->50 % while enforcing jpeg:extent
+Progressive attempts: scale 100→90→80→70→60→50% while jpeg:extent searches encoder quality toward the byte target.
 Videos: mp4/mov/mkv/avi/m4v/wmv/webm/mts/m2ts/3gp/3g2 are copied as-is.
 Heuristic duplicates: a later file with the same lowercase filename, LastWriteTimeUtc ticks and byte length as a successfully retained source is skipped and linked to that source/output in the log.
 Progress + logs: console progress bar and a timestamped log in the destination.
+
+**Byte targets and best effort**
+The default remains **1,048,576 bytes = 1 MiB**, rather than decimal 1 MB
+(1,000,000 bytes). A custom second argument also means bytes. The script passes
+an invariant byte operand such as `jpeg:extent=1048576B`; ImageMagick's `KB`/`MB`
+suffixes use decimal units and are not PowerShell's binary `1KB`/`1MB`.
+
+The fully decoded JPEG's actual file length determines compliance: **bytes ≤ cap**
+is `OK IMG`. If all six scales are needed and the valid 50% result still exceeds
+the cap, it is retained under the existing best-effort policy as `WARN IMG`, with
+exact output/cap bytes, width, height and chosen scale. Invalid or failed final
+attempts are errors and cannot resurrect an earlier above-target candidate.
+`SizeWarnings` counts retained above-target JPEGs as a subset of converted images,
+and the PowerShell application returns warning/partial code 2. Read the log for
+the result; the BAT's completion text and final exit propagation are not yet a
+certified outcome contract. Duplicate links retain `ConvertedWithWarning`.
+
+The scale sequence, no-upscaling behavior, encoder quality search, 4:2:0 sampling,
+progressive JPEG, colour and white-alpha policy remain unchanged. Fixing the extent
+units can change output bytes/quality because the encoder now receives the intended
+budget. JPEGs are lossy derivatives; keep originals. ImageMagick's search uses
+floating point, so extremely large Int64 budgets can round internally; the final
+file-length comparison remains exact.
 
 Output names are planned for the whole tree before processing, in stable ordinal
 source-path order. Unique names keep the familiar basename. Images sharing a stem,
@@ -215,13 +238,13 @@ cannot reconstruct characters already expanded by its caller.
 ImageMagick applies auto-orientation, an embedded-ICC to sRGB transform (or the
 explicit untagged RGB/grayscale policy), white alpha compositing, then metadata
 stripping. JPEG settings remain -sampling-factor 4:2:0 -interlace Line and
--define jpeg:extent=<bytes>. The six scale attempts remain 100→50%; retries retain
+-define jpeg:extent=<exact decimal bytes>B. The six scale attempts remain 100→50%; retries retain
 all colour and alpha operations. Strict source inspection, successful native
 outcomes with no reported diagnostics and full JPEG decode precede finalization.
 Output file timestamps are set to the source file’s timestamps.
 
 **Tweaks (optional)**
-Different size cap: pass a second positional argument in bytes (for example 2097152 for 2 MB).
+Different size cap: pass a second positional argument in bytes (for example 2097152 for 2 MiB).
 Background color for alpha: change -background white in the script (for example to black).
 Dimension ceiling: add an explicit -resize rule (for example -resize "1920x1920>") before jpeg:extent if you want a max edge.
 
@@ -230,7 +253,7 @@ Dimension ceiling: add an explicit -resize rule (for example -resize "1920x1920>
 PS 5.1 “Parameter set cannot be resolved” → Always launch via the provided .bat (positional args) or call the .ps1 with positional arguments only.
 Colour/profile errors -> Check the per-file log. Untagged CMYK needs a correctly profiled source; malformed or incompatible profiles are not silently converted. Originals remain intact.
 No outputs -> See the log file in the destination for errors (permissions, unreadable files, ...).
-Very noisy images won’t reach ≤ 1 MB → They’ll be saved best-effort and flagged in the log.
+Very noisy images may exceed the byte target even at 50% → A fully validated final JPEG is retained as WARN IMG, with its exact bytes/dimensions/scale and a warning outcome.
 
 **Intent & License**
 This is a personal tool for a specific workflow (archiving mixed photo folders for interviews/projects). It’s provided as-is, without warranty. Use at your own risk. Feel free to adapt it, just note it intentionally avoids extra features to keep the workflow fast and predictable.
