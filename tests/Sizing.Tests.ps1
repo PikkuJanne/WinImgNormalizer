@@ -57,7 +57,7 @@ BeforeAll {
         $observed=@(& Invoke-WinImgNormalizer @parameters 6>&1 3>&1 2>&1)
         $codes=@($observed | Where-Object {$_ -is [int] -or $_ -is [long]}); $codes.Count | Should -Be 1
         $runs=@(Get-ChildItem -LiteralPath $Parent -Directory); $runs.Count | Should -Be 1
-        $logs=@(Get-ChildItem -LiteralPath (Join-Path $runs[0].FullName '.WinImgNormalizer/reports') -File); $logs.Count | Should -Be 1
+        $logs=@(Get-ChildItem -LiteralPath (Join-Path $runs[0].FullName '.WinImgNormalizer/reports') -File -Filter '*.log'); $logs.Count | Should -Be 1
         return [pscustomobject]@{Code=$codes[0];Run=$runs[0].FullName;Log=[IO.File]::ReadAllText($logs[0].FullName);Text=$observed -join "`n"}
     }
     function Write-SizingCandidate([string]$Operand,[byte[]]$Bytes) {
@@ -71,7 +71,7 @@ BeforeAll {
         Invoke-SizingMagick @('identify','+ping','-regard-warnings','-define','registry:filename:literal=true','-format','%m|%w|%h|%n',(Get-WinImgNativeOutputPath $Path)) | Should -Be ('JPEG|'+$Width+'|'+$Height+'|1')
     }
     function Assert-SizingCleanup([object]$Result,[string[]]$Files) {
-        $actual=@(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object Extension -ne '.log' | ForEach-Object {$_.FullName.Substring($Result.Run.Length+1)} | Sort-Object)
+        $actual=@(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object { $_.Extension -notin @('.log','.csv') } | ForEach-Object {$_.FullName.Substring($Result.Run.Length+1)} | Sort-Object)
         ($actual -join '|') | Should -Be (@($Files | Sort-Object) -join '|')
         @(Get-ChildItem -LiteralPath (Join-Path $Result.Run '.WinImgNormalizer/work') -Force).Count | Should -Be 0
     }

@@ -397,3 +397,38 @@ The Framework-compatible [Stream.Read(byte[], int, int)](https://learn.microsoft
 [Console control-handler documentation](https://learn.microsoft.com/en-us/windows/console/console-control-handlers) describes default exit and attachment boundaries. [TerminateProcess](https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess) stops threads and initiates asynchronous termination; pending I/O may delay actual exit. Forced host/process exit or terminal closure can bypass cleanup/reporting. Recognizable owned scratch is not validated final media. Cooperative application code 130, bounded INTERRUPTED reporting and exact cleanup require actual-host evidence; they are not universal force-exit or unchanged-BAT guarantees.
 
 Observed official-page bytes and hashes remain in ignored M3-T03 documentation scratch. This note supplies mechanics and chosen policy, with no future focused/full/CI or owner-acceptance claim.
+
+## I14 — Local CSV text defense, import semantics and exact accounting
+
+- [OWASP CSV Injection](https://community.owasp.org/attacks/CSV_Injection) explains
+  formula-leading ASCII/full-width symbols and controls, separates field escaping
+  from spreadsheet behavior, and qualifies save/reopen mitigation and the absence
+  of a universal strategy. The application uses a visible fixed ASCII `text:`
+  prefix on all untrusted text rather than relying on quoting or leading-character
+  detection alone. This choice is a design inference supported by the threat model.
+- [Microsoft Power Query Text/CSV connector](https://learn.microsoft.com/en-us/power-query/connectors/text-csv)
+  documents local import, explicit encoding/delimiter and disabling automatic type
+  detection so columns default to Text.
+- [Microsoft Excel import/export text and CSV](https://support.microsoft.com/en-us/excel/get-started/import-or-export-text-txt-or-csv-files)
+  documents Data > From Text/CSV and Transform Data. It distinguishes the import
+  workflow from direct opening with default settings. This is documented guidance,
+  not evidence of actual installed Excel execution.
+- [Microsoft Csv.Document](https://learn.microsoft.com/en-us/powerquery-m/csv-document)
+  documents comma/UTF-8 defaults and quoted field/line-break parsing. CSV syntax
+  preservation is separate from formula defense.
+- [Microsoft Table.TransformColumnTypes](https://learn.microsoft.com/en-us/powerquery-m/table-transformcolumntypes)
+  documents explicit Text types for the import table.
+- [Microsoft Import-Csv](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/import-csv?view=powershell-7.5)
+  documents CSV-to-object conversion and LiteralPath/encoding parameters. Actual
+  Windows PowerShell 5.1/PowerShell 7 parser and independent-decoder results must be
+  recorded separately and do not certify spreadsheet execution or later editing.
+- [Microsoft Decimal](https://learn.microsoft.com/en-us/dotnet/api/system.decimal?view=netframework-4.8.1)
+  supports exact paired integer-byte accounting beyond a single Int64 aggregate;
+  overflow remains a controlled reporting fault rather than invented savings.
+- [Microsoft Stopwatch](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.stopwatch?view=netframework-4.8.1)
+  supports actual elapsed duration. Reported throughput is observed work/time;
+  no ETA or unknown subtree file count is inferred.
+
+Captured public primary source bytes, resolved URLs, hashes and retrieval times:
+`.scratch/M3-T04-design-reporting-peer-review.json` (eight source captures).
+Actual execution and exact-revision results belong to M3-T04 evidence; this source note does not grant owner acceptance.

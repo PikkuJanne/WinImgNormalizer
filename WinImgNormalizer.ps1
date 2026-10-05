@@ -322,11 +322,12 @@ function Copy-WinImgCancellableStream {
 }
 
 function Get-WinImgSourceTree {
-  param([string]$SourceRoot)
+  param([string]$SourceRoot, [object]$ReportState)
   $files = New-Object 'System.Collections.Generic.List[System.IO.FileInfo]'
   $directories = New-Object 'System.Collections.Generic.List[System.IO.DirectoryInfo]'
   $names = New-Object 'System.Collections.Generic.List[string]'
   $warnings = New-Object 'System.Collections.Generic.List[object]'
+  if ($ReportState) { $warnings = $ReportState.ScanIssues }
   $pending = New-Object 'System.Collections.Generic.Stack[string]'
   $pending.Push($SourceRoot)
   $inaccessibleDirectories = 0
@@ -348,23 +349,30 @@ function Get-WinImgSourceTree {
           if ($directory.Equals($SourceRoot, [StringComparison]::OrdinalIgnoreCase)) { $names.Add($entry.Name) }
           if (($entry.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) {
             $skippedLinks++
+            if ($ReportState) { $ReportState.SkippedLinks = $skippedLinks }
             $warnings.Add([pscustomobject]@{ Path = $entry.FullName; Kind = 'SkippedReparsePoint'; Reason = 'Reparse point skipped; links and junctions are not followed.' })
           } elseif ($entry -is [IO.DirectoryInfo]) {
             $directories.Add($entry)
             $pending.Push($entry.FullName)
-          } elseif ($entry -is [IO.FileInfo]) { $files.Add($entry) }
+          } elseif ($entry -is [IO.FileInfo]) {
+            if ($ReportState) { Add-WinImgDiscoveredFile -State $ReportState -SourceRoot $SourceRoot -File $entry }
+            $files.Add($entry)
+          }
         } catch [Management.Automation.PipelineStoppedException] { throw }
         catch { if (Test-WinImgCancellationException $_) { throw };
           $uninspectableEntries++
+          if ($ReportState) { $ReportState.UninspectableEntries = $uninspectableEntries }
           $warnings.Add([pscustomobject]@{ Path = $path; Kind = 'EntryInspectionFailed'; Reason = 'Could not inspect source entry: ' + $_.Exception.Message })
         }
       }
     } catch [Management.Automation.PipelineStoppedException] { throw }
     catch { if (Test-WinImgCancellationException $_) { throw };
       $inaccessibleDirectories++
+      if ($ReportState) { $ReportState.IncompleteDirectories = $inaccessibleDirectories }
       $warnings.Add([pscustomobject]@{ Path = $directory; Kind = 'DirectoryEnumerationFailed'; Reason = 'Incomplete source scan: ' + $_.Exception.Message })
     }
   }
+  if ($ReportState) { $ReportState.ScanComplete = ($inaccessibleDirectories -eq 0 -and $uninspectableEntries -eq 0) }
   return [pscustomobject]@{
     Files = $files.ToArray(); Directories = $directories.ToArray(); TopLevelNames = $names.ToArray(); Warnings = $warnings.ToArray()
     ScanComplete = ($inaccessibleDirectories -eq 0 -and $uninspectableEntries -eq 0)
@@ -1091,7 +1099,7 @@ function Move-WinImgPlannedImage {
 }
 
 function Copy-WinImgPlannedVideo {
-  param([string]$SourcePath, [string]$DestinationPath, [string]$WorkRoot)
+  param([string]$SourcePath, [string]$DestinationPath, [string]$WorkRoot, [object]$ReportRow)
   Assert-WinImgCancellation
   if (-not $WorkRoot) { $WorkRoot = [IO.Path]::GetDirectoryName($DestinationPath) }
   $allocated = New-WinImgImageCandidate -WorkRoot $WorkRoot
@@ -1117,6 +1125,12 @@ function Copy-WinImgPlannedVideo {
       throw 'Video copy is incomplete or the source changed during copying; no final output was committed.'
     }
     Move-WinImgPlannedImage -CandidatePath $candidate -DestinationPath $DestinationPath
+    # Record the linearized final move before owned scratch cleanup can fail.
+    if ($ReportRow) {
+      $ReportRow.InputBytes=[long]$length; $ReportRow.OutputBytes=[long]$length
+      $ReportRow.OutputRelativePath=$ReportRow.PlannedOutputRelativePath; $ReportRow.Attempts=1
+      $ReportRow.Reason='Stable byte-for-byte video copy finalized'; $ReportRow.Status='CopiedVideo'
+    }
   } finally {
     try { Remove-WinImgOwnedCandidate -CandidatePath $candidate -FileOwned $fileOwned }
     catch { if (Test-WinImgCancellationException $_) { throw }; $cleanupWarning = $_.Exception.Message; Write-Warning ('Could not remove owned video scratch: ' + $cleanupWarning) }
@@ -1480,7 +1494,7 @@ function Get-WinImgDestinationInfo {
 # Reporting must not retry a broken sink or recursively log its own failure.
 function ConvertTo-WinImgLogText {
   param([string]$Text)
-  return [regex]::Replace($Text, '[\x00-\x1f\x7f]', {
+  return [regex]::Replace($Text, '[\p{Cc}\p{Cf}\p{Cs}\p{Zl}\p{Zp}]', {
     param($match)
     return ('\u{0:x4}' -f [int][char]$match.Value)
   })
@@ -1608,13 +1622,239 @@ function Set-WinImgOutputTimestamps {
   return [pscustomobject]@{ Succeeded = ($failed.Count -eq 0); FailedFields = $failed.ToArray() }
 }
 
+function New-WinImgReportState {
+  return [pscustomobject]@{
+    Rows = New-Object 'Collections.Generic.List[object]'
+    BySource = New-Object 'Collections.Generic.Dictionary[string,object]' ([StringComparer]::Ordinal)
+    ScanIssues = New-Object 'Collections.Generic.List[object]'
+    ImageExtensions = @(); VideoExtensions = @(); SourceRoot = $null; DestinationRoot = $null
+    ScanComplete = $false; IncompleteDirectories = 0; UninspectableEntries = 0; SkippedLinks = 0
+    Clock = [Diagnostics.Stopwatch]::StartNew(); StartedAtUtc = [DateTime]::UtcNow
+    CsvPath = $null; ReportAttempted = $false; ReportComplete = $false; ReportWarnings = 0
+    ReportFailurePhase = $null; ReportFailureReason = $null; ConsoleWarnings = 0; ConsoleFailureReason = $null; ProgressWarnings = 0; ProgressEnabled = $true
+    RunState = 'Incomplete'; ProcessingWarnings = $false; Summary = $null; Observed = $false
+  }
+}
+
+function Add-WinImgDiscoveredFile {
+  param([object]$State, [string]$SourceRoot, [IO.FileInfo]$File)
+  $relative = Get-WinImgRelativePath -Root $SourceRoot -Path $File.FullName
+  $extension = $File.Extension.ToLowerInvariant()
+  $kind = if ($State.ImageExtensions -contains $extension) { 'Image' }
+    elseif ($State.VideoExtensions -contains $extension) { 'Video' } else { 'Ignored' }
+  $row = [pscustomobject]@{
+    SourceRelativePath = $relative; PlannedOutputRelativePath = ''; OutputRelativePath = ''
+    Kind = $kind; Status = $(if ($kind -eq 'Ignored') { 'Ignored' } else { 'NotStarted' })
+    Reason = $(if ($kind -eq 'Ignored') { 'Unsupported file extension; intentionally not processed' } else { 'Not started' })
+    InputBytes = [long]$File.Length; OutputBytes = $null; ScalePercent = $null; Width = $null; Height = $null; Attempts = 0
+    SizeWarning = $false; NativeWarning = $false; TimestampWarning = $false; FramesOmitted = 0
+    AncillaryWarning = $false; NamingReason = ''; RetainedSourceRelativePath = ''; RetainedOutputRelativePath = ''; RetainedStatus = ''; Started = $false
+  }
+  $State.BySource.Add($relative, $row); $State.Rows.Add($row)
+}
+
+function Set-WinImgReportWarning {
+  param([object]$Row, [ValidateSet('SizeWarning','NativeWarning','TimestampWarning','AncillaryWarning')][string]$Flag, [string]$Reason)
+  if (-not $Row) { return }
+  $Row.$Flag = $true
+  if ($Reason) { $Row.Reason = Get-WinImgBoundedText ((@($Row.Reason, $Reason) | Where-Object { $_ }) -join '; ') 2048 }
+}
+
+function Get-WinImgReportSummary {
+  param([object]$State)
+  $counts = [ordered]@{ Discovered=$State.Rows.Count; Converted=0; CopiedVideo=0; SkippedDuplicate=0; Ignored=0; Error=0; Cancelled=0; NotStarted=0 }
+  [decimal]$inputBytes = 0; [decimal]$outputBytes = 0; [decimal]$videoBytes = 0
+  $warnings = [ordered]@{ SizeWarnings=0; NativeWarnings=0; TimestampWarnings=0; AncillaryWarnings=0; FramesOmitted=0 }
+  foreach ($row in $State.Rows) {
+    if ($row.Status -notin @('Converted','CopiedVideo','SkippedDuplicate','Ignored','Error','Cancelled','NotStarted')) { throw 'Unknown file outcome; cannot report a reconciled partition.' }
+    $counts[$row.Status]++
+    if ($row.Status -eq 'Converted') { $inputBytes += [decimal]$row.InputBytes; $outputBytes += [decimal]$row.OutputBytes }
+    elseif ($row.Status -eq 'CopiedVideo') { $videoBytes += [decimal]$row.OutputBytes }
+    foreach ($pair in @(@('SizeWarning','SizeWarnings'),@('NativeWarning','NativeWarnings'),@('TimestampWarning','TimestampWarnings'),@('AncillaryWarning','AncillaryWarnings'))) {
+      if ($row.($pair[0])) { $warnings[$pair[1]]++ }
+    }
+    $warnings.FramesOmitted += $row.FramesOmitted
+  }
+  $partition = $counts.Converted + $counts.CopiedVideo + $counts.SkippedDuplicate + $counts.Ignored + $counts.Error + $counts.Cancelled + $counts.NotStarted
+  if ($partition -ne $counts.Discovered) { throw 'Known discovered-file outcomes do not reconcile.' }
+  [decimal]$savings = $inputBytes - $outputBytes
+  $seconds = $State.Clock.Elapsed.TotalSeconds
+  return [pscustomobject]@{
+    Counts=$counts; WarningCounts=$warnings; PartitionBalanced=$true
+    ImageInputBytes=$inputBytes; ImageOutputBytes=$outputBytes; ImageSavingsBytes=$savings
+    ImageSavingsPercent=$(if ($inputBytes -gt 0) { 100 * ($savings / $inputBytes) } else { $null })
+    VideoBytes=$videoBytes; ElapsedSeconds=$seconds
+    FilesPerSecond=$(if ($seconds -gt 0) { ($counts.Converted + $counts.CopiedVideo) / $seconds } else { $null })
+  }
+}
+
+function Sync-WinImgReportStats {
+  param([object]$State, [object]$Stats)
+  $summary = Get-WinImgReportSummary $State
+  $Stats.Converted=$summary.Counts.Converted; $Stats.CopiedVideo=$summary.Counts.CopiedVideo
+  $Stats.SkippedDuplicate=$summary.Counts.SkippedDuplicate; $Stats.Unsupported=$summary.Counts.Ignored; $Stats.Errors=$summary.Counts.Error
+  $Stats.SizeWarnings=$summary.WarningCounts.SizeWarnings; $Stats.NativeWarnings=$summary.WarningCounts.NativeWarnings; $Stats.TimestampWarnings=$summary.WarningCounts.TimestampWarnings
+}
+
+function ConvertTo-WinImgReportText {
+  param([AllowEmptyString()][string]$Text)
+  # A visible prefix protects every text value, including whitespace/full-width
+  # formula openers. Escaping is reversible, including literal \u and surrogates.
+  $result = [Text.StringBuilder]::new('text:')
+  foreach ($character in $Text.ToCharArray()) {
+    $category = [char]::GetUnicodeCategory($character)
+    if ($character -eq [char]92) { $null = $result.Append('\\') }
+    elseif ($category -in @([Globalization.UnicodeCategory]::Control,[Globalization.UnicodeCategory]::Format,[Globalization.UnicodeCategory]::LineSeparator,[Globalization.UnicodeCategory]::ParagraphSeparator,[Globalization.UnicodeCategory]::Surrogate)) {
+      $null = $result.Append(('\u{0:x4}' -f [int]$character))
+    } else { $null = $result.Append($character) }
+  }
+  return $result.ToString()
+}
+
+function ConvertTo-WinImgCsvField {
+  param([object]$Value, [switch]$Number)
+  if ($Number) {
+    $text = if ($null -eq $Value) { '' } else { [Convert]::ToString($Value, [Globalization.CultureInfo]::InvariantCulture) }
+    if ($text -and $text -notmatch '^-?[0-9]+(?:\.[0-9]+)?$') { throw 'Report numeric fields must contain generated invariant numbers.' }
+  } else { $text = ConvertTo-WinImgReportText ([string]$Value) }
+  return '"' + $text.Replace('"','""') + '"'
+}
+
+function New-WinImgRunReportFile {
+  param([string]$Path, [string]$Header)
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($Path))
+  $stream = [IO.FileStream]::new($Path, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+  $writer = $null
+  try {
+    $writer = [IO.StreamWriter]::new($stream, [Text.UTF8Encoding]::new($true, $true))
+    $writer.NewLine = "`r`n"; $writer.WriteLine($Header)
+    return $writer
+  } catch { if ($writer) { $writer.Dispose() } else { $stream.Dispose() }; throw }
+}
+
+function Add-WinImgRunReportLine { param([IO.TextWriter]$Writer, [string]$Line) $Writer.WriteLine($Line) }
+function Complete-WinImgRunReportFile { param([IO.TextWriter]$Writer) $Writer.Dispose() }
+
+function Write-WinImgOutcomeCsv {
+  param([object]$State)
+  $columns = @('RecordType','SourceRelativePath','PlannedOutputRelativePath','OutputRelativePath','Kind','Status','Reason','InputBytes','OutputBytes','ImageSavingsBytes','ScalePercent','Width','Height','Attempts','SizeWarning','NativeWarning','TimestampWarning','FramesOmitted','AncillaryWarning','NamingReason','RetainedSourceRelativePath','RetainedOutputRelativePath','RetainedStatus','Started')
+  $numbers = @('InputBytes','OutputBytes','ImageSavingsBytes','ScalePercent','Width','Height','Attempts','SizeWarning','NativeWarning','TimestampWarning','FramesOmitted','AncillaryWarning','Started')
+  $writer = $null; $phase = 'Creation'
+  try {
+    $writer = New-WinImgRunReportFile -Path $State.CsvPath -Header ($columns -join ',')
+    $phase = 'Write'
+    $paths = New-Object 'Collections.Generic.List[string]'
+    foreach ($key in $State.BySource.Keys) { $paths.Add($key) }
+    $paths.Sort([StringComparer]::Ordinal)
+    foreach ($key in $paths) {
+      $row = $State.BySource[$key]; $cells = New-Object 'Collections.Generic.List[string]'
+      foreach ($column in $columns) {
+        $value = if ($column -eq 'RecordType') { 'File' }
+          elseif ($column -eq 'ImageSavingsBytes') { if ($row.Status -eq 'Converted') { [decimal]$row.InputBytes - [decimal]$row.OutputBytes } else { $null } }
+          else { $row.$column }
+        if ($value -is [bool]) { $value = [int]$value }
+        $cells.Add((ConvertTo-WinImgCsvField -Value $value -Number:($numbers -contains $column)))
+      }
+      Add-WinImgRunReportLine -Writer $writer -Line ($cells -join ',')
+    }
+    foreach ($issue in $State.ScanIssues) {
+      $relative = if ($issue.Path.Equals($State.SourceRoot, [StringComparison]::OrdinalIgnoreCase)) { '.' } else { Get-WinImgRelativePath -Root $State.SourceRoot -Path $issue.Path }
+      $values = @{ RecordType='ScanIssue'; SourceRelativePath=$relative; Kind=$issue.Kind; Status='Warning'; Reason=$issue.Reason }
+      $cells = New-Object 'Collections.Generic.List[string]'
+      foreach ($column in $columns) { $cells.Add((ConvertTo-WinImgCsvField -Value $values[$column] -Number:($numbers -contains $column))) }
+      Add-WinImgRunReportLine -Writer $writer -Line ($cells -join ',')
+    }
+    $phase = 'Close'
+    Complete-WinImgRunReportFile -Writer $writer; $writer = $null
+    $State.ReportComplete = $true
+  } catch [Management.Automation.PipelineStoppedException] { throw }
+  catch {
+    if (Test-WinImgCancellationException $_) { throw }
+    $State.ReportWarnings = 1; $State.ReportFailurePhase = $phase
+    $State.ReportFailureReason = Get-WinImgBoundedText (ConvertTo-WinImgLogText $_.Exception.Message) 512
+  } finally {
+    if ($writer) {
+      try { $writer.Dispose() }
+      catch { if ($State.ReportWarnings -eq 0) { $State.ReportWarnings=1; $State.ReportFailurePhase='Close'; $State.ReportFailureReason=Get-WinImgBoundedText (ConvertTo-WinImgLogText $_.Exception.Message) 512 } }
+    }
+  }
+}
+
+function Write-WinImgReportProgress {
+  param([object]$State, [string]$Status, [int]$PercentComplete, [switch]$Completed)
+  if (-not $State.ProgressEnabled) { return }
+  try {
+    if ($Completed) { Write-Progress -Activity 'WinImgNormalizer' -Completed }
+    else { Write-Progress -Activity 'WinImgNormalizer' -Status $Status -PercentComplete $PercentComplete }
+  }
+  catch [Management.Automation.PipelineStoppedException] { throw }
+  catch {
+    if (Test-WinImgCancellationException $_) { throw }
+    $State.ProgressEnabled=$false; $State.ProgressWarnings=1
+    Write-WinImgEmergencyReport 'Progress warning: progress display failed; processing continues and the run is degraded.'
+  }
+}
+
+function Complete-WinImgReport {
+  param([object]$State, [object]$Stats, [object]$LogState, [scriptblock]$Observer, [switch]$Interrupted, [switch]$Incomplete, [bool]$ProcessingWarnings = $false)
+  if ($ProcessingWarnings) { $State.ProcessingWarnings=$true }
+  if ($Interrupted) {
+    foreach ($row in $State.Rows) {
+      if ($row.Status -eq 'NotStarted' -and $row.Started) { $row.Status='Cancelled'; $row.Reason='Cooperative cancellation before finalization' }
+    }
+  } elseif ($Incomplete) {
+    foreach ($row in $State.Rows) {
+      if ($row.Status -eq 'NotStarted' -and $row.Started) { $row.Status='Error'; $row.Reason='Run ended before an outcome was committed' }
+    }
+  }
+  Sync-WinImgReportStats -State $State -Stats $Stats
+  if (-not $State.ReportAttempted) {
+    $State.ReportAttempted = $true
+    # Do not poll the already-requested cancellation token while recording the
+    # known terminal outcomes. A closed/force-killed host may bypass this attempt.
+    if ($State.CsvPath) { Write-WinImgOutcomeCsv $State }
+    if ($State.ReportWarnings) {
+      $notice = 'CSV report warning: {0} failed ({1}); report is incomplete. Completed media are retained; the run is degraded.' -f $State.ReportFailurePhase,$State.ReportFailureReason
+      Write-WinImgEmergencyReport $notice
+      if ($LogState) { Write-WinImgRunLog -State $LogState -Message $notice -Level WARN -Quiet }
+    }
+  }
+  $State.Summary = Get-WinImgReportSummary $State
+  $c = $State.Summary.Counts; $s = $State.Summary; $w = $s.WarningCounts
+  $degraded = $Incomplete -or $State.ProcessingWarnings -or -not $State.ScanComplete -or $State.SkippedLinks -or $c.Error -or $c.NotStarted -or $State.ReportWarnings -or $State.ProgressWarnings -or $State.ConsoleWarnings -or $w.SizeWarnings -or $w.NativeWarnings -or $w.TimestampWarnings -or $w.AncillaryWarnings -or ($LogState -and $LogState.Degraded)
+  $State.RunState = if ($Interrupted) { 'Interrupted' } elseif ($degraded) { 'Partial' } else { 'Completed' }
+  $line = 'ACCOUNTING Discovered={0} Converted={1} CopiedVideo={2} SkippedDuplicate={3} Ignored={4} Error={5} Cancelled={6} NotStarted={7} Balanced=True ScanComplete={8} IncompleteDirectories={9} UninspectableEntries={10} SkippedLinks={11} ImageInputBytes={12} ImageOutputBytes={13} ImageSavingsBytes={14} VideoBytes={15} ElapsedSeconds={16} FinalizedFilesPerSecond={17} ReportWarnings={18} ReportComplete={19} ProgressWarnings={20} ImageSavingsPercent={21} SizeWarnings={22} NativeWarnings={23} TimestampWarnings={24} AncillaryWarnings={25} FramesOmitted={26} ConsoleWarnings={27} ProcessingWarnings={28}' -f
+    $c.Discovered,$c.Converted,$c.CopiedVideo,$c.SkippedDuplicate,$c.Ignored,$c.Error,$c.Cancelled,$c.NotStarted,$State.ScanComplete,$State.IncompleteDirectories,$State.UninspectableEntries,$State.SkippedLinks,
+    $s.ImageInputBytes.ToString([Globalization.CultureInfo]::InvariantCulture),$s.ImageOutputBytes.ToString([Globalization.CultureInfo]::InvariantCulture),$s.ImageSavingsBytes.ToString([Globalization.CultureInfo]::InvariantCulture),$s.VideoBytes.ToString([Globalization.CultureInfo]::InvariantCulture),
+    $s.ElapsedSeconds.ToString('F3',[Globalization.CultureInfo]::InvariantCulture),$(if ($null -ne $s.FilesPerSecond) { $s.FilesPerSecond.ToString('F3',[Globalization.CultureInfo]::InvariantCulture) } else { 'unknown' }),$State.ReportWarnings,$State.ReportComplete,$State.ProgressWarnings,
+    $(if ($null -ne $s.ImageSavingsPercent) { $s.ImageSavingsPercent.ToString('F3',[Globalization.CultureInfo]::InvariantCulture) } else { 'unknown' }),$w.SizeWarnings,$w.NativeWarnings,$w.TimestampWarnings,$w.AncillaryWarnings,$w.FramesOmitted,$State.ConsoleWarnings,$State.ProcessingWarnings
+  $line=Get-WinImgBoundedText $line 2048
+  $csvHint=Get-WinImgBoundedText (ConvertTo-WinImgLogText ([string]$State.CsvPath)) 512
+  if ($LogState) { Write-WinImgRunLog -State $LogState -Message $line -Quiet }
+  # The aggregate line's own log write can fail; observe that degradation last.
+  if ($LogState -and $LogState.Degraded -and -not $Interrupted) { $State.RunState='Partial' }
+  try { Write-Host $line; Write-Host ('Final report outcome: State={0} ReportWarnings={1} ReportComplete={2} LogWarnings={3}; CSV={4}' -f $State.RunState,$State.ReportWarnings,$State.ReportComplete,$(if ($LogState) { $LogState.FailureCount } else { 0 }),$csvHint) }
+  catch [Management.Automation.PipelineStoppedException] { throw }
+  catch {
+    if (Test-WinImgCancellationException $_) { throw }
+    $State.ConsoleWarnings=1; $State.ConsoleFailureReason=Get-WinImgBoundedText (ConvertTo-WinImgLogText $_.Exception.Message) 512
+    if (-not $Interrupted) { $State.RunState='Partial' }
+    $notice='Console report warning: final presentation failed ({0}); ConsoleWarnings=1 State={1}. Completed media are retained.' -f $State.ConsoleFailureReason,$State.RunState
+    Write-WinImgEmergencyReport $notice; Write-WinImgEmergencyReport (Get-WinImgBoundedText $line 2048)
+    if ($LogState) { Write-WinImgRunLog -State $LogState -Message $notice -Level WARN -Quiet }
+  }
+  # Interrupted callers append their bounded INTERRUPTED marker before emitting.
+  if ($LogState -and -not $Interrupted) { Complete-WinImgRunLog $LogState }
+  if ($Observer -and -not $State.Observed) { $State.Observed=$true; $null = & $Observer $State }
+}
+
 function Invoke-WinImgNormalizer {
   param(
     [string]$Source, [object]$MaxBytes = 1MB, [string]$OutputParent,
     [string]$MagickPath, [scriptblock]$PreflightRunner, [scriptblock]$ProcessRunner,
     [object]$ExecutionPolicy, [scriptblock]$NativeProcessObserver, [string]$NativeTemporaryRoot,
     [object]$CancellationState, [bool]$CaptureConsoleControl = $false,
-    [scriptblock]$CopyProgressObserver, [scriptblock]$RunStageObserver
+    [scriptblock]$CopyProgressObserver, [scriptblock]$RunStageObserver, [scriptblock]$ReportObserver
   )
   $ErrorActionPreference = 'Stop'
   $previousContext = $script:WinImgCancellationContext
@@ -1622,6 +1862,7 @@ function Invoke-WinImgNormalizer {
     Stats = [ordered]@{ Converted=0; CopiedVideo=0; SkippedDuplicate=0; Unsupported=0; Errors=0; SizeWarnings=0; NativeWarnings=0; TimestampWarnings=0 }
     Total=0; Started=0; Current=$null; ScanComplete=$false; Destination=$null; LogState=$null
     CopyProgressObserver=$CopyProgressObserver; RunStageObserver=$RunStageObserver
+    ReportState = New-WinImgReportState
   }
   $session = $null
   try {
@@ -1636,6 +1877,7 @@ function Invoke-WinImgNormalizer {
 
   $logState = $null
   $stats = $CancellationContext.Stats
+  $reportState = $CancellationContext.ReportState
   Assert-WinImgCancellation
 
   # Complete basic setup before creating Pictures, run folders, logs or mirrors.
@@ -1644,6 +1886,7 @@ function Invoke-WinImgNormalizer {
     if (-not $ExecutionPolicy) { $ExecutionPolicy = New-WinImgExecutionPolicy }
     $ExecutionPolicy = New-WinImgExecutionPolicy -TimeoutMilliseconds $ExecutionPolicy.TimeoutMilliseconds -MemoryBytes $ExecutionPolicy.MemoryBytes -MapBytes $ExecutionPolicy.MapBytes -DiskBytes $ExecutionPolicy.DiskBytes -Threads $ExecutionPolicy.Threads
     $srcRoot = Resolve-WinImgSourcePath $Source
+    $reportState.SourceRoot = $srcRoot
     $pictures = $OutputParent
     if (-not $pictures) {
       $pictures = [Environment]::GetFolderPath('MyPictures')
@@ -1656,9 +1899,14 @@ function Invoke-WinImgNormalizer {
     $imgExts = '.jpg','.jpeg','.png','.bmp','.tif','.tiff','.gif','.heic','.heif','.webp'
     $videoExts = '.mp4','.mov','.mkv','.avi','.m4v','.wmv','.webm','.mts','.m2ts','.3gp','.3g2'
     $imageCoders = @{ '.jpg'='JPEG'; '.jpeg'='JPEG'; '.png'='PNG'; '.bmp'='BMP'; '.tif'='TIFF'; '.tiff'='TIFF'; '.gif'='GIF'; '.heic'='HEIC'; '.heif'='HEIF'; '.webp'='WEBP' }
-    $sourceTree = Get-WinImgSourceTree -SourceRoot $srcRoot
+    $reportState.ImageExtensions = $imgExts; $reportState.VideoExtensions = $videoExts
+    $sourceTree = Get-WinImgSourceTree -SourceRoot $srcRoot -ReportState $reportState
     $generatedName = Get-WinImgGeneratedName -TopLevelNames $sourceTree.TopLevelNames
     $outputPlan = @(Get-WinImgOutputPlan -SourceRoot $srcRoot -SourceTree $sourceTree -GeneratedName $generatedName -ImageExtensions $imgExts -VideoExtensions $videoExts)
+    foreach ($planned in $outputPlan) {
+      $record = $reportState.BySource[$planned.SourceRelativePath]
+      $record.PlannedOutputRelativePath = $planned.OutputRelativePath; $record.NamingReason = $planned.NamingReason
+    }
     $allFiles = @($outputPlan | ForEach-Object { $_.Source })
     $CancellationContext.Total = $allFiles.Count
     $CancellationContext.ScanComplete = $sourceTree.ScanComplete
@@ -1714,6 +1962,7 @@ function Invoke-WinImgNormalizer {
     Assert-WinImgCancellation
     $destRoot = New-WinImgRunDirectory -OutputParent $pictures -BaseName $base -Stamp $stamp
     $CancellationContext.Destination = $destRoot
+    $reportState.DestinationRoot = $destRoot
     $generatedRoot = [IO.Path]::Combine($destRoot, $generatedName)
     $workRoot = [IO.Path]::Combine($generatedRoot, 'work')
     $reportRoot = [IO.Path]::Combine($generatedRoot, 'reports')
@@ -1728,6 +1977,7 @@ function Invoke-WinImgNormalizer {
   }
 
   # A failed required log is visible but does not discard valid media work.
+  $reportState.CsvPath = [IO.Path]::Combine($reportRoot, "WinImgNormalizer_${stamp}.csv")
   $LogPath = [System.IO.Path]::Combine($reportRoot, "WinImgNormalizer_${stamp}.log")
   $logState = New-WinImgLogState -Path $LogPath
   $CancellationContext.LogState = $logState
@@ -1775,13 +2025,14 @@ function Invoke-WinImgNormalizer {
   # --------- File sets ---
   $total = $allFiles.Count
   if ($total -eq 0) {
+    Sync-WinImgReportStats -State $reportState -Stats $stats
     Write-Log "No images or videos found." 'WARN'
-    Write-Log ('SUMMARY ConvertedImages=0 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0 ScanComplete={0} IncompleteDirectories={1} UninspectableEntries={2} SkippedLinks={3} LogWarnings={4} FallbackDropped={5}' -f
-      $sourceTree.ScanComplete, $sourceTree.InaccessibleDirectoryCount, $sourceTree.UninspectableEntryCount, $sourceTree.SkippedReparsePointCount, $logState.FailureCount, $logState.FallbackDroppedLines)
+    Write-Log ('SUMMARY ConvertedImages=0 CopiedVideos=0 Duplicates=0 Unsupported={6} Errors=0 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0 ScanComplete={0} IncompleteDirectories={1} UninspectableEntries={2} SkippedLinks={3} LogWarnings={4} FallbackDropped={5}' -f
+      $sourceTree.ScanComplete, $sourceTree.InaccessibleDirectoryCount, $sourceTree.UninspectableEntryCount, $sourceTree.SkippedReparsePointCount, $logState.FailureCount, $logState.FallbackDroppedLines, $stats.Unsupported)
     Write-Host ('Final reporting state: LogWarnings={0} DiskLogIncomplete={1} FallbackDropped={2}' -f $logState.FailureCount, $logState.Degraded, $logState.FallbackDroppedLines)
-    Complete-WinImgRunLog -State $logState
     Assert-WinImgCancellation
-    if ($hasTraversalWarnings -or $logState.Degraded) { return 2 }
+    Complete-WinImgReport -State $reportState -Stats $stats -LogState $logState -Observer $ReportObserver -ProcessingWarnings $hasTraversalWarnings
+    if ($hasTraversalWarnings -or $logState.Degraded -or $reportState.RunState -eq 'Partial') { return 2 }
     return 0
   }
 
@@ -1800,7 +2051,7 @@ function Invoke-WinImgNormalizer {
   function Convert-ImageMagick {
     param([string]$SourcePath, [string]$DestPath, [long]$MaxBytes,
       [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates, [object]$SourceInfo,
-      [object]$ColourInfo, [string]$SrgbProfilePath, [object]$NativeContext)
+      [object]$ColourInfo, [string]$SrgbProfilePath, [object]$NativeContext, [object]$ReportRow)
 
     $extent = Get-ExtentString $MaxBytes
     $scales = 100,90,80,70,60,50
@@ -1820,6 +2071,7 @@ function Invoke-WinImgNormalizer {
         $ownership = $OwnedCandidates[$OwnedCandidates.Count - 1]
         $stream = [IO.FileStream]::new($DestPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
         $ownership.FileOwned = $true; $stream.Dispose(); $attemptCount++
+        $ReportRow.Attempts = $attemptCount
         $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
         $nativeArguments = @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true')
         if ($SourceInfo) { $nativeArguments += @('-define', 'image:frames=0') }
@@ -1885,17 +2137,20 @@ function Invoke-WinImgNormalizer {
   # --------- Main loop ---
   [int]$i = 0
   foreach ($row in $outputPlan) {
+    $outcomeRow = $reportState.BySource[$row.SourceRelativePath]
     Invoke-WinImgRunStage -Stage 'BeforeItem' -RelativePath $row.SourceRelativePath -Path ([IO.Path]::Combine($destRoot, $row.OutputRelativePath))
     $f = $row.Source
     $i++
     $CancellationContext.Started = $i
     $CancellationContext.Current = $row.SourceRelativePath
+    $outcomeRow.Started = $true; $outcomeRow.Reason = 'Processing'
     $rel = $row.SourceRelativePath
     $ext = $f.Extension.ToLowerInvariant()
-    Write-Progress -Activity "WinImgNormalizer" -Status "$i / $total : $rel" -PercentComplete ([int]($i*100/$total))
+    Write-WinImgReportProgress -State $reportState -Status "$i / $total : $rel" -PercentComplete ([int]($i*100/$total))
 
     $coder = $imageCoders[$ext]
     if ($coder -and $missingCoders.ContainsKey($coder)) {
+      $outcomeRow.Status = 'Error'; $outcomeRow.Reason = "Missing $coder decoder; no conversion attempted"
       $stats.Errors++
       Write-Log "ERR IMG: $rel (Missing $coder decoder in this ImageMagick build; no conversion attempted. Install a build with $coder read support.)" 'ERR'
       continue
@@ -1918,11 +2173,14 @@ function Invoke-WinImgNormalizer {
       # Inventory FileInfo values may be cached. Snapshot live metadata before
       # lookup, then reuse those immutable values for the processed input.
       $sourceLength = $f.Length
+      $outcomeRow.InputBytes = [long]$sourceLength
       $sourceModified = $f.LastWriteTimeUtc
       $sourceCreated = $f.CreationTimeUtc
       $dupKey = Get-WinImgDuplicateKey -Name $f.Name -LastWriteTimeUtc $sourceModified -Length $sourceLength
       if ($retained.ContainsKey($dupKey)) {
         $first = $retained[$dupKey]
+        $outcomeRow.Status='SkippedDuplicate'; $outcomeRow.Reason='Heuristic filename/time/length match; content equality is not verified'
+        $outcomeRow.RetainedSourceRelativePath=$first.SourceRelativePath; $outcomeRow.RetainedOutputRelativePath=$first.OutputRelativePath; $outcomeRow.RetainedStatus=$first.Status
         $stats.SkippedDuplicate++
         Write-Log ('Heuristic duplicate skipped: {0} (retained source: {1}; retained output: {2}; retained status: {3})' -f
           $rel, $first.SourceRelativePath, $first.OutputRelativePath, $first.Status) 'SKIP'
@@ -1932,6 +2190,7 @@ function Invoke-WinImgNormalizer {
     } catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
     catch { if (Test-WinImgCancellationException $_) { throw };
       $hasTraversalWarnings = $true
+      $outcomeRow.Status='Error'; $outcomeRow.Reason=Get-WinImgBoundedText $_.Exception.Message 2048
       $stats.Errors++
       Write-Log "Source/destination safety check failed: $rel ($($_.Exception.Message))" 'ERR'
       continue
@@ -1946,6 +2205,7 @@ function Invoke-WinImgNormalizer {
         $sourceInfo = $null
         if ($ext -in @('.gif','.tif','.tiff','.webp','.heic','.heif')) {
           $sourceInfo = Get-WinImgSourceImageInfo -SnapshotPath $imageSource -MagickPath $MagickCmd -NativeContext $nativeContext
+          $outcomeRow.FramesOmitted = $sourceInfo.Omitted
           Write-Log ('SOURCE IMG: {0} (SourceCount={1}; Selected=1; Omitted={2}; Unit={3}; Policy={4}; Decoder={5})' -f
             $rel, $sourceInfo.SourceCount, $sourceInfo.Omitted, $sourceInfo.Unit, $sourceInfo.Policy, $sourceInfo.Decoder)
         }
@@ -1961,18 +2221,25 @@ function Invoke-WinImgNormalizer {
         catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
         catch { if (Test-WinImgCancellationException $_) { throw }; $hasNamingWarnings = $true; throw }
         $ownedCandidates.Add([pscustomobject]@{ Path = $candidatePath; FileOwned = $false; Removed = $false })
-        $res = Convert-ImageMagick -SourcePath $imageSource -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -SourceInfo $sourceInfo -ColourInfo $colourInfo -SrgbProfilePath $srgbProfilePath -NativeContext $nativeContext
+        $res = Convert-ImageMagick -SourcePath $imageSource -DestPath $candidatePath -MaxBytes $MaxBytes -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -SourceInfo $sourceInfo -ColourInfo $colourInfo -SrgbProfilePath $srgbProfilePath -NativeContext $nativeContext -ReportRow $outcomeRow
         if ($res.Status -in @('Converted', 'ConvertedWithWarning')) {
           $null = Get-WinImgRemainingTime $nativeContext
           Invoke-WinImgRunStage -Stage 'CandidateValidated' -RelativePath $rel -Path $res.CandidatePath
           try { Move-WinImgPlannedImage -CandidatePath $res.CandidatePath -DestinationPath $destPath }
           catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
           catch { if (Test-WinImgCancellationException $_) { throw }; $hasNamingWarnings = $true; throw }
+          # Commit the single retained outcome before ancillary timestamp/log
+          # operations. Cancellation can no longer turn this final file into Error.
+          $outcomeRow.InputBytes=[long]$sourceLength; $outcomeRow.OutputBytes=[long]$res.BytesOut
+          $outcomeRow.OutputRelativePath=$destRel; $outcomeRow.Width=$res.Width; $outcomeRow.Height=$res.Height; $outcomeRow.ScalePercent=$res.Scale
+          $outcomeRow.SizeWarning=[bool]$res.SizeWarning; $outcomeRow.NativeWarning=[bool]$res.NativeWarning
+          $outcomeRow.Reason=$(if ($res.Note) { $res.Note } else { 'Validated JPEG finalized' }); $outcomeRow.Status='Converted'
           $stats.Converted++
           if ($res.SizeWarning) { $stats.SizeWarnings++ }
           if ($res.NativeWarning) { $stats.NativeWarnings++ }
           $timestampResult = Set-WinImgOutputTimestamps -Path $destPath -LastWriteTimeUtc $sourceModified -CreationTimeUtc $sourceCreated
           if (-not $timestampResult.Succeeded) {
+            Set-WinImgReportWarning -Row $outcomeRow -Flag TimestampWarning -Reason 'Timestamp restoration incomplete; valid output retained'
             $stats.TimestampWarnings++
             $res.Status = 'ConvertedWithWarning'
             $res.Note = (@($res.Note, 'Timestamp restoration incomplete; valid output retained') | Where-Object { $_ }) -join '; '
@@ -1994,6 +2261,7 @@ function Invoke-WinImgNormalizer {
           } catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
           catch { if (Test-WinImgCancellationException $_) { throw };
             $hasDuplicateWarnings = $true
+            Set-WinImgReportWarning -Row $outcomeRow -Flag AncillaryWarning -Reason 'Source metadata changed after finalization; heuristic registration omitted'
             Write-Log ('Finalized image kept without heuristic registration: {0} ({1})' -f $rel, $_.Exception.Message) 'WARN'
           }
           $note = if ($res.Note) { " ($($res.Note))" } else { "" }
@@ -2003,21 +2271,26 @@ function Invoke-WinImgNormalizer {
             $MaxBytes.ToString([Globalization.CultureInfo]::InvariantCulture), $res.Width, $res.Height, $res.Scale, $note) $level
           Invoke-WinImgRunStage -Stage 'AfterFinalization' -RelativePath $rel -Path $destPath
         } else {
+          $outcomeRow.Status='Error'; $outcomeRow.Reason=$res.Note; $outcomeRow.Attempts=$res.Attempts
           $stats.Errors++; Write-Log "ERR IMG: $rel ($($res.Note))" 'ERR'
         }
       }
       elseif ($videoExts -contains $ext) {
         $destDir = [System.IO.Path]::GetDirectoryName($destPath)
         if ($destDir) { [IO.Directory]::CreateDirectory($destDir) | Out-Null }
-        try { $videoResult = Copy-WinImgPlannedVideo -SourcePath $f.FullName -DestinationPath $destPath -WorkRoot $workRoot }
+        try { $videoResult = Copy-WinImgPlannedVideo -SourcePath $f.FullName -DestinationPath $destPath -WorkRoot $workRoot -ReportRow $outcomeRow }
         catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
         catch { if (Test-WinImgCancellationException $_) { throw }; $hasNamingWarnings = $true; throw }
         # The copy helper's stable snapshot describes the bytes actually copied,
         # even if source metadata changed between lookup and staging.
+        $outcomeRow.InputBytes=[long]$videoResult.BytesOut; $outcomeRow.OutputBytes=[long]$videoResult.BytesOut
+        $outcomeRow.OutputRelativePath=$destRel; $outcomeRow.Attempts=1; $outcomeRow.Reason='Stable byte-for-byte video copy finalized'; $outcomeRow.Status='CopiedVideo'
+        $stats.CopiedVideo++
         $videoKey = Get-WinImgDuplicateKey -Name $f.Name -LastWriteTimeUtc $videoResult.LastWriteTimeUtc -Length $videoResult.BytesOut
         $timestampResult = Set-WinImgOutputTimestamps -Path $destPath -LastWriteTimeUtc $videoResult.LastWriteTimeUtc -CreationTimeUtc $videoResult.CreationTimeUtc
         $videoStatus = 'CopiedVideo'
         if (-not $timestampResult.Succeeded) {
+          Set-WinImgReportWarning -Row $outcomeRow -Flag TimestampWarning -Reason 'Timestamp restoration incomplete; valid output retained'
           $stats.TimestampWarnings++
           $videoStatus = 'CopiedVideoWithWarning'
           foreach ($failure in $timestampResult.FailedFields) { Write-Log ('Timestamp warning VID: {0} ({1}: {2})' -f $destRel, $failure.Name, $failure.Reason) 'WARN' }
@@ -2025,24 +2298,30 @@ function Invoke-WinImgNormalizer {
         if (-not $retained.ContainsKey($videoKey)) {
           $retained.Add($videoKey, [pscustomobject]@{ SourceRelativePath = $rel; OutputRelativePath = $destRel; Status = $videoStatus })
         }
-        if ($videoResult.CleanupWarning) { $hasNamingWarnings = $true; Write-Log ('Video scratch cleanup: ' + $videoResult.CleanupWarning) 'WARN' }
+        if ($videoResult.CleanupWarning) { Set-WinImgReportWarning -Row $outcomeRow -Flag AncillaryWarning -Reason $videoResult.CleanupWarning; $hasNamingWarnings = $true; Write-Log ('Video scratch cleanup: ' + $videoResult.CleanupWarning) 'WARN' }
         $bytesOut = $videoResult.BytesOut
-        $stats.CopiedVideo++
         $videoLevel = if ($timestampResult.Succeeded) { 'OK' } else { 'WARN' }
         Write-Log ("{0} VID: {1} -> {2} [{3:n0} bytes]" -f $videoLevel, $rel, $destRel, $bytesOut) $videoLevel
         Invoke-WinImgRunStage -Stage 'AfterFinalization' -RelativePath $rel -Path $destPath
       }
       else {
+        $outcomeRow.Status='Ignored'; $outcomeRow.Reason='Unsupported extension; intentionally not processed'
         $stats.Unsupported++; Write-Log "Unsupported skipped: $rel" 'WARN'
       }
     } catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
     catch { if (Test-WinImgCancellationException $_) { throw };
       if ($_.Exception.Data['WinImgNativeDetail']) { Write-Log ('NATIVE DETAILS: ' + $_.Exception.Data['WinImgNativeDetail']) -Quiet }
-      $stats.Errors++; Write-Log "Exception processing: $rel ($($_.Exception.Message))" 'ERR'
+      if ($outcomeRow.Status -in @('Converted','CopiedVideo')) {
+        Set-WinImgReportWarning -Row $outcomeRow -Flag AncillaryWarning -Reason ('Ancillary failure after finalization: ' + $_.Exception.Message)
+        Write-Log "Ancillary warning after finalization: $rel ($($_.Exception.Message)); valid output retained" 'WARN'
+      } else {
+        $outcomeRow.Status='Error'; $outcomeRow.Reason=Get-WinImgBoundedText $_.Exception.Message 2048
+        $stats.Errors++; Write-Log "Exception processing: $rel ($($_.Exception.Message))" 'ERR'
+      }
     } finally {
       try { Remove-WinImgImageContext $nativeContext }
       catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
-      catch { if (Test-WinImgCancellationException $_) { throw }; $hasNamingWarnings = $true; Write-Log ('Could not remove owned native cache: ' + $_.Exception.Message) 'WARN' }
+      catch { if (Test-WinImgCancellationException $_) { throw }; Set-WinImgReportWarning -Row $outcomeRow -Flag AncillaryWarning -Reason $_.Exception.Message; $hasNamingWarnings = $true; Write-Log ('Could not remove owned native cache: ' + $_.Exception.Message) 'WARN' }
       foreach ($owned in $ownedCandidates) {
         if ($nativeContext -and -not $nativeContext.CleanupSafe) { continue }
         if ($owned.Removed) { continue }
@@ -2050,6 +2329,7 @@ function Invoke-WinImgNormalizer {
         catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
         catch { if (Test-WinImgCancellationException $_) { throw };
           $hasNamingWarnings = $true
+          Set-WinImgReportWarning -Row $outcomeRow -Flag AncillaryWarning -Reason $_.Exception.Message
           Write-Log ('Could not remove owned image scratch: ' + $_.Exception.Message) 'WARN'
         }
       }
@@ -2058,7 +2338,8 @@ function Invoke-WinImgNormalizer {
 
   $CancellationContext.Current = $null
   Assert-WinImgCancellation
-  Write-Progress -Activity "WinImgNormalizer" -Completed
+  Write-WinImgReportProgress -State $reportState -Completed
+  Sync-WinImgReportStats -State $reportState -Stats $stats
 
   Write-Host ""
   Write-Host "Summary:" -ForegroundColor Cyan
@@ -2069,7 +2350,7 @@ function Invoke-WinImgNormalizer {
   Write-Host ("  Scan complete: {0}; incomplete directories: {1}; uninspectable entries: {2}; skipped links: {3}" -f $sourceTree.ScanComplete, $sourceTree.InaccessibleDirectoryCount, $sourceTree.UninspectableEntryCount, $sourceTree.SkippedReparsePointCount)
   Write-Host ("  Copied videos    : {0}" -f $stats.CopiedVideo)
   Write-Host ("  Duplicates       : {0}" -f $stats.SkippedDuplicate)
-  Write-Host ("  Unsupported      : {0}" -f $stats.Unsupported)
+  Write-Host ("  Ignored files    : {0}" -f $stats.Unsupported)
   Write-Host ("  Errors           : {0}" -f $stats.Errors)
   Write-Host ("  Log file         : {0}" -f $LogPath)
 
@@ -2077,26 +2358,34 @@ function Invoke-WinImgNormalizer {
     $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors,$stats.SizeWarnings,$stats.NativeWarnings,$stats.TimestampWarnings,
     $sourceTree.ScanComplete,$sourceTree.InaccessibleDirectoryCount,$sourceTree.UninspectableEntryCount,$sourceTree.SkippedReparsePointCount,$logState.FailureCount,$logState.FallbackDroppedLines)
   Write-Log "Processing ended $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+  Complete-WinImgReport -State $reportState -Stats $stats -LogState $logState -Observer $ReportObserver -ProcessingWarnings ([bool]($hasTraversalWarnings -or $hasNamingWarnings -or $hasDuplicateWarnings))
   Write-Host ('Final reporting state: LogWarnings={0} DiskLogIncomplete={1} FallbackDropped={2}' -f $logState.FailureCount, $logState.Degraded, $logState.FallbackDroppedLines)
   Complete-WinImgRunLog -State $logState
 
   Assert-WinImgCancellation
-  if ($stats.Errors -gt 0 -or $stats.SizeWarnings -gt 0 -or $stats.NativeWarnings -gt 0 -or $stats.TimestampWarnings -gt 0 -or $logState.Degraded -or $missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings -or $hasDuplicateWarnings) { return 2 }
+  if ($stats.Errors -gt 0 -or $stats.SizeWarnings -gt 0 -or $stats.NativeWarnings -gt 0 -or $stats.TimestampWarnings -gt 0 -or $logState.Degraded -or $missingCoders.Count -gt 0 -or $hasTraversalWarnings -or $hasNamingWarnings -or $hasDuplicateWarnings -or $reportState.RunState -eq 'Partial') { return 2 }
   return 0
   } catch {
     if (-not (Test-WinImgCancellationException $_)) { throw }
     # Item finally blocks have finished their exact owned cleanup before this
     # boundary. A closed/force-killed host cannot guarantee this record or exit.
     $stats = $context.Stats
+    Complete-WinImgReport -State $context.ReportState -Stats $stats -LogState $context.LogState -Observer $ReportObserver -Interrupted
     $current = if ($context.Current) { ConvertTo-WinImgLogText $context.Current } else { 'none' }
     $summary = 'INTERRUPTED Mode=Cooperative ExitCode=130 ConvertedImages={0} CopiedVideos={1} Started={2} Unstarted={3} Current={4} ScanComplete={5} CompletedOutputs=Retained Cleanup=BestEffortOwnedOnly' -f $stats.Converted,$stats.CopiedVideo,$context.Started,([Math]::Max(0,$context.Total-$context.Started)),$current,$context.ScanComplete
     $summary = Get-WinImgBoundedText $summary 2048
-    Write-Progress -Activity 'WinImgNormalizer' -Completed
-    Write-Host $summary -ForegroundColor Yellow
+    Write-WinImgReportProgress -State $context.ReportState -Completed
+    try { Write-Host $summary -ForegroundColor Yellow }
+    catch [Management.Automation.PipelineStoppedException] { throw }
+    catch { if (Test-WinImgCancellationException $_) { throw }; Write-WinImgEmergencyReport $summary }
     if ($context.LogState) { Write-WinImgRunLog -State $context.LogState -Message $summary -Level WARN -Quiet }
     Complete-WinImgRunLog -State $context.LogState
     return 130
   } finally {
+    if ($context.ReportState.CsvPath -and -not $context.ReportState.ReportAttempted) {
+      try { Complete-WinImgReport -State $context.ReportState -Stats $context.Stats -LogState $context.LogState -Observer $ReportObserver -Incomplete }
+      catch { Write-WinImgEmergencyReport 'Final report could not complete after a stopped run; completed media are retained.' }
+    }
     $script:WinImgCancellationContext = $previousContext
     if ($session) { $session.Dispose() }
   }
@@ -2111,7 +2400,7 @@ function Invoke-WinImgNormalizerCommand {
     [scriptblock]$ProcessRunner,
     [object]$ExecutionPolicy, [scriptblock]$NativeProcessObserver, [string]$NativeTemporaryRoot,
     [object]$CancellationState, [bool]$CaptureConsoleControl = $true,
-    [scriptblock]$CopyProgressObserver, [scriptblock]$RunStageObserver
+    [scriptblock]$CopyProgressObserver, [scriptblock]$RunStageObserver, [scriptblock]$ReportObserver
   )
 
   # Preserve the two existing positional forms; reject ambiguous/ignored extras.
@@ -2130,7 +2419,7 @@ function Invoke-WinImgNormalizerCommand {
   if ($MagickPath) { $invoke.MagickPath = $MagickPath }
   if ($PreflightRunner) { $invoke.PreflightRunner = $PreflightRunner }
   $invoke.CaptureConsoleControl = $CaptureConsoleControl
-  foreach ($key in @('ExecutionPolicy','NativeProcessObserver','NativeTemporaryRoot','CancellationState','CopyProgressObserver','RunStageObserver')) {
+  foreach ($key in @('ExecutionPolicy','NativeProcessObserver','NativeTemporaryRoot','CancellationState','CopyProgressObserver','RunStageObserver','ReportObserver')) {
     if ($PSBoundParameters.ContainsKey($key)) { $invoke[$key] = $PSBoundParameters[$key] }
   }
   return Invoke-WinImgNormalizer @invoke

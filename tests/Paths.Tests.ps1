@@ -66,7 +66,7 @@ BeforeAll {
     function Get-PathsResult([string]$Parent,[int]$Code,[string]$Text) {
         $runs = @(Get-ChildItem -LiteralPath $Parent -Force -Directory)
         $runs.Count | Should -Be 1
-        $logs = @(Get-ChildItem -LiteralPath (Join-Path $runs[0].FullName '.WinImgNormalizer/reports') -File)
+        $logs = @(Get-ChildItem -LiteralPath (Join-Path $runs[0].FullName '.WinImgNormalizer/reports') -File -Filter '*.log')
         $logs.Count | Should -Be 1
         return [pscustomobject]@{ Code=$Code; Run=$runs[0].FullName; Log=Get-Content -LiteralPath $logs[0].FullName -Raw; Text=$Text }
     }
@@ -88,7 +88,7 @@ BeforeAll {
     }
     function Assert-PathsSuccess([object]$Result,[string[]]$Expected) {
         $Result.Code | Should -Be 0 -Because $Result.Text
-        $files = @(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object Extension -ne '.log' | ForEach-Object { $_.FullName.Substring($Result.Run.Length+1) } | Sort-Object)
+        $files = @(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object { $_.Extension -notin @('.log','.csv') } | ForEach-Object { $_.FullName.Substring($Result.Run.Length+1) } | Sort-Object)
         ($files -join '|') | Should -Be (@($Expected | Sort-Object) -join '|')
         @(Get-ChildItem -LiteralPath (Join-Path $Result.Run '.WinImgNormalizer/work') -Force).Count | Should -Be 0
     }

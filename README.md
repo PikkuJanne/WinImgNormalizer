@@ -227,6 +227,42 @@ a console fallback retains at most 8,192 UTF-16 characters, limits each stored l
 to 1,024 characters and reports dropped/truncated lines. The final reporting status
 shows whether the disk log is incomplete, including a failure on its last write.
 
+Each successfully discovered regular file has one outcome: Converted, CopiedVideo,
+SkippedDuplicate, Ignored, Error, Cancelled or NotStarted. Warnings are attributes,
+so they do not increase the file count. Unsupported files are counted as Ignored
+at discovery. Unknown files inside unreadable folders are excluded from this known
+partition; separate scan issues identify those locations. The final ACCOUNTING
+line reconciles the partition, reports observed elapsed time and finalized files
+per second, and pairs processed-image input bytes with validated JPEG output bytes.
+Image savings are signed and can be negative; video bytes are separate. Skips,
+ignored files and errors create no image savings.
+
+The same reports directory contains `WinImgNormalizer_<timestamp>.csv`, written
+locally with UTF-8 BOM and CRLF. File rows record original relative paths, planned
+and actual output names, warning attributes, attempts, byte totals, omitted frames,
+and retained duplicate mappings. ScanIssue rows describe unreadable locations and
+skipped links without inventing file totals. A required CSV creation, write or close
+failure keeps completed media, prints a warning and returns application code 2;
+the incomplete report must not be treated as a complete inventory. Cooperative
+cancellation makes one best-effort report attempt and keeps application code 130.
+
+Every CSV text cell starts with the visible safety prefix `text:`. CSV quoting
+preserves field boundaries; the prefix prevents a filename from opening as a
+formula. Backslashes are doubled, and UTF-16 control, format, line/paragraph
+separator and surrogate units are written as `\uNNNN` escapes. To recover an exact
+path programmatically, remove exactly one `text:` prefix and decode left to right:
+`\\` becomes one backslash and `\u` plus four hexadecimal digits becomes that
+UTF-16 unit. Decode only for filesystem or text processing; keep the prefix when
+displaying in a spreadsheet. Numeric fields contain generated invariant numbers;
+unknown numeric values are blank.
+
+The verified machine import is `Import-Csv -LiteralPath '<report.csv>' -Encoding
+UTF8` in Windows PowerShell 5.1 or PowerShell 7. It returns string-valued objects.
+For Excel, use Data > From Text/CSV, UTF-8 and comma, disable automatic type detection
+and set all columns to Text in Transform Data, then load with the safety prefix
+intact. This Excel recipe is documented guidance; actual Excel execution and later
+editing/save/reopen behavior are not certified by the PowerShell parser tests.
+
 **Batch wrapper (included)**
 The repo includes a minimal wrapper so you can drag a folder onto the .bat.
 It runs the .ps1 positionally (no named params), which is the safest path on PowerShell 5.1.

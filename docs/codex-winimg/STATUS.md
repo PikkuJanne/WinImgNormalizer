@@ -1,115 +1,99 @@
 # Project status
 
-Updated: 2026-10-05 — M3-T03 completed.
+Updated: 2026-10-05 — M3-T04 completed.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested implementation: 1501eb2e52ee46a14f438dd240e35ed6da99aa7f
-Next task: **M3-T04 — Reconcile counts and add useful safe reports**
-Task progress: **18 / 28 accepted**
-Specified cases exercised: **T001-T056 (56 / 75); T001-T004 are characterization**
-Pester suite: **316/316 passed in each desktop shell, zero skipped**
-Failure controls: **317 total, 316 passed, one intended failure; native exit 1**
+Tested implementation: 158315f1e48e6199c5c18d3e323b5945390789b0
+Next task: **M3-T05 — Propagate exit codes and harden the batch launcher**
+Task progress: **19 / 28 accepted**
+Specified cases exercised: **T001-T060 (60 / 75); T001-T004 are characterization**
+Pester suite: **348/348 passed in each desktop shell, zero skipped**
+Failure controls: **349 total, 348 passed, one intended failure; native exit 1**
 CI: **implementation push/PR Windows matrices passed, including controls**
 Containing evidence checkpoint synchronization: **pending_verification**
 
 ## Current behavior
 
-A scoped per-run C# state receives actual CTRL_C_EVENT without executing PowerShell,
-reporting or cleanup on the Windows control thread. Command execution enables console
-capture; callable tests explicitly opt in or supply controlled request state. Session
-disposal restores the prior ambient state and removes or safely deactivates its rooted
-handler.
+Discovery creates one terminal outcome per successfully inspected regular file,
+including Ignored unsupported files; inaccessible directories, uninspectable entries and
+skipped links remain separate scan issues with unknown file totals.
 
-Native launch keeps the existing six-argument API, private atomic Windows job and
-bounded readers. Cancellation is checked before launch/resume and at native waits of at
-most 50 milliseconds without restarting the deadline; the owned job and its descendants
-are terminated through the existing finite cleanup grace. Cancellation cannot become a
-timeout retry or authorize an image candidate.
+Validated no-overwrite image and stable video final moves commit their retained outcomes
+before ancillary operations; timestamp, cleanup, logging and observer warnings do not
+double-count files as errors.
 
-Image snapshots and video partials copy through 256 KiB chunks with request checks
-around reads/writes and flush. The application stops taking new items and interrupts
-retry backoff. Synchronous I/O itself is not preempted.
+Exact Decimal aggregates pair only finalized image input/output lengths, allow signed
+negative savings and keep video bytes separate; elapsed duration and finalized-file
+throughput are observed values.
 
-T054 — passed: Controlled cancellation at
-inspection/conversion/validation/precommit/after-finalization boundaries and actual
-isolated console image observations on PS5.1/PS7/BAT retain completed media, stop
-unstarted items, reject unfinished finals and produce application130 with bounded
-interrupted reporting. Image event uses genuine conversion followed by owned native
-pacing, not a claim about the codec compute interval.
+T057 — passed: Both focused hosts observed a balanced eight-file mixed partition with
+two finalized images, one copied video, two duplicates, two ignored and one damaged
+input. Size/native/timestamp warnings remain attributes; finalized image/video observer
+faults retain success without an Error outcome. Empty and ignored-only trees remain
+balanced.
 
-T055 — passed: Actual video source copy reaches a real 256 KiB chunk then actual
-private-console Ctrl+C on PS5.1/PS7/BAT; partial is not finalized, owned work is
-cleaned, completed JPEG/source/hash/time/directory/sentinel state preserved. Controlled
-foreign-neighbor arrival additionally verifies exact ownership cleanup.
+T058 — passed: A genuine quality-1 286-byte JPEG becomes a validated 523-byte JPEG,
+reporting signed savings -237. The six-file byte cohort pairs only two finalized images
+(5032 input,1056 output,3976 saved), while the 1048576-byte copied video is separate and
+duplicate/ignored/error input lengths do not enter image totals.
 
-T056 — passed: Actual owned-host PID/start-time force termination leaves recognizable
-nonfinal scratch, retains prior completed media and source state, releases its private
-native tree and leaves unrelated process alive. Distinct fresh normal run proves prior
-run unchanged in core Pester; no force-cleanup or130 promise.
+T059 — passed: Thirteen hostile UTF-16 text cases and a comma-decimal numeric case pass
+actual BOM UTF-8 Import-Csv with an independent text:/escape decoder. Eleven actual
+regular filenames under a literal percent/bracket/Unicode ancestor produce ten JPEGs
+plus one duplicate; exact source/planned/actual/retained mappings survive CSV import. No
+spreadsheet execution is claimed.
+
+T060 — passed: Actual ACL enumeration denial remains one unknown subtree issue outside
+the two-file known partition with exact fixture ACL restoration. Controlled CSV
+create/write/close, foreign arrival, logger/console and mirror failures retain media and
+degrade coherently. A request during real video copying reports one retained image, one
+Cancelled, one NotStarted and two Ignored; a request after the video final move retains
+CopiedVideo at130.
 
 ## Verification and handoff
 
 On actual Microsoft Windows 11 Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5, Pester
-5.9.1, each normal suite passed 316/316 with native exit 0 and zero skipped or
-incomplete tests. Each control had 317 total, 316 passed, exactly one T007 deliberate
-failure and native exit 1. Summary/XML, parent native records and console hashes bind 30
-tested source paths, including the cancellation suite and all eight colour/reference
+5.9.1, each normal suite passed 348/348 with native exit 0 and zero skipped or
+incomplete tests. Each control had 349 total, 348 passed, exactly one T007 deliberate
+failure and native exit 1. Summary/XML, parent native records and console hashes bind 31
+tested source paths, including the reporting suite and all eight colour/reference
 assets, to observed raw bytes and separate Git blobs. Only verified text CRLF-to-LF
 normalization is allowed; ICC bytes remain exact. Persistent execution policies were
 unchanged.
 
-Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37300472643); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37300498704).
-Evidence: evidence/M3-T03.json and evidence/M3-T03-ci.json.
-
-Actual PS5.1/PS7 console, unchanged BAT and forced-exit outcomes are retained with hashed artifacts. Public command observations and event-controlled pacing/routing are distinguished from controlled cancellation seams. Host/BAT force interruption is not assigned an unconditional cooperative exit code or cleanup guarantee.
+Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311855781); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311860891).
+Evidence: evidence/M3-T04.json and evidence/M3-T04-ci.json.
 
 Actual development results and their source/artifact qualifications are retained in
-evidence/M3-T03.json and SESSION_LOG.md. Clean implementation desktop and hosted gates
+evidence/M3-T04.json and SESSION_LOG.md. Clean implementation desktop and hosted gates
 are separate acceptance observations; earlier task histories retain their original
 revisions.
 
-Started clean at ac0fd08f8abc55ec195efc7c942338d625a04379, equal to the live feature
-branch; owner-merged PR #17 main 27937f2a9ed84001aaedfe48523873fa02410c58 had the same
-tree. Continued without changing checkout/history. Successor draft PR #18 contains this
+Started clean at fe79b55e5405521129da27ccf43d20089260a267, equal to the live feature
+branch; owner-merged PR #18 main c811391580a727ae0e052e8bef24b8836fe64c22 had the same
+tree. Continued without changing checkout/history. Successor draft PR #19 contains this
 task. Implementation synchronization is a past exact-SHA observation. This record-only
 checkpoint's SHA/live synchronization remains pending_verification until separately
 observed after normal commit/push.
 
-Exit 130 and the interrupted record belong to cancellation handled by the active
-application session. A request before handler registration, absent console, closed sink,
-stopped host pipeline, terminal closure or force termination may bypass
-cleanup/reporting or produce a different native host exit. No universal
-Ctrl+C/force-exit code or finally guarantee is claimed.
+Actual Import-Csv and independent reversible-decoder checks establish the documented
+machine import contract, not actual Excel/LibreOffice execution or consumer
+editing/save/reopen safety. The spreadsheet display prefix must remain intact.
 
-Native polling and chunk boundaries do not bound a blocked filesystem or kernel I/O
-call. Owned job termination and stream completion use the inherited finite grace; an
-unconfirmed tree retains its affected cache and staging instead of deleting data a
-remaining process may use.
+Unknown files inside inaccessible locations are not invented. An incomplete or failed
+CSV must not be treated as a complete inventory; valid media remain retained.
 
-Only known owned incomplete paths are cleaned. Unknown neighboring files and output
-arrivals remain. Private allocation and cache naming provide practical ownership;
-hostile concurrent filesystem replacement or indistinguishable same-pattern arrivals are
-not a security sandbox.
+Cooperative application130 and best-effort reporting are separate from host closure,
+force termination and stopped pipelines. Those boundaries can bypass reporting/cleanup;
+synchronous filesystem work remains nonpreemptible.
 
-Actual console delivery uses disposable private Windows consoles with verified
-membership and group-zero CTRL_C_EVENT. Controlled phase routing and video pacing are
-qualified separately. Safe -File drivers invoke the unchanged production Command with
-explicit ignored output; the exact BAT copy uses that paired driver. This does not
-certify the unmodified public script's automatic real Pictures path or physical
-keyboard/Explorer interaction.
+Native lifetime, source-stability and duplicate matching retain their documented
+practical/heuristic boundaries; reporting does not create content identity, mandatory
+hashing, a hostile-filesystem sandbox or an unlimited Decimal aggregate.
 
-The BAT's existing Done message, pause and exit propagation are unchanged. Its actual
-native outcome is observed separately from the application's interrupted summary; M3-T05
-remains responsible for launcher hardening.
+The BAT and JPEG/colour/frame/size defaults are unchanged in this card. M3-T05 launcher
+work, M3-T06/M3-T07 and owner quality/merge/release acceptance remain separate gates.
 
-Forced worker evidence establishes the observed exact owned PID/start identity exit,
-retained completed media and recognizable nonfinal scratch, with a fresh run that does
-not adopt it. It does not promise universal cleanup or a successful summary after host
-death.
-
-This completes only M3-T03. Structured per-file reporting remains M3-T04, and owner
-quality/default acceptance, merge, release and deployment are separate authorized gates.
-
-This session stops at M3-T03. Begin M3-T04 only when requested.
+This session stops at M3-T04. Begin M3-T05 only when requested.

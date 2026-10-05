@@ -251,16 +251,16 @@ Describe 'M2-T06 integrated conversion corpus (T046)' {
         $codes=@($output | Where-Object{$_ -is [int] -or $_ -is [long]});$codes.Count|Should -Be 1;$codes[0]|Should -Be 0 -Because ($output -join "`n")
         $runs=@(Get-ChildItem -LiteralPath $parent -Directory | Sort-Object CreationTimeUtc)
         $runs.Count|Should -Be $(if($Label -eq 'default'){1}else{2}); $run=$runs[-1].FullName
-        $logs=@(Get-ChildItem -LiteralPath (Join-Path $run '.WinImgNormalizer/reports') -File);$logs.Count|Should -Be 1;$log=[IO.File]::ReadAllText($logs[0].FullName)
-        # Unsupported files are outside the runtime media inventory; their
+        $logs=@(Get-ChildItem -LiteralPath (Join-Path $run '.WinImgNormalizer/reports') -File -Filter '*.log');$logs.Count|Should -Be 1;$log=[IO.File]::ReadAllText($logs[0].FullName)
+        # Unsupported files are excluded from media planning and counted as ignored; their
         # unchanged bytes/times are part of the complete source-state check.
-        $log|Should -Match ('MaxBytes: '+$Cap+' bytes');$log|Should -Match 'SUMMARY ConvertedImages=12 CopiedVideos=1 Duplicates=1 Unsupported=0 Errors=0 SizeWarnings=0 NativeWarnings=0'
+        $log|Should -Match ('MaxBytes: '+$Cap+' bytes');$log|Should -Match 'SUMMARY ConvertedImages=12 CopiedVideos=1 Duplicates=1 Unsupported=2 Errors=0 SizeWarnings=0 NativeWarnings=0'
         $log|Should -Not -Match 'ERR IMG:|WARN IMG:|RETRY IMG:'
         Get-CorpusState $source|Should -Be $before
         (Get-FileHash -LiteralPath $sentinel).Hash|Should -Be $sentinelBefore
         ([IO.FileInfo]::new($sentinel)).CreationTimeUtc.Ticks|Should -Be $fixed.Ticks;([IO.FileInfo]::new($sentinel)).LastWriteTimeUtc.Ticks|Should -Be $fixed.Ticks
         $wanted=@($entries.ToArray() | ForEach-Object{$_.Output})+@($videoRel)
-        $actual=@(Get-ChildItem -LiteralPath $run -Recurse -Force -File | Where-Object Extension -ne '.log' | ForEach-Object{$_.FullName.Substring($run.Length+1)})
+        $actual=@(Get-ChildItem -LiteralPath $run -Recurse -Force -File | Where-Object { $_.Extension -notin @('.log','.csv') } | ForEach-Object{$_.FullName.Substring($run.Length+1)})
         Corpus-Ordinal $actual|Should -Be (Corpus-Ordinal $wanted)
         foreach($dir in @((ConvertFrom-Json $before).Directories | Where-Object Path -ne '.')){[IO.Directory]::Exists((Join-Path $run $dir.Path))|Should -BeTrue}
         @(Get-ChildItem -LiteralPath (Join-Path $run '.WinImgNormalizer/work') -Force).Count|Should -Be 0
@@ -270,7 +270,10 @@ Describe 'M2-T06 integrated conversion corpus (T046)' {
         $rows=New-Object 'Collections.Generic.List[object]'
         foreach($entry in $entries){
             $target=Join-Path $run $entry.Output
-            $match=[regex]::Match($log,('OK IMG: '+[regex]::Escape($entry.Source)+' -> '+[regex]::Escape($entry.Output)+' \[(\d+) bytes, MaxBytes=(\d+), Width=(\d+), Height=(\d+), Scale=(\d+)%\]'))
+            # The corpus uses one known surrogate pair; assert its literal escaped log spelling independently.
+            $logSource=$entry.Source.Replace([string][char]0xD83D,'\ud83d').Replace([string][char]0xDE00,'\ude00')
+            $logOutput=$entry.Output.Replace([string][char]0xD83D,'\ud83d').Replace([string][char]0xDE00,'\ude00')
+            $match=[regex]::Match($log,('OK IMG: '+[regex]::Escape($logSource)+' -> '+[regex]::Escape($logOutput)+' \[(\d+) bytes, MaxBytes=(\d+), Width=(\d+), Height=(\d+), Scale=(\d+)%\]'))
             $match.Success|Should -BeTrue -Because $entry.Source
             $bytes=[long]$match.Groups[1].Value;$width=[int]$match.Groups[3].Value;$height=[int]$match.Groups[4].Value;$scale=[int]$match.Groups[5].Value
             [long]$match.Groups[2].Value|Should -Be $Cap
@@ -284,11 +287,11 @@ Describe 'M2-T06 integrated conversion corpus (T046)' {
             Assert-CorpusPrivacy $target -AllowGrayscale:($entry.Kind -eq 'seeded_noise')
             $actualPixels=@(Get-CorpusPixels $target $entry.Points);$maximum=0;$absolute=0;$samples=0
             for($q=0;$q -lt $entry.Expected.Count;$q++){for($c=0;$c -lt 3;$c++){$difference=[Math]::Abs($actualPixels[$q][$c]-$entry.Expected[$q][$c]);$difference|Should -BeLessOrEqual $jpegTolerance;$maximum=[Math]::Max($maximum,$difference);$absolute+=$difference;$samples++}}
-            if($entry.Decoder){$log|Should -Match ([regex]::Escape(('SOURCE IMG: {0} (SourceCount={1}; Selected=1; Omitted={2}; Unit={3}; Policy={4}; Decoder={5})' -f $entry.Source,$entry.Count,($entry.Count-1),$entry.Unit,$entry.Policy,$entry.Decoder)))}
+            if($entry.Decoder){$log|Should -Match ([regex]::Escape(('SOURCE IMG: {0} (SourceCount={1}; Selected=1; Omitted={2}; Unit={3}; Policy={4}; Decoder={5})' -f $logSource,$entry.Count,($entry.Count-1),$entry.Unit,$entry.Policy,$entry.Decoder)))}
             $decoded=Join-Path $probeRoot ($Label+'-'+$rows.Count+'-decoded.png')
             $null=Invoke-CorpusMagick @((Corpus-Native $target),('PNG:'+(Corpus-Native $decoded)))
             $rmse=$null;$aligned=$null;$metricResult=$null;$rgbMetrics=$null
-            $block=[regex]::Match($log,('COLOUR IMG: '+[regex]::Escape($entry.Source)+'.*?OK IMG: '+[regex]::Escape($entry.Source)),'Singleline').Value
+            $block=[regex]::Match($log,('COLOUR IMG: '+[regex]::Escape($logSource)+'.*?OK IMG: '+[regex]::Escape($logSource)),'Singleline').Value
             $attempts=@([regex]::Matches($block,'NATIVE IMG: Attempt=(\d+); Scale=(\d+)%; Category=(\w+); Exit=(\w+); TransientRetries=(\d+)/2'))
             $scaleTrace=@($attempts | ForEach-Object{[int]$_.Groups[2].Value})
             ($scaleTrace -join '|')|Should -Be ((@(100,90,80,70,60,50)|Where-Object{$_ -ge $scale}) -join '|')
@@ -312,7 +315,9 @@ Describe 'M2-T06 integrated conversion corpus (T046)' {
             }
             $rows.Add([pscustomobject]@{Source=$entry.Source;Output=$entry.Output;Kind=$entry.Kind;Bytes=$bytes;Cap=$Cap;Width=$width;Height=$height;Scale=$scale;ScaleTrace=$scaleTrace;Status='Converted';MaximumSampleError=if($samples){$maximum}else{$null};SampleMae=if($samples){[double]$absolute/$samples}else{$null};ActualSamples=$actualPixels;ExpectedSamples=$entry.Expected;NormalizedNoiseRmse=$rmse;Rgb8NoiseMetrics=$rgbMetrics;MetricNativeResult=$metricResult;AlignedLossless=$aligned;OutputSha256=(Get-FileHash -LiteralPath $target).Hash.ToLowerInvariant();DecodedPng=$decoded;DecodedPngSha256=(Get-FileHash -LiteralPath $decoded).Hash.ToLowerInvariant()})
         }
-        $log|Should -Match ([regex]::Escape(('Heuristic duplicate skipped: z duplicate\wide[0]%.png (retained source: {0}; retained output: {1}; retained status: Converted)' -f $entries[0].Source,$entries[0].Output)))
+        $duplicateMessage='Heuristic duplicate skipped: z duplicate\wide[0]%.png (retained source: {0}; retained output: {1}; retained status: Converted)' -f $entries[0].Source,$entries[0].Output
+        $duplicateMessage=$duplicateMessage.Replace([string][char]0xD83D,'\ud83d').Replace([string][char]0xDE00,'\ude00')
+        $log|Should -Match ([regex]::Escape($duplicateMessage))
         $comparisons.Add([pscustomobject]@{Label=$Label;Cap=$Cap;ApplicationExit=$codes[0];Run=$run;Log=$logs[0].FullName;LogSha256=(Get-FileHash -LiteralPath $logs[0].FullName).Hash.ToLowerInvariant();SourceStateAfter=(Get-CorpusState $source);Rows=$rows.ToArray()})
         [IO.File]::WriteAllText((Join-Path $probeRoot ($Label+'-source-after.json')),(Get-CorpusState $source))
         if($Label -eq 'default'){$script:firstRun=$run;$script:firstState=Get-CorpusState $run}

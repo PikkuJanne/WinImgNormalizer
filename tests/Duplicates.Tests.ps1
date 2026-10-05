@@ -269,8 +269,8 @@ Describe 'M1-T05 source length guard and retained entries (T026)' {
         $null = Write-DuplicateInput -Root $source -RelativePath 'b\photo.png' -Bytes $smallBytes
         $trace = [pscustomobject]@{ Calls = 0; InjectedSourceState = $null }
         Mock Get-WinImgSourceTree {
-            param([string]$SourceRoot)
-            $tree = & $realSourceTree -SourceRoot $SourceRoot
+            param([string]$SourceRoot, [object]$ReportState)
+            $tree = & $realSourceTree -SourceRoot $SourceRoot -ReportState $ReportState
             $trace.Calls++
             [IO.File]::WriteAllBytes($first, $largeBytes)
             [IO.File]::SetLastWriteTimeUtc($first, $fixedUtc)
@@ -489,8 +489,8 @@ Describe 'M1-T05 deterministic retained links and explicit heuristic limitation 
         $before = Get-DuplicateSourceState $source
         $trace = [pscustomobject]@{ Seed = 0 }
         Mock Get-WinImgSourceTree {
-            param([string]$SourceRoot)
-            $tree = & $realSourceTree -SourceRoot $SourceRoot
+            param([string]$SourceRoot, [object]$ReportState)
+            $tree = & $realSourceTree -SourceRoot $SourceRoot -ReportState $ReportState
             $random = New-Object Random($trace.Seed)
             foreach ($property in @('Files', 'Directories', 'TopLevelNames')) {
                 $values = @($tree.$property)

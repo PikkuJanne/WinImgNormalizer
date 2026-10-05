@@ -250,7 +250,7 @@ BeforeAll {
         $output = Join-Path $Result.Run ([IO.Path]::GetFileNameWithoutExtension($Case.Name) + '.jpeg')
         Assert-ColourPixels -Path $output -Width 128 -Height 96 -Expected $Expected -Tolerance $reference.tolerance.jpeg_channel_units -Format JPEG
         Assert-ColourNoMetadata $output
-        @(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object Extension -ne '.log').Count | Should -Be 1
+        @(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object { $_.Extension -notin @('.log','.csv') }).Count | Should -Be 1
         @(Get-ChildItem -LiteralPath (Join-Path $Result.Run '.WinImgNormalizer\work') -Force).Count | Should -Be 0
     }
     function Assert-ColourFailed {
@@ -258,7 +258,7 @@ BeforeAll {
         $Result.Code | Should -Be 2
         $Result.Log | Should -Not -Match 'OK IMG:'
         $Result.Log | Should -Match 'SUMMARY ConvertedImages=0 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=1'
-        @(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object Extension -ne '.log').Count | Should -Be 0
+        @(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File | Where-Object { $_.Extension -notin @('.log','.csv') }).Count | Should -Be 0
         @(Get-ChildItem -LiteralPath (Join-Path $Result.Run '.WinImgNormalizer\work') -Force).Count | Should -Be 0
     }
 }
@@ -513,7 +513,7 @@ Describe 'M2-T02 privacy stripping after actual displayed orientation (T035)' {
         Assert-ColourPixels -Path $output -Width $width -Height $height -Expected $expected -Tolerance $reference.tolerance.jpeg_channel_units -Format JPEG
         Assert-ColourNoMetadata $output
         @(Get-ChildItem -LiteralPath (Join-Path $result.Run '.WinImgNormalizer\work') -Force).Count | Should -Be 0
-        @(Get-ChildItem -LiteralPath $result.Run -Recurse -Force -File | Where-Object Extension -ne '.log').Count | Should -Be 1
+        @(Get-ChildItem -LiteralPath $result.Run -Recurse -Force -File | Where-Object { $_.Extension -notin @('.log','.csv') }).Count | Should -Be 1
         Get-ColourSourceState $case.Source | Should -Be $before
     }
 }

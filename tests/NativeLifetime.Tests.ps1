@@ -230,7 +230,7 @@ public static class LifetimeFixture {
     }
     function Assert-LifetimeMedia([object]$Case,[object]$Result,[int]$Errors=1,[switch]$RetainedScratch){
         $Result.Code|Should -Be 2
-        $Result.Log|Should -Match ('SUMMARY ConvertedImages=1 CopiedVideos=1 Duplicates=0 Unsupported=0 Errors='+$Errors+' SizeWarnings=0 NativeWarnings=0')
+        $Result.Log|Should -Match ('SUMMARY ConvertedImages=1 CopiedVideos=1 Duplicates=0 Unsupported=1 Errors='+$Errors+' SizeWarnings=0 NativeWarnings=0')
         [IO.File]::Exists((Join-Path $Result.Run 'a first.jpeg'))|Should -BeFalse
         $later=Join-Path $Result.Run 'z later/later.jpeg'
         Invoke-LifetimeMagick @('identify','+ping','-regard-warnings','-format','%m|%w|%h|%n',(Get-WinImgNativeOutputPath $later))|Should -Be 'JPEG|16|12|1'
@@ -243,7 +243,7 @@ public static class LifetimeFixture {
         [IO.File]::ReadAllText((Join-Path $Case.Parent 'parent-sentinel.dat'))|Should -Be 'pre-existing output parent'
         $parentEntry=($Case.ParentBefore|ConvertFrom-Json).Entries[0];$sentinel=[IO.FileInfo]::new((Join-Path $Case.Parent 'parent-sentinel.dat'))
         $sentinel.CreationTimeUtc.Ticks|Should -Be $parentEntry.Creation;$sentinel.LastWriteTimeUtc.Ticks|Should -Be $parentEntry.Modified
-        $media=@(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File|Where-Object{$_.Extension -ne '.log' -and (-not $RetainedScratch -or -not $_.FullName.StartsWith((Join-Path $Result.Run '.WinImgNormalizer')+'\',[StringComparison]::OrdinalIgnoreCase))}|ForEach-Object{$_.FullName.Substring($Result.Run.Length+1)}|Sort-Object)
+        $media=@(Get-ChildItem -LiteralPath $Result.Run -Recurse -Force -File|Where-Object{$_.Extension -notin @('.log','.csv') -and (-not $RetainedScratch -or -not $_.FullName.StartsWith((Join-Path $Result.Run '.WinImgNormalizer')+'\',[StringComparison]::OrdinalIgnoreCase))}|ForEach-Object{$_.FullName.Substring($Result.Run.Length+1)}|Sort-Object)
         ($media -join '|')|Should -Be 'z later\later.jpeg|z later\video.MP4'
         if(-not $RetainedScratch){@(Get-ChildItem -LiteralPath (Join-Path $Result.Run '.WinImgNormalizer/work') -Force).Count|Should -Be 0}
     }
