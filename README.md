@@ -284,8 +284,6 @@ unexpected or linked entries remain with a warning. The private directory and
 reserved cache names establish ownership; concurrent same-pattern filesystem
 mutation is outside this check. Unconfirmed tree termination preserves all scratch
 for that item with a warning. Completed outputs are retained.
-Real Ctrl+C/cooperative cancellation and its host-specific exit behavior remain
-planned separately.
 Output creation and modified timestamps are restored separately from the captured
 source times. A failed setter retains the valid output, names the failed field and
 adds one TimestampWarnings attribute to that finalized image/video; the application
@@ -300,6 +298,14 @@ roots or ancestors are rejected before output creation; choose the actual direct
 Log messages escape control characters so a path or diagnostic cannot create fake
 report lines. Direct stderr reporting is best effort if the host pipeline has stopped;
 this does not establish native cancellation, cleanup or a guaranteed Ctrl+C exit.
+
+**Stopping a run**
+
+Ctrl+C asks a command-line run to stop taking new files and terminate its owned native work. When the application handles the request, it keeps completed outputs, removes known incomplete image/video files where safe, records an INTERRUPTED outcome and returns 130. A fully validated final move admitted before the request may finish; that completed output remains. Originals and unrelated files/processes are untouched by cancellation cleanup.
+
+Native waits and chunked video copies check the request repeatedly. A blocked filesystem operation can delay stopping. Closing the terminal or force-killing its process can bypass cleanup and the interrupted record, and does not promise exit 130. Recognizable files in the private work area are incomplete staging data, not completed outputs.
+
+The unchanged .bat may still print its existing “Done” message and pause after an interrupted PowerShell child. That message and the wrapper's returned code do not prove successful normalization; check the application outcome/log. Actual shell and batch interrupt behavior remains host-specific.
 
 **Tweaks (optional)**
 Different size cap: pass a second positional argument in bytes (for example 2097152 for 2 MiB).

@@ -1738,3 +1738,240 @@ require their own immutable evidence.
 Real Ctrl+C/cooperative cancellation, interrupted-copy exit behavior and
 force-termination recovery remain M3-T03. This card stops after M3-T02 acceptance;
 releases, deployment and owner acceptance stay separate.
+
+## 2026-10-05 — M3-T03 completed
+
+Started clean at ac0fd08f8abc55ec195efc7c942338d625a04379, equal to the live feature
+branch; owner-merged PR #17 main 27937f2a9ed84001aaedfe48523873fa02410c58 had the same
+tree. Continued without changing checkout/history. Successor draft PR #18 contains this
+task. Implementation synchronization is a past exact-SHA observation. This record-only
+checkpoint's SHA/live synchronization remains pending_verification until separately
+observed after normal commit/push.
+
+A scoped per-run C# state receives actual CTRL_C_EVENT without executing PowerShell,
+reporting or cleanup on the Windows control thread. Command execution enables console
+capture; callable tests explicitly opt in or supply controlled request state. Session
+disposal restores the prior ambient state and removes or safely deactivates its rooted
+handler.
+
+Native launch keeps the existing six-argument API, private atomic Windows job and
+bounded readers. Cancellation is checked before launch/resume and at native waits of at
+most 50 milliseconds without restarting the deadline; the owned job and its descendants
+are terminated through the existing finite cleanup grace. Cancellation cannot become a
+timeout retry or authorize an image candidate.
+
+Image snapshots and video partials copy through 256 KiB chunks with request checks
+around reads/writes and flush. The application stops taking new items and interrupts
+retry backoff. Synchronous I/O itself is not preempted.
+
+T054 — passed: Controlled cancellation at
+inspection/conversion/validation/precommit/after-finalization boundaries and actual
+isolated console image observations on PS5.1/PS7/BAT retain completed media, stop
+unstarted items, reject unfinished finals and produce application130 with bounded
+interrupted reporting. Image event uses genuine conversion followed by owned native
+pacing, not a claim about the codec compute interval.
+
+T055 — passed: Actual video source copy reaches a real 256 KiB chunk then actual
+private-console Ctrl+C on PS5.1/PS7/BAT; partial is not finalized, owned work is
+cleaned, completed JPEG/source/hash/time/directory/sentinel state preserved. Controlled
+foreign-neighbor arrival additionally verifies exact ownership cleanup.
+
+T056 — passed: Actual owned-host PID/start-time force termination leaves recognizable
+nonfinal scratch, retains prior completed media and source state, releases its private
+native tree and leaves unrelated process alive. Distinct fresh normal run proves prior
+run unchanged in core Pester; no force-cleanup or130 promise.
+
+Actual development .scratch/M3-T03-focused-existing-ps51-v1: 36/65 passed, 29 failed,
+native exit 1. The preserved existing-suite diagnosis distinguishes the old
+cancelled-result contract expectation, ordinary-error recovery failures, unsuccessful
+wrapper changes, accidental inline C# compile failure and final focused 65/65. V4 has
+two failed containers; other existing-suite runs have none. These are development
+outcomes, not a full accepted revision.
+
+Actual development .scratch/M3-T03-focused-existing-ps7-v1: 64/65 passed, 1 failed,
+native exit 1. The preserved existing-suite diagnosis distinguishes the old
+cancelled-result contract expectation, ordinary-error recovery failures, unsuccessful
+wrapper changes, accidental inline C# compile failure and final focused 65/65. V4 has
+two failed containers; other existing-suite runs have none. These are development
+outcomes, not a full accepted revision.
+
+Actual development .scratch/M3-T03-focused-existing-ps51-v2: 37/65 passed, 28 failed,
+native exit 1. The preserved existing-suite diagnosis distinguishes the old
+cancelled-result contract expectation, ordinary-error recovery failures, unsuccessful
+wrapper changes, accidental inline C# compile failure and final focused 65/65. V4 has
+two failed containers; other existing-suite runs have none. These are development
+outcomes, not a full accepted revision.
+
+Actual development .scratch/M3-T03-focused-existing-ps51-v3: 37/65 passed, 28 failed,
+native exit 1. The preserved existing-suite diagnosis distinguishes the old
+cancelled-result contract expectation, ordinary-error recovery failures, unsuccessful
+wrapper changes, accidental inline C# compile failure and final focused 65/65. V4 has
+two failed containers; other existing-suite runs have none. These are development
+outcomes, not a full accepted revision.
+
+Actual development .scratch/M3-T03-focused-existing-ps51-v4: 2/65 passed, 63 failed,
+native exit 1. The preserved existing-suite diagnosis distinguishes the old
+cancelled-result contract expectation, ordinary-error recovery failures, unsuccessful
+wrapper changes, accidental inline C# compile failure and final focused 65/65. V4 has
+two failed containers; other existing-suite runs have none. These are development
+outcomes, not a full accepted revision.
+
+Actual development .scratch/M3-T03-focused-existing-ps51-v5: 65/65 passed, 0 failed,
+native exit 0. The preserved existing-suite diagnosis distinguishes the old
+cancelled-result contract expectation, ordinary-error recovery failures, unsuccessful
+wrapper changes, accidental inline C# compile failure and final focused 65/65. V4 has
+two failed containers; other existing-suite runs have none. These are development
+outcomes, not a full accepted revision.
+
+Actual development .scratch/M3-T03-target-ps7-1: 4/12 passed, 8 failed, native exit 1.
+Seven failures were in the test-only full-decode helper: a literal define was prepended
+before identify, so ImageMagick treated identify as an image. The eighth force-tree
+failure allowed readiness from all identity files, including host.identity, before
+grand.identity existed. The repaired fixture routes identify first and waits explicitly
+for root/child/grand identities. These are actual preserved failed focused assertions,
+not a codec defect or public console acceptance.
+
+Actual development .scratch/M3-T03-target-ps51-1: 4/12 passed, 8 failed, native exit 1.
+Seven failures were in the test-only full-decode helper: a literal define was prepended
+before identify, so ImageMagick treated identify as an image. The eighth force-tree
+failure allowed readiness from all identity files, including host.identity, before
+grand.identity existed. The repaired fixture routes identify first and waits explicitly
+for root/child/grand identities. These are actual preserved failed focused assertions,
+not a codec defect or public console acceptance.
+
+Actual development .scratch/M3-T03-target-ps7-2: 12/12 passed, 0 failed, native exit 0.
+All twelve focused cases passed after the test-only identify routing and exact
+descendant-readiness repairs, with the same runtime bytes. Controlled request/pacing,
+owned process-tree and forced-worker checks retain their boundaries; actual console/BAT
+observations remain separate.
+
+Actual development .scratch/M3-T03-target-ps51-2: 12/12 passed, 0 failed, native exit 0.
+All twelve focused cases passed after the test-only identify routing and exact
+descendant-readiness repairs, with the same runtime bytes. Controlled request/pacing,
+owned process-tree and forced-worker checks retain their boundaries; actual console/BAT
+observations remain separate.
+
+M3-T03 completed existing-suite development history (six closed runs only)
+
+These fresh child runs selected only Transactions, NativeLifetime and RecoveryReporting.
+They discovered 65 cases; the new Cancellation suite was not selected. The first five
+children exited 1 and PS5.1 v5 exited 0. Every run reported zero skipped, not-run,
+inconclusive and failed blocks. V4 also reported two failed containers from the compiler
+error; all other runs reported zero failed containers. Persistent execution policies
+were unchanged. The preserved summaries, XML, consoles and all 17 per-run reported
+source hashes are bound in the companion history. Their hashes are end-of-run
+development observations, not clean revision acceptance. The native-exit observations
+were written later from root's saved LASTEXITCODE and independently inspected tool
+completions, and are explicitly qualified as delayed records.
+
+PS5.1 v1 passed 36/65 and failed 29; PS7 v1 passed 64/65 and failed one. The shared T020
+cancelled native-result test still expected application code 2 while the new cooperative
+cancellation contract returned 130. Its later expectation and INTERRUPTED-record
+assertions were changed to match the actual intended cancellation policy, without
+accepting incomplete JPEGs or dropping source/output checks. The additional PS5.1
+failures showed ordinary recovery errors escaping expected recovery sites in the new
+exception-filter path. This is an observed integration failure in this draft, not a
+claim of a general PowerShell defect.
+
+PS5.1 v2 and v3 each passed 37/65 and failed 28. Removing the redundant wrapper error
+preference, and then restoring a single callable run scope, did not resolve the
+ordinary-error recovery failures. The exact v2 and v3 runtime snapshots remain
+preserved. V1 was not saved before the repair; it was reconstructed from the original v2
+snapshot by reversing the documented refinement and wrapper-preference removal. Its
+exact raw SHA matches both v1 summaries and it is explicitly labeled reconstructed
+rather than an original pre-repair capture.
+
+PS5.1 v4 passed 2/65 and failed 63. The catch-dispatch edit accidentally inserted
+PowerShell exception checks into the inline C# catch block; the retained console shows
+the resulting compiler failure. That accidental inline C# replacement was corrected by
+restoring the frozen native block. The revised draft restores the original typed
+PipelineStoppedException and generic recovery catches, with explicit
+deep-inner-exception checks to propagate cooperative OperationCanceledException
+requests. PS5.1 v5 then passed all 65 cases with actual child exit 0. This establishes
+that focused draft result only; it does not establish a universal host defect, public
+Ctrl+C handling, Cancellation-suite acceptance, or immutable full/hosted gates.
+
+The original summaries, XML and console bytes were not rewritten. Runtime snapshots and
+later source archives are ignored artifacts; no production or test source was changed by
+this evidence helper. These failures remain separate from future targeted Cancellation,
+clean-I full/control, hosted CI, actual public console/BAT interrupts and final
+containing-checkpoint evidence.
+
+Four completed Cancellation focused runs are additionally preserved. PS7-1 and PS5.1-1
+each passed 4/12 and failed 8 with actual native child exit 1. Seven assertions reached
+the test-only JPEG decode helper, which placed a literal define before identify and made
+ImageMagick read identify as an image format. The force-tree readiness check also
+counted host.identity and could proceed before grand.identity existed. The test-only
+repair puts identify first and waits for the three exact descendant identity files.
+PS7-2 and PS5.1-2 then passed 12/12 with actual native exit 0 on unchanged runtime
+bytes. Saved native records bind start/end source checks, module-path isolation and
+console hashes; raw summaries/XML/console/source snapshots remain unchanged. This does
+not convert controlled request/pacing into actual OS console proof.
+
+The initial staged implementation-audit helper also failed a BAT line-ending assertion:
+it assumed the unchanged BAT Git blob used LF. The actual BAT bytes are CRLF in both Git
+and checkout. The corrected postcommit implementation audit passed the exact preserved
+CRLF/raw/Git comparison, declared eight-path scope and frozen native-source checks. The
+initial helper remains saved. This is an ignored tooling failure, not an application or
+Pester gate.
+
+The one combined targeted_histories list contains exactly these ten closed focused runs.
+Clean-I full/control and hosted matrices, and the separate actual console/BAT/force
+observations, are still distinct and are not claimed passed by this development
+assembly.
+
+Development end-of-run hashes are observations, not proof of immutable imported bytes.
+Final clean-I desktop normal/control and hosted matrices are separate acceptance gates.
+Prior card histories remain in their original evidence.
+
+Tested clean implementation: 1501eb2e52ee46a14f438dd240e35ed6da99aa7f.
+On actual Microsoft Windows 11 Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5, Pester
+5.9.1, each normal suite passed 316/316 with native exit 0 and zero skipped or
+incomplete tests. Each control had 317 total, 316 passed, exactly one T007 deliberate
+failure and native exit 1. Summary/XML, parent native records and console hashes bind 30
+tested source paths, including the cancellation suite and all eight colour/reference
+assets, to observed raw bytes and separate Git blobs. Only verified text CRLF-to-LF
+normalization is allowed; ICC bytes remain exact. Persistent execution policies were
+unchanged.
+
+Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37300472643); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37300498704).
+Evidence: evidence/M3-T03.json and evidence/M3-T03-ci.json.
+
+Actual PS5.1/PS7 console, unchanged BAT and forced-exit outcomes are retained with hashed artifacts. Public command observations and event-controlled pacing/routing are distinguished from controlled cancellation seams. Host/BAT force interruption is not assigned an unconditional cooperative exit code or cleanup guarantee.
+
+Accepted 18/28 tasks and exercised T001-T056, with the first four characterization cases unchanged. Next: M3-T04 — Reconcile counts and add useful safe reports. This containing checkpoint changes only 6 reviewed handoff/evidence records; its own synchronization remains pending_verification. Raw media/private paths/argv remain ignored. No owner merge, release, deployment or owner approval is inferred.
+
+Exit 130 and the interrupted record belong to cancellation handled by the active
+application session. A request before handler registration, absent console, closed sink,
+stopped host pipeline, terminal closure or force termination may bypass
+cleanup/reporting or produce a different native host exit. No universal
+Ctrl+C/force-exit code or finally guarantee is claimed.
+
+Native polling and chunk boundaries do not bound a blocked filesystem or kernel I/O
+call. Owned job termination and stream completion use the inherited finite grace; an
+unconfirmed tree retains its affected cache and staging instead of deleting data a
+remaining process may use.
+
+Only known owned incomplete paths are cleaned. Unknown neighboring files and output
+arrivals remain. Private allocation and cache naming provide practical ownership;
+hostile concurrent filesystem replacement or indistinguishable same-pattern arrivals are
+not a security sandbox.
+
+Actual console delivery uses disposable private Windows consoles with verified
+membership and group-zero CTRL_C_EVENT. Controlled phase routing and video pacing are
+qualified separately. Safe -File drivers invoke the unchanged production Command with
+explicit ignored output; the exact BAT copy uses that paired driver. This does not
+certify the unmodified public script's automatic real Pictures path or physical
+keyboard/Explorer interaction.
+
+The BAT's existing Done message, pause and exit propagation are unchanged. Its actual
+native outcome is observed separately from the application's interrupted summary; M3-T05
+remains responsible for launcher hardening.
+
+Forced worker evidence establishes the observed exact owned PID/start identity exit,
+retained completed media and recognizable nonfinal scratch, with a fresh run that does
+not adopt it. It does not promise universal cleanup or a successful summary after host
+death.
+
+This completes only M3-T03. Structured per-file reporting remains M3-T04, and owner
+quality/default acceptance, merge, release and deployment are separate authorized gates.

@@ -242,7 +242,7 @@ Describe 'M1-T04 native result and full candidate validation (T020)' {
             }
         }
         $result = Invoke-TransactionRun -Source $source -OutputParent $parent -ProcessRunner $runner
-        $result.Code | Should -Be 2 -Because $result.Text
+        $result.Code | Should -Be $(if ($Outcome -eq 'cancelled') { 130 } else { 2 }) -Because $result.Text
         $trace.Calls | Should -Be 1
         @($trace.Paths | Select-Object -Unique).Count | Should -Be $trace.Calls
         @($trace.InitialLengths | Where-Object { $_ -ne 0 }).Count | Should -Be 0
@@ -250,7 +250,11 @@ Describe 'M1-T04 native result and full candidate validation (T020)' {
         $run = Get-TransactionRun $parent
         Test-Path -LiteralPath (Join-Path $run 'single.jpeg') | Should -BeFalse
         @(Get-ChildItem -LiteralPath (Join-Path $run '.WinImgNormalizer\work') -Force).Count | Should -Be 0
+        if ($Outcome -eq 'cancelled') {
+            Get-TransactionLog $run | Should -Match 'INTERRUPTED Mode=Cooperative ExitCode=130 ConvertedImages=0 CopiedVideos=0'
+        } else {
         Get-TransactionLog $run | Should -Match 'SUMMARY ConvertedImages=0 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=1'
+        }
         Get-TransactionSourceState $source | Should -Be $before
     }
 

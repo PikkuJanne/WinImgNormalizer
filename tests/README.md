@@ -1,4 +1,4 @@
-# Windows checks (through M3-T02)
+# Windows checks (through M3-T03)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -9,8 +9,10 @@ twice into separate outputs under the same parent. Frame/page regressions (T029-
 check deliberate first-image selection, logical animation canvases and visible omissions.
 Colour and privacy regressions (T032-T036) compare managed patches, stripping,
 orientation and white alpha composition. Literal native/launcher path checks
-(T037-T039) preserve selected images and intended names. They do not certify cancellation fixes. The characterization
-evidence in `legacy/` describes those known defects separately.
+(T037-T039) preserve selected images and intended names. Cancellation regressions
+(T054-T056) exercise owned native termination, staged-copy interruption and forced
+exit boundaries. The characterization evidence in `legacy/` describes the baseline
+defects separately.
 
 Run `Initialize-TestDependencies.ps1` explicitly to download hash-pinned Pester
 and portable ImageMagick into ignored `.scratch`. It verifies the archives and
@@ -352,3 +354,28 @@ overlong roots, and require exact cleanup. A controlled unconfirmed tree flag
 retains affected scratch and refuses finalization; it does not claim an actual
 failed process kill. Source directory timestamps are fixed after all fixture writes
 and freshly read, alongside the unchanged file bytes and timestamps.
+
+## Cancellation and forced termination (T054-T056)
+
+Cancellation regressions (T054-T056) keep actual Windows console delivery separate
+from controlled request state and fixture pacing. Benign drivers create a separate
+owned console, verify its members, then send real CTRL_C_EVENT with group zero.
+Redirected stdin ETX is not a substitute. Retain actual PS5.1/PS7 -File and unchanged
+BAT commands, native exits and source/tool bindings; qualify phase observers that
+route real native work or control copy pacing. Record existing BAT Done/pause/exit
+behavior without asserting universal application exit propagation.
+
+Image/native and chunked-video interruption checks must retain full validated
+completed outputs, reject the interrupted candidate/partial, stop subsequent items,
+and preserve source state plus unrelated-process identity. A final move admitted
+before a request may finish and remain; later incomplete work cannot acquire its
+final name. Exact owned cleanup requires confirmed tree completion. Synchronous
+I/O may delay a polling boundary; unavailable sinks may prevent a visible summary.
+
+A separately forced disposable worker records actual exit and recognizable owned
+scratch. Force exit or terminal closure is not cooperative 130, guaranteed finally
+cleanup or a successful interrupted summary. Hash controller/runtime/suite,
+transcripts, output/source snapshots and observation JSON under ignored owned roots.
+Keep one actual targeted_histories list and qualified cancellation_console_observations/
+ConsoleObservationsFile rows; neither a helper result nor event-send return alone
+establishes the real-host gate.
