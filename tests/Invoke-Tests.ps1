@@ -188,7 +188,7 @@ try {
     $summary.passed_case_ids = @(Get-WinImgPassedTestCases $result)
     $summary.codec_coverage = @(Get-WinImgExecutedCodecCoverage $result)
     $summary.suite_results = @($result.Containers | ForEach-Object {
-        [pscustomobject]@{ suite = [IO.Path]::GetFileName([string]$_.Item); result = [string]$_.Result; total = $_.TotalCount; passed = $_.PassedCount }
+        [pscustomobject]@{ suite = $(if ($_.Item -is [string]) { [IO.Path]::GetFileName($_.Item) } else { 'scriptblock-control' }); result = [string]$_.Result; total = $_.TotalCount; passed = $_.PassedCount }
     })
     $afterSource = @(Get-TestSourceBindings -SelectedPaths $Path)
     $summary.source_unchanged = (($summary.source_sha256 | ConvertTo-Json -Depth 5 -Compress) -eq ($afterSource | ConvertTo-Json -Depth 5 -Compress))

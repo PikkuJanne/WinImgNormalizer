@@ -14,7 +14,7 @@ function Get-WinImgTestGateFailures {
         if ($case -notin $passedCases) { $failures += ('Required case did not pass: ' + $case) }
     }
     foreach ($suite in $RequiredSuites) {
-        $containers = @($Result.Containers | Where-Object { [IO.Path]::GetFileName([string]$_.Item) -eq $suite })
+        $containers = @($Result.Containers | Where-Object { $_.Item -is [string] -and [IO.Path]::GetFileName([string]$_.Item) -eq $suite })
         if ($containers.Count -ne 1 -or $containers[0].TotalCount -eq 0 -or $containers[0].Result -ne 'Passed') {
             $failures += ('Required suite was absent, empty or failed: ' + $suite)
         }

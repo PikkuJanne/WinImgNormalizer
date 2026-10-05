@@ -42,6 +42,7 @@ function Get-ExportCommon {
     $fields = [ordered]@{}
     foreach ($key in @('tested_commit','powershell_version','powershell_edition','os_caption','os_version','os_build','architecture_bits','culture','execution_environment','runner_image','runner_image_version','runner_label','github_checkout_sha')) {
         $value = $Summary.$key
+        if ($null -ne $value -and $value -isnot [string] -and $value -isnot [ValueType]) { throw 'Evidence environment fields must be scalar.' }
         if ($null -ne $value -and ([string]$value).Length -gt 160) { throw 'Evidence field exceeds the bounded size.' }
         if ($null -ne $value -and [string]$value -match '[:\\/\x00-\x1f]') { throw 'Evidence environment field contains an unsafe path or control.' }
         $fields[$key] = $value
@@ -109,6 +110,8 @@ $analysisExports = @(
         foreach ($key in @('exit_code','scanned_file_count','scoped_findings_count','control_findings_count','findings_count')) { $export[$key] = [int]$summary.$key }
         $export.deliberate_failure = [bool]$summary.deliberate_failure
         $export.control_detected = [bool]$summary.control_detected
+        $export.source_bindings_unchanged = [bool]$summary.source_bindings_unchanged
+        $export.control_source_sha256 = Get-ExportHash $summary.control_source_sha256
         $export.analyzer_version = Get-ExportVersion $summary.analyzer_version
         $export.analyzer_package_sha256 = Get-ExportHash $summary.analyzer_package_sha256
         $export.rules = @($summary.rules | Where-Object { $_ -match '^PS[A-Za-z]+$' })

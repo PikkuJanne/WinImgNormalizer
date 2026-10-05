@@ -127,4 +127,11 @@ Describe 'T066 synthetic evidence export privacy and containment' {
         @{tested_commit=('a'*40);source_sha256=@(@{path='C:\Users\private-owner\image.jpeg';sha256=('a'*64)})} | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath (Join-Path $directory 'summary.json') -Encoding UTF8
         { & (Join-Path $PSScriptRoot 'Export-TestEvidence.ps1') -ResultDirectories @($directory) -OutputDirectory (Join-Path $owned 'unsafe-output') } | Should -Throw
     }
+    It 'rejects a nested environment object instead of retaining private text behind its string conversion' {
+        $directory=Join-Path $owned 'nested-input'; [IO.Directory]::CreateDirectory($directory) | Out-Null
+        @{tested_commit=('a'*40);runner_image=@{nested=@{private_path='C:/Users/private-owner/media'}};source_sha256=@()} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $directory 'summary.json') -Encoding UTF8
+        $output=Join-Path $owned 'nested-output'
+        { & (Join-Path $PSScriptRoot 'Export-TestEvidence.ps1') -ResultDirectories @($directory) -OutputDirectory $output } | Should -Throw '*must be scalar*'
+        Test-Path -LiteralPath $output | Should -BeFalse
+    }
 }
