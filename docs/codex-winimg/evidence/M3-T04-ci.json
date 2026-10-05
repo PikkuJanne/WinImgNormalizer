@@ -1,0 +1,1650 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T04",
+  "recorded_utc": "2026-10-05T12:56:36.006737+00:00",
+  "tested_implementation_commit": "158315f1e48e6199c5c18d3e323b5945390789b0",
+  "evidence_status": "push_and_pull_request_matrices_passed",
+  "collection_method": "Actual gh run view metadata and per-job --log transcripts; hashes bind saved transcripts. Raw logs remain ignored and are not included.",
+  "collector_sha256": "661d81e8923c3c22ad1ff36a092c7e4c7874b2f02e166281cc14bc92e1c366b2",
+  "runs": [
+    {
+      "attempt": 1,
+      "conclusion": "success",
+      "createdAt": "2026-10-05T12:46:21Z",
+      "databaseId": 37311855781,
+      "event": "push",
+      "headBranch": "codex/winimg-hardening",
+      "headSha": "158315f1e48e6199c5c18d3e323b5945390789b0",
+      "status": "completed",
+      "updatedAt": "2026-10-05T12:55:41Z",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311855781",
+      "jobs": [
+        {
+          "completedAt": "2026-10-05T12:53:59Z",
+          "conclusion": "success",
+          "databaseId": 111768921012,
+          "name": "pwsh on Windows",
+          "startedAt": "2026-10-05T12:46:25Z",
+          "status": "completed",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311855781/job/111768921012",
+          "steps": [
+            {
+              "completedAt": "2026-10-05T12:46:26Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-05T12:46:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:46:33Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 2,
+              "startedAt": "2026-10-05T12:46:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:50:19Z",
+              "conclusion": "success",
+              "name": "Run mandatory tests with verified development dependencies",
+              "number": 3,
+              "startedAt": "2026-10-05T12:46:33Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:53:56Z",
+              "conclusion": "success",
+              "name": "Prove a broken assertion returns failure",
+              "number": 4,
+              "startedAt": "2026-10-05T12:50:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:53:58Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 8,
+              "startedAt": "2026-10-05T12:53:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:53:58Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-05T12:53:58Z",
+              "status": "completed"
+            }
+          ],
+          "observed_versions": [
+            "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+          ],
+          "observed_imagemagick": [
+            "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+          ],
+          "observed_os": [
+            "Microsoft Windows Server 2025"
+          ],
+          "observed_os_version": [
+            "10.0.26100"
+          ],
+          "observed_os_edition": [
+            "Datacenter"
+          ],
+          "observed_runner_image": [
+            "windows-2025-vs2026"
+          ],
+          "observed_runner_image_version": [
+            "20260925.250.1"
+          ],
+          "test_gate_results": [
+            {
+              "total": 348,
+              "passed": 348,
+              "failed": 0,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 0,
+              "step": "Run mandatory tests with verified development dependencies"
+            },
+            {
+              "total": 349,
+              "passed": 348,
+              "failed": 1,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 1,
+              "step": "Prove a broken assertion returns failure"
+            }
+          ],
+          "observed_failed_tests": [
+            "deliberate assertion must fail"
+          ],
+          "deliberate_failure_gate_verified": true,
+          "mandatory_gate_verified": true,
+          "raw_log_sha256": "795ef7f7bc0f3a8a88f05dc698b1440add13bd133a4cd8bc2aaa25d48307b456",
+          "environment_observations_complete": true
+        },
+        {
+          "completedAt": "2026-10-05T12:55:40Z",
+          "conclusion": "success",
+          "databaseId": 111768921321,
+          "name": "powershell on Windows",
+          "startedAt": "2026-10-05T12:46:24Z",
+          "status": "completed",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311855781/job/111768921321",
+          "steps": [
+            {
+              "completedAt": "2026-10-05T12:46:25Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-05T12:46:25Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:46:34Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 2,
+              "startedAt": "2026-10-05T12:46:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:51:14Z",
+              "conclusion": "success",
+              "name": "Run mandatory tests with verified development dependencies",
+              "number": 3,
+              "startedAt": "2026-10-05T12:46:34Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:55:36Z",
+              "conclusion": "success",
+              "name": "Prove a broken assertion returns failure",
+              "number": 4,
+              "startedAt": "2026-10-05T12:51:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:55:39Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 8,
+              "startedAt": "2026-10-05T12:55:36Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:55:39Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-05T12:55:39Z",
+              "status": "completed"
+            }
+          ],
+          "observed_versions": [
+            "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+          ],
+          "observed_imagemagick": [
+            "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+          ],
+          "observed_os": [
+            "Microsoft Windows Server 2025"
+          ],
+          "observed_os_version": [
+            "10.0.26100"
+          ],
+          "observed_os_edition": [
+            "Datacenter"
+          ],
+          "observed_runner_image": [
+            "windows-2025-vs2026"
+          ],
+          "observed_runner_image_version": [
+            "20260925.250.1"
+          ],
+          "test_gate_results": [
+            {
+              "total": 348,
+              "passed": 348,
+              "failed": 0,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 0,
+              "step": "Run mandatory tests with verified development dependencies"
+            },
+            {
+              "total": 349,
+              "passed": 348,
+              "failed": 1,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 1,
+              "step": "Prove a broken assertion returns failure"
+            }
+          ],
+          "observed_failed_tests": [
+            "deliberate assertion must fail"
+          ],
+          "deliberate_failure_gate_verified": true,
+          "mandatory_gate_verified": true,
+          "raw_log_sha256": "113dcec033dc39da82cc3ef956997934749e00d6011454b856c881e61794c835",
+          "environment_observations_complete": true
+        }
+      ]
+    },
+    {
+      "attempt": 1,
+      "conclusion": "success",
+      "createdAt": "2026-10-05T12:46:24Z",
+      "databaseId": 37311860891,
+      "event": "pull_request",
+      "headBranch": "codex/winimg-hardening",
+      "headSha": "158315f1e48e6199c5c18d3e323b5945390789b0",
+      "status": "completed",
+      "updatedAt": "2026-10-05T12:55:49Z",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311860891",
+      "jobs": [
+        {
+          "completedAt": "2026-10-05T12:53:46Z",
+          "conclusion": "success",
+          "databaseId": 111768938078,
+          "name": "pwsh on Windows",
+          "startedAt": "2026-10-05T12:46:28Z",
+          "status": "completed",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311860891/job/111768938078",
+          "steps": [
+            {
+              "completedAt": "2026-10-05T12:46:31Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-05T12:46:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:46:43Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 2,
+              "startedAt": "2026-10-05T12:46:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:50:17Z",
+              "conclusion": "success",
+              "name": "Run mandatory tests with verified development dependencies",
+              "number": 3,
+              "startedAt": "2026-10-05T12:46:43Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:53:44Z",
+              "conclusion": "success",
+              "name": "Prove a broken assertion returns failure",
+              "number": 4,
+              "startedAt": "2026-10-05T12:50:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:53:46Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 8,
+              "startedAt": "2026-10-05T12:53:44Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:53:46Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-05T12:53:46Z",
+              "status": "completed"
+            }
+          ],
+          "observed_versions": [
+            "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+          ],
+          "observed_imagemagick": [
+            "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+          ],
+          "observed_os": [
+            "Microsoft Windows Server 2025"
+          ],
+          "observed_os_version": [
+            "10.0.26100"
+          ],
+          "observed_os_edition": [
+            "Datacenter"
+          ],
+          "observed_runner_image": [
+            "windows-2025-vs2026"
+          ],
+          "observed_runner_image_version": [
+            "20260925.250.1"
+          ],
+          "test_gate_results": [
+            {
+              "total": 348,
+              "passed": 348,
+              "failed": 0,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 0,
+              "step": "Run mandatory tests with verified development dependencies"
+            },
+            {
+              "total": 349,
+              "passed": 348,
+              "failed": 1,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 1,
+              "step": "Prove a broken assertion returns failure"
+            }
+          ],
+          "observed_failed_tests": [
+            "deliberate assertion must fail"
+          ],
+          "deliberate_failure_gate_verified": true,
+          "mandatory_gate_verified": true,
+          "raw_log_sha256": "0c59d704adef4934e445059210cb0289e5348d80bf31db9a47255092dfbe8f3c",
+          "environment_observations_complete": true
+        },
+        {
+          "completedAt": "2026-10-05T12:55:48Z",
+          "conclusion": "success",
+          "databaseId": 111768938351,
+          "name": "powershell on Windows",
+          "startedAt": "2026-10-05T12:46:27Z",
+          "status": "completed",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311860891/job/111768938351",
+          "steps": [
+            {
+              "completedAt": "2026-10-05T12:46:28Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-10-05T12:46:27Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:46:35Z",
+              "conclusion": "success",
+              "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 2,
+              "startedAt": "2026-10-05T12:46:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:51:17Z",
+              "conclusion": "success",
+              "name": "Run mandatory tests with verified development dependencies",
+              "number": 3,
+              "startedAt": "2026-10-05T12:46:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:55:45Z",
+              "conclusion": "success",
+              "name": "Prove a broken assertion returns failure",
+              "number": 4,
+              "startedAt": "2026-10-05T12:51:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:55:47Z",
+              "conclusion": "success",
+              "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+              "number": 8,
+              "startedAt": "2026-10-05T12:55:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-10-05T12:55:47Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 9,
+              "startedAt": "2026-10-05T12:55:47Z",
+              "status": "completed"
+            }
+          ],
+          "observed_versions": [
+            "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+          ],
+          "observed_imagemagick": [
+            "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+          ],
+          "observed_os": [
+            "Microsoft Windows Server 2025"
+          ],
+          "observed_os_version": [
+            "10.0.26100"
+          ],
+          "observed_os_edition": [
+            "Datacenter"
+          ],
+          "observed_runner_image": [
+            "windows-2025-vs2026"
+          ],
+          "observed_runner_image_version": [
+            "20260925.250.1"
+          ],
+          "test_gate_results": [
+            {
+              "total": 348,
+              "passed": 348,
+              "failed": 0,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 0,
+              "step": "Run mandatory tests with verified development dependencies"
+            },
+            {
+              "total": 349,
+              "passed": 348,
+              "failed": 1,
+              "skipped": 0,
+              "not_run": 0,
+              "exit_code": 1,
+              "step": "Prove a broken assertion returns failure"
+            }
+          ],
+          "observed_failed_tests": [
+            "deliberate assertion must fail"
+          ],
+          "deliberate_failure_gate_verified": true,
+          "mandatory_gate_verified": true,
+          "raw_log_sha256": "b5a7c1325be82e9aa0c0b79bbbfb999ed92b6440b726c45dfce697b599f0f66a",
+          "environment_observations_complete": true
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Push tests the actual feature revision; PR jobs use the GitHub PR merge ref associated with the recorded head SHA.",
+    "Hosted Windows Server matrix is separate from Windows 11 desktop evidence.",
+    "Only allowlisted metadata, environment observations and count/failure gates are exported; raw logs, user paths and media remain ignored."
+  ],
+  "pull_request_merge_content_observation": {
+    "pull_request": "https://github.com/PikkuJanne/WinImgNormalizer/pull/19",
+    "base_commit": "c811391580a727ae0e052e8bef24b8836fe64c22",
+    "head_commit": "158315f1e48e6199c5c18d3e323b5945390789b0",
+    "synthetic_merge_commit": "fab23c6da7f29029fe15df93ec025c6f0a943c22",
+    "synthetic_merge_tree": "15a1aeba88ea83230a038d63a13aa7f92274a94a",
+    "tested_feature_tree": "15a1aeba88ea83230a038d63a13aa7f92274a94a",
+    "synthetic_merge_parents": [
+      "c811391580a727ae0e052e8bef24b8836fe64c22",
+      "158315f1e48e6199c5c18d3e323b5945390789b0"
+    ],
+    "parents_verified": true,
+    "tree_equal": true,
+    "method": "Read-only local Git object resolution plus live advertised PR merge ref; the parent fetched the existing object separately. No fetch, checkout, branch/ref update, merge or reset is performed by this observer.",
+    "task_id": "M3-T04",
+    "observer_sha256": "325a86e1581df266ff31704d28f289eca5aabfc2ad76053f4c46652795f56476",
+    "observed_at_utc": "2026-10-05T12:46:52.269202Z",
+    "source_artifact": ".scratch/M3-T04-I3-merge.json",
+    "source_artifact_sha256": "cf7d3dc2533181ece6affab564272b50fa11af26ecb44b083ac57cb20516a03e"
+  },
+  "historical_observations": [
+    {
+      "schema_version": 1,
+      "task_id": "M3-T04",
+      "recorded_utc": "2026-10-05T12:19:22.603225+00:00",
+      "tested_implementation_commit": "861c551e4e163069b5cc0672c450d4c2ed0b77cf",
+      "evidence_status": "push_and_pull_request_matrices_failed",
+      "collection_method": "Actual gh run view metadata and per-job --log transcripts; hashes bind saved transcripts. Raw logs remain ignored and are not included.",
+      "collector_sha256": "661d81e8923c3c22ad1ff36a092c7e4c7874b2f02e166281cc14bc92e1c366b2",
+      "runs": [
+        {
+          "attempt": 1,
+          "conclusion": "failure",
+          "createdAt": "2026-10-05T12:12:41Z",
+          "databaseId": 37307954342,
+          "event": "push",
+          "headBranch": "codex/winimg-hardening",
+          "headSha": "861c551e4e163069b5cc0672c450d4c2ed0b77cf",
+          "status": "completed",
+          "updatedAt": "2026-10-05T12:18:01Z",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37307954342",
+          "jobs": [
+            {
+              "completedAt": "2026-10-05T12:16:30Z",
+              "conclusion": "failure",
+              "databaseId": 111756099698,
+              "name": "pwsh on Windows",
+              "startedAt": "2026-10-05T12:12:44Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37307954342/job/111756099698",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T12:12:45Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T12:12:45Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:12:53Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T12:12:45Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:16:27Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T12:12:53Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:16:27Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T12:16:27Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:16:29Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T12:16:27Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:16:29Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T12:16:29Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 348,
+                  "passed": 288,
+                  "failed": 60,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T028 preserves all originals and prior outputs while two complete runs keep deterministic separate media and retained links",
+                "T037 retains literal percent%d.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal percent%03d.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal selector[0].png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal hash#name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal @name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal -name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 selects the first actual GIF frame at bracket/percent names and preserves nested literal paths",
+                "T037 keeps tagged ICC extraction and JPEG writing literal under percent source/run/output ancestors",
+                "T037 reads the exact percent-parent snapshot despite an actual differently colored numeric-template counterpart",
+                "T037 preserves an external arrival at the intended literal final name without overwriting or leaking candidates",
+                "T038 preserves direct source-only source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves direct explicit-cap trailing-separator source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves BAT inherited delayed-expansion source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves BAT trailing-separator source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T039 processes a real owned source file beyond MAX_PATH or reports explicit preserved failure without truncation",
+                "T040 uses exact invariant byte argv for default1MiB",
+                "T040 uses exact invariant byte argv for custom1024",
+                "T040 uses exact invariant byte argv for nonKiB1537",
+                "T040 uses exact invariant byte argv for nonKiB1048577",
+                "T040 uses exact invariant byte argv for Int64max hostile culture",
+                "T040 classifies actual final bytes at cap-1 independently of rounded1MiB display",
+                "T040 classifies actual final bytes at cap0 independently of rounded1MiB display",
+                "T040 classifies actual final bytes at cap1 independently of rounded1MiB display",
+                "T040/T041 supersedes an above-cap trial with a compliant next-scale JPEG without retaining a warning",
+                "T041/T042 retains a real tiny-cap tagged alpha JPEG only with warning and preserves all six native attempts",
+                "T041 links a later duplicate to the retained warning and counts that output once",
+                "T041 refuses stale best effort after the last attempt is truncated",
+                "T041 refuses stale best effort after the last attempt is wrong-format",
+                "T041 refuses stale best effort after the last attempt is nonzero",
+                "T042 keeps the real default single100percent geometry without new quality sharpening or upscaling flags",
+                "T044 stops a MissingCodec native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a DamagedInput native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a AccessDenied native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a ResourceExhaustion native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a NativeFailure native outcome after one attempt despite a decodable JPEG",
+                "T044 retries only explicit sharing failures, keeping full ICC and white policy through success on call 2",
+                "T044 retries only explicit sharing failures, keeping full ICC and white policy through success on call 3",
+                "T044 ends persistent sharing failure at three fresh same-scale attempts and keeps no earlier JPEG",
+                "T044 executes at most eight calls when two sharing retries precede six real valid above-cap size attempts",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80070020",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80070021",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80050020",
+                "T044 separates a same-scale transient retry from the next valid sizing scale",
+                "T044 keeps the two-sharing-retry budget per file when a later sizing scale also fails",
+                "T043 finalizes an actual converted JPEG with only the known lossy warning, and links its skipped duplicate as warned",
+                "T043 rejects nonzero exit with valid JPEG with a known warning instead of treating any warning as permission to finalize",
+                "T043 rejects zero exit with truncated JPEG with a known warning instead of treating any warning as permission to finalize",
+                "T043 rejects a zero exit with stdout diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T043 rejects a zero exit with stderr diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T043 rejects a zero exit with mixed warning and ICC error diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T045 refuses a decodable JPEG after large native streams, retaining usable details without console flooding",
+                "T046 combines actual conversion features at default with source preservation and decoded comparison artifacts",
+                "T046 combines actual conversion features at exact-small with source preservation and decoded comparison artifacts",
+                "T051 rejects an actual stalled inspection and still normalizes the later JPEG/video with source and namespace preservation",
+                "T051 rejects an actual stalled conversion and still normalizes the later JPEG/video with source and namespace preservation",
+                "T051 rejects an actual stalled validation and still normalizes the later JPEG/video with source and namespace preservation",
+                "T052 fails a benign large cache allocation under tiny process-local ceilings, then completes a tiny image and opaque video without global changes",
+                "T051 exhausts one cumulative deadline across real inspection/profile phases instead of renewing the allowance for conversion",
+                "T051 refuses finalization and preserves affected scratch for a controlled unconfirmed tree result while later real siblings complete"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "72a35ed536c86dc35131824a89de54ba98bdc209c01878a9d6c3fc37facf8365",
+              "environment_observations_complete": true
+            },
+            {
+              "completedAt": "2026-10-05T12:18:00Z",
+              "conclusion": "failure",
+              "databaseId": 111756099969,
+              "name": "powershell on Windows",
+              "startedAt": "2026-10-05T12:12:44Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37307954342/job/111756099969",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T12:12:45Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T12:12:44Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:12:52Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T12:12:45Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:17:57Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T12:12:52Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:17:57Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T12:17:57Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:17:59Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T12:17:57Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:17:59Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T12:17:59Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 348,
+                  "passed": 288,
+                  "failed": 60,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T028 preserves all originals and prior outputs while two complete runs keep deterministic separate media and retained links",
+                "T037 retains literal percent%d.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal percent%03d.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal selector[0].png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal hash#name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal @name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal -name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 selects the first actual GIF frame at bracket/percent names and preserves nested literal paths",
+                "T037 keeps tagged ICC extraction and JPEG writing literal under percent source/run/output ancestors",
+                "T037 reads the exact percent-parent snapshot despite an actual differently colored numeric-template counterpart",
+                "T037 preserves an external arrival at the intended literal final name without overwriting or leaking candidates",
+                "T038 preserves direct source-only source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves direct explicit-cap trailing-separator source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves BAT inherited delayed-expansion source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves BAT trailing-separator source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T039 processes a real owned source file beyond MAX_PATH or reports explicit preserved failure without truncation",
+                "T040 uses exact invariant byte argv for default1MiB",
+                "T040 uses exact invariant byte argv for custom1024",
+                "T040 uses exact invariant byte argv for nonKiB1537",
+                "T040 uses exact invariant byte argv for nonKiB1048577",
+                "T040 uses exact invariant byte argv for Int64max hostile culture",
+                "T040 classifies actual final bytes at cap-1 independently of rounded1MiB display",
+                "T040 classifies actual final bytes at cap0 independently of rounded1MiB display",
+                "T040 classifies actual final bytes at cap1 independently of rounded1MiB display",
+                "T040/T041 supersedes an above-cap trial with a compliant next-scale JPEG without retaining a warning",
+                "T041/T042 retains a real tiny-cap tagged alpha JPEG only with warning and preserves all six native attempts",
+                "T041 links a later duplicate to the retained warning and counts that output once",
+                "T041 refuses stale best effort after the last attempt is truncated",
+                "T041 refuses stale best effort after the last attempt is wrong-format",
+                "T041 refuses stale best effort after the last attempt is nonzero",
+                "T042 keeps the real default single100percent geometry without new quality sharpening or upscaling flags",
+                "T044 stops a MissingCodec native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a DamagedInput native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a AccessDenied native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a ResourceExhaustion native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a NativeFailure native outcome after one attempt despite a decodable JPEG",
+                "T044 retries only explicit sharing failures, keeping full ICC and white policy through success on call 2",
+                "T044 retries only explicit sharing failures, keeping full ICC and white policy through success on call 3",
+                "T044 ends persistent sharing failure at three fresh same-scale attempts and keeps no earlier JPEG",
+                "T044 executes at most eight calls when two sharing retries precede six real valid above-cap size attempts",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80070020",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80070021",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80050020",
+                "T044 separates a same-scale transient retry from the next valid sizing scale",
+                "T044 keeps the two-sharing-retry budget per file when a later sizing scale also fails",
+                "T043 finalizes an actual converted JPEG with only the known lossy warning, and links its skipped duplicate as warned",
+                "T043 rejects nonzero exit with valid JPEG with a known warning instead of treating any warning as permission to finalize",
+                "T043 rejects zero exit with truncated JPEG with a known warning instead of treating any warning as permission to finalize",
+                "T043 rejects a zero exit with stdout diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T043 rejects a zero exit with stderr diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T043 rejects a zero exit with mixed warning and ICC error diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T045 refuses a decodable JPEG after large native streams, retaining usable details without console flooding",
+                "T046 combines actual conversion features at default with source preservation and decoded comparison artifacts",
+                "T046 combines actual conversion features at exact-small with source preservation and decoded comparison artifacts",
+                "T051 rejects an actual stalled inspection and still normalizes the later JPEG/video with source and namespace preservation",
+                "T051 rejects an actual stalled conversion and still normalizes the later JPEG/video with source and namespace preservation",
+                "T051 rejects an actual stalled validation and still normalizes the later JPEG/video with source and namespace preservation",
+                "T052 fails a benign large cache allocation under tiny process-local ceilings, then completes a tiny image and opaque video without global changes",
+                "T051 exhausts one cumulative deadline across real inspection/profile phases instead of renewing the allowance for conversion",
+                "T051 refuses finalization and preserves affected scratch for a controlled unconfirmed tree result while later real siblings complete"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "1d78064801282cf2d4d7a799b1548b09471f36a724ba48544c4080942ff8b332",
+              "environment_observations_complete": true
+            }
+          ]
+        },
+        {
+          "attempt": 1,
+          "conclusion": "failure",
+          "createdAt": "2026-10-05T12:12:59Z",
+          "databaseId": 37307987382,
+          "event": "pull_request",
+          "headBranch": "codex/winimg-hardening",
+          "headSha": "861c551e4e163069b5cc0672c450d4c2ed0b77cf",
+          "status": "completed",
+          "updatedAt": "2026-10-05T12:17:41Z",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37307987382",
+          "jobs": [
+            {
+              "completedAt": "2026-10-05T12:17:40Z",
+              "conclusion": "failure",
+              "databaseId": 111756208980,
+              "name": "powershell on Windows",
+              "startedAt": "2026-10-05T12:13:01Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37307987382/job/111756208980",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T12:13:03Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T12:13:02Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:13:11Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T12:13:03Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:17:36Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T12:13:11Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:17:36Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T12:17:36Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:17:38Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T12:17:36Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:17:38Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T12:17:38Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 348,
+                  "passed": 288,
+                  "failed": 60,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T028 preserves all originals and prior outputs while two complete runs keep deterministic separate media and retained links",
+                "T037 retains literal percent%d.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal percent%03d.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal selector[0].png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal hash#name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal @name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal -name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 selects the first actual GIF frame at bracket/percent names and preserves nested literal paths",
+                "T037 keeps tagged ICC extraction and JPEG writing literal under percent source/run/output ancestors",
+                "T037 reads the exact percent-parent snapshot despite an actual differently colored numeric-template counterpart",
+                "T037 preserves an external arrival at the intended literal final name without overwriting or leaking candidates",
+                "T038 preserves direct source-only source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves direct explicit-cap trailing-separator source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves BAT inherited delayed-expansion source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves BAT trailing-separator source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T039 processes a real owned source file beyond MAX_PATH or reports explicit preserved failure without truncation",
+                "T040 uses exact invariant byte argv for default1MiB",
+                "T040 uses exact invariant byte argv for custom1024",
+                "T040 uses exact invariant byte argv for nonKiB1537",
+                "T040 uses exact invariant byte argv for nonKiB1048577",
+                "T040 uses exact invariant byte argv for Int64max hostile culture",
+                "T040 classifies actual final bytes at cap-1 independently of rounded1MiB display",
+                "T040 classifies actual final bytes at cap0 independently of rounded1MiB display",
+                "T040 classifies actual final bytes at cap1 independently of rounded1MiB display",
+                "T040/T041 supersedes an above-cap trial with a compliant next-scale JPEG without retaining a warning",
+                "T041/T042 retains a real tiny-cap tagged alpha JPEG only with warning and preserves all six native attempts",
+                "T041 links a later duplicate to the retained warning and counts that output once",
+                "T041 refuses stale best effort after the last attempt is truncated",
+                "T041 refuses stale best effort after the last attempt is wrong-format",
+                "T041 refuses stale best effort after the last attempt is nonzero",
+                "T042 keeps the real default single100percent geometry without new quality sharpening or upscaling flags",
+                "T044 stops a MissingCodec native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a DamagedInput native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a AccessDenied native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a ResourceExhaustion native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a NativeFailure native outcome after one attempt despite a decodable JPEG",
+                "T044 retries only explicit sharing failures, keeping full ICC and white policy through success on call 2",
+                "T044 retries only explicit sharing failures, keeping full ICC and white policy through success on call 3",
+                "T044 ends persistent sharing failure at three fresh same-scale attempts and keeps no earlier JPEG",
+                "T044 executes at most eight calls when two sharing retries precede six real valid above-cap size attempts",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80070020",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80070021",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80050020",
+                "T044 separates a same-scale transient retry from the next valid sizing scale",
+                "T044 keeps the two-sharing-retry budget per file when a later sizing scale also fails",
+                "T043 finalizes an actual converted JPEG with only the known lossy warning, and links its skipped duplicate as warned",
+                "T043 rejects nonzero exit with valid JPEG with a known warning instead of treating any warning as permission to finalize",
+                "T043 rejects zero exit with truncated JPEG with a known warning instead of treating any warning as permission to finalize",
+                "T043 rejects a zero exit with stdout diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T043 rejects a zero exit with stderr diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T043 rejects a zero exit with mixed warning and ICC error diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T045 refuses a decodable JPEG after large native streams, retaining usable details without console flooding",
+                "T046 combines actual conversion features at default with source preservation and decoded comparison artifacts",
+                "T046 combines actual conversion features at exact-small with source preservation and decoded comparison artifacts",
+                "T051 rejects an actual stalled inspection and still normalizes the later JPEG/video with source and namespace preservation",
+                "T051 rejects an actual stalled conversion and still normalizes the later JPEG/video with source and namespace preservation",
+                "T051 rejects an actual stalled validation and still normalizes the later JPEG/video with source and namespace preservation",
+                "T052 fails a benign large cache allocation under tiny process-local ceilings, then completes a tiny image and opaque video without global changes",
+                "T051 exhausts one cumulative deadline across real inspection/profile phases instead of renewing the allowance for conversion",
+                "T051 refuses finalization and preserves affected scratch for a controlled unconfirmed tree result while later real siblings complete"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "c54fd15520851eecafa3dde4c72c7833f00cff0d74b148eea62463a83b2aa8f3",
+              "environment_observations_complete": true
+            },
+            {
+              "completedAt": "2026-10-05T12:16:46Z",
+              "conclusion": "failure",
+              "databaseId": 111756209250,
+              "name": "pwsh on Windows",
+              "startedAt": "2026-10-05T12:13:03Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37307987382/job/111756209250",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T12:13:04Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T12:13:04Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:13:11Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T12:13:04Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:16:43Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T12:13:11Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:16:43Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T12:16:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:16:45Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T12:16:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:16:45Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T12:16:45Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 348,
+                  "passed": 288,
+                  "failed": 60,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T028 preserves all originals and prior outputs while two complete runs keep deterministic separate media and retained links",
+                "T037 retains literal percent%d.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal percent%03d.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal selector[0].png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal hash#name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal @name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 retains literal -name.png and selects its red source rather than a deceptive blue neighbor",
+                "T037 selects the first actual GIF frame at bracket/percent names and preserves nested literal paths",
+                "T037 keeps tagged ICC extraction and JPEG writing literal under percent source/run/output ancestors",
+                "T037 reads the exact percent-parent snapshot despite an actual differently colored numeric-template counterpart",
+                "T037 preserves an external arrival at the intended literal final name without overwriting or leaking candidates",
+                "T038 preserves direct source-only source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves direct explicit-cap trailing-separator source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves BAT inherited delayed-expansion source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T038 preserves BAT trailing-separator source arguments with spaces apostrophes ampersands parentheses bangs percent brackets and Unicode",
+                "T039 processes a real owned source file beyond MAX_PATH or reports explicit preserved failure without truncation",
+                "T040 uses exact invariant byte argv for default1MiB",
+                "T040 uses exact invariant byte argv for custom1024",
+                "T040 uses exact invariant byte argv for nonKiB1537",
+                "T040 uses exact invariant byte argv for nonKiB1048577",
+                "T040 uses exact invariant byte argv for Int64max hostile culture",
+                "T040 classifies actual final bytes at cap-1 independently of rounded1MiB display",
+                "T040 classifies actual final bytes at cap0 independently of rounded1MiB display",
+                "T040 classifies actual final bytes at cap1 independently of rounded1MiB display",
+                "T040/T041 supersedes an above-cap trial with a compliant next-scale JPEG without retaining a warning",
+                "T041/T042 retains a real tiny-cap tagged alpha JPEG only with warning and preserves all six native attempts",
+                "T041 links a later duplicate to the retained warning and counts that output once",
+                "T041 refuses stale best effort after the last attempt is truncated",
+                "T041 refuses stale best effort after the last attempt is wrong-format",
+                "T041 refuses stale best effort after the last attempt is nonzero",
+                "T042 keeps the real default single100percent geometry without new quality sharpening or upscaling flags",
+                "T044 stops a MissingCodec native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a DamagedInput native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a AccessDenied native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a ResourceExhaustion native outcome after one attempt despite a decodable JPEG",
+                "T044 stops a NativeFailure native outcome after one attempt despite a decodable JPEG",
+                "T044 retries only explicit sharing failures, keeping full ICC and white policy through success on call 2",
+                "T044 retries only explicit sharing failures, keeping full ICC and white policy through success on call 3",
+                "T044 ends persistent sharing failure at three fresh same-scale attempts and keeps no earlier JPEG",
+                "T044 executes at most eight calls when two sharing retries precede six real valid above-cap size attempts",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80070020",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80070021",
+                "T044 trusts only the Win32 HRESULT facility for controlled IOException 80050020",
+                "T044 separates a same-scale transient retry from the next valid sizing scale",
+                "T044 keeps the two-sharing-retry budget per file when a later sizing scale also fails",
+                "T043 finalizes an actual converted JPEG with only the known lossy warning, and links its skipped duplicate as warned",
+                "T043 rejects nonzero exit with valid JPEG with a known warning instead of treating any warning as permission to finalize",
+                "T043 rejects zero exit with truncated JPEG with a known warning instead of treating any warning as permission to finalize",
+                "T043 rejects a zero exit with stdout diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T043 rejects a zero exit with stderr diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T043 rejects a zero exit with mixed warning and ICC error diagnostics and a valid JPEG when the complete diagnostic set is unsafe",
+                "T045 refuses a decodable JPEG after large native streams, retaining usable details without console flooding",
+                "T046 combines actual conversion features at default with source preservation and decoded comparison artifacts",
+                "T046 combines actual conversion features at exact-small with source preservation and decoded comparison artifacts",
+                "T051 rejects an actual stalled inspection and still normalizes the later JPEG/video with source and namespace preservation",
+                "T051 rejects an actual stalled conversion and still normalizes the later JPEG/video with source and namespace preservation",
+                "T051 rejects an actual stalled validation and still normalizes the later JPEG/video with source and namespace preservation",
+                "T052 fails a benign large cache allocation under tiny process-local ceilings, then completes a tiny image and opaque video without global changes",
+                "T051 exhausts one cumulative deadline across real inspection/profile phases instead of renewing the allowance for conversion",
+                "T051 refuses finalization and preserves affected scratch for a controlled unconfirmed tree result while later real siblings complete"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "edd7aad9028d92cd575c2b92a981cffc0b5f74a0a99e3b18a0ab2a24125967d3",
+              "environment_observations_complete": true
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Push tests the actual feature revision; PR jobs use the GitHub PR merge ref associated with the recorded head SHA.",
+        "Hosted Windows Server matrix is separate from Windows 11 desktop evidence.",
+        "Only allowlisted metadata, environment observations and count/failure gates are exported; raw logs, user paths and media remain ignored."
+      ],
+      "pull_request_merge_content_observation": {
+        "pull_request": "https://github.com/PikkuJanne/WinImgNormalizer/pull/19",
+        "base_commit": "c811391580a727ae0e052e8bef24b8836fe64c22",
+        "head_commit": "861c551e4e163069b5cc0672c450d4c2ed0b77cf",
+        "synthetic_merge_commit": "f0bde358a850da06b88f61d351e2db4a5f1be114",
+        "synthetic_merge_tree": "da0c6bb925ceeb0d64f718231b303c7122a53614",
+        "tested_feature_tree": "da0c6bb925ceeb0d64f718231b303c7122a53614",
+        "synthetic_merge_parents": [
+          "c811391580a727ae0e052e8bef24b8836fe64c22",
+          "861c551e4e163069b5cc0672c450d4c2ed0b77cf"
+        ],
+        "parents_verified": true,
+        "tree_equal": true,
+        "method": "Read-only local Git object resolution plus live advertised PR merge ref; the parent fetched the existing object separately. No fetch, checkout, branch/ref update, merge or reset is performed by this observer.",
+        "task_id": "M3-T04",
+        "observer_sha256": "325a86e1581df266ff31704d28f289eca5aabfc2ad76053f4c46652795f56476",
+        "observed_at_utc": "2026-10-05T12:14:32.529118Z",
+        "source_artifact": ".scratch/M3-T04-I-merge.json",
+        "source_artifact_sha256": "12c6fde3d123db558555759abc7d6372d9676e19595243c5b300ceb7d21e50bd"
+      },
+      "source_artifact": ".scratch/M3-T04-ci-collected-initial-I.json",
+      "source_artifact_sha256": "0fcfe0102b9d3a78026c4e1e50a5b81edcd11a73786f84756388dbd28812759d"
+    },
+    {
+      "schema_version": 1,
+      "task_id": "M3-T04",
+      "recorded_utc": "2026-10-05T12:36:20.755356+00:00",
+      "tested_implementation_commit": "115add9177897bb600ba15f57e6515bc3b55d366",
+      "evidence_status": "push_and_pull_request_matrices_failed",
+      "collection_method": "Actual gh run view metadata and per-job --log transcripts; hashes bind saved transcripts. Raw logs remain ignored and are not included.",
+      "collector_sha256": "661d81e8923c3c22ad1ff36a092c7e4c7874b2f02e166281cc14bc92e1c366b2",
+      "runs": [
+        {
+          "attempt": 1,
+          "conclusion": "failure",
+          "createdAt": "2026-10-05T12:30:56Z",
+          "databaseId": 37310061449,
+          "event": "push",
+          "headBranch": "codex/winimg-hardening",
+          "headSha": "115add9177897bb600ba15f57e6515bc3b55d366",
+          "status": "completed",
+          "updatedAt": "2026-10-05T12:35:48Z",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37310061449",
+          "jobs": [
+            {
+              "completedAt": "2026-10-05T12:35:27Z",
+              "conclusion": "failure",
+              "databaseId": 111762985585,
+              "name": "pwsh on Windows",
+              "startedAt": "2026-10-05T12:31:31Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37310061449/job/111762985585",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T12:31:32Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T12:31:32Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:31:41Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T12:31:32Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:23Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T12:31:41Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:23Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T12:35:23Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:25Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T12:35:23Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:25Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T12:35:25Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 348,
+                  "passed": 346,
+                  "failed": 2,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T046 combines actual conversion features at default with source preservation and decoded comparison artifacts",
+                "T046 combines actual conversion features at exact-small with source preservation and decoded comparison artifacts"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "179fa14f39aface2fb33af6088f622e78e9f97ea7901fc26e8378ce473a3fcb9",
+              "environment_observations_complete": true
+            },
+            {
+              "completedAt": "2026-10-05T12:35:47Z",
+              "conclusion": "failure",
+              "databaseId": 111762985745,
+              "name": "powershell on Windows",
+              "startedAt": "2026-10-05T12:31:00Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37310061449/job/111762985745",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T12:31:02Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T12:31:01Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:31:12Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T12:31:02Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:43Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T12:31:12Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:43Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T12:35:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:45Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T12:35:43Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:45Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T12:35:45Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 348,
+                  "passed": 346,
+                  "failed": 2,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T046 combines actual conversion features at default with source preservation and decoded comparison artifacts",
+                "T046 combines actual conversion features at exact-small with source preservation and decoded comparison artifacts"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "a51d26a7d7cb1b32112d92dc095944915611a5283b3ffa7ff6a3e45e1e5e0525",
+              "environment_observations_complete": true
+            }
+          ]
+        },
+        {
+          "attempt": 1,
+          "conclusion": "failure",
+          "createdAt": "2026-10-05T12:30:58Z",
+          "databaseId": 37310066444,
+          "event": "pull_request",
+          "headBranch": "codex/winimg-hardening",
+          "headSha": "115add9177897bb600ba15f57e6515bc3b55d366",
+          "status": "completed",
+          "updatedAt": "2026-10-05T12:35:02Z",
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37310066444",
+          "jobs": [
+            {
+              "completedAt": "2026-10-05T12:35:01Z",
+              "conclusion": "failure",
+              "databaseId": 111763000960,
+              "name": "powershell on Windows",
+              "startedAt": "2026-10-05T12:31:01Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37310066444/job/111763000960",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T12:31:02Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T12:31:01Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:31:08Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T12:31:02Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:34:58Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T12:31:08Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:34:58Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T12:34:58Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:00Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T12:34:58Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:35:00Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T12:35:00Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 348,
+                  "passed": 346,
+                  "failed": 2,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T046 combines actual conversion features at default with source preservation and decoded comparison artifacts",
+                "T046 combines actual conversion features at exact-small with source preservation and decoded comparison artifacts"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "e0f8a1de26f3a91a07bbf785b1430fde10d8e7eed477c0ed268b941b1f1f0c84",
+              "environment_observations_complete": true
+            },
+            {
+              "completedAt": "2026-10-05T12:34:12Z",
+              "conclusion": "failure",
+              "databaseId": 111763001273,
+              "name": "pwsh on Windows",
+              "startedAt": "2026-10-05T12:31:02Z",
+              "status": "completed",
+              "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37310066444/job/111763001273",
+              "steps": [
+                {
+                  "completedAt": "2026-10-05T12:31:03Z",
+                  "conclusion": "success",
+                  "name": "Set up job",
+                  "number": 1,
+                  "startedAt": "2026-10-05T12:31:03Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:31:11Z",
+                  "conclusion": "success",
+                  "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 2,
+                  "startedAt": "2026-10-05T12:31:03Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:34:09Z",
+                  "conclusion": "failure",
+                  "name": "Run mandatory tests with verified development dependencies",
+                  "number": 3,
+                  "startedAt": "2026-10-05T12:31:11Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:34:09Z",
+                  "conclusion": "skipped",
+                  "name": "Prove a broken assertion returns failure",
+                  "number": 4,
+                  "startedAt": "2026-10-05T12:34:09Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:34:10Z",
+                  "conclusion": "success",
+                  "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                  "number": 8,
+                  "startedAt": "2026-10-05T12:34:09Z",
+                  "status": "completed"
+                },
+                {
+                  "completedAt": "2026-10-05T12:34:10Z",
+                  "conclusion": "success",
+                  "name": "Complete job",
+                  "number": 9,
+                  "startedAt": "2026-10-05T12:34:10Z",
+                  "status": "completed"
+                }
+              ],
+              "observed_versions": [
+                "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+              ],
+              "observed_imagemagick": [
+                "7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org"
+              ],
+              "observed_os": [
+                "Microsoft Windows Server 2025"
+              ],
+              "observed_os_version": [
+                "10.0.26100"
+              ],
+              "observed_os_edition": [
+                "Datacenter"
+              ],
+              "observed_runner_image": [
+                "windows-2025-vs2026"
+              ],
+              "observed_runner_image_version": [
+                "20260925.250.1"
+              ],
+              "test_gate_results": [
+                {
+                  "total": 348,
+                  "passed": 346,
+                  "failed": 2,
+                  "skipped": 0,
+                  "not_run": 0,
+                  "exit_code": 1,
+                  "step": "Run mandatory tests with verified development dependencies"
+                }
+              ],
+              "observed_failed_tests": [
+                "T046 combines actual conversion features at default with source preservation and decoded comparison artifacts",
+                "T046 combines actual conversion features at exact-small with source preservation and decoded comparison artifacts"
+              ],
+              "deliberate_failure_gate_verified": false,
+              "mandatory_gate_verified": false,
+              "raw_log_sha256": "8980ffa061cf3a04c7f138efa5f712da7cbf9efcc7f3f8bcfe8f486e364480c3",
+              "environment_observations_complete": true
+            }
+          ]
+        }
+      ],
+      "limitations": [
+        "Push tests the actual feature revision; PR jobs use the GitHub PR merge ref associated with the recorded head SHA.",
+        "Hosted Windows Server matrix is separate from Windows 11 desktop evidence.",
+        "Only allowlisted metadata, environment observations and count/failure gates are exported; raw logs, user paths and media remain ignored."
+      ],
+      "pull_request_merge_content_observation": {
+        "pull_request": "https://github.com/PikkuJanne/WinImgNormalizer/pull/19",
+        "base_commit": "c811391580a727ae0e052e8bef24b8836fe64c22",
+        "head_commit": "115add9177897bb600ba15f57e6515bc3b55d366",
+        "synthetic_merge_commit": "67db5c81cf3c020f4a7c504850e48fc77fa05839",
+        "synthetic_merge_tree": "67ccff97bb1a862724172a9c2028b499413899bd",
+        "tested_feature_tree": "67ccff97bb1a862724172a9c2028b499413899bd",
+        "synthetic_merge_parents": [
+          "c811391580a727ae0e052e8bef24b8836fe64c22",
+          "115add9177897bb600ba15f57e6515bc3b55d366"
+        ],
+        "parents_verified": true,
+        "tree_equal": true,
+        "method": "Read-only local Git object resolution plus live advertised PR merge ref; the parent fetched the existing object separately. No fetch, checkout, branch/ref update, merge or reset is performed by this observer.",
+        "task_id": "M3-T04",
+        "observer_sha256": "325a86e1581df266ff31704d28f289eca5aabfc2ad76053f4c46652795f56476",
+        "observed_at_utc": "2026-10-05T12:33:11.606554Z",
+        "source_artifact": ".scratch/M3-T04-I2-merge.json",
+        "source_artifact_sha256": "44fb526d25eba035cb1dccacbcf0fc923804164824d849ea1000186856674f9d"
+      },
+      "source_artifact": ".scratch/M3-T04-ci-collected-second-I.json",
+      "source_artifact_sha256": "be2bcd05be4b7e11b946102b889742549386f10b8f75fd8d73fcec74c648902f"
+    }
+  ]
+}

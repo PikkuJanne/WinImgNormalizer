@@ -1975,3 +1975,197 @@ death.
 
 This completes only M3-T03. Structured per-file reporting remains M3-T04, and owner
 quality/default acceptance, merge, release and deployment are separate authorized gates.
+
+## 2026-10-05 — M3-T04 completed
+
+Started clean at fe79b55e5405521129da27ccf43d20089260a267, equal to the live feature
+branch; owner-merged PR #18 main c811391580a727ae0e052e8bef24b8836fe64c22 had the same
+tree. Continued without changing checkout/history. Successor draft PR #19 contains this
+task. Implementation synchronization is a past exact-SHA observation. This record-only
+checkpoint's SHA/live synchronization remains pending_verification until separately
+observed after normal commit/push.
+
+Discovery creates one terminal outcome per successfully inspected regular file,
+including Ignored unsupported files; inaccessible directories, uninspectable entries and
+skipped links remain separate scan issues with unknown file totals.
+
+Validated no-overwrite image and stable video final moves commit their retained outcomes
+before ancillary operations; timestamp, cleanup, logging and observer warnings do not
+double-count files as errors.
+
+Exact Decimal aggregates pair only finalized image input/output lengths, allow signed
+negative savings and keep video bytes separate; elapsed duration and finalized-file
+throughput are observed values.
+
+T057 — passed: Both focused hosts observed a balanced eight-file mixed partition with
+two finalized images, one copied video, two duplicates, two ignored and one damaged
+input. Size/native/timestamp warnings remain attributes; finalized image/video observer
+faults retain success without an Error outcome. Empty and ignored-only trees remain
+balanced.
+
+T058 — passed: A genuine quality-1 286-byte JPEG becomes a validated 523-byte JPEG,
+reporting signed savings -237. The six-file byte cohort pairs only two finalized images
+(5032 input,1056 output,3976 saved), while the 1048576-byte copied video is separate and
+duplicate/ignored/error input lengths do not enter image totals.
+
+T059 — passed: Thirteen hostile UTF-16 text cases and a comma-decimal numeric case pass
+actual BOM UTF-8 Import-Csv with an independent text:/escape decoder. Eleven actual
+regular filenames under a literal percent/bracket/Unicode ancestor produce ten JPEGs
+plus one duplicate; exact source/planned/actual/retained mappings survive CSV import. No
+spreadsheet execution is claimed.
+
+T060 — passed: Actual ACL enumeration denial remains one unknown subtree issue outside
+the two-file known partition with exact fixture ACL restoration. Controlled CSV
+create/write/close, foreign arrival, logger/console and mirror failures retain media and
+degrade coherently. A request during real video copying reports one retained image, one
+Cancelled, one NotStarted and two Ignored; a request after the video final move retains
+CopiedVideo at130.
+
+Actual development .scratch/M3-T04-dev-affected-v1-ps51: 117/147 passed, 30 failed,
+native exit 1. Actual combined dirty-development run; all failures remain in the raw
+XML. Root confirmed the progress Status omission, discovery mock adaptation, final
+Decimal digit oracle and logging-warning oracle issues. The preserved earlier pending
+CSV diagnosis was later resolved as test-only dynamic variable shadowing, bound in the
+separate diagnosis supplement.
+
+Actual development .scratch/M3-T04-dev-affected-v1-ps7: 117/147 passed, 30 failed,
+native exit 1. Actual combined dirty-development run; all failures remain in the raw
+XML. Root confirmed the progress Status omission, discovery mock adaptation, final
+Decimal digit oracle and logging-warning oracle issues. The preserved earlier pending
+CSV diagnosis was later resolved as test-only dynamic variable shadowing, bound in the
+separate diagnosis supplement.
+
+Actual development .scratch/M3-T04-dev-affected-v2-ps51: 148/148 passed, 0 failed,
+native exit 0. Actual combined dirty-development run; all failures remain in the raw
+XML. Root confirmed the progress Status omission, discovery mock adaptation, final
+Decimal digit oracle and logging-warning oracle issues. The preserved earlier pending
+CSV diagnosis was later resolved as test-only dynamic variable shadowing, bound in the
+separate diagnosis supplement.
+
+Actual development .scratch/M3-T04-dev-affected-v2-ps7: 148/148 passed, 0 failed, native
+exit 0. Actual combined dirty-development run; all failures remain in the raw XML. Root
+confirmed the progress Status omission, discovery mock adaptation, final Decimal digit
+oracle and logging-warning oracle issues. The preserved earlier pending CSV diagnosis
+was later resolved as test-only dynamic variable shadowing, bound in the separate
+diagnosis supplement.
+
+Development and repair history is preserved separately from the final acceptance gates.
+The first ignored focused controller used an incorrect legacy/toolchain path and failed
+before application/Pester launch; the fresh v2 controller corrected only that tooling
+path. The first executed focused seven-suite revision then recorded 147 cases, 117
+passed and 30 failed on each actual host, native exit 1. These failures exposed a
+completed-progress empty-status validation defect, six discovery mocks missing the new
+ReportState argument, and test-oracle issues (last Decimal percentage digit, LogWarnings
+label and dynamic Phase shadowing). Fresh focused executions after those repairs passed
+148/148 on each host with native exit 0; their exact imported runtime is the
+subsequently committed I1 revision, 861c551e4e163069b5cc0672c450d4c2ed0b77cf.
+
+The first exact committed-I1 full desktop normal gates recorded 348 total, 288 passed
+and 60 failed on each host, native exit 1. Both first control gates recorded 349 total,
+288 passed and 61 failed including the injected T007 failure, native exit 1; these are
+failed credibility gates, not accepted sole-T007 controls. Paths AfterAll also failed
+its obsolete single-file report assumption. All 31 tested source snapshots, original
+XML, summaries, native records and console logs are preserved in the initial-I committed
+history and source-snapshot directory. Independent classification found 59 prior-suite
+inventory/ignored-count assumptions and one bounded-console assertion. The automatic I1
+push and PR matrices failed with the same 348/288/60 counts on all four Windows jobs;
+their control steps were skipped because the preceding normal step failed. Original CI
+logs and collections are immutable.
+
+The seven-file repair keeps prior media/source/owned-work checks and updates report
+inventories to allow the required CSV alongside the log, while Ignored includes actual
+ordinary/hidden unsupported regular files. The runtime bounds its aggregate accounting
+console line to 2048 UTF-16 characters and escapes/bounds its generated CSV hint to 512.
+The existing T045 native-diagnostic budget remains 4096 characters; its exactly two
+added report lines are checked separately at 2048 and 1024. Both parser hosts passed the
+repair and peer review found no blocker. A narrow actual-host T045 development run
+selected exactly one of 27 discovered cases and intentionally filtered 26. Its first
+child gate mistakenly expected TotalCount 1 despite Pester counting discovered filtered
+cases; the selected assertion passed, but both actual native exit 1 results are
+retained. Fresh v2 subset gates correctly validated one executed passed case, 26
+explicit exclusions and native exit 0 on each host. These subset results are not a
+mandatory full-suite gate. The corrected revision is committed as I2,
+115add9177897bb600ba15f57e6515bc3b55d366; subsequent full acceptance results remain
+separately bound to exact I2.
+
+PowerShell Import-Csv and an independent reversible decoder were actually exercised. The
+documented Excel all-Text Data>FromText/CSV recipe was not executed, and no Excel
+edit/save/reopen safety claim is made. The observed genuine JPEG growth from 286 to 523
+bytes is a real media result; controlled output/log/console/observer and
+inaccessible-subtree cases are qualified in their saved observations. Actual final-gate
+records, rather than this development narrative, determine acceptance.
+
+I2 subsequently completed full normal gates at 348 total, 346 passed and 2 failed,
+native exit 1, on each actual desktop host. Its controls completed at 349 total, 346
+passed and 3 failed (the same two T046 failures plus T007), native exit 1. Both
+automatic I2 matrices failed on all four jobs with the same normal 348/346/2 results;
+controls were skipped after normal failure. The second-I history preserves all four
+local runs and all 31 raw tested source snapshots before repair; the second-I CI
+raw/enriched collections and job logs remain distinct from I1. Reporting itself passed
+32/32 in each failed I2 normal gate. A separate independent I2 reporting audit binds the
+current runtime hash, verifies the saved observations, sources, JPEGs, videos,
+timestamps and CSVs, and explicitly retains the failed overall gate qualification.
+
+The two T046 corpus failures were stale log-path regex expectations. Logging
+intentionally represents the known emoji surrogate pair as literal backslash-u UTF-16
+units. An independent diagnosis found zero raw-emoji matches and four escaped-path
+matches in the four real corpus logs, with matching successful native trace and JPEG
+byte lengths. A one-file test-only adapter now independently encodes the fixture's known
+D83D/DE00 pair in all three path-dependent log expectations (OK source/output, SOURCE
+and COLOUR-to-OK block); original entry paths remain the exact
+filesystem/native/media/source oracles. Runtime bytes are unchanged from I2. Both
+earlier peer reviews, the draft/final source bindings, initial failure classification,
+queued repair helper and source-preservation snapshots remain intact.
+
+The first three-oracle corpus adapter was incomplete: fresh two-case corpus-v3
+executions reached and passed the deeper media assertions but failed the fourth
+retained-duplicate log expectation. Both hosts recorded 2 total, 0 passed and 2 failed
+with native exit 1 and zero exclusions, preserving the fe440c50 suite snapshots. The
+reviewer explicitly qualified the earlier draft's missed fourth oracle. A separate
+duplicate-message adapter preserves that failure and independently encodes the same
+known pair in the complete formatted expected duplicate message. Its first ignored
+pre-write guard used an incorrect native-record key and failed before changing source;
+the preserved v2 helper uses the actual source_bytes_unchanged field. Fresh corpus-v4
+children on both actual hosts then passed 2/2 with native exit 0, zero exclusions and
+stable suite/runtime raw bytes. Their four-entry supplementary history remains separate
+from the original case notes' one four-entry focused history. All four path-dependent
+corpus log expectations are now adapted; no runtime or media/source assertion was
+weakened. This final test-only revision is I3, 158315f1e48e6199c5c18d3e323b5945390789b0,
+and full acceptance is bound to fresh attempt3 artifacts.
+
+Development end-of-run hashes are observations, not proof of immutable imported bytes.
+Final clean-I desktop normal/control and hosted matrices are separate acceptance gates.
+Prior card histories remain in their original evidence.
+
+Tested clean implementation: 158315f1e48e6199c5c18d3e323b5945390789b0.
+On actual Microsoft Windows 11 Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5, Pester
+5.9.1, each normal suite passed 348/348 with native exit 0 and zero skipped or
+incomplete tests. Each control had 349 total, 348 passed, exactly one T007 deliberate
+failure and native exit 1. Summary/XML, parent native records and console hashes bind 31
+tested source paths, including the reporting suite and all eight colour/reference
+assets, to observed raw bytes and separate Git blobs. Only verified text CRLF-to-LF
+normalization is allowed; ICC bytes remain exact. Persistent execution policies were
+unchanged.
+
+Implementation Windows Server PS5.1/PS7 push/PR gates also passed: [push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311855781); [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37311860891).
+Evidence: evidence/M3-T04.json and evidence/M3-T04-ci.json.
+
+Accepted 19/28 tasks and exercised T001-T060, with the first four characterization cases unchanged. Next: M3-T05 — Propagate exit codes and harden the batch launcher. This containing checkpoint changes only 6 reviewed handoff/evidence records; its own synchronization remains pending_verification. Raw media/private paths/argv remain ignored. No owner merge, release, deployment or owner approval is inferred.
+
+Actual Import-Csv and independent reversible-decoder checks establish the documented
+machine import contract, not actual Excel/LibreOffice execution or consumer
+editing/save/reopen safety. The spreadsheet display prefix must remain intact.
+
+Unknown files inside inaccessible locations are not invented. An incomplete or failed
+CSV must not be treated as a complete inventory; valid media remain retained.
+
+Cooperative application130 and best-effort reporting are separate from host closure,
+force termination and stopped pipelines. Those boundaries can bypass reporting/cleanup;
+synchronous filesystem work remains nonpreemptible.
+
+Native lifetime, source-stability and duplicate matching retain their documented
+practical/heuristic boundaries; reporting does not create content identity, mandatory
+hashing, a hostile-filesystem sandbox or an unlimited Decimal aggregate.
+
+The BAT and JPEG/colour/frame/size defaults are unchanged in this card. M3-T05 launcher
+work, M3-T06/M3-T07 and owner quality/merge/release acceptance remain separate gates.
