@@ -112,9 +112,9 @@ the cap, it is retained under the existing best-effort policy as `WARN IMG`, wit
 exact output/cap bytes, width, height and chosen scale. Invalid or failed final
 attempts are errors and cannot resurrect an earlier above-target candidate.
 `SizeWarnings` counts retained above-target JPEGs as a subset of converted images,
-and the PowerShell application returns warning/partial code 2. Read the log for
-the result; the BAT's completion text and final exit propagation are not yet a
-certified outcome contract. Duplicate links retain `ConvertedWithWarning`.
+and the PowerShell application returns warning/partial code 2. The BAT reports
+that warning and returns the same code after its pause. Duplicate links retain
+`ConvertedWithWarning`.
 
 The scale sequence, no-upscaling behavior, encoder quality search, 4:2:0 sampling,
 progressive JPEG, colour and white-alpha policy remain unchanged. Fixing the extent
@@ -265,8 +265,27 @@ editing/save/reopen behavior are not certified by the PowerShell parser tests.
 
 **Batch wrapper (included)**
 The repo includes a minimal wrapper so you can drag a folder onto the .bat.
-It runs the .ps1 positionally (no named params), which is the safest path on PowerShell 5.1.
+It runs the .ps1 positionally with Windows PowerShell, `-NoProfile` and a
+process-only `-ExecutionPolicy Bypass`. Persistent execution policies and security
+settings are not changed; no administrator prompt or automatic installation is added.
 Keep the .bat and .ps1 in the same folder and with the same base name.
+Keep the BAT's Windows CRLF line endings; the included file-specific Git
+attribute preserves its exact bytes in checkouts and source archives.
+Drop exactly one folder. Zero or extra arguments, including an empty extra
+argument, produce a usage error before processing. To choose a custom byte cap,
+use the script's existing second positional argument.
+The launcher saves the script's exit code immediately, displays its outcome,
+keeps the familiar pause, and returns the saved code:
+
+| Code | Outcome |
+|---|---|
+| 0 | Completed successfully, including empty or ignored-only input. |
+| 1 | Usage, setup or run-level failure prevented reliable completion. |
+| 2 | Completed with warnings or partial failures; review the report. |
+| 130 | Cooperative cancellation handled by the application; completed outputs retained. |
+
+An unexpected host exit is reported as an error with its actual code and is also
+returned unchanged. Closing or force-killing a host may bypass the launcher pause.
 The wrapper disables inherited delayed expansion so `!` remains literal and
 preserves a trailing folder/root separator when forwarding its quoted argument.
 A command prompt can expand `%VARIABLE%` or `!VARIABLE!` before the wrapper receives
@@ -341,7 +360,10 @@ Ctrl+C asks a command-line run to stop taking new files and terminate its owned 
 
 Native waits and chunked video copies check the request repeatedly. A blocked filesystem operation can delay stopping. Closing the terminal or force-killing its process can bypass cleanup and the interrupted record, and does not promise exit 130. Recognizable files in the private work area are incomplete staging data, not completed outputs.
 
-The unchanged .bat may still print its existing “Done” message and pause after an interrupted PowerShell child. That message and the wrapper's returned code do not prove successful normalization; check the application outcome/log. Actual shell and batch interrupt behavior remains host-specific.
+When the PowerShell child returns cooperative code 130, the .bat displays
+“Cancelled,” pauses and returns 130. Actual shell and batch interrupt behavior
+remains host-specific; terminal closure, a stopped pipeline or forced termination
+can bypass application reporting and the launcher's completion handling.
 
 **Tweaks (optional)**
 Different size cap: pass a second positional argument in bytes (for example 2097152 for 2 MiB).

@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "tested_implementation": "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+  "observed_at_utc": "2026-10-05T14:25:56.655503+00:00",
+  "pull_request": "https://github.com/PikkuJanne/WinImgNormalizer/pull/20",
+  "implementation_ci": [
+    {
+      "run_id": 37322686828,
+      "event": "push",
+      "head_sha": "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37322686828",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "id": 111805479458,
+          "name": "pwsh on Windows",
+          "conclusion": "success",
+          "started_at": "2026-10-05T14:11:23Z",
+          "completed_at": "2026-10-05T14:19:48Z"
+        },
+        {
+          "id": 111805479602,
+          "name": "powershell on Windows",
+          "conclusion": "success",
+          "started_at": "2026-10-05T14:11:24Z",
+          "completed_at": "2026-10-05T14:22:42Z"
+        }
+      ],
+      "normal_each": {
+        "total": 392,
+        "passed": 392,
+        "failed": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "exit": 0
+      },
+      "control_each": {
+        "total": 393,
+        "passed": 392,
+        "failed": 1,
+        "skipped": 0,
+        "not_run": 0,
+        "exit": 1,
+        "intended_failure_verified_by_workflow": true
+      },
+      "actual_environment_lines": [
+        "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US",
+        "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US",
+        "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US",
+        "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+      ],
+      "actual_checkout_revisions": [
+        "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+        "5df7a83ed3fd340479972366f95a59e8e51b1b41"
+      ],
+      "raw_log_sha256": "3e97179480e39806e1d7aff6527df8dfb1f455ba60534e1403b2aad4317ea757",
+      "parse_qualification": "ANSI control sequences removed only for parsing; the recorded SHA binds unchanged downloaded raw log bytes."
+    },
+    {
+      "run_id": 37322698850,
+      "event": "pull_request",
+      "head_sha": "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37322698850",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "id": 111805518447,
+          "name": "pwsh on Windows",
+          "conclusion": "success",
+          "started_at": "2026-10-05T14:11:28Z",
+          "completed_at": "2026-10-05T14:21:14Z"
+        },
+        {
+          "id": 111805518743,
+          "name": "powershell on Windows",
+          "conclusion": "success",
+          "started_at": "2026-10-05T14:11:28Z",
+          "completed_at": "2026-10-05T14:24:00Z"
+        }
+      ],
+      "normal_each": {
+        "total": 392,
+        "passed": 392,
+        "failed": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "exit": 0
+      },
+      "control_each": {
+        "total": 393,
+        "passed": 392,
+        "failed": 1,
+        "skipped": 0,
+        "not_run": 0,
+        "exit": 1,
+        "intended_failure_verified_by_workflow": true
+      },
+      "actual_environment_lines": [
+        "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US",
+        "Core 7.6.6; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US",
+        "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US",
+        "Desktop 5.1.26100.33438; Pester: 5.9.1; OS: 10.0.26100; 64-bit; locale: en-US"
+      ],
+      "actual_checkout_revisions": [
+        "1167bd15e7bb8979ea16a55516cc697ce2324071",
+        "1167bd15e7bb8979ea16a55516cc697ce2324071"
+      ],
+      "raw_log_sha256": "3e062f79ed9ef89ed83eb80a5c5a9d593ce7736fac973905d6816744417325e7",
+      "parse_qualification": "ANSI control sequences removed only for parsing; the recorded SHA binds unchanged downloaded raw log bytes."
+    }
+  ],
+  "actual_pr_merge_binding": {
+    "pull_request": "https://github.com/PikkuJanne/WinImgNormalizer/pull/20",
+    "base_commit": "fa2672f42be3f51cf2bfd0b00cb47ae0308d44b6",
+    "head_commit": "5df7a83ed3fd340479972366f95a59e8e51b1b41",
+    "synthetic_merge_commit": "1167bd15e7bb8979ea16a55516cc697ce2324071",
+    "synthetic_merge_tree": "daacca0b8bd53f24aa568e9d94e5ddab052aefe7",
+    "tested_feature_tree": "daacca0b8bd53f24aa568e9d94e5ddab052aefe7",
+    "synthetic_merge_parents": [
+      "fa2672f42be3f51cf2bfd0b00cb47ae0308d44b6",
+      "5df7a83ed3fd340479972366f95a59e8e51b1b41"
+    ],
+    "parents_verified": true,
+    "tree_equal": true,
+    "method": "Read-only local Git object resolution plus live advertised PR merge ref; the parent fetched the existing object separately. No fetch, checkout, branch/ref update, merge or reset is performed by this observer.",
+    "task_id": "M3-T05",
+    "observer_sha256": "06eeb730068c31cbb1c7f8ece7efb770fe564a3cd558a3ec62b5f5736b172a39",
+    "observed_at_utc": "2026-10-05T14:12:20.489837Z"
+  },
+  "merge_binding_record_sha256": "918a54773f8c96c437be8608d100578dc780ceee393c5440a9c216cb1c26ca29",
+  "initial_ci_history": {
+    "frozen_record_sha256": "8f24ec1ec8041c2860db376e8052175f6bcccba816d648d0d1ec1f4eddf07892",
+    "record": {
+      "schema_version": 1,
+      "task": "M3-T05",
+      "implementation": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+      "observed_at_utc": "2026-10-05T14:04:16.705689+00:00",
+      "runs": [
+        {
+          "event": "push",
+          "run_id": 37319730601,
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37319730601",
+          "head_sha": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "pwsh on Windows",
+              "conclusion": "success",
+              "id": 111795424886
+            },
+            {
+              "name": "powershell on Windows",
+              "conclusion": "failure",
+              "id": 111795425177
+            }
+          ],
+          "observed_counts": [
+            [
+              391,
+              391,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              392,
+              391,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              391,
+              369,
+              22,
+              0,
+              0,
+              1
+            ]
+          ],
+          "raw_log_sha256": "44e0da19ac94e255aad7041b21dc811444e5ccc33bb9ee0a900572a67d189409"
+        },
+        {
+          "event": "pull_request",
+          "run_id": 37319738277,
+          "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37319738277",
+          "head_sha": "5cff9f22e0149d3acb6f339494094a93c67aeb5c",
+          "conclusion": "failure",
+          "jobs": [
+            {
+              "name": "powershell on Windows",
+              "conclusion": "failure",
+              "id": 111795450752
+            },
+            {
+              "name": "pwsh on Windows",
+              "conclusion": "success",
+              "id": 111795451427
+            }
+          ],
+          "observed_counts": [
+            [
+              391,
+              369,
+              22,
+              0,
+              0,
+              1
+            ],
+            [
+              391,
+              391,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              392,
+              391,
+              1,
+              0,
+              0,
+              1
+            ]
+          ],
+          "raw_log_sha256": "2a88b132a4bba8e9c69693fd02f80978a8c1786104b00690bf1adae37b0df0c2"
+        }
+      ],
+      "finding": "Initial hosted PS5.1 normal runs had22 blocked-pause assertions fail (391total,369pass); hostedPS7 normal and intended-failure controls pass. Desktop both fullnormal/control pass. Local detached experiments did not reproduce hosted behavior; exact cause is unconfirmed. Repair makes test-only console/input ownership explicit without changing productionBAT/script or weakening pause assertions."
+    },
+    "qualification": "Historical initial implementation CI remains failed: hosted PS5.1 had 22 blocked-pause assertion failures while hosted PS7 normal and intended-failure controls passed. Exact cause remains unconfirmed. The later private-console fixture repair changes only tests; this history is not final acceptance."
+  },
+  "qualification": "Final I2 push and PR matrices succeeded. Actual downloaded raw logs verify 392/392 normal gates, 393/392 single-failure controls, both host editions, and exact checkout revisions. The PR merge has verified base/head parents and the same tree as tested I2. Initial failed CI is retained separately; hosted Windows results do not replace desktop or owner acceptance.",
+  "task_id": "M3-T05"
+}

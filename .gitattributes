@@ -1,0 +1,2 @@
+# Keep native CMD label lookup reliable on the launcher.
+WinImgNormalizer.bat -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
