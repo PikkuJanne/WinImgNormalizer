@@ -496,11 +496,14 @@ Describe 'M4-T02 checksum and reproducibility evidence' {
         @($names | Sort-Object) -join '|' | Should -BeExactly (($assetFilename, 'build-provenance.json' | Sort-Object) -join '|')
     }
 
-    It 'T071 fixes entry ordering, timestamps, attributes and storage and repeats identical bytes on this host' {
+    It 'T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host' {
         foreach ($entry in $entries) {
             $entry.LastWriteTime.ToString('yyyy-MM-ddTHH:mm:ss', [Globalization.CultureInfo]::InvariantCulture) | Should -BeExactly '2000-01-01T00:00:00'
             $entry.Attributes | Should -Be 0
-            $entry.CompressedLength | Should -Be $entry.Length
+            # NoCompression uses Stored entries on current .NET and DEFLATE
+            # stored-block framing on .NET Framework. Exact extraction hashes
+            # above and repeat bytes below are the reproducibility contract.
+            $entry.CompressedLength | Should -BeGreaterOrEqual $entry.Length
         }
         $repeat = Invoke-PackageBuild $replica
         $repeat.ExitCode | Should -Be 0

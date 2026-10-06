@@ -58,14 +58,17 @@ they provide no signature, publisher verification or attestation.
 
 ## Reproducibility and verification
 
-The builder sorts entries, uses uncompressed ZIP entries and normalizes entry
+The builder sorts entries, requests the .NET `NoCompression` setting and normalizes entry
 timestamps to a fixed ZIP-compatible date. It omits observation time, local paths
 and host identity from package bytes. Repeated builds of the same revision with the
 same builder/runtime are intended to produce byte-identical ZIPs. Tests must compare
 the actual archive hashes before recording that observation. This is not a claim
 that every Git, .NET or ZIP implementation on every platform produces identical
-bytes. Independently verify content equality through the manifest and extracted
-file hashes when comparing different environments.
+bytes. Windows PowerShell 5.1's .NET Framework writer can encode uncompressed data
+as DEFLATE stored blocks, adding framing bytes; the tested PowerShell 7 writer uses
+ZIP Stored entries. Identical extracted files can therefore have different ZIP
+lengths and hashes across these hosts. Independently verify content equality
+through the manifest and extracted file hashes when comparing environments.
 
 Packaging regressions cover T069 (exact allowlist and source contents), T070
 (fresh extraction and matching entry-point smoke checks with documented

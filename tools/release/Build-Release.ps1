@@ -180,7 +180,7 @@ $provenance = [ordered]@{
     asset_filename = $asset; asset_bytes = $assetBytes; asset_sha256 = $assetHash
     package_manifest_sha256 = Get-ReleaseHash $entries['package-manifest.json']
     builder_source_sha256 = Get-ReleaseHash (Get-ReleaseBlob 'tools/release/Build-Release.ps1')
-    reproducibility = 'Exact Git content, ordinal entries, fixed ZIP time/attributes and no compression. Byte equality must be verified for the actual build hosts; no universal ZIP-writer guarantee.'
+    reproducibility = 'Exact Git content, ordinal entries, fixed ZIP time/attributes and the NoCompression setting. ZIP framing varies by runtime. Byte equality must be verified for the actual build hosts; no universal ZIP-writer guarantee.'
 }
 $provenancePath = Join-Path $staging 'build-provenance.json'
 [IO.File]::WriteAllText($provenancePath, ($provenance | ConvertTo-Json -Depth 4 -Compress) + "`n", $utf8)
