@@ -605,8 +605,12 @@ exit $result[0]
         $runs = @(Get-ChildItem -LiteralPath $parent -Directory); $runs.Count | Should -Be 1
         $jpeg = Join-Path $runs[0].FullName 'nested media/synthetic alpha.jpeg'
         Test-Path -LiteralPath $jpeg | Should -BeTrue
-        $identified = Invoke-PackageProcess (New-PackageProcessStart $magick @('identify', '-ping', '-format', '%m|%wx%h', ('JPEG:' + $jpeg)) $ownedRoot)
-        $identified.ExitCode | Should -Be 0
+        # The owned generated output can exceed MAX_PATH. Inspect it independently
+        # using a canonical local extended path, as the native Windows API requires.
+        $nativeJpeg = '\\?\' + [IO.Path]::GetFullPath($jpeg)
+        $identified = Invoke-PackageProcess (New-PackageProcessStart $magick @('identify', '-ping', '-format', '%m|%wx%h', ('JPEG:' + $nativeJpeg)) $ownedRoot)
+        $identifyDiagnostic = $identified.StdErr.Substring(0, [Math]::Min(1000, $identified.StdErr.Length))
+        $identified.ExitCode | Should -Be 0 -Because ('native JPEG inspection must succeed; stderr: ' + $identifyDiagnostic)
         $identified.StdOut | Should -BeExactly 'JPEG|32x24'
         (Get-FileHash -LiteralPath (Join-Path $runs[0].FullName 'nested media/synthetic video.mp4')).Hash | Should -BeExactly (Get-FileHash -LiteralPath $video).Hash
         @($png, $video | ForEach-Object { Get-PackageFileState $_ }) -join '|' | Should -BeExactly ($before -join '|')
