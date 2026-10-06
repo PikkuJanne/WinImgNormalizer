@@ -1,20 +1,20 @@
 # Project status
 
-Updated: 2026-10-06 — M4-T03 public documentation and T072 parity verified.
+Updated: 2026-10-06 — M4-T04 website preparation and T073 verified.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested M4-T03 implementation: 19f6db45b5576f6ef0e86407058571178cadd806
+Tested M4-T04 implementation: 4cbc39f402c495b2f161da781b61989dd81d3903
 Application version: **1.0.0 (unreleased; unsigned preparation)**
 Owner-accepted normalization implementation: 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad
-Completed task: **M4-T03 — Publish-ready documentation for behavior and limitations (done)**
-Next intended task: **M4-T04 (pending; not started)**
-Task progress: **25 / 28 accepted**
-Specified cases: **T001-T072 exercised (72 / 75); T072 passed**
-Pester suite: **529/529 passed in each desktop shell, zero skipped/unrun; 26 mandatory suites**
-Failure controls: **530 total, 529 passed, one intended failure; native exit 1**
-Static analysis: **nine scripts, zero normal findings; one intended control finding/native exit 1**
+Completed task: **M4-T04 — Prepare website content and download metadata, not a backend (done)**
+Next intended task: **M4-T05 (pending; not started)**
+Task progress: **26 / 28 accepted**
+Specified cases: **T001-T073 exercised (73 / 75); T073 passed**
+Pester suite: **590/590 passed in each desktop shell, zero skipped/unrun; 27 mandatory suites**
+Failure controls: **591 total, 590 passed, one intended failure; native exit 1**
+Static analysis: **ten scripts, zero normal findings; one intended control finding/native exit 1**
 CI: **Implementation push and PR Windows matrices passed; four jobs and sanitized artifacts independently verified**
 Containing evidence checkpoint synchronization/CI: **pending external post-commit observation**
 
@@ -306,3 +306,59 @@ tag and package. Owner D37/T067 and live-UNC D35 boundaries remain unchanged.
 This containing governance checkpoint cannot record its own future SHA/push/CI;
 those observations are supplied externally after commit. No tag, public release,
 merge, default-branch push, repository setting change or website deployment here.
+
+## M4-T04 website preparation acceptance
+
+Started clean at 6e2643b2e0de62244821c47f4ff12aeda79dbf8b, matching the live feature. The owner merged
+PR24 at 2026-10-06T18:09:28Z; main 81866cface260dfe2d78c3e6c2f364705ac92b3a has the same starting tree.
+Continued the existing feature with [the successor PR](https://github.com/PikkuJanne/WinImgNormalizer/pull/25); preserved
+the non-Git snapshot and default branch. Owner merge is a separate recorded action.
+
+Prepared framework-neutral product copy, website metadata and an integration
+handoff under docs/website. No UI, upload form, backend, runtime account, domain,
+framework, provider, deployment or new application dependency is introduced.
+Canonical release-metadata.json remains the sole version/publication authority:
+1.0.0 is unreleased/unsigned and all published URL/tag/date/asset fields are null.
+Website metadata references it rather than duplicating a release projection.
+Download availability is plain text with render_link false.
+
+The read-only preparation guard checks strict draft fields, literal ordinary local
+files, unchanged artwork headers/hashes and copy links. It rejects publication
+fields/states, live release URLs, unsupported link forms and unreviewed external
+destinations. Its passing draft gate does not prove a deployed page, real published
+download or approved future publication. A published projection requires reviewed
+guard changes plus actual approved release evidence in the future website context.
+
+Original PNG branding and ICO favicon retain their bytes and dimensions. The
+poster remains historical_reference_only/display false: its faux terminal and
+legacy hard-cap text are artwork, not current screenshots, measurements or size
+guarantees. Screenshots/comparisons stay empty; existing private owner records have
+no public website reuse approval. Public product claims retain M4-T03's lossy-copy,
+best-effort MiB, metadata/video, omitted-frame, heuristic-skip, cloud/report/privacy,
+codec and nesting qualifications. No runtime, builder, package-input, dependency,
+application-version or generated release-metadata change.
+
+Clean implementation 4cbc39f402c495b2f161da781b61989dd81d3903 passed both actual desktop shells:
+590/590 normally, 591/590/one exact T007 control/native1,
+27 suites, 67 required case IDs, ten real codec outcomes and
+70 source bindings. Both ten-script analyzers have zero normal findings and
+one intended control finding/native1; both private-safe two-file exports pass.
+Exact implementation push/PR CI jobs and artifacts were independently verified.
+T073 exercises draft metadata/copy/assets, rejection boundaries, ordinary local
+paths and containment/refusal controls, and real native validator propagation.
+The full gate also checks exact public source-export allowlists.
+
+Earlier dirty focused attempts exposed copy/source overlap, a missing copied policy
+target in a disposable replica and an old outer driver returning 0 while its inner
+runner returned 1. They remain qualified developer observations, not acceptance.
+Corrected focused checks also remain developer evidence. Only the final clean full
+desktop and exact implementation CI observations supply this task's acceptance.
+See [desktop/website evidence](evidence/M4-T04.json) and [CI](evidence/M4-T04-ci.json).
+
+26/28 tasks and 73/75 cases exercised; M4-T05 remains pending/not started. Owner
+D37/T067 acceptance at 5a32fc6 and owner-excluded live UNC D35 retain their scopes.
+Website preparation supplies no physical Explorer gesture or new owner quality
+approval. The containing governance checkpoint cannot record its own future SHA,
+push or CI; those observations remain external after commit. No new merge, default-
+branch push, tag, public release, repository setting change or website deployment
+is performed by this preparation task.

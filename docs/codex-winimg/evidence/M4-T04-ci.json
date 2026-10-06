@@ -1,0 +1,3881 @@
+{
+  "schema_version": 1,
+  "task_id": "M4-T04",
+  "stage": "website_preparation_CI_observation",
+  "state": "passed",
+  "implementation_commit": "4cbc39f402c495b2f161da781b61989dd81d3903",
+  "tested_implementation_commit": "4cbc39f402c495b2f161da781b61989dd81d3903",
+  "observed_at_utc": "2026-10-06T18:46:44.479355+00:00",
+  "result": "four_actual_windows_jobs_and_native_controls_passed",
+  "four_job_matrix_complete": true,
+  "mandatory_suite_count": 27,
+  "mandatory_suites": [
+    "Normalizer.Tests.ps1",
+    "Preflight.Tests.ps1",
+    "Traversal.Tests.ps1",
+    "Naming.Tests.ps1",
+    "Transactions.Tests.ps1",
+    "Duplicates.Tests.ps1",
+    "SafetyRegression.Tests.ps1",
+    "Frames.Tests.ps1",
+    "Colour.Tests.ps1",
+    "Paths.Tests.ps1",
+    "Sizing.Tests.ps1",
+    "Diagnostics.Tests.ps1",
+    "ConversionRegression.Tests.ps1",
+    "RecoveryReporting.Tests.ps1",
+    "NativeLifetime.Tests.ps1",
+    "Cancellation.Tests.ps1",
+    "Reporting.Tests.ps1",
+    "Launcher.Tests.ps1",
+    "ExitContract.Tests.ps1",
+    "Compatibility.Tests.ps1",
+    "CodecCompatibility.Tests.ps1",
+    "StaticAnalysis.Tests.ps1",
+    "WorkflowSecurity.Tests.ps1",
+    "Versioning.Tests.ps1",
+    "Packaging.Tests.ps1",
+    "Documentation.Tests.ps1",
+    "Website.Tests.ps1"
+  ],
+  "documentation_case_id": "T072",
+  "documentation_assertion_count_per_run": 14,
+  "documentation_test_names": [
+    "T072 resolves local public links and headings in repository and exact portable contexts",
+    "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+    "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+    "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+    "T072 reports actual invalid byte target 0 before creating destination output",
+    "T072 reports actual invalid byte target 1.5 before creating destination output",
+    "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+    "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+    "T072 reproduces the documented old version control prerequisite failure before output allocation",
+    "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+    "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+    "T072 reports first displayed frame selection and a real omitted animation frame",
+    "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+    "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+  ],
+  "package_positive_test_names": [
+    "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+    "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+    "T071 recomputes both exact SHA256SUMS assets independently",
+    "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+    "T070 extracts only approved root files into a fresh directory with spaces",
+    "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+    "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+    "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+  ],
+  "ci_scope": "Pinned portable Q16 mandatory suites and native controls for the exact M4-T04 implementation. Historical installed HDRI and owner acceptance remain separately recorded.",
+  "task_acceptance_is_parent_owned": true,
+  "feature_tree_sha": "0f2835530a72964178289754bd9dce3b250a9337",
+  "pr_synthetic_merge_sha": "ea1a16a09a8a0686e881097590bbd4a2b3c8ccd8",
+  "pr_base_sha": "81866cface260dfe2d78c3e6c2f364705ac92b3a",
+  "pr_merge_parents": [
+    "81866cface260dfe2d78c3e6c2f364705ac92b3a",
+    "4cbc39f402c495b2f161da781b61989dd81d3903"
+  ],
+  "synthetic_merge_tree_equals_feature": true,
+  "mandatory_required_case_count": 67,
+  "mandatory_required_case_ids": [
+    "T005",
+    "T006",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T018",
+    "T019",
+    "T020",
+    "T021",
+    "T022",
+    "T023",
+    "T024",
+    "T025",
+    "T026",
+    "T027",
+    "T028",
+    "T029",
+    "T030",
+    "T031",
+    "T032",
+    "T033",
+    "T034",
+    "T035",
+    "T036",
+    "T037",
+    "T038",
+    "T039",
+    "T040",
+    "T041",
+    "T042",
+    "T043",
+    "T044",
+    "T045",
+    "T046",
+    "T047",
+    "T048",
+    "T049",
+    "T050",
+    "T051",
+    "T052",
+    "T053",
+    "T054",
+    "T055",
+    "T056",
+    "T057",
+    "T058",
+    "T059",
+    "T060",
+    "T061",
+    "T062",
+    "T063",
+    "T064",
+    "T065",
+    "T066",
+    "T068",
+    "T069",
+    "T070",
+    "T071",
+    "T072",
+    "T073"
+  ],
+  "analyzer_rule_count": 15,
+  "analyzer_rules": [
+    "PSAvoidAssignmentToAutomaticVariable",
+    "PSAvoidUsingAllowUnencryptedAuthentication",
+    "PSAvoidUsingBrokenHashAlgorithms",
+    "PSAvoidUsingComputerNameHardcoded",
+    "PSAvoidUsingConvertToSecureStringWithPlainText",
+    "PSAvoidUsingInvokeExpression",
+    "PSAvoidUsingPlainTextForPassword",
+    "PSAvoidUsingUsernameAndPasswordParams",
+    "PSAvoidUsingWMICmdlet",
+    "PSMisleadingBacktick",
+    "PSPossibleIncorrectComparisonWithNull",
+    "PSReservedParams",
+    "PSUseCmdletCorrectly",
+    "PSUseCompatibleSyntax",
+    "PSUsePSCredentialType"
+  ],
+  "timestamp_evidence_limit": "Raw original summaries were not uploaded. Exported full fractional UTC values are verified within authoritative GitHub step intervals and raw log UTC minutes; source summary SHA256 values do not reconstruct original timestamp bytes.",
+  "runs": [
+    {
+      "run_id": 37511352749,
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37511352749",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "4cbc39f402c495b2f161da781b61989dd81d3903",
+      "actual_checkout_sha": "4cbc39f402c495b2f161da781b61989dd81d3903",
+      "observed_at_utc": "2026-10-06T18:44:19.200167+00:00",
+      "raw_log_sha256": "24312daea1511fcd440a60001dc34253dab395499680651e41256c1f757db749",
+      "sanitized_local_run_proof_sha256": "28a6456a98e08bef7c852f09474305625c4ce8333ff5761dda9fb22a4372df3a",
+      "github_actions_runner_versions": [
+        "2.337.0"
+      ],
+      "actual_image_names_in_setup_logs": [
+        "windows-2025-vs2026"
+      ],
+      "runtime_contents_read_only_verified": true,
+      "artifacts": [
+        {
+          "shell": "pwsh",
+          "job_id": 112433010872,
+          "job_conclusion": "success",
+          "started_at": "2026-10-06T18:26:43Z",
+          "completed_at": "2026-10-06T18:39:05Z",
+          "required_step_count": 6,
+          "required_steps_all_success": true,
+          "all_manifest_suites_in_normal_and_control_logs_verified": true,
+          "all_27_suites_in_normal_and_control_logs_verified": true,
+          "T069_T070_T071_actually_passed_normal_and_control": true,
+          "T072_actually_passed_normal_and_control": true,
+          "portable_package_sources_bound_to_tested_git_tree": true,
+          "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+          "all_documentation_assertions_in_normal_and_control_logs_verified": true,
+          "actual_control_failure_is_only_T007_verified": true,
+          "manifest_suites": [
+            "Normalizer.Tests.ps1",
+            "Preflight.Tests.ps1",
+            "Traversal.Tests.ps1",
+            "Naming.Tests.ps1",
+            "Transactions.Tests.ps1",
+            "Duplicates.Tests.ps1",
+            "SafetyRegression.Tests.ps1",
+            "Frames.Tests.ps1",
+            "Colour.Tests.ps1",
+            "Paths.Tests.ps1",
+            "Sizing.Tests.ps1",
+            "Diagnostics.Tests.ps1",
+            "ConversionRegression.Tests.ps1",
+            "RecoveryReporting.Tests.ps1",
+            "NativeLifetime.Tests.ps1",
+            "Cancellation.Tests.ps1",
+            "Reporting.Tests.ps1",
+            "Launcher.Tests.ps1",
+            "ExitContract.Tests.ps1",
+            "Compatibility.Tests.ps1",
+            "CodecCompatibility.Tests.ps1",
+            "StaticAnalysis.Tests.ps1",
+            "WorkflowSecurity.Tests.ps1",
+            "Versioning.Tests.ps1",
+            "Packaging.Tests.ps1",
+            "Documentation.Tests.ps1",
+            "Website.Tests.ps1"
+          ],
+          "passed_documentation_test_names_normal_and_control": [
+            "T072 resolves local public links and headings in repository and exact portable contexts",
+            "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+            "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+            "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+            "T072 reports actual invalid byte target 0 before creating destination output",
+            "T072 reports actual invalid byte target 1.5 before creating destination output",
+            "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+            "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+            "T072 reproduces the documented old version control prerequisite failure before output allocation",
+            "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+            "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+            "T072 reports first displayed frame selection and a real omitted animation frame",
+            "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+            "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+          ],
+          "passed_package_positive_names_normal_and_control": [
+            "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+            "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+            "T071 recomputes both exact SHA256SUMS assets independently",
+            "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+            "T070 extracts only approved root files into a fresh directory with spaces",
+            "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+            "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+            "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+          ],
+          "artifact_id": 11434999266,
+          "artifact_name": "synthetic-evidence-pwsh-4cbc39f402c495b2f161da781b61989dd81d3903",
+          "github_archive_digest": "sha256:1bbf72f0a71483553fbac044ec597721a2a96a3c9f34c4018f5f710d113c6c5f",
+          "downloaded_archive_sha256": "1bbf72f0a71483553fbac044ec597721a2a96a3c9f34c4018f5f710d113c6c5f",
+          "files": [
+            {
+              "name": "static-analysis-evidence.json",
+              "sha256": "9febd7539d4bbee0fa328c856ad02dc06093b04f92b4305bbe5f12e08f834860",
+              "bytes": 7905
+            },
+            {
+              "name": "test-evidence.json",
+              "sha256": "ffee93313197d85014deb60dca50095747baf673e0ea8f712953c66685ad0a3e",
+              "bytes": 36461
+            }
+          ],
+          "two_file_allowlist_and_privacy_verified": true,
+          "source_binding_count": 70,
+          "source_binding_methods": [
+            "Windows CRLF checkout of Git blob",
+            "exact Git blob"
+          ],
+          "actual_source_inventory_sha256": "6f881cfe25565f54c4b2cac97dbdcf706963dc21545b6b8d328bf8821feb4515",
+          "source_binding_inventory": [
+            {
+              "path": ".gitattributes",
+              "sha256": "2a3e5f14e93bcaf27f2df2eca4da444c57210f4c662f9d7e5f94cf9218355739"
+            },
+            {
+              "path": ".github/workflows/windows-tests.yml",
+              "sha256": "5a19ab61315a30ce0c2be01400387bc077bf65a6bb90211a22358835cf0589c8"
+            },
+            {
+              "path": ".gitignore",
+              "sha256": "3fa63fe085ffe679d5d277b9b2071f0c6e66fb02eba70c94af0922a66d2f2cfc"
+            },
+            {
+              "path": "CHANGELOG.md",
+              "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7"
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+            },
+            {
+              "path": "README.md",
+              "sha256": "609ddd91510445296d5d0c8da848f402d8d0a1ebbd7a5f5e999447d849d5e48e"
+            },
+            {
+              "path": "SECURITY.md",
+              "sha256": "71dadc075c0f20901ab98a07a26614b48a69d30ef055795ecc00a119f1dbcd6d"
+            },
+            {
+              "path": "WinImgNormalizer.bat",
+              "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+            },
+            {
+              "path": "WinImgNormalizer.ps1",
+              "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+            },
+            {
+              "path": "WinImgNormalizer_icon_variant.png",
+              "sha256": "479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9"
+            },
+            {
+              "path": "WinImgNormalizer_poster.png",
+              "sha256": "99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926"
+            },
+            {
+              "path": "WinImgNormalizer_variant.ico",
+              "sha256": "78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79"
+            },
+            {
+              "path": "docs/BEHAVIOR.md",
+              "sha256": "0efd4ab81986c394283e11753d5cd8a0983bef0abebbbe8f93540fdc99f99170"
+            },
+            {
+              "path": "docs/release/GETTING_STARTED.md",
+              "sha256": "fc5780024c6fec26341f4d0ff12094c1ef6aafde6833374920cbca42fac4eead"
+            },
+            {
+              "path": "docs/release/NOTES.md",
+              "sha256": "4cd0b8fbfceb84d0121f820270aa86f70d32e7d96b803e3b24c082c12a800ba3"
+            },
+            {
+              "path": "docs/release/PACKAGING.md",
+              "sha256": "651937361aa4588d80661cf42914d0590d831205299884ad9e2bac7f5d346211"
+            },
+            {
+              "path": "docs/release/THIRD_PARTY_NOTICES.md",
+              "sha256": "26f51eb132174c8bdb27c4668e8d441bbad17d0be92d517fa43fd533d49b11ec"
+            },
+            {
+              "path": "docs/website/INTEGRATION.md",
+              "sha256": "d29f49cf3fa0e021d10059d478ec945fb357554e1a898ccc2228550aa95d7e54"
+            },
+            {
+              "path": "docs/website/PRODUCT_COPY.md",
+              "sha256": "052be9aced98d626461f76f2901620adb3626d296cd7c3280efdae07b42c45cd"
+            },
+            {
+              "path": "docs/website/metadata.json",
+              "sha256": "8f533b744ec94e3d84555edb283d86534d89d08c50da094f67491fe362c09f5a"
+            },
+            {
+              "path": "release-metadata.json",
+              "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+            },
+            {
+              "path": "tests/Cancellation.Tests.ps1",
+              "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+            },
+            {
+              "path": "tests/CodecCompatibility.Tests.ps1",
+              "sha256": "28a0de2e1b1585d8f5fac29d75401d405b4637272f8f840328c457f0c1ce8465"
+            },
+            {
+              "path": "tests/Colour.Tests.ps1",
+              "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+            },
+            {
+              "path": "tests/Compatibility.Tests.ps1",
+              "sha256": "8c7d9cc9563cd94b239599945e955602550e27bc62666df1658b52b69450e3bb"
+            },
+            {
+              "path": "tests/ConversionRegression.Tests.ps1",
+              "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+            },
+            {
+              "path": "tests/Diagnostics.Tests.ps1",
+              "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+            },
+            {
+              "path": "tests/Documentation.Tests.ps1",
+              "sha256": "294b3926525e5a04fbb86b6c3bb1943740ce2b56cfb7a6bde6f143cecc140ab2"
+            },
+            {
+              "path": "tests/Duplicates.Tests.ps1",
+              "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+            },
+            {
+              "path": "tests/ExitContract.Tests.ps1",
+              "sha256": "62585751a9e8897054c536e92511412805273b10fcae79b474509d31df2be9d4"
+            },
+            {
+              "path": "tests/Export-TestEvidence.ps1",
+              "sha256": "fdc50425f9f0bd69feff335e2e9b036b6e5d4c8b55f07979096f3826a7f5510f"
+            },
+            {
+              "path": "tests/Frames.Tests.ps1",
+              "sha256": "a995d660be43d9d43eca2bed7e6e5b6361f7523a480e05f188738b74f4339059"
+            },
+            {
+              "path": "tests/Initialize-TestDependencies.ps1",
+              "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+            },
+            {
+              "path": "tests/Invoke-StaticAnalysis.ps1",
+              "sha256": "2acf25a1fd0d217bf9c67c4400da2191eec92eb6d5f27e93b64baf41613efb21"
+            },
+            {
+              "path": "tests/Invoke-Tests.ps1",
+              "sha256": "738f3b651bd310864b37e5ebcf26328b8955dfcd5351a7cc9ddcdc6ef616b69b"
+            },
+            {
+              "path": "tests/Launcher.Tests.ps1",
+              "sha256": "3e4daa4e9ddf32c49faeebd5af3c9efd166bccd0420eafb5b254d9532c6f792e"
+            },
+            {
+              "path": "tests/Measure-SizeQuality.ps1",
+              "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+            },
+            {
+              "path": "tests/Naming.Tests.ps1",
+              "sha256": "c725e82af94a762ca7dade70ab713ed1fd2eac97dbcae6e7ce5d1bdc68dfcb0d"
+            },
+            {
+              "path": "tests/NativeLifetime.Tests.ps1",
+              "sha256": "63753268ceec7d3f861431cdc874985d6594a6c23c8ddb8f5ad9c1bb6cdc6fb6"
+            },
+            {
+              "path": "tests/Normalizer.Tests.ps1",
+              "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+            },
+            {
+              "path": "tests/PSScriptAnalyzerSettings.psd1",
+              "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+            },
+            {
+              "path": "tests/Packaging.Tests.ps1",
+              "sha256": "e595bffb8e032a4d70e881096e805d5f2fc2de569f1f63e86cfe2509051d45ce"
+            },
+            {
+              "path": "tests/Paths.Tests.ps1",
+              "sha256": "482a011d51e498c1592e14c022e68a6cae8a16ac28b45bf8a63eec0703c45b90"
+            },
+            {
+              "path": "tests/Preflight.Tests.ps1",
+              "sha256": "1e3ef8dfc992ed5e4ab52cf90724c76351cb97c3c38e8c8afea8126cd85f73af"
+            },
+            {
+              "path": "tests/RecoveryReporting.Tests.ps1",
+              "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+            },
+            {
+              "path": "tests/Reporting.Tests.ps1",
+              "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+            },
+            {
+              "path": "tests/SafetyRegression.Tests.ps1",
+              "sha256": "693d8c76048f3a98c0081954693869dd4f07978821ff30cb3512b78af1cc7621"
+            },
+            {
+              "path": "tests/Sizing.Tests.ps1",
+              "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+            },
+            {
+              "path": "tests/StaticAnalysis.Tests.ps1",
+              "sha256": "98f02341ea0480a5fdd8f1d42bb2179ebce2a5be4822cae6d04934df93b17236"
+            },
+            {
+              "path": "tests/TestGate.ps1",
+              "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+            },
+            {
+              "path": "tests/Transactions.Tests.ps1",
+              "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+            },
+            {
+              "path": "tests/Traversal.Tests.ps1",
+              "sha256": "9153ba4bf9384beac2a1e883191c7845774e661b968b6869cfdb52bc9e0bc0bb"
+            },
+            {
+              "path": "tests/Versioning.Tests.ps1",
+              "sha256": "6b207eb4c3bdf04b2998df43bc6238ed63438a72dba8e0b331e1f5db0fbf5b10"
+            },
+            {
+              "path": "tests/Website.Tests.ps1",
+              "sha256": "84478be0a3b839a4fb748922c354aafc47ae49a951efd30a16497698383390b9"
+            },
+            {
+              "path": "tests/WorkflowSecurity.Tests.ps1",
+              "sha256": "960bb7c8673fa43d4bfe9d6faab22d16f63ac32af022ab8e29c4addab3a4f5a6"
+            },
+            {
+              "path": "tests/dependencies.json",
+              "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+            },
+            {
+              "path": "tests/fixtures/LauncherConsoleFixture.cs",
+              "sha256": "0df25de2e93afeb39a14235af505ea2a0bbd3657f1400937e5a1374ba5f1b925"
+            },
+            {
+              "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+              "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+            },
+            {
+              "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+              "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+            },
+            {
+              "path": "tests/fixtures/colour/Generate-Reference.py",
+              "sha256": "e342eab730b34197dd3f74a7726a39c6cf72f31c160a2d012169cb22957fffd7"
+            },
+            {
+              "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+              "sha256": "7bfe1dfbb1e1adc61096d16fe711ec9a3c12059f43a1a7a654eb36a4eb15bb92"
+            },
+            {
+              "path": "tests/fixtures/colour/MANIFEST.json",
+              "sha256": "2c99f919d1810c7f6dfcab75bb0975c6fa6f7c4c5ff9cca3099c95cb71345b18"
+            },
+            {
+              "path": "tests/fixtures/colour/README.md",
+              "sha256": "e3ebef6ef03999c4800261f158214058ac7887c59cbbcf545a747a42e3314555"
+            },
+            {
+              "path": "tests/fixtures/colour/REFERENCE.json",
+              "sha256": "f2244e896aa458d2db931022d61d0b84f823e50475309655940734bc64a4c737"
+            },
+            {
+              "path": "tests/fixtures/colour/sRGB-v4.icc",
+              "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+            },
+            {
+              "path": "tests/legacy/toolchain.json",
+              "sha256": "4c05c8e0b54be1b82d7236532822d0d8a28a8404cb857a5f8b22a5f537baff9a"
+            },
+            {
+              "path": "tests/mandatory-tests.json",
+              "sha256": "4e85cedcf9c6accf615db81fb358dd8f8809855ac305c029c7a6ede0467e0e44"
+            },
+            {
+              "path": "tools/release/Build-Release.ps1",
+              "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+            },
+            {
+              "path": "tools/release/Update-ReleaseMetadata.ps1",
+              "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+            },
+            {
+              "path": "tools/website/Test-WebsiteHandoff.ps1",
+              "sha256": "05bdf815d5cf0395e415d0125add6c19bce78dc975f7bb2e5e13fe923d06d157"
+            }
+          ],
+          "normal_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072",
+            "T073"
+          ],
+          "control_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072",
+            "T073"
+          ],
+          "full_source_inventory_matches_exact_git_tree": true,
+          "clean_source_and_commit_and_policy_unchanged": true,
+          "normal": {
+            "total_count": 590,
+            "passed_count": 590,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 0,
+            "exit_code": 0
+          },
+          "assertion_control": {
+            "total_count": 591,
+            "passed_count": 590,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 2,
+            "exit_code": 1
+          },
+          "normal_passed_case_count": 67,
+          "control_passed_case_count": 67,
+          "mandatory_cases_all_passed": true,
+          "normal_passed_case_ids_sha256": "750fed2ca9c29948b5fc976a45187a66d3c05e1599d3079b036cb8c9f9dc7020",
+          "control_passed_case_ids_sha256": "750fed2ca9c29948b5fc976a45187a66d3c05e1599d3079b036cb8c9f9dc7020",
+          "actual_codec_coverage": {
+            "bmp": [
+              "T065",
+              1,
+              true
+            ],
+            "gif": [
+              "T065",
+              1,
+              true
+            ],
+            "heic": [
+              "T031",
+              1,
+              true
+            ],
+            "heif": [
+              "T031",
+              1,
+              true
+            ],
+            "jpeg": [
+              "T065",
+              1,
+              true
+            ],
+            "jpg": [
+              "T065",
+              1,
+              true
+            ],
+            "png": [
+              "T065",
+              1,
+              true
+            ],
+            "tif": [
+              "T065",
+              1,
+              true
+            ],
+            "tiff": [
+              "T065",
+              1,
+              true
+            ],
+            "webp": [
+              "T065",
+              1,
+              true
+            ]
+          },
+          "control_codec_coverage_identical": true,
+          "analyzer": {
+            "scanned_file_count": 10,
+            "normal_scoped_findings_count": 0,
+            "normal_findings_count": 0,
+            "normal_exit_code": 0,
+            "control_scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_total_findings_count": 1,
+            "control_exit_code": 1,
+            "control_detected": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_binding_count": 12,
+            "environment_limit": "Analyzer runner does not record GitHub-specific environment fields; exported nulls are preserved. Actual tested_commit/source bindings, shared OS/PowerShell fields and same-job step logs bind analyzer execution.",
+            "actual_source_inventory_sha256": "7993d1ab48fd11c1c703b5024c53b286b071a129024bca9d9d44a0a30ba46e60",
+            "source_binding_inventory": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "fdc50425f9f0bd69feff335e2e9b036b6e5d4c8b55f07979096f3826a7f5510f"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "2acf25a1fd0d217bf9c67c4400da2191eec92eb6d5f27e93b64baf41613efb21"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "738f3b651bd310864b37e5ebcf26328b8955dfcd5351a7cc9ddcdc6ef616b69b"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+              },
+              {
+                "path": "tools/release/Build-Release.ps1",
+                "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+              },
+              {
+                "path": "tools/release/Update-ReleaseMetadata.ps1",
+                "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+              },
+              {
+                "path": "tools/website/Test-WebsiteHandoff.ps1",
+                "sha256": "05bdf815d5cf0395e415d0125add6c19bce78dc975f7bb2e5e13fe923d06d157"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingWMICmdlet",
+              "PSMisleadingBacktick",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSReservedParams",
+              "PSUseCmdletCorrectly",
+              "PSUseCompatibleSyntax",
+              "PSUsePSCredentialType"
+            ]
+          },
+          "actual_native_controls_verified_in_logs": true,
+          "raw_summary_sha256": {
+            "normal_tests": "bddbdcf48def584491fb63e2e0abdadf2c40af71192dbd61fcf47e4a04268457",
+            "control_tests": "cd650e179562f3a1a738ab9a4b83974dd1e5ba8086e2433faca07efc6038e85a",
+            "normal_analysis": "35132cf4b0097076340ef4209170f12d2f176166ab43d5826dae28687be10cfb",
+            "control_analysis": "637cec02c22127964938420a36e2a87a381152aaf23256ff317b3c9d9c602581"
+          },
+          "host": {
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "7.6.6",
+            "powershell_edition": "Core",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32"
+          },
+          "dependencies": {
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          },
+          "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+          "full_fractional_utc_inside_actual_step_intervals_verified": true,
+          "T073_actually_passed_normal_and_control": true,
+          "all_website_assertions_in_normal_and_control_logs_verified": true,
+          "passed_website_test_names_normal_and_control": [
+            "accepts the checked-in draft through explicit and script-relative native CLI paths",
+            "keeps the only release version and publication fields in the canonical release record",
+            "resolves actual local copy/integration links and refuses a missing or escaped link",
+            "rejects unpublished canonical field tag rather than constructing a live release link",
+            "rejects unpublished canonical field release_date rather than constructing a live release link",
+            "rejects unpublished canonical field release_url rather than constructing a live release link",
+            "rejects unpublished canonical field asset_filename rather than constructing a live release link",
+            "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+            "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+            "rejects unpublished canonical field release_date rather than constructing a live release link",
+            "rejects unpublished canonical field asset_sha256 rather than constructing a live release link",
+            "rejects unpublished canonical field download_url rather than constructing a live release link",
+            "rejects extra root publication keys even when the canonical release is still draft",
+            "rejects extra product publication keys even when the canonical release is still draft",
+            "rejects extra download publication keys even when the canonical release is still draft",
+            "rejects extra download publication keys even when the canonical release is still draft",
+            "refuses a live download flag of True with its actual JSON type",
+            "refuses a live download flag of false with its actual JSON type",
+            "refuses a live download flag of 0 with its actual JSON type",
+            "refuses a live download flag of  with its actual JSON type",
+            "refuses processing boundary uploads even with every release field still null",
+            "refuses processing boundary processing_api even with every release field still null",
+            "refuses processing boundary server_runtime even with every release field still null",
+            "refuses processing boundary runtime_account_required even with every release field still null",
+            "refuses processing boundary telemetry even with every release field still null",
+            "rejects claimed deployment domain in an integration handoff without website context",
+            "rejects claimed deployment framework in an integration handoff without website context",
+            "rejects claimed deployment hosting_provider in an integration handoff without website context",
+            "rejects a fabricated screenshots capture or comparison while preserving the original branding",
+            "rejects a fabricated comparisons capture or comparison while preserving the original branding",
+            "refuses metadata with stale repository_url identity or prerequisites",
+            "refuses metadata with stale license identity or prerequisites",
+            "refuses metadata with stale release_metadata_file identity or prerequisites",
+            "refuses metadata with stale imagemagick_minimum identity or prerequisites",
+            "refuses metadata with stale supported_major identity or prerequisites",
+            "refuses metadata with stale name identity or prerequisites",
+            "rejects changed asset sha256 instead of treating it as an approved capture",
+            "rejects changed asset bytes instead of treating it as an approved capture",
+            "rejects changed asset width instead of treating it as an approved capture",
+            "rejects changed asset width instead of treating it as an approved capture",
+            "rejects changed asset media_type instead of treating it as an approved capture",
+            "rejects changed asset path instead of treating it as an approved capture",
+            "rejects changed asset usage instead of treating it as an approved capture",
+            "rejects changed asset sizes instead of treating it as an approved capture",
+            "rejects changed asset display instead of treating it as an approved capture",
+            "rejects a missing local document and a path escape instead of accepting a broken handoff",
+            "refuses actual broken links, upload markup and unpublished release links in owned visitor copy",
+            "refuses a reference definition link that could expose an unpublished download in rendered copy",
+            "refuses a autolink link that could expose an unpublished download in rendered copy",
+            "refuses a HTML anchor link that could expose an unpublished download in rendered copy",
+            "refuses a bare URI link that could expose an unpublished download in rendered copy",
+            "refuses malformed, nonscalar and wrong-schema metadata as native guard failures",
+            "refuses an unowned external or non-JSON metadata path before reading it as a draft",
+            "accepts an ordinary owned replica and refuses stale canonical version and published state",
+            "binds the actual application version body rather than trusting the projection alone",
+            "detects actual tampering with an owned branding file even when metadata remains untouched"
+          ],
+          "website_assertion_observations": [
+            {
+              "job_name": "pwsh on Windows Server 2025",
+              "step": "Run mandatory tests with verified development dependencies",
+              "assertion_count": 56,
+              "expanded_name_multiplicity_verified": true
+            },
+            {
+              "job_name": "pwsh on Windows Server 2025",
+              "step": "Prove a broken assertion returns failure",
+              "assertion_count": 56,
+              "expanded_name_multiplicity_verified": true
+            }
+          ],
+          "website_sources_bound_to_tested_git_tree": true,
+          "documentation_sources_bound_to_tested_git_tree": true
+        },
+        {
+          "shell": "powershell",
+          "job_id": 112433010400,
+          "job_conclusion": "success",
+          "started_at": "2026-10-06T18:26:43Z",
+          "completed_at": "2026-10-06T18:43:47Z",
+          "required_step_count": 6,
+          "required_steps_all_success": true,
+          "all_manifest_suites_in_normal_and_control_logs_verified": true,
+          "all_27_suites_in_normal_and_control_logs_verified": true,
+          "T069_T070_T071_actually_passed_normal_and_control": true,
+          "T072_actually_passed_normal_and_control": true,
+          "portable_package_sources_bound_to_tested_git_tree": true,
+          "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+          "all_documentation_assertions_in_normal_and_control_logs_verified": true,
+          "actual_control_failure_is_only_T007_verified": true,
+          "manifest_suites": [
+            "Normalizer.Tests.ps1",
+            "Preflight.Tests.ps1",
+            "Traversal.Tests.ps1",
+            "Naming.Tests.ps1",
+            "Transactions.Tests.ps1",
+            "Duplicates.Tests.ps1",
+            "SafetyRegression.Tests.ps1",
+            "Frames.Tests.ps1",
+            "Colour.Tests.ps1",
+            "Paths.Tests.ps1",
+            "Sizing.Tests.ps1",
+            "Diagnostics.Tests.ps1",
+            "ConversionRegression.Tests.ps1",
+            "RecoveryReporting.Tests.ps1",
+            "NativeLifetime.Tests.ps1",
+            "Cancellation.Tests.ps1",
+            "Reporting.Tests.ps1",
+            "Launcher.Tests.ps1",
+            "ExitContract.Tests.ps1",
+            "Compatibility.Tests.ps1",
+            "CodecCompatibility.Tests.ps1",
+            "StaticAnalysis.Tests.ps1",
+            "WorkflowSecurity.Tests.ps1",
+            "Versioning.Tests.ps1",
+            "Packaging.Tests.ps1",
+            "Documentation.Tests.ps1",
+            "Website.Tests.ps1"
+          ],
+          "passed_documentation_test_names_normal_and_control": [
+            "T072 resolves local public links and headings in repository and exact portable contexts",
+            "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+            "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+            "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+            "T072 reports actual invalid byte target 0 before creating destination output",
+            "T072 reports actual invalid byte target 1.5 before creating destination output",
+            "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+            "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+            "T072 reproduces the documented old version control prerequisite failure before output allocation",
+            "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+            "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+            "T072 reports first displayed frame selection and a real omitted animation frame",
+            "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+            "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+          ],
+          "passed_package_positive_names_normal_and_control": [
+            "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+            "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+            "T071 recomputes both exact SHA256SUMS assets independently",
+            "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+            "T070 extracts only approved root files into a fresh directory with spaces",
+            "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+            "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+            "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+          ],
+          "artifact_id": 11434749952,
+          "artifact_name": "synthetic-evidence-powershell-4cbc39f402c495b2f161da781b61989dd81d3903",
+          "github_archive_digest": "sha256:fd38305832798bab83e7609ffc7fdcca690d0303f57f0f6fc1f441f5f21ee1ae",
+          "downloaded_archive_sha256": "fd38305832798bab83e7609ffc7fdcca690d0303f57f0f6fc1f441f5f21ee1ae",
+          "files": [
+            {
+              "name": "static-analysis-evidence.json",
+              "sha256": "26eef3ce6dc3ee54338ef54b6cbbca28cf6f4cf055009b61a1fcfbc09886f27b",
+              "bytes": 13396
+            },
+            {
+              "name": "test-evidence.json",
+              "sha256": "f47390e074923caeb23d2805c7256a2e823b4690181785fcee17fb38d78d97cd",
+              "bytes": 79052
+            }
+          ],
+          "two_file_allowlist_and_privacy_verified": true,
+          "source_binding_count": 70,
+          "source_binding_methods": [
+            "Windows CRLF checkout of Git blob",
+            "exact Git blob"
+          ],
+          "actual_source_inventory_sha256": "6f881cfe25565f54c4b2cac97dbdcf706963dc21545b6b8d328bf8821feb4515",
+          "source_binding_inventory": [
+            {
+              "path": ".gitattributes",
+              "sha256": "2a3e5f14e93bcaf27f2df2eca4da444c57210f4c662f9d7e5f94cf9218355739"
+            },
+            {
+              "path": ".github/workflows/windows-tests.yml",
+              "sha256": "5a19ab61315a30ce0c2be01400387bc077bf65a6bb90211a22358835cf0589c8"
+            },
+            {
+              "path": ".gitignore",
+              "sha256": "3fa63fe085ffe679d5d277b9b2071f0c6e66fb02eba70c94af0922a66d2f2cfc"
+            },
+            {
+              "path": "CHANGELOG.md",
+              "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7"
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+            },
+            {
+              "path": "README.md",
+              "sha256": "609ddd91510445296d5d0c8da848f402d8d0a1ebbd7a5f5e999447d849d5e48e"
+            },
+            {
+              "path": "SECURITY.md",
+              "sha256": "71dadc075c0f20901ab98a07a26614b48a69d30ef055795ecc00a119f1dbcd6d"
+            },
+            {
+              "path": "WinImgNormalizer.bat",
+              "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+            },
+            {
+              "path": "WinImgNormalizer.ps1",
+              "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+            },
+            {
+              "path": "WinImgNormalizer_icon_variant.png",
+              "sha256": "479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9"
+            },
+            {
+              "path": "WinImgNormalizer_poster.png",
+              "sha256": "99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926"
+            },
+            {
+              "path": "WinImgNormalizer_variant.ico",
+              "sha256": "78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79"
+            },
+            {
+              "path": "docs/BEHAVIOR.md",
+              "sha256": "0efd4ab81986c394283e11753d5cd8a0983bef0abebbbe8f93540fdc99f99170"
+            },
+            {
+              "path": "docs/release/GETTING_STARTED.md",
+              "sha256": "fc5780024c6fec26341f4d0ff12094c1ef6aafde6833374920cbca42fac4eead"
+            },
+            {
+              "path": "docs/release/NOTES.md",
+              "sha256": "4cd0b8fbfceb84d0121f820270aa86f70d32e7d96b803e3b24c082c12a800ba3"
+            },
+            {
+              "path": "docs/release/PACKAGING.md",
+              "sha256": "651937361aa4588d80661cf42914d0590d831205299884ad9e2bac7f5d346211"
+            },
+            {
+              "path": "docs/release/THIRD_PARTY_NOTICES.md",
+              "sha256": "26f51eb132174c8bdb27c4668e8d441bbad17d0be92d517fa43fd533d49b11ec"
+            },
+            {
+              "path": "docs/website/INTEGRATION.md",
+              "sha256": "d29f49cf3fa0e021d10059d478ec945fb357554e1a898ccc2228550aa95d7e54"
+            },
+            {
+              "path": "docs/website/PRODUCT_COPY.md",
+              "sha256": "052be9aced98d626461f76f2901620adb3626d296cd7c3280efdae07b42c45cd"
+            },
+            {
+              "path": "docs/website/metadata.json",
+              "sha256": "8f533b744ec94e3d84555edb283d86534d89d08c50da094f67491fe362c09f5a"
+            },
+            {
+              "path": "release-metadata.json",
+              "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+            },
+            {
+              "path": "tests/Cancellation.Tests.ps1",
+              "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+            },
+            {
+              "path": "tests/CodecCompatibility.Tests.ps1",
+              "sha256": "28a0de2e1b1585d8f5fac29d75401d405b4637272f8f840328c457f0c1ce8465"
+            },
+            {
+              "path": "tests/Colour.Tests.ps1",
+              "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+            },
+            {
+              "path": "tests/Compatibility.Tests.ps1",
+              "sha256": "8c7d9cc9563cd94b239599945e955602550e27bc62666df1658b52b69450e3bb"
+            },
+            {
+              "path": "tests/ConversionRegression.Tests.ps1",
+              "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+            },
+            {
+              "path": "tests/Diagnostics.Tests.ps1",
+              "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+            },
+            {
+              "path": "tests/Documentation.Tests.ps1",
+              "sha256": "294b3926525e5a04fbb86b6c3bb1943740ce2b56cfb7a6bde6f143cecc140ab2"
+            },
+            {
+              "path": "tests/Duplicates.Tests.ps1",
+              "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+            },
+            {
+              "path": "tests/ExitContract.Tests.ps1",
+              "sha256": "62585751a9e8897054c536e92511412805273b10fcae79b474509d31df2be9d4"
+            },
+            {
+              "path": "tests/Export-TestEvidence.ps1",
+              "sha256": "fdc50425f9f0bd69feff335e2e9b036b6e5d4c8b55f07979096f3826a7f5510f"
+            },
+            {
+              "path": "tests/Frames.Tests.ps1",
+              "sha256": "a995d660be43d9d43eca2bed7e6e5b6361f7523a480e05f188738b74f4339059"
+            },
+            {
+              "path": "tests/Initialize-TestDependencies.ps1",
+              "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+            },
+            {
+              "path": "tests/Invoke-StaticAnalysis.ps1",
+              "sha256": "2acf25a1fd0d217bf9c67c4400da2191eec92eb6d5f27e93b64baf41613efb21"
+            },
+            {
+              "path": "tests/Invoke-Tests.ps1",
+              "sha256": "738f3b651bd310864b37e5ebcf26328b8955dfcd5351a7cc9ddcdc6ef616b69b"
+            },
+            {
+              "path": "tests/Launcher.Tests.ps1",
+              "sha256": "3e4daa4e9ddf32c49faeebd5af3c9efd166bccd0420eafb5b254d9532c6f792e"
+            },
+            {
+              "path": "tests/Measure-SizeQuality.ps1",
+              "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+            },
+            {
+              "path": "tests/Naming.Tests.ps1",
+              "sha256": "c725e82af94a762ca7dade70ab713ed1fd2eac97dbcae6e7ce5d1bdc68dfcb0d"
+            },
+            {
+              "path": "tests/NativeLifetime.Tests.ps1",
+              "sha256": "63753268ceec7d3f861431cdc874985d6594a6c23c8ddb8f5ad9c1bb6cdc6fb6"
+            },
+            {
+              "path": "tests/Normalizer.Tests.ps1",
+              "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+            },
+            {
+              "path": "tests/PSScriptAnalyzerSettings.psd1",
+              "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+            },
+            {
+              "path": "tests/Packaging.Tests.ps1",
+              "sha256": "e595bffb8e032a4d70e881096e805d5f2fc2de569f1f63e86cfe2509051d45ce"
+            },
+            {
+              "path": "tests/Paths.Tests.ps1",
+              "sha256": "482a011d51e498c1592e14c022e68a6cae8a16ac28b45bf8a63eec0703c45b90"
+            },
+            {
+              "path": "tests/Preflight.Tests.ps1",
+              "sha256": "1e3ef8dfc992ed5e4ab52cf90724c76351cb97c3c38e8c8afea8126cd85f73af"
+            },
+            {
+              "path": "tests/RecoveryReporting.Tests.ps1",
+              "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+            },
+            {
+              "path": "tests/Reporting.Tests.ps1",
+              "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+            },
+            {
+              "path": "tests/SafetyRegression.Tests.ps1",
+              "sha256": "693d8c76048f3a98c0081954693869dd4f07978821ff30cb3512b78af1cc7621"
+            },
+            {
+              "path": "tests/Sizing.Tests.ps1",
+              "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+            },
+            {
+              "path": "tests/StaticAnalysis.Tests.ps1",
+              "sha256": "98f02341ea0480a5fdd8f1d42bb2179ebce2a5be4822cae6d04934df93b17236"
+            },
+            {
+              "path": "tests/TestGate.ps1",
+              "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+            },
+            {
+              "path": "tests/Transactions.Tests.ps1",
+              "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+            },
+            {
+              "path": "tests/Traversal.Tests.ps1",
+              "sha256": "9153ba4bf9384beac2a1e883191c7845774e661b968b6869cfdb52bc9e0bc0bb"
+            },
+            {
+              "path": "tests/Versioning.Tests.ps1",
+              "sha256": "6b207eb4c3bdf04b2998df43bc6238ed63438a72dba8e0b331e1f5db0fbf5b10"
+            },
+            {
+              "path": "tests/Website.Tests.ps1",
+              "sha256": "84478be0a3b839a4fb748922c354aafc47ae49a951efd30a16497698383390b9"
+            },
+            {
+              "path": "tests/WorkflowSecurity.Tests.ps1",
+              "sha256": "960bb7c8673fa43d4bfe9d6faab22d16f63ac32af022ab8e29c4addab3a4f5a6"
+            },
+            {
+              "path": "tests/dependencies.json",
+              "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+            },
+            {
+              "path": "tests/fixtures/LauncherConsoleFixture.cs",
+              "sha256": "0df25de2e93afeb39a14235af505ea2a0bbd3657f1400937e5a1374ba5f1b925"
+            },
+            {
+              "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+              "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+            },
+            {
+              "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+              "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+            },
+            {
+              "path": "tests/fixtures/colour/Generate-Reference.py",
+              "sha256": "e342eab730b34197dd3f74a7726a39c6cf72f31c160a2d012169cb22957fffd7"
+            },
+            {
+              "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+              "sha256": "7bfe1dfbb1e1adc61096d16fe711ec9a3c12059f43a1a7a654eb36a4eb15bb92"
+            },
+            {
+              "path": "tests/fixtures/colour/MANIFEST.json",
+              "sha256": "2c99f919d1810c7f6dfcab75bb0975c6fa6f7c4c5ff9cca3099c95cb71345b18"
+            },
+            {
+              "path": "tests/fixtures/colour/README.md",
+              "sha256": "e3ebef6ef03999c4800261f158214058ac7887c59cbbcf545a747a42e3314555"
+            },
+            {
+              "path": "tests/fixtures/colour/REFERENCE.json",
+              "sha256": "f2244e896aa458d2db931022d61d0b84f823e50475309655940734bc64a4c737"
+            },
+            {
+              "path": "tests/fixtures/colour/sRGB-v4.icc",
+              "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+            },
+            {
+              "path": "tests/legacy/toolchain.json",
+              "sha256": "4c05c8e0b54be1b82d7236532822d0d8a28a8404cb857a5f8b22a5f537baff9a"
+            },
+            {
+              "path": "tests/mandatory-tests.json",
+              "sha256": "4e85cedcf9c6accf615db81fb358dd8f8809855ac305c029c7a6ede0467e0e44"
+            },
+            {
+              "path": "tools/release/Build-Release.ps1",
+              "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+            },
+            {
+              "path": "tools/release/Update-ReleaseMetadata.ps1",
+              "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+            },
+            {
+              "path": "tools/website/Test-WebsiteHandoff.ps1",
+              "sha256": "05bdf815d5cf0395e415d0125add6c19bce78dc975f7bb2e5e13fe923d06d157"
+            }
+          ],
+          "normal_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072",
+            "T073"
+          ],
+          "control_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072",
+            "T073"
+          ],
+          "full_source_inventory_matches_exact_git_tree": true,
+          "clean_source_and_commit_and_policy_unchanged": true,
+          "normal": {
+            "total_count": 590,
+            "passed_count": 590,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 0,
+            "exit_code": 0
+          },
+          "assertion_control": {
+            "total_count": 591,
+            "passed_count": 590,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 2,
+            "exit_code": 1
+          },
+          "normal_passed_case_count": 67,
+          "control_passed_case_count": 67,
+          "mandatory_cases_all_passed": true,
+          "normal_passed_case_ids_sha256": "750fed2ca9c29948b5fc976a45187a66d3c05e1599d3079b036cb8c9f9dc7020",
+          "control_passed_case_ids_sha256": "750fed2ca9c29948b5fc976a45187a66d3c05e1599d3079b036cb8c9f9dc7020",
+          "actual_codec_coverage": {
+            "bmp": [
+              "T065",
+              1,
+              true
+            ],
+            "gif": [
+              "T065",
+              1,
+              true
+            ],
+            "heic": [
+              "T031",
+              1,
+              true
+            ],
+            "heif": [
+              "T031",
+              1,
+              true
+            ],
+            "jpeg": [
+              "T065",
+              1,
+              true
+            ],
+            "jpg": [
+              "T065",
+              1,
+              true
+            ],
+            "png": [
+              "T065",
+              1,
+              true
+            ],
+            "tif": [
+              "T065",
+              1,
+              true
+            ],
+            "tiff": [
+              "T065",
+              1,
+              true
+            ],
+            "webp": [
+              "T065",
+              1,
+              true
+            ]
+          },
+          "control_codec_coverage_identical": true,
+          "analyzer": {
+            "scanned_file_count": 10,
+            "normal_scoped_findings_count": 0,
+            "normal_findings_count": 0,
+            "normal_exit_code": 0,
+            "control_scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_total_findings_count": 1,
+            "control_exit_code": 1,
+            "control_detected": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_binding_count": 12,
+            "environment_limit": "Analyzer runner does not record GitHub-specific environment fields; exported nulls are preserved. Actual tested_commit/source bindings, shared OS/PowerShell fields and same-job step logs bind analyzer execution.",
+            "actual_source_inventory_sha256": "7993d1ab48fd11c1c703b5024c53b286b071a129024bca9d9d44a0a30ba46e60",
+            "source_binding_inventory": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "fdc50425f9f0bd69feff335e2e9b036b6e5d4c8b55f07979096f3826a7f5510f"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "2acf25a1fd0d217bf9c67c4400da2191eec92eb6d5f27e93b64baf41613efb21"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "738f3b651bd310864b37e5ebcf26328b8955dfcd5351a7cc9ddcdc6ef616b69b"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+              },
+              {
+                "path": "tools/release/Build-Release.ps1",
+                "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+              },
+              {
+                "path": "tools/release/Update-ReleaseMetadata.ps1",
+                "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+              },
+              {
+                "path": "tools/website/Test-WebsiteHandoff.ps1",
+                "sha256": "05bdf815d5cf0395e415d0125add6c19bce78dc975f7bb2e5e13fe923d06d157"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingWMICmdlet",
+              "PSMisleadingBacktick",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSReservedParams",
+              "PSUseCmdletCorrectly",
+              "PSUseCompatibleSyntax",
+              "PSUsePSCredentialType"
+            ]
+          },
+          "actual_native_controls_verified_in_logs": true,
+          "raw_summary_sha256": {
+            "normal_tests": "25364bcb736d2eb798cfb0652cde93453bdb302fe784a493a410c943f3255a9f",
+            "control_tests": "44a3f24ce2d388e13e48f89120627b157dacd01bf744c71b587bc5508213b925",
+            "normal_analysis": "622b6293a5c50360fc9ee4a28070633dd073497e59a722058da1ac450e252e96",
+            "control_analysis": "6543f9e3d2fd72b8596f893a3f9807b4660af8d755b5272eea813d400e15d6e7"
+          },
+          "host": {
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "5.1.26100.33438",
+            "powershell_edition": "Desktop",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32"
+          },
+          "dependencies": {
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          },
+          "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+          "full_fractional_utc_inside_actual_step_intervals_verified": true,
+          "T073_actually_passed_normal_and_control": true,
+          "all_website_assertions_in_normal_and_control_logs_verified": true,
+          "passed_website_test_names_normal_and_control": [
+            "accepts the checked-in draft through explicit and script-relative native CLI paths",
+            "keeps the only release version and publication fields in the canonical release record",
+            "resolves actual local copy/integration links and refuses a missing or escaped link",
+            "rejects unpublished canonical field tag rather than constructing a live release link",
+            "rejects unpublished canonical field release_date rather than constructing a live release link",
+            "rejects unpublished canonical field release_url rather than constructing a live release link",
+            "rejects unpublished canonical field asset_filename rather than constructing a live release link",
+            "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+            "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+            "rejects unpublished canonical field release_date rather than constructing a live release link",
+            "rejects unpublished canonical field asset_sha256 rather than constructing a live release link",
+            "rejects unpublished canonical field download_url rather than constructing a live release link",
+            "rejects extra root publication keys even when the canonical release is still draft",
+            "rejects extra product publication keys even when the canonical release is still draft",
+            "rejects extra download publication keys even when the canonical release is still draft",
+            "rejects extra download publication keys even when the canonical release is still draft",
+            "refuses a live download flag of True with its actual JSON type",
+            "refuses a live download flag of false with its actual JSON type",
+            "refuses a live download flag of 0 with its actual JSON type",
+            "refuses a live download flag of  with its actual JSON type",
+            "refuses processing boundary uploads even with every release field still null",
+            "refuses processing boundary processing_api even with every release field still null",
+            "refuses processing boundary server_runtime even with every release field still null",
+            "refuses processing boundary runtime_account_required even with every release field still null",
+            "refuses processing boundary telemetry even with every release field still null",
+            "rejects claimed deployment domain in an integration handoff without website context",
+            "rejects claimed deployment framework in an integration handoff without website context",
+            "rejects claimed deployment hosting_provider in an integration handoff without website context",
+            "rejects a fabricated screenshots capture or comparison while preserving the original branding",
+            "rejects a fabricated comparisons capture or comparison while preserving the original branding",
+            "refuses metadata with stale repository_url identity or prerequisites",
+            "refuses metadata with stale license identity or prerequisites",
+            "refuses metadata with stale release_metadata_file identity or prerequisites",
+            "refuses metadata with stale imagemagick_minimum identity or prerequisites",
+            "refuses metadata with stale supported_major identity or prerequisites",
+            "refuses metadata with stale name identity or prerequisites",
+            "rejects changed asset sha256 instead of treating it as an approved capture",
+            "rejects changed asset bytes instead of treating it as an approved capture",
+            "rejects changed asset width instead of treating it as an approved capture",
+            "rejects changed asset width instead of treating it as an approved capture",
+            "rejects changed asset media_type instead of treating it as an approved capture",
+            "rejects changed asset path instead of treating it as an approved capture",
+            "rejects changed asset usage instead of treating it as an approved capture",
+            "rejects changed asset sizes instead of treating it as an approved capture",
+            "rejects changed asset display instead of treating it as an approved capture",
+            "rejects a missing local document and a path escape instead of accepting a broken handoff",
+            "refuses actual broken links, upload markup and unpublished release links in owned visitor copy",
+            "refuses a reference definition link that could expose an unpublished download in rendered copy",
+            "refuses a autolink link that could expose an unpublished download in rendered copy",
+            "refuses a HTML anchor link that could expose an unpublished download in rendered copy",
+            "refuses a bare URI link that could expose an unpublished download in rendered copy",
+            "refuses malformed, nonscalar and wrong-schema metadata as native guard failures",
+            "refuses an unowned external or non-JSON metadata path before reading it as a draft",
+            "accepts an ordinary owned replica and refuses stale canonical version and published state",
+            "binds the actual application version body rather than trusting the projection alone",
+            "detects actual tampering with an owned branding file even when metadata remains untouched"
+          ],
+          "website_assertion_observations": [
+            {
+              "job_name": "powershell on Windows Server 2025",
+              "step": "Run mandatory tests with verified development dependencies",
+              "assertion_count": 56,
+              "expanded_name_multiplicity_verified": true
+            },
+            {
+              "job_name": "powershell on Windows Server 2025",
+              "step": "Prove a broken assertion returns failure",
+              "assertion_count": 56,
+              "expanded_name_multiplicity_verified": true
+            }
+          ],
+          "website_sources_bound_to_tested_git_tree": true,
+          "documentation_sources_bound_to_tested_git_tree": true
+        }
+      ],
+      "actual_clean_checkout_packaging_required_by_verified_source": true,
+      "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+      "all_27_suites_in_normal_and_control_logs_verified": true,
+      "T069_T070_T071_actually_passed_normal_and_control": true,
+      "T072_actually_passed_normal_and_control": true,
+      "T073_actually_passed_normal_and_control": true,
+      "all_manifest_suites_in_normal_and_control_logs_verified": true,
+      "packaging_raw_observation_limit": "Private raw packaging observations and ZIPs are not uploaded. Clean checkout, exact bound Packaging suite source, mandatory T069-T071 outcomes and successful real Windows test steps establish actual-checkout extraction under the CI no-fallback guard; no raw package SHA is reconstructed."
+    },
+    {
+      "run_id": 37511442098,
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37511442098",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "4cbc39f402c495b2f161da781b61989dd81d3903",
+      "actual_checkout_sha": "ea1a16a09a8a0686e881097590bbd4a2b3c8ccd8",
+      "observed_at_utc": "2026-10-06T18:46:21.749877+00:00",
+      "raw_log_sha256": "91fb394843cf4fa0062787d746cea2a9195d9b3605c661b6a3b51aa4694df7f8",
+      "sanitized_local_run_proof_sha256": "5edf93246975b84db58e0f2fababeaf2b7e0d37fab675ae9f008f9632fa7e54f",
+      "github_actions_runner_versions": [
+        "2.337.0"
+      ],
+      "actual_image_names_in_setup_logs": [
+        "windows-2025-vs2026"
+      ],
+      "runtime_contents_read_only_verified": true,
+      "artifacts": [
+        {
+          "shell": "powershell",
+          "job_id": 112433318941,
+          "job_conclusion": "success",
+          "started_at": "2026-10-06T18:27:26Z",
+          "completed_at": "2026-10-06T18:45:00Z",
+          "required_step_count": 6,
+          "required_steps_all_success": true,
+          "all_manifest_suites_in_normal_and_control_logs_verified": true,
+          "all_27_suites_in_normal_and_control_logs_verified": true,
+          "T069_T070_T071_actually_passed_normal_and_control": true,
+          "T072_actually_passed_normal_and_control": true,
+          "portable_package_sources_bound_to_tested_git_tree": true,
+          "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+          "all_documentation_assertions_in_normal_and_control_logs_verified": true,
+          "actual_control_failure_is_only_T007_verified": true,
+          "manifest_suites": [
+            "Normalizer.Tests.ps1",
+            "Preflight.Tests.ps1",
+            "Traversal.Tests.ps1",
+            "Naming.Tests.ps1",
+            "Transactions.Tests.ps1",
+            "Duplicates.Tests.ps1",
+            "SafetyRegression.Tests.ps1",
+            "Frames.Tests.ps1",
+            "Colour.Tests.ps1",
+            "Paths.Tests.ps1",
+            "Sizing.Tests.ps1",
+            "Diagnostics.Tests.ps1",
+            "ConversionRegression.Tests.ps1",
+            "RecoveryReporting.Tests.ps1",
+            "NativeLifetime.Tests.ps1",
+            "Cancellation.Tests.ps1",
+            "Reporting.Tests.ps1",
+            "Launcher.Tests.ps1",
+            "ExitContract.Tests.ps1",
+            "Compatibility.Tests.ps1",
+            "CodecCompatibility.Tests.ps1",
+            "StaticAnalysis.Tests.ps1",
+            "WorkflowSecurity.Tests.ps1",
+            "Versioning.Tests.ps1",
+            "Packaging.Tests.ps1",
+            "Documentation.Tests.ps1",
+            "Website.Tests.ps1"
+          ],
+          "passed_documentation_test_names_normal_and_control": [
+            "T072 resolves local public links and headings in repository and exact portable contexts",
+            "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+            "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+            "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+            "T072 reports actual invalid byte target 0 before creating destination output",
+            "T072 reports actual invalid byte target 1.5 before creating destination output",
+            "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+            "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+            "T072 reproduces the documented old version control prerequisite failure before output allocation",
+            "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+            "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+            "T072 reports first displayed frame selection and a real omitted animation frame",
+            "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+            "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+          ],
+          "passed_package_positive_names_normal_and_control": [
+            "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+            "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+            "T071 recomputes both exact SHA256SUMS assets independently",
+            "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+            "T070 extracts only approved root files into a fresh directory with spaces",
+            "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+            "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+            "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+          ],
+          "artifact_id": 11436425941,
+          "artifact_name": "synthetic-evidence-powershell-ea1a16a09a8a0686e881097590bbd4a2b3c8ccd8",
+          "github_archive_digest": "sha256:9fc462ac922ecf2cd8df41a3c6a6e95bfd209c076d099688171bf282b0f065f3",
+          "downloaded_archive_sha256": "9fc462ac922ecf2cd8df41a3c6a6e95bfd209c076d099688171bf282b0f065f3",
+          "files": [
+            {
+              "name": "static-analysis-evidence.json",
+              "sha256": "7e3149960c205778232f39901c12e581b57c799315f3b4ee8bfb5a1aea87d93e",
+              "bytes": 13396
+            },
+            {
+              "name": "test-evidence.json",
+              "sha256": "ca69439fb54aa16419e6cd3cf5f462730040d844b543ad380f71fc9dac1a168e",
+              "bytes": 79052
+            }
+          ],
+          "two_file_allowlist_and_privacy_verified": true,
+          "source_binding_count": 70,
+          "source_binding_methods": [
+            "Windows CRLF checkout of Git blob",
+            "exact Git blob"
+          ],
+          "actual_source_inventory_sha256": "6f881cfe25565f54c4b2cac97dbdcf706963dc21545b6b8d328bf8821feb4515",
+          "source_binding_inventory": [
+            {
+              "path": ".gitattributes",
+              "sha256": "2a3e5f14e93bcaf27f2df2eca4da444c57210f4c662f9d7e5f94cf9218355739"
+            },
+            {
+              "path": ".github/workflows/windows-tests.yml",
+              "sha256": "5a19ab61315a30ce0c2be01400387bc077bf65a6bb90211a22358835cf0589c8"
+            },
+            {
+              "path": ".gitignore",
+              "sha256": "3fa63fe085ffe679d5d277b9b2071f0c6e66fb02eba70c94af0922a66d2f2cfc"
+            },
+            {
+              "path": "CHANGELOG.md",
+              "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7"
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+            },
+            {
+              "path": "README.md",
+              "sha256": "609ddd91510445296d5d0c8da848f402d8d0a1ebbd7a5f5e999447d849d5e48e"
+            },
+            {
+              "path": "SECURITY.md",
+              "sha256": "71dadc075c0f20901ab98a07a26614b48a69d30ef055795ecc00a119f1dbcd6d"
+            },
+            {
+              "path": "WinImgNormalizer.bat",
+              "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+            },
+            {
+              "path": "WinImgNormalizer.ps1",
+              "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+            },
+            {
+              "path": "WinImgNormalizer_icon_variant.png",
+              "sha256": "479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9"
+            },
+            {
+              "path": "WinImgNormalizer_poster.png",
+              "sha256": "99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926"
+            },
+            {
+              "path": "WinImgNormalizer_variant.ico",
+              "sha256": "78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79"
+            },
+            {
+              "path": "docs/BEHAVIOR.md",
+              "sha256": "0efd4ab81986c394283e11753d5cd8a0983bef0abebbbe8f93540fdc99f99170"
+            },
+            {
+              "path": "docs/release/GETTING_STARTED.md",
+              "sha256": "fc5780024c6fec26341f4d0ff12094c1ef6aafde6833374920cbca42fac4eead"
+            },
+            {
+              "path": "docs/release/NOTES.md",
+              "sha256": "4cd0b8fbfceb84d0121f820270aa86f70d32e7d96b803e3b24c082c12a800ba3"
+            },
+            {
+              "path": "docs/release/PACKAGING.md",
+              "sha256": "651937361aa4588d80661cf42914d0590d831205299884ad9e2bac7f5d346211"
+            },
+            {
+              "path": "docs/release/THIRD_PARTY_NOTICES.md",
+              "sha256": "26f51eb132174c8bdb27c4668e8d441bbad17d0be92d517fa43fd533d49b11ec"
+            },
+            {
+              "path": "docs/website/INTEGRATION.md",
+              "sha256": "d29f49cf3fa0e021d10059d478ec945fb357554e1a898ccc2228550aa95d7e54"
+            },
+            {
+              "path": "docs/website/PRODUCT_COPY.md",
+              "sha256": "052be9aced98d626461f76f2901620adb3626d296cd7c3280efdae07b42c45cd"
+            },
+            {
+              "path": "docs/website/metadata.json",
+              "sha256": "8f533b744ec94e3d84555edb283d86534d89d08c50da094f67491fe362c09f5a"
+            },
+            {
+              "path": "release-metadata.json",
+              "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+            },
+            {
+              "path": "tests/Cancellation.Tests.ps1",
+              "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+            },
+            {
+              "path": "tests/CodecCompatibility.Tests.ps1",
+              "sha256": "28a0de2e1b1585d8f5fac29d75401d405b4637272f8f840328c457f0c1ce8465"
+            },
+            {
+              "path": "tests/Colour.Tests.ps1",
+              "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+            },
+            {
+              "path": "tests/Compatibility.Tests.ps1",
+              "sha256": "8c7d9cc9563cd94b239599945e955602550e27bc62666df1658b52b69450e3bb"
+            },
+            {
+              "path": "tests/ConversionRegression.Tests.ps1",
+              "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+            },
+            {
+              "path": "tests/Diagnostics.Tests.ps1",
+              "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+            },
+            {
+              "path": "tests/Documentation.Tests.ps1",
+              "sha256": "294b3926525e5a04fbb86b6c3bb1943740ce2b56cfb7a6bde6f143cecc140ab2"
+            },
+            {
+              "path": "tests/Duplicates.Tests.ps1",
+              "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+            },
+            {
+              "path": "tests/ExitContract.Tests.ps1",
+              "sha256": "62585751a9e8897054c536e92511412805273b10fcae79b474509d31df2be9d4"
+            },
+            {
+              "path": "tests/Export-TestEvidence.ps1",
+              "sha256": "fdc50425f9f0bd69feff335e2e9b036b6e5d4c8b55f07979096f3826a7f5510f"
+            },
+            {
+              "path": "tests/Frames.Tests.ps1",
+              "sha256": "a995d660be43d9d43eca2bed7e6e5b6361f7523a480e05f188738b74f4339059"
+            },
+            {
+              "path": "tests/Initialize-TestDependencies.ps1",
+              "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+            },
+            {
+              "path": "tests/Invoke-StaticAnalysis.ps1",
+              "sha256": "2acf25a1fd0d217bf9c67c4400da2191eec92eb6d5f27e93b64baf41613efb21"
+            },
+            {
+              "path": "tests/Invoke-Tests.ps1",
+              "sha256": "738f3b651bd310864b37e5ebcf26328b8955dfcd5351a7cc9ddcdc6ef616b69b"
+            },
+            {
+              "path": "tests/Launcher.Tests.ps1",
+              "sha256": "3e4daa4e9ddf32c49faeebd5af3c9efd166bccd0420eafb5b254d9532c6f792e"
+            },
+            {
+              "path": "tests/Measure-SizeQuality.ps1",
+              "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+            },
+            {
+              "path": "tests/Naming.Tests.ps1",
+              "sha256": "c725e82af94a762ca7dade70ab713ed1fd2eac97dbcae6e7ce5d1bdc68dfcb0d"
+            },
+            {
+              "path": "tests/NativeLifetime.Tests.ps1",
+              "sha256": "63753268ceec7d3f861431cdc874985d6594a6c23c8ddb8f5ad9c1bb6cdc6fb6"
+            },
+            {
+              "path": "tests/Normalizer.Tests.ps1",
+              "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+            },
+            {
+              "path": "tests/PSScriptAnalyzerSettings.psd1",
+              "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+            },
+            {
+              "path": "tests/Packaging.Tests.ps1",
+              "sha256": "e595bffb8e032a4d70e881096e805d5f2fc2de569f1f63e86cfe2509051d45ce"
+            },
+            {
+              "path": "tests/Paths.Tests.ps1",
+              "sha256": "482a011d51e498c1592e14c022e68a6cae8a16ac28b45bf8a63eec0703c45b90"
+            },
+            {
+              "path": "tests/Preflight.Tests.ps1",
+              "sha256": "1e3ef8dfc992ed5e4ab52cf90724c76351cb97c3c38e8c8afea8126cd85f73af"
+            },
+            {
+              "path": "tests/RecoveryReporting.Tests.ps1",
+              "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+            },
+            {
+              "path": "tests/Reporting.Tests.ps1",
+              "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+            },
+            {
+              "path": "tests/SafetyRegression.Tests.ps1",
+              "sha256": "693d8c76048f3a98c0081954693869dd4f07978821ff30cb3512b78af1cc7621"
+            },
+            {
+              "path": "tests/Sizing.Tests.ps1",
+              "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+            },
+            {
+              "path": "tests/StaticAnalysis.Tests.ps1",
+              "sha256": "98f02341ea0480a5fdd8f1d42bb2179ebce2a5be4822cae6d04934df93b17236"
+            },
+            {
+              "path": "tests/TestGate.ps1",
+              "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+            },
+            {
+              "path": "tests/Transactions.Tests.ps1",
+              "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+            },
+            {
+              "path": "tests/Traversal.Tests.ps1",
+              "sha256": "9153ba4bf9384beac2a1e883191c7845774e661b968b6869cfdb52bc9e0bc0bb"
+            },
+            {
+              "path": "tests/Versioning.Tests.ps1",
+              "sha256": "6b207eb4c3bdf04b2998df43bc6238ed63438a72dba8e0b331e1f5db0fbf5b10"
+            },
+            {
+              "path": "tests/Website.Tests.ps1",
+              "sha256": "84478be0a3b839a4fb748922c354aafc47ae49a951efd30a16497698383390b9"
+            },
+            {
+              "path": "tests/WorkflowSecurity.Tests.ps1",
+              "sha256": "960bb7c8673fa43d4bfe9d6faab22d16f63ac32af022ab8e29c4addab3a4f5a6"
+            },
+            {
+              "path": "tests/dependencies.json",
+              "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+            },
+            {
+              "path": "tests/fixtures/LauncherConsoleFixture.cs",
+              "sha256": "0df25de2e93afeb39a14235af505ea2a0bbd3657f1400937e5a1374ba5f1b925"
+            },
+            {
+              "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+              "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+            },
+            {
+              "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+              "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+            },
+            {
+              "path": "tests/fixtures/colour/Generate-Reference.py",
+              "sha256": "e342eab730b34197dd3f74a7726a39c6cf72f31c160a2d012169cb22957fffd7"
+            },
+            {
+              "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+              "sha256": "7bfe1dfbb1e1adc61096d16fe711ec9a3c12059f43a1a7a654eb36a4eb15bb92"
+            },
+            {
+              "path": "tests/fixtures/colour/MANIFEST.json",
+              "sha256": "2c99f919d1810c7f6dfcab75bb0975c6fa6f7c4c5ff9cca3099c95cb71345b18"
+            },
+            {
+              "path": "tests/fixtures/colour/README.md",
+              "sha256": "e3ebef6ef03999c4800261f158214058ac7887c59cbbcf545a747a42e3314555"
+            },
+            {
+              "path": "tests/fixtures/colour/REFERENCE.json",
+              "sha256": "f2244e896aa458d2db931022d61d0b84f823e50475309655940734bc64a4c737"
+            },
+            {
+              "path": "tests/fixtures/colour/sRGB-v4.icc",
+              "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+            },
+            {
+              "path": "tests/legacy/toolchain.json",
+              "sha256": "4c05c8e0b54be1b82d7236532822d0d8a28a8404cb857a5f8b22a5f537baff9a"
+            },
+            {
+              "path": "tests/mandatory-tests.json",
+              "sha256": "4e85cedcf9c6accf615db81fb358dd8f8809855ac305c029c7a6ede0467e0e44"
+            },
+            {
+              "path": "tools/release/Build-Release.ps1",
+              "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+            },
+            {
+              "path": "tools/release/Update-ReleaseMetadata.ps1",
+              "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+            },
+            {
+              "path": "tools/website/Test-WebsiteHandoff.ps1",
+              "sha256": "05bdf815d5cf0395e415d0125add6c19bce78dc975f7bb2e5e13fe923d06d157"
+            }
+          ],
+          "normal_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072",
+            "T073"
+          ],
+          "control_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072",
+            "T073"
+          ],
+          "full_source_inventory_matches_exact_git_tree": true,
+          "clean_source_and_commit_and_policy_unchanged": true,
+          "normal": {
+            "total_count": 590,
+            "passed_count": 590,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 0,
+            "exit_code": 0
+          },
+          "assertion_control": {
+            "total_count": 591,
+            "passed_count": 590,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 2,
+            "exit_code": 1
+          },
+          "normal_passed_case_count": 67,
+          "control_passed_case_count": 67,
+          "mandatory_cases_all_passed": true,
+          "normal_passed_case_ids_sha256": "750fed2ca9c29948b5fc976a45187a66d3c05e1599d3079b036cb8c9f9dc7020",
+          "control_passed_case_ids_sha256": "750fed2ca9c29948b5fc976a45187a66d3c05e1599d3079b036cb8c9f9dc7020",
+          "actual_codec_coverage": {
+            "bmp": [
+              "T065",
+              1,
+              true
+            ],
+            "gif": [
+              "T065",
+              1,
+              true
+            ],
+            "heic": [
+              "T031",
+              1,
+              true
+            ],
+            "heif": [
+              "T031",
+              1,
+              true
+            ],
+            "jpeg": [
+              "T065",
+              1,
+              true
+            ],
+            "jpg": [
+              "T065",
+              1,
+              true
+            ],
+            "png": [
+              "T065",
+              1,
+              true
+            ],
+            "tif": [
+              "T065",
+              1,
+              true
+            ],
+            "tiff": [
+              "T065",
+              1,
+              true
+            ],
+            "webp": [
+              "T065",
+              1,
+              true
+            ]
+          },
+          "control_codec_coverage_identical": true,
+          "analyzer": {
+            "scanned_file_count": 10,
+            "normal_scoped_findings_count": 0,
+            "normal_findings_count": 0,
+            "normal_exit_code": 0,
+            "control_scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_total_findings_count": 1,
+            "control_exit_code": 1,
+            "control_detected": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_binding_count": 12,
+            "environment_limit": "Analyzer runner does not record GitHub-specific environment fields; exported nulls are preserved. Actual tested_commit/source bindings, shared OS/PowerShell fields and same-job step logs bind analyzer execution.",
+            "actual_source_inventory_sha256": "7993d1ab48fd11c1c703b5024c53b286b071a129024bca9d9d44a0a30ba46e60",
+            "source_binding_inventory": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "fdc50425f9f0bd69feff335e2e9b036b6e5d4c8b55f07979096f3826a7f5510f"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "2acf25a1fd0d217bf9c67c4400da2191eec92eb6d5f27e93b64baf41613efb21"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "738f3b651bd310864b37e5ebcf26328b8955dfcd5351a7cc9ddcdc6ef616b69b"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+              },
+              {
+                "path": "tools/release/Build-Release.ps1",
+                "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+              },
+              {
+                "path": "tools/release/Update-ReleaseMetadata.ps1",
+                "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+              },
+              {
+                "path": "tools/website/Test-WebsiteHandoff.ps1",
+                "sha256": "05bdf815d5cf0395e415d0125add6c19bce78dc975f7bb2e5e13fe923d06d157"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingWMICmdlet",
+              "PSMisleadingBacktick",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSReservedParams",
+              "PSUseCmdletCorrectly",
+              "PSUseCompatibleSyntax",
+              "PSUsePSCredentialType"
+            ]
+          },
+          "actual_native_controls_verified_in_logs": true,
+          "raw_summary_sha256": {
+            "normal_tests": "5c3c5e1e9fd5ad73974dd40c6f9865c3359fb036db11e53d1f822956bb82d20e",
+            "control_tests": "e7788eae0a32c36bead270f8b05bc9a71243d306b875bb722e38623277ca46ba",
+            "normal_analysis": "afd478c7972e1a39d93c3f481defa58cc2f036b1ac8b9f0044e86796adc5ac3e",
+            "control_analysis": "20124cbad9d0129340c0f4ccb60c9b7c139a00dea742723b0bb00ebde77c6262"
+          },
+          "host": {
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "5.1.26100.33438",
+            "powershell_edition": "Desktop",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32"
+          },
+          "dependencies": {
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          },
+          "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+          "full_fractional_utc_inside_actual_step_intervals_verified": true,
+          "T073_actually_passed_normal_and_control": true,
+          "all_website_assertions_in_normal_and_control_logs_verified": true,
+          "passed_website_test_names_normal_and_control": [
+            "accepts the checked-in draft through explicit and script-relative native CLI paths",
+            "keeps the only release version and publication fields in the canonical release record",
+            "resolves actual local copy/integration links and refuses a missing or escaped link",
+            "rejects unpublished canonical field tag rather than constructing a live release link",
+            "rejects unpublished canonical field release_date rather than constructing a live release link",
+            "rejects unpublished canonical field release_url rather than constructing a live release link",
+            "rejects unpublished canonical field asset_filename rather than constructing a live release link",
+            "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+            "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+            "rejects unpublished canonical field release_date rather than constructing a live release link",
+            "rejects unpublished canonical field asset_sha256 rather than constructing a live release link",
+            "rejects unpublished canonical field download_url rather than constructing a live release link",
+            "rejects extra root publication keys even when the canonical release is still draft",
+            "rejects extra product publication keys even when the canonical release is still draft",
+            "rejects extra download publication keys even when the canonical release is still draft",
+            "rejects extra download publication keys even when the canonical release is still draft",
+            "refuses a live download flag of True with its actual JSON type",
+            "refuses a live download flag of false with its actual JSON type",
+            "refuses a live download flag of 0 with its actual JSON type",
+            "refuses a live download flag of  with its actual JSON type",
+            "refuses processing boundary uploads even with every release field still null",
+            "refuses processing boundary processing_api even with every release field still null",
+            "refuses processing boundary server_runtime even with every release field still null",
+            "refuses processing boundary runtime_account_required even with every release field still null",
+            "refuses processing boundary telemetry even with every release field still null",
+            "rejects claimed deployment domain in an integration handoff without website context",
+            "rejects claimed deployment framework in an integration handoff without website context",
+            "rejects claimed deployment hosting_provider in an integration handoff without website context",
+            "rejects a fabricated screenshots capture or comparison while preserving the original branding",
+            "rejects a fabricated comparisons capture or comparison while preserving the original branding",
+            "refuses metadata with stale repository_url identity or prerequisites",
+            "refuses metadata with stale license identity or prerequisites",
+            "refuses metadata with stale release_metadata_file identity or prerequisites",
+            "refuses metadata with stale imagemagick_minimum identity or prerequisites",
+            "refuses metadata with stale supported_major identity or prerequisites",
+            "refuses metadata with stale name identity or prerequisites",
+            "rejects changed asset sha256 instead of treating it as an approved capture",
+            "rejects changed asset bytes instead of treating it as an approved capture",
+            "rejects changed asset width instead of treating it as an approved capture",
+            "rejects changed asset width instead of treating it as an approved capture",
+            "rejects changed asset media_type instead of treating it as an approved capture",
+            "rejects changed asset path instead of treating it as an approved capture",
+            "rejects changed asset usage instead of treating it as an approved capture",
+            "rejects changed asset sizes instead of treating it as an approved capture",
+            "rejects changed asset display instead of treating it as an approved capture",
+            "rejects a missing local document and a path escape instead of accepting a broken handoff",
+            "refuses actual broken links, upload markup and unpublished release links in owned visitor copy",
+            "refuses a reference definition link that could expose an unpublished download in rendered copy",
+            "refuses a autolink link that could expose an unpublished download in rendered copy",
+            "refuses a HTML anchor link that could expose an unpublished download in rendered copy",
+            "refuses a bare URI link that could expose an unpublished download in rendered copy",
+            "refuses malformed, nonscalar and wrong-schema metadata as native guard failures",
+            "refuses an unowned external or non-JSON metadata path before reading it as a draft",
+            "accepts an ordinary owned replica and refuses stale canonical version and published state",
+            "binds the actual application version body rather than trusting the projection alone",
+            "detects actual tampering with an owned branding file even when metadata remains untouched"
+          ],
+          "website_assertion_observations": [
+            {
+              "job_name": "powershell on Windows Server 2025",
+              "step": "Run mandatory tests with verified development dependencies",
+              "assertion_count": 56,
+              "expanded_name_multiplicity_verified": true
+            },
+            {
+              "job_name": "powershell on Windows Server 2025",
+              "step": "Prove a broken assertion returns failure",
+              "assertion_count": 56,
+              "expanded_name_multiplicity_verified": true
+            }
+          ],
+          "website_sources_bound_to_tested_git_tree": true,
+          "documentation_sources_bound_to_tested_git_tree": true
+        },
+        {
+          "shell": "pwsh",
+          "job_id": 112433318585,
+          "job_conclusion": "success",
+          "started_at": "2026-10-06T18:27:25Z",
+          "completed_at": "2026-10-06T18:39:53Z",
+          "required_step_count": 6,
+          "required_steps_all_success": true,
+          "all_manifest_suites_in_normal_and_control_logs_verified": true,
+          "all_27_suites_in_normal_and_control_logs_verified": true,
+          "T069_T070_T071_actually_passed_normal_and_control": true,
+          "T072_actually_passed_normal_and_control": true,
+          "portable_package_sources_bound_to_tested_git_tree": true,
+          "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+          "all_documentation_assertions_in_normal_and_control_logs_verified": true,
+          "actual_control_failure_is_only_T007_verified": true,
+          "manifest_suites": [
+            "Normalizer.Tests.ps1",
+            "Preflight.Tests.ps1",
+            "Traversal.Tests.ps1",
+            "Naming.Tests.ps1",
+            "Transactions.Tests.ps1",
+            "Duplicates.Tests.ps1",
+            "SafetyRegression.Tests.ps1",
+            "Frames.Tests.ps1",
+            "Colour.Tests.ps1",
+            "Paths.Tests.ps1",
+            "Sizing.Tests.ps1",
+            "Diagnostics.Tests.ps1",
+            "ConversionRegression.Tests.ps1",
+            "RecoveryReporting.Tests.ps1",
+            "NativeLifetime.Tests.ps1",
+            "Cancellation.Tests.ps1",
+            "Reporting.Tests.ps1",
+            "Launcher.Tests.ps1",
+            "ExitContract.Tests.ps1",
+            "Compatibility.Tests.ps1",
+            "CodecCompatibility.Tests.ps1",
+            "StaticAnalysis.Tests.ps1",
+            "WorkflowSecurity.Tests.ps1",
+            "Versioning.Tests.ps1",
+            "Packaging.Tests.ps1",
+            "Documentation.Tests.ps1",
+            "Website.Tests.ps1"
+          ],
+          "passed_documentation_test_names_normal_and_control": [
+            "T072 resolves local public links and headings in repository and exact portable contexts",
+            "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+            "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+            "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+            "T072 reports actual invalid byte target 0 before creating destination output",
+            "T072 reports actual invalid byte target 1.5 before creating destination output",
+            "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+            "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+            "T072 reproduces the documented old version control prerequisite failure before output allocation",
+            "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+            "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+            "T072 reports first displayed frame selection and a real omitted animation frame",
+            "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+            "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+          ],
+          "passed_package_positive_names_normal_and_control": [
+            "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+            "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+            "T071 recomputes both exact SHA256SUMS assets independently",
+            "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+            "T070 extracts only approved root files into a fresh directory with spaces",
+            "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+            "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+            "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+          ],
+          "artifact_id": 11435809680,
+          "artifact_name": "synthetic-evidence-pwsh-ea1a16a09a8a0686e881097590bbd4a2b3c8ccd8",
+          "github_archive_digest": "sha256:5021d43d2771f33441357ff6d2526ff9e5abd519c8bd3f3741918a2d87db92e0",
+          "downloaded_archive_sha256": "5021d43d2771f33441357ff6d2526ff9e5abd519c8bd3f3741918a2d87db92e0",
+          "files": [
+            {
+              "name": "static-analysis-evidence.json",
+              "sha256": "48838fe08138a6a4f1f8a054f6d4295890d8265567ce52a7438a0683146ac37f",
+              "bytes": 7905
+            },
+            {
+              "name": "test-evidence.json",
+              "sha256": "cfddd2eaa5cb5739cc800a3fe710ac3203297a70373b2c1c61e5f01411c39615",
+              "bytes": 36461
+            }
+          ],
+          "two_file_allowlist_and_privacy_verified": true,
+          "source_binding_count": 70,
+          "source_binding_methods": [
+            "Windows CRLF checkout of Git blob",
+            "exact Git blob"
+          ],
+          "actual_source_inventory_sha256": "6f881cfe25565f54c4b2cac97dbdcf706963dc21545b6b8d328bf8821feb4515",
+          "source_binding_inventory": [
+            {
+              "path": ".gitattributes",
+              "sha256": "2a3e5f14e93bcaf27f2df2eca4da444c57210f4c662f9d7e5f94cf9218355739"
+            },
+            {
+              "path": ".github/workflows/windows-tests.yml",
+              "sha256": "5a19ab61315a30ce0c2be01400387bc077bf65a6bb90211a22358835cf0589c8"
+            },
+            {
+              "path": ".gitignore",
+              "sha256": "3fa63fe085ffe679d5d277b9b2071f0c6e66fb02eba70c94af0922a66d2f2cfc"
+            },
+            {
+              "path": "CHANGELOG.md",
+              "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7"
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+            },
+            {
+              "path": "README.md",
+              "sha256": "609ddd91510445296d5d0c8da848f402d8d0a1ebbd7a5f5e999447d849d5e48e"
+            },
+            {
+              "path": "SECURITY.md",
+              "sha256": "71dadc075c0f20901ab98a07a26614b48a69d30ef055795ecc00a119f1dbcd6d"
+            },
+            {
+              "path": "WinImgNormalizer.bat",
+              "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+            },
+            {
+              "path": "WinImgNormalizer.ps1",
+              "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+            },
+            {
+              "path": "WinImgNormalizer_icon_variant.png",
+              "sha256": "479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9"
+            },
+            {
+              "path": "WinImgNormalizer_poster.png",
+              "sha256": "99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926"
+            },
+            {
+              "path": "WinImgNormalizer_variant.ico",
+              "sha256": "78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79"
+            },
+            {
+              "path": "docs/BEHAVIOR.md",
+              "sha256": "0efd4ab81986c394283e11753d5cd8a0983bef0abebbbe8f93540fdc99f99170"
+            },
+            {
+              "path": "docs/release/GETTING_STARTED.md",
+              "sha256": "fc5780024c6fec26341f4d0ff12094c1ef6aafde6833374920cbca42fac4eead"
+            },
+            {
+              "path": "docs/release/NOTES.md",
+              "sha256": "4cd0b8fbfceb84d0121f820270aa86f70d32e7d96b803e3b24c082c12a800ba3"
+            },
+            {
+              "path": "docs/release/PACKAGING.md",
+              "sha256": "651937361aa4588d80661cf42914d0590d831205299884ad9e2bac7f5d346211"
+            },
+            {
+              "path": "docs/release/THIRD_PARTY_NOTICES.md",
+              "sha256": "26f51eb132174c8bdb27c4668e8d441bbad17d0be92d517fa43fd533d49b11ec"
+            },
+            {
+              "path": "docs/website/INTEGRATION.md",
+              "sha256": "d29f49cf3fa0e021d10059d478ec945fb357554e1a898ccc2228550aa95d7e54"
+            },
+            {
+              "path": "docs/website/PRODUCT_COPY.md",
+              "sha256": "052be9aced98d626461f76f2901620adb3626d296cd7c3280efdae07b42c45cd"
+            },
+            {
+              "path": "docs/website/metadata.json",
+              "sha256": "8f533b744ec94e3d84555edb283d86534d89d08c50da094f67491fe362c09f5a"
+            },
+            {
+              "path": "release-metadata.json",
+              "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+            },
+            {
+              "path": "tests/Cancellation.Tests.ps1",
+              "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+            },
+            {
+              "path": "tests/CodecCompatibility.Tests.ps1",
+              "sha256": "28a0de2e1b1585d8f5fac29d75401d405b4637272f8f840328c457f0c1ce8465"
+            },
+            {
+              "path": "tests/Colour.Tests.ps1",
+              "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+            },
+            {
+              "path": "tests/Compatibility.Tests.ps1",
+              "sha256": "8c7d9cc9563cd94b239599945e955602550e27bc62666df1658b52b69450e3bb"
+            },
+            {
+              "path": "tests/ConversionRegression.Tests.ps1",
+              "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+            },
+            {
+              "path": "tests/Diagnostics.Tests.ps1",
+              "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+            },
+            {
+              "path": "tests/Documentation.Tests.ps1",
+              "sha256": "294b3926525e5a04fbb86b6c3bb1943740ce2b56cfb7a6bde6f143cecc140ab2"
+            },
+            {
+              "path": "tests/Duplicates.Tests.ps1",
+              "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+            },
+            {
+              "path": "tests/ExitContract.Tests.ps1",
+              "sha256": "62585751a9e8897054c536e92511412805273b10fcae79b474509d31df2be9d4"
+            },
+            {
+              "path": "tests/Export-TestEvidence.ps1",
+              "sha256": "fdc50425f9f0bd69feff335e2e9b036b6e5d4c8b55f07979096f3826a7f5510f"
+            },
+            {
+              "path": "tests/Frames.Tests.ps1",
+              "sha256": "a995d660be43d9d43eca2bed7e6e5b6361f7523a480e05f188738b74f4339059"
+            },
+            {
+              "path": "tests/Initialize-TestDependencies.ps1",
+              "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+            },
+            {
+              "path": "tests/Invoke-StaticAnalysis.ps1",
+              "sha256": "2acf25a1fd0d217bf9c67c4400da2191eec92eb6d5f27e93b64baf41613efb21"
+            },
+            {
+              "path": "tests/Invoke-Tests.ps1",
+              "sha256": "738f3b651bd310864b37e5ebcf26328b8955dfcd5351a7cc9ddcdc6ef616b69b"
+            },
+            {
+              "path": "tests/Launcher.Tests.ps1",
+              "sha256": "3e4daa4e9ddf32c49faeebd5af3c9efd166bccd0420eafb5b254d9532c6f792e"
+            },
+            {
+              "path": "tests/Measure-SizeQuality.ps1",
+              "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+            },
+            {
+              "path": "tests/Naming.Tests.ps1",
+              "sha256": "c725e82af94a762ca7dade70ab713ed1fd2eac97dbcae6e7ce5d1bdc68dfcb0d"
+            },
+            {
+              "path": "tests/NativeLifetime.Tests.ps1",
+              "sha256": "63753268ceec7d3f861431cdc874985d6594a6c23c8ddb8f5ad9c1bb6cdc6fb6"
+            },
+            {
+              "path": "tests/Normalizer.Tests.ps1",
+              "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+            },
+            {
+              "path": "tests/PSScriptAnalyzerSettings.psd1",
+              "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+            },
+            {
+              "path": "tests/Packaging.Tests.ps1",
+              "sha256": "e595bffb8e032a4d70e881096e805d5f2fc2de569f1f63e86cfe2509051d45ce"
+            },
+            {
+              "path": "tests/Paths.Tests.ps1",
+              "sha256": "482a011d51e498c1592e14c022e68a6cae8a16ac28b45bf8a63eec0703c45b90"
+            },
+            {
+              "path": "tests/Preflight.Tests.ps1",
+              "sha256": "1e3ef8dfc992ed5e4ab52cf90724c76351cb97c3c38e8c8afea8126cd85f73af"
+            },
+            {
+              "path": "tests/RecoveryReporting.Tests.ps1",
+              "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+            },
+            {
+              "path": "tests/Reporting.Tests.ps1",
+              "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+            },
+            {
+              "path": "tests/SafetyRegression.Tests.ps1",
+              "sha256": "693d8c76048f3a98c0081954693869dd4f07978821ff30cb3512b78af1cc7621"
+            },
+            {
+              "path": "tests/Sizing.Tests.ps1",
+              "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+            },
+            {
+              "path": "tests/StaticAnalysis.Tests.ps1",
+              "sha256": "98f02341ea0480a5fdd8f1d42bb2179ebce2a5be4822cae6d04934df93b17236"
+            },
+            {
+              "path": "tests/TestGate.ps1",
+              "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+            },
+            {
+              "path": "tests/Transactions.Tests.ps1",
+              "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+            },
+            {
+              "path": "tests/Traversal.Tests.ps1",
+              "sha256": "9153ba4bf9384beac2a1e883191c7845774e661b968b6869cfdb52bc9e0bc0bb"
+            },
+            {
+              "path": "tests/Versioning.Tests.ps1",
+              "sha256": "6b207eb4c3bdf04b2998df43bc6238ed63438a72dba8e0b331e1f5db0fbf5b10"
+            },
+            {
+              "path": "tests/Website.Tests.ps1",
+              "sha256": "84478be0a3b839a4fb748922c354aafc47ae49a951efd30a16497698383390b9"
+            },
+            {
+              "path": "tests/WorkflowSecurity.Tests.ps1",
+              "sha256": "960bb7c8673fa43d4bfe9d6faab22d16f63ac32af022ab8e29c4addab3a4f5a6"
+            },
+            {
+              "path": "tests/dependencies.json",
+              "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+            },
+            {
+              "path": "tests/fixtures/LauncherConsoleFixture.cs",
+              "sha256": "0df25de2e93afeb39a14235af505ea2a0bbd3657f1400937e5a1374ba5f1b925"
+            },
+            {
+              "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+              "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+            },
+            {
+              "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+              "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+            },
+            {
+              "path": "tests/fixtures/colour/Generate-Reference.py",
+              "sha256": "e342eab730b34197dd3f74a7726a39c6cf72f31c160a2d012169cb22957fffd7"
+            },
+            {
+              "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+              "sha256": "7bfe1dfbb1e1adc61096d16fe711ec9a3c12059f43a1a7a654eb36a4eb15bb92"
+            },
+            {
+              "path": "tests/fixtures/colour/MANIFEST.json",
+              "sha256": "2c99f919d1810c7f6dfcab75bb0975c6fa6f7c4c5ff9cca3099c95cb71345b18"
+            },
+            {
+              "path": "tests/fixtures/colour/README.md",
+              "sha256": "e3ebef6ef03999c4800261f158214058ac7887c59cbbcf545a747a42e3314555"
+            },
+            {
+              "path": "tests/fixtures/colour/REFERENCE.json",
+              "sha256": "f2244e896aa458d2db931022d61d0b84f823e50475309655940734bc64a4c737"
+            },
+            {
+              "path": "tests/fixtures/colour/sRGB-v4.icc",
+              "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+            },
+            {
+              "path": "tests/legacy/toolchain.json",
+              "sha256": "4c05c8e0b54be1b82d7236532822d0d8a28a8404cb857a5f8b22a5f537baff9a"
+            },
+            {
+              "path": "tests/mandatory-tests.json",
+              "sha256": "4e85cedcf9c6accf615db81fb358dd8f8809855ac305c029c7a6ede0467e0e44"
+            },
+            {
+              "path": "tools/release/Build-Release.ps1",
+              "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+            },
+            {
+              "path": "tools/release/Update-ReleaseMetadata.ps1",
+              "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+            },
+            {
+              "path": "tools/website/Test-WebsiteHandoff.ps1",
+              "sha256": "05bdf815d5cf0395e415d0125add6c19bce78dc975f7bb2e5e13fe923d06d157"
+            }
+          ],
+          "normal_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072",
+            "T073"
+          ],
+          "control_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072",
+            "T073"
+          ],
+          "full_source_inventory_matches_exact_git_tree": true,
+          "clean_source_and_commit_and_policy_unchanged": true,
+          "normal": {
+            "total_count": 590,
+            "passed_count": 590,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 0,
+            "exit_code": 0
+          },
+          "assertion_control": {
+            "total_count": 591,
+            "passed_count": 590,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 2,
+            "exit_code": 1
+          },
+          "normal_passed_case_count": 67,
+          "control_passed_case_count": 67,
+          "mandatory_cases_all_passed": true,
+          "normal_passed_case_ids_sha256": "750fed2ca9c29948b5fc976a45187a66d3c05e1599d3079b036cb8c9f9dc7020",
+          "control_passed_case_ids_sha256": "750fed2ca9c29948b5fc976a45187a66d3c05e1599d3079b036cb8c9f9dc7020",
+          "actual_codec_coverage": {
+            "bmp": [
+              "T065",
+              1,
+              true
+            ],
+            "gif": [
+              "T065",
+              1,
+              true
+            ],
+            "heic": [
+              "T031",
+              1,
+              true
+            ],
+            "heif": [
+              "T031",
+              1,
+              true
+            ],
+            "jpeg": [
+              "T065",
+              1,
+              true
+            ],
+            "jpg": [
+              "T065",
+              1,
+              true
+            ],
+            "png": [
+              "T065",
+              1,
+              true
+            ],
+            "tif": [
+              "T065",
+              1,
+              true
+            ],
+            "tiff": [
+              "T065",
+              1,
+              true
+            ],
+            "webp": [
+              "T065",
+              1,
+              true
+            ]
+          },
+          "control_codec_coverage_identical": true,
+          "analyzer": {
+            "scanned_file_count": 10,
+            "normal_scoped_findings_count": 0,
+            "normal_findings_count": 0,
+            "normal_exit_code": 0,
+            "control_scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_total_findings_count": 1,
+            "control_exit_code": 1,
+            "control_detected": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_binding_count": 12,
+            "environment_limit": "Analyzer runner does not record GitHub-specific environment fields; exported nulls are preserved. Actual tested_commit/source bindings, shared OS/PowerShell fields and same-job step logs bind analyzer execution.",
+            "actual_source_inventory_sha256": "7993d1ab48fd11c1c703b5024c53b286b071a129024bca9d9d44a0a30ba46e60",
+            "source_binding_inventory": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "fdc50425f9f0bd69feff335e2e9b036b6e5d4c8b55f07979096f3826a7f5510f"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "2acf25a1fd0d217bf9c67c4400da2191eec92eb6d5f27e93b64baf41613efb21"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "738f3b651bd310864b37e5ebcf26328b8955dfcd5351a7cc9ddcdc6ef616b69b"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+              },
+              {
+                "path": "tools/release/Build-Release.ps1",
+                "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+              },
+              {
+                "path": "tools/release/Update-ReleaseMetadata.ps1",
+                "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+              },
+              {
+                "path": "tools/website/Test-WebsiteHandoff.ps1",
+                "sha256": "05bdf815d5cf0395e415d0125add6c19bce78dc975f7bb2e5e13fe923d06d157"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingWMICmdlet",
+              "PSMisleadingBacktick",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSReservedParams",
+              "PSUseCmdletCorrectly",
+              "PSUseCompatibleSyntax",
+              "PSUsePSCredentialType"
+            ]
+          },
+          "actual_native_controls_verified_in_logs": true,
+          "raw_summary_sha256": {
+            "normal_tests": "7bb5df6131b87b78a6b41c3d86961642fafbe13ba680eebee693673f3b090a8a",
+            "control_tests": "185a6c73777d74017e45df699b66b3842d80a893934476aa0aef2c13411dd3cb",
+            "normal_analysis": "58e0b03020cbe22435d0933b8bf2dfcc62af3da310b2226f45038094cac2dfc3",
+            "control_analysis": "c27bfb2914bed89079db3d02dd8b1be98ea14cd3232e24dc67975c0b5a09ced3"
+          },
+          "host": {
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "7.6.6",
+            "powershell_edition": "Core",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32"
+          },
+          "dependencies": {
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          },
+          "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+          "full_fractional_utc_inside_actual_step_intervals_verified": true,
+          "T073_actually_passed_normal_and_control": true,
+          "all_website_assertions_in_normal_and_control_logs_verified": true,
+          "passed_website_test_names_normal_and_control": [
+            "accepts the checked-in draft through explicit and script-relative native CLI paths",
+            "keeps the only release version and publication fields in the canonical release record",
+            "resolves actual local copy/integration links and refuses a missing or escaped link",
+            "rejects unpublished canonical field tag rather than constructing a live release link",
+            "rejects unpublished canonical field release_date rather than constructing a live release link",
+            "rejects unpublished canonical field release_url rather than constructing a live release link",
+            "rejects unpublished canonical field asset_filename rather than constructing a live release link",
+            "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+            "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+            "rejects unpublished canonical field release_date rather than constructing a live release link",
+            "rejects unpublished canonical field asset_sha256 rather than constructing a live release link",
+            "rejects unpublished canonical field download_url rather than constructing a live release link",
+            "rejects extra root publication keys even when the canonical release is still draft",
+            "rejects extra product publication keys even when the canonical release is still draft",
+            "rejects extra download publication keys even when the canonical release is still draft",
+            "rejects extra download publication keys even when the canonical release is still draft",
+            "refuses a live download flag of True with its actual JSON type",
+            "refuses a live download flag of false with its actual JSON type",
+            "refuses a live download flag of 0 with its actual JSON type",
+            "refuses a live download flag of  with its actual JSON type",
+            "refuses processing boundary uploads even with every release field still null",
+            "refuses processing boundary processing_api even with every release field still null",
+            "refuses processing boundary server_runtime even with every release field still null",
+            "refuses processing boundary runtime_account_required even with every release field still null",
+            "refuses processing boundary telemetry even with every release field still null",
+            "rejects claimed deployment domain in an integration handoff without website context",
+            "rejects claimed deployment framework in an integration handoff without website context",
+            "rejects claimed deployment hosting_provider in an integration handoff without website context",
+            "rejects a fabricated screenshots capture or comparison while preserving the original branding",
+            "rejects a fabricated comparisons capture or comparison while preserving the original branding",
+            "refuses metadata with stale repository_url identity or prerequisites",
+            "refuses metadata with stale license identity or prerequisites",
+            "refuses metadata with stale release_metadata_file identity or prerequisites",
+            "refuses metadata with stale imagemagick_minimum identity or prerequisites",
+            "refuses metadata with stale supported_major identity or prerequisites",
+            "refuses metadata with stale name identity or prerequisites",
+            "rejects changed asset sha256 instead of treating it as an approved capture",
+            "rejects changed asset bytes instead of treating it as an approved capture",
+            "rejects changed asset width instead of treating it as an approved capture",
+            "rejects changed asset width instead of treating it as an approved capture",
+            "rejects changed asset media_type instead of treating it as an approved capture",
+            "rejects changed asset path instead of treating it as an approved capture",
+            "rejects changed asset usage instead of treating it as an approved capture",
+            "rejects changed asset sizes instead of treating it as an approved capture",
+            "rejects changed asset display instead of treating it as an approved capture",
+            "rejects a missing local document and a path escape instead of accepting a broken handoff",
+            "refuses actual broken links, upload markup and unpublished release links in owned visitor copy",
+            "refuses a reference definition link that could expose an unpublished download in rendered copy",
+            "refuses a autolink link that could expose an unpublished download in rendered copy",
+            "refuses a HTML anchor link that could expose an unpublished download in rendered copy",
+            "refuses a bare URI link that could expose an unpublished download in rendered copy",
+            "refuses malformed, nonscalar and wrong-schema metadata as native guard failures",
+            "refuses an unowned external or non-JSON metadata path before reading it as a draft",
+            "accepts an ordinary owned replica and refuses stale canonical version and published state",
+            "binds the actual application version body rather than trusting the projection alone",
+            "detects actual tampering with an owned branding file even when metadata remains untouched"
+          ],
+          "website_assertion_observations": [
+            {
+              "job_name": "pwsh on Windows Server 2025",
+              "step": "Run mandatory tests with verified development dependencies",
+              "assertion_count": 56,
+              "expanded_name_multiplicity_verified": true
+            },
+            {
+              "job_name": "pwsh on Windows Server 2025",
+              "step": "Prove a broken assertion returns failure",
+              "assertion_count": 56,
+              "expanded_name_multiplicity_verified": true
+            }
+          ],
+          "website_sources_bound_to_tested_git_tree": true,
+          "documentation_sources_bound_to_tested_git_tree": true
+        }
+      ],
+      "actual_clean_checkout_packaging_required_by_verified_source": true,
+      "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+      "all_27_suites_in_normal_and_control_logs_verified": true,
+      "T069_T070_T071_actually_passed_normal_and_control": true,
+      "T072_actually_passed_normal_and_control": true,
+      "T073_actually_passed_normal_and_control": true,
+      "all_manifest_suites_in_normal_and_control_logs_verified": true,
+      "packaging_raw_observation_limit": "Private raw packaging observations and ZIPs are not uploaded. Clean checkout, exact bound Packaging suite source, mandatory T069-T071 outcomes and successful real Windows test steps establish actual-checkout extraction under the CI no-fallback guard; no raw package SHA is reconstructed."
+    }
+  ],
+  "website_case_id": "T073",
+  "website_assertion_count_per_run": 56,
+  "website_test_names": [
+    "accepts the checked-in draft through explicit and script-relative native CLI paths",
+    "keeps the only release version and publication fields in the canonical release record",
+    "resolves actual local copy/integration links and refuses a missing or escaped link",
+    "rejects unpublished canonical field tag rather than constructing a live release link",
+    "rejects unpublished canonical field release_date rather than constructing a live release link",
+    "rejects unpublished canonical field release_url rather than constructing a live release link",
+    "rejects unpublished canonical field asset_filename rather than constructing a live release link",
+    "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+    "rejects unpublished canonical field asset_bytes rather than constructing a live release link",
+    "rejects unpublished canonical field release_date rather than constructing a live release link",
+    "rejects unpublished canonical field asset_sha256 rather than constructing a live release link",
+    "rejects unpublished canonical field download_url rather than constructing a live release link",
+    "rejects extra root publication keys even when the canonical release is still draft",
+    "rejects extra product publication keys even when the canonical release is still draft",
+    "rejects extra download publication keys even when the canonical release is still draft",
+    "rejects extra download publication keys even when the canonical release is still draft",
+    "refuses a live download flag of True with its actual JSON type",
+    "refuses a live download flag of false with its actual JSON type",
+    "refuses a live download flag of 0 with its actual JSON type",
+    "refuses a live download flag of  with its actual JSON type",
+    "refuses processing boundary uploads even with every release field still null",
+    "refuses processing boundary processing_api even with every release field still null",
+    "refuses processing boundary server_runtime even with every release field still null",
+    "refuses processing boundary runtime_account_required even with every release field still null",
+    "refuses processing boundary telemetry even with every release field still null",
+    "rejects claimed deployment domain in an integration handoff without website context",
+    "rejects claimed deployment framework in an integration handoff without website context",
+    "rejects claimed deployment hosting_provider in an integration handoff without website context",
+    "rejects a fabricated screenshots capture or comparison while preserving the original branding",
+    "rejects a fabricated comparisons capture or comparison while preserving the original branding",
+    "refuses metadata with stale repository_url identity or prerequisites",
+    "refuses metadata with stale license identity or prerequisites",
+    "refuses metadata with stale release_metadata_file identity or prerequisites",
+    "refuses metadata with stale imagemagick_minimum identity or prerequisites",
+    "refuses metadata with stale supported_major identity or prerequisites",
+    "refuses metadata with stale name identity or prerequisites",
+    "rejects changed asset sha256 instead of treating it as an approved capture",
+    "rejects changed asset bytes instead of treating it as an approved capture",
+    "rejects changed asset width instead of treating it as an approved capture",
+    "rejects changed asset width instead of treating it as an approved capture",
+    "rejects changed asset media_type instead of treating it as an approved capture",
+    "rejects changed asset path instead of treating it as an approved capture",
+    "rejects changed asset usage instead of treating it as an approved capture",
+    "rejects changed asset sizes instead of treating it as an approved capture",
+    "rejects changed asset display instead of treating it as an approved capture",
+    "rejects a missing local document and a path escape instead of accepting a broken handoff",
+    "refuses actual broken links, upload markup and unpublished release links in owned visitor copy",
+    "refuses a reference definition link that could expose an unpublished download in rendered copy",
+    "refuses a autolink link that could expose an unpublished download in rendered copy",
+    "refuses a HTML anchor link that could expose an unpublished download in rendered copy",
+    "refuses a bare URI link that could expose an unpublished download in rendered copy",
+    "refuses malformed, nonscalar and wrong-schema metadata as native guard failures",
+    "refuses an unowned external or non-JSON metadata path before reading it as a draft",
+    "accepts an ordinary owned replica and refuses stale canonical version and published state",
+    "binds the actual application version body rather than trusting the projection alone",
+    "detects actual tampering with an owned branding file even when metadata remains untouched"
+  ],
+  "actual_normal_test_count_per_job": 590,
+  "actual_control_test_count_per_job": 591,
+  "no_future_governance_checkpoint_claims": true,
+  "case_results": [],
+  "case_outcome_scope": "Parent desktop evidence owns task acceptance; this independent CI record verifies all hosted mandatory suites and T069-T073 at the exact implementation.",
+  "generated_application_version": "1.0.0",
+  "release_state": "unreleased",
+  "publication_fields_remain_null": true,
+  "verified_portable_package_source_bindings": [
+    ".gitignore",
+    "docs/release/GETTING_STARTED.md",
+    "docs/release/PACKAGING.md",
+    "docs/release/THIRD_PARTY_NOTICES.md",
+    "tests/Packaging.Tests.ps1",
+    "tools/release/Build-Release.ps1"
+  ],
+  "verified_documentation_source_bindings": [
+    "README.md",
+    "SECURITY.md",
+    "docs/BEHAVIOR.md",
+    "docs/release/GETTING_STARTED.md",
+    "tests/Documentation.Tests.ps1"
+  ],
+  "verified_website_source_bindings": [
+    "WinImgNormalizer_icon_variant.png",
+    "WinImgNormalizer_poster.png",
+    "WinImgNormalizer_variant.ico",
+    "docs/website/INTEGRATION.md",
+    "docs/website/PRODUCT_COPY.md",
+    "docs/website/metadata.json",
+    "tests/Website.Tests.ps1",
+    "tools/website/Test-WebsiteHandoff.ps1"
+  ],
+  "original_branding_git_bindings": [
+    {
+      "path": "WinImgNormalizer_icon_variant.png",
+      "git_blob": "e7a19683259ed855407f8e0d5cef326f0c789b8c",
+      "sha256": "479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9",
+      "bytes": 11141,
+      "working_tree_matches_starting_git_blob": true,
+      "main_tree_identical_to_feature_proves_same_main_blob": true,
+      "png_dimensions": {
+        "width": 1024,
+        "height": 1024
+      }
+    },
+    {
+      "path": "WinImgNormalizer_poster.png",
+      "git_blob": "89a874807f72112b4acc1730d943314ec12379fd",
+      "sha256": "99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926",
+      "bytes": 2397241,
+      "working_tree_matches_starting_git_blob": true,
+      "main_tree_identical_to_feature_proves_same_main_blob": true,
+      "png_dimensions": {
+        "width": 1536,
+        "height": 1024
+      }
+    },
+    {
+      "path": "WinImgNormalizer_variant.ico",
+      "git_blob": "963ee47d33fcf457b309dd50f493d3c4545b36ed",
+      "sha256": "78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79",
+      "bytes": 22917,
+      "working_tree_matches_starting_git_blob": true,
+      "main_tree_identical_to_feature_proves_same_main_blob": true,
+      "ico_image_count": 6
+    }
+  ],
+  "original_branding_git_blobs_unchanged_at_implementation": true,
+  "verified_website_publication_boundary": {
+    "download_state": "unavailable",
+    "render_link": false,
+    "screenshot_count": 0,
+    "comparison_count": 0,
+    "deployment_fields_null": [
+      "domain",
+      "framework",
+      "hosting_provider"
+    ]
+  },
+  "selected_run_basis": "All observed exact-implementation push and pull_request runs for the canonical Windows tests workflow; both received full log, artifact, source and host verification.",
+  "all_observed_exact_implementation_runs": [
+    {
+      "conclusion": "success",
+      "createdAt": "2026-10-06T18:27:23Z",
+      "databaseId": 37511442098,
+      "event": "pull_request",
+      "headSha": "4cbc39f402c495b2f161da781b61989dd81d3903",
+      "status": "completed",
+      "updatedAt": "2026-10-06T18:45:01Z",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37511442098",
+      "workflowName": "Windows tests",
+      "selected_for_full_artifact_verification": true,
+      "observed_at_utc": "2026-10-06T18:46:44.184536+00:00"
+    },
+    {
+      "conclusion": "success",
+      "createdAt": "2026-10-06T18:26:41Z",
+      "databaseId": 37511352749,
+      "event": "push",
+      "headSha": "4cbc39f402c495b2f161da781b61989dd81d3903",
+      "status": "completed",
+      "updatedAt": "2026-10-06T18:43:48Z",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37511352749",
+      "workflowName": "Windows tests",
+      "selected_for_full_artifact_verification": true,
+      "observed_at_utc": "2026-10-06T18:46:44.184536+00:00"
+    }
+  ],
+  "all_observed_runs_concluded_successfully": true,
+  "independent_start_baseline_sha256": "66c3fd19eb2a0b9edf577a91152b89e58390118a6f9ffcdcbf25732d54f7b2e5",
+  "independent_start_baseline": {
+    "schema_version": 1,
+    "task_id": "M4-T04",
+    "stage": "independent_start_baseline",
+    "observed_at_utc": "2026-10-06T18:12:58.149718+00:00",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "git_observation": {
+      "branch": "codex/winimg-hardening",
+      "head": "6e2643b2e0de62244821c47f4ff12aeda79dbf8b",
+      "live_feature": "6e2643b2e0de62244821c47f4ff12aeda79dbf8b",
+      "live_main": "81866cface260dfe2d78c3e6c2f364705ac92b3a",
+      "fetch_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+      "push_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+      "configured_committer_identity_present": true,
+      "owner_reported_clean_start": true,
+      "clean_start_independently_observed": false,
+      "currently_clean": false,
+      "tracked_status_at_independent_observation": [
+        " M tests/Compatibility.Tests.ps1",
+        " M tests/Export-TestEvidence.ps1",
+        " M tests/Invoke-StaticAnalysis.ps1",
+        " M tests/Invoke-Tests.ps1",
+        " M tests/README.md",
+        " M tests/StaticAnalysis.Tests.ps1",
+        " M tests/mandatory-tests.json",
+        "?? tests/Website.Tests.ps1"
+      ],
+      "status_scope": "Concurrent root-authorized M4-T04 implementation edits were already present at this observer start; the root reported an earlier clean start. This record does not independently certify that earlier clean state."
+    },
+    "preceding_pull_request": {
+      "number": 24,
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/24",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-10-06T18:09:28Z",
+      "head_sha": "6e2643b2e0de62244821c47f4ff12aeda79dbf8b",
+      "base_sha": "87711607d07bf39bdf9e35f9a8709e38da91dbbd",
+      "merge_commit": "81866cface260dfe2d78c3e6c2f364705ac92b3a",
+      "merge_commit_parents": [
+        "87711607d07bf39bdf9e35f9a8709e38da91dbbd",
+        "6e2643b2e0de62244821c47f4ff12aeda79dbf8b"
+      ],
+      "merge_tree": "284591d90379ff38a233a4c8738bd593baaa3a52",
+      "starting_feature_tree": "284591d90379ff38a233a4c8738bd593baaa3a52",
+      "merge_tree_equals_starting_feature": true
+    },
+    "github_release_observation": {
+      "observed_at_utc": "2026-10-06T18:12:58.218454+00:00",
+      "releases_paginated": true,
+      "release_page_count": 1,
+      "release_count": 0,
+      "tags_paginated": true,
+      "tag_page_count": 1,
+      "tag_count": 0,
+      "local_tag_count": 0,
+      "live_remote_tag_count": 0,
+      "repository_public": true,
+      "issues_enabled": true,
+      "default_branch": "main",
+      "private_vulnerability_reporting_enabled": false,
+      "scope": "Dated read-only observation; no release, tag, publication, or settings mutation."
+    },
+    "starting_release_metadata": {
+      "git_blob": "d3676877cc66d9d9c4f0c44c04b3a7b981e842a1",
+      "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77",
+      "metadata": {
+        "schema_version": 1,
+        "product": "WinImgNormalizer",
+        "version": "1.0.0",
+        "version_source": "WinImgNormalizer.ps1:Get-WinImgVersion",
+        "release_state": "unreleased",
+        "proposed_tag": "v1.0.0",
+        "tag": null,
+        "release_date": null,
+        "release_url": null,
+        "asset_filename": null,
+        "asset_bytes": null,
+        "asset_sha256": null,
+        "download_url": null,
+        "license": "MIT",
+        "author": "Janne Vuorela",
+        "repository_url": "https://github.com/PikkuJanne/WinImgNormalizer",
+        "release_notes_file": "CHANGELOG.md",
+        "requirements_file": "README.md"
+      },
+      "publication_fields_null": [
+        "tag",
+        "release_date",
+        "release_url",
+        "asset_filename",
+        "asset_bytes",
+        "asset_sha256",
+        "download_url"
+      ],
+      "working_tree_bytes_identical": true
+    },
+    "original_branding_git_bindings": [
+      {
+        "path": "WinImgNormalizer_icon_variant.png",
+        "git_blob": "e7a19683259ed855407f8e0d5cef326f0c789b8c",
+        "sha256": "479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9",
+        "bytes": 11141,
+        "working_tree_matches_starting_git_blob": true,
+        "main_tree_identical_to_feature_proves_same_main_blob": true,
+        "png_dimensions": {
+          "width": 1024,
+          "height": 1024
+        }
+      },
+      {
+        "path": "WinImgNormalizer_poster.png",
+        "git_blob": "89a874807f72112b4acc1730d943314ec12379fd",
+        "sha256": "99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926",
+        "bytes": 2397241,
+        "working_tree_matches_starting_git_blob": true,
+        "main_tree_identical_to_feature_proves_same_main_blob": true,
+        "png_dimensions": {
+          "width": 1536,
+          "height": 1024
+        }
+      },
+      {
+        "path": "WinImgNormalizer_variant.ico",
+        "git_blob": "963ee47d33fcf457b309dd50f493d3c4545b36ed",
+        "sha256": "78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79",
+        "bytes": 22917,
+        "working_tree_matches_starting_git_blob": true,
+        "main_tree_identical_to_feature_proves_same_main_blob": true,
+        "ico_image_count": 6
+      }
+    ],
+    "prior_exact_head_ci_runs": [
+      {
+        "run_id": 37506027897,
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37506027897",
+        "head_sha": "6e2643b2e0de62244821c47f4ff12aeda79dbf8b",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "jobs": [
+          {
+            "id": 112414784889,
+            "name": "pwsh on Windows Server 2025",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-06T17:45:39Z",
+            "completed_at": "2026-10-06T17:59:11Z",
+            "required_steps": [
+              {
+                "name": "Run mandatory tests with verified development dependencies",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run scoped static analysis with verified development dependencies",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prove a broken assertion returns failure",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prove an unsafe expression returns analysis failure",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Export allowlisted synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Upload sanitized synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 112414785078,
+            "name": "powershell on Windows Server 2025",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-06T17:45:40Z",
+            "completed_at": "2026-10-06T18:02:12Z",
+            "required_steps": [
+              {
+                "name": "Run mandatory tests with verified development dependencies",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run scoped static analysis with verified development dependencies",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prove a broken assertion returns failure",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prove an unsafe expression returns analysis failure",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Export allowlisted synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Upload sanitized synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "run_id": 37506032655,
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37506032655",
+        "head_sha": "6e2643b2e0de62244821c47f4ff12aeda79dbf8b",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "jobs": [
+          {
+            "id": 112414801730,
+            "name": "pwsh on Windows Server 2025",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-06T17:45:41Z",
+            "completed_at": "2026-10-06T17:58:39Z",
+            "required_steps": [
+              {
+                "name": "Run mandatory tests with verified development dependencies",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run scoped static analysis with verified development dependencies",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prove a broken assertion returns failure",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prove an unsafe expression returns analysis failure",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Export allowlisted synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Upload sanitized synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 112414802081,
+            "name": "powershell on Windows Server 2025",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-06T17:45:41Z",
+            "completed_at": "2026-10-06T18:01:02Z",
+            "required_steps": [
+              {
+                "name": "Run mandatory tests with verified development dependencies",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run scoped static analysis with verified development dependencies",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prove a broken assertion returns failure",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prove an unsafe expression returns analysis failure",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Export allowlisted synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Upload sanitized synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "prior_ci_scope": "GitHub exact-head run/job/required-step status was independently reread for the previous M4-T03 E. This baseline does not repeat its artifact downloads or independently reconstruct test counts. Those broader prior audits remain separate.",
+    "future_m4_t04_ci_verification": {
+      "state": "awaiting_named_implementation_sha_and_runs",
+      "new_required_case": "T073",
+      "counts_and_source_inventories": "Derive from the reviewed committed manifest and actual job logs/exports; do not assume prior counts.",
+      "no_future_implementation_or_checkpoint_claim": true
+    },
+    "actions": "Read-only local Git/file and GitHub API queries, then this one owned ignored baseline write only.",
+    "instruction_git_bindings": [
+      {
+        "path": "AGENTS.md",
+        "git_blob": "2b7dee914df01619c9b072eef5ab24fedc4d87f9",
+        "sha256": "e1b87ea59af0b6a2296f9c4e930f36ba1c8f403092f900984acc91adb2be746a"
+      },
+      {
+        "path": "docs/codex-winimg/tasks/M4-T04.md",
+        "git_blob": "927596dc4cb5aea089191448692b0bcb8f75817a",
+        "sha256": "dbd653c37bf9be26324115550fdcfa42b9f1fb92c1d349019c224e4564a221b4"
+      },
+      {
+        "path": "docs/codex-winimg/RELEASE_AND_WEBSITE.md",
+        "git_blob": "ed3e0c0c5d754ed07837fee49f0bb9a90bfde550",
+        "sha256": "924d7d60911b69a4c9836e8707e6198255301a0a96327184bd8cb830a6448493"
+      }
+    ]
+  },
+  "actual_clean_checkout_package_evidence_basis": "Inference from exact Git-bound Packaging.Tests.ps1 no-fallback guard in GitHub execution, clean checkout/source summaries, all eight package positives in both normal/control raw logs, and mandatory T069-T071 outcomes. Private raw packaging observations and package ZIPs were not uploaded or reconstructed.",
+  "publication_scope": "Read-only GitHub verification and local ignored evidence creation; no remote write actions.",
+  "evidence_checkpoint_limit": "This record binds observed implementation runs only. It makes no claim that a later governance checkpoint has been committed, pushed or tested."
+}
