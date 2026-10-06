@@ -1,4 +1,4 @@
-# Windows checks (through M4-T01)
+# Windows checks (through M4-T03)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -50,10 +50,10 @@ The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `NativeLifetime.Tests.ps1`, `Cancellation.Tests.ps1`, `Reporting.Tests.ps1`,
 `Launcher.Tests.ps1`, `ExitContract.Tests.ps1`, `Compatibility.Tests.ps1`,
 `CodecCompatibility.Tests.ps1`, `StaticAnalysis.Tests.ps1`, `WorkflowSecurity.Tests.ps1`,
-`Versioning.Tests.ps1`, and `Packaging.Tests.ps1`.
+`Versioning.Tests.ps1`, `Packaging.Tests.ps1`, and `Documentation.Tests.ps1`.
 `mandatory-tests.json` is the reviewed inventory: absent or unregistered top-level
 suites fail the default gate. Every required suite must discover nonzero tests;
-T005-T066 (except separate T007 control) and T068-T071 must appear in actually passed test paths.
+T005-T066 (except separate T007 control) and T068-T072 must appear in actually passed test paths.
 T001-T004 remain historical characterization. Explicit `-Path` runs are marked
 focused and cannot stand in for mandatory acceptance. Ten exact real codec test
 outcomes must pass, including the existing T031 HEIC/HEIF collection tests. Compiled
@@ -74,6 +74,19 @@ synthetic source state and video bytes. This does not claim a physical drag gest
 or a completed media run through the BAT. Observations retain actual inherited
 privilege context; an elevated hosted runner is not an ordinary-account observation.
 Both release development scripts are included in scoped static analysis.
+
+Documentation parity (T072) validates repository links/headings and portable-guide
+links against the exact package map. PowerShell AST parsing admits only the two
+documented literal positional application examples. Their synthetic source
+substitutions execute the production command function with owned `OutputParent`,
+not real Pictures. Actual logs verify byte targets; real synthetic media verifies
+above-target retention, white alpha composition, metadata stripping, frame omission,
+unchanged video bytes and the documented different-content duplicate limitation.
+Setup controls verify exact error messages and no destination creation. Version and
+JPEG capability negatives substitute only preflight replies from the real verified
+dependency; they do not claim the machine lacks those capabilities. README,
+portable guide, advanced behavior and root security policy are explicitly bound in
+gate summaries and public evidence; nearby private or backup paths are rejected.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied

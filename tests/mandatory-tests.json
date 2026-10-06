@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope": "Mandatory corrected automated corpus through M3-T06 plus version derivation T068 and portable packaging T069-T071; T001-T004 remain historical legacy characterization; T007 executes in the separate deliberate-failure control. Owner cases are separate recorded gates. Live UNC validation is outside owner-approved scope; local/lexical T039 remains mandatory.",
+  "scope": "Mandatory corrected automated corpus through M3-T06 plus version derivation T068, portable packaging T069-T071 and documentation parity T072; T001-T004 remain historical legacy characterization; T007 executes in the separate deliberate-failure control. Owner cases are separate recorded gates. Live UNC validation is outside owner-approved scope; local/lexical T039 remains mandatory.",
   "suites": [
     "Normalizer.Tests.ps1",
     "Preflight.Tests.ps1",
@@ -26,7 +26,8 @@
     "StaticAnalysis.Tests.ps1",
     "WorkflowSecurity.Tests.ps1",
     "Versioning.Tests.ps1",
-    "Packaging.Tests.ps1"
+    "Packaging.Tests.ps1",
+    "Documentation.Tests.ps1"
   ],
   "required_case_ids": [
     "T005",
@@ -93,7 +94,8 @@
     "T068",
     "T069",
     "T070",
-    "T071"
+    "T071",
+    "T072"
   ],
   "optional_tests": [],
   "limitations": [

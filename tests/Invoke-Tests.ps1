@@ -26,7 +26,7 @@ function Get-TestSourceBindings {
         # Bind the procedural size/quality measurement recipe with the gate.
         $files += Join-Path $PSScriptRoot 'Measure-SizeQuality.ps1'
         # Release derivation assertions bind both inputs and checked-in outputs.
-        foreach ($releaseFile in @('tools/release/Update-ReleaseMetadata.ps1','tools/release/Build-Release.ps1','docs/release/NOTES.md','docs/release/GETTING_STARTED.md','docs/release/THIRD_PARTY_NOTICES.md','docs/release/PACKAGING.md','CHANGELOG.md','release-metadata.json','README.md','LICENSE','.gitattributes','.gitignore')) {
+        foreach ($releaseFile in @('tools/release/Update-ReleaseMetadata.ps1','tools/release/Build-Release.ps1','docs/release/NOTES.md','docs/release/GETTING_STARTED.md','docs/release/THIRD_PARTY_NOTICES.md','docs/release/PACKAGING.md','docs/BEHAVIOR.md','SECURITY.md','CHANGELOG.md','release-metadata.json','README.md','LICENSE','.gitattributes','.gitignore')) {
             $files += Join-Path $repositoryRoot $releaseFile
         }
         $files += Join-Path $PSScriptRoot 'fixtures/LauncherConsoleFixture.cs'
