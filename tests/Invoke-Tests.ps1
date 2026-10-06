@@ -29,6 +29,11 @@ function Get-TestSourceBindings {
         foreach ($releaseFile in @('tools/release/Update-ReleaseMetadata.ps1','tools/release/Build-Release.ps1','docs/release/NOTES.md','docs/release/GETTING_STARTED.md','docs/release/THIRD_PARTY_NOTICES.md','docs/release/PACKAGING.md','docs/BEHAVIOR.md','SECURITY.md','CHANGELOG.md','release-metadata.json','README.md','LICENSE','.gitattributes','.gitignore')) {
             $files += Join-Path $repositoryRoot $releaseFile
         }
+        # Website preparation checks bind the exact public handoff and existing
+        # branding bytes; arbitrary nearby docs/assets are not evidence inputs.
+        foreach ($websiteFile in @('tools/website/Test-WebsiteHandoff.ps1','docs/website/metadata.json','docs/website/PRODUCT_COPY.md','docs/website/INTEGRATION.md','WinImgNormalizer_icon_variant.png','WinImgNormalizer_variant.ico','WinImgNormalizer_poster.png')) {
+            $files += Join-Path $repositoryRoot $websiteFile
+        }
         $files += Join-Path $PSScriptRoot 'fixtures/LauncherConsoleFixture.cs'
         foreach ($testPath in $SelectedPaths) {
             if (Test-Path -LiteralPath $testPath -PathType Container) {

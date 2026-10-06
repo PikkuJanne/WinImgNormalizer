@@ -173,7 +173,9 @@ Describe 'T066 synthetic evidence export privacy and containment' {
         $publicPaths=@('tools/release/Update-ReleaseMetadata.ps1','docs/release/NOTES.md','CHANGELOG.md',
             'release-metadata.json','README.md','LICENSE','.gitattributes','.gitignore',
             'tools/release/Build-Release.ps1','docs/release/GETTING_STARTED.md',
-            'docs/release/THIRD_PARTY_NOTICES.md','docs/release/PACKAGING.md','docs/BEHAVIOR.md','SECURITY.md')
+            'docs/release/THIRD_PARTY_NOTICES.md','docs/release/PACKAGING.md','docs/BEHAVIOR.md','SECURITY.md',
+            'tools/website/Test-WebsiteHandoff.ps1','docs/website/metadata.json','docs/website/PRODUCT_COPY.md',
+            'docs/website/INTEGRATION.md','WinImgNormalizer_icon_variant.png','WinImgNormalizer_variant.ico','WinImgNormalizer_poster.png')
         $bindings=@(foreach ($relative in $publicPaths) {
             [pscustomobject]@{relative_path=$relative;path=$privateText;sha256=(Get-FileHash -LiteralPath (Join-Path $repository $relative)).Hash.ToLowerInvariant()}
         })
@@ -205,7 +207,10 @@ Describe 'T066 synthetic evidence export privacy and containment' {
         @{Relative='tools/release/Build-Release.ps1.private'}, @{Relative='docs/release/GETTING_STARTED.md.bak'},
         @{Relative='docs/release/THIRD_PARTY_NOTICES.md.private'}, @{Relative='docs/release/PACKAGING.md.bak'},
         @{Relative='.gitignore.private'}, @{Relative='docs/BEHAVIOR.md.private'},
-        @{Relative='SECURITY.md.bak'}, @{Relative='docs/../SECURITY.md'}
+        @{Relative='SECURITY.md.bak'}, @{Relative='docs/../SECURITY.md'},
+        @{Relative='docs/website/metadata.json.private'}, @{Relative='docs/website/INTEGRATION.md.bak'},
+        @{Relative='docs/website/../website/PRODUCT_COPY.md'}, @{Relative='tools/website/private-command.ps1'},
+        @{Relative='WinImgNormalizer_poster.png.private'}
     ) {
         $directory=Join-Path $owned ('nonallowlisted-source-' + [guid]::NewGuid().ToString('N'))
         [IO.Directory]::CreateDirectory($directory) | Out-Null

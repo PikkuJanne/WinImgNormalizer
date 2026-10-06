@@ -1,4 +1,4 @@
-# Windows checks (through M4-T03)
+# Windows checks (through M4-T04)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -50,10 +50,11 @@ The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `NativeLifetime.Tests.ps1`, `Cancellation.Tests.ps1`, `Reporting.Tests.ps1`,
 `Launcher.Tests.ps1`, `ExitContract.Tests.ps1`, `Compatibility.Tests.ps1`,
 `CodecCompatibility.Tests.ps1`, `StaticAnalysis.Tests.ps1`, `WorkflowSecurity.Tests.ps1`,
-`Versioning.Tests.ps1`, `Packaging.Tests.ps1`, and `Documentation.Tests.ps1`.
+`Versioning.Tests.ps1`, `Packaging.Tests.ps1`, `Documentation.Tests.ps1`, and
+`Website.Tests.ps1`.
 `mandatory-tests.json` is the reviewed inventory: absent or unregistered top-level
 suites fail the default gate. Every required suite must discover nonzero tests;
-T005-T066 (except separate T007 control) and T068-T072 must appear in actually passed test paths.
+T005-T066 (except separate T007 control) and T068-T073 must appear in actually passed test paths.
 T001-T004 remain historical characterization. Explicit `-Path` runs are marked
 focused and cannot stand in for mandatory acceptance. Ten exact real codec test
 outcomes must pass, including the existing T031 HEIC/HEIF collection tests. Compiled
@@ -73,7 +74,8 @@ processing uses the owned `OutputParent` seam with verified ImageMagick and pres
 synthetic source state and video bytes. This does not claim a physical drag gesture
 or a completed media run through the BAT. Observations retain actual inherited
 privilege context; an elevated hosted runner is not an ordinary-account observation.
-Both release development scripts are included in scoped static analysis.
+Both release development scripts and the read-only website preparation guard are
+included in scoped static analysis.
 
 Documentation parity (T072) validates repository links/headings and portable-guide
 links against the exact package map. PowerShell AST parsing admits only the two
@@ -87,6 +89,16 @@ JPEG capability negatives substitute only preflight replies from the real verifi
 dependency; they do not claim the machine lacks those capabilities. README,
 portable guide, advanced behavior and root security policy are explicitly bound in
 gate summaries and public evidence; nearby private or backup paths are rejected.
+
+Website preparation (T073) runs the read-only handoff guard in fresh native child
+hosts against the checked-in draft and owned synthetic negative metadata. It binds
+the canonical release/version source, existing branding bytes and local product
+documents. Invalid publication fields and live download rendering fail closed;
+invented captures, asset tampering and drift do not pass as evidence. These checks
+prepare content for a separately approved website workflow. They make no network
+request, publish no download, choose no website provider and grant no deployment.
+The exact website inputs are allowlisted in both evidence formats, with nearby
+private-file and traversal rejection controls.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied
@@ -118,8 +130,8 @@ its template/derived files, README and LICENSE are included in source bindings.
 Static analysis uses verified PSScriptAnalyzer 1.25.0 and the explicit security,
 defect and Windows PowerShell 5.1/PowerShell 7 syntax rules in
 `PSScriptAnalyzerSettings.psd1`. It scans the application and maintained top-level
-test infrastructure scripts plus the development release-metadata generator;
-Pester DSL bodies, legacy reproduction and vendor
+test infrastructure scripts plus the release-metadata generator, release builder
+and website preparation guard. Pester DSL bodies, legacy reproduction and vendor
 code are outside that scope. Every diagnostic and empty scope fails. The sole
 production cleanup renames a local variable that shadowed automatic `$Error`.
 `Invoke-StaticAnalysis.ps1 -DeliberateFailure` analyzes an unsafe expression as text,
