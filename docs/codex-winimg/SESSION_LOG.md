@@ -2587,3 +2587,46 @@ independently verified. Sanitized evidence records dates/source/artifacts and pr
 containing checkpoint SHA/sync is pending its external post-commit observation,
 not self-referential. M4-T01 done, T068 passed, 23/28 accepted, 68/75 exercised;
 next M4-T02 remains pending. No tag, release, ZIP, merge or deployment performed.
+
+## 2026-10-06 — M4-T02 portable package acceptance
+
+Started clean at 958b387; live feature equal, final prior push/PR CI successful.
+Owner-merged PR22 main1eaaa had identical prior tree. Continued feature branch,
+preserving the non-Git snapshot, main and tags. Added an explicit Git-blob package
+builder, package-facing guide/legal notices and 25 regressions. Full gate now has
+25 suites/T069-T071 and binds release inputs; privacy export exact allowlist expands
+with five nearby-path negatives; analyzer includes the builder (nine scripts).
+
+I1 1dfd5ac exposed a test assumption: PS7 full 512/512 passed; PS5 full 511/512 had
+only ZIP NoCompression stored-size equality failure, with exact extraction/native
+media passing. Raw header review established .NET Framework stored-DEFLATE framing;
+owned superseded PS7 control was stopped without a passing/count claim. Correction
+I2 f4da7b8 qualifies runtime framing, retains canonical content/repeat assertions and
+documents the precise contract. Both clean I2 desktop normal gates passed 512/512.
+All four I2 hosted jobs failed the same independent T070 identify oracle:
+normal 512/511/1/native 1; control 513/511/2/native 1. Owned I2 local controls were stopped
+without accepted counts; their partial PS5.1 NativeLifetime FormatException remains
+retained. I3 e0731fc corrected independent JPEG inspection to use its canonical
+extended native path, then both desktop parents were stopped before completion
+for the separate incomplete fixture identity-publication diagnosis. I4 publishes
+complete owned PID/start-time/job-status text by atomic move. The two final corrections touch tests
+only; runtime, BAT, builder and seven package inputs are unchanged. Earlier hosted
+native stderr was not uploaded and does not prove its underlying failure cause.
+Focused dirty replica attempts and superseded prepared assets remain qualified.
+
+Clean implementation 69822554c69223d4e048b2a58d1f3203cd01428c: both desktop shells full 512/512,
+zero skips/unrun, ten actual codecs; controls 513/512/one exact T007/native1. Both
+normal/control analyzers (zero/one finding) and sanitized exports succeeded. Parent
+native records and hashes bind source/Git/host/raw artifacts. Four actual current
+commit package extractions verified exact BAT setup/pause and real extracted PS1
+image/video via owned OutputParent, non-admin inherited identity and unchanged
+source/video/security state. Independent ZIP/legal/ICC/link/checksum audits pass.
+Both same-host repeats agree; cross-host eight decoded files agree, ZIP framing
+differs by 60 bytes. PS7 local ZIP 181042 bytes/SHA256 18754f1e69a76460dee60166a4f910d04e93b669b1782c01aad12c033f0b28fd.
+
+Implementation push/PR CI four jobs and artifact/source/merge provenance independently
+verified; see M4-T02-ci.json. Record-only closure changes governance/evidence, leaving
+tested package/build/runtime inputs intact. Containing checkpoint hash, live feature
+sync and final CI are external post-commit observations. Task 24/28, cases 71/75;
+M4-T02 done, M4-T03 pending/not started. Version 1.0.0 unreleased/unsigned. No tag,
+public release, default-branch push, merge or deployment performed for this task.

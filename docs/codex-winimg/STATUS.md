@@ -1,21 +1,22 @@
 # Project status
 
-Updated: 2026-10-06 — M4-T01 single version source and unreleased notes verified.
+Updated: 2026-10-06 — M4-T02 portable ZIP and clean Windows extraction verified.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested M4-T01 implementation: 3109a1b27d73f4084076cdd14ba06447c6243c0f
-Application version: **1.0.0 (unreleased)**
+Tested M4-T02 implementation: 69822554c69223d4e048b2a58d1f3203cd01428c
+Application version: **1.0.0 (unreleased; unsigned local package prepared)**
 Owner-accepted normalization implementation: 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad
-Completed task: **M4-T01 — Add one version source and release notes (done)**
-Next intended task: **M4-T02 (pending; not started)**
-Task progress: **23 / 28 accepted**
-Specified cases: **T001-T068 exercised (68 / 75); T067 owner acceptance and T068 passed**
-Pester suite: **482/482 passed in each desktop shell, zero skipped; 24 mandatory suites including T068**
-Failure controls: **483 total, 482 passed, one intended failure; native exit 1**
-CI: **Push and PR Windows CI passed for the tested implementation; exported artifacts independently verified**
-Containing evidence checkpoint synchronization: **pending_verification**
+Completed task: **M4-T02 — Build a portable release ZIP from reviewed tracked content (done)**
+Next intended task: **M4-T03 (pending; not started)**
+Task progress: **24 / 28 accepted**
+Specified cases: **T001-T071 exercised (71 / 75); T069-T071 passed**
+Pester suite: **512/512 passed in each desktop shell, zero skipped/unrun; 25 mandatory suites**
+Failure controls: **513 total, 512 passed, one intended failure; native exit 1**
+Static analysis: **nine scripts, zero normal findings; one intended control finding/native exit 1**
+CI: **Implementation push and PR Windows matrices passed; four jobs and sanitized artifacts independently verified**
+Containing evidence checkpoint synchronization/CI: **pending external post-commit observation**
 
 ## Accepted M3-T06 baseline and its dated verification
 
@@ -209,3 +210,57 @@ independently verified. The final containing governance/evidence checkpoint's SH
 feature synchronization are observed externally after commit. M4-T01 is done,
 23/28 accepted and T001-T068 exercised; **M4-T02 remains pending**. Packaging,
 publication and deployment retain their separate task/approval boundaries.
+
+## M4-T02 accepted portable packaging
+
+Build-Release.ps1 reads seven explicitly mapped regular Git blobs from the exact
+clean current full commit, preserves PS1/BAT bytes and refuses dirty/stale/missing/
+linked inputs, linked output ancestors and destination replacement. It produces
+an eight-file ZIP (seven inputs plus generated manifest), outer source/asset
+provenance and SHA256SUMS. Compact setup guidance and full MIT/CC0 notices accompany
+the self-contained runtime; tests/governance/tools/media and ImageMagick are excluded.
+See [packaging instructions](../release/PACKAGING.md).
+
+At clean implementation 69822554c69223d4e048b2a58d1f3203cd01428c, actual Windows 11 Pro
+build 26300, PS5.1.26100.9444 and PS7.6.5 full gates each passed 512/512 with zero
+skips/unrun tests, 25 suites and ten real codec outcomes. Both controls produced
+513/512/one exact T007 failure/native 1. Both normal/control analyzer and sanitized
+exports completed. Four actual clean-commit ZIP extractions (normal/control in each
+shell) passed exact BAT setup/pause and real extracted PS1 image/video smoke via
+the existing owned OutputParent seam. Actual children were non-admin; source state,
+video bytes and persistent security state remained unchanged. These are automated
+checks, not a physical Explorer gesture or new subjective owner acceptance.
+
+Independent audits recompute all source/file/archive/checksum bindings and verify
+legal/ICC provenance and package-local links. The PS7 prepared ZIP is 181042 bytes,
+SHA256 18754f1e69a76460dee60166a4f910d04e93b669b1782c01aad12c033f0b28fd. The PS5 ZIP is 181102 bytes:
+Framework NoCompression uses DEFLATE stored-block framing, whereas the tested PS7
+writer uses ZIP Stored entries. All eight decoded files agree across hosts; each
+host repeats all three external assets byte-identically. No universal ZIP-writer
+byte equality, signature, public download or published release is claimed.
+
+The first clean I1 PS7 normal run passed 512/512. I1 PS5 had only the incorrect
+stored-size equality assertion (511/512); extraction and real media passed. The
+superseded owned PS7 control was stopped, supplies no control counts and is retained
+separately. I2 f4da7b8 qualified the framing contract and both desktop normal gates
+passed 512/512. All four I2 hosted jobs then failed the same independent T070 identify
+inspection (normal 512/511/1; control 513/511/2), so I2 local controls were stopped and
+supply no passing counts. A partial PS5.1 NativeLifetime observer FormatException is
+retained separately. I3 e0731fc corrected the independent JPEG inspection path;
+both desktop validation parents were stopped before normal completion when the
+separate fixture identity-publication race was diagnosed. I4 publishes complete
+owned fixture identity bytes with an atomic move; these two corrections change
+tests only, preserving runtime, builder and package inputs. The earlier hosted
+stderr was not uploaded, so its underlying native failure is not retrospectively
+proved. Focused developer replicas and the initial source-change gate rejection
+are qualified in [desktop evidence](evidence/M4-T02.json), alongside final I4
+acceptance. [CI evidence](evidence/M4-T02-ci.json) binds actual implementation runs,
+downloads and PR synthetic merge provenance, separately from desktop observations.
+
+Prior checkpoint 958b387 now has both push/PR CI successes. The owner merged PR22
+into main 1eaaa356435b5d15cc25c909a9dd0c82635d479e with an identical prior feature
+tree. This task continued the same feature branch in [draft PR23](https://github.com/PikkuJanne/WinImgNormalizer/pull/23).
+Application/BAT/license bytes and dependency pins remain unchanged. This containing
+governance checkpoint needs its external SHA/live sync and CI observation after
+commit; it cannot contain its own hash. M4-T03 has not started. Future tag/release
+publication and website deployment remain separate owner gates; live UNC remains D35.
