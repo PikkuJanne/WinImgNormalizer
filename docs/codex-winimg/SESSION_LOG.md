@@ -2386,3 +2386,55 @@ Updated STATUS/TASKS/NEXT_SESSION/ACCEPTANCE. Plan/JSON/privacy/diff/source chec
 and scoped commit/push/independent remote observation follow; final containing
 SHA is reported externally, not embedded here. Stop at owner gate. Live UNC stays
 owner-excluded D35. No M4 task, merge/release or deployment was performed.
+
+
+## 2026-10-06 — M3-T07 actual owner smoke; HDRI alpha defect blocks acceptance
+
+Resumed the guided owner test after the requested prior-day shutdown. Started
+clean at dd6753991edfb7dec7454d1af5c2fe43df75d103 on the canonical feature branch;
+independent live SHA equality, open draft PR22 and unchanged main
+4d0bc6dd403a84b4cad770fdacfd394066c9fbd1 were rechecked. Prior preparation checkpoint
+push 37345811050 and PR 37345853641 CI show success. The preserved snapshot,
+application, BAT, tests, defaults and settings were not changed.
+
+The owner reported ImageMagick in PATH, followed the clarified literal folder-to-BAT
+instruction, reported `Final reporting state: LogWarnings=0 DiskLogIncomplete=False
+FallbackDropped=0` and `Completed successfully. Press any key to close.`, and opened
+the actual Pictures result. Smooth landscape was described as opening normally with
+a smooth gradient; hard edges were clear/intact; the upper-left white transparency
+area was confirmed. The last `Yes` applies to that prompted area only. No explicit
+named-commit workflow/appearance/default acceptance or captured native BAT exit exists.
+
+Independent read-only verification selected the sole known-Pictures synthetic output
+matching the packet prefix and inspected only approved synthetic source/output trees.
+Actual log starts 2026-10-06T15:33:30+02:00, last logged time 15:33:46+02:00.
+All 24 source files and eight source directories retain hashes/times/attributes;
+20 JPEGs fully decode with correct geometry and stripped metadata, one video has
+equal bytes, mirrors/collisions/duplicate mapping and finalized timestamps agree.
+Reports reconcile 20 converted + 1 copied + 1 duplicate + 2 ignored, zero errors/
+warnings, five omitted frames and complete balanced accounting. Launcher copies
+still match review commit 4618a83cb2aa893aea9d6a1587987612624e1cf7.
+
+Actual installed ImageMagick is 7.1.2-32 Q16-HDRI, unlike portable non-HDRI preparation.
+Nineteen outputs match preparation; tagged alpha differs. Independent Pillow/
+LittleCMS reference expects semi-transparent green [127,213,169], actual [0,213,169]
+(maximum error 127; JPEG tolerance 12). White upper-left is correct. Zero native/
+report warnings do not certify pixel correctness. Current installed executable hash
+was observed after the smoke; actual version/features/delegates come from its log.
+
+Isolated native synthetic diagnosis reproduces the owner JPEG exactly and finds
+negative RGB after ICC conversion. Clamp immediately after conversion and before
+white composition gives PNG [127,213,169], JPEG [127,212,170], maximum reference
+error 1. Clamp before conversion or after composition fails; portable Q16 derivative
+bytes remain unchanged across placement controls. All 32 native diagnostic calls
+exit 0 with empty stderr and source remains unchanged. This is proposed repair
+evidence, not application regression validation or owner approval.
+
+Retained sanitized actual smoke and compact diagnosis records; raw artifacts/private
+paths/media remain local. Updated STATUS/TASKS/NEXT_SESSION/OWNER_ACCEPTANCE/
+ACCEPTANCE and linked the dated preparation to this follow-up. M3-T07 awaiting_owner,
+T067 blocked/incomplete, accepted tasks 21/28, earlier specified cases 66/75 unchanged;
+T067 is partly exercised. Recommend bounded tested colour repair and renewed owner
+review at a new exact tested commit. Per task card, stop at absent acceptance; no M4
+task or production repair was started. Record checks/scoped commit/push and later
+independent remote observation follow; containing SHA is reported externally.

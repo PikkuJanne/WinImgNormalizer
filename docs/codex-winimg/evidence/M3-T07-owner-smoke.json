@@ -1,0 +1,611 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T07",
+  "classification": "read-only verification of actual owner synthetic Pictures artifacts; material HDRI alpha discrepancy found",
+  "observed_at_utc": "2026-10-06T13:41:19.929884+00:00",
+  "review_commit": "4618a83cb2aa893aea9d6a1587987612624e1cf7",
+  "output_alias": "<actual-owner-output>",
+  "selection": {
+    "method": "Windows MyPictures known-folder resolution; immediate child directories restricted to synthetic prefix",
+    "matching_directories": 1,
+    "selection_ambiguous": false,
+    "run_local_start_Berlin": "2026-10-06T15:33:30+02:00",
+    "last_logged_time_Berlin": "2026-10-06T15:33:46+02:00",
+    "run_directory_creation_utc": "2026-10-06T13:33:30.651405+00:00"
+  },
+  "reports": {
+    "log_sha256": "57236e488f55634c62654536f59d6c98558d854b104ab99f2f6bdc00d72f9775",
+    "csv_sha256": "7957ae53280535635cba205db5e749ce689134c483759f0ba863d1feeda28441",
+    "summary": "SUMMARY ConvertedImages=20 CopiedVideos=1 Duplicates=1 Unsupported=2 Errors=0 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0 ScanComplete=True IncompleteDirectories=0 UninspectableEntries=0 SkippedLinks=0 LogWarnings=0 FallbackDropped=0",
+    "accounting": "ACCOUNTING Discovered=24 Converted=20 CopiedVideo=1 SkippedDuplicate=1 Ignored=2 Error=0 Cancelled=0 NotStarted=0 Balanced=True ScanComplete=True IncompleteDirectories=0 UninspectableEntries=0 SkippedLinks=0 ImageInputBytes=7762456 ImageOutputBytes=4366538 ImageSavingsBytes=3395918 VideoBytes=65537 ElapsedSeconds=22.724 FinalizedFilesPerSecond=0.924 ReportWarnings=0 ReportComplete=True ProgressWarnings=0 ImageSavingsPercent=43.748 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0 AncillaryWarnings=0 FramesOmitted=5 ConsoleWarnings=0 ProcessingWarnings=False",
+    "csv_file_rows": 24,
+    "status_counts": {
+      "Ignored": 2,
+      "Converted": 20,
+      "CopiedVideo": 1,
+      "SkippedDuplicate": 1
+    },
+    "warning_counts": {
+      "SizeWarning": 0,
+      "NativeWarning": 0,
+      "TimestampWarning": 0,
+      "AncillaryWarning": 0,
+      "FramesOmitted": 5
+    },
+    "balanced": true,
+    "report_complete": true
+  },
+  "environment": {
+    "version_from_run_log": "ImageMagick 7.1.2-32 Q16-HDRI x64 ad98b24:20260927 https://imagemagick.org",
+    "features_from_run_log": "Channel-masks(64-bit) Cipher DPC HDRI Modules OpenCL OpenMP(2.0)",
+    "delegates_from_run_log": "bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd",
+    "executable_alias": "<actual-owner-installed-magick>",
+    "executable_sha256_observed_during_read_only_verification": "ae5affcba0751155d698dd5d71652ecb79fa3f99c37d9eb34fc8b3b91635ff67",
+    "executable_binding_qualification": "Current installed file hash observed after run; version/features/delegates come from actual run log. No retained native preflight process record or native BAT exit is fabricated.",
+    "differs_from_preparation": "Actual owner installed Q16-HDRI; preparation pinned portable Q16 without HDRI"
+  },
+  "launcher_bindings": [
+    {
+      "path": "Launcher/WinImgNormalizer.ps1",
+      "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9",
+      "matches_reviewed_packet": true
+    },
+    {
+      "path": "Launcher/WinImgNormalizer.bat",
+      "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "matches_reviewed_packet": true
+    }
+  ],
+  "source_preservation": {
+    "source_snapshot_sha256": "34cd7e6aa0c710e75cfab5b3fd1227ffe11734470429f603c1aacaf56de9741d",
+    "verified_preparation_sha256": "d6bfb0e6c72831eee5698553ec80f0c42a7757441f66469d3dea9697babe669f",
+    "source_file_count": 24,
+    "source_directory_count": 8,
+    "all_file_hashes_lengths_creation_write_times_attributes_match_retained_snapshot": true,
+    "all_directory_creation_write_times_attributes_match_retained_snapshot": true,
+    "mirrors": [
+      {
+        "path": ".",
+        "present": true
+      },
+      {
+        "path": "empty[1]%d",
+        "present": true
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]",
+        "present": true
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/nested",
+        "present": true
+      },
+      {
+        "path": "p0 & O'Brien (Äöß 😀)! [0]",
+        "present": true
+      },
+      {
+        "path": "Quality comparison",
+        "present": true
+      },
+      {
+        "path": "Same stem collision",
+        "present": true
+      },
+      {
+        "path": "z duplicate",
+        "present": true
+      }
+    ],
+    "empty_directories_preserved": true,
+    "output_files": 23,
+    "output_directories_including_root": 11,
+    "work_directory_empty": true,
+    "finalized_file_creation_write_time_pairs_match_sources": 21
+  },
+  "jpeg_verification": {
+    "decoder": "Pillow 12.3.0",
+    "fully_decoded_jpegs": 20,
+    "single_frame_dimensions_lengths_match_csv": true,
+    "metadata_APP1_APP2_APP13_COM_absent": true,
+    "exif_icc_xmp_comments_absent": true,
+    "all_dimensions_scales_match_preparation": true,
+    "byte_identical_to_preparation": 19
+  },
+  "converted": [
+    {
+      "source": "Quality comparison/already-lossy-jpeg.jpg",
+      "output": "Quality comparison/already-lossy-jpeg.jpeg",
+      "sha256": "93d1894a3679ca4560e090995301eeb044ebcf7b59816e4b7302d35aa0cfea0a",
+      "bytes": 916662,
+      "width": 1600,
+      "height": 1200,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "Quality comparison/hard-edges-detail.png",
+      "output": "Quality comparison/hard-edges-detail.jpeg",
+      "sha256": "62ab288b89cdcd268db6b19b54074f66fdbe03791784e0955a3e8bc21af58946",
+      "bytes": 903155,
+      "width": 1600,
+      "height": 1200,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "Quality comparison/seeded-noise.png",
+      "output": "Quality comparison/seeded-noise.jpeg",
+      "sha256": "4016bcfaf0ca31b9267633f0a7921db40cae0b4c8eea946bec7b19bdf795e497",
+      "bytes": 1015369,
+      "width": 1600,
+      "height": 1200,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "Quality comparison/smooth-landscape.png",
+      "output": "Quality comparison/smooth-landscape.jpeg",
+      "sha256": "5b7b9992e70a030378764a7ea4272752ff9e1120b1f56801c5ebda3652a48ca7",
+      "bytes": 278605,
+      "width": 1600,
+      "height": 1200,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "Quality comparison/smooth-portrait.png",
+      "output": "Quality comparison/smooth-portrait.jpeg",
+      "sha256": "37f3af53033aeef73afe44bf0b4aba5965a6a5bfecd192f59b468f751eb19b47",
+      "bytes": 264584,
+      "width": 1200,
+      "height": 1600,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "Same stem collision/photo.bmp",
+      "output": "Same stem collision/photo__bmp__2.jpeg",
+      "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+      "bytes": 594,
+      "width": 96,
+      "height": 128,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "NumericSuffix",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "Same stem collision/photo.jpg",
+      "output": "Same stem collision/photo__jpg.jpeg",
+      "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+      "bytes": 604,
+      "width": 64,
+      "height": 96,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "ExtensionSuffix",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "Same stem collision/photo__bmp.bmp",
+      "output": "Same stem collision/photo__bmp.jpeg",
+      "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+      "bytes": 594,
+      "width": 96,
+      "height": 128,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "noise[%d].png",
+      "output": "noise[%d].jpeg",
+      "sha256": "52361e1e9f4a7e601ed695c36c86b70e9247825f9fac95c002f9ba047261ffbd",
+      "bytes": 978338,
+      "width": 1280,
+      "height": 960,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.png",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.jpeg",
+      "sha256": "4d694fcca8c299e8a0ec5b58e125d9dcb7bd29f058a62387ba3144127314f3be",
+      "bytes": 635,
+      "width": 128,
+      "height": 96,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": false
+    },
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].webp",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].jpeg",
+      "sha256": "dc527a67436aef4578b6c8498e818d7d96d9302c303dc3dcf4fae852848ea1f7",
+      "bytes": 1313,
+      "width": 64,
+      "height": 48,
+      "scale_percent": 100,
+      "frames_omitted": 1,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].tiff",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].jpeg",
+      "sha256": "66911209e13db42f398f896acc61351849e267d610c00899334ee0cc4eb7748c",
+      "bytes": 629,
+      "width": 128,
+      "height": 96,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.gif",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.jpeg",
+      "sha256": "88d0112d09bc7c34e29634bb294abc7600c41a39a6e0372610581c0610a06cc0",
+      "bytes": 1198,
+      "width": 64,
+      "height": 48,
+      "scale_percent": 100,
+      "frames_omitted": 1,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpg",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpeg",
+      "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+      "bytes": 604,
+      "width": 64,
+      "height": 96,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].tiff",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].jpeg",
+      "sha256": "8a99b59f4c9676799d7fa5055d0ea70b4b1badb4903846f06b9754eadec2edad",
+      "bytes": 619,
+      "width": 48,
+      "height": 80,
+      "scale_percent": 100,
+      "frames_omitted": 1,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.heic",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.jpeg",
+      "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+      "bytes": 604,
+      "width": 64,
+      "height": 48,
+      "scale_percent": 100,
+      "frames_omitted": 1,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.heif",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.jpeg",
+      "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+      "bytes": 604,
+      "width": 64,
+      "height": 48,
+      "scale_percent": 100,
+      "frames_omitted": 1,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+      "sha256": "0c5ab8c5e5b1cf3e73e2494631ba9b0d1300be2f69c8788809137f4a411d4f37",
+      "bytes": 639,
+      "width": 128,
+      "height": 96,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+      "output": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+      "sha256": "2ff3ee1d6a996a49c6f9218b4a5ac0700c3ef678ef308be2f61e2a64f74782c6",
+      "bytes": 594,
+      "width": 128,
+      "height": 96,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "portrait[0]%.bmp",
+      "output": "portrait[0]%.jpeg",
+      "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+      "bytes": 594,
+      "width": 96,
+      "height": 128,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    }
+  ],
+  "videos": [
+    {
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+      "sha256": "e447ef50c269fcef0545fc63f1d9a3af0a473ffd0fc43022d17b956535c7325a",
+      "bytes": 65537,
+      "byte_identical": true
+    }
+  ],
+  "collisions": [
+    {
+      "source": "Same stem collision/photo.bmp",
+      "output": "Same stem collision/photo__bmp__2.jpeg",
+      "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+      "bytes": 594,
+      "width": 96,
+      "height": 128,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "NumericSuffix",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "Same stem collision/photo.jpg",
+      "output": "Same stem collision/photo__jpg.jpeg",
+      "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+      "bytes": 604,
+      "width": 64,
+      "height": 96,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "ExtensionSuffix",
+      "same_bytes_as_preparation": true
+    },
+    {
+      "source": "Same stem collision/photo__bmp.bmp",
+      "output": "Same stem collision/photo__bmp.jpeg",
+      "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+      "bytes": 594,
+      "width": 96,
+      "height": 128,
+      "scale_percent": 100,
+      "frames_omitted": 0,
+      "naming_reason": "Legacy",
+      "same_bytes_as_preparation": true
+    }
+  ],
+  "duplicates": [
+    {
+      "source": "z duplicate/wide[0]%.png",
+      "retained_source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+      "retained_output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+      "retained_status": "Converted"
+    }
+  ],
+  "material_findings": [
+    {
+      "kind": "HDRI tagged-alpha white-composition colour discrepancy",
+      "source": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.png",
+      "source_sha256": "2de1c0e1e134e0e98e0315c13084af5825e845df63d27703ccf8e0b4a64299b6",
+      "output": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.jpeg",
+      "owner_output_sha256": "4d694fcca8c299e8a0ec5b58e125d9dcb7bd29f058a62387ba3144127314f3be",
+      "owner_output_bytes": 635,
+      "prepared_output_sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+      "prepared_output_bytes": 630,
+      "sample_points": [
+        [
+          32,
+          24
+        ],
+        [
+          96,
+          24
+        ],
+        [
+          32,
+          72
+        ],
+        [
+          96,
+          72
+        ]
+      ],
+      "actual_rgb8": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          0,
+          213,
+          169
+        ],
+        [
+          212,
+          98,
+          131
+        ],
+        [
+          129,
+          129,
+          129
+        ]
+      ],
+      "independent_expected_rgb8": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          127,
+          213,
+          169
+        ],
+        [
+          212,
+          98,
+          132
+        ],
+        [
+          129,
+          129,
+          129
+        ]
+      ],
+      "maximum_channel_error": 127,
+      "existing_jpeg_channel_tolerance": 12,
+      "within_tolerance": false,
+      "reference_path": "tests/fixtures/colour/REFERENCE.json",
+      "reference_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+      "reference_engine": {
+        "Pillow": "12.3.0",
+        "LittleCMS": "2.19",
+        "method": "ImageCms.profileToProfile",
+        "rendering_intent": "Relative colorimetric (1)",
+        "flags": 0,
+        "black_point_compensation": false,
+        "cmyk_qualification": "The selected CGATS001Compat profile has only an A2B0 perceptual forward mapping. LittleCMS falls back to that available mapping when Relative intent 1 is requested. These tuples verify this fixture's forward CMYK-to-sRGB result; they do not certify general relative-colorimetric print accuracy, other intents or reverse transforms.",
+        "alpha": "Transform RGB first; preserve alpha; Pillow.alpha_composite over white in encoded sRGB"
+      },
+      "qualification": "Upper-left white is correct. Semi-transparent upper-right fails the independent colour reference. Native diagnosis reproduces the owner JPEG exactly and establishes clamp after sRGB conversion, before white composition as the proposed repair; production remains unchanged."
+    }
+  ],
+  "owner_statement_qualification": {
+    "launch_method": "Owner reported physical folder-to-copied-BAT drag",
+    "reported_console_lines": [
+      "Final reporting state: LogWarnings=0 DiskLogIncomplete=False FallbackDropped=0",
+      "Completed successfully. Press any key to close."
+    ],
+    "native_BAT_exit_independently_captured": false,
+    "native_BAT_exit": null,
+    "qualification": "Console lines and physical gesture are user statements supplied to root, separate from independently read actual output reports. Explicit owner acceptance has not been supplied."
+  },
+  "owner_approval": {
+    "state": "awaiting_owner",
+    "approved_commit": null,
+    "actor": null,
+    "recorded_utc": null
+  },
+  "limitations": [
+    "Actual run logs have zero application warnings/errors but the independent alpha colour comparison fails established fixture tolerance.",
+    "No app execution, UI change, installation, setting change, source/output rewrite, tracked-file edit or subjective quality approval was performed by this verifier.",
+    "Raw/private Pictures paths and media are absent from this sanitized report.",
+    "All actual independent artifact verification used only the selected synthetic output tree and the approved packet."
+  ],
+  "recorded_utc": "2026-10-06T13:46:31.925458+00:00",
+  "verification_source_artifact_sha256": "88bd3b7190a1c01cd35b18f50e374900ae9dbccd70bae7013668fe3a63d26baa",
+  "checkpoint_observation": {
+    "local_and_live_feature_head": "dd6753991edfb7dec7454d1af5c2fe43df75d103",
+    "worktree_clean_before_record_updates": true,
+    "branch": "codex/winimg-hardening",
+    "fetch_push_identity": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "live_main_head": "4d0bc6dd403a84b4cad770fdacfd394066c9fbd1",
+    "draft_pr": "https://github.com/PikkuJanne/WinImgNormalizer/pull/22",
+    "qualification": "Read-only checks before these record edits; copied app/BAT still match review commit. Containing checkpoint requires a later independent observation."
+  },
+  "prior_checkpoint_ci_observation": {
+    "checkpoint": "dd6753991edfb7dec7454d1af5c2fe43df75d103",
+    "push_run": {
+      "id": 37345811050,
+      "state": "completed",
+      "conclusion": "success"
+    },
+    "pr_run": {
+      "id": 37345853641,
+      "state": "completed",
+      "conclusion": "success"
+    },
+    "qualification": "Observed on 2026-10-06. These pinned non-HDRI gates do not negate the actual installed-HDRI pixel defect or supply owner consent."
+  },
+  "owner_observations": [
+    {
+      "check": "Environment ready",
+      "instruction_context": "Open packet source folder and ensure ImageMagick is available",
+      "statement": "Folder open and ImageMagick in PATH on this machine"
+    },
+    {
+      "check": "Everyday launch",
+      "instruction_context": "Drag the literal Drop this folder from the packet onto Launcher/WinImgNormalizer.bat",
+      "statement": "Done",
+      "qualification": "Owner response to the explicit physical drag instruction; gesture was not independently observed."
+    },
+    {
+      "check": "Console completion and pause",
+      "statement": "Final reporting state: LogWarnings=0 DiskLogIncomplete=False FallbackDropped=0\n\nCompleted successfully. Press any key to close."
+    },
+    {
+      "check": "Pictures output",
+      "instruction_context": "Close console and open actual Pictures result",
+      "statement": "Folder open"
+    },
+    {
+      "check": "Quality comparison/smooth-landscape.jpeg",
+      "statement": "Opens normally and looks smooth gradient"
+    },
+    {
+      "check": "Quality comparison/hard-edges-detail.jpeg",
+      "statement": "Clear and intact"
+    },
+    {
+      "check": "Transparent upper-left white area",
+      "instruction_context": "Inspect alpha[1]%03d.jpeg in the literal special-character folder; confirm white upper-left with coloured squares beside and below",
+      "statement": "Yes",
+      "qualification": "Confirms this prompted appearance check only; does not approve all colours, defaults, the entire workflow or a named commit."
+    }
+  ],
+  "owner_observation_qualification": {
+    "date": "2026-10-06",
+    "source": "Direct owner responses during the guided test in this chat",
+    "per_statement_timestamp": null,
+    "all_comparison_images_visually_reviewed": false,
+    "explicit_named_commit_acceptance": false
+  },
+  "case_results": [
+    {
+      "case_id": "T067",
+      "state": "blocked",
+      "reason": "Actual owner smoke and partial appearance observations exist, but independent installed-HDRI alpha colour validation fails and explicit named-commit owner acceptance is absent."
+    }
+  ],
+  "state": "awaiting_owner",
+  "application_and_tests_changed": false,
+  "diagnosis_evidence": "evidence/M3-T07-hdri-diagnosis.json",
+  "containing_checkpoint_sync": "pending_verification",
+  "record_checks": {
+    "plan": "passed: 28 tasks, 75 cases, 18 review items, 21 done; next M3-T07",
+    "privacy_json_diff": "passed: new evidence parsed and sanitized; only nine scoped record paths changed; whitespace check clean",
+    "historical_preparation_preserved": "passed: prior preparation fields identical to dd6753991edfb7dec7454d1af5c2fe43df75d103; only dated follow_up added",
+    "source_and_reference_bindings": "passed: exact app/BAT/reference hashes unchanged and app/tests/tools/attributes diff empty at review commit",
+    "diagnostic_artifact_bindings": "passed: raw/clarified/driver/owner artifact and profile/reference hashes match; two engine records and 32 exact command/native/stdout outcomes match clarified diagnosis",
+    "independent_verifier": "Read-only peer reverified synthetic source/output/report/launcher hashes, original state, output timestamps/mirrors and persistent alpha failure before checkpoint; no overall owner consent inferred."
+  }
+}

@@ -867,9 +867,11 @@
       ],
       "state": "awaiting_owner",
       "evidence": [
-        "evidence/M3-T07.json"
+        "evidence/M3-T07.json",
+        "evidence/M3-T07-owner-smoke.json",
+        "evidence/M3-T07-hdri-diagnosis.json"
       ],
-      "blocked_reason": "Prepared synthetic comparisons/checklist; actual owner Windows Explorer smoke, launcher tool discovery and explicit named-commit appearance/workflow acceptance are absent.",
+      "blocked_reason": "Owner performed the everyday Windows smoke and partial appearance checks on 2026-10-06. Installed Q16-HDRI fails the independent semi-transparent colour reference; a bounded repair and renewed named-commit owner review are needed. Explicit acceptance remains absent.",
       "card": "tasks/M3-T07.md"
     },
     {

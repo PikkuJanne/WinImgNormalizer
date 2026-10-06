@@ -1,6 +1,6 @@
 # M3-T07 owner review — awaiting_owner
 
-Owner: Janne Vuorela. Prepared: 2026-10-05; owner review has not occurred.
+Owner: Janne Vuorela. Prepared: 2026-10-05; guided partial review: 2026-10-06.
 Exact review commit: **4618a83cb2aa893aea9d6a1587987612624e1cf7**.
 No application, launcher, test or default changes are proposed in this task.
 The packet's Launcher files are exact copies from this clean checkout. Their hashes
@@ -89,18 +89,45 @@ M2-T04's exact-byte extent correction. The 1,048,576-byte default, six scales,
 retained; unchanged settings do not promise identical historical output quality.
 No new quality/resize default is proposed, and no later tuning is approved here.
 
+## Recorded owner smoke and partial review — 2026-10-06
+
+The owner followed the physical `Drop this folder` → copied BAT instruction and
+reported `Completed successfully. Press any key to close.` and clean final reporting.
+The actual Pictures output was opened. The native BAT exit was not independently
+captured. [Actual smoke evidence](evidence/M3-T07-owner-smoke.json) retains the
+exact direct statements and separately verified artifact findings.
+
+| Guided visual check | Owner response |
+|---|---|
+| Smooth landscape | Opens normally and looks smooth gradient |
+| Hard edges/detail | Clear and intact |
+| Transparent upper-left white area | Yes |
+
+The last response confirms the prompted area only. It is not named-commit acceptance
+of all colours, defaults or workflow. Other comparison images were not all visually
+reviewed. Original files/dirs, video bytes, mirrors/collisions/duplicate mapping,
+output timestamps, 20 JPEG decodes/geometry/metadata and complete balanced reports
+were independently checked using only the approved synthetic trees.
+
+The actual run used installed **Q16-HDRI**. The semi-transparent green patch fails
+the independent reference: [0,213,169] instead of [127,213,169], error 127 versus
+JPEG tolerance 12. The white area is correct. Nineteen outputs match preparation.
+[Native diagnosis](evidence/M3-T07-hdri-diagnosis.json) reproduces the owner JPEG;
+clamping after sRGB conversion and before white composition fixes this fixture in
+isolated experiments. Application/tests remain unchanged and the diagnosis does
+not substitute for validating a production repair.
+
 ## Owner response
 
-Outcome: **awaiting_owner**. T067: **not_run**. Owner statement: **not supplied**.
+Outcome: **awaiting_owner**. T067: **blocked/incomplete**. Explicit acceptance:
+**not supplied**. Recommend a bounded tested colour repair, then a short guided
+recheck at its new tested commit. Do not ask for unconditional acceptance of the
+known faulty output or interpret the area-check `Yes` as approval.
 
-After the actual smoke, reply with:
+Once the repair is tested and reviewed, record the owner's explicit workflow and
+appearance decision at the exact named commit, including any unperformed checks
+or requested changes. The agent cannot sign this response for the owner.
 
-- Commit `4618a83cb2aa893aea9d6a1587987612624e1cf7`; Windows/tool versions and date.
-- Actual launch method, completion/pause message and Pictures result; source/video
-  preservation; collisions/duplicates/frame/size reports and appearance findings.
-- `I accept the workflow and image appearance at this commit`, or the concrete
-  requested changes. State any checks you did not perform rather than assuming them.
-
-The agent cannot sign this response for the owner. Live network shares are outside
-owner-approved project scope (D35). Merge, release, website deployment and later
-default changes retain separate authorization; M4-T01 waits for accepted T067.
+Live network shares are outside owner-approved scope (D35). Merge, release, website
+deployment and later default changes retain separate authorization; M4-T01 waits
+for accepted T067.

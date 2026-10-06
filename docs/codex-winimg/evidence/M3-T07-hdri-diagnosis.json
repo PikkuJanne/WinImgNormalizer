@@ -1,0 +1,436 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T07",
+  "classification": "native_diagnostic_only",
+  "recorded_utc": "2026-10-06T13:41:18.445490+00:00",
+  "source_sha256": "2de1c0e1e134e0e98e0315c13084af5825e845df63d27703ccf8e0b4a64299b6",
+  "source_relative": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.png",
+  "source_preserved": true,
+  "profile_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+  "points": [[32, 24], [96, 24], [32, 72], [96, 72]],
+  "independent_reference": {
+    "Pillow": "12.3.0",
+    "LittleCMS": "2.19",
+    "intent": 1,
+    "flags": 0,
+    "source_rgba": [[0, 0, 0, 0], [50, 170, 90, 128], [170, 50, 90, 192], [128, 128, 128, 255]],
+    "transformed_rgb": [[0, 0, 0], [0, 172, 84], [198, 46, 91], [129, 129, 129]],
+    "white_composite_rgb": [[255, 255, 255], [127, 213, 169], [212, 98, 132], [129, 129, 129]],
+    "path": "tests/fixtures/colour/REFERENCE.json",
+    "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "generator_path": "tests/fixtures/colour/Generate-Reference.py",
+    "generator_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+    "method": "ImageCms.profileToProfile RGB first, Relative intent 1, flags 0/BPC off; preserve alpha and Pillow.alpha_composite over white in encoded sRGB.",
+    "matches_existing_reference": true,
+    "pre_jpeg_channel_tolerance": 3,
+    "jpeg_channel_tolerance": 12
+  },
+  "primary_references": [
+    {"url": "https://imagemagick.org/script/high-dynamic-range.php", "supports": "HDRI retains negative and over-quantum values; ordinary formats clamp them when stored."},
+    {"url": "https://imagemagick.org/command-line-options/#clamp", "supports": "Clamp bounds pixel values to zero through QuantumRange and leaves in-range values unchanged."}
+  ],
+  "probe_qualification": "Normalized .a probes are interpreted as alpha only before -alpha remove/-alpha off. Post-disable .a values in native stdout are deliberately not interpreted as alpha; RGB probes and independently decoded derivatives remain valid.",
+  "raw_diagnosis_sha256": "462c05c40e1d3bdf219bd20ecb94ed0596c3037b541782c0614c5254900a69f4",
+  "durable_recorded_utc": "2026-10-06T13:50:09.456389+00:00",
+  "review_commit": "4618a83cb2aa893aea9d6a1587987612624e1cf7",
+  "production_fix_applied": false,
+  "application_or_test_source_changed": false,
+  "new_test_gate_executed_or_passed": false,
+  "summary": "Q16-HDRI retains negative red after ICC conversion. White composition blends it before final clipping, causing a dark semi-transparent patch. Native-only clamp after conversion and before composition restores the existing bounded-sRGB reference.",
+  "artifact_bindings": {
+    "original_raw_report": {"path": ".scratch/M3-T07-hdri-diagnosis-5e854561aa1c4beba1092287162b78aa/diagnosis.json", "sha256": "462c05c40e1d3bdf219bd20ecb94ed0596c3037b541782c0614c5254900a69f4"},
+    "clarified_report": {"path": ".scratch/M3-T07-hdri-diagnosis-5e854561aa1c4beba1092287162b78aa/diagnosis-clarified.json", "sha256": "268a5a336f291d1ee63e280da4270ceaf1acec2c8d509ab325def3446e97bdf7"},
+    "diagnostic_driver": {"path": ".scratch/M3-T07-hdri-diagnose-review.py", "sha256": "b0666ed93e765d9b108c6b81ced83e845f3dc6e3b7805b1ee0928e3c7fde33c5"},
+    "owner_artifact_verification": {"path": ".scratch/M3-T07-owner-smoke-verification-20261006-6d5169b10974426c8221215116165a9a.json", "sha256": "88bd3b7190a1c01cd35b18f50e374900ae9dbccd70bae7013668fe3a63d26baa", "observed_utc": "2026-10-06T13:41:19.929884+00:00"}
+  },
+  "source_privacy_status": "synthetic",
+  "source_bytes": 919,
+  "source_selection": "Exact approved M3-T07 alpha fixture, copied to a neutral name in a fresh ignored owned scratch directory. No private sample.",
+  "launcher_bindings": [
+    {"path": "Launcher/WinImgNormalizer.ps1", "sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9", "matches_reviewed_packet": true},
+    {"path": "Launcher/WinImgNormalizer.bat", "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83", "matches_reviewed_packet": true}
+  ],
+  "profile_bindings": [
+    {"role": "embedded source", "path": "tests/fixtures/colour/AdobeCompat-v2.icc", "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9", "bytes": 374, "license": "CC0-1.0"},
+    {"role": "sRGB target", "path": "tests/fixtures/colour/sRGB-v4.icc", "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353", "bytes": 480, "license": "CC0-1.0"}
+  ],
+  "embedded_source_profile_matches_AdobeCompat_reference": true,
+  "owner_output_binding": {
+    "output_relative": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.jpeg",
+    "sha256": "4d694fcca8c299e8a0ec5b58e125d9dcb7bd29f058a62387ba3144127314f3be",
+    "bytes": 635,
+    "points_rgb": [[255, 255, 255], [0, 213, 169], [212, 98, 131], [129, 129, 129]],
+    "max_reference_channel_error": 127,
+    "within_existing_jpeg_tolerance": false,
+    "log_sha256": "57236e488f55634c62654536f59d6c98558d854b104ab99f2f6bdc00d72f9775",
+    "csv_sha256": "7957ae53280535635cba205db5e749ce689134c483759f0ba863d1feeda28441",
+    "version_from_owner_log": "ImageMagick 7.1.2-32 Q16-HDRI x64 ad98b24:20260927 https://imagemagick.org",
+    "features_from_owner_log": "Channel-masks(64-bit) Cipher DPC HDRI Modules OpenCL OpenMP(2.0)",
+    "executable_binding_qualification": "Current installed file hash observed after run; version/features/delegates come from actual run log. No retained native preflight process record or native BAT exit is fabricated.",
+    "native_reproduction_matches_exact_owner_bytes": true,
+    "actual_native_bat_exit_recorded": false,
+    "qualification": "Separate read-only synthetic owner-artifact verification plus exact native output SHA equality. Private Pictures path omitted; owner BAT native exit not inferred."
+  },
+  "native_engines": {
+    "portable_q16": {
+      "version": "Version: ImageMagick 7.1.2-32 Q16 x64 ad98b24:20260927 https://imagemagick.org\r\nCopyright: (C) 1999 ImageMagick Studio LLC\r\nLicense: https://imagemagick.org/license/\r\nFeatures: Channel-masks(64-bit) Cipher DPC OpenCL OpenMP(2.0) \r\nDelegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd\r\nCompiler: Visual Studio 2026 (195136257)\r\n",
+      "executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "derivatives": {
+        "current": {
+          "PNG": {
+            "sha256": "b0315f812767efdf6b56a4d98aa6464469b233682622e9c551bebbc99960ef98",
+            "bytes": 188,
+            "format": "PNG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 213, 169], [211, 97, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          },
+          "JPEG": {
+            "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+            "bytes": 630,
+            "format": "JPEG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 212, 170], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          }
+        },
+        "clamp_before_transform": {
+          "PNG": {
+            "sha256": "b0315f812767efdf6b56a4d98aa6464469b233682622e9c551bebbc99960ef98",
+            "bytes": 188,
+            "format": "PNG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 213, 169], [211, 97, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          },
+          "JPEG": {
+            "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+            "bytes": 630,
+            "format": "JPEG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 212, 170], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          }
+        },
+        "clamp_before_composite": {
+          "PNG": {
+            "sha256": "b0315f812767efdf6b56a4d98aa6464469b233682622e9c551bebbc99960ef98",
+            "bytes": 188,
+            "format": "PNG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 213, 169], [211, 97, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          },
+          "JPEG": {
+            "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+            "bytes": 630,
+            "format": "JPEG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 212, 170], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          }
+        },
+        "clamp_after_composite": {
+          "PNG": {
+            "sha256": "b0315f812767efdf6b56a4d98aa6464469b233682622e9c551bebbc99960ef98",
+            "bytes": 188,
+            "format": "PNG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 213, 169], [211, 97, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          },
+          "JPEG": {
+            "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+            "bytes": 630,
+            "format": "JPEG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 212, 170], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          }
+        }
+      },
+      "normalized_rgb_stages": {
+        "source": [[0, 0, 0], [0.19607843137254902, 0.6666666666666666, 0.35294117647058826], [0.6666666666666666, 0.19607843137254902, 0.35294117647058826], [0.5019607843137255, 0.5019607843137255, 0.5019607843137255]],
+        "after_transform": [[0, 0, 0], [0, 0.6725719081406882, 0.32816052491035325], [0.7748989089799345, 0.18220798046845194, 0.3564965285725185], [0.50600442511635, 0.50600442511635, 0.50600442511635]],
+        "after_transform_clamp": [[0, 0, 0], [0, 0.6725719081406882, 0.32816052491035325], [0.7748989089799345, 0.18220798046845194, 0.3564965285725185], [0.50600442511635, 0.50600442511635, 0.50600442511635]],
+        "current": [[1, 1, 1], [0.4980392156862745, 0.8356450751506829, 0.6627603570611124], [0.8305180437933929, 0.3842526894026093, 0.5154802777141985], [0.50600442511635, 0.50600442511635, 0.50600442511635]],
+        "clamp_before_transform": [[1, 1, 1], [0.4980392156862745, 0.8356450751506829, 0.6627603570611124], [0.8305180437933929, 0.3842526894026093, 0.5154802777141985], [0.50600442511635, 0.50600442511635, 0.50600442511635]],
+        "clamp_before_composite": [[1, 1, 1], [0.4980392156862745, 0.8356450751506829, 0.6627603570611124], [0.8305180437933929, 0.3842526894026093, 0.5154802777141985], [0.50600442511635, 0.50600442511635, 0.50600442511635]],
+        "clamp_after_composite": [[1, 1, 1], [0.4980392156862745, 0.8356450751506829, 0.6627603570611124], [0.8305180437933929, 0.3842526894026093, 0.5154802777141985], [0.50600442511635, 0.50600442511635, 0.50600442511635]]
+      },
+      "normalized_alpha_before_composite": {
+        "source": [0, 0.5019607843137255, 0.7529411764705882, 1],
+        "after_transform": [0, 0.5019607843137255, 0.7529411764705882, 1],
+        "after_transform_clamp": [0, 0.5019607843137255, 0.7529411764705882, 1]
+      }
+    },
+    "installed_q16_hdri": {
+      "version": "Version: ImageMagick 7.1.2-32 Q16-HDRI x64 ad98b24:20260927 https://imagemagick.org\r\nCopyright: (C) 1999 ImageMagick Studio LLC\r\nLicense: https://imagemagick.org/license/\r\nFeatures: Channel-masks(64-bit) Cipher DPC HDRI Modules OpenCL OpenMP(2.0) \r\nDelegates (built-in): bzlib cairo freetype gslib heic jng jp2 jpeg jxl lcms lqr lzma openexr pangocairo png ps raqm raw rsvg tiff webp xml zip zlib zstd\r\nCompiler: Visual Studio 2026 (195136257)\r\n",
+      "executable_sha256": "ae5affcba0751155d698dd5d71652ecb79fa3f99c37d9eb34fc8b3b91635ff67",
+      "derivatives": {
+        "current": {
+          "PNG": {
+            "sha256": "98aadad9c10d804d061032037ca99373f4475888b59e587423f84aec55392e0e",
+            "bytes": 188,
+            "format": "PNG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [0, 213, 169], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 127,
+            "metadata_fields_present": []
+          },
+          "JPEG": {
+            "sha256": "4d694fcca8c299e8a0ec5b58e125d9dcb7bd29f058a62387ba3144127314f3be",
+            "bytes": 635,
+            "format": "JPEG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [0, 213, 169], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 127,
+            "metadata_fields_present": []
+          }
+        },
+        "clamp_before_transform": {
+          "PNG": {
+            "sha256": "98aadad9c10d804d061032037ca99373f4475888b59e587423f84aec55392e0e",
+            "bytes": 188,
+            "format": "PNG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [0, 213, 169], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 127,
+            "metadata_fields_present": []
+          },
+          "JPEG": {
+            "sha256": "4d694fcca8c299e8a0ec5b58e125d9dcb7bd29f058a62387ba3144127314f3be",
+            "bytes": 635,
+            "format": "JPEG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [0, 213, 169], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 127,
+            "metadata_fields_present": []
+          }
+        },
+        "clamp_before_composite": {
+          "PNG": {
+            "sha256": "01ed263fcac68b05615896854b4f1cb12df88fe6e7f99d25b6b24c51c381b59c",
+            "bytes": 188,
+            "format": "PNG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 213, 169], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          },
+          "JPEG": {
+            "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+            "bytes": 630,
+            "format": "JPEG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [127, 212, 170], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 1,
+            "metadata_fields_present": []
+          }
+        },
+        "clamp_after_composite": {
+          "PNG": {
+            "sha256": "98aadad9c10d804d061032037ca99373f4475888b59e587423f84aec55392e0e",
+            "bytes": 188,
+            "format": "PNG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [0, 213, 169], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 127,
+            "metadata_fields_present": []
+          },
+          "JPEG": {
+            "sha256": "4d694fcca8c299e8a0ec5b58e125d9dcb7bd29f058a62387ba3144127314f3be",
+            "bytes": 635,
+            "format": "JPEG",
+            "size": [128, 96],
+            "points_rgb": [[255, 255, 255], [0, 213, 169], [212, 98, 131], [129, 129, 129]],
+            "max_reference_error_units": 127,
+            "metadata_fields_present": []
+          }
+        }
+      },
+      "normalized_rgb_stages": {
+        "source": [[0, 0, 0], [0.19607843137254902, 0.6666666666666666, 0.35294117647058826], [0.6666666666666666, 0.19607843137254902, 0.35294117647058826], [0.5019607843137255, 0.5019607843137255, 0.5019607843137255]],
+        "after_transform": [[0, 0, 0], [-1.6073829823758297, 0.672572086957351, 0.3281635945963988], [0.7749039754520486, 0.18221102035172046, 0.35649557488364997], [0.5060037098496987, 0.5060037098496987, 0.5060037098496987]],
+        "after_transform_clamp": [[0, 0, 0], [0, 0.672572086957351, 0.3281635945963988], [0.7749039754520486, 0.18221102035172046, 0.35649557488364997], [0.5060037098496987, 0.5060037098496987, 0.5060037098496987]],
+        "current": [[1, 1, 1], [-0.3088040085927367, 0.8356440022507057, 0.662764469844358], [0.8305159575989929, 0.38425301723315786, 0.5154790259975586], [0.5060037098496987, 0.5060037098496987, 0.5060037098496987]],
+        "clamp_before_transform": [[1, 1, 1], [-0.3088040085927367, 0.8356440022507057, 0.662764469844358], [0.8305159575989929, 0.38425301723315786, 0.5154790259975586], [0.5060037098496987, 0.5060037098496987, 0.5060037098496987]],
+        "clamp_before_composite": [[1, 1, 1], [0.4980392156862745, 0.8356440022507057, 0.662764469844358], [0.8305159575989929, 0.38425301723315786, 0.5154790259975586], [0.5060037098496987, 0.5060037098496987, 0.5060037098496987]],
+        "clamp_after_composite": [[1, 1, 1], [0, 0.8356440022507057, 0.662764469844358], [0.8305159575989929, 0.38425301723315786, 0.5154790259975586], [0.5060037098496987, 0.5060037098496987, 0.5060037098496987]]
+      },
+      "normalized_alpha_before_composite": {
+        "source": [0, 0.5019607843137255, 0.7529411764705882, 1],
+        "after_transform": [0, 0.5019607843137255, 0.7529411764705882, 1],
+        "after_transform_clamp": [0, 0.5019607843137255, 0.7529411764705882, 1]
+      }
+    }
+  },
+  "placement_findings": {
+    "effective": "-clamp immediately after profile/sRGB conversion, before -background white -alpha remove -alpha off.",
+    "ineffective_controls": ["clamp_before_transform", "clamp_after_composite"],
+    "hdri_upper_right_red_after_transform": -1.6073829823758297,
+    "upper_right_alpha": 0.5019607843137255,
+    "current_composite_red": -0.3088040085927367,
+    "clamp_then_composite_red": 0.4980392156862745,
+    "current_hdri_png_and_jpeg_max_reference_error": 127,
+    "clamped_hdri_png_and_jpeg_max_reference_error": 1,
+    "clamped_hdri_jpeg_matches_accepted_portable_preparation_bytes": true,
+    "portable_png_and_jpeg_bytes_unchanged_for_all_tested_placements": true
+  },
+  "sanitized_command_vectors": {
+    "C01": {
+      "purpose": "executable identity",
+      "argv_after_executable": ["-version"]
+    },
+    "C02": {
+      "purpose": "normalized RGBA sample source",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "-precision", "17", "-format", "[[%[fx:p{32,24}.r],%[fx:p{32,24}.g],%[fx:p{32,24}.b],%[fx:p{32,24}.a]],[%[fx:p{96,24}.r],%[fx:p{96,24}.g],%[fx:p{96,24}.b],%[fx:p{96,24}.a]],[%[fx:p{32,72}.r],%[fx:p{32,72}.g],%[fx:p{32,72}.b],%[fx:p{32,72}.a]],[%[fx:p{96,72}.r],%[fx:p{96,72}.g],%[fx:p{96,72}.b],%[fx:p{96,72}.a]]]", "info:"]
+    },
+    "C03": {
+      "purpose": "normalized RGBA sample after_transform",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-precision", "17", "-format", "[[%[fx:p{32,24}.r],%[fx:p{32,24}.g],%[fx:p{32,24}.b],%[fx:p{32,24}.a]],[%[fx:p{96,24}.r],%[fx:p{96,24}.g],%[fx:p{96,24}.b],%[fx:p{96,24}.a]],[%[fx:p{32,72}.r],%[fx:p{32,72}.g],%[fx:p{32,72}.b],%[fx:p{32,72}.a]],[%[fx:p{96,72}.r],%[fx:p{96,72}.g],%[fx:p{96,72}.b],%[fx:p{96,72}.a]]]", "info:"]
+    },
+    "C04": {
+      "purpose": "normalized RGBA sample after_transform_clamp",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-clamp", "-precision", "17", "-format", "[[%[fx:p{32,24}.r],%[fx:p{32,24}.g],%[fx:p{32,24}.b],%[fx:p{32,24}.a]],[%[fx:p{96,24}.r],%[fx:p{96,24}.g],%[fx:p{96,24}.b],%[fx:p{96,24}.a]],[%[fx:p{32,72}.r],%[fx:p{32,72}.g],%[fx:p{32,72}.b],%[fx:p{32,72}.a]],[%[fx:p{96,72}.r],%[fx:p{96,72}.g],%[fx:p{96,72}.b],%[fx:p{96,72}.a]]]", "info:"]
+    },
+    "C05": {
+      "purpose": "normalized RGBA sample current",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-precision", "17", "-format", "[[%[fx:p{32,24}.r],%[fx:p{32,24}.g],%[fx:p{32,24}.b],%[fx:p{32,24}.a]],[%[fx:p{96,24}.r],%[fx:p{96,24}.g],%[fx:p{96,24}.b],%[fx:p{96,24}.a]],[%[fx:p{32,72}.r],%[fx:p{32,72}.g],%[fx:p{32,72}.b],%[fx:p{32,72}.a]],[%[fx:p{96,72}.r],%[fx:p{96,72}.g],%[fx:p{96,72}.b],%[fx:p{96,72}.a]]]", "info:"]
+    },
+    "C06": {
+      "purpose": "normalized RGBA sample clamp_before_transform",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "-clamp", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-precision", "17", "-format", "[[%[fx:p{32,24}.r],%[fx:p{32,24}.g],%[fx:p{32,24}.b],%[fx:p{32,24}.a]],[%[fx:p{96,24}.r],%[fx:p{96,24}.g],%[fx:p{96,24}.b],%[fx:p{96,24}.a]],[%[fx:p{32,72}.r],%[fx:p{32,72}.g],%[fx:p{32,72}.b],%[fx:p{32,72}.a]],[%[fx:p{96,72}.r],%[fx:p{96,72}.g],%[fx:p{96,72}.b],%[fx:p{96,72}.a]]]", "info:"]
+    },
+    "C07": {
+      "purpose": "normalized RGBA sample clamp_before_composite",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-clamp", "-background", "white", "-alpha", "remove", "-alpha", "off", "-precision", "17", "-format", "[[%[fx:p{32,24}.r],%[fx:p{32,24}.g],%[fx:p{32,24}.b],%[fx:p{32,24}.a]],[%[fx:p{96,24}.r],%[fx:p{96,24}.g],%[fx:p{96,24}.b],%[fx:p{96,24}.a]],[%[fx:p{32,72}.r],%[fx:p{32,72}.g],%[fx:p{32,72}.b],%[fx:p{32,72}.a]],[%[fx:p{96,72}.r],%[fx:p{96,72}.g],%[fx:p{96,72}.b],%[fx:p{96,72}.a]]]", "info:"]
+    },
+    "C08": {
+      "purpose": "normalized RGBA sample clamp_after_composite",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-clamp", "-precision", "17", "-format", "[[%[fx:p{32,24}.r],%[fx:p{32,24}.g],%[fx:p{32,24}.b],%[fx:p{32,24}.a]],[%[fx:p{96,24}.r],%[fx:p{96,24}.g],%[fx:p{96,24}.b],%[fx:p{96,24}.a]],[%[fx:p{32,72}.r],%[fx:p{32,72}.g],%[fx:p{32,72}.b],%[fx:p{32,72}.a]],[%[fx:p{96,72}.r],%[fx:p{96,72}.g],%[fx:p{96,72}.b],%[fx:p{96,72}.a]]]", "info:"]
+    },
+    "C09": {
+      "purpose": "current PNG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "-depth", "8", "PNG:<owned-diagnosis>\\portable_q16-current.png"]
+    },
+    "C10": {
+      "purpose": "current JPEG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "JPEG:<owned-diagnosis>\\portable_q16-current.jpeg"]
+    },
+    "C11": {
+      "purpose": "clamp_before_transform PNG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "-clamp", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "-depth", "8", "PNG:<owned-diagnosis>\\portable_q16-clamp_before_transform.png"]
+    },
+    "C12": {
+      "purpose": "clamp_before_transform JPEG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "-clamp", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "JPEG:<owned-diagnosis>\\portable_q16-clamp_before_transform.jpeg"]
+    },
+    "C13": {
+      "purpose": "clamp_before_composite PNG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-clamp", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "-depth", "8", "PNG:<owned-diagnosis>\\portable_q16-clamp_before_composite.png"]
+    },
+    "C14": {
+      "purpose": "clamp_before_composite JPEG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-clamp", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "JPEG:<owned-diagnosis>\\portable_q16-clamp_before_composite.jpeg"]
+    },
+    "C15": {
+      "purpose": "clamp_after_composite PNG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-clamp", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "-depth", "8", "PNG:<owned-diagnosis>\\portable_q16-clamp_after_composite.png"]
+    },
+    "C16": {
+      "purpose": "clamp_after_composite JPEG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-clamp", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "JPEG:<owned-diagnosis>\\portable_q16-clamp_after_composite.jpeg"]
+    },
+    "C17": {
+      "purpose": "current PNG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "-depth", "8", "PNG:<owned-diagnosis>\\installed_q16_hdri-current.png"]
+    },
+    "C18": {
+      "purpose": "current JPEG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "JPEG:<owned-diagnosis>\\installed_q16_hdri-current.jpeg"]
+    },
+    "C19": {
+      "purpose": "clamp_before_transform PNG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "-clamp", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "-depth", "8", "PNG:<owned-diagnosis>\\installed_q16_hdri-clamp_before_transform.png"]
+    },
+    "C20": {
+      "purpose": "clamp_before_transform JPEG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "-clamp", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "JPEG:<owned-diagnosis>\\installed_q16_hdri-clamp_before_transform.jpeg"]
+    },
+    "C21": {
+      "purpose": "clamp_before_composite PNG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-clamp", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "-depth", "8", "PNG:<owned-diagnosis>\\installed_q16_hdri-clamp_before_composite.png"]
+    },
+    "C22": {
+      "purpose": "clamp_before_composite JPEG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-clamp", "-background", "white", "-alpha", "remove", "-alpha", "off", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "JPEG:<owned-diagnosis>\\installed_q16_hdri-clamp_before_composite.jpeg"]
+    },
+    "C23": {
+      "purpose": "clamp_after_composite PNG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-clamp", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "-depth", "8", "PNG:<owned-diagnosis>\\installed_q16_hdri-clamp_after_composite.png"]
+    },
+    "C24": {
+      "purpose": "clamp_after_composite JPEG derivative",
+      "argv_after_executable": ["-quiet", "-regard-warnings", "-define", "registry:filename:literal=true", "<approved-synthetic-source.png>", "-auto-orient", "+black-point-compensation", "-intent", "Relative", "-profile", "<trusted-sRGB-v4.icc>", "-background", "white", "-alpha", "remove", "-alpha", "off", "-clamp", "-strip", "-sampling-factor", "4:2:0", "-interlace", "Line", "-resize", "100%", "-define", "jpeg:extent=1048576B", "JPEG:<owned-diagnosis>\\installed_q16_hdri-clamp_after_composite.jpeg"]
+    }
+  },
+  "native_execution_outcomes": [
+    {"engine": "portable_q16", "command_id": "C01", "native_exit": 0, "stdout_sha256": "2443aa5b60d9f63a2cf3241454292d359e87a68c15d1252375b96bcb9409ed39", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C02", "native_exit": 0, "stdout_sha256": "5a0021d77a3e493245c66f330b9335852480dee1457239da2eecc268677e7fa8", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C03", "native_exit": 0, "stdout_sha256": "830fb564ffa6cc4379972413784b6da8902b5e4f1c46ab832e951930e9ad0323", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C04", "native_exit": 0, "stdout_sha256": "830fb564ffa6cc4379972413784b6da8902b5e4f1c46ab832e951930e9ad0323", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C05", "native_exit": 0, "stdout_sha256": "ce9fd88534a4c433e3cb2c34eb78ab40435577ed81eb3006b56d661413f31555", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C06", "native_exit": 0, "stdout_sha256": "ce9fd88534a4c433e3cb2c34eb78ab40435577ed81eb3006b56d661413f31555", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C07", "native_exit": 0, "stdout_sha256": "ce9fd88534a4c433e3cb2c34eb78ab40435577ed81eb3006b56d661413f31555", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C08", "native_exit": 0, "stdout_sha256": "ce9fd88534a4c433e3cb2c34eb78ab40435577ed81eb3006b56d661413f31555", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C09", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C10", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C11", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C12", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C13", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C14", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C15", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "portable_q16", "command_id": "C16", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C01", "native_exit": 0, "stdout_sha256": "35653dabdba3551ced2c5173a9bbed9bd904264cce915efe8dbf43f9280f2835", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C02", "native_exit": 0, "stdout_sha256": "5a0021d77a3e493245c66f330b9335852480dee1457239da2eecc268677e7fa8", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C03", "native_exit": 0, "stdout_sha256": "7aa428ba5eb6901e08baee6bd836e3d10e72ee2bad26b6a1e75d1fb5f12e3a8e", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C04", "native_exit": 0, "stdout_sha256": "c0070c21a467be75a76306a5d207b422e2a92bef04053b2e6c65c3b019cd7e59", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C05", "native_exit": 0, "stdout_sha256": "4698616728465b940bb9a1d6762f9d6e41e96e969cb0edbf1a9e9d1ee52e6145", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C06", "native_exit": 0, "stdout_sha256": "4698616728465b940bb9a1d6762f9d6e41e96e969cb0edbf1a9e9d1ee52e6145", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C07", "native_exit": 0, "stdout_sha256": "2a8ade48e3e6c79bff2504eba9c77feb51a49568559bd05ae4aaae94384689c9", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C08", "native_exit": 0, "stdout_sha256": "337dd8225e33487e35807ed2afac0d190dc9f1617da39bde8644b3f1755b5dcd", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C17", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C18", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C19", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C20", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C21", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C22", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C23", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true},
+    {"engine": "installed_q16_hdri", "command_id": "C24", "native_exit": 0, "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr_empty": true}
+  ],
+  "native_outcome_summary": {
+    "total": 32,
+    "per_engine": 16,
+    "all_native_exit_zero": true,
+    "all_stderr_empty": true,
+    "empty_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qualification": "Shared vectors preserve actual argument order. Executable/source/profile/owned-output aliases replace absolute paths. Version stdout is retained in engine records; all native stdout is hash-bound and probe RGB is interpreted in numeric stages."
+  },
+  "bounded_repair_recommendation": {
+    "status": "proposal_only_no_production_fix_applied",
+    "change": "Insert -clamp after the tagged-profile or untagged sRGB conversion branch and before white alpha removal on every scale/retry.",
+    "purpose": "Restore declared bounded-sRGB white composition. Retain intent/BPC, ICC target, metadata, JPEG target/sampling and six-scale sequence; no subjective quality or new default proposal.",
+    "required_future_checks": ["Reproduce existing T036 failure on installed HDRI and require corrected PNG error <=3 and JPEG error <=12 against the independent reference.", "Run actual Windows PS5.1 and PS7 colour/alpha checks with portable Q16 and installed Q16-HDRI: tagged/untagged alpha, opaque RGB/CMYK, orientation/metadata and every scale/retry. Assert clamp follows conversion and precedes composition.", "Run all 23 mandatory suites and scoped analyzer in both desktop shells on a clean exact repair commit, with required real codec coverage, no mandatory skips and actual failure controls. Preserve build identity and explicit installed HDRI coverage.", "Observe required hosted CI and independently verify exact feature-branch synchronization; neither supplies owner consent.", "Refresh/rebind corrected comparisons and repeat the familiar actual Windows launch at the named tested repair commit. Obtain explicit owner workflow/appearance acceptance before T067 or M4 readiness passes."]
+  },
+  "owner_approval": {"state": "awaiting_owner", "actor": null, "recorded_utc": null, "approved_commit": null},
+  "limitations": ["Direct synthetic native diagnosis only; no production repair, Pester acceptance run, new gate pass, subjective owner acceptance or release authorization.", "Compared executables share release 7.1.2-32 but differ Q16 versus Q16-HDRI. No every-build/codec or arbitrary photographic quality inference.", "Fully transparent upper-left white does not establish correct semi-transparent colour. Pre-write probes establish HDRI excursions; post-alpha-off .a values are not interpreted as alpha.", "Derivatives remain owned ignored scratch. No private sample/path/media/raw owner log is tracked. No source/owner output/settings/policies/installations changed. Live UNC remains owner-excluded."]
+}

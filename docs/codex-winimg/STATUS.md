@@ -1,6 +1,6 @@
 # Project status
 
-Updated: 2026-10-05 — M3-T07 preparation complete; awaiting owner smoke/acceptance.
+Updated: 2026-10-06 — owner smoke recorded; HDRI colour defect blocks acceptance.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
@@ -8,7 +8,7 @@ Branch: codex/winimg-hardening
 Tested implementation: 17a405bfe0150607486248e845f93ba82e1d0d52
 Current task: **M3-T07 — Obtain owner acceptance of the familiar workflow (awaiting_owner)**
 Task progress: **21 / 28 accepted**
-Specified cases exercised: **T001-T066 (66 / 75); T001-T004 characterization, T007 control**
+Specified cases: **T001-T066 previously exercised (66 / 75); T067 partly exercised, blocked**
 Pester suite: **468/468 passed in each desktop shell, zero skipped**
 Failure controls: **469 total, 468 passed, one intended failure; native exit 1**
 CI: **implementation push/PR Windows matrices passed, including both controls**
@@ -91,13 +91,13 @@ workflow/quality approval. JPEG/colour/frame/size defaults, source/no-overwrite 
 video fidelity, launcher pause/exit behavior and owned native processing remain
 covered. M3-T07 owner approval, merge and release are separate.
 
-## M3-T07 prepared owner gate
+## M3-T07 owner gate — actual smoke, colour repair needed
 
-The clean review commit is 4618a83cb2aa893aea9d6a1587987612624e1cf7; its feature
-head was live-equal at this session's observations. Owner-merged PR21/main
+At the 2026-10-05 preparation observations, clean review commit
+4618a83cb2aa893aea9d6a1587987612624e1cf7 was live-equal to the feature branch. Owner-merged PR21/main
 4d0bc6dd403a84b4cad770fdacfd394066c9fbd1 has the same tree. No application, BAT,
 test or default changes were made. M3-T06's tested implementation and full 468/468
-gates above remain separate evidence. Prior checkpoint push 37341068495 and
+gates above remain separate evidence. Prior review-checkpoint push 37341068495 and
 PR 37341075972 metadata report success. The new containing checkpoint still needs
 post-commit live synchronization observation.
 
@@ -109,13 +109,44 @@ warning examples. Fresh real Command preparation in PS5.1/PS7 returns 0 by defau
 1-byte run returns 2 with two valid above-target JPEGs. All 44 JPEGs fully decode;
 source state and video bytes are preserved and reports complete/balance.
 
-Preparation injected a disposable destination and explicit pinned ImageMagick, so
-actual Explorer/Pictures/tool discovery and owner appearance approval remain
-not_run. No magick.exe is on this agent session's PATH; the optional local helper
-supplies portable-tool PATH only to its child and is not yet owner-run. Local
-driver PS5.1 module-discovery failures are preserved, distinct from final v3 runs.
-Two quality samples differ from the historical baseline after the prior byte-extent
-correction; no new default is proposed or subjective quality decision inferred.
+The 2026-10-05 preparation injected a disposable destination and explicit portable
+Q16 ImageMagick without HDRI. It did not establish Explorer/Pictures/tool discovery
+or owner appearance approval. Its driver failures and final v3 results are retained
+as dated evidence; two historical quality differences follow the earlier byte-extent
+correction. No new default is proposed.
 
-M3-T07 is **awaiting_owner**, T067 **not_run**, task progress **21/28** and cases
-**66/75** unchanged. Stop here. M4-T01 requires actual named-commit acceptance.
+On 2026-10-06 the owner followed the guided physical folder-to-BAT flow and reported
+`Completed successfully. Press any key to close.`, with LogWarnings=0,
+DiskLogIncomplete=False and FallbackDropped=0. The owner opened the actual Pictures
+result, described the landscape as a smooth gradient and hard edges as clear/intact,
+and confirmed the transparent upper-left area is white. These are partial observations,
+not explicit named-commit acceptance; the BAT's native exit was not independently captured.
+
+[Actual smoke evidence](evidence/M3-T07-owner-smoke.json) binds the copied launcher
+to review commit 4618a83cb2aa893aea9d6a1587987612624e1cf7 and records independent
+checks of only the approved synthetic source/output tree. Reports reconcile 24 inputs:
+20 JPEGs, one equal-byte video, one duplicate and two ignored files; zero logged
+errors/warnings, five omitted frames, complete balanced accounting. All 20 JPEGs fully
+decode with correct geometry and stripped metadata. All original bytes/times/attributes,
+mirrors, collision names and output timestamps are intact; 19 outputs match preparation.
+
+The actual run used installed ImageMagick 7.1.2-32 **Q16-HDRI**, unlike preparation.
+The tagged alpha output fails the independent colour reference: the semi-transparent
+green patch is [0,213,169] instead of [127,213,169], maximum channel error 127 versus
+JPEG tolerance 12. The white patch is correct. Zero process/report warnings do not
+establish pixel correctness. [Native diagnosis](evidence/M3-T07-hdri-diagnosis.json)
+reproduces the actual JPEG exactly. Clamping converted RGB before white composition
+repairs this fixture in isolated native experiments; no production fix was applied.
+
+M3-T07 stays **awaiting_owner**, T067 **blocked/incomplete**. Accepted tasks remain
+**21/28**; T067's partial smoke does not add a passed case. Recommend a bounded tested
+colour repair, followed by owner review at its new tested commit. Stop at this gate;
+M4-T01 cannot start. Review/default approval, merge and release remain separate.
+
+At the clean start of this follow-up, feature HEAD and live branch were
+dd6753991edfb7dec7454d1af5c2fe43df75d103; draft PR22 remains open.
+[Push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37345811050)
+and [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37345853641)
+for that preparation checkpoint passed. Those pinned non-HDRI gates do not cover
+this installed-HDRI failure. This containing record checkpoint needs its own
+post-commit synchronization observation; its SHA is not embedded here.
