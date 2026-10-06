@@ -1,0 +1,3016 @@
+{
+  "schema_version": 1,
+  "task_id": "M4-T03",
+  "stage": "publish_ready_documentation_CI_observation",
+  "state": "passed",
+  "implementation_commit": "19f6db45b5576f6ef0e86407058571178cadd806",
+  "tested_implementation_commit": "19f6db45b5576f6ef0e86407058571178cadd806",
+  "observed_at_utc": "2026-10-06T17:37:04.504339+00:00",
+  "result": "four_actual_windows_jobs_and_native_controls_passed",
+  "four_job_matrix_complete": true,
+  "mandatory_suite_count": 26,
+  "mandatory_suites": [
+    "Normalizer.Tests.ps1",
+    "Preflight.Tests.ps1",
+    "Traversal.Tests.ps1",
+    "Naming.Tests.ps1",
+    "Transactions.Tests.ps1",
+    "Duplicates.Tests.ps1",
+    "SafetyRegression.Tests.ps1",
+    "Frames.Tests.ps1",
+    "Colour.Tests.ps1",
+    "Paths.Tests.ps1",
+    "Sizing.Tests.ps1",
+    "Diagnostics.Tests.ps1",
+    "ConversionRegression.Tests.ps1",
+    "RecoveryReporting.Tests.ps1",
+    "NativeLifetime.Tests.ps1",
+    "Cancellation.Tests.ps1",
+    "Reporting.Tests.ps1",
+    "Launcher.Tests.ps1",
+    "ExitContract.Tests.ps1",
+    "Compatibility.Tests.ps1",
+    "CodecCompatibility.Tests.ps1",
+    "StaticAnalysis.Tests.ps1",
+    "WorkflowSecurity.Tests.ps1",
+    "Versioning.Tests.ps1",
+    "Packaging.Tests.ps1",
+    "Documentation.Tests.ps1"
+  ],
+  "documentation_case_id": "T072",
+  "documentation_assertion_count_per_run": 14,
+  "documentation_test_names": [
+    "T072 resolves local public links and headings in repository and exact portable contexts",
+    "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+    "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+    "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+    "T072 reports actual invalid byte target 0 before creating destination output",
+    "T072 reports actual invalid byte target 1.5 before creating destination output",
+    "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+    "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+    "T072 reproduces the documented old version control prerequisite failure before output allocation",
+    "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+    "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+    "T072 reports first displayed frame selection and a real omitted animation frame",
+    "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+    "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+  ],
+  "package_positive_test_names": [
+    "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+    "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+    "T071 recomputes both exact SHA256SUMS assets independently",
+    "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+    "T070 extracts only approved root files into a fresh directory with spaces",
+    "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+    "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+    "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+  ],
+  "ci_scope": "Pinned portable Q16 mandatory suites and native controls for the exact M4-T03 implementation. Historical installed HDRI and owner acceptance remain separately recorded.",
+  "task_acceptance_is_parent_owned": true,
+  "feature_tree_sha": "d0cd759200a45a644caa480d96427ab82b7a8c34",
+  "pr_synthetic_merge_sha": "a41e1df31e984357a9b00ba41ff8c3b56324cd33",
+  "pr_base_sha": "87711607d07bf39bdf9e35f9a8709e38da91dbbd",
+  "pr_merge_parents": [
+    "87711607d07bf39bdf9e35f9a8709e38da91dbbd",
+    "19f6db45b5576f6ef0e86407058571178cadd806"
+  ],
+  "synthetic_merge_tree_equals_feature": true,
+  "mandatory_required_case_count": 66,
+  "mandatory_required_case_ids": [
+    "T005",
+    "T006",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T018",
+    "T019",
+    "T020",
+    "T021",
+    "T022",
+    "T023",
+    "T024",
+    "T025",
+    "T026",
+    "T027",
+    "T028",
+    "T029",
+    "T030",
+    "T031",
+    "T032",
+    "T033",
+    "T034",
+    "T035",
+    "T036",
+    "T037",
+    "T038",
+    "T039",
+    "T040",
+    "T041",
+    "T042",
+    "T043",
+    "T044",
+    "T045",
+    "T046",
+    "T047",
+    "T048",
+    "T049",
+    "T050",
+    "T051",
+    "T052",
+    "T053",
+    "T054",
+    "T055",
+    "T056",
+    "T057",
+    "T058",
+    "T059",
+    "T060",
+    "T061",
+    "T062",
+    "T063",
+    "T064",
+    "T065",
+    "T066",
+    "T068",
+    "T069",
+    "T070",
+    "T071",
+    "T072"
+  ],
+  "analyzer_rule_count": 15,
+  "analyzer_rules": [
+    "PSAvoidAssignmentToAutomaticVariable",
+    "PSAvoidUsingAllowUnencryptedAuthentication",
+    "PSAvoidUsingBrokenHashAlgorithms",
+    "PSAvoidUsingComputerNameHardcoded",
+    "PSAvoidUsingConvertToSecureStringWithPlainText",
+    "PSAvoidUsingInvokeExpression",
+    "PSAvoidUsingPlainTextForPassword",
+    "PSAvoidUsingUsernameAndPasswordParams",
+    "PSAvoidUsingWMICmdlet",
+    "PSMisleadingBacktick",
+    "PSPossibleIncorrectComparisonWithNull",
+    "PSReservedParams",
+    "PSUseCmdletCorrectly",
+    "PSUseCompatibleSyntax",
+    "PSUsePSCredentialType"
+  ],
+  "timestamp_evidence_limit": "Raw original summaries were not uploaded. Exported full fractional UTC values are verified within authoritative GitHub step intervals and raw log UTC minutes; source summary SHA256 values do not reconstruct original timestamp bytes.",
+  "runs": [
+    {
+      "run_id": 37502798147,
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37502798147",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "19f6db45b5576f6ef0e86407058571178cadd806",
+      "actual_checkout_sha": "19f6db45b5576f6ef0e86407058571178cadd806",
+      "observed_at_utc": "2026-10-06T17:36:44.230898+00:00",
+      "raw_log_sha256": "124a817ae21b19a7cf629120bcd10167bb098b458d64d240861cd783af5d2b5b",
+      "sanitized_local_run_proof_sha256": "d2645df94d8276efd85e8c65f5aff56656c6c6c6c4507a90cab36d0333949766",
+      "github_actions_runner_versions": [
+        "2.337.0"
+      ],
+      "actual_image_names_in_setup_logs": [
+        "windows-2025-vs2026"
+      ],
+      "runtime_contents_read_only_verified": true,
+      "artifacts": [
+        {
+          "shell": "pwsh",
+          "job_id": 112403796415,
+          "job_conclusion": "success",
+          "started_at": "2026-10-06T17:20:37Z",
+          "completed_at": "2026-10-06T17:32:56Z",
+          "required_step_count": 6,
+          "required_steps_all_success": true,
+          "all_manifest_suites_in_normal_and_control_logs_verified": true,
+          "all_26_suites_in_normal_and_control_logs_verified": true,
+          "T069_T070_T071_actually_passed_normal_and_control": true,
+          "T072_actually_passed_normal_and_control": true,
+          "portable_package_sources_bound_to_tested_git_tree": true,
+          "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+          "all_documentation_assertions_in_normal_and_control_logs_verified": true,
+          "actual_control_failure_is_only_T007_verified": true,
+          "manifest_suites": [
+            "Normalizer.Tests.ps1",
+            "Preflight.Tests.ps1",
+            "Traversal.Tests.ps1",
+            "Naming.Tests.ps1",
+            "Transactions.Tests.ps1",
+            "Duplicates.Tests.ps1",
+            "SafetyRegression.Tests.ps1",
+            "Frames.Tests.ps1",
+            "Colour.Tests.ps1",
+            "Paths.Tests.ps1",
+            "Sizing.Tests.ps1",
+            "Diagnostics.Tests.ps1",
+            "ConversionRegression.Tests.ps1",
+            "RecoveryReporting.Tests.ps1",
+            "NativeLifetime.Tests.ps1",
+            "Cancellation.Tests.ps1",
+            "Reporting.Tests.ps1",
+            "Launcher.Tests.ps1",
+            "ExitContract.Tests.ps1",
+            "Compatibility.Tests.ps1",
+            "CodecCompatibility.Tests.ps1",
+            "StaticAnalysis.Tests.ps1",
+            "WorkflowSecurity.Tests.ps1",
+            "Versioning.Tests.ps1",
+            "Packaging.Tests.ps1",
+            "Documentation.Tests.ps1"
+          ],
+          "passed_documentation_test_names_normal_and_control": [
+            "T072 resolves local public links and headings in repository and exact portable contexts",
+            "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+            "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+            "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+            "T072 reports actual invalid byte target 0 before creating destination output",
+            "T072 reports actual invalid byte target 1.5 before creating destination output",
+            "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+            "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+            "T072 reproduces the documented old version control prerequisite failure before output allocation",
+            "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+            "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+            "T072 reports first displayed frame selection and a real omitted animation frame",
+            "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+            "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+          ],
+          "passed_package_positive_names_normal_and_control": [
+            "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+            "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+            "T071 recomputes both exact SHA256SUMS assets independently",
+            "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+            "T070 extracts only approved root files into a fresh directory with spaces",
+            "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+            "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+            "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+          ],
+          "artifact_id": 11431012552,
+          "artifact_name": "synthetic-evidence-pwsh-19f6db45b5576f6ef0e86407058571178cadd806",
+          "github_archive_digest": "sha256:7405c65a11015acb8d35d0cef95df19ba153db7f04200a271242f7d8d4acc510",
+          "downloaded_archive_sha256": "7405c65a11015acb8d35d0cef95df19ba153db7f04200a271242f7d8d4acc510",
+          "files": [
+            {
+              "name": "static-analysis-evidence.json",
+              "sha256": "11d44c39dc01a1f5486912515e6cf0c14f99d98ae9f221ec06b955bad3eaf59e",
+              "bytes": 7561
+            },
+            {
+              "name": "test-evidence.json",
+              "sha256": "fa3a907044afe77680f50762a54daa28355844e709780ce7087478f6138512b2",
+              "bytes": 33791
+            }
+          ],
+          "two_file_allowlist_and_privacy_verified": true,
+          "source_binding_count": 62,
+          "source_binding_methods": [
+            "Windows CRLF checkout of Git blob",
+            "exact Git blob"
+          ],
+          "actual_source_inventory_sha256": "5973b961c6a49d4d47d12ca88f19a2ffd2a1b97e5544a59d93f91f366415b090",
+          "source_binding_inventory": [
+            {
+              "path": ".gitattributes",
+              "sha256": "2a3e5f14e93bcaf27f2df2eca4da444c57210f4c662f9d7e5f94cf9218355739"
+            },
+            {
+              "path": ".github/workflows/windows-tests.yml",
+              "sha256": "5a19ab61315a30ce0c2be01400387bc077bf65a6bb90211a22358835cf0589c8"
+            },
+            {
+              "path": ".gitignore",
+              "sha256": "3fa63fe085ffe679d5d277b9b2071f0c6e66fb02eba70c94af0922a66d2f2cfc"
+            },
+            {
+              "path": "CHANGELOG.md",
+              "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7"
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+            },
+            {
+              "path": "README.md",
+              "sha256": "609ddd91510445296d5d0c8da848f402d8d0a1ebbd7a5f5e999447d849d5e48e"
+            },
+            {
+              "path": "SECURITY.md",
+              "sha256": "71dadc075c0f20901ab98a07a26614b48a69d30ef055795ecc00a119f1dbcd6d"
+            },
+            {
+              "path": "WinImgNormalizer.bat",
+              "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+            },
+            {
+              "path": "WinImgNormalizer.ps1",
+              "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+            },
+            {
+              "path": "docs/BEHAVIOR.md",
+              "sha256": "0efd4ab81986c394283e11753d5cd8a0983bef0abebbbe8f93540fdc99f99170"
+            },
+            {
+              "path": "docs/release/GETTING_STARTED.md",
+              "sha256": "fc5780024c6fec26341f4d0ff12094c1ef6aafde6833374920cbca42fac4eead"
+            },
+            {
+              "path": "docs/release/NOTES.md",
+              "sha256": "4cd0b8fbfceb84d0121f820270aa86f70d32e7d96b803e3b24c082c12a800ba3"
+            },
+            {
+              "path": "docs/release/PACKAGING.md",
+              "sha256": "651937361aa4588d80661cf42914d0590d831205299884ad9e2bac7f5d346211"
+            },
+            {
+              "path": "docs/release/THIRD_PARTY_NOTICES.md",
+              "sha256": "26f51eb132174c8bdb27c4668e8d441bbad17d0be92d517fa43fd533d49b11ec"
+            },
+            {
+              "path": "release-metadata.json",
+              "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+            },
+            {
+              "path": "tests/Cancellation.Tests.ps1",
+              "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+            },
+            {
+              "path": "tests/CodecCompatibility.Tests.ps1",
+              "sha256": "28a0de2e1b1585d8f5fac29d75401d405b4637272f8f840328c457f0c1ce8465"
+            },
+            {
+              "path": "tests/Colour.Tests.ps1",
+              "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+            },
+            {
+              "path": "tests/Compatibility.Tests.ps1",
+              "sha256": "709775e7d4484ce402d7aa7bf9706dfbd871b5ceb5d957b8b377438041d8b00a"
+            },
+            {
+              "path": "tests/ConversionRegression.Tests.ps1",
+              "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+            },
+            {
+              "path": "tests/Diagnostics.Tests.ps1",
+              "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+            },
+            {
+              "path": "tests/Documentation.Tests.ps1",
+              "sha256": "294b3926525e5a04fbb86b6c3bb1943740ce2b56cfb7a6bde6f143cecc140ab2"
+            },
+            {
+              "path": "tests/Duplicates.Tests.ps1",
+              "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+            },
+            {
+              "path": "tests/ExitContract.Tests.ps1",
+              "sha256": "62585751a9e8897054c536e92511412805273b10fcae79b474509d31df2be9d4"
+            },
+            {
+              "path": "tests/Export-TestEvidence.ps1",
+              "sha256": "1bb63f7f8ef6a9dcc4a3f9de95699292534f59f788910ca6312457eb2a3c7a2c"
+            },
+            {
+              "path": "tests/Frames.Tests.ps1",
+              "sha256": "a995d660be43d9d43eca2bed7e6e5b6361f7523a480e05f188738b74f4339059"
+            },
+            {
+              "path": "tests/Initialize-TestDependencies.ps1",
+              "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+            },
+            {
+              "path": "tests/Invoke-StaticAnalysis.ps1",
+              "sha256": "6af2227cbb9fbdfe0a0f99511c001fc120bcb939b5fea74b4b1c78a8996e5b48"
+            },
+            {
+              "path": "tests/Invoke-Tests.ps1",
+              "sha256": "6bc8e32b1d352eb381d0744e5875568b89ed267eac7b865c34e36908c630f7e7"
+            },
+            {
+              "path": "tests/Launcher.Tests.ps1",
+              "sha256": "3e4daa4e9ddf32c49faeebd5af3c9efd166bccd0420eafb5b254d9532c6f792e"
+            },
+            {
+              "path": "tests/Measure-SizeQuality.ps1",
+              "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+            },
+            {
+              "path": "tests/Naming.Tests.ps1",
+              "sha256": "c725e82af94a762ca7dade70ab713ed1fd2eac97dbcae6e7ce5d1bdc68dfcb0d"
+            },
+            {
+              "path": "tests/NativeLifetime.Tests.ps1",
+              "sha256": "63753268ceec7d3f861431cdc874985d6594a6c23c8ddb8f5ad9c1bb6cdc6fb6"
+            },
+            {
+              "path": "tests/Normalizer.Tests.ps1",
+              "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+            },
+            {
+              "path": "tests/PSScriptAnalyzerSettings.psd1",
+              "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+            },
+            {
+              "path": "tests/Packaging.Tests.ps1",
+              "sha256": "e595bffb8e032a4d70e881096e805d5f2fc2de569f1f63e86cfe2509051d45ce"
+            },
+            {
+              "path": "tests/Paths.Tests.ps1",
+              "sha256": "482a011d51e498c1592e14c022e68a6cae8a16ac28b45bf8a63eec0703c45b90"
+            },
+            {
+              "path": "tests/Preflight.Tests.ps1",
+              "sha256": "1e3ef8dfc992ed5e4ab52cf90724c76351cb97c3c38e8c8afea8126cd85f73af"
+            },
+            {
+              "path": "tests/RecoveryReporting.Tests.ps1",
+              "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+            },
+            {
+              "path": "tests/Reporting.Tests.ps1",
+              "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+            },
+            {
+              "path": "tests/SafetyRegression.Tests.ps1",
+              "sha256": "693d8c76048f3a98c0081954693869dd4f07978821ff30cb3512b78af1cc7621"
+            },
+            {
+              "path": "tests/Sizing.Tests.ps1",
+              "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+            },
+            {
+              "path": "tests/StaticAnalysis.Tests.ps1",
+              "sha256": "d353af490e83c1bac72338e7b6f3002c9dbc85dd68b6110014c3d450e20a16c2"
+            },
+            {
+              "path": "tests/TestGate.ps1",
+              "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+            },
+            {
+              "path": "tests/Transactions.Tests.ps1",
+              "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+            },
+            {
+              "path": "tests/Traversal.Tests.ps1",
+              "sha256": "9153ba4bf9384beac2a1e883191c7845774e661b968b6869cfdb52bc9e0bc0bb"
+            },
+            {
+              "path": "tests/Versioning.Tests.ps1",
+              "sha256": "6b207eb4c3bdf04b2998df43bc6238ed63438a72dba8e0b331e1f5db0fbf5b10"
+            },
+            {
+              "path": "tests/WorkflowSecurity.Tests.ps1",
+              "sha256": "960bb7c8673fa43d4bfe9d6faab22d16f63ac32af022ab8e29c4addab3a4f5a6"
+            },
+            {
+              "path": "tests/dependencies.json",
+              "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+            },
+            {
+              "path": "tests/fixtures/LauncherConsoleFixture.cs",
+              "sha256": "0df25de2e93afeb39a14235af505ea2a0bbd3657f1400937e5a1374ba5f1b925"
+            },
+            {
+              "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+              "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+            },
+            {
+              "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+              "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+            },
+            {
+              "path": "tests/fixtures/colour/Generate-Reference.py",
+              "sha256": "e342eab730b34197dd3f74a7726a39c6cf72f31c160a2d012169cb22957fffd7"
+            },
+            {
+              "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+              "sha256": "7bfe1dfbb1e1adc61096d16fe711ec9a3c12059f43a1a7a654eb36a4eb15bb92"
+            },
+            {
+              "path": "tests/fixtures/colour/MANIFEST.json",
+              "sha256": "2c99f919d1810c7f6dfcab75bb0975c6fa6f7c4c5ff9cca3099c95cb71345b18"
+            },
+            {
+              "path": "tests/fixtures/colour/README.md",
+              "sha256": "e3ebef6ef03999c4800261f158214058ac7887c59cbbcf545a747a42e3314555"
+            },
+            {
+              "path": "tests/fixtures/colour/REFERENCE.json",
+              "sha256": "f2244e896aa458d2db931022d61d0b84f823e50475309655940734bc64a4c737"
+            },
+            {
+              "path": "tests/fixtures/colour/sRGB-v4.icc",
+              "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+            },
+            {
+              "path": "tests/legacy/toolchain.json",
+              "sha256": "4c05c8e0b54be1b82d7236532822d0d8a28a8404cb857a5f8b22a5f537baff9a"
+            },
+            {
+              "path": "tests/mandatory-tests.json",
+              "sha256": "adfd26facbdebb39c7b26c934540762c66142dd4f89ebf8a3212e823f2ce2316"
+            },
+            {
+              "path": "tools/release/Build-Release.ps1",
+              "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+            },
+            {
+              "path": "tools/release/Update-ReleaseMetadata.ps1",
+              "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+            }
+          ],
+          "normal_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072"
+          ],
+          "control_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072"
+          ],
+          "full_source_inventory_matches_exact_git_tree": true,
+          "clean_source_and_commit_and_policy_unchanged": true,
+          "normal": {
+            "total_count": 529,
+            "passed_count": 529,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 0,
+            "exit_code": 0
+          },
+          "assertion_control": {
+            "total_count": 530,
+            "passed_count": 529,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 2,
+            "exit_code": 1
+          },
+          "normal_passed_case_count": 66,
+          "control_passed_case_count": 66,
+          "mandatory_cases_all_passed": true,
+          "normal_passed_case_ids_sha256": "284735bf18704bf5fb849c6e6004054d74d1e5f08f6a5d8f032bd65b30fdbabc",
+          "control_passed_case_ids_sha256": "284735bf18704bf5fb849c6e6004054d74d1e5f08f6a5d8f032bd65b30fdbabc",
+          "actual_codec_coverage": {
+            "bmp": [
+              "T065",
+              1,
+              true
+            ],
+            "gif": [
+              "T065",
+              1,
+              true
+            ],
+            "heic": [
+              "T031",
+              1,
+              true
+            ],
+            "heif": [
+              "T031",
+              1,
+              true
+            ],
+            "jpeg": [
+              "T065",
+              1,
+              true
+            ],
+            "jpg": [
+              "T065",
+              1,
+              true
+            ],
+            "png": [
+              "T065",
+              1,
+              true
+            ],
+            "tif": [
+              "T065",
+              1,
+              true
+            ],
+            "tiff": [
+              "T065",
+              1,
+              true
+            ],
+            "webp": [
+              "T065",
+              1,
+              true
+            ]
+          },
+          "control_codec_coverage_identical": true,
+          "analyzer": {
+            "scanned_file_count": 9,
+            "normal_scoped_findings_count": 0,
+            "normal_findings_count": 0,
+            "normal_exit_code": 0,
+            "control_scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_total_findings_count": 1,
+            "control_exit_code": 1,
+            "control_detected": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_binding_count": 11,
+            "environment_limit": "Analyzer runner does not record GitHub-specific environment fields; exported nulls are preserved. Actual tested_commit/source bindings, shared OS/PowerShell fields and same-job step logs bind analyzer execution.",
+            "actual_source_inventory_sha256": "3cb4bc0b87d523918dd84fb906817db7aace104097178d6e87ee2ea09aa5a408",
+            "source_binding_inventory": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "1bb63f7f8ef6a9dcc4a3f9de95699292534f59f788910ca6312457eb2a3c7a2c"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "6af2227cbb9fbdfe0a0f99511c001fc120bcb939b5fea74b4b1c78a8996e5b48"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "6bc8e32b1d352eb381d0744e5875568b89ed267eac7b865c34e36908c630f7e7"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+              },
+              {
+                "path": "tools/release/Build-Release.ps1",
+                "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+              },
+              {
+                "path": "tools/release/Update-ReleaseMetadata.ps1",
+                "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingWMICmdlet",
+              "PSMisleadingBacktick",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSReservedParams",
+              "PSUseCmdletCorrectly",
+              "PSUseCompatibleSyntax",
+              "PSUsePSCredentialType"
+            ]
+          },
+          "actual_native_controls_verified_in_logs": true,
+          "raw_summary_sha256": {
+            "normal_tests": "c8a6e619852e84c202ee66e2846dcd9cefd33de5983465c178013188680226e9",
+            "control_tests": "7956b2e46dc453036c863dda2b70ce3615fb18b8029c720fe506d550619a3302",
+            "normal_analysis": "407c7d0a2e00ed6505dc6f199cb067b809cdf01d57f9fb4d739c030d43ba1ce3",
+            "control_analysis": "bfe3bd20010a72c4dec47a4d487dabfc5161a52fb0f4031d45a99f25092c782e"
+          },
+          "host": {
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "7.6.6",
+            "powershell_edition": "Core",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32"
+          },
+          "dependencies": {
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          },
+          "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+          "full_fractional_utc_inside_actual_step_intervals_verified": true,
+          "documentation_sources_bound_to_tested_git_tree": true
+        },
+        {
+          "shell": "powershell",
+          "job_id": 112403796004,
+          "job_conclusion": "success",
+          "started_at": "2026-10-06T17:20:37Z",
+          "completed_at": "2026-10-06T17:36:26Z",
+          "required_step_count": 6,
+          "required_steps_all_success": true,
+          "all_manifest_suites_in_normal_and_control_logs_verified": true,
+          "all_26_suites_in_normal_and_control_logs_verified": true,
+          "T069_T070_T071_actually_passed_normal_and_control": true,
+          "T072_actually_passed_normal_and_control": true,
+          "portable_package_sources_bound_to_tested_git_tree": true,
+          "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+          "all_documentation_assertions_in_normal_and_control_logs_verified": true,
+          "actual_control_failure_is_only_T007_verified": true,
+          "manifest_suites": [
+            "Normalizer.Tests.ps1",
+            "Preflight.Tests.ps1",
+            "Traversal.Tests.ps1",
+            "Naming.Tests.ps1",
+            "Transactions.Tests.ps1",
+            "Duplicates.Tests.ps1",
+            "SafetyRegression.Tests.ps1",
+            "Frames.Tests.ps1",
+            "Colour.Tests.ps1",
+            "Paths.Tests.ps1",
+            "Sizing.Tests.ps1",
+            "Diagnostics.Tests.ps1",
+            "ConversionRegression.Tests.ps1",
+            "RecoveryReporting.Tests.ps1",
+            "NativeLifetime.Tests.ps1",
+            "Cancellation.Tests.ps1",
+            "Reporting.Tests.ps1",
+            "Launcher.Tests.ps1",
+            "ExitContract.Tests.ps1",
+            "Compatibility.Tests.ps1",
+            "CodecCompatibility.Tests.ps1",
+            "StaticAnalysis.Tests.ps1",
+            "WorkflowSecurity.Tests.ps1",
+            "Versioning.Tests.ps1",
+            "Packaging.Tests.ps1",
+            "Documentation.Tests.ps1"
+          ],
+          "passed_documentation_test_names_normal_and_control": [
+            "T072 resolves local public links and headings in repository and exact portable contexts",
+            "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+            "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+            "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+            "T072 reports actual invalid byte target 0 before creating destination output",
+            "T072 reports actual invalid byte target 1.5 before creating destination output",
+            "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+            "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+            "T072 reproduces the documented old version control prerequisite failure before output allocation",
+            "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+            "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+            "T072 reports first displayed frame selection and a real omitted animation frame",
+            "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+            "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+          ],
+          "passed_package_positive_names_normal_and_control": [
+            "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+            "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+            "T071 recomputes both exact SHA256SUMS assets independently",
+            "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+            "T070 extracts only approved root files into a fresh directory with spaces",
+            "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+            "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+            "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+          ],
+          "artifact_id": 11430433988,
+          "artifact_name": "synthetic-evidence-powershell-19f6db45b5576f6ef0e86407058571178cadd806",
+          "github_archive_digest": "sha256:268acdb71e997d94b23a7d4d06b31f199d485714696d8c67bc4f861b0f3ac45e",
+          "downloaded_archive_sha256": "268acdb71e997d94b23a7d4d06b31f199d485714696d8c67bc4f861b0f3ac45e",
+          "files": [
+            {
+              "name": "static-analysis-evidence.json",
+              "sha256": "cc3fea9b66d01c246869804e205e84c57e90276fd0c65e118554790aa5bd9acc",
+              "bytes": 12760
+            },
+            {
+              "name": "test-evidence.json",
+              "sha256": "c5a1e79d0d41fe541bc0d81b4cdebefee56fd5d43c120627896065ed4a0b0fc5",
+              "bytes": 73894
+            }
+          ],
+          "two_file_allowlist_and_privacy_verified": true,
+          "source_binding_count": 62,
+          "source_binding_methods": [
+            "Windows CRLF checkout of Git blob",
+            "exact Git blob"
+          ],
+          "actual_source_inventory_sha256": "5973b961c6a49d4d47d12ca88f19a2ffd2a1b97e5544a59d93f91f366415b090",
+          "source_binding_inventory": [
+            {
+              "path": ".gitattributes",
+              "sha256": "2a3e5f14e93bcaf27f2df2eca4da444c57210f4c662f9d7e5f94cf9218355739"
+            },
+            {
+              "path": ".github/workflows/windows-tests.yml",
+              "sha256": "5a19ab61315a30ce0c2be01400387bc077bf65a6bb90211a22358835cf0589c8"
+            },
+            {
+              "path": ".gitignore",
+              "sha256": "3fa63fe085ffe679d5d277b9b2071f0c6e66fb02eba70c94af0922a66d2f2cfc"
+            },
+            {
+              "path": "CHANGELOG.md",
+              "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7"
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+            },
+            {
+              "path": "README.md",
+              "sha256": "609ddd91510445296d5d0c8da848f402d8d0a1ebbd7a5f5e999447d849d5e48e"
+            },
+            {
+              "path": "SECURITY.md",
+              "sha256": "71dadc075c0f20901ab98a07a26614b48a69d30ef055795ecc00a119f1dbcd6d"
+            },
+            {
+              "path": "WinImgNormalizer.bat",
+              "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+            },
+            {
+              "path": "WinImgNormalizer.ps1",
+              "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+            },
+            {
+              "path": "docs/BEHAVIOR.md",
+              "sha256": "0efd4ab81986c394283e11753d5cd8a0983bef0abebbbe8f93540fdc99f99170"
+            },
+            {
+              "path": "docs/release/GETTING_STARTED.md",
+              "sha256": "fc5780024c6fec26341f4d0ff12094c1ef6aafde6833374920cbca42fac4eead"
+            },
+            {
+              "path": "docs/release/NOTES.md",
+              "sha256": "4cd0b8fbfceb84d0121f820270aa86f70d32e7d96b803e3b24c082c12a800ba3"
+            },
+            {
+              "path": "docs/release/PACKAGING.md",
+              "sha256": "651937361aa4588d80661cf42914d0590d831205299884ad9e2bac7f5d346211"
+            },
+            {
+              "path": "docs/release/THIRD_PARTY_NOTICES.md",
+              "sha256": "26f51eb132174c8bdb27c4668e8d441bbad17d0be92d517fa43fd533d49b11ec"
+            },
+            {
+              "path": "release-metadata.json",
+              "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+            },
+            {
+              "path": "tests/Cancellation.Tests.ps1",
+              "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+            },
+            {
+              "path": "tests/CodecCompatibility.Tests.ps1",
+              "sha256": "28a0de2e1b1585d8f5fac29d75401d405b4637272f8f840328c457f0c1ce8465"
+            },
+            {
+              "path": "tests/Colour.Tests.ps1",
+              "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+            },
+            {
+              "path": "tests/Compatibility.Tests.ps1",
+              "sha256": "709775e7d4484ce402d7aa7bf9706dfbd871b5ceb5d957b8b377438041d8b00a"
+            },
+            {
+              "path": "tests/ConversionRegression.Tests.ps1",
+              "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+            },
+            {
+              "path": "tests/Diagnostics.Tests.ps1",
+              "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+            },
+            {
+              "path": "tests/Documentation.Tests.ps1",
+              "sha256": "294b3926525e5a04fbb86b6c3bb1943740ce2b56cfb7a6bde6f143cecc140ab2"
+            },
+            {
+              "path": "tests/Duplicates.Tests.ps1",
+              "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+            },
+            {
+              "path": "tests/ExitContract.Tests.ps1",
+              "sha256": "62585751a9e8897054c536e92511412805273b10fcae79b474509d31df2be9d4"
+            },
+            {
+              "path": "tests/Export-TestEvidence.ps1",
+              "sha256": "1bb63f7f8ef6a9dcc4a3f9de95699292534f59f788910ca6312457eb2a3c7a2c"
+            },
+            {
+              "path": "tests/Frames.Tests.ps1",
+              "sha256": "a995d660be43d9d43eca2bed7e6e5b6361f7523a480e05f188738b74f4339059"
+            },
+            {
+              "path": "tests/Initialize-TestDependencies.ps1",
+              "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+            },
+            {
+              "path": "tests/Invoke-StaticAnalysis.ps1",
+              "sha256": "6af2227cbb9fbdfe0a0f99511c001fc120bcb939b5fea74b4b1c78a8996e5b48"
+            },
+            {
+              "path": "tests/Invoke-Tests.ps1",
+              "sha256": "6bc8e32b1d352eb381d0744e5875568b89ed267eac7b865c34e36908c630f7e7"
+            },
+            {
+              "path": "tests/Launcher.Tests.ps1",
+              "sha256": "3e4daa4e9ddf32c49faeebd5af3c9efd166bccd0420eafb5b254d9532c6f792e"
+            },
+            {
+              "path": "tests/Measure-SizeQuality.ps1",
+              "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+            },
+            {
+              "path": "tests/Naming.Tests.ps1",
+              "sha256": "c725e82af94a762ca7dade70ab713ed1fd2eac97dbcae6e7ce5d1bdc68dfcb0d"
+            },
+            {
+              "path": "tests/NativeLifetime.Tests.ps1",
+              "sha256": "63753268ceec7d3f861431cdc874985d6594a6c23c8ddb8f5ad9c1bb6cdc6fb6"
+            },
+            {
+              "path": "tests/Normalizer.Tests.ps1",
+              "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+            },
+            {
+              "path": "tests/PSScriptAnalyzerSettings.psd1",
+              "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+            },
+            {
+              "path": "tests/Packaging.Tests.ps1",
+              "sha256": "e595bffb8e032a4d70e881096e805d5f2fc2de569f1f63e86cfe2509051d45ce"
+            },
+            {
+              "path": "tests/Paths.Tests.ps1",
+              "sha256": "482a011d51e498c1592e14c022e68a6cae8a16ac28b45bf8a63eec0703c45b90"
+            },
+            {
+              "path": "tests/Preflight.Tests.ps1",
+              "sha256": "1e3ef8dfc992ed5e4ab52cf90724c76351cb97c3c38e8c8afea8126cd85f73af"
+            },
+            {
+              "path": "tests/RecoveryReporting.Tests.ps1",
+              "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+            },
+            {
+              "path": "tests/Reporting.Tests.ps1",
+              "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+            },
+            {
+              "path": "tests/SafetyRegression.Tests.ps1",
+              "sha256": "693d8c76048f3a98c0081954693869dd4f07978821ff30cb3512b78af1cc7621"
+            },
+            {
+              "path": "tests/Sizing.Tests.ps1",
+              "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+            },
+            {
+              "path": "tests/StaticAnalysis.Tests.ps1",
+              "sha256": "d353af490e83c1bac72338e7b6f3002c9dbc85dd68b6110014c3d450e20a16c2"
+            },
+            {
+              "path": "tests/TestGate.ps1",
+              "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+            },
+            {
+              "path": "tests/Transactions.Tests.ps1",
+              "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+            },
+            {
+              "path": "tests/Traversal.Tests.ps1",
+              "sha256": "9153ba4bf9384beac2a1e883191c7845774e661b968b6869cfdb52bc9e0bc0bb"
+            },
+            {
+              "path": "tests/Versioning.Tests.ps1",
+              "sha256": "6b207eb4c3bdf04b2998df43bc6238ed63438a72dba8e0b331e1f5db0fbf5b10"
+            },
+            {
+              "path": "tests/WorkflowSecurity.Tests.ps1",
+              "sha256": "960bb7c8673fa43d4bfe9d6faab22d16f63ac32af022ab8e29c4addab3a4f5a6"
+            },
+            {
+              "path": "tests/dependencies.json",
+              "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+            },
+            {
+              "path": "tests/fixtures/LauncherConsoleFixture.cs",
+              "sha256": "0df25de2e93afeb39a14235af505ea2a0bbd3657f1400937e5a1374ba5f1b925"
+            },
+            {
+              "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+              "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+            },
+            {
+              "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+              "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+            },
+            {
+              "path": "tests/fixtures/colour/Generate-Reference.py",
+              "sha256": "e342eab730b34197dd3f74a7726a39c6cf72f31c160a2d012169cb22957fffd7"
+            },
+            {
+              "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+              "sha256": "7bfe1dfbb1e1adc61096d16fe711ec9a3c12059f43a1a7a654eb36a4eb15bb92"
+            },
+            {
+              "path": "tests/fixtures/colour/MANIFEST.json",
+              "sha256": "2c99f919d1810c7f6dfcab75bb0975c6fa6f7c4c5ff9cca3099c95cb71345b18"
+            },
+            {
+              "path": "tests/fixtures/colour/README.md",
+              "sha256": "e3ebef6ef03999c4800261f158214058ac7887c59cbbcf545a747a42e3314555"
+            },
+            {
+              "path": "tests/fixtures/colour/REFERENCE.json",
+              "sha256": "f2244e896aa458d2db931022d61d0b84f823e50475309655940734bc64a4c737"
+            },
+            {
+              "path": "tests/fixtures/colour/sRGB-v4.icc",
+              "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+            },
+            {
+              "path": "tests/legacy/toolchain.json",
+              "sha256": "4c05c8e0b54be1b82d7236532822d0d8a28a8404cb857a5f8b22a5f537baff9a"
+            },
+            {
+              "path": "tests/mandatory-tests.json",
+              "sha256": "adfd26facbdebb39c7b26c934540762c66142dd4f89ebf8a3212e823f2ce2316"
+            },
+            {
+              "path": "tools/release/Build-Release.ps1",
+              "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+            },
+            {
+              "path": "tools/release/Update-ReleaseMetadata.ps1",
+              "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+            }
+          ],
+          "normal_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072"
+          ],
+          "control_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072"
+          ],
+          "full_source_inventory_matches_exact_git_tree": true,
+          "clean_source_and_commit_and_policy_unchanged": true,
+          "normal": {
+            "total_count": 529,
+            "passed_count": 529,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 0,
+            "exit_code": 0
+          },
+          "assertion_control": {
+            "total_count": 530,
+            "passed_count": 529,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 2,
+            "exit_code": 1
+          },
+          "normal_passed_case_count": 66,
+          "control_passed_case_count": 66,
+          "mandatory_cases_all_passed": true,
+          "normal_passed_case_ids_sha256": "284735bf18704bf5fb849c6e6004054d74d1e5f08f6a5d8f032bd65b30fdbabc",
+          "control_passed_case_ids_sha256": "284735bf18704bf5fb849c6e6004054d74d1e5f08f6a5d8f032bd65b30fdbabc",
+          "actual_codec_coverage": {
+            "bmp": [
+              "T065",
+              1,
+              true
+            ],
+            "gif": [
+              "T065",
+              1,
+              true
+            ],
+            "heic": [
+              "T031",
+              1,
+              true
+            ],
+            "heif": [
+              "T031",
+              1,
+              true
+            ],
+            "jpeg": [
+              "T065",
+              1,
+              true
+            ],
+            "jpg": [
+              "T065",
+              1,
+              true
+            ],
+            "png": [
+              "T065",
+              1,
+              true
+            ],
+            "tif": [
+              "T065",
+              1,
+              true
+            ],
+            "tiff": [
+              "T065",
+              1,
+              true
+            ],
+            "webp": [
+              "T065",
+              1,
+              true
+            ]
+          },
+          "control_codec_coverage_identical": true,
+          "analyzer": {
+            "scanned_file_count": 9,
+            "normal_scoped_findings_count": 0,
+            "normal_findings_count": 0,
+            "normal_exit_code": 0,
+            "control_scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_total_findings_count": 1,
+            "control_exit_code": 1,
+            "control_detected": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_binding_count": 11,
+            "environment_limit": "Analyzer runner does not record GitHub-specific environment fields; exported nulls are preserved. Actual tested_commit/source bindings, shared OS/PowerShell fields and same-job step logs bind analyzer execution.",
+            "actual_source_inventory_sha256": "3cb4bc0b87d523918dd84fb906817db7aace104097178d6e87ee2ea09aa5a408",
+            "source_binding_inventory": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "1bb63f7f8ef6a9dcc4a3f9de95699292534f59f788910ca6312457eb2a3c7a2c"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "6af2227cbb9fbdfe0a0f99511c001fc120bcb939b5fea74b4b1c78a8996e5b48"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "6bc8e32b1d352eb381d0744e5875568b89ed267eac7b865c34e36908c630f7e7"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+              },
+              {
+                "path": "tools/release/Build-Release.ps1",
+                "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+              },
+              {
+                "path": "tools/release/Update-ReleaseMetadata.ps1",
+                "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingWMICmdlet",
+              "PSMisleadingBacktick",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSReservedParams",
+              "PSUseCmdletCorrectly",
+              "PSUseCompatibleSyntax",
+              "PSUsePSCredentialType"
+            ]
+          },
+          "actual_native_controls_verified_in_logs": true,
+          "raw_summary_sha256": {
+            "normal_tests": "a0fd8096b005247e27c485e9c9431faeecb0b963b144e0161f35673bbaed33c7",
+            "control_tests": "3bd922d820ee911e912b7ca45805dfd61c9de668d994c5ffd56127840e5ddb6a",
+            "normal_analysis": "1c7976aab9ad2e46a0a143368fee3832b30a93da0d4e55092fffaae08914b150",
+            "control_analysis": "03f404a2bc9e39ca51fd43459d13d8ef9c53916a202747ac048a69dcdc31f148"
+          },
+          "host": {
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "5.1.26100.33438",
+            "powershell_edition": "Desktop",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32"
+          },
+          "dependencies": {
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          },
+          "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+          "full_fractional_utc_inside_actual_step_intervals_verified": true,
+          "documentation_sources_bound_to_tested_git_tree": true
+        }
+      ],
+      "actual_clean_checkout_packaging_required_by_verified_source": true,
+      "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+      "all_26_suites_in_normal_and_control_logs_verified": true,
+      "T069_T070_T071_actually_passed_normal_and_control": true,
+      "T072_actually_passed_normal_and_control": true,
+      "packaging_raw_observation_limit": "Private raw packaging observations and ZIPs are not uploaded. Clean checkout, exact bound Packaging suite source, mandatory T069-T071 outcomes and successful real Windows test steps establish actual-checkout extraction under the CI no-fallback guard; no raw package SHA is reconstructed."
+    },
+    {
+      "run_id": 37502838733,
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37502838733",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "19f6db45b5576f6ef0e86407058571178cadd806",
+      "actual_checkout_sha": "a41e1df31e984357a9b00ba41ff8c3b56324cd33",
+      "observed_at_utc": "2026-10-06T17:35:15.031719+00:00",
+      "raw_log_sha256": "91e233a6fbda0917056af7536df5375fb971f934c0e6d869caff9dac22fef6c2",
+      "sanitized_local_run_proof_sha256": "8d8e217477737cb86f55ace37855d98a22f36370f334e1db49e17ea2373d90e0",
+      "github_actions_runner_versions": [
+        "2.337.0"
+      ],
+      "actual_image_names_in_setup_logs": [
+        "windows-2025-vs2026"
+      ],
+      "runtime_contents_read_only_verified": true,
+      "artifacts": [
+        {
+          "shell": "pwsh",
+          "job_id": 112403934570,
+          "job_conclusion": "success",
+          "started_at": "2026-10-06T17:20:56Z",
+          "completed_at": "2026-10-06T17:34:45Z",
+          "required_step_count": 6,
+          "required_steps_all_success": true,
+          "all_manifest_suites_in_normal_and_control_logs_verified": true,
+          "all_26_suites_in_normal_and_control_logs_verified": true,
+          "T069_T070_T071_actually_passed_normal_and_control": true,
+          "T072_actually_passed_normal_and_control": true,
+          "portable_package_sources_bound_to_tested_git_tree": true,
+          "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+          "all_documentation_assertions_in_normal_and_control_logs_verified": true,
+          "actual_control_failure_is_only_T007_verified": true,
+          "manifest_suites": [
+            "Normalizer.Tests.ps1",
+            "Preflight.Tests.ps1",
+            "Traversal.Tests.ps1",
+            "Naming.Tests.ps1",
+            "Transactions.Tests.ps1",
+            "Duplicates.Tests.ps1",
+            "SafetyRegression.Tests.ps1",
+            "Frames.Tests.ps1",
+            "Colour.Tests.ps1",
+            "Paths.Tests.ps1",
+            "Sizing.Tests.ps1",
+            "Diagnostics.Tests.ps1",
+            "ConversionRegression.Tests.ps1",
+            "RecoveryReporting.Tests.ps1",
+            "NativeLifetime.Tests.ps1",
+            "Cancellation.Tests.ps1",
+            "Reporting.Tests.ps1",
+            "Launcher.Tests.ps1",
+            "ExitContract.Tests.ps1",
+            "Compatibility.Tests.ps1",
+            "CodecCompatibility.Tests.ps1",
+            "StaticAnalysis.Tests.ps1",
+            "WorkflowSecurity.Tests.ps1",
+            "Versioning.Tests.ps1",
+            "Packaging.Tests.ps1",
+            "Documentation.Tests.ps1"
+          ],
+          "passed_documentation_test_names_normal_and_control": [
+            "T072 resolves local public links and headings in repository and exact portable contexts",
+            "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+            "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+            "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+            "T072 reports actual invalid byte target 0 before creating destination output",
+            "T072 reports actual invalid byte target 1.5 before creating destination output",
+            "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+            "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+            "T072 reproduces the documented old version control prerequisite failure before output allocation",
+            "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+            "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+            "T072 reports first displayed frame selection and a real omitted animation frame",
+            "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+            "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+          ],
+          "passed_package_positive_names_normal_and_control": [
+            "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+            "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+            "T071 recomputes both exact SHA256SUMS assets independently",
+            "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+            "T070 extracts only approved root files into a fresh directory with spaces",
+            "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+            "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+            "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+          ],
+          "artifact_id": 11431361510,
+          "artifact_name": "synthetic-evidence-pwsh-a41e1df31e984357a9b00ba41ff8c3b56324cd33",
+          "github_archive_digest": "sha256:2ef25175572b904904d0bd258a02a09bb5b1397c1f6485dbd70d2ab117ac6ccb",
+          "downloaded_archive_sha256": "2ef25175572b904904d0bd258a02a09bb5b1397c1f6485dbd70d2ab117ac6ccb",
+          "files": [
+            {
+              "name": "static-analysis-evidence.json",
+              "sha256": "93764b685dcb0294ede3f85ba20affec58016f6a65858f41508c526dea99b940",
+              "bytes": 7561
+            },
+            {
+              "name": "test-evidence.json",
+              "sha256": "6edca2667ecf743ca3c533c9b12b866ad5306d36a760c23f2cfc4037db9d95da",
+              "bytes": 33791
+            }
+          ],
+          "two_file_allowlist_and_privacy_verified": true,
+          "source_binding_count": 62,
+          "source_binding_methods": [
+            "Windows CRLF checkout of Git blob",
+            "exact Git blob"
+          ],
+          "actual_source_inventory_sha256": "5973b961c6a49d4d47d12ca88f19a2ffd2a1b97e5544a59d93f91f366415b090",
+          "source_binding_inventory": [
+            {
+              "path": ".gitattributes",
+              "sha256": "2a3e5f14e93bcaf27f2df2eca4da444c57210f4c662f9d7e5f94cf9218355739"
+            },
+            {
+              "path": ".github/workflows/windows-tests.yml",
+              "sha256": "5a19ab61315a30ce0c2be01400387bc077bf65a6bb90211a22358835cf0589c8"
+            },
+            {
+              "path": ".gitignore",
+              "sha256": "3fa63fe085ffe679d5d277b9b2071f0c6e66fb02eba70c94af0922a66d2f2cfc"
+            },
+            {
+              "path": "CHANGELOG.md",
+              "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7"
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+            },
+            {
+              "path": "README.md",
+              "sha256": "609ddd91510445296d5d0c8da848f402d8d0a1ebbd7a5f5e999447d849d5e48e"
+            },
+            {
+              "path": "SECURITY.md",
+              "sha256": "71dadc075c0f20901ab98a07a26614b48a69d30ef055795ecc00a119f1dbcd6d"
+            },
+            {
+              "path": "WinImgNormalizer.bat",
+              "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+            },
+            {
+              "path": "WinImgNormalizer.ps1",
+              "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+            },
+            {
+              "path": "docs/BEHAVIOR.md",
+              "sha256": "0efd4ab81986c394283e11753d5cd8a0983bef0abebbbe8f93540fdc99f99170"
+            },
+            {
+              "path": "docs/release/GETTING_STARTED.md",
+              "sha256": "fc5780024c6fec26341f4d0ff12094c1ef6aafde6833374920cbca42fac4eead"
+            },
+            {
+              "path": "docs/release/NOTES.md",
+              "sha256": "4cd0b8fbfceb84d0121f820270aa86f70d32e7d96b803e3b24c082c12a800ba3"
+            },
+            {
+              "path": "docs/release/PACKAGING.md",
+              "sha256": "651937361aa4588d80661cf42914d0590d831205299884ad9e2bac7f5d346211"
+            },
+            {
+              "path": "docs/release/THIRD_PARTY_NOTICES.md",
+              "sha256": "26f51eb132174c8bdb27c4668e8d441bbad17d0be92d517fa43fd533d49b11ec"
+            },
+            {
+              "path": "release-metadata.json",
+              "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+            },
+            {
+              "path": "tests/Cancellation.Tests.ps1",
+              "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+            },
+            {
+              "path": "tests/CodecCompatibility.Tests.ps1",
+              "sha256": "28a0de2e1b1585d8f5fac29d75401d405b4637272f8f840328c457f0c1ce8465"
+            },
+            {
+              "path": "tests/Colour.Tests.ps1",
+              "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+            },
+            {
+              "path": "tests/Compatibility.Tests.ps1",
+              "sha256": "709775e7d4484ce402d7aa7bf9706dfbd871b5ceb5d957b8b377438041d8b00a"
+            },
+            {
+              "path": "tests/ConversionRegression.Tests.ps1",
+              "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+            },
+            {
+              "path": "tests/Diagnostics.Tests.ps1",
+              "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+            },
+            {
+              "path": "tests/Documentation.Tests.ps1",
+              "sha256": "294b3926525e5a04fbb86b6c3bb1943740ce2b56cfb7a6bde6f143cecc140ab2"
+            },
+            {
+              "path": "tests/Duplicates.Tests.ps1",
+              "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+            },
+            {
+              "path": "tests/ExitContract.Tests.ps1",
+              "sha256": "62585751a9e8897054c536e92511412805273b10fcae79b474509d31df2be9d4"
+            },
+            {
+              "path": "tests/Export-TestEvidence.ps1",
+              "sha256": "1bb63f7f8ef6a9dcc4a3f9de95699292534f59f788910ca6312457eb2a3c7a2c"
+            },
+            {
+              "path": "tests/Frames.Tests.ps1",
+              "sha256": "a995d660be43d9d43eca2bed7e6e5b6361f7523a480e05f188738b74f4339059"
+            },
+            {
+              "path": "tests/Initialize-TestDependencies.ps1",
+              "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+            },
+            {
+              "path": "tests/Invoke-StaticAnalysis.ps1",
+              "sha256": "6af2227cbb9fbdfe0a0f99511c001fc120bcb939b5fea74b4b1c78a8996e5b48"
+            },
+            {
+              "path": "tests/Invoke-Tests.ps1",
+              "sha256": "6bc8e32b1d352eb381d0744e5875568b89ed267eac7b865c34e36908c630f7e7"
+            },
+            {
+              "path": "tests/Launcher.Tests.ps1",
+              "sha256": "3e4daa4e9ddf32c49faeebd5af3c9efd166bccd0420eafb5b254d9532c6f792e"
+            },
+            {
+              "path": "tests/Measure-SizeQuality.ps1",
+              "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+            },
+            {
+              "path": "tests/Naming.Tests.ps1",
+              "sha256": "c725e82af94a762ca7dade70ab713ed1fd2eac97dbcae6e7ce5d1bdc68dfcb0d"
+            },
+            {
+              "path": "tests/NativeLifetime.Tests.ps1",
+              "sha256": "63753268ceec7d3f861431cdc874985d6594a6c23c8ddb8f5ad9c1bb6cdc6fb6"
+            },
+            {
+              "path": "tests/Normalizer.Tests.ps1",
+              "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+            },
+            {
+              "path": "tests/PSScriptAnalyzerSettings.psd1",
+              "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+            },
+            {
+              "path": "tests/Packaging.Tests.ps1",
+              "sha256": "e595bffb8e032a4d70e881096e805d5f2fc2de569f1f63e86cfe2509051d45ce"
+            },
+            {
+              "path": "tests/Paths.Tests.ps1",
+              "sha256": "482a011d51e498c1592e14c022e68a6cae8a16ac28b45bf8a63eec0703c45b90"
+            },
+            {
+              "path": "tests/Preflight.Tests.ps1",
+              "sha256": "1e3ef8dfc992ed5e4ab52cf90724c76351cb97c3c38e8c8afea8126cd85f73af"
+            },
+            {
+              "path": "tests/RecoveryReporting.Tests.ps1",
+              "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+            },
+            {
+              "path": "tests/Reporting.Tests.ps1",
+              "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+            },
+            {
+              "path": "tests/SafetyRegression.Tests.ps1",
+              "sha256": "693d8c76048f3a98c0081954693869dd4f07978821ff30cb3512b78af1cc7621"
+            },
+            {
+              "path": "tests/Sizing.Tests.ps1",
+              "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+            },
+            {
+              "path": "tests/StaticAnalysis.Tests.ps1",
+              "sha256": "d353af490e83c1bac72338e7b6f3002c9dbc85dd68b6110014c3d450e20a16c2"
+            },
+            {
+              "path": "tests/TestGate.ps1",
+              "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+            },
+            {
+              "path": "tests/Transactions.Tests.ps1",
+              "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+            },
+            {
+              "path": "tests/Traversal.Tests.ps1",
+              "sha256": "9153ba4bf9384beac2a1e883191c7845774e661b968b6869cfdb52bc9e0bc0bb"
+            },
+            {
+              "path": "tests/Versioning.Tests.ps1",
+              "sha256": "6b207eb4c3bdf04b2998df43bc6238ed63438a72dba8e0b331e1f5db0fbf5b10"
+            },
+            {
+              "path": "tests/WorkflowSecurity.Tests.ps1",
+              "sha256": "960bb7c8673fa43d4bfe9d6faab22d16f63ac32af022ab8e29c4addab3a4f5a6"
+            },
+            {
+              "path": "tests/dependencies.json",
+              "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+            },
+            {
+              "path": "tests/fixtures/LauncherConsoleFixture.cs",
+              "sha256": "0df25de2e93afeb39a14235af505ea2a0bbd3657f1400937e5a1374ba5f1b925"
+            },
+            {
+              "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+              "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+            },
+            {
+              "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+              "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+            },
+            {
+              "path": "tests/fixtures/colour/Generate-Reference.py",
+              "sha256": "e342eab730b34197dd3f74a7726a39c6cf72f31c160a2d012169cb22957fffd7"
+            },
+            {
+              "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+              "sha256": "7bfe1dfbb1e1adc61096d16fe711ec9a3c12059f43a1a7a654eb36a4eb15bb92"
+            },
+            {
+              "path": "tests/fixtures/colour/MANIFEST.json",
+              "sha256": "2c99f919d1810c7f6dfcab75bb0975c6fa6f7c4c5ff9cca3099c95cb71345b18"
+            },
+            {
+              "path": "tests/fixtures/colour/README.md",
+              "sha256": "e3ebef6ef03999c4800261f158214058ac7887c59cbbcf545a747a42e3314555"
+            },
+            {
+              "path": "tests/fixtures/colour/REFERENCE.json",
+              "sha256": "f2244e896aa458d2db931022d61d0b84f823e50475309655940734bc64a4c737"
+            },
+            {
+              "path": "tests/fixtures/colour/sRGB-v4.icc",
+              "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+            },
+            {
+              "path": "tests/legacy/toolchain.json",
+              "sha256": "4c05c8e0b54be1b82d7236532822d0d8a28a8404cb857a5f8b22a5f537baff9a"
+            },
+            {
+              "path": "tests/mandatory-tests.json",
+              "sha256": "adfd26facbdebb39c7b26c934540762c66142dd4f89ebf8a3212e823f2ce2316"
+            },
+            {
+              "path": "tools/release/Build-Release.ps1",
+              "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+            },
+            {
+              "path": "tools/release/Update-ReleaseMetadata.ps1",
+              "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+            }
+          ],
+          "normal_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072"
+          ],
+          "control_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072"
+          ],
+          "full_source_inventory_matches_exact_git_tree": true,
+          "clean_source_and_commit_and_policy_unchanged": true,
+          "normal": {
+            "total_count": 529,
+            "passed_count": 529,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 0,
+            "exit_code": 0
+          },
+          "assertion_control": {
+            "total_count": 530,
+            "passed_count": 529,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 2,
+            "exit_code": 1
+          },
+          "normal_passed_case_count": 66,
+          "control_passed_case_count": 66,
+          "mandatory_cases_all_passed": true,
+          "normal_passed_case_ids_sha256": "284735bf18704bf5fb849c6e6004054d74d1e5f08f6a5d8f032bd65b30fdbabc",
+          "control_passed_case_ids_sha256": "284735bf18704bf5fb849c6e6004054d74d1e5f08f6a5d8f032bd65b30fdbabc",
+          "actual_codec_coverage": {
+            "bmp": [
+              "T065",
+              1,
+              true
+            ],
+            "gif": [
+              "T065",
+              1,
+              true
+            ],
+            "heic": [
+              "T031",
+              1,
+              true
+            ],
+            "heif": [
+              "T031",
+              1,
+              true
+            ],
+            "jpeg": [
+              "T065",
+              1,
+              true
+            ],
+            "jpg": [
+              "T065",
+              1,
+              true
+            ],
+            "png": [
+              "T065",
+              1,
+              true
+            ],
+            "tif": [
+              "T065",
+              1,
+              true
+            ],
+            "tiff": [
+              "T065",
+              1,
+              true
+            ],
+            "webp": [
+              "T065",
+              1,
+              true
+            ]
+          },
+          "control_codec_coverage_identical": true,
+          "analyzer": {
+            "scanned_file_count": 9,
+            "normal_scoped_findings_count": 0,
+            "normal_findings_count": 0,
+            "normal_exit_code": 0,
+            "control_scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_total_findings_count": 1,
+            "control_exit_code": 1,
+            "control_detected": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_binding_count": 11,
+            "environment_limit": "Analyzer runner does not record GitHub-specific environment fields; exported nulls are preserved. Actual tested_commit/source bindings, shared OS/PowerShell fields and same-job step logs bind analyzer execution.",
+            "actual_source_inventory_sha256": "3cb4bc0b87d523918dd84fb906817db7aace104097178d6e87ee2ea09aa5a408",
+            "source_binding_inventory": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "1bb63f7f8ef6a9dcc4a3f9de95699292534f59f788910ca6312457eb2a3c7a2c"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "6af2227cbb9fbdfe0a0f99511c001fc120bcb939b5fea74b4b1c78a8996e5b48"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "6bc8e32b1d352eb381d0744e5875568b89ed267eac7b865c34e36908c630f7e7"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+              },
+              {
+                "path": "tools/release/Build-Release.ps1",
+                "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+              },
+              {
+                "path": "tools/release/Update-ReleaseMetadata.ps1",
+                "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingWMICmdlet",
+              "PSMisleadingBacktick",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSReservedParams",
+              "PSUseCmdletCorrectly",
+              "PSUseCompatibleSyntax",
+              "PSUsePSCredentialType"
+            ]
+          },
+          "actual_native_controls_verified_in_logs": true,
+          "raw_summary_sha256": {
+            "normal_tests": "ceb0de4931d9996332b0c3b8e62d2a23b62d793e867dc656d19295770ee48cdc",
+            "control_tests": "75a5a9731ea618a634a4bf483202349911f67d18590fdd765207a4aa1134fda6",
+            "normal_analysis": "c15b699c2cf575cba98cc42fa24ddbb578bfe64608a6767c22e6481ef77f0ad9",
+            "control_analysis": "e3bc88a0b630530277cfe2ba7065a87b256005a648f8e0807d7c553bd5a2e1a3"
+          },
+          "host": {
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "7.6.6",
+            "powershell_edition": "Core",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32"
+          },
+          "dependencies": {
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          },
+          "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+          "full_fractional_utc_inside_actual_step_intervals_verified": true,
+          "documentation_sources_bound_to_tested_git_tree": true
+        },
+        {
+          "shell": "powershell",
+          "job_id": 112403934174,
+          "job_conclusion": "success",
+          "started_at": "2026-10-06T17:20:58Z",
+          "completed_at": "2026-10-06T17:30:38Z",
+          "required_step_count": 6,
+          "required_steps_all_success": true,
+          "all_manifest_suites_in_normal_and_control_logs_verified": true,
+          "all_26_suites_in_normal_and_control_logs_verified": true,
+          "T069_T070_T071_actually_passed_normal_and_control": true,
+          "T072_actually_passed_normal_and_control": true,
+          "portable_package_sources_bound_to_tested_git_tree": true,
+          "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+          "all_documentation_assertions_in_normal_and_control_logs_verified": true,
+          "actual_control_failure_is_only_T007_verified": true,
+          "manifest_suites": [
+            "Normalizer.Tests.ps1",
+            "Preflight.Tests.ps1",
+            "Traversal.Tests.ps1",
+            "Naming.Tests.ps1",
+            "Transactions.Tests.ps1",
+            "Duplicates.Tests.ps1",
+            "SafetyRegression.Tests.ps1",
+            "Frames.Tests.ps1",
+            "Colour.Tests.ps1",
+            "Paths.Tests.ps1",
+            "Sizing.Tests.ps1",
+            "Diagnostics.Tests.ps1",
+            "ConversionRegression.Tests.ps1",
+            "RecoveryReporting.Tests.ps1",
+            "NativeLifetime.Tests.ps1",
+            "Cancellation.Tests.ps1",
+            "Reporting.Tests.ps1",
+            "Launcher.Tests.ps1",
+            "ExitContract.Tests.ps1",
+            "Compatibility.Tests.ps1",
+            "CodecCompatibility.Tests.ps1",
+            "StaticAnalysis.Tests.ps1",
+            "WorkflowSecurity.Tests.ps1",
+            "Versioning.Tests.ps1",
+            "Packaging.Tests.ps1",
+            "Documentation.Tests.ps1"
+          ],
+          "passed_documentation_test_names_normal_and_control": [
+            "T072 resolves local public links and headings in repository and exact portable contexts",
+            "T072 accepts exactly both literal positional examples in README and portable guide and rejects unsafe drift",
+            "T072 executes the documented default 1 MiB positional byte target while preserving synthetic video bytes",
+            "T072 executes the documented custom 2 MiB positional byte target while preserving synthetic video bytes",
+            "T072 reports actual invalid byte target 0 before creating destination output",
+            "T072 reports actual invalid byte target 1.5 before creating destination output",
+            "T072 reproduces unsafe nesting refusal with no destination creation or source mutation",
+            "T072 reproduces the documented missing executable prerequisite failure before output allocation",
+            "T072 reproduces the documented old version control prerequisite failure before output allocation",
+            "T072 reproduces the documented missing JPEG writer control prerequisite failure before output allocation",
+            "T072 retains an above-target lossy JPEG with white transparency and stripped source metadata",
+            "T072 reports first displayed frame selection and a real omitted animation frame",
+            "T072 proves filename-time-length dedupe can skip different bytes and is not content verification",
+            "T072 documents cloud sync and private reports separately from local processing and unsigned draft status"
+          ],
+          "passed_package_positive_names_normal_and_control": [
+            "T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes",
+            "T071 binds the exact unsigned asset and builder to the clean recorded revision",
+            "T071 recomputes both exact SHA256SUMS assets independently",
+            "T071 fixes entry ordering, timestamps and attributes and repeats identical bytes on this host",
+            "T070 extracts only approved root files into a fresh directory with spaces",
+            "T070 invokes the exact extracted BAT usage and retained pause without starting normalization",
+            "T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup",
+            "T070 runs extracted production PS1 with actual verified ImageMagick on synthetic media and owned output"
+          ],
+          "artifact_id": 11430832925,
+          "artifact_name": "synthetic-evidence-powershell-a41e1df31e984357a9b00ba41ff8c3b56324cd33",
+          "github_archive_digest": "sha256:0ab1fcf452b5802b26e71ca89c37f7b3c29dc6c122bea49026a343b2ac5d9935",
+          "downloaded_archive_sha256": "0ab1fcf452b5802b26e71ca89c37f7b3c29dc6c122bea49026a343b2ac5d9935",
+          "files": [
+            {
+              "name": "static-analysis-evidence.json",
+              "sha256": "63ddf7cb2737b4fec3f3641862c6e4f57a26a9e40d32c558e6567dc0fead8de7",
+              "bytes": 12760
+            },
+            {
+              "name": "test-evidence.json",
+              "sha256": "24af644a6f51d114f538699d6cac34c03dac858653aa4aaaf35352c20b314d4e",
+              "bytes": 73894
+            }
+          ],
+          "two_file_allowlist_and_privacy_verified": true,
+          "source_binding_count": 62,
+          "source_binding_methods": [
+            "Windows CRLF checkout of Git blob",
+            "exact Git blob"
+          ],
+          "actual_source_inventory_sha256": "5973b961c6a49d4d47d12ca88f19a2ffd2a1b97e5544a59d93f91f366415b090",
+          "source_binding_inventory": [
+            {
+              "path": ".gitattributes",
+              "sha256": "2a3e5f14e93bcaf27f2df2eca4da444c57210f4c662f9d7e5f94cf9218355739"
+            },
+            {
+              "path": ".github/workflows/windows-tests.yml",
+              "sha256": "5a19ab61315a30ce0c2be01400387bc077bf65a6bb90211a22358835cf0589c8"
+            },
+            {
+              "path": ".gitignore",
+              "sha256": "3fa63fe085ffe679d5d277b9b2071f0c6e66fb02eba70c94af0922a66d2f2cfc"
+            },
+            {
+              "path": "CHANGELOG.md",
+              "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7"
+            },
+            {
+              "path": "LICENSE",
+              "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+            },
+            {
+              "path": "README.md",
+              "sha256": "609ddd91510445296d5d0c8da848f402d8d0a1ebbd7a5f5e999447d849d5e48e"
+            },
+            {
+              "path": "SECURITY.md",
+              "sha256": "71dadc075c0f20901ab98a07a26614b48a69d30ef055795ecc00a119f1dbcd6d"
+            },
+            {
+              "path": "WinImgNormalizer.bat",
+              "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+            },
+            {
+              "path": "WinImgNormalizer.ps1",
+              "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+            },
+            {
+              "path": "docs/BEHAVIOR.md",
+              "sha256": "0efd4ab81986c394283e11753d5cd8a0983bef0abebbbe8f93540fdc99f99170"
+            },
+            {
+              "path": "docs/release/GETTING_STARTED.md",
+              "sha256": "fc5780024c6fec26341f4d0ff12094c1ef6aafde6833374920cbca42fac4eead"
+            },
+            {
+              "path": "docs/release/NOTES.md",
+              "sha256": "4cd0b8fbfceb84d0121f820270aa86f70d32e7d96b803e3b24c082c12a800ba3"
+            },
+            {
+              "path": "docs/release/PACKAGING.md",
+              "sha256": "651937361aa4588d80661cf42914d0590d831205299884ad9e2bac7f5d346211"
+            },
+            {
+              "path": "docs/release/THIRD_PARTY_NOTICES.md",
+              "sha256": "26f51eb132174c8bdb27c4668e8d441bbad17d0be92d517fa43fd533d49b11ec"
+            },
+            {
+              "path": "release-metadata.json",
+              "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+            },
+            {
+              "path": "tests/Cancellation.Tests.ps1",
+              "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+            },
+            {
+              "path": "tests/CodecCompatibility.Tests.ps1",
+              "sha256": "28a0de2e1b1585d8f5fac29d75401d405b4637272f8f840328c457f0c1ce8465"
+            },
+            {
+              "path": "tests/Colour.Tests.ps1",
+              "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+            },
+            {
+              "path": "tests/Compatibility.Tests.ps1",
+              "sha256": "709775e7d4484ce402d7aa7bf9706dfbd871b5ceb5d957b8b377438041d8b00a"
+            },
+            {
+              "path": "tests/ConversionRegression.Tests.ps1",
+              "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+            },
+            {
+              "path": "tests/Diagnostics.Tests.ps1",
+              "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+            },
+            {
+              "path": "tests/Documentation.Tests.ps1",
+              "sha256": "294b3926525e5a04fbb86b6c3bb1943740ce2b56cfb7a6bde6f143cecc140ab2"
+            },
+            {
+              "path": "tests/Duplicates.Tests.ps1",
+              "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+            },
+            {
+              "path": "tests/ExitContract.Tests.ps1",
+              "sha256": "62585751a9e8897054c536e92511412805273b10fcae79b474509d31df2be9d4"
+            },
+            {
+              "path": "tests/Export-TestEvidence.ps1",
+              "sha256": "1bb63f7f8ef6a9dcc4a3f9de95699292534f59f788910ca6312457eb2a3c7a2c"
+            },
+            {
+              "path": "tests/Frames.Tests.ps1",
+              "sha256": "a995d660be43d9d43eca2bed7e6e5b6361f7523a480e05f188738b74f4339059"
+            },
+            {
+              "path": "tests/Initialize-TestDependencies.ps1",
+              "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+            },
+            {
+              "path": "tests/Invoke-StaticAnalysis.ps1",
+              "sha256": "6af2227cbb9fbdfe0a0f99511c001fc120bcb939b5fea74b4b1c78a8996e5b48"
+            },
+            {
+              "path": "tests/Invoke-Tests.ps1",
+              "sha256": "6bc8e32b1d352eb381d0744e5875568b89ed267eac7b865c34e36908c630f7e7"
+            },
+            {
+              "path": "tests/Launcher.Tests.ps1",
+              "sha256": "3e4daa4e9ddf32c49faeebd5af3c9efd166bccd0420eafb5b254d9532c6f792e"
+            },
+            {
+              "path": "tests/Measure-SizeQuality.ps1",
+              "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+            },
+            {
+              "path": "tests/Naming.Tests.ps1",
+              "sha256": "c725e82af94a762ca7dade70ab713ed1fd2eac97dbcae6e7ce5d1bdc68dfcb0d"
+            },
+            {
+              "path": "tests/NativeLifetime.Tests.ps1",
+              "sha256": "63753268ceec7d3f861431cdc874985d6594a6c23c8ddb8f5ad9c1bb6cdc6fb6"
+            },
+            {
+              "path": "tests/Normalizer.Tests.ps1",
+              "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+            },
+            {
+              "path": "tests/PSScriptAnalyzerSettings.psd1",
+              "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+            },
+            {
+              "path": "tests/Packaging.Tests.ps1",
+              "sha256": "e595bffb8e032a4d70e881096e805d5f2fc2de569f1f63e86cfe2509051d45ce"
+            },
+            {
+              "path": "tests/Paths.Tests.ps1",
+              "sha256": "482a011d51e498c1592e14c022e68a6cae8a16ac28b45bf8a63eec0703c45b90"
+            },
+            {
+              "path": "tests/Preflight.Tests.ps1",
+              "sha256": "1e3ef8dfc992ed5e4ab52cf90724c76351cb97c3c38e8c8afea8126cd85f73af"
+            },
+            {
+              "path": "tests/RecoveryReporting.Tests.ps1",
+              "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+            },
+            {
+              "path": "tests/Reporting.Tests.ps1",
+              "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+            },
+            {
+              "path": "tests/SafetyRegression.Tests.ps1",
+              "sha256": "693d8c76048f3a98c0081954693869dd4f07978821ff30cb3512b78af1cc7621"
+            },
+            {
+              "path": "tests/Sizing.Tests.ps1",
+              "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+            },
+            {
+              "path": "tests/StaticAnalysis.Tests.ps1",
+              "sha256": "d353af490e83c1bac72338e7b6f3002c9dbc85dd68b6110014c3d450e20a16c2"
+            },
+            {
+              "path": "tests/TestGate.ps1",
+              "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+            },
+            {
+              "path": "tests/Transactions.Tests.ps1",
+              "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+            },
+            {
+              "path": "tests/Traversal.Tests.ps1",
+              "sha256": "9153ba4bf9384beac2a1e883191c7845774e661b968b6869cfdb52bc9e0bc0bb"
+            },
+            {
+              "path": "tests/Versioning.Tests.ps1",
+              "sha256": "6b207eb4c3bdf04b2998df43bc6238ed63438a72dba8e0b331e1f5db0fbf5b10"
+            },
+            {
+              "path": "tests/WorkflowSecurity.Tests.ps1",
+              "sha256": "960bb7c8673fa43d4bfe9d6faab22d16f63ac32af022ab8e29c4addab3a4f5a6"
+            },
+            {
+              "path": "tests/dependencies.json",
+              "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+            },
+            {
+              "path": "tests/fixtures/LauncherConsoleFixture.cs",
+              "sha256": "0df25de2e93afeb39a14235af505ea2a0bbd3657f1400937e5a1374ba5f1b925"
+            },
+            {
+              "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+              "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+            },
+            {
+              "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+              "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+            },
+            {
+              "path": "tests/fixtures/colour/Generate-Reference.py",
+              "sha256": "e342eab730b34197dd3f74a7726a39c6cf72f31c160a2d012169cb22957fffd7"
+            },
+            {
+              "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+              "sha256": "7bfe1dfbb1e1adc61096d16fe711ec9a3c12059f43a1a7a654eb36a4eb15bb92"
+            },
+            {
+              "path": "tests/fixtures/colour/MANIFEST.json",
+              "sha256": "2c99f919d1810c7f6dfcab75bb0975c6fa6f7c4c5ff9cca3099c95cb71345b18"
+            },
+            {
+              "path": "tests/fixtures/colour/README.md",
+              "sha256": "e3ebef6ef03999c4800261f158214058ac7887c59cbbcf545a747a42e3314555"
+            },
+            {
+              "path": "tests/fixtures/colour/REFERENCE.json",
+              "sha256": "f2244e896aa458d2db931022d61d0b84f823e50475309655940734bc64a4c737"
+            },
+            {
+              "path": "tests/fixtures/colour/sRGB-v4.icc",
+              "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+            },
+            {
+              "path": "tests/legacy/toolchain.json",
+              "sha256": "4c05c8e0b54be1b82d7236532822d0d8a28a8404cb857a5f8b22a5f537baff9a"
+            },
+            {
+              "path": "tests/mandatory-tests.json",
+              "sha256": "adfd26facbdebb39c7b26c934540762c66142dd4f89ebf8a3212e823f2ce2316"
+            },
+            {
+              "path": "tools/release/Build-Release.ps1",
+              "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+            },
+            {
+              "path": "tools/release/Update-ReleaseMetadata.ps1",
+              "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+            }
+          ],
+          "normal_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072"
+          ],
+          "control_passed_case_ids": [
+            "T005",
+            "T006",
+            "T008",
+            "T009",
+            "T010",
+            "T011",
+            "T012",
+            "T013",
+            "T014",
+            "T015",
+            "T016",
+            "T017",
+            "T018",
+            "T019",
+            "T020",
+            "T021",
+            "T022",
+            "T023",
+            "T024",
+            "T025",
+            "T026",
+            "T027",
+            "T028",
+            "T029",
+            "T030",
+            "T031",
+            "T032",
+            "T033",
+            "T034",
+            "T035",
+            "T036",
+            "T037",
+            "T038",
+            "T039",
+            "T040",
+            "T041",
+            "T042",
+            "T043",
+            "T044",
+            "T045",
+            "T046",
+            "T047",
+            "T048",
+            "T049",
+            "T050",
+            "T051",
+            "T052",
+            "T053",
+            "T054",
+            "T055",
+            "T056",
+            "T057",
+            "T058",
+            "T059",
+            "T060",
+            "T061",
+            "T062",
+            "T063",
+            "T064",
+            "T065",
+            "T066",
+            "T068",
+            "T069",
+            "T070",
+            "T071",
+            "T072"
+          ],
+          "full_source_inventory_matches_exact_git_tree": true,
+          "clean_source_and_commit_and_policy_unchanged": true,
+          "normal": {
+            "total_count": 529,
+            "passed_count": 529,
+            "failed_count": 0,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 0,
+            "exit_code": 0
+          },
+          "assertion_control": {
+            "total_count": 530,
+            "passed_count": 529,
+            "failed_count": 1,
+            "skipped_count": 0,
+            "inconclusive_count": 0,
+            "not_run_count": 0,
+            "failed_blocks_count": 0,
+            "failed_containers_count": 0,
+            "gate_failure_count": 2,
+            "exit_code": 1
+          },
+          "normal_passed_case_count": 66,
+          "control_passed_case_count": 66,
+          "mandatory_cases_all_passed": true,
+          "normal_passed_case_ids_sha256": "284735bf18704bf5fb849c6e6004054d74d1e5f08f6a5d8f032bd65b30fdbabc",
+          "control_passed_case_ids_sha256": "284735bf18704bf5fb849c6e6004054d74d1e5f08f6a5d8f032bd65b30fdbabc",
+          "actual_codec_coverage": {
+            "bmp": [
+              "T065",
+              1,
+              true
+            ],
+            "gif": [
+              "T065",
+              1,
+              true
+            ],
+            "heic": [
+              "T031",
+              1,
+              true
+            ],
+            "heif": [
+              "T031",
+              1,
+              true
+            ],
+            "jpeg": [
+              "T065",
+              1,
+              true
+            ],
+            "jpg": [
+              "T065",
+              1,
+              true
+            ],
+            "png": [
+              "T065",
+              1,
+              true
+            ],
+            "tif": [
+              "T065",
+              1,
+              true
+            ],
+            "tiff": [
+              "T065",
+              1,
+              true
+            ],
+            "webp": [
+              "T065",
+              1,
+              true
+            ]
+          },
+          "control_codec_coverage_identical": true,
+          "analyzer": {
+            "scanned_file_count": 9,
+            "normal_scoped_findings_count": 0,
+            "normal_findings_count": 0,
+            "normal_exit_code": 0,
+            "control_scoped_findings_count": 0,
+            "control_findings_count": 1,
+            "control_total_findings_count": 1,
+            "control_exit_code": 1,
+            "control_detected": true,
+            "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+            "source_binding_count": 11,
+            "environment_limit": "Analyzer runner does not record GitHub-specific environment fields; exported nulls are preserved. Actual tested_commit/source bindings, shared OS/PowerShell fields and same-job step logs bind analyzer execution.",
+            "actual_source_inventory_sha256": "3cb4bc0b87d523918dd84fb906817db7aace104097178d6e87ee2ea09aa5a408",
+            "source_binding_inventory": [
+              {
+                "path": "WinImgNormalizer.ps1",
+                "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+              },
+              {
+                "path": "tests/Export-TestEvidence.ps1",
+                "sha256": "1bb63f7f8ef6a9dcc4a3f9de95699292534f59f788910ca6312457eb2a3c7a2c"
+              },
+              {
+                "path": "tests/Initialize-TestDependencies.ps1",
+                "sha256": "cbd31483f24110483c63eae4813c44019c2142e83fa2707fa8de97ac37a5e061"
+              },
+              {
+                "path": "tests/Invoke-StaticAnalysis.ps1",
+                "sha256": "6af2227cbb9fbdfe0a0f99511c001fc120bcb939b5fea74b4b1c78a8996e5b48"
+              },
+              {
+                "path": "tests/Invoke-Tests.ps1",
+                "sha256": "6bc8e32b1d352eb381d0744e5875568b89ed267eac7b865c34e36908c630f7e7"
+              },
+              {
+                "path": "tests/Measure-SizeQuality.ps1",
+                "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+              },
+              {
+                "path": "tests/PSScriptAnalyzerSettings.psd1",
+                "sha256": "fe1e0b921ed1437f2aa4c1991ef0754ed945aeaf9a5f4a1d8b305859495c88d7"
+              },
+              {
+                "path": "tests/TestGate.ps1",
+                "sha256": "369fae1055f072fc05d5f85b6114b0efa8754ca8b3769ad1618d5ab901cd6be0"
+              },
+              {
+                "path": "tests/dependencies.json",
+                "sha256": "d94d8137937dc5d9745faf266519cec3176c395e477bf2847b6d7b3c4440a6c5"
+              },
+              {
+                "path": "tools/release/Build-Release.ps1",
+                "sha256": "863e68f5c075ceaabdc98da4158cde25cc5b96820b2d6cb41dd2ab816ea6474a"
+              },
+              {
+                "path": "tools/release/Update-ReleaseMetadata.ps1",
+                "sha256": "509d12cde26e6a4771a5bafe0b56ada77718610030ce1ed4f464537568b6cbba"
+              }
+            ],
+            "rules": [
+              "PSAvoidAssignmentToAutomaticVariable",
+              "PSAvoidUsingAllowUnencryptedAuthentication",
+              "PSAvoidUsingBrokenHashAlgorithms",
+              "PSAvoidUsingComputerNameHardcoded",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSAvoidUsingWMICmdlet",
+              "PSMisleadingBacktick",
+              "PSPossibleIncorrectComparisonWithNull",
+              "PSReservedParams",
+              "PSUseCmdletCorrectly",
+              "PSUseCompatibleSyntax",
+              "PSUsePSCredentialType"
+            ]
+          },
+          "actual_native_controls_verified_in_logs": true,
+          "raw_summary_sha256": {
+            "normal_tests": "07e45c78ac6867d3453dc3df29818688fb8758df708c2d7c297a6b4b8f80eefc",
+            "control_tests": "8d820f8cf3c23939e4611b69a406f1b230fb0d036c28d0d5f714f2c931ed46e7",
+            "normal_analysis": "50a5a4919929d3ef9188a1c10c22b9d066f07321ac7437b545be6dc133bdbc29",
+            "control_analysis": "29c0d840e6b8f8ecede43b1c604fe2e0fd6bff8cc1ff6806c3554653b97bac6e"
+          },
+          "host": {
+            "os_caption": "Microsoft Windows Server 2025 Datacenter",
+            "os_version": "10.0.26100",
+            "os_build": "26100",
+            "runner_image": "win25-vs2026",
+            "runner_image_version": "20260925.250.1",
+            "runner_label": "windows-2025",
+            "powershell_version": "5.1.26100.33438",
+            "powershell_edition": "Desktop",
+            "architecture_bits": 64,
+            "culture": "en-US",
+            "pester_version": "5.9.1",
+            "analyzer_version": "1.25.0",
+            "imagemagick_version": "7.1.2-32"
+          },
+          "dependencies": {
+            "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+            "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2"
+          },
+          "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+          "full_fractional_utc_inside_actual_step_intervals_verified": true,
+          "documentation_sources_bound_to_tested_git_tree": true
+        }
+      ],
+      "actual_clean_checkout_packaging_required_by_verified_source": true,
+      "all_eight_package_positive_assertions_in_normal_and_control_logs_verified": true,
+      "all_26_suites_in_normal_and_control_logs_verified": true,
+      "T069_T070_T071_actually_passed_normal_and_control": true,
+      "T072_actually_passed_normal_and_control": true,
+      "packaging_raw_observation_limit": "Private raw packaging observations and ZIPs are not uploaded. Clean checkout, exact bound Packaging suite source, mandatory T069-T071 outcomes and successful real Windows test steps establish actual-checkout extraction under the CI no-fallback guard; no raw package SHA is reconstructed."
+    }
+  ],
+  "actual_normal_test_count_per_job": 529,
+  "actual_control_test_count_per_job": 530,
+  "no_future_governance_checkpoint_claims": true,
+  "case_results": [],
+  "case_outcome_scope": "Parent desktop evidence owns task acceptance; this independent CI record verifies all hosted mandatory suites and T069-T072 at the exact implementation.",
+  "generated_application_version": "1.0.0",
+  "release_state": "unreleased",
+  "publication_fields_remain_null": true,
+  "verified_portable_package_source_bindings": [
+    ".gitignore",
+    "docs/release/GETTING_STARTED.md",
+    "docs/release/PACKAGING.md",
+    "docs/release/THIRD_PARTY_NOTICES.md",
+    "tests/Packaging.Tests.ps1",
+    "tools/release/Build-Release.ps1"
+  ],
+  "verified_documentation_source_bindings": [
+    "README.md",
+    "SECURITY.md",
+    "docs/BEHAVIOR.md",
+    "docs/release/GETTING_STARTED.md",
+    "tests/Documentation.Tests.ps1"
+  ],
+  "selected_run_basis": "All observed exact-implementation push and pull_request runs for the canonical Windows tests workflow; both received full log, artifact, source and host verification.",
+  "all_observed_exact_implementation_runs": [
+    {
+      "conclusion": "success",
+      "createdAt": "2026-10-06T17:20:53Z",
+      "databaseId": 37502838733,
+      "event": "pull_request",
+      "headSha": "19f6db45b5576f6ef0e86407058571178cadd806",
+      "status": "completed",
+      "updatedAt": "2026-10-06T17:34:46Z",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37502838733",
+      "workflowName": "Windows tests",
+      "selected_for_full_artifact_verification": true,
+      "observed_at_utc": "2026-10-06T17:37:04.504339+00:00"
+    },
+    {
+      "conclusion": "success",
+      "createdAt": "2026-10-06T17:20:34Z",
+      "databaseId": 37502798147,
+      "event": "push",
+      "headSha": "19f6db45b5576f6ef0e86407058571178cadd806",
+      "status": "completed",
+      "updatedAt": "2026-10-06T17:36:27Z",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37502798147",
+      "workflowName": "Windows tests",
+      "selected_for_full_artifact_verification": true,
+      "observed_at_utc": "2026-10-06T17:37:04.504339+00:00"
+    }
+  ],
+  "all_observed_runs_concluded_successfully": true,
+  "independent_start_baseline_sha256": "d17c77ae772b0cd6d73123c20aee185f222552394e020f3f7b441ef59711c5b3",
+  "independent_start_baseline": {
+    "schema_version": 1,
+    "task_id": "M4-T03",
+    "stage": "independent_start_observation",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "git_start": {
+      "observed_at_utc": "2026-10-06T17:08:04Z",
+      "branch": "codex/winimg-hardening",
+      "local_head": "3a49ad809f2ffd3a18f0f8ad55f8973790752581",
+      "live_feature": "3a49ad809f2ffd3a18f0f8ad55f8973790752581",
+      "live_main": "87711607d07bf39bdf9e35f9a8709e38da91dbbd",
+      "worktree_clean_at_start_observation": true,
+      "index_clean_at_start_observation": true,
+      "canonical_origin_fetch_and_push_verified": true,
+      "origin_url": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+      "configured_committer_identity_present": true,
+      "scope": "Dated task-start facts; subsequent authorized implementation edits do not inherit this clean-state claim. Private configured identity values are excluded."
+    },
+    "preceding_pull_request": {
+      "number": 23,
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/23",
+      "state": "MERGED",
+      "merged_at_utc": "2026-10-06T17:05:54Z",
+      "merge_commit": "87711607d07bf39bdf9e35f9a8709e38da91dbbd",
+      "merge_parents": [
+        "1eaaa356435b5d15cc25c909a9dd0c82635d479e",
+        "3a49ad809f2ffd3a18f0f8ad55f8973790752581"
+      ],
+      "merge_and_feature_tree": "298d2f36587c820b342b964c6d7a3438b44a854e",
+      "merge_tree_equals_feature": true
+    },
+    "github_repository": {
+      "observed_at_utc": "2026-10-06T17:13:18Z",
+      "public": true,
+      "default_branch": "main",
+      "issues_enabled": true,
+      "discussions_enabled": false,
+      "private_vulnerability_reporting_enabled": false,
+      "archived": false,
+      "disabled": false,
+      "github_release_count_observed_with_pagination": 0,
+      "github_tag_count_observed_with_pagination": 0,
+      "remote_git_tag_count_observed": 0,
+      "local_git_tag_count_observed": 0,
+      "scope": "Authoritative read-only repository, private-vulnerability-reporting, paginated releases/tags endpoints and Git tag readbacks. These facts do not guarantee future settings or publication state."
+    },
+    "future_ci_verification": {
+      "state": "awaiting_named_implementation",
+      "expected_new_case": "T072",
+      "scope": "Reviewed committed inventories and actual exports/logs will determine suite/source/test totals. Four actual Windows jobs, all maintained suites and controls, all eight packaging positives, actual T072 execution, artifact digest/privacy/source/host and synthetic merge provenance remain required. No future implementation, push or CI outcome is claimed."
+    },
+    "actions": "Read-only Git/GitHub observations and this new ignored sanitized record only; no source/governance edit, commit, push, pull request creation or settings/publication action."
+  },
+  "actual_clean_checkout_package_evidence_basis": "Inference from exact Git-bound Packaging.Tests.ps1 no-fallback guard in GitHub execution, clean checkout/source summaries, all eight package positives in both normal/control raw logs, and mandatory T069-T071 outcomes. Private raw packaging observations and package ZIPs were not uploaded or reconstructed.",
+  "publication_scope": "Read-only GitHub verification and local ignored evidence creation; no remote write actions.",
+  "evidence_checkpoint_limit": "This record binds observed implementation runs only. It makes no claim that a later governance checkpoint has been committed, pushed or tested."
+}

@@ -1,45 +1,41 @@
 # Next session handoff
 
-**M4-T02 is complete; T069-T071 passed.** Progress 24/28, T001-T071 exercised 71/75.
-Next intended task **M4-T03 is pending and not started**; load its card when requested.
+**M4-T03 is complete; T072 passed.** Progress 25/28, T001-T072 exercised 72/75.
+Next intended task **M4-T04 is pending and not started**; load its card when requested.
 
 Use C:/projects/WinImgNormalizer on codex/winimg-hardening; preserve the non-Git
-WinImgNormalizer-main snapshot. Recheck clean worktree, canonical fetch/push identity,
-live feature SHA and draft PR23. Tested implementation **69822554c69223d4e048b2a58d1f3203cd01428c**
-has desktop 512/512 in both shells, full controls 513/512/1/native1, nine-script
-normal/control analyzer gates and both sanitized exports. Exact implementation push
-and PR Windows matrices and downloaded artifacts were independently verified.
-The containing governance checkpoint SHA/sync/CI is reported externally after
-commit and must be checked live again; it is not self-certified in these files.
+WinImgNormalizer-main snapshot. Recheck clean worktree, canonical fetch/push URL,
+live feature SHA and [draft PR24](https://github.com/PikkuJanne/WinImgNormalizer/pull/24).
+Tested implementation **19f6db45b5576f6ef0e86407058571178cadd806**
+has desktop 529/529 in both shells, full controls 530/529/1/native1,
+nine-script analyzer normal/control gates and both sanitized exports. Exact
+implementation push/PR Windows matrices and downloaded artifacts were independently
+verified. The containing checkpoint SHA/sync/CI is reported externally after commit
+and must be checked live again; these files do not self-certify it.
 
-Build-Release.ps1 requires a full current clean HEAD and absent ignored .scratch
-child output. It reads only seven mapped regular Git blobs; output consists of the
-portable ZIP, build-provenance.json and SHA256SUMS.txt. ZIP adds a generated manifest.
-GETTING_STARTED and THIRD_PARTY_NOTICES plus full retained CC0 license avoid missing
-package documentation/license dependencies. Runtime PS1/BAT and original MIT remain
-self-contained and unchanged. No ImageMagick or development tooling is bundled.
+README now supplies public prerequisites/workflow/units/failure guidance. Detailed
+contracts are in docs/BEHAVIOR.md; docs/release/GETTING_STARTED.md stays independently
+usable in the package allowlist. SECURITY.md has no invented contact or signature;
+private GitHub reporting was disabled when checked on 2026-10-06, so the route is
+conditional and any public contact request excludes exploit/private details.
 
-Prepared PS7 package: 181042 bytes, SHA256 18754f1e69a76460dee60166a4f910d04e93b669b1782c01aad12c033f0b28fd;
-source revision is the tested implementation, not this containing evidence commit.
-Both actual hosts repeat all three asset bytes; all eight extracted files agree.
-PS5 .NET Framework adds 60 bytes of stored-DEFLATE framing, giving a different ZIP
-hash. Read PACKAGING.md and evidence for precise reproducibility; do not require
-cross-host archive byte identity or call checksums a signature.
+Mandatory T072 checks parse literal examples and run the same default/custom
+positional forms with owned synthetic sources/output in the production command
+seam. They verify media, warning/omission/dedupe, setup failures, nesting and links.
+The full gate now has 26 suites/66 required IDs/62 source bindings. Exporter
+adds only exact public doc paths with adjacent-private-file rejection tests.
+Runtime PS1/BAT, builder, version, release metadata and dependency pins retain
+their prior bytes. Owner appearance/workflow acceptance remains D37/T067 at 5a32fc6.
+Live UNC remains owner-excluded D35; Windows 10 remains untested.
 
-Four actual clean-revision ZIP extractions use exact BAT setup/pause and real PS1
-media with owned OutputParent. Normalization never targets real Pictures here.
-Desktop children were non-admin and retained source/video/security state. CI rejects
-developer-replica fallback. Keep owner D37/T067 appearance/workflow acceptance bound
-to 5a32fc6, separate from automated packaging checks. Live UNC remains owner-excluded.
+The builder requires full clean current HEAD and absent ignored .scratch output.
+Updated guide bytes were exercised in actual clean-revision package extraction.
+Older prepared M4-T02 packages and their hashes remain bound to 6982255, containing
+the older guide; do not call them current M4-T03 or relabel their source identity.
+Version 1.0.0 is unreleased and unsigned; published/download fields remain null.
+Future tag publication must rebuild/verify its exact approved revision.
 
-Superseded I1 framing-test failure, I2 hosted T070 failure and stopped controls,
-partial PS5.1 observer failure, and I3 stopped validation remain qualified in the
-evidence. Final acceptance uses I4. I3/I4 change only test inspection/identity
-publication; runtime, builder and package inputs retain their exact bytes.
-
-Prior record 958b387 final CI passed; owner-merged PR22 main1eaaa has equal prior
-feature tree. Successor draft PR23 contains this packaging task. Do not silently
-pull/rebase/reset, force-push, merge, tag, publish a release or deploy a website.
-Version 1.0.0 remains unreleased/unsigned; root published/download fields stay null.
-Future publication must rebuild or verify the actual approved tag revision; an
-earlier ZIP must never acquire an unverified newer tag identity.
+PR23 was owner-merged into main8771160 with the same starting feature tree.
+Continue draft PR24 for this task. Do not silently pull/rebase/reset,
+force-push, merge, tag, publish or deploy. M4-T04 prepares website content only;
+do not assume a domain/provider/framework or expose unpublished download URLs.

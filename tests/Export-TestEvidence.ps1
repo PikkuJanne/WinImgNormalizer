@@ -25,7 +25,7 @@ function Get-ExportSourceBindings {
     $releaseSources = @(
         'tools/release/Update-ReleaseMetadata.ps1', 'docs/release/NOTES.md',
         'tools/release/Build-Release.ps1', 'docs/release/GETTING_STARTED.md',
-        'docs/release/THIRD_PARTY_NOTICES.md', 'docs/release/PACKAGING.md',
+        'docs/release/THIRD_PARTY_NOTICES.md', 'docs/release/PACKAGING.md', 'docs/BEHAVIOR.md', 'SECURITY.md',
         'CHANGELOG.md', 'release-metadata.json', 'README.md', 'LICENSE', '.gitattributes', '.gitignore'
     )
     foreach ($source in $Sources) {
