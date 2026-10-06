@@ -50,18 +50,30 @@ The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `NativeLifetime.Tests.ps1`, `Cancellation.Tests.ps1`, `Reporting.Tests.ps1`,
 `Launcher.Tests.ps1`, `ExitContract.Tests.ps1`, `Compatibility.Tests.ps1`,
 `CodecCompatibility.Tests.ps1`, `StaticAnalysis.Tests.ps1`, `WorkflowSecurity.Tests.ps1`,
-and `Versioning.Tests.ps1`.
+`Versioning.Tests.ps1`, and `Packaging.Tests.ps1`.
 `mandatory-tests.json` is the reviewed inventory: absent or unregistered top-level
 suites fail the default gate. Every required suite must discover nonzero tests;
-T005-T066 (except separate T007 control) and T068 must appear in actually passed test paths.
+T005-T066 (except separate T007 control) and T068-T071 must appear in actually passed test paths.
 T001-T004 remain historical characterization. Explicit `-Path` runs are marked
 focused and cannot stand in for mandatory acceptance. Ten exact real codec test
 outcomes must pass, including the existing T031 HEIC/HEIF collection tests. Compiled
 capabilities alone do not establish that coverage. Missing readers are controlled
 application-negative tests with real supported siblings; no Pester codec skips are
-permitted by this pinned baseline. Owner/packaging gates remain separate. Live UNC
+permitted by this pinned baseline. Owner acceptance remains a separate gate. Live UNC
 validation is outside the owner-approved scope, not a pending gate; local long-path
 and lexical root-safety coverage remains mandatory.
+
+Packaging regressions build explicit Git inputs in isolated, disposable repositories
+for dirty/stale/missing/link/no-overwrite controls and changed-version derivation.
+Clean acceptance also builds and extracts the actual current implementation commit
+into a fresh directory with spaces; dirty focused developer runs identify their
+replica fallback, which is forbidden in CI. Exact extracted BAT usage/setup and
+pause checks use the existing private-console fixture. Actual extracted PS1 media
+processing uses the owned `OutputParent` seam with verified ImageMagick and preserves
+synthetic source state and video bytes. This does not claim a physical drag gesture
+or a completed media run through the BAT. Observations retain actual inherited
+privilege context; an elevated hosted runner is not an ordinary-account observation.
+Both release development scripts are included in scoped static analysis.
 Preflight tests use the verified executable for ordinary JPEG checks and isolated
 responses for dependency/version/codec failures. Drive and UNC root tests call only
 the lexical path helper; they never normalize a drive root or network share. Denied

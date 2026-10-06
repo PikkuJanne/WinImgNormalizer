@@ -99,7 +99,10 @@ public static class LifetimeFixture {
  static int Tree(string[] args){
   string root=args[1],mode=args[2];int stage=int.Parse(args[3]),blocks=int.Parse(args[4]);bool job=false;
   IsProcessInJob(GetCurrentProcess(),IntPtr.Zero,out job);
-  using(Process self=Process.GetCurrentProcess())File.WriteAllText(Path.Combine(root,"stage"+stage+".identity"),self.Id+"|"+self.StartTime.ToUniversalTime().Ticks+"|"+job);
+  // Publish complete identity bytes before the independent observer can see them.
+  string identity=Path.Combine(root,"stage"+stage+".identity");
+  using(Process self=Process.GetCurrentProcess())File.WriteAllText(identity+".pending",self.Id+"|"+self.StartTime.ToUniversalTime().Ticks+"|"+job);
+  File.Move(identity+".pending",identity);
   using(FileStream held=new FileStream(Path.Combine(root,"stage"+stage+".held"),FileMode.CreateNew,FileAccess.Write,FileShare.None)){
    if(stage<3)Spawn(new string[]{"tree",root,mode,(stage+1).ToString(),"0","-","-"}).Dispose();
    if(stage==1){

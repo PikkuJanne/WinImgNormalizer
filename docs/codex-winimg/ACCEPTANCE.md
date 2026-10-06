@@ -7,7 +7,7 @@
 | M2 correct conversion | pending | None |
 | M3 reliable Windows workflow | pending | None |
 | M3 owner workflow/quality | accepted; T067 passed at 5a32fc6 | [Direct owner acceptance](evidence/M3-T07-acceptance.json), [fixed Windows smoke](evidence/M3-T07-recheck-fixed-launcher.json), [validated repair](evidence/M3-T07-repair.json) |
-| M4 release candidate | pending; version preparation T068 passed, packaging/publication gates remain | [M4-T01 version evidence](evidence/M4-T01.json) |
+| M4 release candidate | pending; version T068 and packaging T069-T071 passed; later documentation/owner/publication gates remain | [Version](evidence/M4-T01.json), [package](evidence/M4-T02.json), [CI](evidence/M4-T02-ci.json) |
 | Merge/tag/release publication | not authorized | None |
 | Website deployment | not authorized | None |
 

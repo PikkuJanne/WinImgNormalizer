@@ -110,5 +110,8 @@ WinImgNormalizer remains authored by **Janne Vuorela** and licensed under the
 **MIT License**, with the original `Copyright (c) 2025 Janne Vuorela` notice retained
 in `LICENSE`. The embedded target ICC profile is CC0-1.0 Compact-ICC-Profiles
 sRGB-v4; immutable provenance is recorded beside its bytes in
-`WinImgNormalizer.ps1` and in `tests/fixtures/colour/README.md`, with the retained
-third-party license in `tests/fixtures/colour/LICENSE-CC0.txt`.
+`WinImgNormalizer.ps1`. Portable packages include `THIRD_PARTY_NOTICES.md` and
+`LICENSE-CC0.txt` alongside `LICENSE`; the repository keeps these package-facing
+notices in `docs/release/THIRD_PARTY_NOTICES.md` and the retained license source in
+`tests/fixtures/colour/LICENSE-CC0.txt`. Package setup instructions are in
+`GETTING_STARTED.md` (repository source: `docs/release/GETTING_STARTED.md`).
