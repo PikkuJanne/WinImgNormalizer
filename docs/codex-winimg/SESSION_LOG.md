@@ -2630,3 +2630,34 @@ tested package/build/runtime inputs intact. Containing checkpoint hash, live fea
 sync and final CI are external post-commit observations. Task 24/28, cases 71/75;
 M4-T02 done, M4-T03 pending/not started. Version 1.0.0 unreleased/unsigned. No tag,
 public release, default-branch push, merge or deployment performed for this task.
+
+## 2026-10-06 — M4-T03 documentation parity
+
+Clean start 3a49ad8 matched the live feature; prior checkpoint's four CI jobs passed.
+Owner-merged PR23 main8771160 has the same feature tree. Continued the existing
+feature and draft PR24, leaving the non-Git snapshot/default branch intact.
+Rewrote README and standalone package guide, preserved detailed behavior in
+docs/BEHAVIOR.md, and added root SECURITY.md with dated conditional reporting.
+No invented contacts/signatures or public downloads. Independent review corrected
+JPEG-writer conditionality, safe Pictures subfolder, scale wording and CSV syntax.
+Application/launcher/builder/dependency/version/release-metadata blobs are unchanged.
+
+New T072 mandatory suite parses doc commands and runs owned synthetic examples
+through the command seam. Fourteen parity cases cover default/custom byte targets,
+real media/warning/metadata/frame/dedupe/safety errors and public docs/links/privacy.
+Three exporter privacy negatives reject neighboring private doc paths. An initial
+dirty focused test had a mistaken capability mask/empty-input expectation; corrected
+focused results are developer checks, not clean full acceptance.
+
+Clean implementation 19f6db45b5576f6ef0e86407058571178cadd806: both actual Windows desktop shells
+529/529, zero skipped/unrun, 26 suites/66 required IDs/ten codecs/62 sources;
+controls 530/529/one exact T007/native1. Both normal/control nine-script
+analyzers and sanitized exports pass. Independent exact implementation push/PR
+four-job/step/native-control/source/artifact/merge checks pass; evidence binds raw
+parent/summary/console/export hashes while private paths remain ignored.
+
+Record-only closure references the tested implementation and cannot include its
+own future SHA/push/CI. External post-commit observation remains required. M4-T03
+done/T072 passed, 25/28 tasks, 72/75 exercised; M4-T04 pending/not started. Earlier
+owner D37/T067 acceptance and D35 live-UNC exclusion retained. No merge, default-
+branch push, tag/release/settings or website deployment performed for this task.

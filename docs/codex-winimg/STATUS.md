@@ -1,19 +1,19 @@
 # Project status
 
-Updated: 2026-10-06 — M4-T02 portable ZIP and clean Windows extraction verified.
+Updated: 2026-10-06 — M4-T03 public documentation and T072 parity verified.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested M4-T02 implementation: 69822554c69223d4e048b2a58d1f3203cd01428c
-Application version: **1.0.0 (unreleased; unsigned local package prepared)**
+Tested M4-T03 implementation: 19f6db45b5576f6ef0e86407058571178cadd806
+Application version: **1.0.0 (unreleased; unsigned preparation)**
 Owner-accepted normalization implementation: 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad
-Completed task: **M4-T02 — Build a portable release ZIP from reviewed tracked content (done)**
-Next intended task: **M4-T03 (pending; not started)**
-Task progress: **24 / 28 accepted**
-Specified cases: **T001-T071 exercised (71 / 75); T069-T071 passed**
-Pester suite: **512/512 passed in each desktop shell, zero skipped/unrun; 25 mandatory suites**
-Failure controls: **513 total, 512 passed, one intended failure; native exit 1**
+Completed task: **M4-T03 — Publish-ready documentation for behavior and limitations (done)**
+Next intended task: **M4-T04 (pending; not started)**
+Task progress: **25 / 28 accepted**
+Specified cases: **T001-T072 exercised (72 / 75); T072 passed**
+Pester suite: **529/529 passed in each desktop shell, zero skipped/unrun; 26 mandatory suites**
+Failure controls: **530 total, 529 passed, one intended failure; native exit 1**
 Static analysis: **nine scripts, zero normal findings; one intended control finding/native exit 1**
 CI: **Implementation push and PR Windows matrices passed; four jobs and sanitized artifacts independently verified**
 Containing evidence checkpoint synchronization/CI: **pending external post-commit observation**
@@ -264,3 +264,45 @@ Application/BAT/license bytes and dependency pins remain unchanged. This contain
 governance checkpoint needs its external SHA/live sync and CI observation after
 commit; it cannot contain its own hash. M4-T03 has not started. Future tag/release
 publication and website deployment remain separate owner gates; live UNC remains D35.
+
+## M4-T03 documentation parity acceptance
+
+Started clean at 3a49ad809f2ffd3a18f0f8ad55f8973790752581, equal to the live feature.
+Owner-merged PR23 main87711607d07bf39bdf9e35f9a8709e38da91dbbd has the same tree;
+continued the existing feature and [draft PR24](https://github.com/PikkuJanne/WinImgNormalizer/pull/24). Preserved the non-Git
+snapshot and default branch. Prior final checkpoint push/PR CI passed when read.
+
+Rewrote README around prerequisites, one-folder drag/direct positional calls,
+actual Pictures resolution, reports, exact units/outcomes and failure messages.
+The compact package guide remains standalone; detailed contracts live in
+docs/BEHAVIOR.md. Root SECURITY.md has a dated, conditional GitHub reporting route,
+no invented contact/signature/support promise, and privacy/native parsing limits.
+Independent code/test review corrected conditional JPEG support, Pictures-subfolder
+wording, quality/scale clarity and an illustrative CSV command. All public claims
+and local repository/package-context links were reviewed. No runtime, launcher,
+builder, dependency-pin, application-version or generated release-metadata change.
+
+Clean implementation 19f6db45b5576f6ef0e86407058571178cadd806 passed both actual desktop shells:
+529/529 normally, 530/529/one exact T007 control/native1,
+26 suites, 66 required case IDs, ten real codec outcomes and 62 source bindings.
+Both nine-script normal/control analyzers and exact two-file sanitized exports pass.
+T072 parses documented default/custom command arguments and exercises real image/
+video, above-target warning, metadata/white alpha, frame omission, heuristic skips,
+setup errors, allowed sibling/nested rejection and docs/link/privacy/draft claims.
+Controlled dependency negatives are qualified. Instrumented synthetic command
+forms and clean package extraction do not establish real Pictures/manual dragging.
+
+Initial dirty focused T072 verification exposed an incorrect test JPEG-capability
+mask/empty-folder assumption; the corrected fixture uses a readable image and also
+proves the empty-folder exception. The failed developer run is not acceptance.
+Final clean full desktop and exact implementation CI normal/control gates provide
+acceptance; native parent and export/source/Git/artifact hashes bind observations.
+See [desktop/parity evidence](evidence/M4-T03.json) and [CI](evidence/M4-T03-ci.json).
+
+25/28 tasks and 72/75 cases exercised; next M4-T04 remains pending/not started.
+Version 1.0.0 remains unpublished/unsigned; older M4-T02 ZIP bytes identify their
+older guide, not this revision. Future publication must bind the actual approved
+tag and package. Owner D37/T067 and live-UNC D35 boundaries remain unchanged.
+This containing governance checkpoint cannot record its own future SHA/push/CI;
+those observations are supplied externally after commit. No tag, public release,
+merge, default-branch push, repository setting change or website deployment here.
