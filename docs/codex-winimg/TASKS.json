@@ -847,7 +847,8 @@
       "scope": [
         "Prepare the owner checklist and concrete comparison evidence without using private images in the repository.",
         "Have the owner run the unchanged everyday launch flow with approved disposable copies on Windows.",
-        "Record approval or requested changes with tested commit; do not approve subjective image quality or default changes on the owner’s behalf."
+        "Record approval or requested changes with tested commit; do not approve subjective image quality or default changes on the owner’s behalf.",
+        "Perform only the explicitly authorized D36 HDRI colour repair: clamp converted sRGB before white composition, verify T036 and full PS5.1/PS7 gates with separately bound HDRI colour runs, then prepare a short guided owner recheck. No new defaults or M4 work."
       ],
       "acceptance": [
         "Actual owner approval and Windows smoke evidence exist before public-release readiness is claimed.",
@@ -859,19 +860,21 @@
       ],
       "references": [
         "templates/OWNER_ACCEPTANCE.md",
-        "GIT_WORKFLOW.md"
+        "GIT_WORKFLOW.md",
+        "IMPLEMENTATION_SPEC.md",
+        "FIXTURE_SPEC.md"
       ],
       "owner_gate": true,
       "depends_on": [
         "M3-T06"
       ],
-      "state": "awaiting_owner",
+      "state": "in_progress",
       "evidence": [
         "evidence/M3-T07.json",
         "evidence/M3-T07-owner-smoke.json",
         "evidence/M3-T07-hdri-diagnosis.json"
       ],
-      "blocked_reason": "Owner performed the everyday Windows smoke and partial appearance checks on 2026-10-06. Installed Q16-HDRI fails the independent semi-transparent colour reference; a bounded repair and renewed named-commit owner review are needed. Explicit acceptance remains absent.",
+      "blocked_reason": "Owner authorized the bounded colour repair and short guided recheck on 2026-10-06; repair validation is in progress. Explicit named-commit workflow/appearance acceptance remains absent.",
       "card": "tasks/M3-T07.md"
     },
     {

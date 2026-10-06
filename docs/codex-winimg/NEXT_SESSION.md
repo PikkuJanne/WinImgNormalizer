@@ -1,6 +1,6 @@
 # Next session handoff
 
-Current task: **M3-T07 — awaiting_owner**. The owner ran the everyday Windows smoke
+Current task: **M3-T07 — D36 bounded repair in_progress**. The owner ran the everyday Windows smoke
 on 2026-10-06 and supplied partial appearance observations. **T067 is blocked/incomplete**
 by an objective installed-HDRI alpha colour defect and absent explicit named-commit
 acceptance. Accepted tasks remain 21/28; T001-T066 are previously exercised, T067
@@ -51,3 +51,12 @@ smoke/preparation outputs separate from any repaired run. Raw media, logs and pr
 Pictures paths remain local. M3-T06's 468/468 desktop and hosted non-HDRI results
 remain dated evidence, qualified for that build. Preserve BAT CRLF/-text. Live UNC
 remains owner-excluded D35. No merge/tag/release/settings/deployment is authorized.
+
+
+D36 update: the owner explicitly authorized the colour fix and short guided recheck
+on 2026-10-06. Complete only the amended task-card repair. Real pre-fix installed
+HDRI colour runs in both hosts fail 2/25 T036 assertions (23 pass, zero skips).
+Runner-pin rejection attempts are distinct zero-test infrastructure failures. Keep
+the maintained portable pin; use separately verified installed-HDRI colour driver.
+Validate the exact clean implementation, update durable repair evidence, and prepare
+a fresh one-image recheck packet before returning M3-T07 to awaiting_owner.

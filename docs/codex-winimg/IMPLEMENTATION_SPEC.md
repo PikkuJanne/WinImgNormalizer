@@ -145,7 +145,10 @@ accurate: choose a controlled documented fallback with a warning, or fail the it
 with a useful explanation. Do not conceal uncertainty as verified colour accuracy.
 
 Use a documented alpha-compositing order and verify semi-transparent patches against
-a reference; white remains the default. No retry may silently remove the alpha or
+a reference; white remains the default. After either sRGB conversion branch, bound
+converted samples with `-clamp` before composing on white, while alpha is retained.
+This keeps HDRI out-of-gamut channels from contaminating the white blend; independent
+PNG/JPEG reference tolerances remain unchanged. No retry may silently remove the alpha or
 background operations. After conversion remove privacy metadata (GPS/EXIF/XMP/IPTC
 and other unwanted source metadata) and apply the declared output-profile policy.
 Default output may omit ICC after known-sRGB conversion to retain the existing

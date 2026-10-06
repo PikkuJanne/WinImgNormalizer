@@ -1,12 +1,12 @@
 # Project status
 
-Updated: 2026-10-06 — owner smoke recorded; HDRI colour defect blocks acceptance.
+Updated: 2026-10-06 — D36 bounded HDRI repair authorized; validation in progress.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
 Tested implementation: 17a405bfe0150607486248e845f93ba82e1d0d52
-Current task: **M3-T07 — Obtain owner acceptance of the familiar workflow (awaiting_owner)**
+Current task: **M3-T07 — bounded HDRI repair before owner acceptance (in_progress)**
 Task progress: **21 / 28 accepted**
 Specified cases: **T001-T066 previously exercised (66 / 75); T067 partly exercised, blocked**
 Pester suite: **468/468 passed in each desktop shell, zero skipped**
@@ -150,3 +150,21 @@ and [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37345853
 for that preparation checkpoint passed. Those pinned non-HDRI gates do not cover
 this installed-HDRI failure. This containing record checkpoint needs its own
 post-commit synchronization observation; its SHA is not embedded here.
+
+
+## D36 authorized repair in progress
+
+The owner explicitly requested the diagnosed fix and short recheck. M3-T07's card
+and registry scope now bound this correction to converted-sRGB clamping before
+white composition; no M4 work or new defaults. Pre-fix real installed-HDRI Pester
+colour runs on clean 45c6795554b70a1fc23dea04b1b4339a7d69c430 fail identically in
+PS5.1/PS7: 25 total, 23 passed, two T036 failures (PNG/JPEG red error 127), zero
+skips/unrun/failed blocks. Persistent policies are unchanged. Earlier attempts with
+the maintained runner stopped before discovery because its portable executable
+pin correctly rejects the installed HDRI hash; those are infrastructure failures,
+not colour runs. A separate local driver preserves the pin, verifies Pester plus
+installed executable/version and uses the same independent colour suite/gate.
+
+Production and regression edits are awaiting clean-commit full verification. The
+previous native diagnosis is dated pre-fix evidence. No new passing gate or owner
+appearance acceptance is claimed. Keep the original packet and owner output intact.

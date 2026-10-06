@@ -2082,6 +2082,9 @@ function Invoke-WinImgNormalizer {
         if ($ColourInfo.HasIcc) {
           $nativeArguments += @('+black-point-compensation', '-intent', 'Relative', '-profile', (Get-WinImgNativeOutputPath $SrgbProfilePath))
         } else { $nativeArguments += @('-colorspace', 'sRGB') }
+        # HDRI preserves out-of-gamut RGB; bound converted sRGB before blending
+        # on white so negative channels cannot darken semi-transparent pixels.
+        $nativeArguments += '-clamp'
         # White composition and all JPEG/colour flags are identical on retries.
         $nativeArguments += @('-background','white','-alpha','remove','-alpha','off',
           '-strip','-sampling-factor','4:2:0','-interlace','Line')

@@ -223,9 +223,14 @@ Eight actual EXIF orientation tags have synthetic GPS, XMP, Photoshop/IPTC, comm
 and ICC attached to asymmetric JPEG fixtures. Displayed corner maps and dimensions
 must match; independent JPEG segment inspection verifies privacy/profile removal.
 Fully transparent and semi-transparent patches compare white composition after
-the managed sRGB transform. A controlled extent override forces six real native
-scale attempts and verifies the owned target profile's path and trusted bytes on
-every attempt, together with the white alpha and stripping operations. Sources keep byte hashes and creation/modified
+the managed sRGB transform and gamut clamp against the independent reference.
+Tagged and untagged retry cases use two controlled sharing-start failures followed
+by six real native scale attempts. They verify clamp placement before white alpha
+composition on every call, and the tagged target profile's path and trusted bytes.
+Full gates retain the portable Q16 executable pin. Additional installed Q16-HDRI
+colour runs reuse this suite and verified Pester with separately bound executable
+hash/version in each Windows shell; they do not weaken the dependency pin.
+Sources keep byte hashes and creation/modified
 timestamps, and each success produces one intended JPEG with exact owned scratch
 cleanup. All generated media and raw development history remain in marked ignored
 scratch without recursive deletion.

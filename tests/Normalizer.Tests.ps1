@@ -279,12 +279,12 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         $retry[4] | Should -Be $first[4]
         Test-Path -LiteralPath $snapshotPath | Should -BeFalse
         ($first -join '|') | Should -Be (
-            @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true', $first[4], '-auto-orient', '-colorspace', 'sRGB',
+            @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true', $first[4], '-auto-orient', '-colorspace', 'sRGB', '-clamp',
                 '-background', 'white', '-alpha', 'remove', '-alpha', 'off', '-strip',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '100%', '-define',
                 'jpeg:extent=1048576B', $first[-1]) -join '|')
         ($retry -join '|') | Should -Be (
-            @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true', $first[4], '-auto-orient', '-colorspace', 'sRGB',
+            @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true', $first[4], '-auto-orient', '-colorspace', 'sRGB', '-clamp',
                 '-background', 'white', '-alpha', 'remove', '-alpha', 'off', '-strip',
                 '-sampling-factor', '4:2:0', '-interlace', 'Line', '-resize', '100%', '-define',
                 'jpeg:extent=1048576B', $retry[-1]) -join '|')

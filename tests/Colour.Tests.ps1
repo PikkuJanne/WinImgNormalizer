@@ -228,6 +228,33 @@ BeforeAll {
             }
         }
     }
+    function Assert-ColourCompositionOrder {
+        param([string[]]$Arguments, [bool]$Tagged)
+        $orient = [Array]::IndexOf($Arguments, '-auto-orient')
+        $conversion = [Array]::IndexOf($Arguments, $(if ($Tagged) { '-profile' } else { '-colorspace' }))
+        $clamp = [Array]::IndexOf($Arguments, '-clamp')
+        $background = [Array]::IndexOf($Arguments, '-background')
+        $strip = [Array]::IndexOf($Arguments, '-strip')
+        $Arguments | Should -Contain '-regard-warnings'
+        $orient | Should -BeGreaterThan -1
+        $conversion | Should -BeGreaterThan $orient
+        if ($Tagged) {
+            $intent = [Array]::IndexOf($Arguments, '-intent')
+            $Arguments | Should -Contain '+black-point-compensation'
+            $intent | Should -BeGreaterThan $orient
+            $Arguments[$intent + 1] | Should -Be 'Relative'
+            $conversion | Should -BeGreaterThan $intent
+        } else {
+            $Arguments[$conversion + 1] | Should -Be 'sRGB'
+            $Arguments | Should -Not -Contain '-profile'
+        }
+        @($Arguments | Where-Object { $_ -eq '-clamp' }).Count | Should -Be 1
+        $clamp | Should -Be ($conversion + 2) -Because 'HDRI channels must be bounded after sRGB conversion, before blending'
+        $background | Should -Be ($clamp + 1)
+        $Arguments[$background + 1] | Should -Be 'white'
+        (@($Arguments[($background + 2)..($strip - 1)]) -join '|') | Should -Be '-alpha|remove|-alpha|off'
+        $strip | Should -BeGreaterThan $background
+    }
     function Invoke-ColourRun {
         param([object]$Case, [scriptblock]$Runner, [long]$MaxBytes = 1048576)
         $parameters = @{ Source = $Case.Source; OutputParent = $Case.Parent; MagickPath = $magick; MaxBytes = $MaxBytes }
@@ -530,9 +557,13 @@ Describe 'M2-T02 alpha composition and retry invariants (T036)' {
         Set-ColourSourceTimes $sourcePath
         $before = Get-ColourSourceState $case.Source
         $expected = if ($Tagged) { $reference.tagged_alpha_white } else { $reference.untagged_alpha_white }
-        $colourTrace = [pscustomobject]@{ Probe = Join-Path $case.Probe 'runtime-before-jpeg.png' }
+        $colourTrace = [pscustomobject]@{
+            Probe = Join-Path $case.Probe 'runtime-before-jpeg.png'
+            Arguments = New-Object 'Collections.Generic.List[object]'
+        }
         $runner = {
             param([string]$Executable,[string[]]$Arguments)
+            $colourTrace.Arguments.Add(@($Arguments))
             $pngArgs = [string[]]$Arguments.Clone(); $pngArgs[-1] = 'PNG:' + (Get-WinImgNativeOutputPath $colourTrace.Probe)
             $probeText = @(& $Executable @pngArgs 2>&1); $probeCode = $LASTEXITCODE
             if ($probeCode -ne 0 -or $probeText.Count -ne 0) { throw ('Pre-JPEG alpha runtime argument probe failed: ' + ($probeText -join "`n")) }
@@ -540,72 +571,83 @@ Describe 'M2-T02 alpha composition and retry invariants (T036)' {
             return [pscustomobject]@{ ExitCode = $LASTEXITCODE; DiagnosticOutput = $nativeText -join "`n" }
         }
         $result = Invoke-ColourRun -Case $case -Runner $runner
+        $colourTrace.Arguments.Count | Should -Be 1
+        Assert-ColourCompositionOrder -Arguments $colourTrace.Arguments[0] -Tagged $Tagged
         Assert-ColourPixels -Path $colourTrace.Probe -Width 128 -Height 96 -Expected $expected -Tolerance $reference.tolerance.pre_jpeg_channel_units -Format PNG
         $policy = if ($Tagged) { 'ProfileToSrgb' } else { 'AssumeSrgb' }
         Assert-ColourSuccess -Result $result -Case $case -Expected $expected -Policy $policy -HasIcc $Tagged
         Get-ColourSourceState $case.Source | Should -Be $before
     }
 
-    It 'T036 keeps profile conversion, white alpha composition and stripping on every real native scale attempt without an alpha-dropping fallback' {
+    It 'T036 keeps <Kind> conversion, gamut clamp and white alpha policy through two sharing controls and all six real native scales' -ForEach @(
+        @{ Kind = 'tagged wide RGB'; Tagged = $true },
+        @{ Kind = 'untagged sRGB'; Tagged = $false }
+    ) {
         $case = New-ColourCase 'alpha-retry' 'transparent.png'
         $sourcePath = Join-Path $case.Source $case.Name
-        New-ColourRgb -Path $sourcePath -Values $reference.alpha_source -Profile $wideProfile -Alpha
+        $profile = if ($Tagged) { $wideProfile } else { $null }
+        $expected = if ($Tagged) { $reference.tagged_alpha_white } else { $reference.untagged_alpha_white }
+        New-ColourRgb -Path $sourcePath -Values $reference.alpha_source -Profile $profile -Alpha
         Set-ColourSourceTimes $sourcePath
         $before = Get-ColourSourceState $case.Source
         $colourTrace = [pscustomobject]@{
             Arguments = New-Object 'Collections.Generic.List[object]'
             TargetPaths = New-Object 'Collections.Generic.List[string]'
             TargetHashes = New-Object 'Collections.Generic.List[string]'
+            NativeCalls = 0
         }
         $runner = {
             param([string]$Executable,[string[]]$Arguments)
             $colourTrace.Arguments.Add(@($Arguments))
             $profileIndex = [Array]::IndexOf($Arguments, '-profile')
-            $targetPath = $Arguments[$profileIndex + 1]
-            $colourTrace.TargetPaths.Add($targetPath)
-            # The argument is already a native extended path; direct .NET reads
-            # keep this byte binding usable on long PS5.1 hosted roots.
-            $sha256 = [Security.Cryptography.SHA256]::Create()
-            try {
-                $hash = $sha256.ComputeHash([IO.File]::ReadAllBytes($targetPath))
-                $colourTrace.TargetHashes.Add(([BitConverter]::ToString($hash).Replace('-', '').ToLowerInvariant()))
-            } finally { $sha256.Dispose() }
+            if ($profileIndex -ge 0) {
+                $targetPath = $Arguments[$profileIndex + 1]
+                $colourTrace.TargetPaths.Add($targetPath)
+                # Direct .NET reads preserve extended-path byte binding on PS5.1.
+                $sha256 = [Security.Cryptography.SHA256]::Create()
+                try {
+                    $hash = $sha256.ComputeHash([IO.File]::ReadAllBytes($targetPath))
+                    $colourTrace.TargetHashes.Add(([BitConverter]::ToString($hash).Replace('-', '').ToLowerInvariant()))
+                } finally { $sha256.Dispose() }
+            }
+            if ($colourTrace.Arguments.Count -le 2) {
+                # Controlled start failures exercise same-scale reassembly; the
+                # six following positive conversions use the selected real build.
+                return [pscustomobject]@{ ExitCode = 1; StartError = 'Controlled sharing start failure'; Win32ErrorCode = 32; StdOut = ''; StdErr = '' }
+            }
             # Only relax this test's native extent while the caller's one-byte
             # limit forces all six valid outputs through the normal retry loop.
             $nativeArgs = @($Arguments | ForEach-Object { if ($_ -like 'jpeg:extent=*') { 'jpeg:extent=1048576B' } else { $_ } })
+            $colourTrace.NativeCalls++
             $nativeText = @(& $Executable @nativeArgs 2>&1)
             return [pscustomobject]@{ ExitCode = $LASTEXITCODE; DiagnosticOutput = $nativeText -join "`n" }
         }
         $result = Invoke-ColourRun -Case $case -Runner $runner -MaxBytes 1
         $result.Code | Should -Be 2 -Because $result.Text
-        $colourTrace.Arguments.Count | Should -Be 6
-        @($colourTrace.TargetPaths | Select-Object -Unique).Count | Should -Be 1
-        $colourTrace.TargetHashes.Count | Should -Be 6
-        $expectedProfileHash = @($manifest.profiles | Where-Object source_path -eq 'profiles/sRGB-v4.icc')[0].sha256
-        foreach ($targetHash in $colourTrace.TargetHashes) { $targetHash | Should -Be $expectedProfileHash }
+        $colourTrace.Arguments.Count | Should -Be 8
+        $colourTrace.NativeCalls | Should -Be 6
+        if ($Tagged) {
+            @($colourTrace.TargetPaths | Select-Object -Unique).Count | Should -Be 1
+            $colourTrace.TargetHashes.Count | Should -Be 8
+            $expectedProfileHash = @($manifest.profiles | Where-Object source_path -eq 'profiles/sRGB-v4.icc')[0].sha256
+            foreach ($targetHash in $colourTrace.TargetHashes) { $targetHash | Should -Be $expectedProfileHash }
+        } else {
+            $colourTrace.TargetPaths.Count | Should -Be 0
+            $colourTrace.TargetHashes.Count | Should -Be 0
+        }
         $scales = @()
         foreach ($arguments in $colourTrace.Arguments) {
-            $orient = [Array]::IndexOf($arguments,'-auto-orient')
-            $intent = [Array]::IndexOf($arguments,'-intent')
-            $profile = [Array]::IndexOf($arguments,'-profile')
-            $background = [Array]::IndexOf($arguments,'-background')
-            $strip = [Array]::IndexOf($arguments,'-strip')
-            $arguments | Should -Contain '-regard-warnings'
-            $arguments | Should -Contain '+black-point-compensation'
-            $intent | Should -BeGreaterThan $orient
-            $arguments[$intent + 1] | Should -Be 'Relative'
-            $profile | Should -BeGreaterThan $intent
-            $background | Should -BeGreaterThan $profile
-            $arguments[$background + 1] | Should -Be 'white'
-            (@($arguments[($background + 2)..($strip - 1)]) -join '|') | Should -Be '-alpha|remove|-alpha|off'
-            $strip | Should -BeGreaterThan $background
+            Assert-ColourCompositionOrder -Arguments $arguments -Tagged $Tagged
             $resize = [Array]::IndexOf($arguments,'-resize')
             $scales += $arguments[$resize + 1]
         }
-        ($scales -join ',') | Should -Be '100%,90%,80%,70%,60%,50%'
+        ($scales -join ',') | Should -Be '100%,100%,100%,90%,80%,70%,60%,50%'
         $output = Join-Path $result.Run 'transparent.jpeg'
-        Assert-ColourPixels -Path $output -Width 64 -Height 48 -Expected $reference.tagged_alpha_white -Tolerance $reference.tolerance.jpeg_channel_units -Format JPEG
+        Assert-ColourPixels -Path $output -Width 64 -Height 48 -Expected $expected -Tolerance $reference.tolerance.jpeg_channel_units -Format JPEG
         Assert-ColourNoMetadata $output
+        $result.Log | Should -Match 'Category=TransientIO'
+        $result.Log | Should -Match 'DelayMs=100'
+        $result.Log | Should -Match 'DelayMs=200'
         $result.Log | Should -Match '(?i)(above|exceed|best|over)'
         @(Get-ChildItem -LiteralPath (Join-Path $result.Run '.WinImgNormalizer\work') -Force).Count | Should -Be 0
         Get-ColourSourceState $case.Source | Should -Be $before

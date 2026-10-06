@@ -2438,3 +2438,26 @@ T067 is partly exercised. Recommend bounded tested colour repair and renewed own
 review at a new exact tested commit. Per task card, stop at absent acceptance; no M4
 task or production repair was started. Record checks/scoped commit/push and later
 independent remote observation follow; containing SHA is reported externally.
+
+
+## 2026-10-06 — D36 M3-T07 bounded HDRI repair authorized
+
+Owner answered “Yes, please” to the proposed fix and short guided recheck. Scope
+was explicitly amended inside the current owner-gate task; no next milestone or
+quality/default approval is inferred. Started clean/live-equal at
+45c6795554b70a1fc23dea04b1b4339a7d69c430 on canonical feature branch/draft PR22.
+Initial maintained-runner installed-HDRI attempts reject the different executable
+hash before discovery, native 1/zero tests. Preserve that portable pin. A separate
+ignored local driver loads verified pinned Pester through the normal initializer,
+then independently verifies the installed executable hash/version and runs the
+unchanged colour suite with strict counts/result/source/gate checks. Actual clean
+pre-fix PS5.1/PS7 runs each show 25 total/23 pass/two T036 failures: tagged alpha
+PNG red error 127 >3 and six-scale JPEG error 127 >12, zero skips/unrun/blocks.
+Persistent policies remain unchanged. These actual failures bind the required
+regression rather than treating native diagnostic success as test acceptance.
+
+Bounded app change clamps after either sRGB branch before white composition.
+Regression updates preserve independent reference/tolerances and check tagged/
+untagged scales/sharing retries. Full maintained portable gates/controls/analyzer,
+separate installed-HDRI colour runs, CI and new owner recheck remain pending at
+this implementation checkpoint. Original packet/output are preserved.
