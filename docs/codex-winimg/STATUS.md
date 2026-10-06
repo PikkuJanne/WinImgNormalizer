@@ -1,18 +1,20 @@
 # Project status
 
-Updated: 2026-10-06 — M3-T07 owner acceptance recorded after verified D36 repair.
+Updated: 2026-10-06 — M4-T01 single version source and unreleased notes verified.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested repair implementation: 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad
-Completed task: **M3-T07 — Owner accepted repaired workflow and appearance (done)**
-Next intended task: **M4-T01 (pending; not started)**
-Task progress: **22 / 28 accepted**
-Specified cases: **T001-T067 exercised (67 / 75); T067 owner acceptance passed**
-Pester suite: **469/469 passed in each desktop shell, zero skipped; installed-HDRI colour 26/26 each**
-Failure controls: **470 total, 469 passed, one intended failure; native exit 1**
-CI: **implementation push/PR Windows matrices passed, including both controls**
+Tested M4-T01 implementation: 3109a1b27d73f4084076cdd14ba06447c6243c0f
+Application version: **1.0.0 (unreleased)**
+Owner-accepted normalization implementation: 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad
+Completed task: **M4-T01 — Add one version source and release notes (done)**
+Next intended task: **M4-T02 (pending; not started)**
+Task progress: **23 / 28 accepted**
+Specified cases: **T001-T068 exercised (68 / 75); T067 owner acceptance and T068 passed**
+Pester suite: **482/482 passed in each desktop shell, zero skipped; 24 mandatory suites including T068**
+Failure controls: **483 total, 482 passed, one intended failure; native exit 1**
+CI: **Push and PR Windows CI passed for the tested implementation; exported artifacts independently verified**
 Containing evidence checkpoint synchronization: **pending_verification**
 
 ## Accepted M3-T06 baseline and its dated verification
@@ -160,9 +162,50 @@ Not all original comparison images were individually visually reviewed; their
 existing automated checks and earlier visual statements remain separate.
 
 **M3-T07 done; T067 passed; 22/28 accepted; 67/75 specified cases exercised.**
-M4-T01 is the next intended task and remains pending. Preceding record checkpoint
+M4-T01 was pending at that M3-T07 acceptance checkpoint. Preceding record checkpoint
 c268e392956b4b1c229e68f184cd2dd436e56d23 has unchanged runtime/tests/workflow and
 independently observed successful push/PR CI metadata (37479656551/37479662600).
 Detailed implementation artifact verification remains separately bound to 5a32.
-This containing acceptance checkpoint still requires its post-commit synchronization
-observation. No further task or publication work was started.
+That acceptance checkpoint required an external post-commit synchronization
+observation. No further task or publication work had started at that observation.
+
+## M4-T01 — one application version and unreleased release notes
+
+At clean implementation **3109a1b27d73f4084076cdd14ba06447c6243c0f**, the sole semantic-version
+literal is `Get-WinImgVersion` in the self-contained application. Existing usage
+and run-log headers use it. The development generator derives CHANGELOG.md and
+release-metadata.json from it and the version-free release prose. Exact checks
+reject stale output without writes; compact ordered JSON and scoped LF attributes
+preserve bytes across Windows PowerShell 5.1/PowerShell 7 and Windows checkouts.
+No runtime support file or new invocation form is introduced.
+
+Successful local/remote tag and GitHub release inspection found zero existing
+records. **1.0.0 is the first managed proposed version and remains unreleased**;
+no tag, release or ZIP was created. Published/date/download/asset fields are null.
+The changelog distinguishes fixes, retained defaults/safeguards, third-party
+requirements, supported/tested environments and limitations. LICENSE and original
+Janne Vuorela authorship remain intact; the BAT and normalization defaults are
+unchanged. Live UNC remains owner-excluded D35.
+
+[Desktop evidence](evidence/M4-T01.json) records **482/482** in each actual desktop
+host, no skips/unrun/inconclusive/failed containers, all 24 suites and ten real
+codec outcomes. Six T068 regressions cover real help without ImageMagick/output,
+real video/log preservation and substituted version, exact non-writing checks,
+stale rejection and changed-source/repeat generation. Seven exporter regressions
+admit only the exact public release inputs/outputs while rejecting nearby private
+and traversal names. Both assertion controls are **483 total/482 pass/one exact
+T007 failure/native 1**. Analyzer checks eight scripts under the unchanged 15 rules:
+zero normal findings, one expected unsafe-expression control/native 1. Both actual
+full exports complete. Exact source/Git/dependency/parent/artifact hashes and
+persistent policy preservation bind these results to the clean implementation.
+
+The first outer PS5.1 capture wrapper escalated stderr from an intentional logging
+failure fixture and ended without a completed suite summary. That infrastructure
+attempt is preserved separately; only the ignored wrapper was corrected before
+fresh clean runs. It is not a failed application result or passing test run.
+
+CI: Push and PR Windows CI passed for the tested implementation; exported artifacts
+independently verified. The final containing governance/evidence checkpoint's SHA and live
+feature synchronization are observed externally after commit. M4-T01 is done,
+23/28 accepted and T001-T068 exercised; **M4-T02 remains pending**. Packaging,
+publication and deployment retain their separate task/approval boundaries.

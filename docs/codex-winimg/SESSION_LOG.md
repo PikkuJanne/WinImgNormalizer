@@ -2539,3 +2539,51 @@ Plan/privacy/scoped-source/diff checks and reviewed record-only commit/push foll
 The containing checkpoint final SHA/live equality are observed externally; its own
 hash is not embedded. Stop after M3-T07. No next-task, merge, release or deployment
 work or future-default approval is inferred; live UNC stays excluded by D35.
+
+## 2026-10-06 — M4-T01 first managed version preparation complete
+
+Continued from clean, exact live-equal 324a7a7cc165f874bc70c5a9e7a46e76b7ef5295
+in the maintained checkout and verified canonical fetch/push identity/open draft
+PR22. The selected WinImgNormalizer-main remains the preserved non-Git snapshot.
+Successful local tags, live remote tags and GitHub tags/releases API inspection
+returned zero records, so D38 proposes **1.0.0 unreleased** as the first managed
+application version. No earlier application release is invented.
+
+Implementation **3109a1b27d73f4084076cdd14ba06447c6243c0f** adds Get-WinImgVersion as the sole runtime
+literal, versioned existing usage and log header, version-free release prose and
+derived CHANGELOG/draft JSON. Maintainer generation and exact -Check do not invoke
+ImageMagick or build/publish assets. Independent review caught and corrected
+PS5.1/PS7 pretty-JSON drift (compact ordered JSON), Windows checkout CRLF drift
+(scoped LF attributes), and the evidence exporter's missing new public bindings
+(seven exact names with one dual-export positive and six privacy/path negatives).
+The source remains self-contained, with no new public switch or support file.
+README/changelog document fixes, retained defaults/safeguards, supported versus
+actually tested environments, ImageMagick/codec requirements and limitations.
+Original LICENSE, author, BAT, profiles, tolerances, process/colour/frame/size
+defaults and development dependency pins remain unchanged.
+
+Precommit focused T068 was 6/6 in both actual hosts; exporter-focused PS7 was 34/34
+and analyzer zero findings. Clean implementation full desktop gates then passed
+**482/482 each**, all 24 suites and ten actual codec outcomes, no skips/unrun/
+inconclusive/failed blocks or containers. Both full assertion controls had 483
+total/482 passed/one exact T007 failure/native 1. Both normal/control analyzers
+scanned eight scripts with unchanged 15 rules, zero normal/one intended control
+finding/native 1. Both full sanitized exports completed. Source/commit/dependency/
+persistent policy bindings and parent/raw artifact hashes verify the observations.
+Six T068 tests exercise real no-arg help without native resolution/output, real
+video copy/versioned log including substituted source version, exact read-only
+artifact checks, stale rejection and source mutation/repeat byte agreement.
+
+An initial PS5.1 outer capture used ErrorActionPreference Stop and escalated
+expected stderr from a deliberate logging-failure fixture before suite completion.
+No summary or passing count is invented. That raw attempt remains ignored and
+hash-bound in evidence; only the ignored outer wrapper changed for a fresh final
+run. No maintained application/test change followed the clean implementation.
+
+The reviewed implementation was normally pushed while clean source-bound full
+verification continued, and independently observed equal to the live feature SHA.
+CI: Push and PR Windows CI passed for the tested implementation; exported artifacts
+independently verified. Sanitized evidence records dates/source/artifacts and prior attempt;
+containing checkpoint SHA/sync is pending its external post-commit observation,
+not self-referential. M4-T01 done, T068 passed, 23/28 accepted, 68/75 exercised;
+next M4-T02 remains pending. No tag, release, ZIP, merge or deployment performed.
