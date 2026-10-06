@@ -6,7 +6,7 @@
 | M1 safe output | pending | None |
 | M2 correct conversion | pending | None |
 | M3 reliable Windows workflow | pending | None |
-| M3 owner workflow/quality | awaiting_owner; T067 blocked/incomplete | [Partial owner review](OWNER_ACCEPTANCE.md), [actual smoke](evidence/M3-T07-owner-smoke.json), [HDRI defect](evidence/M3-T07-hdri-diagnosis.json); explicit acceptance absent |
+| M3 owner workflow/quality | awaiting_owner; T067 incomplete | [Short recheck](OWNER_ACCEPTANCE.md), [validated D36 repair](evidence/M3-T07-repair.json), [artifact/CI evidence](evidence/M3-T07-repair-artifacts.json); explicit repaired-commit acceptance absent |
 | M4 release candidate | pending | None |
 | Merge/tag/release publication | not authorized | None |
 | Website deployment | not authorized | None |

@@ -2461,3 +2461,44 @@ Regression updates preserve independent reference/tolerances and check tagged/
 untagged scales/sharing retries. Full maintained portable gates/controls/analyzer,
 separate installed-HDRI colour runs, CI and new owner recheck remain pending at
 this implementation checkpoint. Original packet/output are preserved.
+
+
+## 2026-10-06 — M3-T07 D36 repair verified; short owner recheck ready
+
+Clean implementation 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad was committed and
+pushed normally, with independent clean/live-equal feature observation. Root/peer
+review found no runtime/test blocker. Full portable desktop PS5.1/PS7 each pass
+469/469, zero skips/unrun/blocks, 23 suites/10 real codecs. Both controls 470 total/469 passed/
+one exact T007 failure/native 1. Analyzer normal zero findings/control one intended
+finding/native 1 in both. Focused colour 26/26 in all four host/build combinations;
+installed HDRI reuses the real independent suite with a separately hash-bound local
+driver and verified Pester. Portable pin/reference/tolerances/profiles/BAT unchanged.
+
+The original 25-test installed-HDRI runs at 45c6795 fail two T036 cases in both shells;
+zero-test pin rejection attempts remain distinct infrastructure failures. Sixteen
+parent-observed child runs and summary/XML/console/source/Git bindings are retained
+in sanitized repair evidence; no raw media/log/private path was tracked.
+
+Two real repaired installed-HDRI Commands use disposable OutputParent and return 0:
+24 files = 20 JPEGs + one video + one duplicate + two ignored, zero errors/warnings, five frames omitted.
+Forty JPEG decodes/metadata/geometry, source bytes/times/attrs, mirrors/collisions/
+duplicate mappings and output timestamps independently pass. Corrected alpha
+[127,212,170] matches reference within 1; all 20 outputs match portable preparation
+and across hosts, 19 match old owner outputs. Original owner/source/packet/report
+hashes are unchanged. Local verifier CSV/surrogate/log-path lookup errors were
+repaired using already-successful native outputs, without replaying the application.
+
+Implementation push 37476651394 and PR 37476659134 final CI/exported evidence were
+independently verified, including real counts/codecs/controls/analyzer, exact source
+provenance/merge tree and two-file artifact privacy/digests. These hosted results
+are separate from desktop and supply no owner consent. Fresh one-image recheck
+packet contains exact repaired launcher and approved original alpha bytes; previous
+packet is preserved. No UI was claimed as owner-run by preparation.
+
+Updated owner checklist/status/task/handoff/acceptance and linked dated preparation
+to repair evidence. M3-T07 returns awaiting_owner, T067 incomplete, 21/28 accepted;
+D36 fix request is not named-commit workflow/appearance approval. Next is the short
+guided folder-to-BAT/Transparency.jpeg recheck and explicit acceptance at 5a32fc6.
+Record-only plan/privacy/source/diff checks, scoped commit/push and independent
+remote observation follow; containing SHA is reported externally. No M4, merge,
+release, settings or deployment work.

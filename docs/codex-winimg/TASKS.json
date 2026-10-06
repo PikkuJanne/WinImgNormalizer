@@ -868,13 +868,16 @@
       "depends_on": [
         "M3-T06"
       ],
-      "state": "in_progress",
+      "state": "awaiting_owner",
       "evidence": [
         "evidence/M3-T07.json",
         "evidence/M3-T07-owner-smoke.json",
-        "evidence/M3-T07-hdri-diagnosis.json"
+        "evidence/M3-T07-hdri-diagnosis.json",
+        "evidence/M3-T07-repair.json",
+        "evidence/M3-T07-repair-artifacts.json",
+        "evidence/M3-T07-repair-ci.json"
       ],
-      "blocked_reason": "Owner authorized the bounded colour repair and short guided recheck on 2026-10-06; repair validation is in progress. Explicit named-commit workflow/appearance acceptance remains absent.",
+      "blocked_reason": "D36 bounded HDRI repair passed full portable PS5.1/PS7 gates/controls/analyzer, separately verified installed-HDRI colour runs and CI at 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad. Fresh one-image owner recheck and explicit named-commit acceptance remain pending.",
       "card": "tasks/M3-T07.md"
     },
     {

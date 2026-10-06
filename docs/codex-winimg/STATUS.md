@@ -1,20 +1,20 @@
 # Project status
 
-Updated: 2026-10-06 — D36 bounded HDRI repair authorized; validation in progress.
+Updated: 2026-10-06 — D36 HDRI repair validated; short owner recheck pending.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested implementation: 17a405bfe0150607486248e845f93ba82e1d0d52
-Current task: **M3-T07 — bounded HDRI repair before owner acceptance (in_progress)**
+Tested repair implementation: 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad
+Current task: **M3-T07 — Obtain owner acceptance after D36 repair (awaiting_owner)**
 Task progress: **21 / 28 accepted**
 Specified cases: **T001-T066 previously exercised (66 / 75); T067 partly exercised, blocked**
-Pester suite: **468/468 passed in each desktop shell, zero skipped**
-Failure controls: **469 total, 468 passed, one intended failure; native exit 1**
+Pester suite: **469/469 passed in each desktop shell, zero skipped; installed-HDRI colour 26/26 each**
+Failure controls: **470 total, 469 passed, one intended failure; native exit 1**
 CI: **implementation push/PR Windows matrices passed, including both controls**
 Containing evidence checkpoint synchronization: **pending_verification**
 
-## Current behavior and verification
+## Accepted M3-T06 baseline and its dated verification
 
 The mandatory gate inventories all 23 maintained suites, requires actual passed
 T005-T066 coverage except the separate T007 failure control, and rejects zero
@@ -91,80 +91,55 @@ workflow/quality approval. JPEG/colour/frame/size defaults, source/no-overwrite 
 video fidelity, launcher pause/exit behavior and owned native processing remain
 covered. M3-T07 owner approval, merge and release are separate.
 
-## M3-T07 owner gate — actual smoke, colour repair needed
+## M3-T07 D36 repair and owner gate
 
-At the 2026-10-05 preparation observations, clean review commit
-4618a83cb2aa893aea9d6a1587987612624e1cf7 was live-equal to the feature branch. Owner-merged PR21/main
-4d0bc6dd403a84b4cad770fdacfd394066c9fbd1 has the same tree. No application, BAT,
-test or default changes were made. M3-T06's tested implementation and full 468/468
-gates above remain separate evidence. Prior review-checkpoint push 37341068495 and
-PR 37341075972 metadata report success. The new containing checkpoint still needs
-post-commit live synchronization observation.
+Original review 4618a83cb2aa893aea9d6a1587987612624e1cf7 and actual owner smoke at
+that code remain dated evidence. The owner reported clean BAT completion, smooth
+landscape, intact detail and the white transparency area. Independent checking found
+the installed Q16-HDRI semi-transparent green red channel 0 instead of 127. These
+partial observations supplied no named-commit acceptance; native BAT exit was not
+captured. Original packet/output/source/report bindings remain preserved.
 
-[Owner checklist](OWNER_ACCEPTANCE.md) and [prepared evidence](evidence/M3-T07.json)
-are ready. The local packet outside the repository has 24 synthetic inputs, original/
-current displays, five hash-bound historical baseline comparisons and real tiny-cap
-warning examples. Fresh real Command preparation in PS5.1/PS7 returns 0 by default:
-20 converted/1 video/1 duplicate/2 ignored, zero errors, five omitted frames. Each
-1-byte run returns 2 with two valid above-target JPEGs. All 44 JPEGs fully decode;
-source state and video bytes are preserved and reports complete/balance.
+The owner explicitly authorized the bounded fix and short recheck (D36). At clean
+base 45c6795554b70a1fc23dea04b1b4339a7d69c430 actual installed-HDRI Pester runs fail
+two T036 checks in each shell: 25 total/23 pass, PNG/JPEG channel error 127. Earlier
+maintained-runner attempts rejected the non-pinned executable before discovery;
+those zero-test infrastructure failures are retained, not relabeled colour runs.
 
-The 2026-10-05 preparation injected a disposable destination and explicit portable
-Q16 ImageMagick without HDRI. It did not establish Explorer/Pictures/tool discovery
-or owner appearance approval. Its driver failures and final v3 results are retained
-as dated evidence; two historical quality differences follow the earlier byte-extent
-correction. No new default is proposed.
+Clean repair 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad adds only converted-sRGB
+clamping before white composition. T036 covers tagged/untagged real references,
+two controlled sharing-start failures and six actual scale conversions, checking
+conversion/clamp/white/strip order on all eight calls. Independent reference/profile/generator,
+PNG tolerance 3/JPEG tolerance 12, BAT and defaults are unchanged.
 
-On 2026-10-06 the owner followed the guided physical folder-to-BAT flow and reported
-`Completed successfully. Press any key to close.`, with LogWarnings=0,
-DiskLogIncomplete=False and FallbackDropped=0. The owner opened the actual Pictures
-result, described the landscape as a smooth gradient and hard edges as clear/intact,
-and confirmed the transparent upper-left area is white. These are partial observations,
-not explicit named-commit acceptance; the BAT's native exit was not independently captured.
+[Repair evidence](evidence/M3-T07-repair.json): actual PS5.1/PS7 portable full gates
+pass 469/469, zero skips/unrun/blocks, all 23 suites and ten real codecs. Both controls
+have 470 total/469 pass/one exact T007 failure/native 1. Normal analyzer scans seven
+scripts with zero findings; each unsafe-expression control yields one intended
+finding/native 1. Colour-only runs pass 26/26 for each build/host (four runs). The
+separate installed-HDRI driver verifies Pester and executable/version; the maintained
+portable pin is intact. Counts, native results, source/Git and raw artifact hashes bind
+the clean implementation; all policies and sources remain unchanged.
 
-[Actual smoke evidence](evidence/M3-T07-owner-smoke.json) binds the copied launcher
-to review commit 4618a83cb2aa893aea9d6a1587987612624e1cf7 and records independent
-checks of only the approved synthetic source/output tree. Reports reconcile 24 inputs:
-20 JPEGs, one equal-byte video, one duplicate and two ignored files; zero logged
-errors/warnings, five omitted frames, complete balanced accounting. All 20 JPEGs fully
-decode with correct geometry and stripped metadata. All original bytes/times/attributes,
-mirrors, collision names and output timestamps are intact; 19 outputs match preparation.
+[Repaired artifact checks](evidence/M3-T07-repair-artifacts.json) cover two installed-
+HDRI Command runs using disposable destinations. Each returns 0 with 24 inputs:
+20 JPEGs, one equal-byte video, one duplicate, two ignored, no errors/warnings and
+five frame omissions. Forty JPEGs independently decode; source files/dirs, metadata,
+geometry, collision/duplicate mapping, mirrors and output timestamps pass. Nineteen
+JPEGs equal the old owner output, one alpha is corrected; all 20 match preparation
+and each other across hosts. Corrected alpha maximum error is 1, within tolerance 12.
 
-The actual run used installed ImageMagick 7.1.2-32 **Q16-HDRI**, unlike preparation.
-The tagged alpha output fails the independent colour reference: the semi-transparent
-green patch is [0,213,169] instead of [127,213,169], maximum channel error 127 versus
-JPEG tolerance 12. The white patch is correct. Zero process/report warnings do not
-establish pixel correctness. [Native diagnosis](evidence/M3-T07-hdri-diagnosis.json)
-reproduces the actual JPEG exactly. Clamping converted RGB before white composition
-repairs this fixture in isolated native experiments; no production fix was applied.
+[Implementation CI](evidence/M3-T07-repair-ci.json) independently verifies the
+[push](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37476651394)
+and [PR](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37476659134)
+jobs, exported counts/controls, actual codec results, provenance and privacy. CI
+does not provide owner consent. This containing record checkpoint has unchanged
+runtime/tests and requires post-commit live synchronization observation.
 
-M3-T07 stays **awaiting_owner**, T067 **blocked/incomplete**. Accepted tasks remain
-**21/28**; T067's partial smoke does not add a passed case. Recommend a bounded tested
-colour repair, followed by owner review at its new tested commit. Stop at this gate;
-M4-T01 cannot start. Review/default approval, merge and release remain separate.
-
-At the clean start of this follow-up, feature HEAD and live branch were
-dd6753991edfb7dec7454d1af5c2fe43df75d103; draft PR22 remains open.
-[Push CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37345811050)
-and [PR CI](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37345853641)
-for that preparation checkpoint passed. Those pinned non-HDRI gates do not cover
-this installed-HDRI failure. This containing record checkpoint needs its own
-post-commit synchronization observation; its SHA is not embedded here.
-
-
-## D36 authorized repair in progress
-
-The owner explicitly requested the diagnosed fix and short recheck. M3-T07's card
-and registry scope now bound this correction to converted-sRGB clamping before
-white composition; no M4 work or new defaults. Pre-fix real installed-HDRI Pester
-colour runs on clean 45c6795554b70a1fc23dea04b1b4339a7d69c430 fail identically in
-PS5.1/PS7: 25 total, 23 passed, two T036 failures (PNG/JPEG red error 127), zero
-skips/unrun/failed blocks. Persistent policies are unchanged. Earlier attempts with
-the maintained runner stopped before discovery because its portable executable
-pin correctly rejects the installed HDRI hash; those are infrastructure failures,
-not colour runs. A separate local driver preserves the pin, verifies Pester plus
-installed executable/version and uses the same independent colour suite/gate.
-
-Production and regression edits are awaiting clean-commit full verification. The
-previous native diagnosis is dated pre-fix evidence. No new passing gate or owner
-appearance acceptance is claimed. Keep the original packet and owner output intact.
+A fresh one-image `Colour recheck` packet contains exact repaired launcher copies
+and approved original alpha bytes; location is in ignored .scratch/M3-T07-recheck-location.json.
+Prepare the familiar folder-to-BAT launch and inspect only Transparency.jpeg for
+the short recheck. The owner still must explicitly accept workflow/appearance at
+the tested repair commit. **M3-T07 awaiting_owner, T067 incomplete, 21/28 accepted**;
+no M4, merge or release work. The objective colour defect is fixed; the owner gate
+remains pending.

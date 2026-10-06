@@ -1237,5 +1237,12 @@
     ],
     "current_T067_state": "blocked",
     "qualification": "Preparation/not_run fields above describe the 2026-10-05 observation. On 2026-10-06 actual owner smoke and partial appearance checks occurred; installed-HDRI alpha colour fails. No owner approval or production fix is recorded."
+  },
+  "repair_follow_up": {
+    "date": "2026-10-06",
+    "decision": "D36",
+    "implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+    "evidence": "evidence/M3-T07-repair.json",
+    "qualification": "Earlier preparation and defect observations remain dated. Requested bounded repair is validated; fresh owner recheck and named-commit approval are pending."
   }
 }

@@ -1,12 +1,15 @@
 # M3-T07 owner review — awaiting_owner
 
 Owner: Janne Vuorela. Prepared: 2026-10-05; guided partial review: 2026-10-06.
-Exact review commit: **4618a83cb2aa893aea9d6a1587987612624e1cf7**.
-No application, launcher, test or default changes are proposed in this task.
-The packet's Launcher files are exact copies from this clean checkout. Their hashes
-and the verified automated preparation are in [M3-T07 evidence](evidence/M3-T07.json).
+Original review commit: **4618a83cb2aa893aea9d6a1587987612624e1cf7**.
+Current tested repair for recheck: **5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad**.
+D36 authorizes the bounded colour correctness fix and regression tests; launcher and defaults remain unchanged.
+The original packet's launcher copies and automated preparation retain their original
+review binding in [preparation evidence](evidence/M3-T07.json). The fresh one-image
+packet's repaired copies are bound in [repaired artifact evidence](evidence/M3-T07-repair-artifacts.json);
+completed checks are in [repair evidence](evidence/M3-T07-repair.json).
 
-## What is ready
+## Original prepared packet — preserved
 
 A disposable local packet outside the repository contains `Drop this folder`,
 `Launcher`, `Owner comparisons.html`, `Comparison overview.png`, `Size warning
@@ -38,7 +41,7 @@ are unchanged; reports complete and accounting balances. These runs inject a
 disposable destination and explicit executable, so they do not establish the
 owner's Explorer gesture, actual Pictures destination or appearance approval.
 
-## Run and inspect
+## Original full-packet checklist
 
 1. Open `OWNER-READ-ME.txt` in the local packet. For the everyday Explorer test,
    ImageMagick must be available to the launcher's PATH. This agent's session has
@@ -71,8 +74,8 @@ as the other. The helper does not install tools or change persistent settings.
 ## Appearance comparison and defaults
 
 The five historical baseline outputs are hash-bound accepted M2-T04 artifacts,
-baseline commit f9b00d8befac93c4fa1116efcbc2e9d7144f4509. Current columns are fresh
-outputs from the review commit above. These are descriptive synthetic comparisons;
+baseline commit f9b00d8befac93c4fa1116efcbc2e9d7144f4509. Current columns are dated preparation
+outputs from original review commit 4618a83cb2aa893aea9d6a1587987612624e1cf7. These are descriptive synthetic comparisons;
 they are not new baseline runs or approval supplied by an automated metric.
 
 | Sample | Historical baseline bytes | Current bytes |
@@ -114,20 +117,30 @@ the independent reference: [0,213,169] instead of [127,213,169], error 127 versu
 JPEG tolerance 12. The white area is correct. Nineteen outputs match preparation.
 [Native diagnosis](evidence/M3-T07-hdri-diagnosis.json) reproduces the owner JPEG;
 clamping after sRGB conversion and before white composition fixes this fixture in
-isolated experiments. Application/tests remain unchanged and the diagnosis does
-not substitute for validating a production repair.
+isolated experiments. Application/tests were unchanged during that pre-fix diagnosis; those probes did
+not substitute for the production repair validation recorded below.
 
-## Owner response
+## Current short recheck — repaired commit
 
-Outcome: **awaiting_owner**. T067: **blocked/incomplete**. Explicit acceptance:
-**not supplied**. Recommend a bounded tested colour repair, then a short guided
-recheck at its new tested commit. Do not ask for unconditional acceptance of the
-known faulty output or interpret the area-check `Yes` as approval.
+The D36 fix is tested at **5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad**. Full portable
+Windows gates/controls/analyzer and separately verified installed-HDRI colour runs
+passed in both shells; implementation CI and native artifact checks are recorded.
+Corrected alpha maximum reference error is 1, within unchanged tolerance 12. Original
+output and earlier owner responses remain dated; no appearance approval is inferred.
 
-Once the repair is tested and reviewed, record the owner's explicit workflow and
-appearance decision at the exact named commit, including any unperformed checks
-or requested changes. The agent cannot sign this response for the owner.
+The fresh packet has literal **Colour recheck** (one original Transparency.png) and
+**Launcher** (exact repaired PS1/unchanged BAT). Its location is supplied in this
+session and ignored .scratch/M3-T07-recheck-location.json; no private path is tracked.
 
-Live network shares are outside owner-approved scope (D35). Merge, release, website
-deployment and later default changes retain separate authorization; M4-T01 waits
-for accepted T067.
+1. Drag **Colour recheck** onto **Launcher/WinImgNormalizer.bat**; report completion.
+2. Open the newest Colour recheck result in actual Pictures and only **Transparency.jpeg**.
+3. Check white upper-left, light green upper-right, pink lower-left and grey lower-right.
+   Then explicitly accept the workflow/appearance at the named tested repair commit,
+   or state the remaining change/unperformed check. The guide supplies one step per reply.
+
+Outcome: **awaiting_owner**. T067 **incomplete**. D36 repair authorization is not
+workflow/appearance consent. The objective defect is fixed; fresh owner review and
+explicit named-commit acceptance remain absent. The agent cannot sign for the owner.
+
+Live network shares remain outside scope (D35); M4, merge, release, website deployment
+and future default changes retain their own boundaries.

@@ -1,0 +1,1068 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T07",
+  "classification": "Automated actual repaired Command outputs with injected disposable OutputParent; no owner approval",
+  "repair_implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+  "observed_utc": "2026-10-06T14:17:59.892610+00:00",
+  "Pillow": "12.3.0",
+  "source_privacy": "synthetic",
+  "installed_magick_sha256": "ae5affcba0751155d698dd5d71652ecb79fa3f99c37d9eb34fc8b3b91635ff67",
+  "launcher_bindings": [
+    {
+      "path": "Launcher/WinImgNormalizer.ps1",
+      "sha256": "c8d94e9f4075e7b09dde7629e7e49e6d3d3f518c9d654253b213566a1c616189"
+    },
+    {
+      "path": "Launcher/WinImgNormalizer.bat",
+      "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+    }
+  ],
+  "source_snapshot_binding": {
+    "old_preparation_raw_sha256": "34cd7e6aa0c710e75cfab5b3fd1227ffe11734470429f603c1aacaf56de9741d",
+    "files": 24,
+    "directories": 8,
+    "matches_exact_retained_source_state": true,
+    "source_unchanged_after_both_hosts": true
+  },
+  "owner_verification_binding": {
+    "path": ".scratch/M3-T07-owner-smoke-verification-20261006-6d5169b10974426c8221215116165a9a.json",
+    "sha256": "88bd3b7190a1c01cd35b18f50e374900ae9dbccd70bae7013668fe3a63d26baa",
+    "old_actual_output_alias": "<actual-owner-output>",
+    "all_21_old_media_and_two_report_hashes_reverified_unchanged": true,
+    "old_packet_launcher_and_preparation_unchanged": true
+  },
+  "independent_reference": {
+    "path": "tests/fixtures/colour/REFERENCE.json",
+    "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "tolerances_unchanged": true
+  },
+  "runs": [
+    {
+      "label": "ps51",
+      "shell": "5.1.26100.9444",
+      "edition": "Desktop",
+      "native_command_exit": 0,
+      "application_exit": 0,
+      "started_utc": "2026-10-06T14:14:36.9861688Z",
+      "finished_utc": "2026-10-06T14:15:11.7864910Z",
+      "raw_report": {
+        "path": ".scratch/M3-T07-fixed-media-f7c66b56/ps51.json",
+        "sha256": "2b63e2108309d869aef5becd6c53bfaffabfd47bebf4dae83fe778cc446ffd90"
+      },
+      "raw_console": {
+        "path": ".scratch/M3-T07-fixed-media-f7c66b56/ps51.console.txt",
+        "sha256": "e48d6c2ea206fa78717312ef28aff3749804aa37f51c450548c12c3c2f971010"
+      },
+      "report_sha256": {
+        "log": "ce6d0a06936a8187a473276bf144ca71382df990f71c433face932c31dd58fd3",
+        "csv": "6b65734db018608cdac9fbc13b231516913762ed425aac8bf716c72508b75dc2"
+      },
+      "version_from_actual_run_log": "ImageMagick 7.1.2-32 Q16-HDRI x64 ad98b24:20260927 https://imagemagick.org",
+      "counts": {
+        "Discovered": 24,
+        "Converted": 20,
+        "CopiedVideo": 1,
+        "SkippedDuplicate": 1,
+        "Ignored": 2,
+        "Error": 0,
+        "Cancelled": 0,
+        "NotStarted": 0
+      },
+      "warning_counts": {
+        "SizeWarnings": 0,
+        "NativeWarnings": 0,
+        "TimestampWarnings": 0,
+        "AncillaryWarnings": 0,
+        "FramesOmitted": 5
+      },
+      "accounting": "Discovered=24 Converted=20 CopiedVideo=1 SkippedDuplicate=1 Ignored=2 Error=0 Cancelled=0 NotStarted=0 Balanced=True ScanComplete=True IncompleteDirectories=0 UninspectableEntries=0 SkippedLinks=0 ImageInputBytes=7762456 ImageOutputBytes=4366533 ImageSavingsBytes=3395923 VideoBytes=65537 ElapsedSeconds=34.502 FinalizedFilesPerSecond=0.609 ReportWarnings=0 ReportComplete=True ProgressWarnings=0 ImageSavingsPercent=43.748 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0 AncillaryWarnings=0 FramesOmitted=5 ConsoleWarnings=0 ProcessingWarnings=False",
+      "source_state_matches_retained_snapshot": true,
+      "source_preserved": true,
+      "persistent_policy_unchanged": true,
+      "full_jpeg_decodes": 20,
+      "media_creation_and_write_timestamps_match_sources": 21,
+      "mirrors": [
+        ".",
+        "empty[1]%d",
+        "p%d & O'Brien (Äöß 😀)! [0]",
+        "p%d & O'Brien (Äöß 😀)! [0]/nested",
+        "p0 & O'Brien (Äöß 😀)! [0]",
+        "Quality comparison",
+        "Same stem collision",
+        "z duplicate"
+      ],
+      "empty_source_mirrors_preserved": [
+        "empty[1]%d"
+      ],
+      "owned_work_empty": true,
+      "converted": [
+        {
+          "source": "Quality comparison/already-lossy-jpeg.jpg",
+          "output": "Quality comparison/already-lossy-jpeg.jpeg",
+          "sha256": "93d1894a3679ca4560e090995301eeb044ebcf7b59816e4b7302d35aa0cfea0a",
+          "bytes": 916662,
+          "timestamps_match_source": true,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Quality comparison/hard-edges-detail.png",
+          "output": "Quality comparison/hard-edges-detail.jpeg",
+          "sha256": "62ab288b89cdcd268db6b19b54074f66fdbe03791784e0955a3e8bc21af58946",
+          "bytes": 903155,
+          "timestamps_match_source": true,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Quality comparison/seeded-noise.png",
+          "output": "Quality comparison/seeded-noise.jpeg",
+          "sha256": "4016bcfaf0ca31b9267633f0a7921db40cae0b4c8eea946bec7b19bdf795e497",
+          "bytes": 1015369,
+          "timestamps_match_source": true,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Quality comparison/smooth-landscape.png",
+          "output": "Quality comparison/smooth-landscape.jpeg",
+          "sha256": "5b7b9992e70a030378764a7ea4272752ff9e1120b1f56801c5ebda3652a48ca7",
+          "bytes": 278605,
+          "timestamps_match_source": true,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Quality comparison/smooth-portrait.png",
+          "output": "Quality comparison/smooth-portrait.jpeg",
+          "sha256": "37f3af53033aeef73afe44bf0b4aba5965a6a5bfecd192f59b468f751eb19b47",
+          "bytes": 264584,
+          "timestamps_match_source": true,
+          "width": 1200,
+          "height": 1600,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Same stem collision/photo.bmp",
+          "output": "Same stem collision/photo__bmp__2.jpeg",
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "bytes": 594,
+          "timestamps_match_source": true,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "NumericSuffix",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Same stem collision/photo.jpg",
+          "output": "Same stem collision/photo__jpg.jpeg",
+          "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+          "bytes": 604,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "ExtensionSuffix",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Same stem collision/photo__bmp.bmp",
+          "output": "Same stem collision/photo__bmp.jpeg",
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "bytes": 594,
+          "timestamps_match_source": true,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "noise[%d].png",
+          "output": "noise[%d].jpeg",
+          "sha256": "52361e1e9f4a7e601ed695c36c86b70e9247825f9fac95c002f9ba047261ffbd",
+          "bytes": 978338,
+          "timestamps_match_source": true,
+          "width": 1280,
+          "height": 960,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.png",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.jpeg",
+          "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+          "bytes": 630,
+          "timestamps_match_source": true,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": false,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].webp",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].jpeg",
+          "sha256": "dc527a67436aef4578b6c8498e818d7d96d9302c303dc3dcf4fae852848ea1f7",
+          "bytes": 1313,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].tiff",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].jpeg",
+          "sha256": "66911209e13db42f398f896acc61351849e267d610c00899334ee0cc4eb7748c",
+          "bytes": 629,
+          "timestamps_match_source": true,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.gif",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.jpeg",
+          "sha256": "88d0112d09bc7c34e29634bb294abc7600c41a39a6e0372610581c0610a06cc0",
+          "bytes": 1198,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpg",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpeg",
+          "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+          "bytes": 604,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].tiff",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].jpeg",
+          "sha256": "8a99b59f4c9676799d7fa5055d0ea70b4b1badb4903846f06b9754eadec2edad",
+          "bytes": 619,
+          "timestamps_match_source": true,
+          "width": 48,
+          "height": 80,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.heic",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.jpeg",
+          "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+          "bytes": 604,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.heif",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.jpeg",
+          "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+          "bytes": 604,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "sha256": "0c5ab8c5e5b1cf3e73e2494631ba9b0d1300be2f69c8788809137f4a411d4f37",
+          "bytes": 639,
+          "timestamps_match_source": true,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "output": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "sha256": "2ff3ee1d6a996a49c6f9218b4a5ac0700c3ef678ef308be2f61e2a64f74782c6",
+          "bytes": 594,
+          "timestamps_match_source": true,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "portrait[0]%.bmp",
+          "output": "portrait[0]%.jpeg",
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "bytes": 594,
+          "timestamps_match_source": true,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        }
+      ],
+      "videos": [
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+          "sha256": "e447ef50c269fcef0545fc63f1d9a3af0a473ffd0fc43022d17b956535c7325a",
+          "bytes": 65537,
+          "timestamps_match_source": true,
+          "byte_identical": true
+        }
+      ],
+      "collision_mapping_verified": true,
+      "duplicate": {
+        "source": "z duplicate/wide[0]%.png",
+        "retained_source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+        "retained_output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+        "retained_status": "Converted",
+        "skipped_output_absent": true
+      },
+      "alpha_reference": {
+        "points": [
+          [
+            32,
+            24
+          ],
+          [
+            96,
+            24
+          ],
+          [
+            32,
+            72
+          ],
+          [
+            96,
+            72
+          ]
+        ],
+        "actual_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            127,
+            212,
+            170
+          ],
+          [
+            212,
+            98,
+            131
+          ],
+          [
+            129,
+            129,
+            129
+          ]
+        ],
+        "independent_expected_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            127,
+            213,
+            169
+          ],
+          [
+            212,
+            98,
+            132
+          ],
+          [
+            129,
+            129,
+            129
+          ]
+        ],
+        "max_channel_error": 1,
+        "jpeg_tolerance": 12,
+        "passes": true
+      },
+      "owner_comparison": {
+        "unchanged_jpeg_hashes": 19,
+        "changed_corrected_alpha": 1
+      },
+      "invocation": [
+        "<selected-desktop-shell>",
+        "-NoLogo",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<owned-driver>",
+        "-Repository",
+        "<repair-checkout>",
+        "-Source",
+        "<approved-24-file-source>",
+        "-OutputParent",
+        "<owned-output-parent>",
+        "-RecordFile",
+        "<owned-raw-report>",
+        "-MagickPath",
+        "<verified-installed-HDRI>",
+        "-TemporaryRoot",
+        "<owned-scratch>",
+        "-Label",
+        "ps51"
+      ]
+    },
+    {
+      "label": "ps7",
+      "shell": "7.6.5",
+      "edition": "Core",
+      "native_command_exit": 0,
+      "application_exit": 0,
+      "started_utc": "2026-10-06T14:14:37.0172441Z",
+      "finished_utc": "2026-10-06T14:15:10.3875446Z",
+      "raw_report": {
+        "path": ".scratch/M3-T07-fixed-media-f7c66b56/ps7.json",
+        "sha256": "ae876c8b648e33a6539ba4ee2f4bbf0f5b7412f1a0892b767539a3cfa9004421"
+      },
+      "raw_console": {
+        "path": ".scratch/M3-T07-fixed-media-f7c66b56/ps7.console.txt",
+        "sha256": "8f5514433f568237849040eaf67b6ab3d1af77901a64889ec6aea744d855dadd"
+      },
+      "report_sha256": {
+        "log": "80446c995fc319e0c427a15bdaf82707d94d280d6e216d1f13f51682598084a1",
+        "csv": "6b65734db018608cdac9fbc13b231516913762ed425aac8bf716c72508b75dc2"
+      },
+      "version_from_actual_run_log": "ImageMagick 7.1.2-32 Q16-HDRI x64 ad98b24:20260927 https://imagemagick.org",
+      "counts": {
+        "Discovered": 24,
+        "Converted": 20,
+        "CopiedVideo": 1,
+        "SkippedDuplicate": 1,
+        "Ignored": 2,
+        "Error": 0,
+        "Cancelled": 0,
+        "NotStarted": 0
+      },
+      "warning_counts": {
+        "SizeWarnings": 0,
+        "NativeWarnings": 0,
+        "TimestampWarnings": 0,
+        "AncillaryWarnings": 0,
+        "FramesOmitted": 5
+      },
+      "accounting": "Discovered=24 Converted=20 CopiedVideo=1 SkippedDuplicate=1 Ignored=2 Error=0 Cancelled=0 NotStarted=0 Balanced=True ScanComplete=True IncompleteDirectories=0 UninspectableEntries=0 SkippedLinks=0 ImageInputBytes=7762456 ImageOutputBytes=4366533 ImageSavingsBytes=3395923 VideoBytes=65537 ElapsedSeconds=33.120 FinalizedFilesPerSecond=0.634 ReportWarnings=0 ReportComplete=True ProgressWarnings=0 ImageSavingsPercent=43.748 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0 AncillaryWarnings=0 FramesOmitted=5 ConsoleWarnings=0 ProcessingWarnings=False",
+      "source_state_matches_retained_snapshot": true,
+      "source_preserved": true,
+      "persistent_policy_unchanged": true,
+      "full_jpeg_decodes": 20,
+      "media_creation_and_write_timestamps_match_sources": 21,
+      "mirrors": [
+        ".",
+        "empty[1]%d",
+        "p%d & O'Brien (Äöß 😀)! [0]",
+        "p%d & O'Brien (Äöß 😀)! [0]/nested",
+        "p0 & O'Brien (Äöß 😀)! [0]",
+        "Quality comparison",
+        "Same stem collision",
+        "z duplicate"
+      ],
+      "empty_source_mirrors_preserved": [
+        "empty[1]%d"
+      ],
+      "owned_work_empty": true,
+      "converted": [
+        {
+          "source": "Quality comparison/already-lossy-jpeg.jpg",
+          "output": "Quality comparison/already-lossy-jpeg.jpeg",
+          "sha256": "93d1894a3679ca4560e090995301eeb044ebcf7b59816e4b7302d35aa0cfea0a",
+          "bytes": 916662,
+          "timestamps_match_source": true,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Quality comparison/hard-edges-detail.png",
+          "output": "Quality comparison/hard-edges-detail.jpeg",
+          "sha256": "62ab288b89cdcd268db6b19b54074f66fdbe03791784e0955a3e8bc21af58946",
+          "bytes": 903155,
+          "timestamps_match_source": true,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Quality comparison/seeded-noise.png",
+          "output": "Quality comparison/seeded-noise.jpeg",
+          "sha256": "4016bcfaf0ca31b9267633f0a7921db40cae0b4c8eea946bec7b19bdf795e497",
+          "bytes": 1015369,
+          "timestamps_match_source": true,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Quality comparison/smooth-landscape.png",
+          "output": "Quality comparison/smooth-landscape.jpeg",
+          "sha256": "5b7b9992e70a030378764a7ea4272752ff9e1120b1f56801c5ebda3652a48ca7",
+          "bytes": 278605,
+          "timestamps_match_source": true,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Quality comparison/smooth-portrait.png",
+          "output": "Quality comparison/smooth-portrait.jpeg",
+          "sha256": "37f3af53033aeef73afe44bf0b4aba5965a6a5bfecd192f59b468f751eb19b47",
+          "bytes": 264584,
+          "timestamps_match_source": true,
+          "width": 1200,
+          "height": 1600,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Same stem collision/photo.bmp",
+          "output": "Same stem collision/photo__bmp__2.jpeg",
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "bytes": 594,
+          "timestamps_match_source": true,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "NumericSuffix",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Same stem collision/photo.jpg",
+          "output": "Same stem collision/photo__jpg.jpeg",
+          "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+          "bytes": 604,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "ExtensionSuffix",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "Same stem collision/photo__bmp.bmp",
+          "output": "Same stem collision/photo__bmp.jpeg",
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "bytes": 594,
+          "timestamps_match_source": true,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "noise[%d].png",
+          "output": "noise[%d].jpeg",
+          "sha256": "52361e1e9f4a7e601ed695c36c86b70e9247825f9fac95c002f9ba047261ffbd",
+          "bytes": 978338,
+          "timestamps_match_source": true,
+          "width": 1280,
+          "height": 960,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.png",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.jpeg",
+          "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+          "bytes": 630,
+          "timestamps_match_source": true,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": false,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].webp",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].jpeg",
+          "sha256": "dc527a67436aef4578b6c8498e818d7d96d9302c303dc3dcf4fae852848ea1f7",
+          "bytes": 1313,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].tiff",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].jpeg",
+          "sha256": "66911209e13db42f398f896acc61351849e267d610c00899334ee0cc4eb7748c",
+          "bytes": 629,
+          "timestamps_match_source": true,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.gif",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.jpeg",
+          "sha256": "88d0112d09bc7c34e29634bb294abc7600c41a39a6e0372610581c0610a06cc0",
+          "bytes": 1198,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpg",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpeg",
+          "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+          "bytes": 604,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].tiff",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].jpeg",
+          "sha256": "8a99b59f4c9676799d7fa5055d0ea70b4b1badb4903846f06b9754eadec2edad",
+          "bytes": 619,
+          "timestamps_match_source": true,
+          "width": 48,
+          "height": 80,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.heic",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.jpeg",
+          "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+          "bytes": 604,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.heif",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.jpeg",
+          "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+          "bytes": 604,
+          "timestamps_match_source": true,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "frames_omitted": 1,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "sha256": "0c5ab8c5e5b1cf3e73e2494631ba9b0d1300be2f69c8788809137f4a411d4f37",
+          "bytes": 639,
+          "timestamps_match_source": true,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "output": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "sha256": "2ff3ee1d6a996a49c6f9218b4a5ac0700c3ef678ef308be2f61e2a64f74782c6",
+          "bytes": 594,
+          "timestamps_match_source": true,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        },
+        {
+          "source": "portrait[0]%.bmp",
+          "output": "portrait[0]%.jpeg",
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "bytes": 594,
+          "timestamps_match_source": true,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "frames_omitted": 0,
+          "naming_reason": "Legacy",
+          "same_bytes_as_actual_owner_before_fix": true,
+          "same_bytes_as_portable_preparation": true,
+          "metadata_absent": true
+        }
+      ],
+      "videos": [
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+          "sha256": "e447ef50c269fcef0545fc63f1d9a3af0a473ffd0fc43022d17b956535c7325a",
+          "bytes": 65537,
+          "timestamps_match_source": true,
+          "byte_identical": true
+        }
+      ],
+      "collision_mapping_verified": true,
+      "duplicate": {
+        "source": "z duplicate/wide[0]%.png",
+        "retained_source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+        "retained_output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+        "retained_status": "Converted",
+        "skipped_output_absent": true
+      },
+      "alpha_reference": {
+        "points": [
+          [
+            32,
+            24
+          ],
+          [
+            96,
+            24
+          ],
+          [
+            32,
+            72
+          ],
+          [
+            96,
+            72
+          ]
+        ],
+        "actual_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            127,
+            212,
+            170
+          ],
+          [
+            212,
+            98,
+            131
+          ],
+          [
+            129,
+            129,
+            129
+          ]
+        ],
+        "independent_expected_rgb": [
+          [
+            255,
+            255,
+            255
+          ],
+          [
+            127,
+            213,
+            169
+          ],
+          [
+            212,
+            98,
+            132
+          ],
+          [
+            129,
+            129,
+            129
+          ]
+        ],
+        "max_channel_error": 1,
+        "jpeg_tolerance": 12,
+        "passes": true
+      },
+      "owner_comparison": {
+        "unchanged_jpeg_hashes": 19,
+        "changed_corrected_alpha": 1
+      },
+      "invocation": [
+        "<selected-desktop-shell>",
+        "-NoLogo",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<owned-driver>",
+        "-Repository",
+        "<repair-checkout>",
+        "-Source",
+        "<approved-24-file-source>",
+        "-OutputParent",
+        "<owned-output-parent>",
+        "-RecordFile",
+        "<owned-raw-report>",
+        "-MagickPath",
+        "<verified-installed-HDRI>",
+        "-TemporaryRoot",
+        "<owned-scratch>",
+        "-Label",
+        "ps7"
+      ]
+    }
+  ],
+  "cross_host_jpeg_and_video_byte_equality": true,
+  "recheck_packet": {
+    "task_id": "M3-T07",
+    "repair_implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+    "created_utc": "2026-10-06T14:17:59.890606+00:00",
+    "source_folder": "Colour recheck",
+    "source_files": [
+      {
+        "path": "Transparency.png",
+        "sha256": "2de1c0e1e134e0e98e0315c13084af5825e845df63d27703ccf8e0b4a64299b6",
+        "bytes": 919,
+        "privacy": "synthetic",
+        "provenance": "Exact original approved M3-T07 alpha fixture; byte copy, no raster/profile/metadata edit"
+      }
+    ],
+    "launchers": [
+      {
+        "path": "Launcher/WinImgNormalizer.ps1",
+        "sha256": "c8d94e9f4075e7b09dde7629e7e49e6d3d3f518c9d654253b213566a1c616189"
+      },
+      {
+        "path": "Launcher/WinImgNormalizer.bat",
+        "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+      }
+    ],
+    "owner_approval": "awaiting_owner",
+    "purpose": "One-image guided owner colour recheck after repair gates",
+    "expected_white_composite_rgb": [
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        127,
+        213,
+        169
+      ],
+      [
+        212,
+        98,
+        132
+      ],
+      [
+        129,
+        129,
+        129
+      ]
+    ],
+    "reference_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+  },
+  "artifact_driver": {
+    "path": ".scratch/M3-T07-check-repair-artifacts.py",
+    "sha256": "8cd309beacb88589cf267d3e749b6a82d5f103196a7a3f9dee471b0764bdf64b"
+  },
+  "command_driver": {
+    "path": ".scratch/M3-T07-fixed-media-f7c66b56/Run.ps1",
+    "sha256": "fc33c06cd2bce47cdd4aed42b925b548406d318f049725e3d84fbb6bff805b15"
+  },
+  "limitations": [
+    "Automated Command invocation with injected disposable destination and explicit installed magick; physical BAT gesture, actual Pictures selection and native BAT exit are not this run.",
+    "Native conversion probes do not grant subjective workflow/appearance acceptance; T067 remains incomplete pending owner named-commit consent.",
+    "Fresh recheck source contains one image; full mandatory gates and hosted CI are root-managed separate evidence."
+  ],
+  "owner_approval": {
+    "state": "awaiting_owner",
+    "approved_commit": null,
+    "actor": null
+  },
+  "verification_resume": {
+    "initial_checker_failure": "CSV escaped path separators and surrogate pairs required reversible safe-cell decoding; initial KeyError and resumed FileNotFoundError were verifier errors after both native commands returned zero; no app/runtime failure",
+    "initial_driver": {
+      "path": ".scratch/M3-T07-fixed-media-f7c66b56/initial-verifier.py",
+      "sha256": "51419c5ded94615a40185aa59302b677c104789ed3e98236f5c3aa00d477a443"
+    },
+    "resume_driver": {
+      "path": ".scratch/M3-T07-resume-repair-verification.py",
+      "sha256": "ce89f20f9de33785f63dbcd8a5425180eb73a6bcda15a79c93688e2b0a097be2"
+    },
+    "native_exit_qualification": "Both actual subprocess returncodes were checked zero by the initial orchestration before the independent checker failed; successful finalized native artifacts were reused without replay."
+  }
+}
