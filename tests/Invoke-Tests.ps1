@@ -25,6 +25,10 @@ function Get-TestSourceBindings {
         $files += @(Get-ChildItem -LiteralPath $colourFixtureRoot -Recurse -File -Force | ForEach-Object { $_.FullName })
         # Bind the procedural size/quality measurement recipe with the gate.
         $files += Join-Path $PSScriptRoot 'Measure-SizeQuality.ps1'
+        # Release derivation assertions bind both inputs and checked-in outputs.
+        foreach ($releaseFile in @('tools/release/Update-ReleaseMetadata.ps1','docs/release/NOTES.md','CHANGELOG.md','release-metadata.json','README.md','LICENSE','.gitattributes')) {
+            $files += Join-Path $repositoryRoot $releaseFile
+        }
         $files += Join-Path $PSScriptRoot 'fixtures/LauncherConsoleFixture.cs'
         foreach ($testPath in $SelectedPaths) {
             if (Test-Path -LiteralPath $testPath -PathType Container) {

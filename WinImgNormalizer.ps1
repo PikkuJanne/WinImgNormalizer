@@ -86,6 +86,16 @@ LICENSE / WARRANTY
 #>
 
 
+# The sole application version source also drives development release metadata.
+# Keep it inside the script so the familiar two-file distribution stays portable.
+function Get-WinImgVersion {
+  return '1.0.0'
+}
+
+function Get-WinImgUsage {
+  return ('WinImgNormalizer {0}{1}Usage: WinImgNormalizer.ps1 <sourceFolder> [maxBytes] (one folder only)' -f (Get-WinImgVersion), [Environment]::NewLine)
+}
+
 # Preflight helpers never create a run directory. Keep roots absolute, including
 # their separator: C:\ is a root, while C: means the drive's current directory.
 function Normalize-WinImgRootPath {
@@ -1552,7 +1562,7 @@ function New-WinImgRunLogFile {
 function Initialize-WinImgRunLog {
   param([object]$State)
   try {
-    New-WinImgRunLogFile -Path $State.Path -Header ("WinImgNormalizer started $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')")
+    New-WinImgRunLogFile -Path $State.Path -Header ('WinImgNormalizer {0} started {1}' -f (Get-WinImgVersion), (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'))
     $State.DiskEnabled = $true
   } catch [Management.Automation.PipelineStoppedException] {
     Write-WinImgEmergencyReport 'Reporting interrupted while opening the run log.'; throw
@@ -2411,7 +2421,7 @@ function Invoke-WinImgNormalizerCommand {
   $Source = $null
   $MaxBytes = 1MB
   if (@($Arguments).Count -lt 1 -or @($Arguments).Count -gt 2) {
-    Write-Host 'Usage: WinImgNormalizer.ps1 <sourceFolder> [maxBytes] (one folder only)' -ForegroundColor Red
+    Write-Host (Get-WinImgUsage) -ForegroundColor Red
     return 1
   }
   $Source = $Arguments[0]

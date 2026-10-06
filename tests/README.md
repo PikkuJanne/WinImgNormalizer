@@ -1,4 +1,4 @@
-# Windows checks (through M3-T06)
+# Windows checks (through M4-T01)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -49,10 +49,11 @@ The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `ConversionRegression.Tests.ps1`, `RecoveryReporting.Tests.ps1`,
 `NativeLifetime.Tests.ps1`, `Cancellation.Tests.ps1`, `Reporting.Tests.ps1`,
 `Launcher.Tests.ps1`, `ExitContract.Tests.ps1`, `Compatibility.Tests.ps1`,
-`CodecCompatibility.Tests.ps1`, `StaticAnalysis.Tests.ps1`, and `WorkflowSecurity.Tests.ps1`.
+`CodecCompatibility.Tests.ps1`, `StaticAnalysis.Tests.ps1`, `WorkflowSecurity.Tests.ps1`,
+and `Versioning.Tests.ps1`.
 `mandatory-tests.json` is the reviewed inventory: absent or unregistered top-level
 suites fail the default gate. Every required suite must discover nonzero tests;
-T005-T066 (except separate T007 control) must appear in actually passed test paths.
+T005-T066 (except separate T007 control) and T068 must appear in actually passed test paths.
 T001-T004 remain historical characterization. Explicit `-Path` runs are marked
 focused and cannot stand in for mandatory acceptance. Ten exact real codec test
 outcomes must pass, including the existing T031 HEIC/HEIF collection tests. Compiled
@@ -82,10 +83,18 @@ in `docs/codex-winimg/evidence/M0-T03.json`; Server CI does not prove desktop la
 or interruption behavior. M3-T06 records exact Windows Server 2025 image/OS, host,
 commit, dependency hashes and counts separately from local desktop automation.
 
+T068 runs actual no-argument help and a synthetic video normalization, then checks
+the log, generated changelog and draft package metadata against the script's sole
+version source. A disposable source-version change regenerates both outputs;
+stale-output rejection and repeat generation verify drift detection and exact
+bytes. These tests create no ZIP, Git tag or public release. The generator and
+its template/derived files, README and LICENSE are included in source bindings.
+
 Static analysis uses verified PSScriptAnalyzer 1.25.0 and the explicit security,
 defect and Windows PowerShell 5.1/PowerShell 7 syntax rules in
 `PSScriptAnalyzerSettings.psd1`. It scans the application and maintained top-level
-test infrastructure scripts; Pester DSL bodies, legacy reproduction and vendor
+test infrastructure scripts plus the development release-metadata generator;
+Pester DSL bodies, legacy reproduction and vendor
 code are outside that scope. Every diagnostic and empty scope fails. The sole
 production cleanup renames a local variable that shadowed automatic `$Error`.
 `Invoke-StaticAnalysis.ps1 -DeliberateFailure` analyzes an unsafe expression as text,

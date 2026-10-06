@@ -167,6 +167,47 @@ exit $exitCode
 }
 
 Describe 'T066 synthetic evidence export privacy and containment' {
+    It 'exports both maintained gate types with exact public release bindings and excludes their private source paths' {
+        $directory=Join-Path $owned 'release-bindings-input'; [IO.Directory]::CreateDirectory($directory) | Out-Null
+        $privateText='DO-NOT-UPLOAD-C:\Users\private-owner\checkout'
+        $publicPaths=@('tools/release/Update-ReleaseMetadata.ps1','docs/release/NOTES.md','CHANGELOG.md',
+            'release-metadata.json','README.md','LICENSE','.gitattributes')
+        $bindings=@(foreach ($relative in $publicPaths) {
+            [pscustomobject]@{relative_path=$relative;path=$privateText;sha256=(Get-FileHash -LiteralPath (Join-Path $repository $relative)).Hash.ToLowerInvariant()}
+        })
+        $summary=@{tested_commit=('a'*40);source_sha256=$bindings;exit_code=0;result='passed'}
+        foreach ($name in @('summary.json','static-analysis-summary.json')) {
+            $summary | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $directory $name) -Encoding UTF8
+        }
+        $output=Join-Path $owned 'release-bindings-output'
+        & (Join-Path $PSScriptRoot 'Export-TestEvidence.ps1') -ResultDirectories @($directory) -StaticAnalysisDirectories @($directory) -OutputDirectory $output
+        foreach ($name in @('test-evidence.json','static-analysis-evidence.json')) {
+            $text=Get-Content -LiteralPath (Join-Path $output $name) -Raw -Encoding UTF8
+            $text | Should -Not -Match 'DO-NOT-UPLOAD|private-owner'
+            $data=$text | ConvertFrom-Json
+            $data.runs.Count | Should -Be 1
+            $data.runs[0].status | Should -Be 'passed'
+            $data.runs[0].source_sha256.Count | Should -Be $publicPaths.Count
+            foreach ($binding in $bindings) {
+                $exported=@($data.runs[0].source_sha256 | Where-Object { $_.path -ceq $binding.relative_path })
+                $exported.Count | Should -Be 1
+                $exported[0].sha256 | Should -Be $binding.sha256
+                @($exported[0].PSObject.Properties.Name | Sort-Object) -join '|' | Should -Be 'path|sha256'
+            }
+        }
+    }
+    It 'refuses nearby nonallowlisted release source <Relative>' -ForEach @(
+        @{Relative='docs/release/private-notes.md'}, @{Relative='docs/codex-winimg/SESSION_LOG.md'},
+        @{Relative='tools/release/private-command.ps1'}, @{Relative='README.md.private'},
+        @{Relative='CHANGELOG.md.bak'}, @{Relative='docs/release/../release/NOTES.md'}
+    ) {
+        $directory=Join-Path $owned ('nonallowlisted-source-' + [guid]::NewGuid().ToString('N'))
+        [IO.Directory]::CreateDirectory($directory) | Out-Null
+        @{tested_commit=('a'*40);source_sha256=@(@{relative_path=$Relative;sha256=('a'*64)})} | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $directory 'summary.json') -Encoding UTF8
+        $output=Join-Path $directory 'output'
+        { & (Join-Path $PSScriptRoot 'Export-TestEvidence.ps1') -ResultDirectories @($directory) -OutputDirectory $output } | Should -Throw '*Unsafe evidence source binding*'
+        Test-Path -LiteralPath $output | Should -BeFalse
+    }
     It 'rejects a nested <Field> list entry containing an otherwise allowed identifier and private text' -ForEach @(
         @{Field='passed_case_ids';Allowed='T064';Analysis=$false},
         @{Field='required_case_ids';Allowed='T064';Analysis=$false},

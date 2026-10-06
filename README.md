@@ -6,10 +6,36 @@ Recursively mirror a source folder under Pictures, convert images to JPEG (1 MiB
 Drag-&-drop workflow: I drop a folder onto the .bat and find the normalized copy in Pictures.
 
 **Requirements**
-Windows 10/11
-PowerShell (Windows PowerShell 5.1+ or PowerShell 7)
+64-bit Windows 10/11
+PowerShell (Windows PowerShell 5.1 or PowerShell 7)
 ImageMagick 7.1.2-32 or newer supported 7.x build (magick.exe) in PATH
 (Optional) The included .bat wrapper for drag-and-drop
+
+Supported hosts and actually tested hosts are distinct. Desktop regression tests
+ran on Windows 11 Pro build 26300 with Windows PowerShell 5.1.26100.9444 and
+PowerShell 7.6.5. Hosted CI ran on Windows Server 2025 Datacenter 10.0.26100 with
+Windows PowerShell 5.1.26100.33438 and PowerShell 7.6.6. Maintained full gates use
+portable ImageMagick 7.1.2-32 Q16 x64; the installed Q16-HDRI build of the same
+version has separate colour and owner workflow checks. Windows 10 has not been
+tested. Installed codec availability and policy still determine which files work.
+
+**Version and release status**
+The first managed application version is **unreleased**. See [CHANGELOG.md](CHANGELOG.md)
+for its version, fixes, safeguards, tested environments and limitations, and
+[release-metadata.json](release-metadata.json) for machine-readable draft metadata.
+No public tag, release date or downloadable package is established by these files.
+
+`Get-WinImgVersion` in `WinImgNormalizer.ps1` is the single application version
+source used by usage text and run logs. Maintainers regenerate the changelog header
+and release metadata from that source and [the release prose](docs/release/NOTES.md):
+
+```powershell
+.\tools\release\Update-ReleaseMetadata.ps1
+.\tools\release\Update-ReleaseMetadata.ps1 -Check
+```
+
+The check returns failure when generated files are stale. Neither command creates
+a tag, publishes a release or builds a download package.
 
 **Installation**
 Install a supported ImageMagick build for Windows and ensure magick.exe is in PATH
