@@ -3849,5 +3849,13 @@
     "Full maintained gates retain portable Q16 pin. Installed-HDRI colour coverage is separately hash/version bound; zero-test pin-rejection attempts remain infrastructure failures.",
     "Old preparation, actual owner smoke and diagnosis remain dated pre-fix evidence; no prior output or owner statement was relabeled repaired/approved.",
     "No new default, launcher or independent fixture/reference/tolerance change. Live UNC remains owner-excluded. Owner acceptance, merge/release/settings/deployment remain separate."
-  ]
+  ],
+  "owner_acceptance_follow_up": {
+    "recorded_utc": "2026-10-06T14:53:37.885959+00:00",
+    "decision": "D37",
+    "approved_implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+    "state": "accepted",
+    "evidence": "evidence/M3-T07-acceptance.json",
+    "qualification": "Existing preparation/repair pending fields are dated earlier observations; the owner now explicitly accepted the named repaired workflow and appearance after a proven fixed-launcher run."
+  }
 }

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "PikkuJanne/WinImgNormalizer",
   "baseline_commit": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
-  "next_task": "M3-T07",
+  "next_task": "M4-T01",
   "state_semantics": "done = task acceptance verified; remote synchronization and CI are separate observations. Owner-gate tasks cannot be done without owner evidence.",
   "allowed_states": [
     "pending",
@@ -868,16 +868,18 @@
       "depends_on": [
         "M3-T06"
       ],
-      "state": "awaiting_owner",
+      "state": "done",
       "evidence": [
         "evidence/M3-T07.json",
         "evidence/M3-T07-owner-smoke.json",
         "evidence/M3-T07-hdri-diagnosis.json",
         "evidence/M3-T07-repair.json",
         "evidence/M3-T07-repair-artifacts.json",
-        "evidence/M3-T07-repair-ci.json"
+        "evidence/M3-T07-repair-ci.json",
+        "evidence/M3-T07-recheck-old-launcher.json",
+        "evidence/M3-T07-recheck-fixed-launcher.json",
+        "evidence/M3-T07-acceptance.json"
       ],
-      "blocked_reason": "D36 bounded HDRI repair passed full portable PS5.1/PS7 gates/controls/analyzer, separately verified installed-HDRI colour runs and CI at 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad. Fresh one-image owner recheck and explicit named-commit acceptance remain pending.",
       "card": "tasks/M3-T07.md"
     },
     {

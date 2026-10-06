@@ -1,4 +1,4 @@
-# M3-T07 owner review — awaiting_owner
+# M3-T07 owner review — accepted
 
 Owner: Janne Vuorela. Prepared: 2026-10-05; guided partial review: 2026-10-06.
 Original review commit: **4618a83cb2aa893aea9d6a1587987612624e1cf7**.
@@ -120,27 +120,33 @@ clamping after sRGB conversion and before white composition fixes this fixture i
 isolated experiments. Application/tests were unchanged during that pre-fix diagnosis; those probes did
 not substitute for the production repair validation recorded below.
 
-## Current short recheck — repaired commit
+## Completed repaired recheck — 2026-10-06
 
-The D36 fix is tested at **5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad**. Full portable
-Windows gates/controls/analyzer and separately verified installed-HDRI colour runs
-passed in both shells; implementation CI and native artifact checks are recorded.
-Corrected alpha maximum reference error is 1, within unchanged tolerance 12. Original
-output and earlier owner responses remain dated; no appearance approval is inferred.
+The first one-image attempt ran the older launcher; live command proof and its exact
+old faulty JPEG are retained in [old-launcher evidence](evidence/M3-T07-recheck-old-launcher.json).
+The guide's two Launcher window titles were unclear. Its area-check Yes supplies no
+repaired appearance consent. A uniquely named **Fixed launcher 5a32fc6** folder then
+provided exact tested copies, and the owner repeated the folder-to-BAT launch.
 
-The fresh packet has literal **Colour recheck** (one original Transparency.png) and
-**Launcher** (exact repaired PS1/unchanged BAT). Its location is supplied in this
-session and ignored .scratch/M3-T07-recheck-location.json; no private path is tracked.
+The owner reported **Completed successfully. Press any key to close.** Live CMD
+proof binds the repaired BAT, adjacent PS1 and approved Colour recheck source.
+[Fixed-run evidence](evidence/M3-T07-recheck-fixed-launcher.json) verifies corrected
+JPEG bytes, full decode, reference error 1 within tolerance 12, stripped metadata,
+balanced 1/1/no warnings, source preservation against its prior snapshot and output
+timestamps. Native conversion 0 is logged; native BAT exit was not captured.
 
-1. Drag **Colour recheck** onto **Launcher/WinImgNormalizer.bat**; report completion.
-2. Open the newest Colour recheck result in actual Pictures and only **Transparency.jpeg**.
-3. Check white upper-left, light green upper-right, pink lower-left and grey lower-right.
-   Then explicitly accept the workflow/appearance at the named tested repair commit,
-   or state the remaining change/unperformed check. The guide supplies one step per reply.
+Final prompt: **Do you accept fixed version 5a32fc6 for the drag-and-drop workflow
+and image appearance?** It followed the instruction to open selected Transparency.jpeg.
 
-Outcome: **awaiting_owner**. T067 **incomplete**. D36 repair authorization is not
-workflow/appearance consent. The objective defect is fixed; fresh owner review and
-explicit named-commit acceptance remain absent. The agent cannot sign for the owner.
+Direct owner response: **Accepted**.
 
-Live network shares remain outside scope (D35); M4, merge, release, website deployment
-and future default changes retain their own boundaries.
+Outcome: **accepted**. Approved implementation:
+**5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad**. **T067 passed; M3-T07 done.**
+[Acceptance evidence](evidence/M3-T07-acceptance.json) records the exact prompt/reply,
+agent observation time and scope. Earlier observations remain dated; not every
+original comparison image was individually visually reviewed, and no independent
+screenshot/image-opening gesture is claimed.
+
+This acceptance covers the named familiar workflow and image appearance. Existing
+defaults remain; future tuning and publication operations retain their own approvals.
+Live network shares remain owner-excluded D35. The next task remains unstarted.

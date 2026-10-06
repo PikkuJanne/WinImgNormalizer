@@ -1,14 +1,15 @@
 # Project status
 
-Updated: 2026-10-06 — D36 HDRI repair validated; short owner recheck pending.
+Updated: 2026-10-06 — M3-T07 owner acceptance recorded after verified D36 repair.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
 Tested repair implementation: 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad
-Current task: **M3-T07 — Obtain owner acceptance after D36 repair (awaiting_owner)**
-Task progress: **21 / 28 accepted**
-Specified cases: **T001-T066 previously exercised (66 / 75); T067 partly exercised, blocked**
+Completed task: **M3-T07 — Owner accepted repaired workflow and appearance (done)**
+Next intended task: **M4-T01 (pending; not started)**
+Task progress: **22 / 28 accepted**
+Specified cases: **T001-T067 exercised (67 / 75); T067 owner acceptance passed**
 Pester suite: **469/469 passed in each desktop shell, zero skipped; installed-HDRI colour 26/26 each**
 Failure controls: **470 total, 469 passed, one intended failure; native exit 1**
 CI: **implementation push/PR Windows matrices passed, including both controls**
@@ -136,10 +137,32 @@ jobs, exported counts/controls, actual codec results, provenance and privacy. CI
 does not provide owner consent. This containing record checkpoint has unchanged
 runtime/tests and requires post-commit live synchronization observation.
 
-A fresh one-image `Colour recheck` packet contains exact repaired launcher copies
-and approved original alpha bytes; location is in ignored .scratch/M3-T07-recheck-location.json.
-Prepare the familiar folder-to-BAT launch and inspect only Transparency.jpeg for
-the short recheck. The owner still must explicitly accept workflow/appearance at
-the tested repair commit. **M3-T07 awaiting_owner, T067 incomplete, 21/28 accepted**;
-no M4, merge or release work. The objective colour defect is fixed; the owner gate
-remains pending.
+## Completed repaired owner recheck and acceptance
+
+The first one-image attempt used the older launcher: the live paused CMD command
+proves the original packet BAT ran on the new Colour recheck source. Its green
+error 127 and plausible visual Yes remain dated [old-launcher evidence](evidence/M3-T07-recheck-old-launcher.json).
+The two Launcher window titles were insufficiently clear; this is not a repair regression.
+
+A distinct **Fixed launcher 5a32fc6** folder holds exact tested copies. The repeated
+owner launch reports completion/pause and its live command binds that fixed BAT,
+adjacent PS1 and approved source. [Fixed-run readback](evidence/M3-T07-recheck-fixed-launcher.json)
+fully decodes the one JPEG, matches repaired automated bytes, verifies reference
+error 1 within tolerance 12, metadata removal, balanced 1/1/no warnings and preserved
+source bytes/times/attributes against the preceding snapshot. Output timestamps match.
+Native conversion 0 is logged; native BAT exit remains independently uncaptured.
+
+The owner directly replied **Accepted** to “Do you accept fixed version 5a32fc6 for
+the drag-and-drop workflow and image appearance?”.
+[Acceptance record](evidence/M3-T07-acceptance.json) binds the exact prompt/reply to
+**5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad**. No earlier area Yes supplies this consent.
+Not all original comparison images were individually visually reviewed; their
+existing automated checks and earlier visual statements remain separate.
+
+**M3-T07 done; T067 passed; 22/28 accepted; 67/75 specified cases exercised.**
+M4-T01 is the next intended task and remains pending. Preceding record checkpoint
+c268e392956b4b1c229e68f184cd2dd436e56d23 has unchanged runtime/tests/workflow and
+independently observed successful push/PR CI metadata (37479656551/37479662600).
+Detailed implementation artifact verification remains separately bound to 5a32.
+This containing acceptance checkpoint still requires its post-commit synchronization
+observation. No further task or publication work was started.

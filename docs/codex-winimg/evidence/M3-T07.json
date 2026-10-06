@@ -1244,5 +1244,13 @@
     "implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
     "evidence": "evidence/M3-T07-repair.json",
     "qualification": "Earlier preparation and defect observations remain dated. Requested bounded repair is validated; fresh owner recheck and named-commit approval are pending."
+  },
+  "owner_acceptance_follow_up": {
+    "recorded_utc": "2026-10-06T14:53:37.885959+00:00",
+    "decision": "D37",
+    "approved_implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+    "state": "accepted",
+    "evidence": "evidence/M3-T07-acceptance.json",
+    "qualification": "Existing preparation/repair pending fields are dated earlier observations; the owner now explicitly accepted the named repaired workflow and appearance after a proven fixed-launcher run."
   }
 }

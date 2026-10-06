@@ -2502,3 +2502,40 @@ guided folder-to-BAT/Transparency.jpeg recheck and explicit acceptance at 5a32fc
 Record-only plan/privacy/source/diff checks, scoped commit/push and independent
 remote observation follow; containing SHA is reported externally. No M4, merge,
 release, settings or deployment work.
+
+
+## 2026-10-06 — M3-T07 owner acceptance complete (D37)
+
+At 2026-10-06T14:53:37.885959+00:00, recorded the direct owner reply Accepted to the final question
+explicitly naming repaired version 5a32fc6 for drag-and-drop workflow and image
+appearance. Approval binds implementation 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad; the
+agent did not supply consent. M3-T07 done, T067 passed, 22/28 tasks accepted and
+T001-T067 exercised (67/75). M4-T01 remains pending and was not started.
+
+The first one-image launch used the older original BAT/PS1, proven by paused CMD
+command and exact old faulty JPEG/error 127. The guide did not distinguish two
+Launcher windows clearly. Preserve that completion/area Yes and objective failure
+as old-launcher evidence, not current repair failure or acceptance. A unique
+Fixed launcher 5a32fc6 folder contains exact repaired PS1/unchanged BAT copies.
+The repeated owner launch reports completion/pause and its actual CMD command
+uniquely binds the fixed BAT, adjacent script and approved source. One JPEG matches
+repaired automated SHA f03bf5...df9e: 630 bytes, 128x96 RGB, fully decodes, metadata
+absent, maximum independent reference error 1 within tolerance 12. Reports balance
+1/1 with zero warnings/errors; source bytes/times/attrs match the preceding
+pre-fixed-run snapshot and output timestamps match. Native conversion 0 is logged;
+native BAT exit remains uncaptured. First-launch metadata incompleteness and
+uninspected individual comparison images stay qualified. No old media was edited.
+
+Copied both peer-sanitized recheck records with exact raw-source SHA bindings,
+recorded prompt/reply/approval in acceptance evidence, and updated status/task/owner
+ledger/handoff/decisions plus dated preparation/repair follow-up links. Runtime,
+tests, workflow, profiles/reference/generator/BAT/defaults are unchanged. Existing
+469/469 desktop gates, 470/469/1 controls, four 26/26 colour runs and verified
+implementation CI artifacts remain separate exact-revision results. Preceding
+clean/live-equal c268e39 checkpoint CI metadata now shows successful push 37479656551/
+PR 37479662600 and four jobs/required steps; no new archive/count audit is claimed.
+
+Plan/privacy/scoped-source/diff checks and reviewed record-only commit/push follow.
+The containing checkpoint final SHA/live equality are observed externally; its own
+hash is not embedded. Stop after M3-T07. No next-task, merge, release or deployment
+work or future-default approval is inferred; live UNC stays excluded by D35.
