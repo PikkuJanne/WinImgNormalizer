@@ -171,7 +171,9 @@ Describe 'T066 synthetic evidence export privacy and containment' {
         $directory=Join-Path $owned 'release-bindings-input'; [IO.Directory]::CreateDirectory($directory) | Out-Null
         $privateText='DO-NOT-UPLOAD-C:\Users\private-owner\checkout'
         $publicPaths=@('tools/release/Update-ReleaseMetadata.ps1','docs/release/NOTES.md','CHANGELOG.md',
-            'release-metadata.json','README.md','LICENSE','.gitattributes')
+            'release-metadata.json','README.md','LICENSE','.gitattributes','.gitignore',
+            'tools/release/Build-Release.ps1','docs/release/GETTING_STARTED.md',
+            'docs/release/THIRD_PARTY_NOTICES.md','docs/release/PACKAGING.md')
         $bindings=@(foreach ($relative in $publicPaths) {
             [pscustomobject]@{relative_path=$relative;path=$privateText;sha256=(Get-FileHash -LiteralPath (Join-Path $repository $relative)).Hash.ToLowerInvariant()}
         })
@@ -199,7 +201,10 @@ Describe 'T066 synthetic evidence export privacy and containment' {
     It 'refuses nearby nonallowlisted release source <Relative>' -ForEach @(
         @{Relative='docs/release/private-notes.md'}, @{Relative='docs/codex-winimg/SESSION_LOG.md'},
         @{Relative='tools/release/private-command.ps1'}, @{Relative='README.md.private'},
-        @{Relative='CHANGELOG.md.bak'}, @{Relative='docs/release/../release/NOTES.md'}
+        @{Relative='CHANGELOG.md.bak'}, @{Relative='docs/release/../release/NOTES.md'},
+        @{Relative='tools/release/Build-Release.ps1.private'}, @{Relative='docs/release/GETTING_STARTED.md.bak'},
+        @{Relative='docs/release/THIRD_PARTY_NOTICES.md.private'}, @{Relative='docs/release/PACKAGING.md.bak'},
+        @{Relative='.gitignore.private'}
     ) {
         $directory=Join-Path $owned ('nonallowlisted-source-' + [guid]::NewGuid().ToString('N'))
         [IO.Directory]::CreateDirectory($directory) | Out-Null
