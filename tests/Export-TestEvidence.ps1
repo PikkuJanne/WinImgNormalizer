@@ -20,10 +20,16 @@ function Assert-ExportPath {
 }
 function Get-ExportSourceBindings {
     param([object[]]$Sources)
+    # These public release inputs/outputs are bound by the maintained gates.
+    # Keep this exact list rather than allowing arbitrary docs or tool files.
+    $releaseSources = @(
+        'tools/release/Update-ReleaseMetadata.ps1', 'docs/release/NOTES.md',
+        'CHANGELOG.md', 'release-metadata.json', 'README.md', 'LICENSE', '.gitattributes'
+    )
     foreach ($source in $Sources) {
         $relative = if ($source.relative_path) { $source.relative_path } else { $source.path }
         if ($relative -isnot [string] -or $source.sha256 -isnot [string]) { throw 'Evidence source path and hash must be scalar strings.' }
-        if ($relative -notmatch '^(?:tests/|\.github/workflows/|WinImgNormalizer\.(?:ps1|bat)$)' -or
+        if (($relative -notmatch '^(?:tests/|\.github/workflows/|WinImgNormalizer\.(?:ps1|bat)$)' -and $relative -cnotin $releaseSources) -or
             $relative -match '(?:^|/)\.\.(?:/|$)' -or $relative -match '[:\\\x00-\x1f]' -or $source.sha256 -notmatch '^[a-f0-9]{64}$') {
             throw 'Unsafe evidence source binding.'
         }

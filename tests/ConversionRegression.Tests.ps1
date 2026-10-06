@@ -214,7 +214,7 @@ public static class WinImgCorpusRgb8 {
     $preJpegTolerance=[int]$reference.tolerance.pre_jpeg_channel_units
     foreach($entry in @($entries.ToArray() | Where-Object Kind -in @('wide_rgb','tagged_alpha_white','tagged_cmyk'))){
         $pre=Join-Path $probeRoot ('native-lossless-'+$entry.Kind+'.png')
-        $null=Invoke-CorpusMagick @('-define','image:frames=0',(Corpus-Native (Join-Path $source $entry.Source)),'-auto-orient','+black-point-compensation','-intent','Relative','-profile',(Corpus-Native $srgbProfile),'-background','white','-alpha','remove','-alpha','off','-strip','-depth','8',('PNG:'+(Corpus-Native $pre)))
+        $null=Invoke-CorpusMagick @('-define','image:frames=0',(Corpus-Native (Join-Path $source $entry.Source)),'-auto-orient','+black-point-compensation','-intent','Relative','-profile',(Corpus-Native $srgbProfile),'-clamp','-background','white','-alpha','remove','-alpha','off','-strip','-depth','8',('PNG:'+(Corpus-Native $pre)))
         $samples=@(Get-CorpusPixels $pre $entry.Points)
         for($q=0;$q -lt $entry.Expected.Count;$q++){for($c=0;$c -lt 3;$c++){[Math]::Abs($samples[$q][$c]-$entry.Expected[$q][$c]) | Should -BeLessOrEqual $preJpegTolerance}}
         $known=Join-Path $probeRoot ('independent-tuples-'+$entry.Kind+'.png')

@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T07",
+  "classification": "Read-only objective verification of the fresh actual fixed-launcher one-image owner recheck; no application invocation",
+  "observed_utc": "2026-10-06T14:43:27.672931+00:00",
+  "actual_repair_implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+  "output_alias": "<actual-owner-recheck-output>",
+  "output_relative": "Transparency.jpeg",
+  "selection_qualification": "Inspected only the exact ignored locator supplied by the parent after its unique Colour recheck selection. This verifier did not enumerate other Pictures media.",
+  "locator_sha256": "dbeab792e3f6e048516e1669ac80e98fdd6c73ccfe624be04b4181e5ef38fed9",
+  "packet_manifest_sha256": "00a42385894143717d6af758c6fa533028fb0d45a5c26f4a8cfc5e63e6164829",
+  "initial_repaired_packet_launcher_bindings": [
+    {
+      "path": "Launcher/WinImgNormalizer.ps1",
+      "sha256": "c8d94e9f4075e7b09dde7629e7e49e6d3d3f518c9d654253b213566a1c616189"
+    },
+    {
+      "path": "Launcher/WinImgNormalizer.bat",
+      "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+    }
+  ],
+  "actual_fixed_launcher_bindings": [
+    {
+      "path": "<repaired-one-image-packet>/Fixed launcher 5a32fc6/WinImgNormalizer.ps1",
+      "sha256": "c8d94e9f4075e7b09dde7629e7e49e6d3d3f518c9d654253b213566a1c616189",
+      "bytes": 157186
+    },
+    {
+      "path": "<repaired-one-image-packet>/Fixed launcher 5a32fc6/WinImgNormalizer.bat",
+      "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "bytes": 1669
+    }
+  ],
+  "actual_launcher_proof": {
+    "path": ".scratch/M3-T07-fixed-owner-live-command.json",
+    "sha256": "f83bebada55bca99068d7b4fa7059bdbb6d2ea0e7873d140bf4defe90426bae8",
+    "observed_utc": "2026-10-06T14:41:46.7940247Z",
+    "process_id": 23428,
+    "process_creation_date": "2026-10-06T16:41:09.77952+02:00",
+    "sanitized_command": "cmd.exe invoked <repaired-one-image-packet>/Fixed launcher 5a32fc6/WinImgNormalizer.bat with <repaired-one-image-packet>/Colour recheck",
+    "unique_fixed_bat_and_correct_source_each_present_once": true,
+    "initial_launcher_directory_bat_absent": true,
+    "binding_qualification": "Parent captured this actual paused cmd.exe process command through Win32_Process. The exact BAT hash selects its adjacent same-basename PS1; both copied fixed-launcher file bytes and their recorded hashes were independently rechecked against the repaired source and I5a32 packet binding.",
+    "actual_native_bat_exit": null,
+    "classification": "Actual fixed-launcher run at the tested repair implementation"
+  },
+  "source": {
+    "path": "Colour recheck/Transparency.png",
+    "sha256": "2de1c0e1e134e0e98e0315c13084af5825e845df63d27703ccf8e0b4a64299b6",
+    "bytes": 919,
+    "matches_prelaunch_hash_and_length_binding": true,
+    "postlaunch_metadata": {
+      "bytes": 919,
+      "creation_ticks": 639268928753968139,
+      "modified_ticks": 637162995060000000,
+      "attributes": 32
+    },
+    "source_rgba_samples": [
+      [
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        50,
+        170,
+        90,
+        128
+      ],
+      [
+        170,
+        50,
+        90,
+        192
+      ],
+      [
+        128,
+        128,
+        128,
+        255
+      ]
+    ],
+    "embedded_profile_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+    "unchanged_during_this_readonly_verification": true,
+    "original_first_launch_time_attribute_snapshot_complete": false,
+    "preservation_qualification": "Hash/length match the retained original prelaunch manifest. Original first-launch creation/write/attribute binding remains incomplete. For this fixed repeat, the prior failed-run readback recorded this exact source hash, bytes, creation/write times and attributes before the fixed cmd.exe process was created; all remain equal now.",
+    "fixed_repeat_prelaunch_source_snapshot": {
+      "path": ".scratch/M3-T07-owner-recheck-verification.json",
+      "sha256": "ba5f263fdbf8e5a774b5c32c3f68bc5739f3ca8d643fca05fa9faf261aa55de4",
+      "observed_utc": "2026-10-06T14:39:52.443115+00:00",
+      "precedes_fixed_process_creation": true,
+      "hash_bytes_creation_write_attributes_equal_now": true
+    }
+  },
+  "jpeg": {
+    "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+    "bytes": 630,
+    "width": 128,
+    "height": 96,
+    "frames": 1,
+    "mode": "RGB",
+    "full_decode": true,
+    "Pillow": "12.3.0",
+    "metadata_fields_present": [],
+    "private_metadata_segments_present": [],
+    "matches_prior_repaired_automated_alpha_bytes": true,
+    "matches_prior_prefix_owner_alpha_bytes": false,
+    "prior_prefix_owner_alpha_sha256": "4d694fcca8c299e8a0ec5b58e125d9dcb7bd29f058a62387ba3144127314f3be",
+    "repaired_automated_alpha_sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+    "postlaunch_metadata": {
+      "bytes": 630,
+      "creation_ticks": 639268928753968139,
+      "modified_ticks": 637162995060000000,
+      "attributes": 32
+    },
+    "timestamps_match_current_source": true,
+    "points": [
+      [
+        32,
+        24
+      ],
+      [
+        96,
+        24
+      ],
+      [
+        32,
+        72
+      ],
+      [
+        96,
+        72
+      ]
+    ],
+    "actual_rgb": [
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        127,
+        212,
+        170
+      ],
+      [
+        212,
+        98,
+        131
+      ],
+      [
+        129,
+        129,
+        129
+      ]
+    ],
+    "independent_expected_rgb": [
+      [
+        255,
+        255,
+        255
+      ],
+      [
+        127,
+        213,
+        169
+      ],
+      [
+        212,
+        98,
+        132
+      ],
+      [
+        129,
+        129,
+        129
+      ]
+    ],
+    "max_channel_error": 1,
+    "unchanged_jpeg_tolerance": 12,
+    "reference_passes": true
+  },
+  "reference": {
+    "path": "tests/fixtures/colour/REFERENCE.json",
+    "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+    "engine": {
+      "Pillow": "12.3.0",
+      "LittleCMS": "2.19",
+      "method": "ImageCms.profileToProfile",
+      "rendering_intent": "Relative colorimetric (1)",
+      "flags": 0,
+      "black_point_compensation": false,
+      "cmyk_qualification": "The selected CGATS001Compat profile has only an A2B0 perceptual forward mapping. LittleCMS falls back to that available mapping when Relative intent 1 is requested. These tuples verify this fixture's forward CMYK-to-sRGB result; they do not certify general relative-colorimetric print accuracy, other intents or reverse transforms.",
+      "alpha": "Transform RGB first; preserve alpha; Pillow.alpha_composite over white in encoded sRGB"
+    },
+    "tolerances_unchanged": true
+  },
+  "reports": {
+    "log_sha256": "d96ca6c2fc5469ca93f9d2bb7c876c53ebdc142c0ee22450d39e5fb7e75d24fa",
+    "csv_sha256": "3f462de605865f7948c6aa44cd492f2417e18eb167ab275bca69f7b6cdb9c893",
+    "file_rows": 1,
+    "counts": {
+      "Discovered": 1,
+      "Converted": 1,
+      "CopiedVideo": 0,
+      "SkippedDuplicate": 0,
+      "Ignored": 0,
+      "Error": 0,
+      "Cancelled": 0,
+      "NotStarted": 0
+    },
+    "accounting": "Discovered=1 Converted=1 CopiedVideo=0 SkippedDuplicate=0 Ignored=0 Error=0 Cancelled=0 NotStarted=0 Balanced=True ScanComplete=True IncompleteDirectories=0 UninspectableEntries=0 SkippedLinks=0 ImageInputBytes=919 ImageOutputBytes=630 ImageSavingsBytes=289 VideoBytes=0 ElapsedSeconds=2.064 FinalizedFilesPerSecond=0.485 ReportWarnings=0 ReportComplete=True ProgressWarnings=0 ImageSavingsPercent=31.447 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0 AncillaryWarnings=0 FramesOmitted=0 ConsoleWarnings=0 ProcessingWarnings=False",
+    "report_complete": true,
+    "balanced": true,
+    "all_warning_counts_zero": true,
+    "all_expected_files_only": true,
+    "owned_work_empty": true
+  },
+  "native_environment": {
+    "version_from_actual_run_log": "ImageMagick 7.1.2-32 Q16-HDRI x64 ad98b24:20260927 https://imagemagick.org",
+    "current_installed_executable_sha256": "ae5affcba0751155d698dd5d71652ecb79fa3f99c37d9eb34fc8b3b91635ff67",
+    "executable_hash_qualification": "Current installed executable hash observed after this run; version is from the actual synthetic run log.",
+    "conversion_exit_from_run_log": 0,
+    "actual_native_bat_exit": null
+  },
+  "owner_statements": {
+    "completion": "Completed successfully. Press any key to close.",
+    "completion_qualification": "Direct owner-reported BAT completion/pause message; native BAT exit not independently captured.",
+    "fresh_visual_response": null,
+    "visual_qualification": "Fresh actual fixed-launcher appearance/workflow acceptance is pending; no earlier failed-run visual response is transferred to this output."
+  },
+  "owner_approval": {
+    "state": "awaiting_owner",
+    "approved_commit": null,
+    "actor": null
+  },
+  "driver_binding": {
+    "path": ".scratch/M3-T07-verify-fixed-owner-recheck-c09c56b0.py",
+    "sha256": "be760b0d75aad0fefda8c6d54decc47f4d604664d0bda2650b2d6dde63b66804"
+  },
+  "limitations": [
+    "Specific one-image readback only; no new application invocation, broad test rerun or arbitrary Pictures/media enumeration.",
+    "No subjective approval or native BAT exit is supplied by objective image/report checks. Original first-launch source times/attributes are incompletely bound; this fixed repeat is bound to the preceding readback snapshot.",
+    "Earlier full-source/output preservation remains retained separate evidence; old media was not modified or broadly reread by this verification."
+  ]
+}

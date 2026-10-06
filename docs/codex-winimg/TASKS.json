@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "PikkuJanne/WinImgNormalizer",
   "baseline_commit": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
-  "next_task": "M3-T07",
+  "next_task": "M4-T02",
   "state_semantics": "done = task acceptance verified; remote synchronization and CI are separate observations. Owner-gate tasks cannot be done without owner evidence.",
   "allowed_states": [
     "pending",
@@ -847,7 +847,8 @@
       "scope": [
         "Prepare the owner checklist and concrete comparison evidence without using private images in the repository.",
         "Have the owner run the unchanged everyday launch flow with approved disposable copies on Windows.",
-        "Record approval or requested changes with tested commit; do not approve subjective image quality or default changes on the owner’s behalf."
+        "Record approval or requested changes with tested commit; do not approve subjective image quality or default changes on the owner’s behalf.",
+        "Perform only the explicitly authorized D36 HDRI colour repair: clamp converted sRGB before white composition, verify T036 and full PS5.1/PS7 gates with separately bound HDRI colour runs, then prepare a short guided owner recheck. No new defaults or M4 work."
       ],
       "acceptance": [
         "Actual owner approval and Windows smoke evidence exist before public-release readiness is claimed.",
@@ -859,15 +860,26 @@
       ],
       "references": [
         "templates/OWNER_ACCEPTANCE.md",
-        "GIT_WORKFLOW.md"
+        "GIT_WORKFLOW.md",
+        "IMPLEMENTATION_SPEC.md",
+        "FIXTURE_SPEC.md"
       ],
       "owner_gate": true,
       "depends_on": [
         "M3-T06"
       ],
-      "state": "pending",
-      "evidence": [],
-      "blocked_reason": null,
+      "state": "done",
+      "evidence": [
+        "evidence/M3-T07.json",
+        "evidence/M3-T07-owner-smoke.json",
+        "evidence/M3-T07-hdri-diagnosis.json",
+        "evidence/M3-T07-repair.json",
+        "evidence/M3-T07-repair-artifacts.json",
+        "evidence/M3-T07-repair-ci.json",
+        "evidence/M3-T07-recheck-old-launcher.json",
+        "evidence/M3-T07-recheck-fixed-launcher.json",
+        "evidence/M3-T07-acceptance.json"
+      ],
       "card": "tasks/M3-T07.md"
     },
     {
@@ -897,8 +909,11 @@
       "depends_on": [
         "M3-T07"
       ],
-      "state": "pending",
-      "evidence": [],
+      "state": "done",
+      "evidence": [
+        "evidence/M4-T01.json",
+        "evidence/M4-T01-ci.json"
+      ],
       "blocked_reason": null,
       "card": "tasks/M4-T01.md"
     },

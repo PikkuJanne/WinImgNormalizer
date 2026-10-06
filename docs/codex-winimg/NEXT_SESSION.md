@@ -1,45 +1,43 @@
 # Next session handoff
 
-Next task: **M3-T07 — Obtain owner acceptance of the familiar workflow**.
-M3-T06 is complete; M3-T07 has not started.
+**M4-T01 is complete; T068 passed.** Progress 23/28, T001-T068 exercised 68/75.
+Next intended task **M4-T02 is pending and not started**; load its card when requested.
 
-Use C:/projects/WinImgNormalizer on codex/winimg-hardening. WinImgNormalizer-main
-remains the preserved non-Git snapshot. Read AGENTS.md, STATUS.md, TASKS.json,
-GIT_WORKFLOW.md, tasks/M3-T07.md and templates/OWNER_ACCEPTANCE.md. Recheck clean
-state, canonical fetch/push identity, exact live feature SHA and
-[draft PR21](https://github.com/PikkuJanne/WinImgNormalizer/pull/21) before editing.
-Tested implementation is 17a405bfe0150607486248e845f93ba82e1d0d52; independently verify the
-containing record-only checkpoint. Preserve WinImgNormalizer.bat -text and exact
-CRLF bytes in the checkout, Git blob and source archive.
+Use C:/projects/WinImgNormalizer on codex/winimg-hardening; preserve the non-Git
+WinImgNormalizer-main snapshot. Read AGENTS/STATUS/TASKS, GIT_WORKFLOW,
+RELEASE_AND_WEBSITE and M4-T01 evidence. Recheck clean worktree, canonical fetch/push
+identity, exact live feature SHA and open draft PR22. Implementation
+**3109a1b27d73f4084076cdd14ba06447c6243c0f** was independently observed clean/live-equal; its dated
+observation is in task evidence. The containing final record SHA/sync is external
+after commit and must be checked live again next session.
 
-M3-T06 requires all 23 suites, 61 corrected case IDs and ten actual codec outcomes;
-no zero discovery/skip/unrun/inconclusive result can silently pass. Desktop Windows 11
-Pro build 26300, PS 5.1.26100.9444 and PS 7.6.5 passed 468/468 each; both full controls were
-469/468/1 with native 1. Pinned Pester 5.9.1/ImageMagick 7.1.2-32 and analyzer 1.25.0
-are development dependencies. Scoped normal analyzer results had 7 files/0 findings;
-both unsafe-expression controls had one exact finding/native 1.
+Application **1.0.0 is unreleased**, chosen after actual tags/releases were empty.
+`Get-WinImgVersion` in the PS1 is the sole version source; the application retains
+its self-contained two-file workflow. Existing usage/log headers consume it.
+`tools/release/Update-ReleaseMetadata.ps1` derives CHANGELOG.md and root
+release-metadata.json from the source and docs/release/NOTES.md. Use `-Check` for
+exact drift detection. Compact JSON/UTF-8 without BOM/LF and Git attributes are
+required for cross-host/Windows-checkout agreement. Actual publication and asset
+fields remain null. No package ZIP, tag or release exists from this task.
 
-Final implementation hosted push 37333526329/PR 37333528830 passed all four normal
-and assertion/analyzer controls. Actual Server 2025 image win25-vs2026
-20260925.250.1, runner 2.337.0, PS 5.1.26100.33438/PS 7.6.6 differ from desktop.
-Sanitized desktop/CI evidence binds native exits, hashes, exact commits, 45 source
-paths, artifact contents and synthetic merge provenance. Earlier failed and
-successful superseded implementations, including I3 lossy timestamp qualification,
-remain separate. See evidence/M3-T06.json and evidence/M3-T06-ci.json.
+Clean desktop full gates 482/482 in PS5.1.26100.9444 and PS7.6.5, zero skips/unrun,
+24 suites and ten actual codec outcomes; controls 483/482/1/native 1. Analyzer now
+includes the development generator: eight scripts, unchanged 15 rules, zero normal
+findings and one expected control/native 1. Both sanitized full exports succeeded;
+their exact seven new public source bindings have positive and privacy negatives.
+Six T068 regressions prove actual help/log and changed-source derivation. The
+superseded outer PS5.1 capture infrastructure failure is retained separately.
+CI: Push and PR Windows CI passed for the tested implementation; exported artifacts
+independently verified.
 
-The final exporter rejects nested private values and preserves UTC fractional time.
-CI remains contents:read with reviewed full action pins, credentials disabled and
-two fixed synthetic JSON uploads. Analyzer excludes Pester DSL/legacy/vendor code.
-Live UNC/network-share validation and support are out_of_scope by the owner on
-2026-10-05 (D35): no server is available, and no live-share verification is pending.
-Keep local long-path, lexical drive/UNC-root and local identity tests mandatory.
-Preserve earlier limited localhost results and `not_run` observations; no passing
-live network-share result is inferred. See evidence/M3-T06-scope.json. No Linux
-substitute or checksum-signature claim exists.
+License/BAT/authorship/normalization defaults and dependency pins remain intact.
+Owner workflow/appearance acceptance D37/T067 remains bound to repaired 5a32fc6;
+the installed Q16-HDRI colour and physical owner observations keep that exact
+binding. Version/help/log/documentation preparation supplies no new subjective
+quality approval. Live UNC/network-share support remains owner-excluded D35.
 
-M3-T07 must prepare concrete owner comparisons/checklist using approved disposable
-copies, then obtain actual named-commit workflow and quality acceptance. Do not
-manufacture owner approval or import private media into the repository. If approval
-is absent, prepare evidence and leave that task awaiting_owner per its task card.
-No merge/tag/release/settings/deployment approval is inferred. This session stops
-at M3-T06; begin M3-T07 only when requested.
+For later packaging, use an explicit clean-commit allowlist, retain embedded ICC
+provenance/license and choose package-facing documentation so maintenance/governance
+links excluded from a ZIP do not become broken. This is handoff guidance, not
+M4-T02 implementation or evidence. Do not bundle development tools/ImageMagick by
+default. Merge/tag/release/settings and deployment still require their own approval.

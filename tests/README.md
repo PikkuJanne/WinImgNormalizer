@@ -1,4 +1,4 @@
-# Windows checks (through M3-T06)
+# Windows checks (through M4-T01)
 
 These development tests cover the import boundary, the two existing positional
 invocations, setup validation (T008-T012), traversal/run isolation (T013-T016),
@@ -49,10 +49,11 @@ The default runner includes `Normalizer.Tests.ps1`, `Preflight.Tests.ps1`,
 `ConversionRegression.Tests.ps1`, `RecoveryReporting.Tests.ps1`,
 `NativeLifetime.Tests.ps1`, `Cancellation.Tests.ps1`, `Reporting.Tests.ps1`,
 `Launcher.Tests.ps1`, `ExitContract.Tests.ps1`, `Compatibility.Tests.ps1`,
-`CodecCompatibility.Tests.ps1`, `StaticAnalysis.Tests.ps1`, and `WorkflowSecurity.Tests.ps1`.
+`CodecCompatibility.Tests.ps1`, `StaticAnalysis.Tests.ps1`, `WorkflowSecurity.Tests.ps1`,
+and `Versioning.Tests.ps1`.
 `mandatory-tests.json` is the reviewed inventory: absent or unregistered top-level
 suites fail the default gate. Every required suite must discover nonzero tests;
-T005-T066 (except separate T007 control) must appear in actually passed test paths.
+T005-T066 (except separate T007 control) and T068 must appear in actually passed test paths.
 T001-T004 remain historical characterization. Explicit `-Path` runs are marked
 focused and cannot stand in for mandatory acceptance. Ten exact real codec test
 outcomes must pass, including the existing T031 HEIC/HEIF collection tests. Compiled
@@ -82,10 +83,18 @@ in `docs/codex-winimg/evidence/M0-T03.json`; Server CI does not prove desktop la
 or interruption behavior. M3-T06 records exact Windows Server 2025 image/OS, host,
 commit, dependency hashes and counts separately from local desktop automation.
 
+T068 runs actual no-argument help and a synthetic video normalization, then checks
+the log, generated changelog and draft package metadata against the script's sole
+version source. A disposable source-version change regenerates both outputs;
+stale-output rejection and repeat generation verify drift detection and exact
+bytes. These tests create no ZIP, Git tag or public release. The generator and
+its template/derived files, README and LICENSE are included in source bindings.
+
 Static analysis uses verified PSScriptAnalyzer 1.25.0 and the explicit security,
 defect and Windows PowerShell 5.1/PowerShell 7 syntax rules in
 `PSScriptAnalyzerSettings.psd1`. It scans the application and maintained top-level
-test infrastructure scripts; Pester DSL bodies, legacy reproduction and vendor
+test infrastructure scripts plus the development release-metadata generator;
+Pester DSL bodies, legacy reproduction and vendor
 code are outside that scope. Every diagnostic and empty scope fails. The sole
 production cleanup renames a local variable that shadowed automatic `$Error`.
 `Invoke-StaticAnalysis.ps1 -DeliberateFailure` analyzes an unsafe expression as text,
@@ -223,9 +232,14 @@ Eight actual EXIF orientation tags have synthetic GPS, XMP, Photoshop/IPTC, comm
 and ICC attached to asymmetric JPEG fixtures. Displayed corner maps and dimensions
 must match; independent JPEG segment inspection verifies privacy/profile removal.
 Fully transparent and semi-transparent patches compare white composition after
-the managed sRGB transform. A controlled extent override forces six real native
-scale attempts and verifies the owned target profile's path and trusted bytes on
-every attempt, together with the white alpha and stripping operations. Sources keep byte hashes and creation/modified
+the managed sRGB transform and gamut clamp against the independent reference.
+Tagged and untagged retry cases use two controlled sharing-start failures followed
+by six real native scale attempts. They verify clamp placement before white alpha
+composition on every call, and the tagged target profile's path and trusted bytes.
+Full gates retain the portable Q16 executable pin. Additional installed Q16-HDRI
+colour runs reuse this suite and verified Pester with separately bound executable
+hash/version in each Windows shell; they do not weaken the dependency pin.
+Sources keep byte hashes and creation/modified
 timestamps, and each success produces one intended JPEG with exact owned scratch
 cleanup. All generated media and raw development history remain in marked ignored
 scratch without recursive deletion.

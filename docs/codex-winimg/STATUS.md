@@ -1,20 +1,23 @@
 # Project status
 
-Updated: 2026-10-05 — M3-T06 completed; owner excluded live UNC validation.
+Updated: 2026-10-06 — M4-T01 single version source and unreleased notes verified.
 
 Repository: PikkuJanne/WinImgNormalizer
 Actual checkout: C:/projects/WinImgNormalizer
 Branch: codex/winimg-hardening
-Tested implementation: 17a405bfe0150607486248e845f93ba82e1d0d52
-Next task: **M3-T07 — Obtain owner acceptance of the familiar workflow**
-Task progress: **21 / 28 accepted**
-Specified cases exercised: **T001-T066 (66 / 75); T001-T004 characterization, T007 control**
-Pester suite: **468/468 passed in each desktop shell, zero skipped**
-Failure controls: **469 total, 468 passed, one intended failure; native exit 1**
-CI: **implementation push/PR Windows matrices passed, including both controls**
+Tested M4-T01 implementation: 3109a1b27d73f4084076cdd14ba06447c6243c0f
+Application version: **1.0.0 (unreleased)**
+Owner-accepted normalization implementation: 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad
+Completed task: **M4-T01 — Add one version source and release notes (done)**
+Next intended task: **M4-T02 (pending; not started)**
+Task progress: **23 / 28 accepted**
+Specified cases: **T001-T068 exercised (68 / 75); T067 owner acceptance and T068 passed**
+Pester suite: **482/482 passed in each desktop shell, zero skipped; 24 mandatory suites including T068**
+Failure controls: **483 total, 482 passed, one intended failure; native exit 1**
+CI: **Push and PR Windows CI passed for the tested implementation; exported artifacts independently verified**
 Containing evidence checkpoint synchronization: **pending_verification**
 
-## Current behavior and verification
+## Accepted M3-T06 baseline and its dated verification
 
 The mandatory gate inventories all 23 maintained suites, requires actual passed
 T005-T066 coverage except the separate T007 failure control, and rejects zero
@@ -89,4 +92,120 @@ code. Package checksums bind bytes without claiming signatures/publisher identit
 Desktop automation and Server CI do not supply physical Explorer gestures or owner
 workflow/quality approval. JPEG/colour/frame/size defaults, source/no-overwrite safety,
 video fidelity, launcher pause/exit behavior and owned native processing remain
-covered. M3-T07 owner approval, merge and release are separate. Stop at M3-T06.
+covered. M3-T07 owner approval, merge and release are separate.
+
+## M3-T07 D36 repair and owner gate
+
+Original review 4618a83cb2aa893aea9d6a1587987612624e1cf7 and actual owner smoke at
+that code remain dated evidence. The owner reported clean BAT completion, smooth
+landscape, intact detail and the white transparency area. Independent checking found
+the installed Q16-HDRI semi-transparent green red channel 0 instead of 127. These
+partial observations supplied no named-commit acceptance; native BAT exit was not
+captured. Original packet/output/source/report bindings remain preserved.
+
+The owner explicitly authorized the bounded fix and short recheck (D36). At clean
+base 45c6795554b70a1fc23dea04b1b4339a7d69c430 actual installed-HDRI Pester runs fail
+two T036 checks in each shell: 25 total/23 pass, PNG/JPEG channel error 127. Earlier
+maintained-runner attempts rejected the non-pinned executable before discovery;
+those zero-test infrastructure failures are retained, not relabeled colour runs.
+
+Clean repair 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad adds only converted-sRGB
+clamping before white composition. T036 covers tagged/untagged real references,
+two controlled sharing-start failures and six actual scale conversions, checking
+conversion/clamp/white/strip order on all eight calls. Independent reference/profile/generator,
+PNG tolerance 3/JPEG tolerance 12, BAT and defaults are unchanged.
+
+[Repair evidence](evidence/M3-T07-repair.json): actual PS5.1/PS7 portable full gates
+pass 469/469, zero skips/unrun/blocks, all 23 suites and ten real codecs. Both controls
+have 470 total/469 pass/one exact T007 failure/native 1. Normal analyzer scans seven
+scripts with zero findings; each unsafe-expression control yields one intended
+finding/native 1. Colour-only runs pass 26/26 for each build/host (four runs). The
+separate installed-HDRI driver verifies Pester and executable/version; the maintained
+portable pin is intact. Counts, native results, source/Git and raw artifact hashes bind
+the clean implementation; all policies and sources remain unchanged.
+
+[Repaired artifact checks](evidence/M3-T07-repair-artifacts.json) cover two installed-
+HDRI Command runs using disposable destinations. Each returns 0 with 24 inputs:
+20 JPEGs, one equal-byte video, one duplicate, two ignored, no errors/warnings and
+five frame omissions. Forty JPEGs independently decode; source files/dirs, metadata,
+geometry, collision/duplicate mapping, mirrors and output timestamps pass. Nineteen
+JPEGs equal the old owner output, one alpha is corrected; all 20 match preparation
+and each other across hosts. Corrected alpha maximum error is 1, within tolerance 12.
+
+[Implementation CI](evidence/M3-T07-repair-ci.json) independently verifies the
+[push](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37476651394)
+and [PR](https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37476659134)
+jobs, exported counts/controls, actual codec results, provenance and privacy. CI
+does not provide owner consent. This containing record checkpoint has unchanged
+runtime/tests and requires post-commit live synchronization observation.
+
+## Completed repaired owner recheck and acceptance
+
+The first one-image attempt used the older launcher: the live paused CMD command
+proves the original packet BAT ran on the new Colour recheck source. Its green
+error 127 and plausible visual Yes remain dated [old-launcher evidence](evidence/M3-T07-recheck-old-launcher.json).
+The two Launcher window titles were insufficiently clear; this is not a repair regression.
+
+A distinct **Fixed launcher 5a32fc6** folder holds exact tested copies. The repeated
+owner launch reports completion/pause and its live command binds that fixed BAT,
+adjacent PS1 and approved source. [Fixed-run readback](evidence/M3-T07-recheck-fixed-launcher.json)
+fully decodes the one JPEG, matches repaired automated bytes, verifies reference
+error 1 within tolerance 12, metadata removal, balanced 1/1/no warnings and preserved
+source bytes/times/attributes against the preceding snapshot. Output timestamps match.
+Native conversion 0 is logged; native BAT exit remains independently uncaptured.
+
+The owner directly replied **Accepted** to “Do you accept fixed version 5a32fc6 for
+the drag-and-drop workflow and image appearance?”.
+[Acceptance record](evidence/M3-T07-acceptance.json) binds the exact prompt/reply to
+**5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad**. No earlier area Yes supplies this consent.
+Not all original comparison images were individually visually reviewed; their
+existing automated checks and earlier visual statements remain separate.
+
+**M3-T07 done; T067 passed; 22/28 accepted; 67/75 specified cases exercised.**
+M4-T01 was pending at that M3-T07 acceptance checkpoint. Preceding record checkpoint
+c268e392956b4b1c229e68f184cd2dd436e56d23 has unchanged runtime/tests/workflow and
+independently observed successful push/PR CI metadata (37479656551/37479662600).
+Detailed implementation artifact verification remains separately bound to 5a32.
+That acceptance checkpoint required an external post-commit synchronization
+observation. No further task or publication work had started at that observation.
+
+## M4-T01 — one application version and unreleased release notes
+
+At clean implementation **3109a1b27d73f4084076cdd14ba06447c6243c0f**, the sole semantic-version
+literal is `Get-WinImgVersion` in the self-contained application. Existing usage
+and run-log headers use it. The development generator derives CHANGELOG.md and
+release-metadata.json from it and the version-free release prose. Exact checks
+reject stale output without writes; compact ordered JSON and scoped LF attributes
+preserve bytes across Windows PowerShell 5.1/PowerShell 7 and Windows checkouts.
+No runtime support file or new invocation form is introduced.
+
+Successful local/remote tag and GitHub release inspection found zero existing
+records. **1.0.0 is the first managed proposed version and remains unreleased**;
+no tag, release or ZIP was created. Published/date/download/asset fields are null.
+The changelog distinguishes fixes, retained defaults/safeguards, third-party
+requirements, supported/tested environments and limitations. LICENSE and original
+Janne Vuorela authorship remain intact; the BAT and normalization defaults are
+unchanged. Live UNC remains owner-excluded D35.
+
+[Desktop evidence](evidence/M4-T01.json) records **482/482** in each actual desktop
+host, no skips/unrun/inconclusive/failed containers, all 24 suites and ten real
+codec outcomes. Six T068 regressions cover real help without ImageMagick/output,
+real video/log preservation and substituted version, exact non-writing checks,
+stale rejection and changed-source/repeat generation. Seven exporter regressions
+admit only the exact public release inputs/outputs while rejecting nearby private
+and traversal names. Both assertion controls are **483 total/482 pass/one exact
+T007 failure/native 1**. Analyzer checks eight scripts under the unchanged 15 rules:
+zero normal findings, one expected unsafe-expression control/native 1. Both actual
+full exports complete. Exact source/Git/dependency/parent/artifact hashes and
+persistent policy preservation bind these results to the clean implementation.
+
+The first outer PS5.1 capture wrapper escalated stderr from an intentional logging
+failure fixture and ended without a completed suite summary. That infrastructure
+attempt is preserved separately; only the ignored wrapper was corrected before
+fresh clean runs. It is not a failed application result or passing test run.
+
+CI: Push and PR Windows CI passed for the tested implementation; exported artifacts
+independently verified. The final containing governance/evidence checkpoint's SHA and live
+feature synchronization are observed externally after commit. M4-T01 is done,
+23/28 accepted and T001-T068 exercised; **M4-T02 remains pending**. Packaging,
+publication and deployment retain their separate task/approval boundaries.

@@ -1,0 +1,2984 @@
+{
+  "schema_version": 1,
+  "task_id": "M4-T01",
+  "recorded_utc": "2026-10-06T15:27:18.778152Z",
+  "tested_implementation_commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+  "base_commit": "324a7a7cc165f874bc70c5a9e7a46e76b7ef5295",
+  "implementation_sync_observation": {
+    "observed_utc": "2026-10-06T15:11:25.9139111Z",
+    "state": "synchronized",
+    "head": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+    "remote_head": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+    "worktree_clean": true,
+    "branch": "codex/winimg-hardening"
+  },
+  "release_inspection": {
+    "observed_utc": "2026-10-06T15:26:49Z",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "inspections": [
+      {
+        "observed_utc": "2026-10-06T15:20:01Z",
+        "command": "gh api repos/PikkuJanne/WinImgNormalizer/tags --paginate",
+        "exit_code": 0,
+        "response": []
+      },
+      {
+        "observed_utc": "2026-10-06T15:20:01Z",
+        "command": "gh api repos/PikkuJanne/WinImgNormalizer/releases --paginate",
+        "exit_code": 0,
+        "response": []
+      },
+      {
+        "observed_utc": "2026-10-06T15:26:49Z",
+        "command": "git ls-remote origin refs/tags/*",
+        "exit_code": 0,
+        "output": ""
+      },
+      {
+        "observed_utc": "2026-10-06T15:26:49Z",
+        "command": "git tag --list",
+        "exit_code": 0,
+        "output": ""
+      }
+    ]
+  },
+  "version_choice": {
+    "application_version": "1.0.0",
+    "state": "unreleased",
+    "reason": "First managed application version after successful read-only inspection found no local tags, live remote tags or GitHub releases. The previous application is unversioned; no earlier named release is invented.",
+    "single_source": "WinImgNormalizer.ps1:Get-WinImgVersion",
+    "public_tag": null,
+    "public_release": null,
+    "download_package": null
+  },
+  "implementation": {
+    "runtime": "Only version resolver, versioned existing usage and log header; no normalization/default/launcher change or runtime sidecar.",
+    "generated_outputs": [
+      "CHANGELOG.md",
+      "release-metadata.json"
+    ],
+    "template": "docs/release/NOTES.md",
+    "generation_command": "tools/release/Update-ReleaseMetadata.ps1",
+    "check_command": "tools/release/Update-ReleaseMetadata.ps1 -Check",
+    "encoding": "UTF-8 without BOM, LF; ordered compact JSON agrees across Windows PowerShell 5.1/PowerShell 7; scoped Git LF attributes protect clean checkouts.",
+    "ci_integration": "T068 and Versioning suite are mandatory. Generator/template/outputs/public docs/license/attributes are source-bound; generator receives scoped static analysis. Seven exact public bindings are permitted through existing evidence privacy guards, with positive dual-export and six nearby/traversal rejection regressions."
+  },
+  "tests": [
+    {
+      "shell": "ps51-final",
+      "kind": "normal",
+      "native_exit_code": 0,
+      "tested_commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "execution_environment": "windows_local_automated",
+      "runner_image": null,
+      "runner_image_version": null,
+      "runner_label": null,
+      "github_checkout_sha": null,
+      "source_worktree_dirty": false,
+      "observed_at_utc": "2026-10-06T15:09:38.8251960Z",
+      "source_sha256": [
+        {
+          "path": "WinImgNormalizer.ps1",
+          "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+        },
+        {
+          "path": "WinImgNormalizer.bat",
+          "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "sha256": "2bf2fb2b03b53fd7be1b68514c855f2083203d3784e591779aacd20e92d54fcb"
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+        },
+        {
+          "path": "tests/dependencies.json",
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+        },
+        {
+          "path": "tests/mandatory-tests.json",
+          "sha256": "956ef9a16965d42f160594ec5ac7e6573d9315cdce4e31085cd7f5affbc7dc4a"
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f"
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2"
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+        },
+        {
+          "path": ".github/workflows/windows-tests.yml",
+          "sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39"
+        },
+        {
+          "path": "tests/legacy/toolchain.json",
+          "sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406"
+        },
+        {
+          "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+          "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+        },
+        {
+          "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+          "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+        },
+        {
+          "path": "tests/fixtures/colour/Generate-Reference.py",
+          "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+        },
+        {
+          "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+          "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+        },
+        {
+          "path": "tests/fixtures/colour/MANIFEST.json",
+          "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+        },
+        {
+          "path": "tests/fixtures/colour/README.md",
+          "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+        },
+        {
+          "path": "tests/fixtures/colour/REFERENCE.json",
+          "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+        },
+        {
+          "path": "tests/fixtures/colour/sRGB-v4.icc",
+          "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414"
+        },
+        {
+          "path": "docs/release/NOTES.md",
+          "sha256": "87823a56a9b9e705e64ef5d770fe5aac12fd3d24a4922a630c6a20c992330e63"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "sha256": "763370a1668c8c8a0b0ab3f33569097de940c2099dc0dbdbf41c1eec48e2ba06"
+        },
+        {
+          "path": "release-metadata.json",
+          "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+        },
+        {
+          "path": "README.md",
+          "sha256": "47cda8739df59ca63830e46d0df0f90eb7357b33ef6cc80a0b7cf9f469881523"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+        },
+        {
+          "path": ".gitattributes",
+          "sha256": "7d134f57b25c0102dfcbe055574eaa88e5003bec1eaab6abb78c8cac916eeb9c"
+        },
+        {
+          "path": "tests/fixtures/LauncherConsoleFixture.cs",
+          "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+        },
+        {
+          "path": "tests/Normalizer.Tests.ps1",
+          "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+        },
+        {
+          "path": "tests/Preflight.Tests.ps1",
+          "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+        },
+        {
+          "path": "tests/Traversal.Tests.ps1",
+          "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+        },
+        {
+          "path": "tests/Naming.Tests.ps1",
+          "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+        },
+        {
+          "path": "tests/Transactions.Tests.ps1",
+          "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+        },
+        {
+          "path": "tests/Duplicates.Tests.ps1",
+          "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+        },
+        {
+          "path": "tests/SafetyRegression.Tests.ps1",
+          "sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+        },
+        {
+          "path": "tests/Frames.Tests.ps1",
+          "sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+        },
+        {
+          "path": "tests/Colour.Tests.ps1",
+          "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+        },
+        {
+          "path": "tests/Paths.Tests.ps1",
+          "sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+        },
+        {
+          "path": "tests/Sizing.Tests.ps1",
+          "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+        },
+        {
+          "path": "tests/Diagnostics.Tests.ps1",
+          "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+        },
+        {
+          "path": "tests/ConversionRegression.Tests.ps1",
+          "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+        },
+        {
+          "path": "tests/RecoveryReporting.Tests.ps1",
+          "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+        },
+        {
+          "path": "tests/NativeLifetime.Tests.ps1",
+          "sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538"
+        },
+        {
+          "path": "tests/Cancellation.Tests.ps1",
+          "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+        },
+        {
+          "path": "tests/Reporting.Tests.ps1",
+          "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+        },
+        {
+          "path": "tests/Launcher.Tests.ps1",
+          "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+        },
+        {
+          "path": "tests/ExitContract.Tests.ps1",
+          "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+        },
+        {
+          "path": "tests/Compatibility.Tests.ps1",
+          "sha256": "1532099561cb4c32cc7e2aff359bf2d56e9bb8714b8087054de2bf15fdad0bd5"
+        },
+        {
+          "path": "tests/CodecCompatibility.Tests.ps1",
+          "sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548"
+        },
+        {
+          "path": "tests/StaticAnalysis.Tests.ps1",
+          "sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1"
+        },
+        {
+          "path": "tests/WorkflowSecurity.Tests.ps1",
+          "sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3"
+        },
+        {
+          "path": "tests/Versioning.Tests.ps1",
+          "sha256": "7164701c434c3692cf9522d53d2f43190ca1f5b3c62a0044993cab1eedd7178c"
+        }
+      ],
+      "summary_sha256": "ce1ac2f738f5ae16102d833d67c0ddef74d203297bb43a3f4ccd258b65e07399",
+      "status": "passed",
+      "total_count": 482,
+      "passed_count": 482,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "inconclusive_count": 0,
+      "not_run_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "deliberate_failure": false,
+      "suite_scope": "mandatory",
+      "passed_case_ids": [
+        "T005",
+        "T006",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T068"
+      ],
+      "required_case_ids": [
+        "T005",
+        "T006",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T068"
+      ],
+      "gate_failure_count": 0,
+      "source_unchanged": true,
+      "commit_unchanged": true,
+      "source_worktree_dirty_after": false,
+      "persistent_policy_unchanged": true,
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version": "7.1.2-32",
+      "imagemagick_delegates": [
+        "bzlib",
+        "cairo",
+        "freetype",
+        "gslib",
+        "heic",
+        "jng",
+        "jp2",
+        "jpeg",
+        "jxl",
+        "lcms",
+        "lqr",
+        "lzma",
+        "openexr",
+        "pangocairo",
+        "png",
+        "ps",
+        "raqm",
+        "raw",
+        "rsvg",
+        "tiff",
+        "webp",
+        "xml",
+        "zip",
+        "zlib",
+        "zstd"
+      ],
+      "codec_capabilities": [
+        {
+          "format": "BMP",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "GIF",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "HEIC",
+          "read": true,
+          "write": false
+        },
+        {
+          "format": "HEIF",
+          "read": true,
+          "write": false
+        },
+        {
+          "format": "JPEG",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "PNG",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "TIFF",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "WEBP",
+          "read": true,
+          "write": true
+        }
+      ],
+      "codec_coverage": [
+        {
+          "extension": "jpg",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "jpeg",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "png",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "bmp",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "tif",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "tiff",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "gif",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "webp",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "heic",
+          "case_id": "T031",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "heif",
+          "case_id": "T031",
+          "passed_test_count": 1,
+          "executed": true
+        }
+      ],
+      "verified_mandatory_suite_count": 24
+    },
+    {
+      "shell": "ps51-final",
+      "kind": "control",
+      "native_exit_code": 1,
+      "tested_commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "execution_environment": "windows_local_automated",
+      "runner_image": null,
+      "runner_image_version": null,
+      "runner_label": null,
+      "github_checkout_sha": null,
+      "source_worktree_dirty": false,
+      "observed_at_utc": "2026-10-06T15:17:19.7293508Z",
+      "source_sha256": [
+        {
+          "path": "WinImgNormalizer.ps1",
+          "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+        },
+        {
+          "path": "WinImgNormalizer.bat",
+          "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "sha256": "2bf2fb2b03b53fd7be1b68514c855f2083203d3784e591779aacd20e92d54fcb"
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+        },
+        {
+          "path": "tests/dependencies.json",
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+        },
+        {
+          "path": "tests/mandatory-tests.json",
+          "sha256": "956ef9a16965d42f160594ec5ac7e6573d9315cdce4e31085cd7f5affbc7dc4a"
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f"
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2"
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+        },
+        {
+          "path": ".github/workflows/windows-tests.yml",
+          "sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39"
+        },
+        {
+          "path": "tests/legacy/toolchain.json",
+          "sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406"
+        },
+        {
+          "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+          "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+        },
+        {
+          "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+          "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+        },
+        {
+          "path": "tests/fixtures/colour/Generate-Reference.py",
+          "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+        },
+        {
+          "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+          "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+        },
+        {
+          "path": "tests/fixtures/colour/MANIFEST.json",
+          "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+        },
+        {
+          "path": "tests/fixtures/colour/README.md",
+          "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+        },
+        {
+          "path": "tests/fixtures/colour/REFERENCE.json",
+          "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+        },
+        {
+          "path": "tests/fixtures/colour/sRGB-v4.icc",
+          "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414"
+        },
+        {
+          "path": "docs/release/NOTES.md",
+          "sha256": "87823a56a9b9e705e64ef5d770fe5aac12fd3d24a4922a630c6a20c992330e63"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "sha256": "763370a1668c8c8a0b0ab3f33569097de940c2099dc0dbdbf41c1eec48e2ba06"
+        },
+        {
+          "path": "release-metadata.json",
+          "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+        },
+        {
+          "path": "README.md",
+          "sha256": "47cda8739df59ca63830e46d0df0f90eb7357b33ef6cc80a0b7cf9f469881523"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+        },
+        {
+          "path": ".gitattributes",
+          "sha256": "7d134f57b25c0102dfcbe055574eaa88e5003bec1eaab6abb78c8cac916eeb9c"
+        },
+        {
+          "path": "tests/fixtures/LauncherConsoleFixture.cs",
+          "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+        },
+        {
+          "path": "tests/Normalizer.Tests.ps1",
+          "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+        },
+        {
+          "path": "tests/Preflight.Tests.ps1",
+          "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+        },
+        {
+          "path": "tests/Traversal.Tests.ps1",
+          "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+        },
+        {
+          "path": "tests/Naming.Tests.ps1",
+          "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+        },
+        {
+          "path": "tests/Transactions.Tests.ps1",
+          "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+        },
+        {
+          "path": "tests/Duplicates.Tests.ps1",
+          "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+        },
+        {
+          "path": "tests/SafetyRegression.Tests.ps1",
+          "sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+        },
+        {
+          "path": "tests/Frames.Tests.ps1",
+          "sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+        },
+        {
+          "path": "tests/Colour.Tests.ps1",
+          "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+        },
+        {
+          "path": "tests/Paths.Tests.ps1",
+          "sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+        },
+        {
+          "path": "tests/Sizing.Tests.ps1",
+          "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+        },
+        {
+          "path": "tests/Diagnostics.Tests.ps1",
+          "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+        },
+        {
+          "path": "tests/ConversionRegression.Tests.ps1",
+          "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+        },
+        {
+          "path": "tests/RecoveryReporting.Tests.ps1",
+          "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+        },
+        {
+          "path": "tests/NativeLifetime.Tests.ps1",
+          "sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538"
+        },
+        {
+          "path": "tests/Cancellation.Tests.ps1",
+          "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+        },
+        {
+          "path": "tests/Reporting.Tests.ps1",
+          "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+        },
+        {
+          "path": "tests/Launcher.Tests.ps1",
+          "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+        },
+        {
+          "path": "tests/ExitContract.Tests.ps1",
+          "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+        },
+        {
+          "path": "tests/Compatibility.Tests.ps1",
+          "sha256": "1532099561cb4c32cc7e2aff359bf2d56e9bb8714b8087054de2bf15fdad0bd5"
+        },
+        {
+          "path": "tests/CodecCompatibility.Tests.ps1",
+          "sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548"
+        },
+        {
+          "path": "tests/StaticAnalysis.Tests.ps1",
+          "sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1"
+        },
+        {
+          "path": "tests/WorkflowSecurity.Tests.ps1",
+          "sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3"
+        },
+        {
+          "path": "tests/Versioning.Tests.ps1",
+          "sha256": "7164701c434c3692cf9522d53d2f43190ca1f5b3c62a0044993cab1eedd7178c"
+        }
+      ],
+      "summary_sha256": "7d127d6632ad8df49556953ff2b767c66741af76ef2d6152eb1a70b7c625f97d",
+      "status": "failed",
+      "total_count": 483,
+      "passed_count": 482,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "inconclusive_count": 0,
+      "not_run_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "deliberate_failure": true,
+      "suite_scope": "mandatory",
+      "passed_case_ids": [
+        "T005",
+        "T006",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T068"
+      ],
+      "required_case_ids": [
+        "T005",
+        "T006",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T068"
+      ],
+      "gate_failure_count": 2,
+      "source_unchanged": true,
+      "commit_unchanged": true,
+      "source_worktree_dirty_after": false,
+      "persistent_policy_unchanged": true,
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version": "7.1.2-32",
+      "imagemagick_delegates": [
+        "bzlib",
+        "cairo",
+        "freetype",
+        "gslib",
+        "heic",
+        "jng",
+        "jp2",
+        "jpeg",
+        "jxl",
+        "lcms",
+        "lqr",
+        "lzma",
+        "openexr",
+        "pangocairo",
+        "png",
+        "ps",
+        "raqm",
+        "raw",
+        "rsvg",
+        "tiff",
+        "webp",
+        "xml",
+        "zip",
+        "zlib",
+        "zstd"
+      ],
+      "codec_capabilities": [
+        {
+          "format": "BMP",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "GIF",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "HEIC",
+          "read": true,
+          "write": false
+        },
+        {
+          "format": "HEIF",
+          "read": true,
+          "write": false
+        },
+        {
+          "format": "JPEG",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "PNG",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "TIFF",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "WEBP",
+          "read": true,
+          "write": true
+        }
+      ],
+      "codec_coverage": [
+        {
+          "extension": "jpg",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "jpeg",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "png",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "bmp",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "tif",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "tiff",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "gif",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "webp",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "heic",
+          "case_id": "T031",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "heif",
+          "case_id": "T031",
+          "passed_test_count": 1,
+          "executed": true
+        }
+      ],
+      "verified_mandatory_suite_count": 24
+    },
+    {
+      "shell": "ps7",
+      "kind": "normal",
+      "native_exit_code": 0,
+      "tested_commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "execution_environment": "windows_local_automated",
+      "runner_image": null,
+      "runner_image_version": null,
+      "runner_label": null,
+      "github_checkout_sha": null,
+      "source_worktree_dirty": false,
+      "observed_at_utc": "2026-10-06T15:08:38.9339522Z",
+      "source_sha256": [
+        {
+          "path": "WinImgNormalizer.ps1",
+          "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+        },
+        {
+          "path": "WinImgNormalizer.bat",
+          "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "sha256": "2bf2fb2b03b53fd7be1b68514c855f2083203d3784e591779aacd20e92d54fcb"
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+        },
+        {
+          "path": "tests/dependencies.json",
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+        },
+        {
+          "path": "tests/mandatory-tests.json",
+          "sha256": "956ef9a16965d42f160594ec5ac7e6573d9315cdce4e31085cd7f5affbc7dc4a"
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f"
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2"
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+        },
+        {
+          "path": ".github/workflows/windows-tests.yml",
+          "sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39"
+        },
+        {
+          "path": "tests/legacy/toolchain.json",
+          "sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406"
+        },
+        {
+          "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+          "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+        },
+        {
+          "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+          "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+        },
+        {
+          "path": "tests/fixtures/colour/Generate-Reference.py",
+          "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+        },
+        {
+          "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+          "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+        },
+        {
+          "path": "tests/fixtures/colour/MANIFEST.json",
+          "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+        },
+        {
+          "path": "tests/fixtures/colour/README.md",
+          "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+        },
+        {
+          "path": "tests/fixtures/colour/REFERENCE.json",
+          "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+        },
+        {
+          "path": "tests/fixtures/colour/sRGB-v4.icc",
+          "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414"
+        },
+        {
+          "path": "docs/release/NOTES.md",
+          "sha256": "87823a56a9b9e705e64ef5d770fe5aac12fd3d24a4922a630c6a20c992330e63"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "sha256": "763370a1668c8c8a0b0ab3f33569097de940c2099dc0dbdbf41c1eec48e2ba06"
+        },
+        {
+          "path": "release-metadata.json",
+          "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+        },
+        {
+          "path": "README.md",
+          "sha256": "47cda8739df59ca63830e46d0df0f90eb7357b33ef6cc80a0b7cf9f469881523"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+        },
+        {
+          "path": ".gitattributes",
+          "sha256": "7d134f57b25c0102dfcbe055574eaa88e5003bec1eaab6abb78c8cac916eeb9c"
+        },
+        {
+          "path": "tests/fixtures/LauncherConsoleFixture.cs",
+          "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+        },
+        {
+          "path": "tests/Normalizer.Tests.ps1",
+          "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+        },
+        {
+          "path": "tests/Preflight.Tests.ps1",
+          "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+        },
+        {
+          "path": "tests/Traversal.Tests.ps1",
+          "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+        },
+        {
+          "path": "tests/Naming.Tests.ps1",
+          "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+        },
+        {
+          "path": "tests/Transactions.Tests.ps1",
+          "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+        },
+        {
+          "path": "tests/Duplicates.Tests.ps1",
+          "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+        },
+        {
+          "path": "tests/SafetyRegression.Tests.ps1",
+          "sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+        },
+        {
+          "path": "tests/Frames.Tests.ps1",
+          "sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+        },
+        {
+          "path": "tests/Colour.Tests.ps1",
+          "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+        },
+        {
+          "path": "tests/Paths.Tests.ps1",
+          "sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+        },
+        {
+          "path": "tests/Sizing.Tests.ps1",
+          "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+        },
+        {
+          "path": "tests/Diagnostics.Tests.ps1",
+          "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+        },
+        {
+          "path": "tests/ConversionRegression.Tests.ps1",
+          "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+        },
+        {
+          "path": "tests/RecoveryReporting.Tests.ps1",
+          "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+        },
+        {
+          "path": "tests/NativeLifetime.Tests.ps1",
+          "sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538"
+        },
+        {
+          "path": "tests/Cancellation.Tests.ps1",
+          "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+        },
+        {
+          "path": "tests/Reporting.Tests.ps1",
+          "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+        },
+        {
+          "path": "tests/Launcher.Tests.ps1",
+          "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+        },
+        {
+          "path": "tests/ExitContract.Tests.ps1",
+          "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+        },
+        {
+          "path": "tests/Compatibility.Tests.ps1",
+          "sha256": "1532099561cb4c32cc7e2aff359bf2d56e9bb8714b8087054de2bf15fdad0bd5"
+        },
+        {
+          "path": "tests/CodecCompatibility.Tests.ps1",
+          "sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548"
+        },
+        {
+          "path": "tests/StaticAnalysis.Tests.ps1",
+          "sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1"
+        },
+        {
+          "path": "tests/WorkflowSecurity.Tests.ps1",
+          "sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3"
+        },
+        {
+          "path": "tests/Versioning.Tests.ps1",
+          "sha256": "7164701c434c3692cf9522d53d2f43190ca1f5b3c62a0044993cab1eedd7178c"
+        }
+      ],
+      "summary_sha256": "1e627c1ca15175fbb0cf7870f1a675ad70a1df56766ba2fa01c53a280e56d6e0",
+      "status": "passed",
+      "total_count": 482,
+      "passed_count": 482,
+      "failed_count": 0,
+      "skipped_count": 0,
+      "inconclusive_count": 0,
+      "not_run_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 0,
+      "deliberate_failure": false,
+      "suite_scope": "mandatory",
+      "passed_case_ids": [
+        "T005",
+        "T006",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T068"
+      ],
+      "required_case_ids": [
+        "T005",
+        "T006",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T068"
+      ],
+      "gate_failure_count": 0,
+      "source_unchanged": true,
+      "commit_unchanged": true,
+      "source_worktree_dirty_after": false,
+      "persistent_policy_unchanged": true,
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version": "7.1.2-32",
+      "imagemagick_delegates": [
+        "bzlib",
+        "cairo",
+        "freetype",
+        "gslib",
+        "heic",
+        "jng",
+        "jp2",
+        "jpeg",
+        "jxl",
+        "lcms",
+        "lqr",
+        "lzma",
+        "openexr",
+        "pangocairo",
+        "png",
+        "ps",
+        "raqm",
+        "raw",
+        "rsvg",
+        "tiff",
+        "webp",
+        "xml",
+        "zip",
+        "zlib",
+        "zstd"
+      ],
+      "codec_capabilities": [
+        {
+          "format": "BMP",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "GIF",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "HEIC",
+          "read": true,
+          "write": false
+        },
+        {
+          "format": "HEIF",
+          "read": true,
+          "write": false
+        },
+        {
+          "format": "JPEG",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "PNG",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "TIFF",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "WEBP",
+          "read": true,
+          "write": true
+        }
+      ],
+      "codec_coverage": [
+        {
+          "extension": "jpg",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "jpeg",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "png",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "bmp",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "tif",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "tiff",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "gif",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "webp",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "heic",
+          "case_id": "T031",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "heif",
+          "case_id": "T031",
+          "passed_test_count": 1,
+          "executed": true
+        }
+      ],
+      "verified_mandatory_suite_count": 24
+    },
+    {
+      "shell": "ps7",
+      "kind": "control",
+      "native_exit_code": 1,
+      "tested_commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "execution_environment": "windows_local_automated",
+      "runner_image": null,
+      "runner_image_version": null,
+      "runner_label": null,
+      "github_checkout_sha": null,
+      "source_worktree_dirty": false,
+      "observed_at_utc": "2026-10-06T15:15:44.4233160Z",
+      "source_sha256": [
+        {
+          "path": "WinImgNormalizer.ps1",
+          "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+        },
+        {
+          "path": "WinImgNormalizer.bat",
+          "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83"
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "sha256": "2bf2fb2b03b53fd7be1b68514c855f2083203d3784e591779aacd20e92d54fcb"
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+        },
+        {
+          "path": "tests/dependencies.json",
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+        },
+        {
+          "path": "tests/mandatory-tests.json",
+          "sha256": "956ef9a16965d42f160594ec5ac7e6573d9315cdce4e31085cd7f5affbc7dc4a"
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f"
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2"
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+        },
+        {
+          "path": ".github/workflows/windows-tests.yml",
+          "sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39"
+        },
+        {
+          "path": "tests/legacy/toolchain.json",
+          "sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406"
+        },
+        {
+          "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+          "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9"
+        },
+        {
+          "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+          "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0"
+        },
+        {
+          "path": "tests/fixtures/colour/Generate-Reference.py",
+          "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22"
+        },
+        {
+          "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+          "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9"
+        },
+        {
+          "path": "tests/fixtures/colour/MANIFEST.json",
+          "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f"
+        },
+        {
+          "path": "tests/fixtures/colour/README.md",
+          "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68"
+        },
+        {
+          "path": "tests/fixtures/colour/REFERENCE.json",
+          "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675"
+        },
+        {
+          "path": "tests/fixtures/colour/sRGB-v4.icc",
+          "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353"
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414"
+        },
+        {
+          "path": "docs/release/NOTES.md",
+          "sha256": "87823a56a9b9e705e64ef5d770fe5aac12fd3d24a4922a630c6a20c992330e63"
+        },
+        {
+          "path": "CHANGELOG.md",
+          "sha256": "763370a1668c8c8a0b0ab3f33569097de940c2099dc0dbdbf41c1eec48e2ba06"
+        },
+        {
+          "path": "release-metadata.json",
+          "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77"
+        },
+        {
+          "path": "README.md",
+          "sha256": "47cda8739df59ca63830e46d0df0f90eb7357b33ef6cc80a0b7cf9f469881523"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5"
+        },
+        {
+          "path": ".gitattributes",
+          "sha256": "7d134f57b25c0102dfcbe055574eaa88e5003bec1eaab6abb78c8cac916eeb9c"
+        },
+        {
+          "path": "tests/fixtures/LauncherConsoleFixture.cs",
+          "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d"
+        },
+        {
+          "path": "tests/Normalizer.Tests.ps1",
+          "sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449"
+        },
+        {
+          "path": "tests/Preflight.Tests.ps1",
+          "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c"
+        },
+        {
+          "path": "tests/Traversal.Tests.ps1",
+          "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1"
+        },
+        {
+          "path": "tests/Naming.Tests.ps1",
+          "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83"
+        },
+        {
+          "path": "tests/Transactions.Tests.ps1",
+          "sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48"
+        },
+        {
+          "path": "tests/Duplicates.Tests.ps1",
+          "sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f"
+        },
+        {
+          "path": "tests/SafetyRegression.Tests.ps1",
+          "sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee"
+        },
+        {
+          "path": "tests/Frames.Tests.ps1",
+          "sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a"
+        },
+        {
+          "path": "tests/Colour.Tests.ps1",
+          "sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475"
+        },
+        {
+          "path": "tests/Paths.Tests.ps1",
+          "sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287"
+        },
+        {
+          "path": "tests/Sizing.Tests.ps1",
+          "sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0"
+        },
+        {
+          "path": "tests/Diagnostics.Tests.ps1",
+          "sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6"
+        },
+        {
+          "path": "tests/ConversionRegression.Tests.ps1",
+          "sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636"
+        },
+        {
+          "path": "tests/RecoveryReporting.Tests.ps1",
+          "sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589"
+        },
+        {
+          "path": "tests/NativeLifetime.Tests.ps1",
+          "sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538"
+        },
+        {
+          "path": "tests/Cancellation.Tests.ps1",
+          "sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e"
+        },
+        {
+          "path": "tests/Reporting.Tests.ps1",
+          "sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437"
+        },
+        {
+          "path": "tests/Launcher.Tests.ps1",
+          "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062"
+        },
+        {
+          "path": "tests/ExitContract.Tests.ps1",
+          "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154"
+        },
+        {
+          "path": "tests/Compatibility.Tests.ps1",
+          "sha256": "1532099561cb4c32cc7e2aff359bf2d56e9bb8714b8087054de2bf15fdad0bd5"
+        },
+        {
+          "path": "tests/CodecCompatibility.Tests.ps1",
+          "sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548"
+        },
+        {
+          "path": "tests/StaticAnalysis.Tests.ps1",
+          "sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1"
+        },
+        {
+          "path": "tests/WorkflowSecurity.Tests.ps1",
+          "sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3"
+        },
+        {
+          "path": "tests/Versioning.Tests.ps1",
+          "sha256": "7164701c434c3692cf9522d53d2f43190ca1f5b3c62a0044993cab1eedd7178c"
+        }
+      ],
+      "summary_sha256": "a81b6b77530e92119cc1ee83c8af7d7f2f9ad4d327b9f6619d4492a7ac70caaf",
+      "status": "failed",
+      "total_count": 483,
+      "passed_count": 482,
+      "failed_count": 1,
+      "skipped_count": 0,
+      "inconclusive_count": 0,
+      "not_run_count": 0,
+      "failed_blocks_count": 0,
+      "failed_containers_count": 0,
+      "exit_code": 1,
+      "deliberate_failure": true,
+      "suite_scope": "mandatory",
+      "passed_case_ids": [
+        "T005",
+        "T006",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T068"
+      ],
+      "required_case_ids": [
+        "T005",
+        "T006",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T026",
+        "T027",
+        "T028",
+        "T029",
+        "T030",
+        "T031",
+        "T032",
+        "T033",
+        "T034",
+        "T035",
+        "T036",
+        "T037",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T068"
+      ],
+      "gate_failure_count": 2,
+      "source_unchanged": true,
+      "commit_unchanged": true,
+      "source_worktree_dirty_after": false,
+      "persistent_policy_unchanged": true,
+      "pester_version": "5.9.1",
+      "pester_package_sha256": "8dd4060fc3bc895f05bd655e4ab82abe346de54a4e6415dfb727cc8378672b69",
+      "imagemagick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+      "imagemagick_version": "7.1.2-32",
+      "imagemagick_delegates": [
+        "bzlib",
+        "cairo",
+        "freetype",
+        "gslib",
+        "heic",
+        "jng",
+        "jp2",
+        "jpeg",
+        "jxl",
+        "lcms",
+        "lqr",
+        "lzma",
+        "openexr",
+        "pangocairo",
+        "png",
+        "ps",
+        "raqm",
+        "raw",
+        "rsvg",
+        "tiff",
+        "webp",
+        "xml",
+        "zip",
+        "zlib",
+        "zstd"
+      ],
+      "codec_capabilities": [
+        {
+          "format": "BMP",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "GIF",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "HEIC",
+          "read": true,
+          "write": false
+        },
+        {
+          "format": "HEIF",
+          "read": true,
+          "write": false
+        },
+        {
+          "format": "JPEG",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "PNG",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "TIFF",
+          "read": true,
+          "write": true
+        },
+        {
+          "format": "WEBP",
+          "read": true,
+          "write": true
+        }
+      ],
+      "codec_coverage": [
+        {
+          "extension": "jpg",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "jpeg",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "png",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "bmp",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "tif",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "tiff",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "gif",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "webp",
+          "case_id": "T065",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "heic",
+          "case_id": "T031",
+          "passed_test_count": 1,
+          "executed": true
+        },
+        {
+          "extension": "heif",
+          "case_id": "T031",
+          "passed_test_count": 1,
+          "executed": true
+        }
+      ],
+      "verified_mandatory_suite_count": 24
+    }
+  ],
+  "static_analysis": [
+    {
+      "shell": "ps51-final",
+      "kind": "analysis",
+      "native_exit_code": 0,
+      "tested_commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "execution_environment": null,
+      "runner_image": null,
+      "runner_image_version": null,
+      "runner_label": null,
+      "github_checkout_sha": null,
+      "source_worktree_dirty": false,
+      "observed_at_utc": "2026-10-06T15:24:39.9106968Z",
+      "source_sha256": [
+        {
+          "path": "tests/dependencies.json",
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f"
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2"
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "sha256": "2bf2fb2b03b53fd7be1b68514c855f2083203d3784e591779aacd20e92d54fcb"
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414"
+        },
+        {
+          "path": "WinImgNormalizer.ps1",
+          "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+        }
+      ],
+      "summary_sha256": "e6dd421299488d729e6849dece70f5cb84d7315a2917cf6d6907a35910e2d9d6",
+      "status": "passed",
+      "exit_code": 0,
+      "scanned_file_count": 8,
+      "scoped_findings_count": 0,
+      "control_findings_count": 0,
+      "findings_count": 0,
+      "deliberate_failure": false,
+      "control_detected": false,
+      "source_bindings_unchanged": true,
+      "control_source_sha256": "",
+      "analyzer_version": "1.25.0",
+      "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "rules": [
+        "PSAvoidAssignmentToAutomaticVariable",
+        "PSAvoidUsingInvokeExpression",
+        "PSAvoidUsingPlainTextForPassword",
+        "PSAvoidUsingConvertToSecureStringWithPlainText",
+        "PSAvoidUsingAllowUnencryptedAuthentication",
+        "PSAvoidUsingBrokenHashAlgorithms",
+        "PSAvoidUsingUsernameAndPasswordParams",
+        "PSAvoidUsingComputerNameHardcoded",
+        "PSUsePSCredentialType",
+        "PSAvoidUsingWMICmdlet",
+        "PSReservedParams",
+        "PSMisleadingBacktick",
+        "PSUseCmdletCorrectly",
+        "PSPossibleIncorrectComparisonWithNull",
+        "PSUseCompatibleSyntax"
+      ]
+    },
+    {
+      "shell": "ps51-final",
+      "kind": "analysis-control",
+      "native_exit_code": 1,
+      "tested_commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+      "powershell_version": "5.1.26100.9444",
+      "powershell_edition": "Desktop",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "execution_environment": null,
+      "runner_image": null,
+      "runner_image_version": null,
+      "runner_label": null,
+      "github_checkout_sha": null,
+      "source_worktree_dirty": false,
+      "observed_at_utc": "2026-10-06T15:24:45.3161558Z",
+      "source_sha256": [
+        {
+          "path": "tests/dependencies.json",
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f"
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2"
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "sha256": "2bf2fb2b03b53fd7be1b68514c855f2083203d3784e591779aacd20e92d54fcb"
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414"
+        },
+        {
+          "path": "WinImgNormalizer.ps1",
+          "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+        }
+      ],
+      "summary_sha256": "27bbcb6a17f9ec16c1fe230ba969800143104acfae76efdfac8fc4d9977d7474",
+      "status": "analysis_failed",
+      "exit_code": 1,
+      "scanned_file_count": 8,
+      "scoped_findings_count": 0,
+      "control_findings_count": 1,
+      "findings_count": 1,
+      "deliberate_failure": true,
+      "control_detected": true,
+      "source_bindings_unchanged": true,
+      "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+      "analyzer_version": "1.25.0",
+      "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "rules": [
+        "PSAvoidAssignmentToAutomaticVariable",
+        "PSAvoidUsingInvokeExpression",
+        "PSAvoidUsingPlainTextForPassword",
+        "PSAvoidUsingConvertToSecureStringWithPlainText",
+        "PSAvoidUsingAllowUnencryptedAuthentication",
+        "PSAvoidUsingBrokenHashAlgorithms",
+        "PSAvoidUsingUsernameAndPasswordParams",
+        "PSAvoidUsingComputerNameHardcoded",
+        "PSUsePSCredentialType",
+        "PSAvoidUsingWMICmdlet",
+        "PSReservedParams",
+        "PSMisleadingBacktick",
+        "PSUseCmdletCorrectly",
+        "PSPossibleIncorrectComparisonWithNull",
+        "PSUseCompatibleSyntax"
+      ]
+    },
+    {
+      "shell": "ps7",
+      "kind": "analysis",
+      "native_exit_code": 0,
+      "tested_commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "execution_environment": null,
+      "runner_image": null,
+      "runner_image_version": null,
+      "runner_label": null,
+      "github_checkout_sha": null,
+      "source_worktree_dirty": false,
+      "observed_at_utc": "2026-10-06T15:23:05.8887331Z",
+      "source_sha256": [
+        {
+          "path": "tests/dependencies.json",
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f"
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2"
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "sha256": "2bf2fb2b03b53fd7be1b68514c855f2083203d3784e591779aacd20e92d54fcb"
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414"
+        },
+        {
+          "path": "WinImgNormalizer.ps1",
+          "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+        }
+      ],
+      "summary_sha256": "e9eaf7bbf8cbb6e57500618f3992968337b80f09e1d7f5b3947b941a487e8ccb",
+      "status": "passed",
+      "exit_code": 0,
+      "scanned_file_count": 8,
+      "scoped_findings_count": 0,
+      "control_findings_count": 0,
+      "findings_count": 0,
+      "deliberate_failure": false,
+      "control_detected": false,
+      "source_bindings_unchanged": true,
+      "control_source_sha256": "",
+      "analyzer_version": "1.25.0",
+      "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "rules": [
+        "PSAvoidAssignmentToAutomaticVariable",
+        "PSAvoidUsingInvokeExpression",
+        "PSAvoidUsingPlainTextForPassword",
+        "PSAvoidUsingConvertToSecureStringWithPlainText",
+        "PSAvoidUsingAllowUnencryptedAuthentication",
+        "PSAvoidUsingBrokenHashAlgorithms",
+        "PSAvoidUsingUsernameAndPasswordParams",
+        "PSAvoidUsingComputerNameHardcoded",
+        "PSUsePSCredentialType",
+        "PSAvoidUsingWMICmdlet",
+        "PSReservedParams",
+        "PSMisleadingBacktick",
+        "PSUseCmdletCorrectly",
+        "PSPossibleIncorrectComparisonWithNull",
+        "PSUseCompatibleSyntax"
+      ]
+    },
+    {
+      "shell": "ps7",
+      "kind": "analysis-control",
+      "native_exit_code": 1,
+      "tested_commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+      "powershell_version": "7.6.5",
+      "powershell_edition": "Core",
+      "os_caption": "Microsoft Windows 11 Pro",
+      "os_version": "10.0.26300",
+      "os_build": "26300",
+      "architecture_bits": 64,
+      "culture": "fi-FI",
+      "execution_environment": null,
+      "runner_image": null,
+      "runner_image_version": null,
+      "runner_label": null,
+      "github_checkout_sha": null,
+      "source_worktree_dirty": false,
+      "observed_at_utc": "2026-10-06T15:23:14.1445943Z",
+      "source_sha256": [
+        {
+          "path": "tests/dependencies.json",
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853"
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f"
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86"
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2"
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "sha256": "2bf2fb2b03b53fd7be1b68514c855f2083203d3784e591779aacd20e92d54fcb"
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94"
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634"
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016"
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414"
+        },
+        {
+          "path": "WinImgNormalizer.ps1",
+          "sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383"
+        }
+      ],
+      "summary_sha256": "f2c6c4d11586bf3cc4dcf10ca953b065d80621b86d6e39f3cdcf61f599661221",
+      "status": "analysis_failed",
+      "exit_code": 1,
+      "scanned_file_count": 8,
+      "scoped_findings_count": 0,
+      "control_findings_count": 1,
+      "findings_count": 1,
+      "deliberate_failure": true,
+      "control_detected": true,
+      "source_bindings_unchanged": true,
+      "control_source_sha256": "1b94289ea5d8c6fa102ec31d6dff8a1370f8fbd5028494eba55a75d937855537",
+      "analyzer_version": "1.25.0",
+      "analyzer_package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "rules": [
+        "PSAvoidAssignmentToAutomaticVariable",
+        "PSAvoidUsingInvokeExpression",
+        "PSAvoidUsingPlainTextForPassword",
+        "PSAvoidUsingConvertToSecureStringWithPlainText",
+        "PSAvoidUsingAllowUnencryptedAuthentication",
+        "PSAvoidUsingBrokenHashAlgorithms",
+        "PSAvoidUsingUsernameAndPasswordParams",
+        "PSAvoidUsingComputerNameHardcoded",
+        "PSUsePSCredentialType",
+        "PSAvoidUsingWMICmdlet",
+        "PSReservedParams",
+        "PSMisleadingBacktick",
+        "PSUseCmdletCorrectly",
+        "PSPossibleIncorrectComparisonWithNull",
+        "PSUseCompatibleSyntax"
+      ]
+    }
+  ],
+  "native_parent_records": [
+    {
+      "shell": "ps51-final",
+      "started_utc": "2026-10-06T15:09:38.1724738Z",
+      "finished_utc": "2026-10-06T15:24:50.5028147Z",
+      "sha256": "134de7b86ecdd956c505ae1f480efd5d70723744088acb389efb1481f4e3cbc8"
+    },
+    {
+      "shell": "ps7",
+      "started_utc": "2026-10-06T15:08:38.3710423Z",
+      "finished_utc": "2026-10-06T15:23:21.6824286Z",
+      "sha256": "48b2937aafb5421a95fba3bf9d254aeb33e0d5c26112715db8d24ffbe08f61f7"
+    }
+  ],
+  "raw_artifact_hashes": [
+    {
+      "shell": "ps51-final",
+      "kind": "normal",
+      "console_sha256": "1264de98b224a1152aefadd7bc60d67c3709514c81f7cb977d55232573a377ec",
+      "summary_sha256": "ce1ac2f738f5ae16102d833d67c0ddef74d203297bb43a3f4ccd258b65e07399"
+    },
+    {
+      "shell": "ps51-final",
+      "kind": "normal",
+      "filename": "results.xml",
+      "sha256": "300754c1422305505f8d971af14308ae2ac2f7a1fd27419f9427f715273a1dbb"
+    },
+    {
+      "shell": "ps51-final",
+      "kind": "control",
+      "console_sha256": "d2ce4b296ae799ababad40af6aebcb813b44f7cc38931bf2e9db106c260d9615",
+      "summary_sha256": "7d127d6632ad8df49556953ff2b767c66741af76ef2d6152eb1a70b7c625f97d"
+    },
+    {
+      "shell": "ps51-final",
+      "kind": "control",
+      "filename": "results.xml",
+      "sha256": "81d0017e7ba9a9c57eb7902be3eac803efdeffca3134ff33ea9794e948d7e497"
+    },
+    {
+      "shell": "ps51-final",
+      "kind": "analysis",
+      "console_sha256": "e98b7686ab31f8922cf0ec0be93574ae0f9294d80807bbbdd76c79946a7b1985",
+      "summary_sha256": "e6dd421299488d729e6849dece70f5cb84d7315a2917cf6d6907a35910e2d9d6"
+    },
+    {
+      "shell": "ps51-final",
+      "kind": "analysis-control",
+      "console_sha256": "b09c02fe08ab0bbccf151210528d10c62aff7d5fe41b9ccbf2a558f6efdd8538",
+      "summary_sha256": "27bbcb6a17f9ec16c1fe230ba969800143104acfae76efdfac8fc4d9977d7474"
+    },
+    {
+      "shell": "ps51-final",
+      "kind": "sanitized_export",
+      "filename": "test-evidence.json",
+      "sha256": "f7fd974e9f6f1bdced27a182aa065df89111d036631743f07c0c34807866fb7e"
+    },
+    {
+      "shell": "ps51-final",
+      "kind": "sanitized_export",
+      "filename": "static-analysis-evidence.json",
+      "sha256": "be62ef90b46651f664e404246413d8d538fa3aff62c0a1bcaa21f06b99666381"
+    },
+    {
+      "shell": "ps7",
+      "kind": "normal",
+      "console_sha256": "80a167acf6d040ed85950bba4d2007b694a5dcdd9318bb71b861e64b17539563",
+      "summary_sha256": "1e627c1ca15175fbb0cf7870f1a675ad70a1df56766ba2fa01c53a280e56d6e0"
+    },
+    {
+      "shell": "ps7",
+      "kind": "normal",
+      "filename": "results.xml",
+      "sha256": "77be24d5cc367ec0614efec184557cb70c637fa3e5366ef168c50ee67575d00f"
+    },
+    {
+      "shell": "ps7",
+      "kind": "control",
+      "console_sha256": "0a530a926bf6158d9b3d27c3391ffda5edebaabd69f60134871d1d31aeeba94b",
+      "summary_sha256": "a81b6b77530e92119cc1ee83c8af7d7f2f9ad4d327b9f6619d4492a7ac70caaf"
+    },
+    {
+      "shell": "ps7",
+      "kind": "control",
+      "filename": "results.xml",
+      "sha256": "3e9d4714f2525bc932cb8b21b0701c6da0c2925e059bd1cd8265e87c909c5396"
+    },
+    {
+      "shell": "ps7",
+      "kind": "analysis",
+      "console_sha256": "871395a9c0d821540335987784138ae374182c8a49ee91f4ed4f44ac4c28465f",
+      "summary_sha256": "e9eaf7bbf8cbb6e57500618f3992968337b80f09e1d7f5b3947b941a487e8ccb"
+    },
+    {
+      "shell": "ps7",
+      "kind": "analysis-control",
+      "console_sha256": "82b2193f6785b6e99323b92adda8077f8b17c00de212a839dbbef39acd7696c7",
+      "summary_sha256": "f2c6c4d11586bf3cc4dcf10ca953b065d80621b86d6e39f3cdcf61f599661221"
+    },
+    {
+      "shell": "ps7",
+      "kind": "sanitized_export",
+      "filename": "test-evidence.json",
+      "sha256": "066c5a65745f34c020167a0d77d8852c677e3709801f90d41712871d2009cb0f"
+    },
+    {
+      "shell": "ps7",
+      "kind": "sanitized_export",
+      "filename": "static-analysis-evidence.json",
+      "sha256": "118aac5e9fb54afe588f1014fa4d0d0531f7a4a1924f1cb68e788f48afc71680"
+    }
+  ],
+  "source_commit_comparisons": [
+    {
+      "path": ".gitattributes",
+      "working_sha256": "7d134f57b25c0102dfcbe055574eaa88e5003bec1eaab6abb78c8cac916eeb9c",
+      "git_blob_sha256": "7d134f57b25c0102dfcbe055574eaa88e5003bec1eaab6abb78c8cac916eeb9c",
+      "comparison": "exact"
+    },
+    {
+      "path": ".github/workflows/windows-tests.yml",
+      "working_sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39",
+      "git_blob_sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39",
+      "comparison": "exact"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "working_sha256": "763370a1668c8c8a0b0ab3f33569097de940c2099dc0dbdbf41c1eec48e2ba06",
+      "git_blob_sha256": "763370a1668c8c8a0b0ab3f33569097de940c2099dc0dbdbf41c1eec48e2ba06",
+      "comparison": "exact"
+    },
+    {
+      "path": "LICENSE",
+      "working_sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5",
+      "git_blob_sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "README.md",
+      "working_sha256": "47cda8739df59ca63830e46d0df0f90eb7357b33ef6cc80a0b7cf9f469881523",
+      "git_blob_sha256": "f7ed6fae8133b33371252c743a43823cf613fbc9af2e2507d41efdc2b153d1a0",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "WinImgNormalizer.bat",
+      "working_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "git_blob_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "comparison": "exact"
+    },
+    {
+      "path": "WinImgNormalizer.ps1",
+      "working_sha256": "282b3f6f4929948fc4fb691af6bf687c0ee8821371f5ad7529eba7717c66c383",
+      "git_blob_sha256": "6545e02db60910c23b6f009ea8c77e5ee6bd41cec589c7ff940b2ac198579e2e",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "docs/release/NOTES.md",
+      "working_sha256": "87823a56a9b9e705e64ef5d770fe5aac12fd3d24a4922a630c6a20c992330e63",
+      "git_blob_sha256": "87823a56a9b9e705e64ef5d770fe5aac12fd3d24a4922a630c6a20c992330e63",
+      "comparison": "exact"
+    },
+    {
+      "path": "release-metadata.json",
+      "working_sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77",
+      "git_blob_sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Cancellation.Tests.ps1",
+      "working_sha256": "9ec79dd68d956e30c5aef592c993bc7446684194207eccd607cfaf0545b9255e",
+      "git_blob_sha256": "6cc52b8fde1c22bad0b7fe715da819d7ab7fd7b7e077d47a3b586dd7bc10fbb6",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/CodecCompatibility.Tests.ps1",
+      "working_sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548",
+      "git_blob_sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Colour.Tests.ps1",
+      "working_sha256": "7329c39dd52090da410965b26ed1c3afc07b89f530936c829712e505a8e5c475",
+      "git_blob_sha256": "8e2b796c9a2c1e1ae0febb009ab91e71279e197925f443a8ef40fa2b55c915d0",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/Compatibility.Tests.ps1",
+      "working_sha256": "1532099561cb4c32cc7e2aff359bf2d56e9bb8714b8087054de2bf15fdad0bd5",
+      "git_blob_sha256": "1532099561cb4c32cc7e2aff359bf2d56e9bb8714b8087054de2bf15fdad0bd5",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/ConversionRegression.Tests.ps1",
+      "working_sha256": "c4f025336b42a7a32d0b038373104abdf1be361e62738b2ac36492e7dba1a636",
+      "git_blob_sha256": "d9bdffce03a414f35de544b35171dee3713562bc6bf2be74ccadbb229e5fb094",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/Diagnostics.Tests.ps1",
+      "working_sha256": "6b120d06a2e2b13ce0bf1e9d3202c900043316ee795a3ac2c025154b029e08c6",
+      "git_blob_sha256": "0a3d905c5d6e907692cb4a33871673ee4b06f7d64819f659da2e502d0c2f5231",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/Duplicates.Tests.ps1",
+      "working_sha256": "0b87a2595fff8682732f795817eb87e3eb6b4670e3ee6d29768e8431cdde329f",
+      "git_blob_sha256": "b809ea01b3c32d330a2e230d43559964bb7036fd98dcd0674acecc6f28750d03",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/ExitContract.Tests.ps1",
+      "working_sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154",
+      "git_blob_sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Export-TestEvidence.ps1",
+      "working_sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f",
+      "git_blob_sha256": "af952ea85c2492f06a2d619213c2d9d12c18a869e1f3dd25b77736892c73010f",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Frames.Tests.ps1",
+      "working_sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a",
+      "git_blob_sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Initialize-TestDependencies.ps1",
+      "working_sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86",
+      "git_blob_sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Invoke-StaticAnalysis.ps1",
+      "working_sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2",
+      "git_blob_sha256": "9c7869e75cde573dde3cb13ebe747d33a230eeded9d65166fb0e83a702bc0dd2",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Invoke-Tests.ps1",
+      "working_sha256": "2bf2fb2b03b53fd7be1b68514c855f2083203d3784e591779aacd20e92d54fcb",
+      "git_blob_sha256": "233c43cc710a31a1581f8bc7f8213e454c12bc5dcb1d1d3467c87e74dc8986fe",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/Launcher.Tests.ps1",
+      "working_sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062",
+      "git_blob_sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Measure-SizeQuality.ps1",
+      "working_sha256": "f7cf248119cb8c8f50a7cc891431ea04691e370b3bb2e5acf4f9152558208b94",
+      "git_blob_sha256": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/Naming.Tests.ps1",
+      "working_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+      "git_blob_sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/NativeLifetime.Tests.ps1",
+      "working_sha256": "8bc2ecda475f1a44309002015134ef0a0892adef2b5a5ce08c676719692fc538",
+      "git_blob_sha256": "1bf52a3a7b2795395e2730572232c3c9e7005f7039ed0f64d575d74ff789272d",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/Normalizer.Tests.ps1",
+      "working_sha256": "5bdc61df7fbb3b8a9d602e8c3639fa2bd0407e0f411c10c8f6be752cb01b6449",
+      "git_blob_sha256": "deed7ee2ba7490c248b339a653f10aa9df17f08bc355596b11dde8ea8d76a54b",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/PSScriptAnalyzerSettings.psd1",
+      "working_sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634",
+      "git_blob_sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Paths.Tests.ps1",
+      "working_sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287",
+      "git_blob_sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Preflight.Tests.ps1",
+      "working_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+      "git_blob_sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/RecoveryReporting.Tests.ps1",
+      "working_sha256": "9e05a31a0cdbb8c893bf6a2698aedb84ee2572d3e634daaf837e749ad0b74589",
+      "git_blob_sha256": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/Reporting.Tests.ps1",
+      "working_sha256": "490eb7ea732585f8bd93e9abe38bc5fa0f62b39508b510017112667e399b0437",
+      "git_blob_sha256": "2451119df80b60bae78b90ec3dbd38655a8d8e00fdf7c3c91cb15425880d86f9",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/SafetyRegression.Tests.ps1",
+      "working_sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee",
+      "git_blob_sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Sizing.Tests.ps1",
+      "working_sha256": "7e57b8561e2052b8ce372d250cd457d1759b4cf658d411f6d8e647a1f53faaa0",
+      "git_blob_sha256": "5e18e11a1c82bb7e5464f8035d6bcd3fed92b91b59db2d1956680d4c45aab232",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/StaticAnalysis.Tests.ps1",
+      "working_sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1",
+      "git_blob_sha256": "b8ab9820c65870ea15041ed429d25478b64eae7af18cb0f7654009d6647054c1",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/TestGate.ps1",
+      "working_sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016",
+      "git_blob_sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Transactions.Tests.ps1",
+      "working_sha256": "490bf4b8d1553bf0961f322e5bd58c9fc45217cdab5d29cac953c16503306f48",
+      "git_blob_sha256": "43eccca35bee98132fe057955f09ea00ed5e0f48e9c4ab4b8ed8f9f491d1db2f",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tests/Traversal.Tests.ps1",
+      "working_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+      "git_blob_sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/Versioning.Tests.ps1",
+      "working_sha256": "7164701c434c3692cf9522d53d2f43190ca1f5b3c62a0044993cab1eedd7178c",
+      "git_blob_sha256": "7164701c434c3692cf9522d53d2f43190ca1f5b3c62a0044993cab1eedd7178c",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/WorkflowSecurity.Tests.ps1",
+      "working_sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3",
+      "git_blob_sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/dependencies.json",
+      "working_sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853",
+      "git_blob_sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/fixtures/LauncherConsoleFixture.cs",
+      "working_sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d",
+      "git_blob_sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+      "working_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+      "git_blob_sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+      "working_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+      "git_blob_sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/Generate-Reference.py",
+      "working_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+      "git_blob_sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+      "working_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+      "git_blob_sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/MANIFEST.json",
+      "working_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+      "git_blob_sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/README.md",
+      "working_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+      "git_blob_sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/REFERENCE.json",
+      "working_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+      "git_blob_sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/fixtures/colour/sRGB-v4.icc",
+      "working_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "git_blob_sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/legacy/toolchain.json",
+      "working_sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406",
+      "git_blob_sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406",
+      "comparison": "exact"
+    },
+    {
+      "path": "tests/mandatory-tests.json",
+      "working_sha256": "956ef9a16965d42f160594ec5ac7e6573d9315cdce4e31085cd7f5affbc7dc4a",
+      "git_blob_sha256": "7f063ab055b38adbae9fa9e4cb444c2f52b33b26abe0fae0ebdbe3e9ef985d7e",
+      "comparison": "CRLF/LF-only equivalence"
+    },
+    {
+      "path": "tools/release/Update-ReleaseMetadata.ps1",
+      "working_sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414",
+      "git_blob_sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414",
+      "comparison": "exact"
+    }
+  ],
+  "case_results": [
+    {
+      "case_id": "T068",
+      "state": "passed",
+      "reason": "Six meaningful regressions in each clean Windows host exercise real help without native dependency/output, unchanged synthetic-video normalization with versioned logs and substituted version, exact artifact checks without writes, stale rejection and disposable source-version mutation with byte-identical regeneration. All maintained full gates/controls/analyzers/exports completed."
+    }
+  ],
+  "preservation": {
+    "license_sha256": "28cd5b28cc287821be0bfc9f59bb08a3279ae4a119254f1e440d93b9d10f67f5",
+    "license_unchanged": true,
+    "original_author": "Janne Vuorela",
+    "authorship_retained": true,
+    "launcher_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+    "launcher_unchanged": true,
+    "normalization_defaults_unchanged": true,
+    "persistent_policies_unchanged": true
+  },
+  "superseded_attempts": [
+    {
+      "shell": "Windows PowerShell 5.1",
+      "state": "infrastructure_failed",
+      "outer_native_exit": 1,
+      "completed_suite_summary": false,
+      "passed_count": null,
+      "reason": "The outer local capture wrapper used ErrorActionPreference Stop and escalated expected native stderr from an intentional logging-failure fixture into NativeCommandError before suite completion. Only the ignored outer wrapper was corrected; fresh ps51-final results supersede it without an application or maintained-test change.",
+      "parent_sha256": "d939a6fd2a319cedcbfa7b89d2055116ca061dafc0e2f3a85246f0502c1e9790",
+      "console_sha256": "14880a97c349657f9faa9927012861bac7c35ab82f2e124eab12cc1b8111fe5d"
+    }
+  ],
+  "limitations": [
+    "No ZIP is built; package allowlist/reproducibility/extraction checks belong to pending M4-T02.",
+    "No tag, release, merge or website deployment is performed. Proposed version is unpublished.",
+    "Windows 10 remains supported but not actually tested; current full runs are Windows 11 automation. Prior hosted Server 2025 evidence and installed-HDRI colour/owner checks retain their named implementation bindings.",
+    "Live UNC/network-share support remains owner-excluded D35.",
+    "Owner workflow/appearance acceptance stays bound to 5a32fc6; version/log/documentation additions do not supply a new subjective approval."
+  ],
+  "ci": {
+    "state": "passed",
+    "commit": "3109a1b27d73f4084076cdd14ba06447c6243c0f",
+    "evidence": "evidence/M4-T01-ci.json",
+    "note": "Separately verified exact-implementation hosted push/PR jobs and sanitized artifacts."
+  },
+  "sync_observation": {
+    "state": "pending_verification",
+    "branch": "codex/winimg-hardening",
+    "note": "Containing evidence checkpoint cannot embed its own SHA or claim its future push; final synchronization is independently observed after commit."
+  },
+  "owner_approval": {
+    "state": "not_required_for_this_card"
+  }
+}

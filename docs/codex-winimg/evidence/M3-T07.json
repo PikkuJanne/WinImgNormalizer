@@ -1,0 +1,1256 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T07",
+  "recorded_utc": "2026-10-05T17:01:51.032354+00:00",
+  "state": "awaiting_owner",
+  "review_commit": "4618a83cb2aa893aea9d6a1587987612624e1cf7",
+  "tested_implementation_commit": "4618a83cb2aa893aea9d6a1587987612624e1cf7",
+  "prior_implementation_commit": "17a405bfe0150607486248e845f93ba82e1d0d52",
+  "starting_observation": {
+    "worktree_clean": true,
+    "branch": "codex/winimg-hardening",
+    "local_head": "4618a83cb2aa893aea9d6a1587987612624e1cf7",
+    "live_feature_head": "4618a83cb2aa893aea9d6a1587987612624e1cf7",
+    "live_main_head": "4d0bc6dd403a84b4cad770fdacfd394066c9fbd1",
+    "local_and_main_tree": "2e1523f984ccfb46e63e0f8926727ea21190b81b",
+    "tree_equal": true,
+    "fetch_push_identity": "https://github.com/PikkuJanne/WinImgNormalizer.git",
+    "prior_pr": {
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/21",
+      "state": "MERGED",
+      "head": "4618a83cb2aa893aea9d6a1587987612624e1cf7"
+    },
+    "observed_utc": "2026-10-05T17:01:51.735656+00:00",
+    "time_qualification": "Prior clean start/remote/main-tree/PR observations combined with actual repeated unchanged local/live feature-head observation at this time; owner checklist is now uncommitted."
+  },
+  "source_bindings": [
+    {
+      "path": "WinImgNormalizer.ps1",
+      "checkout_sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9",
+      "packet_copy_sha256": "2bff49817e80fbd774881a742d2495d2440590334e5d9f814d3b6f02902197a9",
+      "git_blob_sha256": "b54a87eb99cbbfb388526ca994eed7312be8625a30502b154fd2db27fd6df1ef",
+      "binding": "exact checkout/copy bytes; Git LF equivalence"
+    },
+    {
+      "path": "WinImgNormalizer.bat",
+      "checkout_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "packet_copy_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "git_blob_sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+      "binding": "exact bytes including retained CRLF"
+    }
+  ],
+  "environment": {
+    "os": "Windows 11 Pro",
+    "os_version": "10.0.26300",
+    "build": "26300",
+    "shells": [
+      "5.1.26100.9444",
+      "7.6.5"
+    ],
+    "imagemagick": "7.1.2-32 Q16 x64 ad98b24:20260927",
+    "magick_executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+    "python_display_decoder": "12.3.0",
+    "application_dependencies_changed": false,
+    "persistent_settings_changed": false,
+    "magick_on_agent_session_path": false,
+    "actual_owner_shell_and_explorer_tool_discovery": "not_run",
+    "known_folder": "Windows MyPictures is redirected on this host; actual private path retained locally only"
+  },
+  "packet": {
+    "privacy_status": "synthetic",
+    "location": "Outside repository; exact local path in ignored .scratch/M3-T07-location.json and session response",
+    "approved_source_manifest": "evidence/M2-T06.json accepted 37755d20efc54897ad12a044f89d27aa corpus",
+    "corpus_manifest_sha256": "92f212c8da0a651a42fab201fc2f037a12482652da7092bf7ca012644e341ec4",
+    "benchmark_manifest_sha256": "e53f218c3f1bc3a5eb497266f654250c6b3c1edaf569a007a74eb4e91396a0c9",
+    "source_count": 24,
+    "sources": [
+      {
+        "path": ".hidden-owned.txt",
+        "sha256": "258779092237c6c8f40f73e3b243c8baa153395c02be1c857fb20456cfb81860",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": ".hidden-owned.txt"
+      },
+      {
+        "path": "ignored-owned.txt",
+        "sha256": "9a8a721d48b072c3c76a319a102010bcff7bd9654c31e242da9deb9e9bab3c85",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "ignored-owned.txt"
+      },
+      {
+        "path": "noise[%d].png",
+        "sha256": "34fe1ddb4201be007c4c208a79b6ee7f68dfef52b97be283ebf3a4517fce061f",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "noise[%d].png"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.png",
+        "sha256": "2de1c0e1e134e0e98e0315c13084af5825e845df63d27703ccf8e0b4a64299b6",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.png"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].webp",
+        "sha256": "e071902479fd3d1b407e95952384fcbabb4aff1076bf87cb6c0048cc9b777230",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].webp"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].tiff",
+        "sha256": "800c4e301fc44ed8c6eeb5d9ccdbfa1769a9a10f27a22d190a6e43647edd2d25",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].tiff"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.gif",
+        "sha256": "f0a54bea5cdd76be36d2ac2032cb82231b3cc21ed2758a8b09b3823a59ccec00",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.gif"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+        "sha256": "e447ef50c269fcef0545fc63f1d9a3af0a473ffd0fc43022d17b956535c7325a",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpg",
+        "sha256": "481cc1f05c7b0ac0fa1d3c6504e35878ef5bb89f702ab510830200bab7b89fe7",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpg"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].tiff",
+        "sha256": "02e30a3d6b42b31f3e9117a87f0f578decf6088174b72d18369d18ec3bce3338",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].tiff"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.heic",
+        "sha256": "618ed4d0c36f19bfac97401f28d45d42df9e9125d093875ef794c8c4e675a69a",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.heic"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.heif",
+        "sha256": "618ed4d0c36f19bfac97401f28d45d42df9e9125d093875ef794c8c4e675a69a",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.heif"
+      },
+      {
+        "path": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+        "sha256": "4b03f5c75a04781abbf5d39457a0f450a3f5f0cc31158fb8324c57632c6104c8",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png"
+      },
+      {
+        "path": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+        "sha256": "a76195d65215bbcb09536c8fe87fe7f7b4aef37e37bcbc9d5b491e0f8da05558",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.png"
+      },
+      {
+        "path": "portrait[0]%.bmp",
+        "sha256": "cb5fd76a7065bb1e11a154241914ef383c1f30aee9ffe11f65f5fffcc06d8622",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "portrait[0]%.bmp"
+      },
+      {
+        "path": "z duplicate/wide[0]%.png",
+        "sha256": "4b03f5c75a04781abbf5d39457a0f450a3f5f0cc31158fb8324c57632c6104c8",
+        "recipe": "accepted M2-T06 mixed synthetic corpus",
+        "privacy_status": "synthetic",
+        "original_path": "z duplicate/wide[0]%.png"
+      },
+      {
+        "path": "Quality comparison/smooth-landscape.png",
+        "sha256": "75113f243dd3f87324e6c796dcfe72281043ac6dd459dfbacc00e905fed2ea38",
+        "recipe": "accepted M2-T04 deterministic five-image corpus",
+        "privacy_status": "synthetic",
+        "seed": "xorshift32 0x6d2b79f5"
+      },
+      {
+        "path": "Quality comparison/smooth-portrait.png",
+        "sha256": "59ddbc241de08fbb570e584d3961df61124e56ae83f0af2a01b881cfffac748b",
+        "recipe": "accepted M2-T04 deterministic five-image corpus",
+        "privacy_status": "synthetic",
+        "seed": "xorshift32 0x6d2b79f5"
+      },
+      {
+        "path": "Quality comparison/hard-edges-detail.png",
+        "sha256": "1a6d78a7430519ca4a6258aa295e7f7ef5f00dac305a591749c38138cbc41038",
+        "recipe": "accepted M2-T04 deterministic five-image corpus",
+        "privacy_status": "synthetic",
+        "seed": "xorshift32 0x6d2b79f5"
+      },
+      {
+        "path": "Quality comparison/seeded-noise.png",
+        "sha256": "b9764f9694e288946d376da7bc330d7d8988b4e8aa739e992ff01beb10315f82",
+        "recipe": "accepted M2-T04 deterministic five-image corpus",
+        "privacy_status": "synthetic",
+        "seed": "xorshift32 0x6d2b79f5"
+      },
+      {
+        "path": "Quality comparison/already-lossy-jpeg.jpg",
+        "sha256": "7158641a84df5228c779ee4c931592bc216ef19fc9625fe945cd38806d9c33b6",
+        "recipe": "accepted M2-T04 deterministic five-image corpus",
+        "privacy_status": "synthetic",
+        "seed": "xorshift32 0x6d2b79f5"
+      },
+      {
+        "path": "Same stem collision/photo.jpg",
+        "sha256": "481cc1f05c7b0ac0fa1d3c6504e35878ef5bb89f702ab510830200bab7b89fe7",
+        "recipe": "byte copy of bound synthetic p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpg",
+        "privacy_status": "synthetic"
+      },
+      {
+        "path": "Same stem collision/photo.bmp",
+        "sha256": "cb5fd76a7065bb1e11a154241914ef383c1f30aee9ffe11f65f5fffcc06d8622",
+        "recipe": "byte copy of bound synthetic portrait[0]%.bmp",
+        "privacy_status": "synthetic"
+      },
+      {
+        "path": "Same stem collision/photo__bmp.bmp",
+        "sha256": "cb5fd76a7065bb1e11a154241914ef383c1f30aee9ffe11f65f5fffcc06d8622",
+        "recipe": "byte copy of bound synthetic portrait[0]%.bmp",
+        "privacy_status": "synthetic"
+      }
+    ],
+    "historical_baseline": [
+      {
+        "fixture": "smooth-landscape",
+        "sha256": "5b7b9992e70a030378764a7ea4272752ff9e1120b1f56801c5ebda3652a48ca7",
+        "bytes": 278605,
+        "width": 1600,
+        "height": 1200,
+        "baseline_commit": "f9b00d8befac93c4fa1116efcbc2e9d7144f4509",
+        "observed_benchmark_commit": "0e490cc5f972b5f22374d2599eed929e477b40ca",
+        "qualification": "historical M2-T04 baseline output; not a new baseline run or owner approval"
+      },
+      {
+        "fixture": "smooth-portrait",
+        "sha256": "37f3af53033aeef73afe44bf0b4aba5965a6a5bfecd192f59b468f751eb19b47",
+        "bytes": 264584,
+        "width": 1200,
+        "height": 1600,
+        "baseline_commit": "f9b00d8befac93c4fa1116efcbc2e9d7144f4509",
+        "observed_benchmark_commit": "0e490cc5f972b5f22374d2599eed929e477b40ca",
+        "qualification": "historical M2-T04 baseline output; not a new baseline run or owner approval"
+      },
+      {
+        "fixture": "hard-edges-detail",
+        "sha256": "62ab288b89cdcd268db6b19b54074f66fdbe03791784e0955a3e8bc21af58946",
+        "bytes": 903155,
+        "width": 1600,
+        "height": 1200,
+        "baseline_commit": "f9b00d8befac93c4fa1116efcbc2e9d7144f4509",
+        "observed_benchmark_commit": "0e490cc5f972b5f22374d2599eed929e477b40ca",
+        "qualification": "historical M2-T04 baseline output; not a new baseline run or owner approval"
+      },
+      {
+        "fixture": "seeded-noise",
+        "sha256": "262cf39cb6655889d5aeb9a13c71567bac8c0bb6ae5d5eddfadde5fb80af546b",
+        "bytes": 979962,
+        "width": 1600,
+        "height": 1200,
+        "baseline_commit": "f9b00d8befac93c4fa1116efcbc2e9d7144f4509",
+        "observed_benchmark_commit": "0e490cc5f972b5f22374d2599eed929e477b40ca",
+        "qualification": "historical M2-T04 baseline output; not a new baseline run or owner approval"
+      },
+      {
+        "fixture": "already-lossy-jpeg",
+        "sha256": "09ac1b3acc31057d78b685d6a500eb975a845a9d3bd6ed07e9397563a756a7ee",
+        "bytes": 840679,
+        "width": 1600,
+        "height": 1200,
+        "baseline_commit": "f9b00d8befac93c4fa1116efcbc2e9d7144f4509",
+        "observed_benchmark_commit": "0e490cc5f972b5f22374d2599eed929e477b40ca",
+        "qualification": "historical M2-T04 baseline output; not a new baseline run or owner approval"
+      }
+    ],
+    "recipe": "Copy hash-bound M2-T06 synthetic corpus, five M2-T04 images and five baseline outputs; add three same-stem copies. Restore fixed 2020-02-03T04:05:06Z creation/write times on copied files/dirs and Hidden flag on .hidden-owned.txt. Preserve original fixture roots. Fresh owner root, no reparse ancestors.",
+    "timestamp_restoration_command": [
+      "For each copied source file: [IO.File]::SetCreationTimeUtc(path,fixed); [IO.File]::SetLastWriteTimeUtc(path,fixed)",
+      "For copied source root/subdirectories after files: the same two directory time setters",
+      "[IO.File]::SetAttributes(source/.hidden-owned.txt,[IO.FileAttributes]::Hidden)"
+    ],
+    "local_artifact_sha256": {
+      "packet.json": "60e729f0dec5d3080e0e9fa4a4f5cc161cb0942c780e3850768b514f78063c86",
+      "source-manifest.json": "e945d6a7b7a2b1ba7ede44449c9f57f7838d1b63a846ba83efb38ec0fd513de2",
+      "native-parent.json": "c32e0daca2af12a3dc21e1da96dd10464a3ef6fbe01a018ec67fd962dfe2a2ae",
+      "verified-preparation.json": "d6bfb0e6c72831eee5698553ec80f0c42a7757441f66469d3dea9697babe669f",
+      "Owner comparisons.html": "f4b4165935ef18faff361d2398ed1d20d82a59ca0e0b21396fa789da08450c58",
+      "Comparison overview.png": "eafc9aa60b0cd77007d3abac0393b9b86509267531152b1e38d2f4f8993a2b77",
+      "OWNER-READ-ME.txt": "54ffbdfd87e3b98daa9bf8c87c160b9c69da81b7cc814ecd8af2f1709a779746",
+      "Run owner smoke.cmd": "c78004aad6e18b2c57d1b63f811c03f5406918995b1f4045d9403c0e8ac13378"
+    },
+    "local_preparation_script_sha256": {
+      "M3-T07-prepare.py": "3f963ae26c8c72483f636b94f9ebad1675026a5d327982214919e5a4ca07d07e",
+      "M3-T07-run.ps1": "72cff2bb4a25281c359d0b128162c3dff65d779c84b88d464d7ccd4bcfc2dcbc",
+      "M3-T07-launch-runs.py": "44cfb089b65e95c9d2799f3bd8411f3a7a24408f718eca03c4a922786e842887",
+      "M3-T07-render.py": "2c9ead7d6e6e28ad792eaa9240d0ad679630d51d66241928e877c853931886db"
+    },
+    "generation_tool_scope": "Disposable local preparation only; no application/helper/test source change. Scripts and raw paths/logs/media stay local.",
+    "display_qualification": "Native display preparation for owner inspection; not an independent image oracle.",
+    "optional_local_smoke_helper": "Sets PATH and PSModulePath only in a child CMD, invokes exact copied BAT with fixed synthetic source and actual Pictures. Not executed by the agent; physical folder-to-BAT gesture and owner observations remain pending."
+  },
+  "runs": [
+    {
+      "label": "ps51-v3-default",
+      "shell": "5.1.26100.9444",
+      "native_exit": 0,
+      "cap_bytes": 1048576,
+      "started_utc": "2026-10-05T16:56:53.7236542Z",
+      "finished_utc": "2026-10-05T16:57:07.5653280Z",
+      "counts": {
+        "Discovered": 24,
+        "Converted": 20,
+        "CopiedVideo": 1,
+        "SkippedDuplicate": 1,
+        "Ignored": 2,
+        "Error": 0,
+        "Cancelled": 0,
+        "NotStarted": 0
+      },
+      "warning_counts": {
+        "SizeWarnings": 0,
+        "NativeWarnings": 0,
+        "TimestampWarnings": 0,
+        "AncillaryWarnings": 0,
+        "FramesOmitted": 5
+      },
+      "balanced": true,
+      "source_file_and_directory_state_preserved": true,
+      "persistent_policy_unchanged": true,
+      "report_complete": true,
+      "report_sha256": {
+        "csv": "6b65734db018608cdac9fbc13b231516913762ed425aac8bf716c72508b75dc2",
+        "log": "5286142cc874d13b2049848b7d1b1b35a2d1235da9aabf5920bf94f5c50f510c"
+      },
+      "raw_summary_sha256": "34cd7e6aa0c710e75cfab5b3fd1227ffe11734470429f603c1aacaf56de9741d",
+      "raw_console_sha256": "d371f555903ecd22edfdac752f598a476a7e8a43c358ee3fb94c27a9f8731368",
+      "converted": [
+        {
+          "source": "Quality comparison/already-lossy-jpeg.jpg",
+          "output": "Quality comparison/already-lossy-jpeg.jpeg",
+          "bytes": 916662,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "sha256": "93d1894a3679ca4560e090995301eeb044ebcf7b59816e4b7302d35aa0cfea0a",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Quality comparison/hard-edges-detail.png",
+          "output": "Quality comparison/hard-edges-detail.jpeg",
+          "bytes": 903155,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "sha256": "62ab288b89cdcd268db6b19b54074f66fdbe03791784e0955a3e8bc21af58946",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Quality comparison/seeded-noise.png",
+          "output": "Quality comparison/seeded-noise.jpeg",
+          "bytes": 1015369,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "sha256": "4016bcfaf0ca31b9267633f0a7921db40cae0b4c8eea946bec7b19bdf795e497",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Quality comparison/smooth-landscape.png",
+          "output": "Quality comparison/smooth-landscape.jpeg",
+          "bytes": 278605,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "sha256": "5b7b9992e70a030378764a7ea4272752ff9e1120b1f56801c5ebda3652a48ca7",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Quality comparison/smooth-portrait.png",
+          "output": "Quality comparison/smooth-portrait.jpeg",
+          "bytes": 264584,
+          "width": 1200,
+          "height": 1600,
+          "scale_percent": 100,
+          "sha256": "37f3af53033aeef73afe44bf0b4aba5965a6a5bfecd192f59b468f751eb19b47",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Same stem collision/photo.bmp",
+          "output": "Same stem collision/photo__bmp__2.jpeg",
+          "bytes": 594,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "size_warning": false,
+          "naming_reason": "NumericSuffix",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Same stem collision/photo.jpg",
+          "output": "Same stem collision/photo__jpg.jpeg",
+          "bytes": 604,
+          "width": 64,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+          "size_warning": false,
+          "naming_reason": "ExtensionSuffix",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Same stem collision/photo__bmp.bmp",
+          "output": "Same stem collision/photo__bmp.jpeg",
+          "bytes": 594,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "noise[%d].png",
+          "output": "noise[%d].jpeg",
+          "bytes": 978338,
+          "width": 1280,
+          "height": 960,
+          "scale_percent": 100,
+          "sha256": "52361e1e9f4a7e601ed695c36c86b70e9247825f9fac95c002f9ba047261ffbd",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.png",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.jpeg",
+          "bytes": 630,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].webp",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].jpeg",
+          "bytes": 1313,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "sha256": "dc527a67436aef4578b6c8498e818d7d96d9302c303dc3dcf4fae852848ea1f7",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].tiff",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].jpeg",
+          "bytes": 629,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "66911209e13db42f398f896acc61351849e267d610c00899334ee0cc4eb7748c",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.gif",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.jpeg",
+          "bytes": 1198,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "sha256": "88d0112d09bc7c34e29634bb294abc7600c41a39a6e0372610581c0610a06cc0",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpg",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpeg",
+          "bytes": 604,
+          "width": 64,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].tiff",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].jpeg",
+          "bytes": 619,
+          "width": 48,
+          "height": 80,
+          "scale_percent": 100,
+          "sha256": "8a99b59f4c9676799d7fa5055d0ea70b4b1badb4903846f06b9754eadec2edad",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.heic",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.jpeg",
+          "bytes": 604,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.heif",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.jpeg",
+          "bytes": 604,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "bytes": 639,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "0c5ab8c5e5b1cf3e73e2494631ba9b0d1300be2f69c8788809137f4a411d4f37",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "output": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "bytes": 594,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "2ff3ee1d6a996a49c6f9218b4a5ac0700c3ef678ef308be2f61e2a64f74782c6",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "portrait[0]%.bmp",
+          "output": "portrait[0]%.jpeg",
+          "bytes": 594,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        }
+      ],
+      "video": [
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+          "sha256": "e447ef50c269fcef0545fc63f1d9a3af0a473ffd0fc43022d17b956535c7325a",
+          "byte_identical": true,
+          "bytes": 65537
+        }
+      ],
+      "duplicates": [
+        {
+          "source": "z duplicate/wide[0]%.png",
+          "retained_source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "retained_output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "retained_status": "Converted"
+        }
+      ],
+      "commands": [
+        "<ps51>",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<local-preparation-driver>",
+        "-PacketRoot",
+        "<owner-packet>",
+        "-Label",
+        "ps51-v3-default",
+        "-Cap",
+        "1048576",
+        "-MagickPath",
+        "<verified-portable-magick>",
+        "-SourceFolder",
+        "Drop this folder"
+      ],
+      "qualification": "Automated real ImageMagick Command preparation with injected disposable OutputParent and explicit MagickPath; not owner Explorer/Pictures smoke or subjective approval."
+    },
+    {
+      "label": "ps51-v3-above-target",
+      "shell": "5.1.26100.9444",
+      "native_exit": 2,
+      "cap_bytes": 1,
+      "started_utc": "2026-10-05T16:57:08.4952636Z",
+      "finished_utc": "2026-10-05T16:57:14.9043734Z",
+      "counts": {
+        "Discovered": 2,
+        "Converted": 2,
+        "CopiedVideo": 0,
+        "SkippedDuplicate": 0,
+        "Ignored": 0,
+        "Error": 0,
+        "Cancelled": 0,
+        "NotStarted": 0
+      },
+      "warning_counts": {
+        "SizeWarnings": 2,
+        "NativeWarnings": 0,
+        "TimestampWarnings": 0,
+        "AncillaryWarnings": 0,
+        "FramesOmitted": 0
+      },
+      "balanced": true,
+      "source_file_and_directory_state_preserved": true,
+      "persistent_policy_unchanged": true,
+      "report_complete": true,
+      "report_sha256": {
+        "csv": "97d60aa2e9f2df83e9ffa6e2d375f85af118ed0e85e769bd4b6d48c065deafb2",
+        "log": "b9f366d253725e1df7924d365abbff0a0be750ed2eb6d13612092b1987d2b4dc"
+      },
+      "raw_summary_sha256": "bcaef1c15e0057433f4a582f3fd2656f8ccec0371ed276fa5be80e1a3c3579e7",
+      "raw_console_sha256": "c3c00bc073558478da783bcf736f8d99f71ff22ae0f78dff6e1a8f23bbc1e9d9",
+      "converted": [
+        {
+          "source": "alpha.png",
+          "output": "alpha.jpeg",
+          "bytes": 546,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 50,
+          "sha256": "a8c6bc9bfaa9817feb75c5ae176755787acf3c837cfe588eee64b1ca8618c5f5",
+          "size_warning": true,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "noise.png",
+          "output": "noise.jpeg",
+          "bytes": 1621,
+          "width": 640,
+          "height": 480,
+          "scale_percent": 50,
+          "sha256": "0bc41019ac82facaf3f33769807e5841fbf01195e8a90301213e5ec725397c4a",
+          "size_warning": true,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        }
+      ],
+      "video": [],
+      "duplicates": [],
+      "commands": [
+        "<ps51>",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<local-preparation-driver>",
+        "-PacketRoot",
+        "<owner-packet>",
+        "-Label",
+        "ps51-v3-above-target",
+        "-Cap",
+        "1",
+        "-MagickPath",
+        "<verified-portable-magick>",
+        "-SourceFolder",
+        "Size warning folder"
+      ],
+      "qualification": "Automated real ImageMagick Command preparation with injected disposable OutputParent and explicit MagickPath; not owner Explorer/Pictures smoke or subjective approval."
+    },
+    {
+      "label": "ps7-v3-default",
+      "shell": "7.6.5",
+      "native_exit": 0,
+      "cap_bytes": 1048576,
+      "started_utc": "2026-10-05T16:56:54.3013376Z",
+      "finished_utc": "2026-10-05T16:57:08.6233982Z",
+      "counts": {
+        "Discovered": 24,
+        "Converted": 20,
+        "CopiedVideo": 1,
+        "SkippedDuplicate": 1,
+        "Ignored": 2,
+        "Error": 0,
+        "Cancelled": 0,
+        "NotStarted": 0
+      },
+      "warning_counts": {
+        "SizeWarnings": 0,
+        "NativeWarnings": 0,
+        "TimestampWarnings": 0,
+        "AncillaryWarnings": 0,
+        "FramesOmitted": 5
+      },
+      "balanced": true,
+      "source_file_and_directory_state_preserved": true,
+      "persistent_policy_unchanged": true,
+      "report_complete": true,
+      "report_sha256": {
+        "csv": "6b65734db018608cdac9fbc13b231516913762ed425aac8bf716c72508b75dc2",
+        "log": "1e44f249f6006d17c2c9aa82f1ec10a1292f4e8da960cab71cc47172716e6bda"
+      },
+      "raw_summary_sha256": "9435b2ae642591ae06d5e381a4756a9d9b2df8dfb688dbdceff0a0e58bfb3b48",
+      "raw_console_sha256": "de1aaddd4860160b60f4778cbad6b678a19ce0647fbb26b3c995ec0696503e0d",
+      "converted": [
+        {
+          "source": "Quality comparison/already-lossy-jpeg.jpg",
+          "output": "Quality comparison/already-lossy-jpeg.jpeg",
+          "bytes": 916662,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "sha256": "93d1894a3679ca4560e090995301eeb044ebcf7b59816e4b7302d35aa0cfea0a",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Quality comparison/hard-edges-detail.png",
+          "output": "Quality comparison/hard-edges-detail.jpeg",
+          "bytes": 903155,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "sha256": "62ab288b89cdcd268db6b19b54074f66fdbe03791784e0955a3e8bc21af58946",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Quality comparison/seeded-noise.png",
+          "output": "Quality comparison/seeded-noise.jpeg",
+          "bytes": 1015369,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "sha256": "4016bcfaf0ca31b9267633f0a7921db40cae0b4c8eea946bec7b19bdf795e497",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Quality comparison/smooth-landscape.png",
+          "output": "Quality comparison/smooth-landscape.jpeg",
+          "bytes": 278605,
+          "width": 1600,
+          "height": 1200,
+          "scale_percent": 100,
+          "sha256": "5b7b9992e70a030378764a7ea4272752ff9e1120b1f56801c5ebda3652a48ca7",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Quality comparison/smooth-portrait.png",
+          "output": "Quality comparison/smooth-portrait.jpeg",
+          "bytes": 264584,
+          "width": 1200,
+          "height": 1600,
+          "scale_percent": 100,
+          "sha256": "37f3af53033aeef73afe44bf0b4aba5965a6a5bfecd192f59b468f751eb19b47",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Same stem collision/photo.bmp",
+          "output": "Same stem collision/photo__bmp__2.jpeg",
+          "bytes": 594,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "size_warning": false,
+          "naming_reason": "NumericSuffix",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Same stem collision/photo.jpg",
+          "output": "Same stem collision/photo__jpg.jpeg",
+          "bytes": 604,
+          "width": 64,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+          "size_warning": false,
+          "naming_reason": "ExtensionSuffix",
+          "frames_omitted": 0
+        },
+        {
+          "source": "Same stem collision/photo__bmp.bmp",
+          "output": "Same stem collision/photo__bmp.jpeg",
+          "bytes": 594,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "noise[%d].png",
+          "output": "noise[%d].jpeg",
+          "bytes": 978338,
+          "width": 1280,
+          "height": 960,
+          "scale_percent": 100,
+          "sha256": "52361e1e9f4a7e601ed695c36c86b70e9247825f9fac95c002f9ba047261ffbd",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.png",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/alpha[1]%03d.jpeg",
+          "bytes": 630,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "f03bf5b9a769698b3c1da48fb495f8b13b0f52962bdffde0e779febf0fc0df9e",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].webp",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/canvas%03d[1].jpeg",
+          "bytes": 1313,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "sha256": "dc527a67436aef4578b6c8498e818d7d96d9302c303dc3dcf4fae852848ea1f7",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].tiff",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/cmyk%[1].jpeg",
+          "bytes": 629,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "66911209e13db42f398f896acc61351849e267d610c00899334ee0cc4eb7748c",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.gif",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/first[1]%d.jpeg",
+          "bytes": 1198,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "sha256": "88d0112d09bc7c34e29634bb294abc7600c41a39a6e0372610581c0610a06cc0",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpg",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/orient[0]%.jpeg",
+          "bytes": 604,
+          "width": 64,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "2de9e093abe851b881bd2d7a108dce5e22ebed3b41a7367492cb5c718dfd8bf9",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].tiff",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/pages%03d[1].jpeg",
+          "bytes": 619,
+          "width": 48,
+          "height": 80,
+          "scale_percent": 100,
+          "sha256": "8a99b59f4c9676799d7fa5055d0ea70b4b1badb4903846f06b9754eadec2edad",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.heic",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heic[1]%.jpeg",
+          "bytes": 604,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.heif",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/primary-heif[1]%.jpeg",
+          "bytes": 604,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 100,
+          "sha256": "d6ddb03a726437a43406e2306c093f09633be0fe730a20e6c743dc8d7d4ff917",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 1
+        },
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "bytes": 639,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "0c5ab8c5e5b1cf3e73e2494631ba9b0d1300be2f69c8788809137f4a411d4f37",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "output": "p0 & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "bytes": 594,
+          "width": 128,
+          "height": 96,
+          "scale_percent": 100,
+          "sha256": "2ff3ee1d6a996a49c6f9218b4a5ac0700c3ef678ef308be2f61e2a64f74782c6",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "portrait[0]%.bmp",
+          "output": "portrait[0]%.jpeg",
+          "bytes": 594,
+          "width": 96,
+          "height": 128,
+          "scale_percent": 100,
+          "sha256": "4f13ba89410e47ad4b61bbcd8bc3f97af8a026b64fb0035d015d8dfac84114e7",
+          "size_warning": false,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        }
+      ],
+      "video": [
+        {
+          "source": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+          "output": "p%d & O'Brien (Äöß 😀)! [0]/nested/opaque[0]%d.MP4",
+          "sha256": "e447ef50c269fcef0545fc63f1d9a3af0a473ffd0fc43022d17b956535c7325a",
+          "byte_identical": true,
+          "bytes": 65537
+        }
+      ],
+      "duplicates": [
+        {
+          "source": "z duplicate/wide[0]%.png",
+          "retained_source": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.png",
+          "retained_output": "p%d & O'Brien (Äöß 😀)! [0]/wide[0]%.jpeg",
+          "retained_status": "Converted"
+        }
+      ],
+      "commands": [
+        "<ps7>",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<local-preparation-driver>",
+        "-PacketRoot",
+        "<owner-packet>",
+        "-Label",
+        "ps7-v3-default",
+        "-Cap",
+        "1048576",
+        "-MagickPath",
+        "<verified-portable-magick>",
+        "-SourceFolder",
+        "Drop this folder"
+      ],
+      "qualification": "Automated real ImageMagick Command preparation with injected disposable OutputParent and explicit MagickPath; not owner Explorer/Pictures smoke or subjective approval."
+    },
+    {
+      "label": "ps7-v3-above-target",
+      "shell": "7.6.5",
+      "native_exit": 2,
+      "cap_bytes": 1,
+      "started_utc": "2026-10-05T16:57:10.0377066Z",
+      "finished_utc": "2026-10-05T16:57:16.6920144Z",
+      "counts": {
+        "Discovered": 2,
+        "Converted": 2,
+        "CopiedVideo": 0,
+        "SkippedDuplicate": 0,
+        "Ignored": 0,
+        "Error": 0,
+        "Cancelled": 0,
+        "NotStarted": 0
+      },
+      "warning_counts": {
+        "SizeWarnings": 2,
+        "NativeWarnings": 0,
+        "TimestampWarnings": 0,
+        "AncillaryWarnings": 0,
+        "FramesOmitted": 0
+      },
+      "balanced": true,
+      "source_file_and_directory_state_preserved": true,
+      "persistent_policy_unchanged": true,
+      "report_complete": true,
+      "report_sha256": {
+        "csv": "97d60aa2e9f2df83e9ffa6e2d375f85af118ed0e85e769bd4b6d48c065deafb2",
+        "log": "2fdfe68d7e4e572a6c4366f7e5221da42ab36527b330e17c2a8bfa404c712f88"
+      },
+      "raw_summary_sha256": "b0a5481ec2fb9c55dff7f95684af1bf7dc82252c4c59f79d67b2e8ac4a65e169",
+      "raw_console_sha256": "7fbd0a3da87a748b82721f03259378bbf12b03a627d9e44e799af24c5137c92e",
+      "converted": [
+        {
+          "source": "alpha.png",
+          "output": "alpha.jpeg",
+          "bytes": 546,
+          "width": 64,
+          "height": 48,
+          "scale_percent": 50,
+          "sha256": "a8c6bc9bfaa9817feb75c5ae176755787acf3c837cfe588eee64b1ca8618c5f5",
+          "size_warning": true,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        },
+        {
+          "source": "noise.png",
+          "output": "noise.jpeg",
+          "bytes": 1621,
+          "width": 640,
+          "height": 480,
+          "scale_percent": 50,
+          "sha256": "0bc41019ac82facaf3f33769807e5841fbf01195e8a90301213e5ec725397c4a",
+          "size_warning": true,
+          "naming_reason": "Legacy",
+          "frames_omitted": 0
+        }
+      ],
+      "video": [],
+      "duplicates": [],
+      "commands": [
+        "<ps7>",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<local-preparation-driver>",
+        "-PacketRoot",
+        "<owner-packet>",
+        "-Label",
+        "ps7-v3-above-target",
+        "-Cap",
+        "1",
+        "-MagickPath",
+        "<verified-portable-magick>",
+        "-SourceFolder",
+        "Size warning folder"
+      ],
+      "qualification": "Automated real ImageMagick Command preparation with injected disposable OutputParent and explicit MagickPath; not owner Explorer/Pictures smoke or subjective approval."
+    }
+  ],
+  "independent_output_checks": {
+    "fully_decoded_jpegs": 44,
+    "decoder": "Pillow",
+    "single_frame_dimensions_and_file_lengths_match_reports": true,
+    "jpeg_exif_icc_comment_xmp_fields_absent": true,
+    "real_video_hash_matches_in_both_default_runs": true,
+    "exact_file_directory_state_preserved": true,
+    "complete_balanced_reports": true,
+    "same_output_bytes_across_two_hosts_on_this_build": true,
+    "quality_oracle_claim": false
+  },
+  "quality_comparisons": [
+    {
+      "source": "Quality comparison/already-lossy-jpeg.jpg",
+      "legacy_sha256": "09ac1b3acc31057d78b685d6a500eb975a845a9d3bd6ed07e9397563a756a7ee",
+      "current_sha256": "93d1894a3679ca4560e090995301eeb044ebcf7b59816e4b7302d35aa0cfea0a",
+      "legacy_bytes": 840679,
+      "current_bytes": 916662,
+      "same_bytes_as_historical": false,
+      "qualification": "Historical baseline is bound M2-T04 output. Current output is fresh reviewed-commit Command output. Visual inspection is still the owner decision."
+    },
+    {
+      "source": "Quality comparison/hard-edges-detail.png",
+      "legacy_sha256": "62ab288b89cdcd268db6b19b54074f66fdbe03791784e0955a3e8bc21af58946",
+      "current_sha256": "62ab288b89cdcd268db6b19b54074f66fdbe03791784e0955a3e8bc21af58946",
+      "legacy_bytes": 903155,
+      "current_bytes": 903155,
+      "same_bytes_as_historical": true,
+      "qualification": "Historical baseline is bound M2-T04 output. Current output is fresh reviewed-commit Command output. Visual inspection is still the owner decision."
+    },
+    {
+      "source": "Quality comparison/seeded-noise.png",
+      "legacy_sha256": "262cf39cb6655889d5aeb9a13c71567bac8c0bb6ae5d5eddfadde5fb80af546b",
+      "current_sha256": "4016bcfaf0ca31b9267633f0a7921db40cae0b4c8eea946bec7b19bdf795e497",
+      "legacy_bytes": 979962,
+      "current_bytes": 1015369,
+      "same_bytes_as_historical": false,
+      "qualification": "Historical baseline is bound M2-T04 output. Current output is fresh reviewed-commit Command output. Visual inspection is still the owner decision."
+    },
+    {
+      "source": "Quality comparison/smooth-landscape.png",
+      "legacy_sha256": "5b7b9992e70a030378764a7ea4272752ff9e1120b1f56801c5ebda3652a48ca7",
+      "current_sha256": "5b7b9992e70a030378764a7ea4272752ff9e1120b1f56801c5ebda3652a48ca7",
+      "legacy_bytes": 278605,
+      "current_bytes": 278605,
+      "same_bytes_as_historical": true,
+      "qualification": "Historical baseline is bound M2-T04 output. Current output is fresh reviewed-commit Command output. Visual inspection is still the owner decision."
+    },
+    {
+      "source": "Quality comparison/smooth-portrait.png",
+      "legacy_sha256": "37f3af53033aeef73afe44bf0b4aba5965a6a5bfecd192f59b468f751eb19b47",
+      "current_sha256": "37f3af53033aeef73afe44bf0b4aba5965a6a5bfecd192f59b468f751eb19b47",
+      "legacy_bytes": 264584,
+      "current_bytes": 264584,
+      "same_bytes_as_historical": true,
+      "qualification": "Historical baseline is bound M2-T04 output. Current output is fresh reviewed-commit Command output. Visual inspection is still the owner decision."
+    }
+  ],
+  "historical_preparation_retries": [
+    {
+      "label": "ps51-default",
+      "native_exit": 1,
+      "application_started": false,
+      "reason": "Local driver could not discover Get-FileHash with inherited pwsh module path. Failed console retained; no report or application result claimed.",
+      "console_sha256": "241917232b1c2877204fc9410c30670a4bbd8938f4be52c8a6e1252fcdfdb9e4"
+    },
+    {
+      "label": "ps51-v2-default",
+      "native_exit": 1,
+      "application_started": false,
+      "reason": "First child-environment correction used case-sensitive dictionary removal; Windows environment key casing left PSMODULEPATH present. Final v3 removes the key case-insensitively in child environment only.",
+      "console_sha256": "241917232b1c2877204fc9410c30670a4bbd8938f4be52c8a6e1252fcdfdb9e4"
+    }
+  ],
+  "prior_ci_observation": {
+    "commit": "4618a83cb2aa893aea9d6a1587987612624e1cf7",
+    "observed_utc": "2026-10-05T17:01:51.048896+00:00",
+    "push": {
+      "run_id": 37341068495,
+      "conclusion": "success",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37341068495"
+    },
+    "pull_request": {
+      "run_id": 37341075972,
+      "conclusion": "success",
+      "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37341075972"
+    },
+    "qualification": "Read-only run metadata for prior record-only checkpoint. Detailed exact17a405... implementation CI evidence remains M3-T06-ci.json. No owner approval or new M3-T07 checkpoint CI claim."
+  },
+  "case_results": [
+    {
+      "reason": "Owner physical workflow/appearance observations and explicit named-commit approval absent.",
+      "case_id": "T067",
+      "state": "not_run"
+    }
+  ],
+  "owner_approval": {
+    "state": "awaiting_owner",
+    "actor": null,
+    "recorded_utc": null,
+    "approved_commit": null
+  },
+  "owner_windows_smoke": {
+    "state": "not_run",
+    "launch_method": null,
+    "commit": null,
+    "observed_by": null,
+    "actual_pictures_result": null,
+    "statement": null
+  },
+  "application_and_tests_changed": false,
+  "checks": {
+    "plan": "passed: 28 tasks, 75 cases, 18 covered items, 21 done; next M3-T07",
+    "json_privacy_diff": "passed: parsed records, exact allowed states, no absolute private paths, source/artifact/output hashes verified, app/tests/BAT unchanged, diff whitespace clean",
+    "source_and_bat_byte_binding": "passed",
+    "visual_comparison_overview": "inspected locally; no owner quality decision"
+  },
+  "containing_checkpoint_sync": {
+    "state": "pending_verification",
+    "qualification": "Final containing checkpoint SHA and live branch equality must be observed after commit and reported externally."
+  },
+  "limitations": [
+    "Automated preparation injects disposable destination and explicit ImageMagick. It does not supply physical Explorer gestures, actual Pictures processing, launcher-visible tool discovery or owner image-quality acceptance.",
+    "Source display previews share native colour management and are inspection aids, not independent colour oracles. Synthetic examples do not prove arbitrary photographic appearance.",
+    "Opaque MP4 establishes copy bytes, not playback. HEIC/HEIF are primary still collections, not timed animation.",
+    "No new default quality/resize change is proposed. Existing exact-byte correction may change output bytes/appearance.",
+    "Live network-share support/validation is owner-approved out_of_scope (D35).",
+    "T067 stays not_run, M3-T07 awaiting_owner, accepted task count21/28 and exercised specified cases66/75 unchanged. M4-T01, merge, release, settings and deployment remain separate."
+  ],
+  "follow_up": {
+    "recorded_date": "2026-10-06",
+    "evidence": [
+      "evidence/M3-T07-owner-smoke.json",
+      "evidence/M3-T07-hdri-diagnosis.json"
+    ],
+    "current_T067_state": "blocked",
+    "qualification": "Preparation/not_run fields above describe the 2026-10-05 observation. On 2026-10-06 actual owner smoke and partial appearance checks occurred; installed-HDRI alpha colour fails. No owner approval or production fix is recorded."
+  },
+  "repair_follow_up": {
+    "date": "2026-10-06",
+    "decision": "D36",
+    "implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+    "evidence": "evidence/M3-T07-repair.json",
+    "qualification": "Earlier preparation and defect observations remain dated. Requested bounded repair is validated; fresh owner recheck and named-commit approval are pending."
+  },
+  "owner_acceptance_follow_up": {
+    "recorded_utc": "2026-10-06T14:53:37.885959+00:00",
+    "decision": "D37",
+    "approved_implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+    "state": "accepted",
+    "evidence": "evidence/M3-T07-acceptance.json",
+    "qualification": "Existing preparation/repair pending fields are dated earlier observations; the owner now explicitly accepted the named repaired workflow and appearance after a proven fixed-launcher run."
+  }
+}

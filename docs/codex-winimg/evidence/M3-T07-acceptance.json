@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T07",
+  "state": "done",
+  "recorded_utc": "2026-10-06T14:53:37.885959+00:00",
+  "base_record_checkpoint": "c268e392956b4b1c229e68f184cd2dd436e56d23",
+  "tested_repair_implementation_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+  "decision": "D37",
+  "owner_approval": {
+    "state": "approved",
+    "actor": "owner",
+    "owner_name": "Janne Vuorela",
+    "approved_commit": "5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad",
+    "statement": "Accepted",
+    "prompt": "Do you accept fixed version 5a32fc6 for the drag-and-drop workflow and image appearance?",
+    "prompt_context": "Final step: Double-click the selected Transparency.jpeg. The fixed launcher ran, and the new JPEG passes the colour check.",
+    "statement_observed_by_agent_utc": "2026-10-06T14:53:37.885959+00:00",
+    "timestamp_qualification": "Agent record time after the direct owner reply; no exact owner-message timestamp is claimed.",
+    "scope": "T067 acceptance of the familiar folder-to-BAT workflow and image appearance at the named repaired implementation.",
+    "recorded_utc": "2026-10-06T14:53:37.885959+00:00"
+  },
+  "owner_recheck": {
+    "method": "Owner followed the guided folder-to-BAT step, reported completion, then explicitly accepted the named repaired workflow/appearance after the image-opening prompt.",
+    "completion_statement": "Completed successfully. Press any key to close.",
+    "fixed_launcher_title": "Fixed launcher 5a32fc6",
+    "source_folder": "Colour recheck",
+    "result_image": "Transparency.jpeg",
+    "actual_launch_binding": "Paused cmd.exe live command selects the unique fixed BAT and approved source; BAT selects the adjacent hash-verified PS1.",
+    "fixed_run_evidence": "evidence/M3-T07-recheck-fixed-launcher.json",
+    "fixed_run_sha256": "b7ba4390d94e62ce49fd4691347ee0c7d2b2f6975bf9e99911ba5aa14ef972d1",
+    "native_conversion_exit_from_log": 0,
+    "native_bat_exit": null,
+    "visual_qualification": "Direct named-commit workflow/appearance acceptance is supplied by the owner. No screenshot or independent proof of the image-opening gesture is claimed; earlier failed-run area Yes is not transferred."
+  },
+  "retained_wrong_launcher_run": {
+    "evidence": "evidence/M3-T07-recheck-old-launcher.json",
+    "sha256": "ba5f263fdbf8e5a774b5c32c3f68bc5739f3ca8d643fca05fa9faf261aa55de4",
+    "reason": "Two windows titled Launcher were insufficiently distinguished in the guide. The actual live command proves the older launcher ran on the fresh source.",
+    "qualification": "Old faulty bytes/error127 remain a pre-fix old-launcher result, not a repaired-code regression or owner approval. Distinct fixed-launcher folder and repeated physical launch resolve the ambiguity."
+  },
+  "prior_validation": {
+    "repair": "evidence/M3-T07-repair.json",
+    "desktop_full_normal": "469/469 in each PS5.1/PS7 host",
+    "desktop_full_controls": "470 total/469 passed/one intended T007 failure/native1 in each host",
+    "colour_focus": "26/26 in all four Q16/HDRI and desktop-host combinations",
+    "analyzer": "Normal zero findings; control one intended finding/native1 in both hosts",
+    "independent_artifacts": "evidence/M3-T07-repair-artifacts.json",
+    "implementation_ci": "evidence/M3-T07-repair-ci.json"
+  },
+  "preceding_checkpoint_ci": {
+    "commit": "c268e392956b4b1c229e68f184cd2dd436e56d23",
+    "observation": "metadata_only",
+    "push_run": 37479656551,
+    "pr_run": 37479662600,
+    "runs_conclusion": "success",
+    "four_jobs_conclusion": "success",
+    "required_test_analyzer_control_export_upload_steps": "success",
+    "qualification": "Independent peer observed GitHub metadata and unchanged runtime/tests/workflow. Detailed archive/count/digest verification remains bound to implementation5a32, not newly claimed for this record checkpoint."
+  },
+  "case_results": [
+    {
+      "case_id": "T036",
+      "state": "passed",
+      "evidence": "evidence/M3-T07-repair.json"
+    },
+    {
+      "case_id": "T067",
+      "state": "passed",
+      "reason": "Actual repaired owner smoke/readback plus explicit Accepted reply to the exact named-commit workflow/appearance question."
+    }
+  ],
+  "checks": {
+    "plan": "passed",
+    "tasks": 28,
+    "specified_cases": 75,
+    "accepted_tasks": 22,
+    "next_task": "M4-T01 pending",
+    "privacy": "passed structured new evidence scan; exact sanitized peer report copies",
+    "runtime_tests_workflow_fixtures_unchanged_from_tested_implementation": true,
+    "scoped_record_paths_verified": [
+      "docs/codex-winimg/ACCEPTANCE.md",
+      "docs/codex-winimg/DECISIONS.md",
+      "docs/codex-winimg/NEXT_SESSION.md",
+      "docs/codex-winimg/OWNER_ACCEPTANCE.md",
+      "docs/codex-winimg/SESSION_LOG.md",
+      "docs/codex-winimg/STATUS.md",
+      "docs/codex-winimg/TASKS.json",
+      "docs/codex-winimg/evidence/M3-T07-acceptance.json",
+      "docs/codex-winimg/evidence/M3-T07-recheck-fixed-launcher.json",
+      "docs/codex-winimg/evidence/M3-T07-recheck-old-launcher.json",
+      "docs/codex-winimg/evidence/M3-T07-repair.json",
+      "docs/codex-winimg/evidence/M3-T07.json"
+    ],
+    "observed_utc": "2026-10-06T14:54:51.315951+00:00"
+  },
+  "containing_checkpoint_sync": "pending_verification",
+  "limitations": [
+    "Native BAT exit was not independently captured; owner completion and native conversion log result remain separate.",
+    "Not every original comparison image was individually visually inspected; earlier smooth-landscape/detail observations remain dated and automated full-packet checks remain separate.",
+    "The original first one-image launch source metadata snapshot was incomplete; the fixed repeat has an exact prior source snapshot and preserved source/output times.",
+    "Live UNC remains owner-excluded D35. This closes T067/M3-T07 only; no future defaults, merge/tag/release/settings/deployment approval is inferred."
+  ]
+}

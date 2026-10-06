@@ -2330,3 +2330,260 @@ feature branch; main remained e6b50d60937e81409dbb481e09bd42fa69c25111. Its push
 observations, separate from the fully verified I4 implementation artifacts.
 This containing scope checkpoint's own SHA/live synchronization remains
 pending_verification until independently observed after normal commit/push.
+
+
+## 2026-10-05 — M3-T07 synthetic comparisons ready; owner gate pending
+
+Started clean at 4618a83cb2aa893aea9d6a1587987612624e1cf7 on the canonical feature
+branch with live equality. Owner-merged PR21/main 4d0bc6dd403a84b4cad770fdacfd394066c9fbd1
+has the same tree 2e1523f984ccfb46e63e0f8926727ea21190b81b; no checkout/history
+operation was needed. The preserved non-Git snapshot was not changed. Read-only
+prior checkpoint push 37341068495/PR 37341075972 metadata shows success.
+
+Prepared an owned disposable packet outside the repository from hash-bound accepted
+M2-T06 fixtures and M2-T04 benchmark originals/baseline outputs, plus three
+same-stem copies. 24 synthetic files cover ordinary appearance/detail/noise, real
+profiles/EXIF/alpha, frame/page/primary collection policy, literal paths, collisions,
+duplicate mapping, opaque video copy, ignored files and empty mirror folders.
+Files/dirs have fixed 2020 creation/write times; Hidden flag and duplicate timing are
+recorded. BAT/PS1 copies match exact checkout bytes; BAT matches exact CRLF Git blob.
+
+Fresh real Command preparation used disposable OutputParent and explicit verified
+portable ImageMagick 7.1.2-32. Actual Windows 11 Pro build 26300, Windows PowerShell
+5.1.26100.9444 and PowerShell 7.6.5 parent-observed native exits are 0 for default
+1,048,576 bytes and 2 for intentional 1 byte. Each default run reconciles
+24 discovered = 20 converted + 1 video + 1 duplicate + 2 ignored, zero
+errors/warnings, five omitted frames. Tiny runs retain 546/1,621-byte JPEGs at 50%
+with two size warnings. Independent Pillow fully decodes all 44 JPEGs with matching
+format/frame/dimensions/bytes and absent EXIF/ICC/comment/XMP fields; videos match
+hashes. Source file hashes, file/dir times/attributes and persistent policies remain
+unchanged, reports complete/balance, final outputs agree between hosts on this build.
+
+Initial PS5.1 preparation stopped before application start because inherited pwsh
+module paths hid Get-FileHash. A first child dictionary removal failed to account
+for Windows environment key casing. Failed local console logs are retained;
+Final v3 removes PSMODULEPATH case-insensitively in child environment only. Earlier
+PS7 preparation is superseded; final native parent records bind only fresh v3 runs.
+A local packet-builder row-shape retry preserved its partial generated root; no
+application or owner result arose from that preparation failure.
+
+The 22-section local source/current comparison HTML and static overview were
+prepared; overview inspected. Source native colour-managed displays are inspection
+aids, not independent oracles. Three five-image quality samples match historical
+baseline bytes; noise 1,015,369 bytes and already-lossy 916,662 bytes differ from
+historical 979,962/840,679 bytes after the prior M2-T04 byte-extent correction. No new quality/default
+change or subjective approval is claimed. Historical outputs retain their revision.
+
+OWNER_ACCEPTANCE.md and sanitized M3-T07.json contain checklist, exact review
+commit, source/fixture/tool/artifact bindings and limitations. Agent-session PATH
+has no magick.exe. Optional local helper provides pinned tool child PATH then invokes
+exact BAT with actual Pictures; helper/Explorer/Pictures were not agent-run.
+Actual owner physical workflow and appearance observations/statement remain absent.
+T067 not_run, M3-T07 awaiting_owner, accepted 21/28 and exercised 66/75 unchanged.
+No app/tests or defaults changed; prior M3-T06 full 468/468 remains distinct.
+
+Updated STATUS/TASKS/NEXT_SESSION/ACCEPTANCE. Plan/JSON/privacy/diff/source checks
+and scoped commit/push/independent remote observation follow; final containing
+SHA is reported externally, not embedded here. Stop at owner gate. Live UNC stays
+owner-excluded D35. No M4 task, merge/release or deployment was performed.
+
+
+## 2026-10-06 — M3-T07 actual owner smoke; HDRI alpha defect blocks acceptance
+
+Resumed the guided owner test after the requested prior-day shutdown. Started
+clean at dd6753991edfb7dec7454d1af5c2fe43df75d103 on the canonical feature branch;
+independent live SHA equality, open draft PR22 and unchanged main
+4d0bc6dd403a84b4cad770fdacfd394066c9fbd1 were rechecked. Prior preparation checkpoint
+push 37345811050 and PR 37345853641 CI show success. The preserved snapshot,
+application, BAT, tests, defaults and settings were not changed.
+
+The owner reported ImageMagick in PATH, followed the clarified literal folder-to-BAT
+instruction, reported `Final reporting state: LogWarnings=0 DiskLogIncomplete=False
+FallbackDropped=0` and `Completed successfully. Press any key to close.`, and opened
+the actual Pictures result. Smooth landscape was described as opening normally with
+a smooth gradient; hard edges were clear/intact; the upper-left white transparency
+area was confirmed. The last `Yes` applies to that prompted area only. No explicit
+named-commit workflow/appearance/default acceptance or captured native BAT exit exists.
+
+Independent read-only verification selected the sole known-Pictures synthetic output
+matching the packet prefix and inspected only approved synthetic source/output trees.
+Actual log starts 2026-10-06T15:33:30+02:00, last logged time 15:33:46+02:00.
+All 24 source files and eight source directories retain hashes/times/attributes;
+20 JPEGs fully decode with correct geometry and stripped metadata, one video has
+equal bytes, mirrors/collisions/duplicate mapping and finalized timestamps agree.
+Reports reconcile 20 converted + 1 copied + 1 duplicate + 2 ignored, zero errors/
+warnings, five omitted frames and complete balanced accounting. Launcher copies
+still match review commit 4618a83cb2aa893aea9d6a1587987612624e1cf7.
+
+Actual installed ImageMagick is 7.1.2-32 Q16-HDRI, unlike portable non-HDRI preparation.
+Nineteen outputs match preparation; tagged alpha differs. Independent Pillow/
+LittleCMS reference expects semi-transparent green [127,213,169], actual [0,213,169]
+(maximum error 127; JPEG tolerance 12). White upper-left is correct. Zero native/
+report warnings do not certify pixel correctness. Current installed executable hash
+was observed after the smoke; actual version/features/delegates come from its log.
+
+Isolated native synthetic diagnosis reproduces the owner JPEG exactly and finds
+negative RGB after ICC conversion. Clamp immediately after conversion and before
+white composition gives PNG [127,213,169], JPEG [127,212,170], maximum reference
+error 1. Clamp before conversion or after composition fails; portable Q16 derivative
+bytes remain unchanged across placement controls. All 32 native diagnostic calls
+exit 0 with empty stderr and source remains unchanged. This is proposed repair
+evidence, not application regression validation or owner approval.
+
+Retained sanitized actual smoke and compact diagnosis records; raw artifacts/private
+paths/media remain local. Updated STATUS/TASKS/NEXT_SESSION/OWNER_ACCEPTANCE/
+ACCEPTANCE and linked the dated preparation to this follow-up. M3-T07 awaiting_owner,
+T067 blocked/incomplete, accepted tasks 21/28, earlier specified cases 66/75 unchanged;
+T067 is partly exercised. Recommend bounded tested colour repair and renewed owner
+review at a new exact tested commit. Per task card, stop at absent acceptance; no M4
+task or production repair was started. Record checks/scoped commit/push and later
+independent remote observation follow; containing SHA is reported externally.
+
+
+## 2026-10-06 — D36 M3-T07 bounded HDRI repair authorized
+
+Owner answered “Yes, please” to the proposed fix and short guided recheck. Scope
+was explicitly amended inside the current owner-gate task; no next milestone or
+quality/default approval is inferred. Started clean/live-equal at
+45c6795554b70a1fc23dea04b1b4339a7d69c430 on canonical feature branch/draft PR22.
+Initial maintained-runner installed-HDRI attempts reject the different executable
+hash before discovery, native 1/zero tests. Preserve that portable pin. A separate
+ignored local driver loads verified pinned Pester through the normal initializer,
+then independently verifies the installed executable hash/version and runs the
+unchanged colour suite with strict counts/result/source/gate checks. Actual clean
+pre-fix PS5.1/PS7 runs each show 25 total/23 pass/two T036 failures: tagged alpha
+PNG red error 127 >3 and six-scale JPEG error 127 >12, zero skips/unrun/blocks.
+Persistent policies remain unchanged. These actual failures bind the required
+regression rather than treating native diagnostic success as test acceptance.
+
+Bounded app change clamps after either sRGB branch before white composition.
+Regression updates preserve independent reference/tolerances and check tagged/
+untagged scales/sharing retries. Full maintained portable gates/controls/analyzer,
+separate installed-HDRI colour runs, CI and new owner recheck remain pending at
+this implementation checkpoint. Original packet/output are preserved.
+
+
+## 2026-10-06 — M3-T07 D36 repair verified; short owner recheck ready
+
+Clean implementation 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad was committed and
+pushed normally, with independent clean/live-equal feature observation. Root/peer
+review found no runtime/test blocker. Full portable desktop PS5.1/PS7 each pass
+469/469, zero skips/unrun/blocks, 23 suites/10 real codecs. Both controls 470 total/469 passed/
+one exact T007 failure/native 1. Analyzer normal zero findings/control one intended
+finding/native 1 in both. Focused colour 26/26 in all four host/build combinations;
+installed HDRI reuses the real independent suite with a separately hash-bound local
+driver and verified Pester. Portable pin/reference/tolerances/profiles/BAT unchanged.
+
+The original 25-test installed-HDRI runs at 45c6795 fail two T036 cases in both shells;
+zero-test pin rejection attempts remain distinct infrastructure failures. Sixteen
+parent-observed child runs and summary/XML/console/source/Git bindings are retained
+in sanitized repair evidence; no raw media/log/private path was tracked.
+
+Two real repaired installed-HDRI Commands use disposable OutputParent and return 0:
+24 files = 20 JPEGs + one video + one duplicate + two ignored, zero errors/warnings, five frames omitted.
+Forty JPEG decodes/metadata/geometry, source bytes/times/attrs, mirrors/collisions/
+duplicate mappings and output timestamps independently pass. Corrected alpha
+[127,212,170] matches reference within 1; all 20 outputs match portable preparation
+and across hosts, 19 match old owner outputs. Original owner/source/packet/report
+hashes are unchanged. Local verifier CSV/surrogate/log-path lookup errors were
+repaired using already-successful native outputs, without replaying the application.
+
+Implementation push 37476651394 and PR 37476659134 final CI/exported evidence were
+independently verified, including real counts/codecs/controls/analyzer, exact source
+provenance/merge tree and two-file artifact privacy/digests. These hosted results
+are separate from desktop and supply no owner consent. Fresh one-image recheck
+packet contains exact repaired launcher and approved original alpha bytes; previous
+packet is preserved. No UI was claimed as owner-run by preparation.
+
+Updated owner checklist/status/task/handoff/acceptance and linked dated preparation
+to repair evidence. M3-T07 returns awaiting_owner, T067 incomplete, 21/28 accepted;
+D36 fix request is not named-commit workflow/appearance approval. Next is the short
+guided folder-to-BAT/Transparency.jpeg recheck and explicit acceptance at 5a32fc6.
+Record-only plan/privacy/source/diff checks, scoped commit/push and independent
+remote observation follow; containing SHA is reported externally. No M4, merge,
+release, settings or deployment work.
+
+
+## 2026-10-06 — M3-T07 owner acceptance complete (D37)
+
+At 2026-10-06T14:53:37.885959+00:00, recorded the direct owner reply Accepted to the final question
+explicitly naming repaired version 5a32fc6 for drag-and-drop workflow and image
+appearance. Approval binds implementation 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad; the
+agent did not supply consent. M3-T07 done, T067 passed, 22/28 tasks accepted and
+T001-T067 exercised (67/75). M4-T01 remains pending and was not started.
+
+The first one-image launch used the older original BAT/PS1, proven by paused CMD
+command and exact old faulty JPEG/error 127. The guide did not distinguish two
+Launcher windows clearly. Preserve that completion/area Yes and objective failure
+as old-launcher evidence, not current repair failure or acceptance. A unique
+Fixed launcher 5a32fc6 folder contains exact repaired PS1/unchanged BAT copies.
+The repeated owner launch reports completion/pause and its actual CMD command
+uniquely binds the fixed BAT, adjacent script and approved source. One JPEG matches
+repaired automated SHA f03bf5...df9e: 630 bytes, 128x96 RGB, fully decodes, metadata
+absent, maximum independent reference error 1 within tolerance 12. Reports balance
+1/1 with zero warnings/errors; source bytes/times/attrs match the preceding
+pre-fixed-run snapshot and output timestamps match. Native conversion 0 is logged;
+native BAT exit remains uncaptured. First-launch metadata incompleteness and
+uninspected individual comparison images stay qualified. No old media was edited.
+
+Copied both peer-sanitized recheck records with exact raw-source SHA bindings,
+recorded prompt/reply/approval in acceptance evidence, and updated status/task/owner
+ledger/handoff/decisions plus dated preparation/repair follow-up links. Runtime,
+tests, workflow, profiles/reference/generator/BAT/defaults are unchanged. Existing
+469/469 desktop gates, 470/469/1 controls, four 26/26 colour runs and verified
+implementation CI artifacts remain separate exact-revision results. Preceding
+clean/live-equal c268e39 checkpoint CI metadata now shows successful push 37479656551/
+PR 37479662600 and four jobs/required steps; no new archive/count audit is claimed.
+
+Plan/privacy/scoped-source/diff checks and reviewed record-only commit/push follow.
+The containing checkpoint final SHA/live equality are observed externally; its own
+hash is not embedded. Stop after M3-T07. No next-task, merge, release or deployment
+work or future-default approval is inferred; live UNC stays excluded by D35.
+
+## 2026-10-06 — M4-T01 first managed version preparation complete
+
+Continued from clean, exact live-equal 324a7a7cc165f874bc70c5a9e7a46e76b7ef5295
+in the maintained checkout and verified canonical fetch/push identity/open draft
+PR22. The selected WinImgNormalizer-main remains the preserved non-Git snapshot.
+Successful local tags, live remote tags and GitHub tags/releases API inspection
+returned zero records, so D38 proposes **1.0.0 unreleased** as the first managed
+application version. No earlier application release is invented.
+
+Implementation **3109a1b27d73f4084076cdd14ba06447c6243c0f** adds Get-WinImgVersion as the sole runtime
+literal, versioned existing usage and log header, version-free release prose and
+derived CHANGELOG/draft JSON. Maintainer generation and exact -Check do not invoke
+ImageMagick or build/publish assets. Independent review caught and corrected
+PS5.1/PS7 pretty-JSON drift (compact ordered JSON), Windows checkout CRLF drift
+(scoped LF attributes), and the evidence exporter's missing new public bindings
+(seven exact names with one dual-export positive and six privacy/path negatives).
+The source remains self-contained, with no new public switch or support file.
+README/changelog document fixes, retained defaults/safeguards, supported versus
+actually tested environments, ImageMagick/codec requirements and limitations.
+Original LICENSE, author, BAT, profiles, tolerances, process/colour/frame/size
+defaults and development dependency pins remain unchanged.
+
+Precommit focused T068 was 6/6 in both actual hosts; exporter-focused PS7 was 34/34
+and analyzer zero findings. Clean implementation full desktop gates then passed
+**482/482 each**, all 24 suites and ten actual codec outcomes, no skips/unrun/
+inconclusive/failed blocks or containers. Both full assertion controls had 483
+total/482 passed/one exact T007 failure/native 1. Both normal/control analyzers
+scanned eight scripts with unchanged 15 rules, zero normal/one intended control
+finding/native 1. Both full sanitized exports completed. Source/commit/dependency/
+persistent policy bindings and parent/raw artifact hashes verify the observations.
+Six T068 tests exercise real no-arg help without native resolution/output, real
+video copy/versioned log including substituted source version, exact read-only
+artifact checks, stale rejection and source mutation/repeat byte agreement.
+
+An initial PS5.1 outer capture used ErrorActionPreference Stop and escalated
+expected stderr from a deliberate logging-failure fixture before suite completion.
+No summary or passing count is invented. That raw attempt remains ignored and
+hash-bound in evidence; only the ignored outer wrapper changed for a fresh final
+run. No maintained application/test change followed the clean implementation.
+
+The reviewed implementation was normally pushed while clean source-bound full
+verification continued, and independently observed equal to the live feature SHA.
+CI: Push and PR Windows CI passed for the tested implementation; exported artifacts
+independently verified. Sanitized evidence records dates/source/artifacts and prior attempt;
+containing checkpoint SHA/sync is pending its external post-commit observation,
+not self-referential. M4-T01 done, T068 passed, 23/28 accepted, 68/75 exercised;
+next M4-T02 remains pending. No tag, release, ZIP, merge or deployment performed.
