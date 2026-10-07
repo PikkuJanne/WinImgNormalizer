@@ -22,25 +22,27 @@ or new subjective image-quality consent is implied. [Exact candidate CI](evidenc
 and desktop normal/control/analyzer results support the manually audited T074
 proposal. All 18 requirements are reconciled with no unresolved required coverage.
 
-The proposed operations require explicit owner approval naming this candidate,
-artifact hash and the externally observed exact final PR URL/head:
+PR26 was merged by **PikkuJanne** at **2026-10-07T05:01:46Z**. Its exact head
+**fd6cd26dea4747b963313f9d9f11ffd3189b4458** is contained in main merge
+**94dff68d9474e0d0218beba81353c699fc7a6c4b**; their trees agree. This owner action is complete
+and is not requested again. [Current preparation/revalidation](evidence/M4-T06.json)
+records M4-T06 as **awaiting_owner** and T075 as **not_run**.
 
-1. Merge the successor draft PR containing this record-only feature checkpoint
-   into main. Its actual PR identity and full final head SHA must be independently
-   observed after commit/push and supplied with the approval request; these files
-   cannot embed their own future checkpoint SHA or authenticate that merge.
-2. Create the new tag v1.0.0 at the exact candidate commit above, so the selected
-   ZIP's embedded source revision agrees with its tag. Before acting, verify no
-   existing conflicting tag/release and verify the actual main/PR/source state.
-3. Publish a public GitHub Release for that approved tag, attaching the exact
-   three files in the table only after actual post-merge/tag source, license,
-   manifest, provenance and SHA-256 verification. If source/tag/asset identity
-   changes, rebuild/smoke/rehash as needed and obtain approval for the new identity.
+The remaining proposed operations require explicit owner approval naming the
+candidate, version, artifact hash, public visibility and permitted actions:
 
-Merge, tag and release authorization are **pending**; website deployment is
-**not granted**. No operation above has been executed by M4-T05. The owner already
-merged PR25 before this task; its dated main/candidate tree relation remains a
-separate starting observation, not a merge performed by this audit.
+1. Create the new tag **v1.0.0** at **8edbcbaeb3425ec3a52eeafde212c32553755af1**, so the
+   selected ZIP's embedded source revision agrees with its tag. Verify no existing
+   conflicting tag/release and the actual main/source state immediately before acting.
+2. Publish a **public GitHub Release** for that approved tag, attaching exactly
+   the three files in the table after actual tag/source/license/manifest/provenance
+   and SHA-256 verification. If source/tag/asset identity changes, rebuild/smoke/rehash
+   as needed and obtain approval for the new exact identity.
+
+**Tag and public-release authorization are pending.** Website deployment is not
+granted. M4-T06 has performed only read-only verification and governance preparation;
+no tag, release, default-branch push or deployment has been executed by this task.
+The M4-T05 proposal and PR26 merge do not grant the remaining publication permission.
 
 M4-T06/T075 must verify the actual approved tag/source, attached ZIP/sidecars and
 publicly downloaded bytes before changing release/download projections. The
@@ -61,8 +63,8 @@ Screenshots/comparisons remain empty; private owner images have no public reuse
 approval. Version/publication fields remain unchanged and downloads unavailable.
 
 Historical D37/T067 workflow/appearance acceptance remains **5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad**. It does
-not supply candidate publication consent. Windows 10 remains untested and live
-UNC remains owner-excluded D35. No verified signature or publisher authentication
+not supply candidate publication consent. Windows 10 testing is now explicitly out of scope (D43); its historical untested
+facts remain unchanged and do not block release. Live UNC remains owner-excluded D35. No verified signature or publisher authentication
 claim is supplied by these checksums. Final record-only checkpoint sync/CI and the
 successor PR are reported externally after commit and must be rechecked before
-owner-approved operations. This proposal does not start M4-T06.
+owner-approved operations. M4-T06 remains awaiting_owner until precise tag/public-release approval is recorded.

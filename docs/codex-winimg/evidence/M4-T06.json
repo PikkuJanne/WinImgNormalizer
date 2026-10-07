@@ -1,0 +1,1266 @@
+{
+  "schema_version": 1,
+  "task_id": "M4-T06",
+  "state": "awaiting_owner",
+  "observed_at_utc": "2026-10-07T05:11:35.478527Z",
+  "preceding_checkpoint_commit": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+  "candidate_implementation_commit": "8edbcbaeb3425ec3a52eeafde212c32553755af1",
+  "version": "1.0.0",
+  "owner_request": {
+    "source": "current human user message",
+    "task_selection": "M4-T06 next please.",
+    "testing_scope_statement": "Windows 10 testing is out of scope for this project."
+  },
+  "compatibility_scope": {
+    "windows_10_testing": "owner_excluded",
+    "decision": "D43",
+    "windows_10_pass_claim": false,
+    "historical_results_rewritten": false,
+    "existing_runtime_compatibility_claims_changed": false
+  },
+  "owner_approval": {
+    "state": "pending",
+    "actor": null,
+    "recorded_utc": null,
+    "approved_commit": null,
+    "permitted_publication_operations": []
+  },
+  "previous_owner_operation": {
+    "base_sha": "77bba1a6529a3ba82d01631a6a8e05136b1d13bd",
+    "head_sha": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+    "html_url": "https://github.com/PikkuJanne/WinImgNormalizer/pull/26",
+    "merge_commit_sha": "94dff68d9474e0d0218beba81353c699fc7a6c4b",
+    "merged": true,
+    "merged_at": "2026-10-07T05:01:46Z",
+    "merged_by": "PikkuJanne",
+    "number": 26,
+    "state": "closed"
+  },
+  "git_start_observation": {
+    "observed_at_utc": "2026-10-07T05:11:35.478527Z",
+    "local_head": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+    "live_feature": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+    "live_main": "94dff68d9474e0d0218beba81353c699fc7a6c4b",
+    "worktree_clean": true,
+    "synchronized": true,
+    "owner_merge_tree_equals_feature": true,
+    "candidate_is_ancestor_of_main": true,
+    "repository": "PikkuJanne/WinImgNormalizer"
+  },
+  "baseline_revalidation": {
+    "relative_path": ".scratch/M4-T06-baseline-revalidation-8dcb52e5652841e8a9410d65f6c2882a/audit-summary.json",
+    "sha256": "01586d31cab747ca339da5608c550bd453908789158b3b82ed3b040f7526f390",
+    "bytes": 47594,
+    "sanitized_summary": {
+      "schema_version": 1,
+      "task_id": "M4-T06",
+      "state": "passed",
+      "observed_at_utc": "2026-10-07T05:08:10.840740+00:00",
+      "scope": "Read-only retained bytes, Git/remote identity and historical native-proof revalidation; no build, desktop/application tests or new CI execution.",
+      "new_builds": 0,
+      "new_desktop_or_application_tests": 0,
+      "new_ci_executions": 0,
+      "candidate_commit": "8edbcbaeb3425ec3a52eeafde212c32553755af1",
+      "retained_ci_checkpoint_commit": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+      "actual_owner_merge_commit": "94dff68d9474e0d0218beba81353c699fc7a6c4b",
+      "candidate_checkpoint_owner_merge_sources_byte_equal": true,
+      "feature_context_at_observation": {
+        "branch": "codex/winimg-hardening",
+        "head": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+        "worktree_clean": true,
+        "remote_feature": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+        "remote_main": "94dff68d9474e0d0218beba81353c699fc7a6c4b"
+      },
+      "owner_merge_observation": {
+        "pr": 26,
+        "merged_at_utc": "2026-10-07T05:01:46Z",
+        "merged_by": "PikkuJanne",
+        "merge_commit": "94dff68d9474e0d0218beba81353c699fc7a6c4b",
+        "parents": [
+          "77bba1a6529a3ba82d01631a6a8e05136b1d13bd",
+          "fd6cd26dea4747b963313f9d9f11ffd3189b4458"
+        ],
+        "tree": "8cbf98af9344a25115756449c441e16a90178002"
+      },
+      "selected_assets": {
+        "archive": {
+          "path": ".scratch/M4-T05 candidate 8edbcbaeb342 0b2414e22f20487b8974800cd47c24a5/ps7 actual I build 1/WinImgNormalizer-1.0.0-portable.zip",
+          "bytes": 184659,
+          "sha256": "251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d"
+        },
+        "provenance_file": {
+          "path": ".scratch/M4-T05 candidate 8edbcbaeb342 0b2414e22f20487b8974800cd47c24a5/ps7 actual I build 1/build-provenance.json",
+          "bytes": 763,
+          "sha256": "901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae"
+        },
+        "checksum_file": {
+          "path": ".scratch/M4-T05 candidate 8edbcbaeb342 0b2414e22f20487b8974800cd47c24a5/ps7 actual I build 1/SHA256SUMS.txt",
+          "bytes": 190,
+          "sha256": "2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497"
+        }
+      },
+      "package_manifest_sha256": "e333a0e9e7ed83fb7eeca8b8c964e9a9b0408ae315e3dc48430e4b5ce197ecff",
+      "package_source_inventory": [
+        {
+          "path": "CHANGELOG.md",
+          "package_path": "CHANGELOG.md",
+          "bytes": 7633,
+          "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7",
+          "candidate_checkpoint_merge_byte_equal": true
+        },
+        {
+          "path": "docs/release/GETTING_STARTED.md",
+          "package_path": "GETTING_STARTED.md",
+          "bytes": 9093,
+          "sha256": "6756bbe6c613cc20658d9712401bcde657ea7e0ceb60ad81a3817c7e0c4410a1",
+          "candidate_checkpoint_merge_byte_equal": true
+        },
+        {
+          "path": "LICENSE",
+          "package_path": "LICENSE",
+          "bytes": 1070,
+          "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+          "candidate_checkpoint_merge_byte_equal": true
+        },
+        {
+          "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+          "package_path": "LICENSE-CC0.txt",
+          "bytes": 6552,
+          "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+          "candidate_checkpoint_merge_byte_equal": true
+        },
+        {
+          "path": "docs/release/THIRD_PARTY_NOTICES.md",
+          "package_path": "THIRD_PARTY_NOTICES.md",
+          "bytes": 1332,
+          "sha256": "e929ea8915ea07b57ce702a52bfd955eaabbf49ef1cc4781a6949479e0ad06ad",
+          "candidate_checkpoint_merge_byte_equal": true
+        },
+        {
+          "path": "WinImgNormalizer.bat",
+          "package_path": "WinImgNormalizer.bat",
+          "bytes": 1669,
+          "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+          "candidate_checkpoint_merge_byte_equal": true
+        },
+        {
+          "path": "WinImgNormalizer.ps1",
+          "package_path": "WinImgNormalizer.ps1",
+          "bytes": 155113,
+          "sha256": "6545e02db60910c23b6f009ea8c77e5ee6bd41cec589c7ff940b2ac198579e2e",
+          "candidate_checkpoint_merge_byte_equal": true
+        }
+      ],
+      "test_source_parity_count": 70,
+      "test_source_parity_inventory": [
+        {
+          "path": ".gitattributes",
+          "bytes": 283,
+          "sha256": "7d134f57b25c0102dfcbe055574eaa88e5003bec1eaab6abb78c8cac916eeb9c",
+          "candidate_git_blob": "c75ad5fb1a11e87af475898999a9df783c34a5f6",
+          "checkpoint_git_blob": "c75ad5fb1a11e87af475898999a9df783c34a5f6",
+          "owner_merge_git_blob": "c75ad5fb1a11e87af475898999a9df783c34a5f6",
+          "byte_identical": true
+        },
+        {
+          "path": ".github/workflows/windows-tests.yml",
+          "bytes": 5071,
+          "sha256": "add313feafee63b14c6d1db12aa089be2599724cf32eb8dc790d4ccf85bd7c39",
+          "candidate_git_blob": "8f18087b3d43ee65cc7f39a06879bd636e72fa1b",
+          "checkpoint_git_blob": "8f18087b3d43ee65cc7f39a06879bd636e72fa1b",
+          "owner_merge_git_blob": "8f18087b3d43ee65cc7f39a06879bd636e72fa1b",
+          "byte_identical": true
+        },
+        {
+          "path": ".gitignore",
+          "bytes": 30,
+          "sha256": "4e9755421fd804ed69d1f31e80c41a041e8866ac463ea56dde7d0e52d193cc6c",
+          "candidate_git_blob": "b088324ab4cb4b178190fc6e5c938d99e8fee413",
+          "checkpoint_git_blob": "b088324ab4cb4b178190fc6e5c938d99e8fee413",
+          "owner_merge_git_blob": "b088324ab4cb4b178190fc6e5c938d99e8fee413",
+          "byte_identical": true
+        },
+        {
+          "path": "CHANGELOG.md",
+          "bytes": 7633,
+          "sha256": "056a717f5497de97f4cd900043bd1428f8e8a928a79e5d60a46cbbfebdec25f7",
+          "candidate_git_blob": "2d4b8487c394cef62513fda660e3f91d8688c37b",
+          "checkpoint_git_blob": "2d4b8487c394cef62513fda660e3f91d8688c37b",
+          "owner_merge_git_blob": "2d4b8487c394cef62513fda660e3f91d8688c37b",
+          "byte_identical": true
+        },
+        {
+          "path": "LICENSE",
+          "bytes": 1070,
+          "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+          "candidate_git_blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+          "checkpoint_git_blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+          "owner_merge_git_blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+          "byte_identical": true
+        },
+        {
+          "path": "README.md",
+          "bytes": 12008,
+          "sha256": "fc770316922d7c31b8a6e383980996dfbfde0e350d4f15f1f5d402fd57ef9c32",
+          "candidate_git_blob": "49a009609d1f2869707a5d3df6960e1f44e595de",
+          "checkpoint_git_blob": "49a009609d1f2869707a5d3df6960e1f44e595de",
+          "owner_merge_git_blob": "49a009609d1f2869707a5d3df6960e1f44e595de",
+          "byte_identical": true
+        },
+        {
+          "path": "SECURITY.md",
+          "bytes": 2805,
+          "sha256": "200a964d7e75743aa419843377481f8b526397446c538a0a8a7adba64ce6e13f",
+          "candidate_git_blob": "05f351842b262c2001009e921d684c0176781781",
+          "checkpoint_git_blob": "05f351842b262c2001009e921d684c0176781781",
+          "owner_merge_git_blob": "05f351842b262c2001009e921d684c0176781781",
+          "byte_identical": true
+        },
+        {
+          "path": "WinImgNormalizer.bat",
+          "bytes": 1669,
+          "sha256": "b8191e959851f5aa17aa4034b16bb6a19c830e22121cce882213bf14b50e1e83",
+          "candidate_git_blob": "9ce2bca5b18bfb3388a9eed10aef397ba3084d54",
+          "checkpoint_git_blob": "9ce2bca5b18bfb3388a9eed10aef397ba3084d54",
+          "owner_merge_git_blob": "9ce2bca5b18bfb3388a9eed10aef397ba3084d54",
+          "byte_identical": true
+        },
+        {
+          "path": "WinImgNormalizer.ps1",
+          "bytes": 155113,
+          "sha256": "6545e02db60910c23b6f009ea8c77e5ee6bd41cec589c7ff940b2ac198579e2e",
+          "candidate_git_blob": "6569c29eb6ea72e9e89b1769b27a815301a6ed41",
+          "checkpoint_git_blob": "6569c29eb6ea72e9e89b1769b27a815301a6ed41",
+          "owner_merge_git_blob": "6569c29eb6ea72e9e89b1769b27a815301a6ed41",
+          "byte_identical": true
+        },
+        {
+          "path": "WinImgNormalizer_icon_variant.png",
+          "bytes": 11141,
+          "sha256": "479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9",
+          "candidate_git_blob": "e7a19683259ed855407f8e0d5cef326f0c789b8c",
+          "checkpoint_git_blob": "e7a19683259ed855407f8e0d5cef326f0c789b8c",
+          "owner_merge_git_blob": "e7a19683259ed855407f8e0d5cef326f0c789b8c",
+          "byte_identical": true
+        },
+        {
+          "path": "WinImgNormalizer_poster.png",
+          "bytes": 2397241,
+          "sha256": "99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926",
+          "candidate_git_blob": "89a874807f72112b4acc1730d943314ec12379fd",
+          "checkpoint_git_blob": "89a874807f72112b4acc1730d943314ec12379fd",
+          "owner_merge_git_blob": "89a874807f72112b4acc1730d943314ec12379fd",
+          "byte_identical": true
+        },
+        {
+          "path": "WinImgNormalizer_variant.ico",
+          "bytes": 22917,
+          "sha256": "78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79",
+          "candidate_git_blob": "963ee47d33fcf457b309dd50f493d3c4545b36ed",
+          "checkpoint_git_blob": "963ee47d33fcf457b309dd50f493d3c4545b36ed",
+          "owner_merge_git_blob": "963ee47d33fcf457b309dd50f493d3c4545b36ed",
+          "byte_identical": true
+        },
+        {
+          "path": "docs/BEHAVIOR.md",
+          "bytes": 11413,
+          "sha256": "2ec178f5e0238694446aa1d9775b885c0a186f835a724c62b3913d9720cd526c",
+          "candidate_git_blob": "07ebc5374f5811248476ed580ffb708ea47552f4",
+          "checkpoint_git_blob": "07ebc5374f5811248476ed580ffb708ea47552f4",
+          "owner_merge_git_blob": "07ebc5374f5811248476ed580ffb708ea47552f4",
+          "byte_identical": true
+        },
+        {
+          "path": "docs/release/GETTING_STARTED.md",
+          "bytes": 9093,
+          "sha256": "6756bbe6c613cc20658d9712401bcde657ea7e0ceb60ad81a3817c7e0c4410a1",
+          "candidate_git_blob": "38e466193b38dd602f09a573bd6885b6aba459f9",
+          "checkpoint_git_blob": "38e466193b38dd602f09a573bd6885b6aba459f9",
+          "owner_merge_git_blob": "38e466193b38dd602f09a573bd6885b6aba459f9",
+          "byte_identical": true
+        },
+        {
+          "path": "docs/release/NOTES.md",
+          "bytes": 7504,
+          "sha256": "f9f7a272b05ceb0387b3ab8d8af51fa07b69df3b5d4cae30c909fd72c78ca532",
+          "candidate_git_blob": "679595e3db37ed6b80c17781922d0f313ff62557",
+          "checkpoint_git_blob": "679595e3db37ed6b80c17781922d0f313ff62557",
+          "owner_merge_git_blob": "679595e3db37ed6b80c17781922d0f313ff62557",
+          "byte_identical": true
+        },
+        {
+          "path": "docs/release/PACKAGING.md",
+          "bytes": 5352,
+          "sha256": "146bd80dc0f4c58ce2c71e83407fecb42afcf32111ec637da03eb032ac0b5c31",
+          "candidate_git_blob": "da4d30bf250f88d9ea3847a0ed66101cb0930b0f",
+          "checkpoint_git_blob": "da4d30bf250f88d9ea3847a0ed66101cb0930b0f",
+          "owner_merge_git_blob": "da4d30bf250f88d9ea3847a0ed66101cb0930b0f",
+          "byte_identical": true
+        },
+        {
+          "path": "docs/release/THIRD_PARTY_NOTICES.md",
+          "bytes": 1332,
+          "sha256": "e929ea8915ea07b57ce702a52bfd955eaabbf49ef1cc4781a6949479e0ad06ad",
+          "candidate_git_blob": "d2e5e86838cf97910c6e1f781bfe77159700eca1",
+          "checkpoint_git_blob": "d2e5e86838cf97910c6e1f781bfe77159700eca1",
+          "owner_merge_git_blob": "d2e5e86838cf97910c6e1f781bfe77159700eca1",
+          "byte_identical": true
+        },
+        {
+          "path": "docs/website/INTEGRATION.md",
+          "bytes": 8952,
+          "sha256": "53e7e7ad1358586772164b63df14df7d83ecb38b8c3aabcf71a19de5e4017920",
+          "candidate_git_blob": "172beecafcf56f7834e36ca59463204a89afa0db",
+          "checkpoint_git_blob": "172beecafcf56f7834e36ca59463204a89afa0db",
+          "owner_merge_git_blob": "172beecafcf56f7834e36ca59463204a89afa0db",
+          "byte_identical": true
+        },
+        {
+          "path": "docs/website/PRODUCT_COPY.md",
+          "bytes": 7070,
+          "sha256": "00f5d4024249672a627cac25ae6e1aee45b9f625f9d8b2f9b7dcb8efc674bfed",
+          "candidate_git_blob": "31c469e6dfe78cdd38188070da73aa829363b60b",
+          "checkpoint_git_blob": "31c469e6dfe78cdd38188070da73aa829363b60b",
+          "owner_merge_git_blob": "31c469e6dfe78cdd38188070da73aa829363b60b",
+          "byte_identical": true
+        },
+        {
+          "path": "docs/website/metadata.json",
+          "bytes": 2872,
+          "sha256": "b41b8593ee222101149c31d26fbb59ec0f680d7e72922a85d4d8bd2bceb76a56",
+          "candidate_git_blob": "11d91391685e4c5214c7c3086254fb31ba55396f",
+          "checkpoint_git_blob": "11d91391685e4c5214c7c3086254fb31ba55396f",
+          "owner_merge_git_blob": "11d91391685e4c5214c7c3086254fb31ba55396f",
+          "byte_identical": true
+        },
+        {
+          "path": "release-metadata.json",
+          "bytes": 485,
+          "sha256": "7da599770636751fc8701b88503a64af1a4d0a76aa0317ddbf11ff1faa7e8a77",
+          "candidate_git_blob": "d3676877cc66d9d9c4f0c44c04b3a7b981e842a1",
+          "checkpoint_git_blob": "d3676877cc66d9d9c4f0c44c04b3a7b981e842a1",
+          "owner_merge_git_blob": "d3676877cc66d9d9c4f0c44c04b3a7b981e842a1",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Cancellation.Tests.ps1",
+          "bytes": 28452,
+          "sha256": "6cc52b8fde1c22bad0b7fe715da819d7ab7fd7b7e077d47a3b586dd7bc10fbb6",
+          "candidate_git_blob": "ea2b91077ae71e279beb2b6ee640558e43ac5fcb",
+          "checkpoint_git_blob": "ea2b91077ae71e279beb2b6ee640558e43ac5fcb",
+          "owner_merge_git_blob": "ea2b91077ae71e279beb2b6ee640558e43ac5fcb",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/CodecCompatibility.Tests.ps1",
+          "bytes": 16326,
+          "sha256": "78f531fe817d6dc7a631bf6ee6976e78c4f1f963455a3a4f5bae7d59ec9d3548",
+          "candidate_git_blob": "0a5865f39c44dfccf7c5f6499ac278ca9798c0c4",
+          "checkpoint_git_blob": "0a5865f39c44dfccf7c5f6499ac278ca9798c0c4",
+          "owner_merge_git_blob": "0a5865f39c44dfccf7c5f6499ac278ca9798c0c4",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Colour.Tests.ps1",
+          "bytes": 42180,
+          "sha256": "8e2b796c9a2c1e1ae0febb009ab91e71279e197925f443a8ef40fa2b55c915d0",
+          "candidate_git_blob": "5fd2418f12ac14e476664eeebb701b29794dc426",
+          "checkpoint_git_blob": "5fd2418f12ac14e476664eeebb701b29794dc426",
+          "owner_merge_git_blob": "5fd2418f12ac14e476664eeebb701b29794dc426",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Compatibility.Tests.ps1",
+          "bytes": 23236,
+          "sha256": "8b60c023087d14f5092fee43d8fc12145ddf093bd3b3345a3b2d13f3d094f4cf",
+          "candidate_git_blob": "c2bfa816b6bcacc7b16f9c02d574cdf10e35678b",
+          "checkpoint_git_blob": "c2bfa816b6bcacc7b16f9c02d574cdf10e35678b",
+          "owner_merge_git_blob": "c2bfa816b6bcacc7b16f9c02d574cdf10e35678b",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/ConversionRegression.Tests.ps1",
+          "bytes": 36512,
+          "sha256": "d9bdffce03a414f35de544b35171dee3713562bc6bf2be74ccadbb229e5fb094",
+          "candidate_git_blob": "6a7d224c51f0ef3257f064d6f20f023a504f98bc",
+          "checkpoint_git_blob": "6a7d224c51f0ef3257f064d6f20f023a504f98bc",
+          "owner_merge_git_blob": "6a7d224c51f0ef3257f064d6f20f023a504f98bc",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Diagnostics.Tests.ps1",
+          "bytes": 43562,
+          "sha256": "0a3d905c5d6e907692cb4a33871673ee4b06f7d64819f659da2e502d0c2f5231",
+          "candidate_git_blob": "4f2015c2579584f891cd301d5fe21d2fc19c984f",
+          "checkpoint_git_blob": "4f2015c2579584f891cd301d5fe21d2fc19c984f",
+          "owner_merge_git_blob": "4f2015c2579584f891cd301d5fe21d2fc19c984f",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Documentation.Tests.ps1",
+          "bytes": 27128,
+          "sha256": "a76195bf04310bdcbb9840bd22a1b15adbee350c58b723dcc2542373525c8008",
+          "candidate_git_blob": "77ed009d1a6ee2e36b244a01c752ef5b06871d74",
+          "checkpoint_git_blob": "77ed009d1a6ee2e36b244a01c752ef5b06871d74",
+          "owner_merge_git_blob": "77ed009d1a6ee2e36b244a01c752ef5b06871d74",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Duplicates.Tests.ps1",
+          "bytes": 38076,
+          "sha256": "b809ea01b3c32d330a2e230d43559964bb7036fd98dcd0674acecc6f28750d03",
+          "candidate_git_blob": "13bb10677e14083166aeb0323a63dedb48415a02",
+          "checkpoint_git_blob": "13bb10677e14083166aeb0323a63dedb48415a02",
+          "owner_merge_git_blob": "13bb10677e14083166aeb0323a63dedb48415a02",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/ExitContract.Tests.ps1",
+          "bytes": 33034,
+          "sha256": "be4a41cff744e0e24d98d8d1c8f1eceafb780ebfce53991121ddb0381c746154",
+          "candidate_git_blob": "9a1f6a1e19f3d307126f1476b5f9defdb909af50",
+          "checkpoint_git_blob": "9a1f6a1e19f3d307126f1476b5f9defdb909af50",
+          "owner_merge_git_blob": "9a1f6a1e19f3d307126f1476b5f9defdb909af50",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "bytes": 10750,
+          "sha256": "8416cfb8260f48bd7c66cec80012d4ac7ce553fd8cc1cbe45f90b170ae4f549d",
+          "candidate_git_blob": "0d65b3d893b8bd5487259b5322d6068099982ac9",
+          "checkpoint_git_blob": "0d65b3d893b8bd5487259b5322d6068099982ac9",
+          "owner_merge_git_blob": "0d65b3d893b8bd5487259b5322d6068099982ac9",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Frames.Tests.ps1",
+          "bytes": 27476,
+          "sha256": "3a723c28581a5c7ab28e02645ac3823368532d3d5df541e6bd9cc8b3086a655a",
+          "candidate_git_blob": "2ef7f0e1412b1a8d386570f1989aba4917236389",
+          "checkpoint_git_blob": "2ef7f0e1412b1a8d386570f1989aba4917236389",
+          "owner_merge_git_blob": "2ef7f0e1412b1a8d386570f1989aba4917236389",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "bytes": 7875,
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86",
+          "candidate_git_blob": "2aa2a21db976d5d3c780d06744332e45b25cdd6a",
+          "checkpoint_git_blob": "2aa2a21db976d5d3c780d06744332e45b25cdd6a",
+          "owner_merge_git_blob": "2aa2a21db976d5d3c780d06744332e45b25cdd6a",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "bytes": 9855,
+          "sha256": "aab17d64584f2e4eb1280bf9f6f80a280708ff2d7ec4380ad12f93d930fc26fc",
+          "candidate_git_blob": "a0c8d82d45a2727833a5bedf30ef44636d73a33f",
+          "checkpoint_git_blob": "a0c8d82d45a2727833a5bedf30ef44636d73a33f",
+          "owner_merge_git_blob": "a0c8d82d45a2727833a5bedf30ef44636d73a33f",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "bytes": 15679,
+          "sha256": "2642031a7adf477d9a1832439449deeb4fe68a8ebac979818e3a66226f47d5ab",
+          "candidate_git_blob": "709a40b523fa84831e5eb702bd3bc70ca40f709e",
+          "checkpoint_git_blob": "709a40b523fa84831e5eb702bd3bc70ca40f709e",
+          "owner_merge_git_blob": "709a40b523fa84831e5eb702bd3bc70ca40f709e",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Launcher.Tests.ps1",
+          "bytes": 28870,
+          "sha256": "f5b5064cad242a4cefdbffad8feb5efe4ef35c8d3813c34a99c4d4b9eb15f062",
+          "candidate_git_blob": "c10436a50f9592be5349cc4490248043e29c3b08",
+          "checkpoint_git_blob": "c10436a50f9592be5349cc4490248043e29c3b08",
+          "owner_merge_git_blob": "c10436a50f9592be5349cc4490248043e29c3b08",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "bytes": 33820,
+          "sha256": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387",
+          "candidate_git_blob": "16c7434896b37fab6b2906b94a017f1b713f483c",
+          "checkpoint_git_blob": "16c7434896b37fab6b2906b94a017f1b713f483c",
+          "owner_merge_git_blob": "16c7434896b37fab6b2906b94a017f1b713f483c",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Naming.Tests.ps1",
+          "bytes": 31038,
+          "sha256": "b482a1e6a7a6a15353a7e1c74131ab2298f7bb4717d1b318e604e75b9c7b6a83",
+          "candidate_git_blob": "752d240d3011bb7add2b56943081fcd8306881f5",
+          "checkpoint_git_blob": "752d240d3011bb7add2b56943081fcd8306881f5",
+          "owner_merge_git_blob": "752d240d3011bb7add2b56943081fcd8306881f5",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/NativeLifetime.Tests.ps1",
+          "bytes": 47651,
+          "sha256": "af03cb1af277e8a11c619f1e28aa54e141dc93c1d6cd2bc03f92b48e0a490cfc",
+          "candidate_git_blob": "f5e5e14aa76617d96dc35696f7234925cb6e8551",
+          "checkpoint_git_blob": "f5e5e14aa76617d96dc35696f7234925cb6e8551",
+          "owner_merge_git_blob": "f5e5e14aa76617d96dc35696f7234925cb6e8551",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Normalizer.Tests.ps1",
+          "bytes": 20967,
+          "sha256": "deed7ee2ba7490c248b339a653f10aa9df17f08bc355596b11dde8ea8d76a54b",
+          "candidate_git_blob": "bc5c46f79fa2c4fe48463930f2c89a19bc2c35f5",
+          "checkpoint_git_blob": "bc5c46f79fa2c4fe48463930f2c89a19bc2c35f5",
+          "owner_merge_git_blob": "bc5c46f79fa2c4fe48463930f2c89a19bc2c35f5",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "bytes": 1219,
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634",
+          "candidate_git_blob": "30a9cdf89b52d8fe90dbdf8c54dec1436da18edd",
+          "checkpoint_git_blob": "30a9cdf89b52d8fe90dbdf8c54dec1436da18edd",
+          "owner_merge_git_blob": "30a9cdf89b52d8fe90dbdf8c54dec1436da18edd",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Packaging.Tests.ps1",
+          "bytes": 47087,
+          "sha256": "83a625822885bc43394e20aa58483a4066d889cad44aa312d0079bd354806a0b",
+          "candidate_git_blob": "4e56affaf275b97fb9de9be33cac56bce823346b",
+          "checkpoint_git_blob": "4e56affaf275b97fb9de9be33cac56bce823346b",
+          "owner_merge_git_blob": "4e56affaf275b97fb9de9be33cac56bce823346b",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Paths.Tests.ps1",
+          "bytes": 29808,
+          "sha256": "b924733aa8b786993e04c8960609a5ba7decb95e44cdb5bb65a8313cb9d3f287",
+          "candidate_git_blob": "07d571f38a2bba9538671f9ce8dfde311b410ce4",
+          "checkpoint_git_blob": "07d571f38a2bba9538671f9ce8dfde311b410ce4",
+          "owner_merge_git_blob": "07d571f38a2bba9538671f9ce8dfde311b410ce4",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Preflight.Tests.ps1",
+          "bytes": 46860,
+          "sha256": "9752bee83fc124632bc2ccbc7fe06aa055f09d67488c9206770f5dffe3700f6c",
+          "candidate_git_blob": "6f75075b0eba1dbbe89bf7057893b18ed0979eb9",
+          "checkpoint_git_blob": "6f75075b0eba1dbbe89bf7057893b18ed0979eb9",
+          "owner_merge_git_blob": "6f75075b0eba1dbbe89bf7057893b18ed0979eb9",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/RecoveryReporting.Tests.ps1",
+          "bytes": 35633,
+          "sha256": "3eef82afac336672216ea32875fbd8082218f3311f41e27351ffec1455726dfc",
+          "candidate_git_blob": "bc69c65c9a6032780cd35609bcd7136c6a03ccb7",
+          "checkpoint_git_blob": "bc69c65c9a6032780cd35609bcd7136c6a03ccb7",
+          "owner_merge_git_blob": "bc69c65c9a6032780cd35609bcd7136c6a03ccb7",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Reporting.Tests.ps1",
+          "bytes": 51169,
+          "sha256": "2451119df80b60bae78b90ec3dbd38655a8d8e00fdf7c3c91cb15425880d86f9",
+          "candidate_git_blob": "4163f281fdbaaa809c26fab5341aedaaa3a327ae",
+          "checkpoint_git_blob": "4163f281fdbaaa809c26fab5341aedaaa3a327ae",
+          "owner_merge_git_blob": "4163f281fdbaaa809c26fab5341aedaaa3a327ae",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/SafetyRegression.Tests.ps1",
+          "bytes": 18817,
+          "sha256": "63626fb7519f2d52bbb89a81069f5d7de435e8b95c7ae3689de397ef3676efee",
+          "candidate_git_blob": "418cfa3a783791f0f739ba41c09eb7db353d1a43",
+          "checkpoint_git_blob": "418cfa3a783791f0f739ba41c09eb7db353d1a43",
+          "owner_merge_git_blob": "418cfa3a783791f0f739ba41c09eb7db353d1a43",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Sizing.Tests.ps1",
+          "bytes": 21505,
+          "sha256": "5e18e11a1c82bb7e5464f8035d6bcd3fed92b91b59db2d1956680d4c45aab232",
+          "candidate_git_blob": "c279bc38584e738252c6b2f91bf568b9ca2c0d39",
+          "checkpoint_git_blob": "c279bc38584e738252c6b2f91bf568b9ca2c0d39",
+          "owner_merge_git_blob": "c279bc38584e738252c6b2f91bf568b9ca2c0d39",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/StaticAnalysis.Tests.ps1",
+          "bytes": 10103,
+          "sha256": "c848a79c8c73e2d7ebab791bcc12fbcd3649fa349a239b72a032ade97203170c",
+          "candidate_git_blob": "0b591521597d8ad16060853355b404166acf8e67",
+          "checkpoint_git_blob": "0b591521597d8ad16060853355b404166acf8e67",
+          "owner_merge_git_blob": "0b591521597d8ad16060853355b404166acf8e67",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "bytes": 3670,
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016",
+          "candidate_git_blob": "4eb0f3ad7d3c591da95b3772d9f33361f40db59f",
+          "checkpoint_git_blob": "4eb0f3ad7d3c591da95b3772d9f33361f40db59f",
+          "owner_merge_git_blob": "4eb0f3ad7d3c591da95b3772d9f33361f40db59f",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Transactions.Tests.ps1",
+          "bytes": 33367,
+          "sha256": "43eccca35bee98132fe057955f09ea00ed5e0f48e9c4ab4b8ed8f9f491d1db2f",
+          "candidate_git_blob": "0492f0668445394d03d5c1eaae0c1687260a444e",
+          "checkpoint_git_blob": "0492f0668445394d03d5c1eaae0c1687260a444e",
+          "owner_merge_git_blob": "0492f0668445394d03d5c1eaae0c1687260a444e",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Traversal.Tests.ps1",
+          "bytes": 38096,
+          "sha256": "70a819d3c70d50671663df6308c3bd37f8666120b21a48a8cac2d30ecaa3bbd1",
+          "candidate_git_blob": "9cf1315ef0fee7bb71e6e61d601617fe0a876b46",
+          "checkpoint_git_blob": "9cf1315ef0fee7bb71e6e61d601617fe0a876b46",
+          "owner_merge_git_blob": "9cf1315ef0fee7bb71e6e61d601617fe0a876b46",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Versioning.Tests.ps1",
+          "bytes": 15529,
+          "sha256": "7164701c434c3692cf9522d53d2f43190ca1f5b3c62a0044993cab1eedd7178c",
+          "candidate_git_blob": "6dae4e9297afe946e838e1355b9e8017d8124994",
+          "checkpoint_git_blob": "6dae4e9297afe946e838e1355b9e8017d8124994",
+          "owner_merge_git_blob": "6dae4e9297afe946e838e1355b9e8017d8124994",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Website.Tests.ps1",
+          "bytes": 22022,
+          "sha256": "60732e1509b25a1ef768da9403f3a6759c95e0383293237500efd5f9b8b30654",
+          "candidate_git_blob": "68e5e99eba4ffc1130c9b43dfe75e2e18b1183c5",
+          "checkpoint_git_blob": "68e5e99eba4ffc1130c9b43dfe75e2e18b1183c5",
+          "owner_merge_git_blob": "68e5e99eba4ffc1130c9b43dfe75e2e18b1183c5",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/WorkflowSecurity.Tests.ps1",
+          "bytes": 15413,
+          "sha256": "8a301fb23140fe30b0caa7e2bebddce905806e0bbf3fcc2d405224aeb9bee2d3",
+          "candidate_git_blob": "6896036b9444f3caa82e85c1f0cfbc2b8347a598",
+          "checkpoint_git_blob": "6896036b9444f3caa82e85c1f0cfbc2b8347a598",
+          "owner_merge_git_blob": "6896036b9444f3caa82e85c1f0cfbc2b8347a598",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/dependencies.json",
+          "bytes": 2525,
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853",
+          "candidate_git_blob": "19287f0494c21b2d02890de5e0068e979a0f16a3",
+          "checkpoint_git_blob": "19287f0494c21b2d02890de5e0068e979a0f16a3",
+          "owner_merge_git_blob": "19287f0494c21b2d02890de5e0068e979a0f16a3",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/fixtures/LauncherConsoleFixture.cs",
+          "bytes": 9370,
+          "sha256": "7b02f871e873684f74817981f3e5d6475a9fdce6638d9d83b236432dd7293b8d",
+          "candidate_git_blob": "35564e68bffb0ea07e58258f38a17687e65648a8",
+          "checkpoint_git_blob": "35564e68bffb0ea07e58258f38a17687e65648a8",
+          "owner_merge_git_blob": "35564e68bffb0ea07e58258f38a17687e65648a8",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/fixtures/colour/AdobeCompat-v2.icc",
+          "bytes": 374,
+          "sha256": "60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9",
+          "candidate_git_blob": "47fb1b1e89b20e2accc57353c300ff2155215a95",
+          "checkpoint_git_blob": "47fb1b1e89b20e2accc57353c300ff2155215a95",
+          "owner_merge_git_blob": "47fb1b1e89b20e2accc57353c300ff2155215a95",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/fixtures/colour/CGATS001Compat-v2-micro.icc",
+          "bytes": 8464,
+          "sha256": "73e1ba37d2bad5bab2a964f40a9eed96209666efc067c3322626214bbef234a0",
+          "candidate_git_blob": "b5a73495bfc7509837b300800d8197d94e83fab7",
+          "checkpoint_git_blob": "b5a73495bfc7509837b300800d8197d94e83fab7",
+          "owner_merge_git_blob": "b5a73495bfc7509837b300800d8197d94e83fab7",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/fixtures/colour/Generate-Reference.py",
+          "bytes": 2157,
+          "sha256": "5554ffb8d75544f566091b8989105abeb124995553d1d34b6332b497c1912f22",
+          "candidate_git_blob": "7354688df526c8065364eb75314ba2d3dbb5e4f1",
+          "checkpoint_git_blob": "7354688df526c8065364eb75314ba2d3dbb5e4f1",
+          "owner_merge_git_blob": "7354688df526c8065364eb75314ba2d3dbb5e4f1",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/fixtures/colour/LICENSE-CC0.txt",
+          "bytes": 6552,
+          "sha256": "469d87b5fa48f8aaf69e25f4fcac3a309c97dbb7d561b917638abdb640e004d9",
+          "candidate_git_blob": "550e190e5c9ddeff82695fd411ca16edc5e4980e",
+          "checkpoint_git_blob": "550e190e5c9ddeff82695fd411ca16edc5e4980e",
+          "owner_merge_git_blob": "550e190e5c9ddeff82695fd411ca16edc5e4980e",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/fixtures/colour/MANIFEST.json",
+          "bytes": 3741,
+          "sha256": "cf569be56461f6e4a6a08e44cad322731060581a6009dbdcd5d8d20fe24d259f",
+          "candidate_git_blob": "4dbb39a80b93cd4a07aa3755e18c4bc7c74f33ac",
+          "checkpoint_git_blob": "4dbb39a80b93cd4a07aa3755e18c4bc7c74f33ac",
+          "owner_merge_git_blob": "4dbb39a80b93cd4a07aa3755e18c4bc7c74f33ac",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/fixtures/colour/README.md",
+          "bytes": 1499,
+          "sha256": "48ab22e62ca7e371054772b02107ef9faee6249eda4b3ed36c1065aa39974e68",
+          "candidate_git_blob": "ed3ea20c38b1ac9a16483013bc045c70379239f6",
+          "checkpoint_git_blob": "ed3ea20c38b1ac9a16483013bc045c70379239f6",
+          "owner_merge_git_blob": "ed3ea20c38b1ac9a16483013bc045c70379239f6",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/fixtures/colour/REFERENCE.json",
+          "bytes": 5199,
+          "sha256": "20f5edc52728c13617151936ba9388e0148458f896ebe7cd824ab99ed4068675",
+          "candidate_git_blob": "e8a0a73ac9def4b59ea73c1db93d5afd1b17cb41",
+          "checkpoint_git_blob": "e8a0a73ac9def4b59ea73c1db93d5afd1b17cb41",
+          "owner_merge_git_blob": "e8a0a73ac9def4b59ea73c1db93d5afd1b17cb41",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/fixtures/colour/sRGB-v4.icc",
+          "bytes": 480,
+          "sha256": "c56e1685d888f5edb92fe07f2750f387f8fe8e91b32ff8fb0b56bfbbb9458353",
+          "candidate_git_blob": "d9f3c055bd4d7573124090569e1b9533932214eb",
+          "checkpoint_git_blob": "d9f3c055bd4d7573124090569e1b9533932214eb",
+          "owner_merge_git_blob": "d9f3c055bd4d7573124090569e1b9533932214eb",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/legacy/toolchain.json",
+          "bytes": 1373,
+          "sha256": "fcc5e6680d41b0a6b190362a6bc7c33cd821e63b3a757e1d82603ce83c193406",
+          "candidate_git_blob": "2aa2e60923b7c5d3198ee86dd570ed88ae26e463",
+          "checkpoint_git_blob": "2aa2e60923b7c5d3198ee86dd570ed88ae26e463",
+          "owner_merge_git_blob": "2aa2e60923b7c5d3198ee86dd570ed88ae26e463",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/mandatory-tests.json",
+          "bytes": 2566,
+          "sha256": "1ef8a400a02a24c56477eaf6ccf9400ab13c39590e0794167ee5a93a50ec5bb7",
+          "candidate_git_blob": "ee37d7bb4e00bdbe9b8ed6534bec1a897b26276c",
+          "checkpoint_git_blob": "ee37d7bb4e00bdbe9b8ed6534bec1a897b26276c",
+          "owner_merge_git_blob": "ee37d7bb4e00bdbe9b8ed6534bec1a897b26276c",
+          "byte_identical": true
+        },
+        {
+          "path": "tools/release/Build-Release.ps1",
+          "bytes": 11159,
+          "sha256": "8a744ea4d96fc560a31d41a9f3f2698793ecdf0ba62dec71e87ce830d42a555c",
+          "candidate_git_blob": "3a519ae561ac1e7df28d7f77f341e02290bf8740",
+          "checkpoint_git_blob": "3a519ae561ac1e7df28d7f77f341e02290bf8740",
+          "owner_merge_git_blob": "3a519ae561ac1e7df28d7f77f341e02290bf8740",
+          "byte_identical": true
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "bytes": 2866,
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414",
+          "candidate_git_blob": "1952bd37c79f734e5c66198ad4c28eaaaf26eed1",
+          "checkpoint_git_blob": "1952bd37c79f734e5c66198ad4c28eaaaf26eed1",
+          "owner_merge_git_blob": "1952bd37c79f734e5c66198ad4c28eaaaf26eed1",
+          "byte_identical": true
+        },
+        {
+          "path": "tools/website/Test-WebsiteHandoff.ps1",
+          "bytes": 16220,
+          "sha256": "3ab96bc7e361085a32bd60225f2231083e15987ecefdb763000f90470db2d7a2",
+          "candidate_git_blob": "6f22dc735573da6cf0e9bf49ddb09275094c46d6",
+          "checkpoint_git_blob": "6f22dc735573da6cf0e9bf49ddb09275094c46d6",
+          "owner_merge_git_blob": "6f22dc735573da6cf0e9bf49ddb09275094c46d6",
+          "byte_identical": true
+        }
+      ],
+      "analyzer_source_parity_count": 12,
+      "analyzer_source_parity_inventory": [
+        {
+          "path": "WinImgNormalizer.ps1",
+          "bytes": 155113,
+          "sha256": "6545e02db60910c23b6f009ea8c77e5ee6bd41cec589c7ff940b2ac198579e2e",
+          "candidate_git_blob": "6569c29eb6ea72e9e89b1769b27a815301a6ed41",
+          "checkpoint_git_blob": "6569c29eb6ea72e9e89b1769b27a815301a6ed41",
+          "owner_merge_git_blob": "6569c29eb6ea72e9e89b1769b27a815301a6ed41",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Export-TestEvidence.ps1",
+          "bytes": 10750,
+          "sha256": "8416cfb8260f48bd7c66cec80012d4ac7ce553fd8cc1cbe45f90b170ae4f549d",
+          "candidate_git_blob": "0d65b3d893b8bd5487259b5322d6068099982ac9",
+          "checkpoint_git_blob": "0d65b3d893b8bd5487259b5322d6068099982ac9",
+          "owner_merge_git_blob": "0d65b3d893b8bd5487259b5322d6068099982ac9",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Initialize-TestDependencies.ps1",
+          "bytes": 7875,
+          "sha256": "96d3ab63f35429ce36f7d0e9a608ce3993660670ffb45ab82753cd5ddf03da86",
+          "candidate_git_blob": "2aa2a21db976d5d3c780d06744332e45b25cdd6a",
+          "checkpoint_git_blob": "2aa2a21db976d5d3c780d06744332e45b25cdd6a",
+          "owner_merge_git_blob": "2aa2a21db976d5d3c780d06744332e45b25cdd6a",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Invoke-StaticAnalysis.ps1",
+          "bytes": 9855,
+          "sha256": "aab17d64584f2e4eb1280bf9f6f80a280708ff2d7ec4380ad12f93d930fc26fc",
+          "candidate_git_blob": "a0c8d82d45a2727833a5bedf30ef44636d73a33f",
+          "checkpoint_git_blob": "a0c8d82d45a2727833a5bedf30ef44636d73a33f",
+          "owner_merge_git_blob": "a0c8d82d45a2727833a5bedf30ef44636d73a33f",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Invoke-Tests.ps1",
+          "bytes": 15679,
+          "sha256": "2642031a7adf477d9a1832439449deeb4fe68a8ebac979818e3a66226f47d5ab",
+          "candidate_git_blob": "709a40b523fa84831e5eb702bd3bc70ca40f709e",
+          "checkpoint_git_blob": "709a40b523fa84831e5eb702bd3bc70ca40f709e",
+          "owner_merge_git_blob": "709a40b523fa84831e5eb702bd3bc70ca40f709e",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/Measure-SizeQuality.ps1",
+          "bytes": 33820,
+          "sha256": "6df2458fafda2cd66dbecb75d42c3f0835625e171ad0de37da3e0f057e6cc387",
+          "candidate_git_blob": "16c7434896b37fab6b2906b94a017f1b713f483c",
+          "checkpoint_git_blob": "16c7434896b37fab6b2906b94a017f1b713f483c",
+          "owner_merge_git_blob": "16c7434896b37fab6b2906b94a017f1b713f483c",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/PSScriptAnalyzerSettings.psd1",
+          "bytes": 1219,
+          "sha256": "5d242d40a609fef9cfdcc13e40cd3d9057b851af677b8b622900be1b78345634",
+          "candidate_git_blob": "30a9cdf89b52d8fe90dbdf8c54dec1436da18edd",
+          "checkpoint_git_blob": "30a9cdf89b52d8fe90dbdf8c54dec1436da18edd",
+          "owner_merge_git_blob": "30a9cdf89b52d8fe90dbdf8c54dec1436da18edd",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/TestGate.ps1",
+          "bytes": 3670,
+          "sha256": "e59c63d577c69d0f66349b7fe9ee07e24020f77e67060db82c210075f4c35016",
+          "candidate_git_blob": "4eb0f3ad7d3c591da95b3772d9f33361f40db59f",
+          "checkpoint_git_blob": "4eb0f3ad7d3c591da95b3772d9f33361f40db59f",
+          "owner_merge_git_blob": "4eb0f3ad7d3c591da95b3772d9f33361f40db59f",
+          "byte_identical": true
+        },
+        {
+          "path": "tests/dependencies.json",
+          "bytes": 2525,
+          "sha256": "b0e0bbfdf804907185832a4f15adabf5cc3d7f19a1c330e33ad5402276fac853",
+          "candidate_git_blob": "19287f0494c21b2d02890de5e0068e979a0f16a3",
+          "checkpoint_git_blob": "19287f0494c21b2d02890de5e0068e979a0f16a3",
+          "owner_merge_git_blob": "19287f0494c21b2d02890de5e0068e979a0f16a3",
+          "byte_identical": true
+        },
+        {
+          "path": "tools/release/Build-Release.ps1",
+          "bytes": 11159,
+          "sha256": "8a744ea4d96fc560a31d41a9f3f2698793ecdf0ba62dec71e87ce830d42a555c",
+          "candidate_git_blob": "3a519ae561ac1e7df28d7f77f341e02290bf8740",
+          "checkpoint_git_blob": "3a519ae561ac1e7df28d7f77f341e02290bf8740",
+          "owner_merge_git_blob": "3a519ae561ac1e7df28d7f77f341e02290bf8740",
+          "byte_identical": true
+        },
+        {
+          "path": "tools/release/Update-ReleaseMetadata.ps1",
+          "bytes": 2866,
+          "sha256": "2c69020b6cf716879258475056a9bad3e765e69e838fc406a33170041d9f2414",
+          "candidate_git_blob": "1952bd37c79f734e5c66198ad4c28eaaaf26eed1",
+          "checkpoint_git_blob": "1952bd37c79f734e5c66198ad4c28eaaaf26eed1",
+          "owner_merge_git_blob": "1952bd37c79f734e5c66198ad4c28eaaaf26eed1",
+          "byte_identical": true
+        },
+        {
+          "path": "tools/website/Test-WebsiteHandoff.ps1",
+          "bytes": 16220,
+          "sha256": "3ab96bc7e361085a32bd60225f2231083e15987ecefdb763000f90470db2d7a2",
+          "candidate_git_blob": "6f22dc735573da6cf0e9bf49ddb09275094c46d6",
+          "checkpoint_git_blob": "6f22dc735573da6cf0e9bf49ddb09275094c46d6",
+          "owner_merge_git_blob": "6f22dc735573da6cf0e9bf49ddb09275094c46d6",
+          "byte_identical": true
+        }
+      ],
+      "retained_candidate_raw": {
+        "path": ".scratch/M4-T05 candidate 8edbcbaeb342 0b2414e22f20487b8974800cd47c24a5/candidate-observations.json",
+        "bytes": 195984,
+        "sha256": "18f17f8d721d347bbb8f1b66802a8ab40805f5babc012fa82eb1ad3f602364d1"
+      },
+      "retained_candidate_summary": {
+        "path": ".scratch/M4-T05 candidate 8edbcbaeb342 0b2414e22f20487b8974800cd47c24a5/candidate-summary.json",
+        "bytes": 17376,
+        "sha256": "2de1a8ef7cd062ce7a8ac6d997aba3d8ed1ca88707878e96bc2b6b110b7769bc"
+      },
+      "retained_ci_report": {
+        "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/E-observed-evidence.json",
+        "bytes": 213354,
+        "sha256": "f40261387944eb2695055e8d0c00a5073ae9f82f09f7422f9d500261eebc4996"
+      },
+      "retained_ci_report_observed_at_utc": "2026-10-07T04:26:20.587367+00:00",
+      "retained_ci_runs": [
+        {
+          "run_id": "37570105547",
+          "retained_observed_at_utc": "2026-10-07T04:25:43.526035+00:00",
+          "proof": {
+            "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/runs/37570105547/proof.json",
+            "bytes": 63921,
+            "sha256": "2742db4fc5ccd395c174b6045332c85a3ad34adf6d45bb62ddd373511c68f2ae"
+          },
+          "raw_log": {
+            "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/runs/37570105547/raw.log",
+            "bytes": 857995,
+            "sha256": "14f1fb1ee78357bb7aebda407b374d9d7106a96c480ef1f4fdc5545a504ad492"
+          },
+          "jobs": [
+            {
+              "shell": "powershell",
+              "archive": {
+                "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/runs/37570105547/powershell-artifact.zip",
+                "bytes": 12968,
+                "sha256": "5fa8b452c8f75d0aa78d5a29b64b77f52318b3d0d39256074304100fee91919e"
+              },
+              "normal": {
+                "total": 590,
+                "passed": 590,
+                "failed": 0,
+                "native_exit": 0
+              },
+              "assertion_control": {
+                "total": 591,
+                "passed": 590,
+                "failed": 1,
+                "native_exit": 1,
+                "only_failed_case": "T007"
+              },
+              "analyzer": {
+                "files": 10,
+                "sources": 12,
+                "rules": 15,
+                "normal_exit": 0,
+                "control_exit": 1
+              },
+              "website_expanded_assertions_normal_and_control": 56,
+              "required_automated_cases": 67,
+              "mandatory_suites": 27,
+              "test_source_count": 70,
+              "retained_execution_started_at": "2026-10-07T04:09:39Z",
+              "retained_execution_completed_at": "2026-10-07T04:20:22Z"
+            },
+            {
+              "shell": "pwsh",
+              "archive": {
+                "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/runs/37570105547/pwsh-artifact.zip",
+                "bytes": 7511,
+                "sha256": "031798af0a8f1a637480984eb4e6ad10193aa65fa2287ab18d8042f440782147"
+              },
+              "normal": {
+                "total": 590,
+                "passed": 590,
+                "failed": 0,
+                "native_exit": 0
+              },
+              "assertion_control": {
+                "total": 591,
+                "passed": 590,
+                "failed": 1,
+                "native_exit": 1,
+                "only_failed_case": "T007"
+              },
+              "analyzer": {
+                "files": 10,
+                "sources": 12,
+                "rules": 15,
+                "normal_exit": 0,
+                "control_exit": 1
+              },
+              "website_expanded_assertions_normal_and_control": 56,
+              "required_automated_cases": 67,
+              "mandatory_suites": 27,
+              "test_source_count": 70,
+              "retained_execution_started_at": "2026-10-07T04:09:41Z",
+              "retained_execution_completed_at": "2026-10-07T04:24:25Z"
+            }
+          ],
+          "retained_qualified": true
+        },
+        {
+          "run_id": "37570116662",
+          "retained_observed_at_utc": "2026-10-07T04:24:34.649386+00:00",
+          "proof": {
+            "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/runs/37570116662/proof.json",
+            "bytes": 63929,
+            "sha256": "3eb75b4825272de3b72b94e8f86c8ecca320f3447dde3f09917885c032699b30"
+          },
+          "raw_log": {
+            "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/runs/37570116662/raw.log",
+            "bytes": 862833,
+            "sha256": "150d1a37bc537fcf17c77d0e37fc4247b94131a6e6c79a72cc92d6a6722b05e9"
+          },
+          "jobs": [
+            {
+              "shell": "powershell",
+              "archive": {
+                "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/runs/37570116662/powershell-artifact.zip",
+                "bytes": 12969,
+                "sha256": "72a6e379d12df61496f706ce931412fa0206774920c81095a79922dc1290c87a"
+              },
+              "normal": {
+                "total": 590,
+                "passed": 590,
+                "failed": 0,
+                "native_exit": 0
+              },
+              "assertion_control": {
+                "total": 591,
+                "passed": 590,
+                "failed": 1,
+                "native_exit": 1,
+                "only_failed_case": "T007"
+              },
+              "analyzer": {
+                "files": 10,
+                "sources": 12,
+                "rules": 15,
+                "normal_exit": 0,
+                "control_exit": 1
+              },
+              "website_expanded_assertions_normal_and_control": 56,
+              "required_automated_cases": 67,
+              "mandatory_suites": 27,
+              "test_source_count": 70,
+              "retained_execution_started_at": "2026-10-07T04:09:48Z",
+              "retained_execution_completed_at": "2026-10-07T04:19:57Z"
+            },
+            {
+              "shell": "pwsh",
+              "archive": {
+                "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/runs/37570116662/pwsh-artifact.zip",
+                "bytes": 7509,
+                "sha256": "50d7431cdee45004a71d774e374ca9b99ecb7a9a5e3c8dd40a35149c7deca9b2"
+              },
+              "normal": {
+                "total": 590,
+                "passed": 590,
+                "failed": 0,
+                "native_exit": 0
+              },
+              "assertion_control": {
+                "total": 591,
+                "passed": 590,
+                "failed": 1,
+                "native_exit": 1,
+                "only_failed_case": "T007"
+              },
+              "analyzer": {
+                "files": 10,
+                "sources": 12,
+                "rules": 15,
+                "normal_exit": 0,
+                "control_exit": 1
+              },
+              "website_expanded_assertions_normal_and_control": 56,
+              "required_automated_cases": 67,
+              "mandatory_suites": 27,
+              "test_source_count": 70,
+              "retained_execution_started_at": "2026-10-07T04:09:49Z",
+              "retained_execution_completed_at": "2026-10-07T04:23:51Z"
+            }
+          ],
+          "retained_qualified": true
+        }
+      ],
+      "retained_native_invocations": [
+        {
+          "record": {
+            "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/execution-observer-37570116662.json",
+            "bytes": 1923,
+            "sha256": "bc5e176c509dbd3882b2155e04f3bae62a5929071b15b89fd62282cd69480ca8"
+          },
+          "native_exit": 0,
+          "retained_started_at_utc": "2026-10-07T04:24:33.426746+00:00",
+          "retained_completed_at_utc": "2026-10-07T04:24:43.985860+00:00"
+        },
+        {
+          "record": {
+            "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/execution-observer-37570105547.json",
+            "bytes": 1923,
+            "sha256": "e19527f74b62a6a7781449a7dc2e19edd899469bdfb2680e5071b1b9cf6229f5"
+          },
+          "native_exit": 0,
+          "retained_started_at_utc": "2026-10-07T04:25:42.438468+00:00",
+          "retained_completed_at_utc": "2026-10-07T04:25:52.476450+00:00"
+        },
+        {
+          "record": {
+            "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/execution-aggregate.json",
+            "bytes": 1894,
+            "sha256": "9d0183dec7c08fc5edf316e439ff43cac24ca0bd593d24f7ebb1b903f147a3b3"
+          },
+          "native_exit": 0,
+          "retained_started_at_utc": "2026-10-07T04:25:58.219240+00:00",
+          "retained_completed_at_utc": "2026-10-07T04:26:01.978191+00:00"
+        },
+        {
+          "record": {
+            "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/execution-finalizer.json",
+            "bytes": 1898,
+            "sha256": "36fb7e52f090ca15daa92c853e2978bb80524665964a0132e8f57456e9323ac1"
+          },
+          "native_exit": 0,
+          "retained_started_at_utc": "2026-10-07T04:26:01.985112+00:00",
+          "retained_completed_at_utc": "2026-10-07T04:26:20.618439+00:00"
+        }
+      ],
+      "retained_helper_freeze": {
+        "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/helper-freeze.json",
+        "bytes": 1304,
+        "sha256": "cbc82ea2e03c9bcea42ffee8bf80a2214df0f1a37e47276e370a0e27653754e2"
+      },
+      "retained_config": {
+        "path": ".scratch/M4-T05-ci-E-independent-fd6cd26/audit-config.json",
+        "bytes": 13433,
+        "sha256": "45b6ef1c4c469bd907ce7c35df7ec0f3a1cd5fd935416a31d675e20f801689c5"
+      },
+      "harness": {
+        "path": ".scratch/M4-T06-baseline-revalidation-8dcb52e5652841e8a9410d65f6c2882a/revalidate.py",
+        "bytes": 22645,
+        "sha256": "3e57708005a35f4b28bdd09ed2f70e292a66fb32736c6849ec8ab995d84293ca"
+      },
+      "raw_audit": {
+        "path": ".scratch/M4-T06-baseline-revalidation-8dcb52e5652841e8a9410d65f6c2882a/audit-raw.json",
+        "bytes": 310104,
+        "sha256": "becdfbe7a373b0b646a5403b08fd169cfca774285cce3b7b04e385f4287a1c2c"
+      },
+      "publication_approval": "not_granted",
+      "tag_release_operations": "not_run",
+      "T075": "not_run",
+      "M4_T06_required_state": "awaiting_owner",
+      "windows_10_testing": "owner_excluded_for_M4_T06; historical untested fact retained",
+      "limitations": [
+        "Retained historical tests and CI were revalidated, not rerun.",
+        "No CI result for a future checkpoint is inferred.",
+        "Actual owner merge does not grant tag/release/deployment consent.",
+        "No public tag/download/website publication consistency is claimed."
+      ]
+    }
+  },
+  "prior_ci": {
+    "record_sha256": "f40261387944eb2695055e8d0c00a5073ae9f82f09f7422f9d500261eebc4996",
+    "checkpoint_commit": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+    "runtime_input_implementation_commit": "8edbcbaeb3425ec3a52eeafde212c32553755af1",
+    "actual_execution_runs": [
+      {
+        "conclusion": "success",
+        "createdAt": "2026-10-07T04:09:45Z",
+        "databaseId": 37570116662,
+        "event": "pull_request",
+        "headSha": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+        "status": "completed",
+        "updatedAt": "2026-10-07T04:23:51Z",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37570116662",
+        "workflowName": "Windows tests"
+      },
+      {
+        "conclusion": "success",
+        "createdAt": "2026-10-07T04:09:36Z",
+        "databaseId": 37570105547,
+        "event": "push",
+        "headSha": "fd6cd26dea4747b963313f9d9f11ffd3189b4458",
+        "status": "completed",
+        "updatedAt": "2026-10-07T04:24:26Z",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/37570105547",
+        "workflowName": "Windows tests"
+      }
+    ],
+    "normal_tests_per_job": 590,
+    "assertion_control_tests_per_job": 591,
+    "mandatory_suite_count": 27,
+    "mandatory_required_case_count": 67,
+    "source_binding_count": 70,
+    "analyzer_binding_count": 12,
+    "analyzer_rule_count": 15,
+    "execution_limit": "These are retained actual earlier executions, freshly revalidated; no new desktop/build/application/CI execution is claimed."
+  },
+  "proposed_operations": {
+    "tag": "v1.0.0",
+    "tag_commit": "8edbcbaeb3425ec3a52eeafde212c32553755af1",
+    "release_visibility": "public",
+    "repository": "PikkuJanne/WinImgNormalizer",
+    "attachments": [
+      {
+        "filename": "WinImgNormalizer-1.0.0-portable.zip",
+        "bytes": 184659,
+        "sha256": "251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d"
+      },
+      {
+        "filename": "build-provenance.json",
+        "bytes": 763,
+        "sha256": "901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae"
+      },
+      {
+        "filename": "SHA256SUMS.txt",
+        "bytes": 190,
+        "sha256": "2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497"
+      }
+    ],
+    "approval_state": "pending",
+    "already_completed_merge": 26
+  },
+  "publication_observation": {
+    "live_tags_count": 0,
+    "live_releases_count": 0,
+    "release_state": "unreleased",
+    "publication_fields_null": true,
+    "website_download_state": "unavailable",
+    "website_render_link": false,
+    "website_deployment_authorization": "not_granted"
+  },
+  "publication_prerequisites": [
+    "Exact owner tag/public-release consent remains absent.",
+    "Reverify actual tag/source, all ZIP entries, license, manifest, provenance and checksum bytes before publication.",
+    "Review preparation-time guide/changelog wording and draft-only builder/generator/website guard transitions; current draft gates do not verify published-state consistency.",
+    "Any changed source/tag/ZIP identity requires relevant checks, rebuilt/smoked/rehashed artifacts as needed and renewed exact approval.",
+    "Verify actual public download bytes before publishing release/download projections."
+  ],
+  "case_results": [
+    {
+      "case_id": "T075",
+      "state": "not_run",
+      "reason": "No authorized tag/public release exists; actual tag/asset/download/metadata consistency is not yet executable. Owner PR26 merge and baseline byte revalidation are partial preparation only."
+    }
+  ],
+  "verification": {
+    "structural_plan": {
+      "native_exit": 0,
+      "observed_at_utc": "2026-10-07T05:11:35.740149Z",
+      "stdout_sha256": "6ebc1b9871f42a57d44c5d622602709bc4ec90af4a3b732a11464b6ee15b1164",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "result": {
+        "tasks": 28,
+        "cases": 75,
+        "review_items_covered": 18,
+        "tasks_done": 27,
+        "next_task": "M4-T06",
+        "scope": "Structural plan validation only; no application tests or approval authentication."
+      }
+    },
+    "application_tests_run": false,
+    "builds_run": false,
+    "new_owner_workflow_acceptance": false
+  },
+  "checkpoint_limit": "This record-only checkpoint cannot name its own future final SHA or push/CI. Observe those externally after commit. M4-T06 remains awaiting_owner; project is not complete."
+}

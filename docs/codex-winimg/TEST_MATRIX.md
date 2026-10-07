@@ -10,11 +10,17 @@ passing application test suite. Each task card names its cases. Add tests with f
 |---|---|---|
 | Unit | Naming plan, containment, argument validation, duplicate bookkeeping, result accounting, retry decisions, CSV neutralization and process-result classification with Pester. | Real native argv, installed codecs, Windows filesystem semantics or actual GUI drag-and-drop. |
 | Integration | Real ImageMagick with synthetic images, full JPEG decode, output bytes/metadata/frames, no-overwrite finalization, copied video hashes. | Every codec build, all Windows host interrupt behavior, or subjective owner quality acceptance. |
-| Windows shell/launcher | Native Windows PS5.1 and supported PS7, `.bat`, path characters, Unicode, ACLs/junctions, Ctrl+C and exit codes. | A Windows Server CI run alone does not prove a Windows 10/11 desktop experience. |
+| Windows shell/launcher | Native Windows PS5.1 and supported PS7, `.bat`, path characters, Unicode, ACLs/junctions, Ctrl+C and exit codes. | A Windows Server CI run alone does not prove a Windows 11 desktop experience; Windows 10 testing is owner-excluded D43. |
 | Manual owner | Everyday drag-and-drop with disposable approved copies; appearance, clarity, familiar workflow and clean release extraction. | Automated universal correctness or consent to unrelated default changes. |
 | Packaging/security | Allowlist ZIP contents, source/version/checksum match, no secrets/private data, workflow permission review. | Cryptographic publisher authenticity merely because a checksum exists. |
 
 ## Required execution environments
+
+On 2026-10-07 the owner explicitly excluded Windows 10 testing from this project
+(D43). It is not an acceptance or release requirement; do not mark it passed or
+request a Windows 10 environment. Retain historical untested facts and the actual
+Windows 11 desktop/Windows Server CI distinction. Existing runtime compatibility
+claims are unchanged by this testing-scope decision.
 
 Unit/integration tests must run under Windows PowerShell 5.1 and a currently
 supported PowerShell 7 on Windows with the same documented supported ImageMagick
