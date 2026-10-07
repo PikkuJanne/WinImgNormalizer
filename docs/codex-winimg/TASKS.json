@@ -1109,9 +1109,11 @@
       "depends_on": [
         "M4-T05"
       ],
-      "state": "pending",
-      "evidence": [],
-      "blocked_reason": null,
+      "state": "awaiting_owner",
+      "evidence": [
+        "evidence/M4-T06.json"
+      ],
+      "blocked_reason": "Exact v1.0.0 tag/public-release approval for the named candidate and asset remains absent; Windows 10 testing is owner-excluded D43 and is not a blocker.",
       "card": "tasks/M4-T06.md"
     }
   ]

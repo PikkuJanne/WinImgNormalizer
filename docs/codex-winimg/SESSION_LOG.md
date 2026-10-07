@@ -2724,3 +2724,28 @@ actual post-merge/tag/license/source/download consistency checks. D35/D37 limits
 untested Windows 10, unsigned/unreleased/null-publication/held-download state and
 empty screenshots/comparisons remain. The untested scratch guard draft is preserved
 unshipped, with no suite/inventory change or new automated T074 coverage claim.
+
+## 2026-10-07 — M4-T06 publication preparation awaiting exact owner approval
+
+The owner requested M4-T06 and stated "Windows 10 testing is out of scope for this
+project." D43 records that exclusion without claiming a pass or altering historical
+evidence, runtime/platform support or the required PS5.1/PS7/Windows 11 checks.
+GitHub independently reports owner PikkuJanne merged PR26 at 2026-10-07T05:01:46Z:
+head fd6cd26dea4747b963313f9d9f11ffd3189b4458, main/merge 94dff68d9474e0d0218beba81353c699fc7a6c4b;
+parents and equal tree were verified. No PR26 merge is requested again.
+
+Fresh read-only source/candidate/license/ZIP/sidecar and retained exact-head CI
+revalidation is recorded in evidence/M4-T06.json. Existing selected ZIP remains
+184659 bytes / 251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d, source 8edbcbaeb3425ec3a52eeafde212c32553755af1;
+the prior fd6 push/PR CI executions remain dated separately and no new application,
+desktop, build or owner workflow test is claimed. No required inventory is reduced.
+
+Only exact new v1.0.0 tag/public-release consent remains absent. The task card
+requires prepare evidence, set awaiting_owner and stop. M4-T06 is awaiting_owner,
+T075 not_run, progress 27/28 tasks and 74/75 cases; D44 and RELEASE_CANDIDATE.md
+name the completed owner merge and remaining exact proposal. Draft guide/changelog,
+builder/generator/website publication-state review, tag/source/assets and actual
+public-download verification remain prerequisites; changed identity needs relevant
+checks/rebuilt artifacts and new exact approval. Publication/download fields remain
+null/unavailable. No merge/tag/release/default-branch push/settings/deployment is
+performed. This governance-only checkpoint's own SHA/push/PR/CI is observed externally.
