@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "PikkuJanne/WinImgNormalizer",
   "baseline_commit": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
-  "next_task": "M4-T04",
+  "next_task": "M4-T05",
   "state_semantics": "done = task acceptance verified; remote synchronization and CI are separate observations. Owner-gate tasks cannot be done without owner evidence.",
   "allowed_states": [
     "pending",
@@ -1018,8 +1018,11 @@
       "depends_on": [
         "M4-T03"
       ],
-      "state": "pending",
-      "evidence": [],
+      "state": "done",
+      "evidence": [
+        "evidence/M4-T04.json",
+        "evidence/M4-T04-ci.json"
+      ],
       "blocked_reason": null,
       "card": "tasks/M4-T04.md"
     },

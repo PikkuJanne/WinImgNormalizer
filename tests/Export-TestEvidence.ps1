@@ -28,6 +28,11 @@ function Get-ExportSourceBindings {
         'docs/release/THIRD_PARTY_NOTICES.md', 'docs/release/PACKAGING.md', 'docs/BEHAVIOR.md', 'SECURITY.md',
         'CHANGELOG.md', 'release-metadata.json', 'README.md', 'LICENSE', '.gitattributes', '.gitignore'
     )
+    $releaseSources += @(
+        'tools/website/Test-WebsiteHandoff.ps1', 'docs/website/metadata.json',
+        'docs/website/PRODUCT_COPY.md', 'docs/website/INTEGRATION.md',
+        'WinImgNormalizer_icon_variant.png', 'WinImgNormalizer_variant.ico', 'WinImgNormalizer_poster.png'
+    )
     foreach ($source in $Sources) {
         $relative = if ($source.relative_path) { $source.relative_path } else { $source.path }
         if ($relative -isnot [string] -or $source.sha256 -isnot [string]) { throw 'Evidence source path and hash must be scalar strings.' }

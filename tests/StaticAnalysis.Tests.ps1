@@ -117,6 +117,9 @@ Describe 'T066 scoped analyzer security and honest native failure controls' {
         $boundApplication = @($observed.Summary.source_sha256 | Where-Object path -eq WinImgNormalizer.ps1)
         $boundApplication.Count | Should -Be 1
         $boundApplication[0].sha256 | Should -Be (Get-FileHash -LiteralPath (Join-Path $repository 'WinImgNormalizer.ps1')).Hash.ToLowerInvariant()
+        $boundWebsite = @($observed.Summary.source_sha256 | Where-Object path -eq 'tools/website/Test-WebsiteHandoff.ps1')
+        $boundWebsite.Count | Should -Be 1
+        $boundWebsite[0].sha256 | Should -Be (Get-FileHash -LiteralPath (Join-Path $repository 'tools/website/Test-WebsiteHandoff.ps1')).Hash.ToLowerInvariant()
         foreach ($binding in $observed.Summary.source_sha256) {
             [IO.Path]::IsPathRooted($binding.path) | Should -BeFalse
             $binding.path | Should -Not -Match '(^|/)\.\.(/|$)'

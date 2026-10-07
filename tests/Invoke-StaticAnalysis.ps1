@@ -97,6 +97,7 @@ try {
     $files = @((Join-Path $repositoryRoot 'WinImgNormalizer.ps1'))
     $files += Join-Path $repositoryRoot 'tools/release/Update-ReleaseMetadata.ps1'
     $files += Join-Path $repositoryRoot 'tools/release/Build-Release.ps1'
+    $files += Join-Path $repositoryRoot 'tools/website/Test-WebsiteHandoff.ps1'
     $files += @(Get-ChildItem -LiteralPath $PSScriptRoot -File -Filter '*.ps1' | Where-Object { $_.Name -notlike '*.Tests.ps1' } | ForEach-Object { $_.FullName })
     if ($files.Count -lt 2) { throw 'Static-analysis scope unexpectedly empty or incomplete.' }
     $settingsPath = Join-Path $PSScriptRoot 'PSScriptAnalyzerSettings.psd1'

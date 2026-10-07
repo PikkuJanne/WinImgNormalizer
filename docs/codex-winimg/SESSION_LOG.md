@@ -2661,3 +2661,39 @@ own future SHA/push/CI. External post-commit observation remains required. M4-T0
 done/T072 passed, 25/28 tasks, 72/75 exercised; M4-T04 pending/not started. Earlier
 owner D37/T067 acceptance and D35 live-UNC exclusion retained. No merge, default-
 branch push, tag/release/settings or website deployment performed for this task.
+
+## 2026-10-06 — M4-T04 website preparation
+
+Clean start 6e2643b2e0de62244821c47f4ff12aeda79dbf8b matched the live feature. Owner PR24 merge at
+2026-10-06T18:09:28Z produced main 81866cface260dfe2d78c3e6c2f364705ac92b3a with the same tree;
+continued the feature and [successor PR](https://github.com/PikkuJanne/WinImgNormalizer/pull/25), preserving the non-Git
+snapshot, history and default branch. Owner merge remains a separate action.
+
+Prepared framework-neutral product copy, canonical-release-reference website
+metadata and integration handoff. No website UI/backend/upload/account, assumed
+domain/framework/provider or deployment. Version 1.0.0 remains unreleased/unsigned;
+published fields null and plain unavailable download text with no link. The
+read-only strict draft guard checks metadata/copy/local paths/original asset bytes
+and rejects release/publication projections and unreviewed link destinations.
+Original icon/ICO are branding; the legacy poster's faux terminal and hard-cap
+text are held historical artwork. No approved public screenshot/comparison exists.
+Public behavior/prerequisite/privacy limitations match the unchanged application.
+
+T073 adds mandatory website preparation/rejection and real native failure checks.
+Exact website/asset source bindings are privacy-tested. Earlier dirty developer
+attempts exposed copy/source overlap, missing copied policy target and old outer
+driver0/inner runner1; those failures and corrected focus results remain qualified.
+They supply no clean acceptance and are not relabeled final implementation runs.
+
+Clean implementation 4cbc39f402c495b2f161da781b61989dd81d3903: both actual Windows desktop shells
+590/590, zero skips/unrun, 27 suites/67 required IDs/ten
+codecs/70 sources; controls 591/590/one exact T007/native1. Both
+ten-script normal/control analyzers and sanitized exports pass. Independent exact
+implementation push/PR four-job/native/source/artifact/merge checks pass. Raw
+records and hashes remain locally owned; tracked evidence is private-safe.
+
+Record-only closure references the tested implementation and cannot include its
+own future SHA/push/CI. External post-commit observation remains required. M4-T04
+done/T073 passed, 26/28 tasks, 73/75 exercised; M4-T05 pending/not started. Earlier
+owner D37/T067 acceptance and D35 live-UNC exclusion retain their scope. No new
+merge, default-branch push, tag/release/settings or website deployment for this task.
