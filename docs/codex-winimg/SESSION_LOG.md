@@ -2697,3 +2697,30 @@ own future SHA/push/CI. External post-commit observation remains required. M4-T0
 done/T073 passed, 26/28 tasks, 73/75 exercised; M4-T05 pending/not started. Earlier
 owner D37/T067 acceptance and D35 live-UNC exclusion retain their scope. No new
 merge, default-branch push, tag/release/settings or website deployment for this task.
+
+## 2026-10-07 — M4-T05 exact candidate audit and pending proposal
+
+On codex/winimg-hardening at clean reviewed candidate 8edbcbaeb3425ec3a52eeafde212c32553755af1, independently
+reviewed the full improvement, all 18 mappings, historical cases/owner evidence,
+infrastructure, package/license/provenance and public/security/website claims.
+Fresh PS5.1/PS7 mandatory gates pass 590/590, zero skipped/unrun, 27 suites/67 IDs;
+controls 591/590/one exact T007/native 1; ten-script normal/control analyzers and
+independent exact candidate push/PR matrices pass. Actual ordinary-account four
+builds measure same-host ZIP/sidecar equality and cross-host decoded content;
+selected PS7 ZIP 251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d (184659 bytes) is extracted into fresh
+owned spaces paths and actual PS1 synthetic alpha/RGB/video-byte smoke passes in
+both hosts. Matching BAT invalid-source setup/native 1 with closed stdin supplies
+no completed-media BAT or physical-gesture claim. See evidence/M4-T05.json and
+evidence/M4-T05-ci.json for source/tool/raw-record hashes and actual limitations.
+
+T074 manual preparation passes; M4-T05 done, 27/28 tasks and 74/75 cases. Historical
+ACCEPTANCE rows are reconciled without new runs or consent. D42 records the exact
+pending successor-PR merge/tag/public-release proposal in RELEASE_CANDIDATE.md;
+v1.0.0 targets candidate 8edbcbaeb3425ec3a52eeafde212c32553755af1 to agree with ZIP provenance. Owner-merged
+PR25/main remains a separate pre-task observation. This evidence-only checkpoint's
+final SHA/sync/PR/head/CI are externally observed after commit. No merge/tag/release
+or deployment is executed. T075/M4-T06 remain pending explicit owner approval and
+actual post-merge/tag/license/source/download consistency checks. D35/D37 limits,
+untested Windows 10, unsigned/unreleased/null-publication/held-download state and
+empty screenshots/comparisons remain. The untested scratch guard draft is preserved
+unshipped, with no suite/inventory change or new automated T074 coverage claim.
