@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "product": "WinImgNormalizer",
+  "version": "1.0.0",
+  "repository_url": "https://github.com/PikkuJanne/WinImgNormalizer",
+  "visibility": "public",
+  "tag": "v1.0.0",
+  "source_revision": "8edbcbaeb3425ec3a52eeafde212c32553755af1",
+  "release_id": 405427114,
+  "release_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0",
+  "published_at": "2026-10-07T05:56:49Z",
+  "observed_at": "2026-10-07T05:57:16.683785Z",
+  "assets": [
+    {
+      "id": 617739200,
+      "name": "WinImgNormalizer-1.0.0-portable.zip",
+      "bytes": 184659,
+      "sha256": "251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d",
+      "download_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer-1.0.0-portable.zip",
+      "downloaded_bytes": 184659,
+      "downloaded_sha256": "251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d"
+    },
+    {
+      "id": 617739199,
+      "name": "build-provenance.json",
+      "bytes": 763,
+      "sha256": "901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae",
+      "download_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/build-provenance.json",
+      "downloaded_bytes": 763,
+      "downloaded_sha256": "901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae"
+    },
+    {
+      "id": 617739201,
+      "name": "SHA256SUMS.txt",
+      "bytes": 190,
+      "sha256": "2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497",
+      "download_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/SHA256SUMS.txt",
+      "downloaded_bytes": 190,
+      "downloaded_sha256": "2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497"
+    }
+  ]
+}

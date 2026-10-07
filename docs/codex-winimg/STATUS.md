@@ -1,36 +1,39 @@
 # Project status
 
-Updated: 2026-10-07 — M4-T06 publication preparation; **awaiting_owner**.
+Updated: 2026-10-07T06:34:05.769146Z — M4-T06 approved publication complete.
 
-Progress remains **27/28 tasks, 74/75 specified cases**. T075 is **not_run**;
-the project is not complete. Windows 10 testing is **out of scope by the owner's
-explicit instruction (D43)**, not a missing acceptance/release requirement. Earlier
-untested observations remain historical; no Windows 10 compatibility result is inferred.
+Progress: **28/28 tasks, 75/75 specified cases**. T075 passed through actual
+approved publication and public-byte/canonical/website consistency verification.
+Version **1.0.0** is public at [v1.0.0](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0), tag source
+**8edbcbaeb3425ec3a52eeafde212c32553755af1**. The unchanged ZIP is **184659 bytes**, SHA-256
+**251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d**, with both exact reviewed sidecars.
 
-PR26 was merged by PikkuJanne at 2026-10-07T05:01:46Z. Its head was
-fd6cd26dea4747b963313f9d9f11ffd3189b4458; actual main/merge is
-94dff68d9474e0d0218beba81353c699fc7a6c4b, with the identical feature tree.
-This was an owner action before M4-T06, not a merge performed by this task.
-Clean/live feature baseline is fd6cd26dea4747b963313f9d9f11ffd3189b4458; canonical repository is
-PikkuJanne/WinImgNormalizer, branch codex/winimg-hardening.
+Owner statement **“v1.0.0 Approved”** was recorded after the exact tag/public-release
+proposal. [Publication evidence](evidence/M4-T06-publication.json) records scope,
+actual release/asset IDs, anonymous downloads, source/license/package parity and
+safe local-main fast-forward to the owner's PR27 merge ccbf6626. No remote default
+branch push or agent merge occurred.
 
-Candidate/tag target remains **8edbcbaeb3425ec3a52eeafde212c32553755af1**, version/tag
-**1.0.0/v1.0.0**. Proposed public ZIP is **184659 bytes**, SHA-256
-**251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d**, with the exact provenance and checksum sidecars.
-Fresh read-only candidate/license/ZIP/source and retained CI checks are in
-[M4-T06 evidence](evidence/M4-T06.json). Actual prior PS5.1/PS7 gates are 590/590;
-both fd6cd26 push/PR matrices passed all four jobs and artifacts. These dated
-executions are revalidated, not rerun or attributed to this future checkpoint.
+Published metadata implementation: **9dcc504071540302d6cbbde2de985b25cc4d1929**. Both desktop hosts
+passed **669/669** normal assertions, all 27 mandatory suites/67 required IDs,
+with only the intended T007 failure in controls and the intended analyzer control.
+[Desktop evidence](evidence/M4-T06-validation.json) and
+[exact implementation CI](evidence/M4-T06-publication-ci.json) record actual outputs,
+source 71 bindings, analyzer 12 bindings/15 rules and private-safe exports.
 
-PR26 merge is complete. **Tag/public-release authorization remains pending**;
-the [updated proposal](RELEASE_CANDIDATE.md) names the exact operations and assets.
-Current tags/releases are empty, version is unreleased/unsigned, publication fields
-remain null and downloads unavailable. Publication-state wording/guard/projection
-review and actual tag/public-download verification remain prerequisites; changed
-source or asset identity needs new exact approval. Website deployment remains
-unapproved without provider context. D35 live UNC exclusion and D37/T067 historical
-workflow/quality acceptance retain their scope; checksums are not signatures.
+The approved ZIP's embedded unreleased wording remains its preparation snapshot;
+the public release explains it. The generator/website guard now preserve and
+validate the dated published record, including exact URLs and byte identities.
+The builder remains unreleased-only; new tests distinguish clean published-head
+refusal from explicitly draft fixture-package smoke. Runtime/dependencies/branding
+and the approved files remain unchanged.
 
-This governance-only awaiting-owner checkpoint changes no runtime, tests,
-package inputs, public metadata, dependencies or existing platform support claims.
-Final checkpoint SHA/synchronization/PR/CI are observed externally after commit.
+Windows 10 testing is **out of scope (D43)**, with no Windows 10 pass claimed.
+Live UNC exclusion D35 and exact historical T067/D37 acceptance remain unchanged.
+The release is unsigned. Website deployment and public owner-media reuse remain
+separate unapproved work, with no supplied provider context.
+
+PR28 carries the final publication metadata and records for owner review. Its merge
+requires separate owner action; release approval does not name that new merge.
+This containing record checkpoint's final SHA, push, CI and live synchronization
+must be observed externally after commit; no future result is certified here.

@@ -1,8 +1,9 @@
 This is the first managed application version, prepared from the existing
-unversioned tool. It is **unreleased**: no tag, public release or downloadable
-package is established by these notes. The application version is generated from
-`Get-WinImgVersion` in `WinImgNormalizer.ps1`; it is separate from development
-tooling or task-bundle versions.
+unversioned tool. The application version is generated from `Get-WinImgVersion`
+in `WinImgNormalizer.ps1`; it is separate from development tooling or task-bundle
+versions. Canonical release metadata and its observed publication record supply
+the release state and date. The first public ZIP retains the approved
+preparation-time guide, changelog, manifest and provenance unchanged.
 
 ## Fixes
 

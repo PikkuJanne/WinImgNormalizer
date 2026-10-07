@@ -26,7 +26,8 @@ function Get-ExportSourceBindings {
         'tools/release/Update-ReleaseMetadata.ps1', 'docs/release/NOTES.md',
         'tools/release/Build-Release.ps1', 'docs/release/GETTING_STARTED.md',
         'docs/release/THIRD_PARTY_NOTICES.md', 'docs/release/PACKAGING.md', 'docs/BEHAVIOR.md', 'SECURITY.md',
-        'CHANGELOG.md', 'release-metadata.json', 'README.md', 'LICENSE', '.gitattributes', '.gitignore'
+        'CHANGELOG.md', 'release-metadata.json', 'README.md', 'LICENSE', '.gitattributes', '.gitignore',
+        'docs/release/publication-v1.0.0.json'
     )
     $releaseSources += @(
         'tools/website/Test-WebsiteHandoff.ps1', 'docs/website/metadata.json',

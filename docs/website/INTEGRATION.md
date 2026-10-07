@@ -13,8 +13,9 @@ upload form or endpoint, conversion API, server-side processing, account require
 queue, database or telemetry. The website should explain the tool, link to its
 documentation and expose verified release assets when publication is approved.
 
-The current content is a draft. It does not establish a public release, working
-download button, website UI, screenshot or deployed service.
+The public release and download bytes are recorded and verified. This content
+is a handoff for page integration; no website UI, screenshot or deployed service
+has been created by this publication.
 
 ## Canonical metadata
 
@@ -40,15 +41,18 @@ projection. Keep the existing metadata derivation check before integration.
 | License and author | `release-metadata.json.license`, `author`; retain [the full MIT notice](../../LICENSE). |
 | Description, requirements and limitations | [Product copy](PRODUCT_COPY.md), checked against [README](../../README.md) and [behavior](../BEHAVIOR.md). |
 
-The current canonical state is `unreleased`, with published tag/date/release URL,
-asset filename/bytes/SHA-256 and download URL all null. `proposed_tag` is a proposal,
-not a published tag. No placeholder, constructed GitHub asset URL, repository
-source archive or older preparation ZIP substitutes for a verified release asset.
+The current canonical state is `published`, tag `v1.0.0`, dated 2026-10-07.
+The [release page](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0)
+and exact portable ZIP download were observed after anonymous downloads matched
+all three approved assets. The [publication record](../release/publication-v1.0.0.json)
+binds the source revision, release/asset IDs, byte lengths and hashes at the recorded
+observation time. The ZIP retains its preparation-time wording unchanged.
 
-Display **Release download not available** as plain availability text, with
-`render_link: false`. Omit the download anchor and any download-related structured
-data. Source and documentation links remain separate navigation. They must not be
-labeled as a published package download.
+Display **Download WinImgNormalizer 1.0.0** with `render_link: true`, using only
+the canonical `download_url`. Source and documentation links remain separate
+navigation. No placeholder, latest-release shortcut or source archive substitutes
+for this verified portable package. A future unreleased preparation must instead
+show **Release download not available** with `render_link: false`.
 
 ## Original artwork
 
@@ -113,18 +117,22 @@ The local validator is a read-only preparation gate. It validates the
 metadata contract, local copy/document/asset references and unchanged original
 artwork; it is not a deployment or network-download verification command.
 
-Its current draft guard deliberately refuses any published state or live download
-URL, even if a later URL appears plausible. Passing this guard establishes draft
-readiness only. External document links are limited to the exact canonical
-repository URL and the official ImageMagick Windows download link used in the
-product copy. The draft validator accepts inline Markdown links; reference
-definitions and HTML/autolink forms are rejected, and bare HTTP(S) destinations
-must be on that same allowlist. New external URLs and GitHub release paths,
-including latest-release download shortcuts, are rejected. A real published
-projection requires a reviewed guard update and actual publication evidence in
-the future authorized context.
+The guard handles both unreleased drafts and the reviewed published record.
+Published metadata requires the exact bounded publication witness, source revision
+and all three approved asset identities; it checks the canonical projection and
+download label against that witness. This is an offline consistency check of a
+dated observation, not a fresh network check, signature or grant of owner approval.
+Draft fixtures continue to reject publication fields and downloads.
 
-## Later publication and deployment
+External document links are limited to the exact canonical repository URL, the
+official ImageMagick Windows download link, and, in published state, the exact
+recorded release page and three asset URLs. Inline Markdown links are accepted;
+reference definitions and HTML/autolink forms are rejected, and bare HTTP(S)
+destinations must use the same allowlist. Arbitrary URLs and latest-release
+shortcuts are rejected. Actual public-byte verification is separately recorded in
+the approved M4-T06 publication evidence.
+
+## Publication and later deployment
 
 M4-T01 through M4-T05 prepare artifacts. M4-T06 requires explicit owner approval
 naming the actual PR/commit, proposed tag/version, asset hash, release visibility

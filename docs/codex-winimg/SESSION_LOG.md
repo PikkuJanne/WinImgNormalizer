@@ -2749,3 +2749,30 @@ public-download verification remain prerequisites; changed identity needs releva
 checks/rebuilt artifacts and new exact approval. Publication/download fields remain
 null/unavailable. No merge/tag/release/default-branch push/settings/deployment is
 performed. This governance-only checkpoint's own SHA/push/PR/CI is observed externally.
+
+
+## 2026-10-07T06:34:05.769146Z — M4-T06 approved publication closure
+
+Owner “v1.0.0 Approved” follows the exact proposal; the recorded operation scope
+is tag v1.0.0 at 8edbcba and public release of the unchanged three pinned files.
+Release 405427114 published 2026-10-07T05:56:49Z; independent anonymous public
+downloads, exact Git/ZIP/license/manifest/provenance/sums and published projections
+passed. Immutable embedded preparation wording is disclosed on the release page.
+
+Implementation **9dcc504071540302d6cbbde2de985b25cc4d1929**, sole parent fc2682, contains 19 reviewed
+publication/tool/test/document paths and no runtime/dependency/branding changes.
+Exact clean desktop normal/control/analyzer/export and implementation CI are
+recorded in the new validation/CI evidence. Normal counts are 669/669
+on both maintained hosts, with expected intentional failure controls only.
+Published builder refusal and explicit draft fixture smoke remain separate from
+the previously approved unchanged public package. Raw evidence stays ignored.
+
+Local main clean fast-forward 4b918→actual owner PR27 merge ccbf6626 completed,
+then returned to feature; no remote default push or agent PR merge occurred.
+PR28 contains publication metadata and final handoff for owner review. Progress
+is 28/28 tasks and 75/75 specified cases; next_task null. Windows 10 testing remains
+owner-excluded D43, live UNC D35 and T067/D37 consent retain exact historical scope.
+The release is unsigned; website deployment/public owner-media reuse remain held.
+
+This evidence-only checkpoint cannot name its own future final SHA, push or CI.
+Observe those externally and verify source 71 parity to named implementation I.

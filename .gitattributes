@@ -3,3 +3,4 @@ WinImgNormalizer.bat -text whitespace=blank-at-eol,blank-at-eof,space-before-tab
 # Generated metadata must keep identical LF bytes across Windows checkouts.
 CHANGELOG.md text eol=lf
 release-metadata.json text eol=lf
+docs/release/publication-v1.0.0.json text eol=lf

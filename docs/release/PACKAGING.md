@@ -5,6 +5,21 @@ an explicitly named clean current commit. It creates no tag or public release,
 publishes no downloads, and does not run the packaged application automatically.
 Publication and website deployment require the separate owner-approved gates.
 
+## Published version
+
+Version 1.0.0 was published on 2026-10-07 from the approved source commit
+`8edbcbaeb3425ec3a52eeafde212c32553755af1`. The public ZIP and both sidecars
+are the unchanged preparation artifacts; their embedded unreleased fields record
+the build-time snapshot. See [the observed publication record](publication-v1.0.0.json)
+and [canonical release metadata](../../release-metadata.json) for the public identity.
+Do not move this tag, rebuild this release or replace its assets.
+
+The builder continues to accept only clean, explicitly unreleased preparation
+revisions. It refuses the current published checkpoint without creating output.
+Builder regression tests use deliberately draft owned replicas and label their
+synthetic smoke packages accordingly; those packages do not recreate or replace
+the approved release. A future release needs its own reviewed preparation revision.
+
 ## Build a reviewed revision
 
 Use Windows PowerShell 5.1 or PowerShell 7, Git and the repository's ordinary local

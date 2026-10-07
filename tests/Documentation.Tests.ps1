@@ -314,13 +314,12 @@ Describe 'M4-T03 documentation parity with actual behavior (T072)' {
         $allPublicText | Should -Match '(?i)(not|no).{0,60}(content.hash|hash.based)|(?:does not|without).{0,60}(content hash|hash)'
     }
 
-    It 'T072 documents cloud sync and private reports separately from local processing and unsigned draft status' {
+    It 'T072 documents cloud sync and private reports separately from local processing and recorded unsigned release status' {
         foreach ($relative in @('README.md', 'docs/release/GETTING_STARTED.md')) {
             $text = Get-DocumentationText $relative
             $text | Should -Match '(?i)does not upload'
             $text | Should -Match '(?i)(cloud[- ]sync|OneDrive).{0,180}(sync|upload)|(?:sync|upload).{0,180}(cloud[- ]sync|OneDrive)'
             $text | Should -Match '(?i)(log|report).{0,160}(private|sensitive).{0,100}(path|filename)|(?:private|sensitive).{0,100}(path|filename).{0,160}(log|report)'
-            $text | Should -Match '(?i)unreleased'
         }
         $security = Get-DocumentationText 'SECURITY.md'
         $security | Should -Match '(?i)(redact|saniti[sz]|synthetic)'
@@ -329,8 +328,25 @@ Describe 'M4-T03 documentation parity with actual behavior (T072)' {
         $security | Should -Not -Match '(?i)[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}'
         $metadata = Get-Content -LiteralPath (Join-Path $repository 'release-metadata.json') -Raw | ConvertFrom-Json
         $metadata.version | Should -BeExactly (Get-WinImgVersion)
-        $metadata.release_state | Should -BeExactly 'unreleased'
-        foreach ($name in @('tag', 'release_date', 'release_url', 'asset_filename', 'download_url')) { $metadata.$name | Should -BeNullOrEmpty }
+        if ($metadata.release_state -ceq 'unreleased') {
+            foreach ($relative in @('README.md', 'docs/release/GETTING_STARTED.md')) { Get-DocumentationText $relative | Should -Match '(?i)unreleased' }
+            foreach ($name in @('tag', 'release_date', 'release_url', 'asset_filename', 'asset_bytes', 'asset_sha256', 'download_url')) { $metadata.$name | Should -BeNullOrEmpty }
+        } else {
+            $metadata.release_state | Should -BeExactly 'published'
+            $metadata.tag | Should -BeExactly 'v1.0.0'
+            $metadata.asset_filename | Should -BeExactly 'WinImgNormalizer-1.0.0-portable.zip'
+            $metadata.asset_bytes | Should -Be 184659
+            $metadata.asset_sha256 | Should -BeExactly '251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d'
+            $metadata.release_url | Should -BeExactly 'https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0'
+            $metadata.download_url | Should -BeExactly 'https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer-1.0.0-portable.zip'
+            Get-DocumentationText 'README.md' | Should -Match '(?i)1\.0\.0 is published and unsigned'
+            Get-DocumentationText 'README.md' | Should -Match '(?i)preparation.time unreleased wording'
+            Get-DocumentationText 'docs/release/GETTING_STARTED.md' | Should -Match '(?i)unreleased'
+            # The maintained generator verifies the dated witness and canonical
+            # publication fields; this does not authenticate a fresh download.
+            & (Join-Path $repository 'tools/release/Update-ReleaseMetadata.ps1') -Check
+            if (-not $?) { throw 'Published documentation metadata check failed.' }
+        }
         $allPublicText | Should -Match '(?i)unsigned'
         $allPublicText | Should -Match '(?i)checksum.{0,120}(not|does not).{0,120}(signature|authenticat)|(?:not|does not).{0,120}(signature|authenticat).{0,120}checksum'
     }

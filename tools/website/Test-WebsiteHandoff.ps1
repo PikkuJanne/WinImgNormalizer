@@ -1,4 +1,4 @@
-# Read-only preparation check; never publishes, downloads or renders a website.
+# Read-only handoff consistency check; never publishes, downloads or renders a website.
 [CmdletBinding()]
 param(
     [string]$RepositoryRoot,
@@ -42,11 +42,11 @@ function Assert-WebsiteKeys {
 function Assert-WebsiteValue {
     param([object]$Value, [object]$Expected, [string]$Label)
     if ($null -eq $Expected) {
-        if ($null -ne $Value) { throw ($Label + ' must remain null during preparation.') }
+        if ($null -ne $Value) { throw ($Label + ' must be null in this handoff state.') }
     } elseif ($Expected -is [bool]) {
         if ($Value -isnot [bool] -or $Value -ne $Expected) { throw ($Label + ' must be the required JSON boolean.') }
     } elseif ($Expected -is [string]) {
-        if ($Value -isnot [string] -or $Value -cne $Expected) { throw ($Label + ' does not match the reviewed preparation value.') }
+        if ($Value -isnot [string] -or $Value -cne $Expected) { throw ($Label + ' does not match the reviewed value.') }
     } else {
         if (($Value -isnot [int] -and $Value -isnot [long]) -or $Value -ne $Expected) {
             throw ($Label + ' must be the required JSON integer.')
@@ -62,35 +62,143 @@ function Assert-WebsiteArray {
     }
 }
 
+function Assert-WebsiteJsonObjectKeys {
+    param([string]$Text, [hashtable]$Conversion)
+    # JSON readers differ on first/last duplicate values. Track decoded names in
+    # each individual object, so repeated asset field names remain valid while
+    # duplicate or differently escaped spellings of one key cannot be accepted.
+    $tokens = [regex]::Matches($Text, '"(?:[^"\\]|\\.)*"|[{}\[\]:,]|-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?|true|false|null')
+    $scopes = New-Object 'Collections.Generic.Stack[object]'
+    $end = 0
+    for ($index = 0; $index -lt $tokens.Count; $index++) {
+        $token = $tokens[$index]
+        if ($Text.Substring($end, $token.Index - $end) -notmatch '^\s*$') { throw 'Website inputs must use ordinary JSON tokens.' }
+        $end = $token.Index + $token.Length
+        if ($token.Value -ceq '{') {
+            $scopes.Push([pscustomobject]@{ kind='object'; keys=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase) })
+        } elseif ($token.Value -ceq '[') {
+            $scopes.Push([pscustomobject]@{ kind='array'; keys=$null })
+        } elseif ($token.Value -cin @('}',']')) {
+            if ($scopes.Count -eq 0) { throw 'Website JSON scope is invalid.' }
+            $null = $scopes.Pop()
+        } elseif ($token.Value.StartsWith('"', [StringComparison]::Ordinal) -and
+                $index + 1 -lt $tokens.Count -and $tokens[$index + 1].Value -ceq ':') {
+            if ($scopes.Count -eq 0 -or $scopes.Peek().kind -cne 'object') { throw 'Website JSON key scope is invalid.' }
+            $name = ConvertFrom-Json -InputObject $token.Value @Conversion
+            if (-not $scopes.Peek().keys.Add([string]$name)) { throw 'Website JSON object keys must be unique.' }
+        }
+    }
+    if ($Text.Substring($end) -notmatch '^\s*$') { throw 'Website inputs must use ordinary JSON tokens.' }
+}
+
 function Read-WebsiteJson {
     param([string]$Path)
     if ((Get-Item -LiteralPath $Path).Length -gt 65536) { throw 'Website JSON inputs must be bounded to 64 KiB.' }
-    return ([IO.File]::ReadAllText($Path) | ConvertFrom-Json)
+    # Newer PowerShell parses ISO date strings into DateTime by default. Preserve
+    # the recorded JSON types so both maintained hosts validate the same schema.
+    $conversion = @{ ErrorAction='Stop' }
+    if ((Get-Command ConvertFrom-Json).Parameters.ContainsKey('DateKind')) { $conversion.DateKind = 'String' }
+    $text = [IO.File]::ReadAllText($Path)
+    Assert-WebsiteJsonObjectKeys $text $conversion
+    return ($text | ConvertFrom-Json @conversion)
+}
+
+function Assert-WebsitePositiveInteger {
+    param([object]$Value, [string]$Label)
+    if (($Value -isnot [int] -and $Value -isnot [long]) -or $Value -le 0) {
+        throw ($Label + ' must be a positive JSON integer.')
+    }
+}
+
+function ConvertFrom-WebsiteUtcTimestamp {
+    param([object]$Value, [string]$Label)
+    if ($Value -isnot [string] -or $Value -cnotmatch '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,7})?Z$') {
+        throw ($Label + ' must be an explicit UTC timestamp.')
+    }
+    $parsed = [DateTimeOffset]::MinValue
+    if (-not [DateTimeOffset]::TryParse($Value, [Globalization.CultureInfo]::InvariantCulture,
+            [Globalization.DateTimeStyles]::None, [ref]$parsed)) {
+        throw ($Label + ' must be a real UTC timestamp.')
+    }
+    return $parsed
+}
+
+function Assert-WebsitePublishedProof {
+    param([object]$Release, [string]$Root)
+    # This is offline consistency against the recorded publication observation.
+    # It neither witnesses a fresh public download nor establishes a signature,
+    # owner consent or website deployment approval.
+    Assert-WebsiteValue $Release.version '1.0.0' 'Reviewed published version'
+    $proofPath = Assert-WebsiteRegularPath (Join-Path $Root ('docs/release/publication-v' + $Release.version + '.json')) $Root
+    $proof = Read-WebsiteJson $proofPath
+    Assert-WebsiteKeys $proof @('schema_version','product','version','repository_url','visibility','tag','source_revision','release_id','release_url','published_at','observed_at','assets') 'Publication observation'
+    Assert-WebsiteValue $proof.schema_version 1 'Publication schema version'
+    Assert-WebsiteValue $proof.product 'WinImgNormalizer' 'Published product'
+    Assert-WebsiteValue $proof.version '1.0.0' 'Published version'
+    Assert-WebsiteValue $proof.repository_url 'https://github.com/PikkuJanne/WinImgNormalizer' 'Published repository'
+    Assert-WebsiteValue $proof.visibility 'public' 'Release visibility'
+    Assert-WebsiteValue $proof.tag 'v1.0.0' 'Published tag'
+    Assert-WebsiteValue $proof.source_revision '8edbcbaeb3425ec3a52eeafde212c32553755af1' 'Published source revision'
+    Assert-WebsitePositiveInteger $proof.release_id 'Release ID'
+    Assert-WebsiteValue $proof.release_url ($proof.repository_url + '/releases/tag/' + $proof.tag) 'Published release URL'
+    $publishedAt = ConvertFrom-WebsiteUtcTimestamp $proof.published_at 'Publication time'
+    $observedAt = ConvertFrom-WebsiteUtcTimestamp $proof.observed_at 'Publication observation time'
+    if ($observedAt -lt $publishedAt) { throw 'The publication observation cannot precede publication.' }
+    $expectedAssets = @(
+        @{ name='WinImgNormalizer-1.0.0-portable.zip'; bytes=184659; sha256='251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d' },
+        @{ name='build-provenance.json'; bytes=763; sha256='901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae' },
+        @{ name='SHA256SUMS.txt'; bytes=190; sha256='2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497' }
+    )
+    if ($proof.assets -isnot [array] -or $proof.assets.Count -ne $expectedAssets.Count) {
+        throw 'The publication observation must bind exactly the three reviewed assets.'
+    }
+    $assetIds = @()
+    for ($index = 0; $index -lt $expectedAssets.Count; $index++) {
+        $asset = $proof.assets[$index]
+        $expected = $expectedAssets[$index]
+        Assert-WebsiteKeys $asset @('id','name','bytes','sha256','download_url','downloaded_bytes','downloaded_sha256') 'Published asset'
+        Assert-WebsitePositiveInteger $asset.id 'Published asset ID'
+        if ($assetIds -contains $asset.id) { throw 'Published asset IDs must be distinct.' }
+        $assetIds += $asset.id
+        foreach ($field in @('name','bytes','sha256')) { Assert-WebsiteValue $asset.$field $expected[$field] ('Published asset ' + $field) }
+        Assert-WebsiteValue $asset.download_url ($proof.repository_url + '/releases/download/' + $proof.tag + '/' + $asset.name) 'Published download URL'
+        Assert-WebsiteValue $asset.downloaded_bytes $expected.bytes 'Observed public download bytes'
+        Assert-WebsiteValue $asset.downloaded_sha256 $expected.sha256 'Observed public download SHA-256'
+    }
+    Assert-WebsiteValue $Release.product $proof.product 'Canonical published product'
+    Assert-WebsiteValue $Release.repository_url $proof.repository_url 'Canonical published repository'
+    Assert-WebsiteValue $Release.tag $proof.tag 'Canonical published tag'
+    Assert-WebsiteValue $Release.release_date $proof.published_at.Substring(0,10) 'Canonical publication date'
+    Assert-WebsiteValue $Release.release_url $proof.release_url 'Canonical published release URL'
+    Assert-WebsiteValue $Release.asset_filename $proof.assets[0].name 'Canonical download filename'
+    Assert-WebsiteValue $Release.asset_bytes $proof.assets[0].bytes 'Canonical download bytes'
+    Assert-WebsiteValue $Release.asset_sha256 $proof.assets[0].sha256 'Canonical download SHA-256'
+    Assert-WebsiteValue $Release.download_url $proof.assets[0].download_url 'Canonical download URL'
+    return $proof
 }
 
 function Assert-WebsiteDocumentLinks {
-    param([string]$Path, [string]$Root)
+    param([string]$Path, [string]$Root, [string[]]$PublishedLinks = @())
     $text = [IO.File]::ReadAllText($Path)
     if ($text -match '(?m)^\s{0,3}\[[^\]]+\]:' -or $text -match '<[^>\r\n]+>') {
-        throw 'Draft website documents require inline Markdown links without reference definitions, HTML or autolinks.'
+        throw 'Website documents require inline Markdown links without reference definitions, HTML or autolinks.'
     }
     if ($text -match '(?i)\bwww\.|[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}') {
-        throw 'Draft website documents must not add bare-domain or email autolink destinations.'
+        throw 'Website documents must not add bare-domain or email autolink destinations.'
     }
-    $allowedExternal = @('https://github.com/PikkuJanne/WinImgNormalizer','https://imagemagick.org/download/#windows-binary-release')
+    $allowedExternal = @('https://github.com/PikkuJanne/WinImgNormalizer','https://imagemagick.org/download/#windows-binary-release') + $PublishedLinks
     # Some Markdown renderers turn bare URLs into links. Check every HTTP(S)
     # occurrence, not only conventional inline links, before page integration.
     foreach ($uriMatch in [regex]::Matches($text, 'https?://[^\s<>()"`]+', [Text.RegularExpressions.RegexOptions]::IgnoreCase)) {
         $uriText = $uriMatch.Value.TrimEnd('.', ',', ';')
-        if ($uriText -cnotin $allowedExternal) { throw 'Draft website documents contain an unreviewed HTTP(S) destination.' }
+        if ($uriText -cnotin $allowedExternal) { throw 'Website documents contain an unreviewed HTTP(S) destination.' }
     }
     foreach ($link in [regex]::Matches($text, '!?\[[^\]]+\]\(([^)]+)\)')) {
         $target = $link.Groups[1].Value
         if ($target -match '^https://') {
-            # Draft navigation only: source and the existing prerequisite page.
-            # Any publication or new external destination requires later review.
+            # Published additions come only from the exact reviewed observation.
             if ($target -cnotin $allowedExternal) {
-                throw 'Draft website documents contain an unreviewed external link.'
+                throw 'Website documents contain an unreviewed external link.'
             }
             continue
         }
@@ -128,18 +236,27 @@ try {
     $metadata = Read-WebsiteJson $MetadataPath
     Assert-WebsiteKeys $metadata @('schema_version','preparation_state','release_metadata_file','product','repository_url','license','platform','prerequisites','processing','deployment','download','documents','assets','screenshots','comparisons') 'Website metadata'
     Assert-WebsiteValue $metadata.schema_version 1 'Schema version'
-    Assert-WebsiteValue $metadata.preparation_state 'draft' 'Preparation state'
+    if ($metadata.preparation_state -isnot [string] -or $metadata.preparation_state -cnotin @('draft','published')) {
+        throw 'Preparation state must be draft or published.'
+    }
     Assert-WebsiteValue $metadata.release_metadata_file '../../release-metadata.json' 'Release metadata reference'
     $releasePath = Assert-WebsiteRegularPath (Join-Path $websiteDirectory $metadata.release_metadata_file) $root
     $release = Read-WebsiteJson $releasePath
     Assert-WebsiteKeys $release @('schema_version','product','version','version_source','release_state','proposed_tag','tag','release_date','release_url','asset_filename','asset_bytes','asset_sha256','download_url','license','author','repository_url','release_notes_file','requirements_file') 'Canonical release metadata'
     Assert-WebsiteValue $release.schema_version 1 'Release schema version'
-    Assert-WebsiteValue $release.release_state 'unreleased' 'Release state'
     Assert-WebsiteValue $release.version_source 'WinImgNormalizer.ps1:Get-WinImgVersion' 'Version source'
     if ($release.version -isnot [string] -or $release.version -notmatch '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') { throw 'Canonical application version must be semantic.' }
     Assert-WebsiteValue $release.proposed_tag ('v' + $release.version) 'Proposed tag'
-    foreach ($field in @('tag','release_date','release_url','asset_filename','asset_bytes','asset_sha256','download_url')) {
-        Assert-WebsiteValue $release.$field $null ('Canonical ' + $field)
+    $publishedLinks = @()
+    if ($metadata.preparation_state -ceq 'draft') {
+        Assert-WebsiteValue $release.release_state 'unreleased' 'Release state'
+        foreach ($field in @('tag','release_date','release_url','asset_filename','asset_bytes','asset_sha256','download_url')) {
+            Assert-WebsiteValue $release.$field $null ('Canonical ' + $field)
+        }
+    } else {
+        Assert-WebsiteValue $release.release_state 'published' 'Release state'
+        $publication = Assert-WebsitePublishedProof $release $root
+        $publishedLinks = @($publication.release_url) + @($publication.assets | ForEach-Object { $_.download_url })
     }
     # This reviewed helper checks the canonical projection against the real single
     # version source and release notes without replacing any bytes.
@@ -175,9 +292,15 @@ try {
     Assert-WebsiteKeys $metadata.deployment @('domain','framework','hosting_provider') 'Deployment context'
     foreach ($field in @('domain','framework','hosting_provider')) { Assert-WebsiteValue $metadata.deployment.$field $null ('Deployment ' + $field) }
     Assert-WebsiteKeys $metadata.download @('state','render_link','label') 'Download presentation'
-    Assert-WebsiteValue $metadata.download.state 'unavailable' 'Download state'
-    Assert-WebsiteValue $metadata.download.render_link $false 'Download link visibility'
-    Assert-WebsiteValue $metadata.download.label 'Release download not available' 'Download label'
+    if ($metadata.preparation_state -ceq 'draft') {
+        Assert-WebsiteValue $metadata.download.state 'unavailable' 'Download state'
+        Assert-WebsiteValue $metadata.download.render_link $false 'Download link visibility'
+        Assert-WebsiteValue $metadata.download.label 'Release download not available' 'Download label'
+    } else {
+        Assert-WebsiteValue $metadata.download.state 'available' 'Download state'
+        Assert-WebsiteValue $metadata.download.render_link $true 'Download link visibility'
+        Assert-WebsiteValue $metadata.download.label ('Download WinImgNormalizer ' + $release.version) 'Download label'
+    }
     Assert-WebsiteArray $metadata.screenshots @() 'Screenshots'
     Assert-WebsiteArray $metadata.comparisons @() 'Comparisons'
 
@@ -186,7 +309,7 @@ try {
     foreach ($name in $documentPaths.Keys) {
         Assert-WebsiteValue $metadata.documents.$name $documentPaths[$name] ('Document ' + $name)
         $document = Assert-WebsiteRegularPath (Join-Path $websiteDirectory $metadata.documents.$name) $root
-        if ($name -in @('product_copy','integration')) { Assert-WebsiteDocumentLinks $document $root }
+        if ($name -in @('product_copy','integration')) { Assert-WebsiteDocumentLinks $document $root $publishedLinks }
     }
 
     $assets = @(
@@ -225,7 +348,11 @@ try {
             }
         }
     }
-    Write-Output ('WEBSITE HANDOFF VALID: draft content for {0} {1}; downloads unavailable; 3 original assets; no publication.' -f $release.product,$release.version)
+    if ($metadata.preparation_state -ceq 'draft') {
+        Write-Output ('WEBSITE HANDOFF VALID: draft content for {0} {1}; downloads unavailable; 3 original assets; no publication.' -f $release.product,$release.version)
+    } else {
+        Write-Output ('WEBSITE HANDOFF VALID: published record for {0} {1}; exact recorded download identity; 3 original assets; no deployment.' -f $release.product,$release.version)
+    }
     exit 0
 } catch {
     Write-Output ('WEBSITE HANDOFF INVALID: ' + $_.Exception.Message)
