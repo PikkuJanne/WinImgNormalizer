@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "preparation_state": "draft",
+  "preparation_state": "published",
   "release_metadata_file": "../../release-metadata.json",
   "product": {
     "name": "WinImgNormalizer",
@@ -36,9 +36,9 @@
     "hosting_provider": null
   },
   "download": {
-    "state": "unavailable",
-    "render_link": false,
-    "label": "Release download not available"
+    "state": "available",
+    "render_link": true,
+    "label": "Download WinImgNormalizer 1.0.0"
   },
   "documents": {
     "product_copy": "PRODUCT_COPY.md",

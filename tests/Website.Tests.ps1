@@ -12,10 +12,10 @@ BeforeAll {
     }
     & git -C $repository check-ignore --quiet --no-index -- (Join-Path $scratch 'website-ignore-probe')
     if ($LASTEXITCODE -ne 0) { throw 'Website fixtures must already be ignored.' }
-    $owned = Join-Path $scratch ('M4-T04-website-' + [guid]::NewGuid().ToString('N'))
+    $owned = Join-Path $scratch ('M4-T06-website-' + [guid]::NewGuid().ToString('N'))
     if (Test-Path -LiteralPath $owned) { throw 'Website fixture ownership collision.' }
     [IO.Directory]::CreateDirectory($owned) | Out-Null
-    [IO.File]::WriteAllText((Join-Path $owned '.winimg-fixture-root'), 'M4-T04 owned synthetic website draft controls; retained for inspection.', [Text.UTF8Encoding]::new($false))
+    [IO.File]::WriteAllText((Join-Path $owned '.winimg-fixture-root'), 'M4-T06 owned synthetic website controls; no release, public download or owner approval is established by these fixtures.', [Text.UTF8Encoding]::new($false))
     $publicPaths = @('tools/website/Test-WebsiteHandoff.ps1', 'docs/website/metadata.json',
         'docs/website/PRODUCT_COPY.md', 'docs/website/INTEGRATION.md', 'WinImgNormalizer_icon_variant.png',
         'WinImgNormalizer_variant.ico', 'WinImgNormalizer_poster.png', 'WinImgNormalizer.ps1',
@@ -23,19 +23,31 @@ BeforeAll {
         'SECURITY.md', 'docs/BEHAVIOR.md', 'docs/release/GETTING_STARTED.md', 'docs/release/NOTES.md',
         'docs/release/THIRD_PARTY_NOTICES.md', 'docs/release/PACKAGING.md',
         'tools/release/Update-ReleaseMetadata.ps1', 'tests/Website.Tests.ps1')
+    $publicationRelative = 'docs/release/publication-v1.0.0.json'
+    if ([IO.File]::Exists((Join-Path $repository $publicationRelative))) { $publicPaths += $publicationRelative }
     $before = @($publicPaths | ForEach-Object {
         [pscustomobject]@{ path = $_; sha256 = (Get-FileHash -LiteralPath (Join-Path $repository $_)).Hash.ToLowerInvariant() }
     }) | ConvertTo-Json -Compress
     $policiesBefore = @(Get-ExecutionPolicy -List | Where-Object Scope -ne Process | ForEach-Object { $_.Scope.ToString() + '=' + $_.ExecutionPolicy.ToString() }) -join '|'
     $observations = New-Object 'Collections.Generic.List[object]'
     $utf8 = [Text.UTF8Encoding]::new($false)
+    function Read-WebsiteFixtureJson([string]$Path) {
+        $conversion = @{ ErrorAction='Stop' }
+        if ((Get-Command ConvertFrom-Json).Parameters.ContainsKey('DateKind')) { $conversion.DateKind = 'String' }
+        return [IO.File]::ReadAllText($Path) | ConvertFrom-Json @conversion
+    }
     function New-WebsiteMetadata {
         # Reparse the source for every control so one mutated object cannot
         # contaminate a later positive or negative fixture.
-        return [IO.File]::ReadAllText($metadataPath) | ConvertFrom-Json
+        $metadata = [IO.File]::ReadAllText($metadataPath) | ConvertFrom-Json
+        $metadata.preparation_state = 'draft'
+        $metadata.download.state = 'unavailable'
+        $metadata.download.render_link = $false
+        $metadata.download.label = 'Release download not available'
+        return $metadata
     }
     function Write-WebsiteMetadata([object]$Metadata, [string]$Text) {
-        $path = Join-Path $owned ([guid]::NewGuid().ToString('N') + '.json')
+        $path = Join-Path (Join-Path $draftRepository '.scratch') ([guid]::NewGuid().ToString('N') + '.json')
         if (-not $PSBoundParameters.ContainsKey('Text')) { $Text = $Metadata | ConvertTo-Json -Depth 16 }
         [IO.File]::WriteAllText($path, $Text, $utf8)
         return $path
@@ -78,19 +90,78 @@ BeforeAll {
     function New-WebsiteRepository {
         $root = Join-Path $owned ('repository-' + [guid]::NewGuid().ToString('N'))
         [IO.Directory]::CreateDirectory($root) | Out-Null
-        $fixturePaths = @($publicPaths | Where-Object { $_ -ne 'tests/Website.Tests.ps1' }) + @('docs/codex-winimg/RELEASE_AND_WEBSITE.md')
+        $fixturePaths = @($publicPaths | Where-Object { $_ -notin @('tests/Website.Tests.ps1', $publicationRelative) }) + @('docs/codex-winimg/RELEASE_AND_WEBSITE.md')
         foreach ($relative in $fixturePaths) {
             $destination = Join-Path $root $relative
             [IO.Directory]::CreateDirectory((Split-Path -Parent $destination)) | Out-Null
             [IO.File]::Copy((Join-Path $repository $relative), $destination)
         }
+        [IO.Directory]::CreateDirectory((Join-Path $root '.scratch')) | Out-Null
+        # Always construct an explicit unpublished replica. Negative draft
+        # controls must still reach their intended guard after the real checkout
+        # becomes published; a state mismatch must not make them false positives.
+        $releasePath = Join-Path $root 'release-metadata.json'
+        $release = [IO.File]::ReadAllText($releasePath) | ConvertFrom-Json
+        $release.release_state = 'unreleased'
+        foreach ($field in @('tag','release_date','release_url','asset_filename','asset_bytes','asset_sha256','download_url')) { $release.$field = $null }
+        [IO.File]::WriteAllText($releasePath, (($release | ConvertTo-Json -Depth 8 -Compress) + "`n"), $utf8)
+        [IO.File]::WriteAllText((Join-Path $root 'docs/website/metadata.json'), ((New-WebsiteMetadata | ConvertTo-Json -Depth 16) + "`n"), $utf8)
+        $notes = [IO.File]::ReadAllText((Join-Path $root 'docs/release/NOTES.md')).Replace("`r`n", "`n").TrimEnd()
+        $changelog = "# Changelog`n`n<!-- Generated by tools/release/Update-ReleaseMetadata.ps1; edit docs/release/NOTES.md. -->`n`n## $($release.version) (unreleased)`n`n$notes`n"
+        [IO.File]::WriteAllText((Join-Path $root 'CHANGELOG.md'), $changelog, $utf8)
+        # These local-only fixture documents deliberately describe preparation.
+        # The actual public documents are checked separately in the live guard.
+        foreach ($name in @('PRODUCT_COPY.md','INTEGRATION.md')) {
+            [IO.File]::WriteAllText((Join-Path $root ('docs/website/' + $name)), "# Draft website fixture`n`nDownloads unavailable.`n`n[Quick start](../../README.md)`n", $utf8)
+        }
         return $root
     }
-    function Assert-WebsiteRejected([string]$Metadata, [string]$Root = $repository) {
+    function New-PublishedWebsiteRepository {
+        $root = New-WebsiteRepository
+        # These IDs/times are explicit synthetic offline controls. Only the root
+        # publication operation and actual downloaded bytes can establish T075.
+        $repositoryUrl = 'https://github.com/PikkuJanne/WinImgNormalizer'
+        $assets = @(
+            @{ id=101; name='WinImgNormalizer-1.0.0-portable.zip'; bytes=184659; sha256='251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d' },
+            @{ id=102; name='build-provenance.json'; bytes=763; sha256='901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae' },
+            @{ id=103; name='SHA256SUMS.txt'; bytes=190; sha256='2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497' }
+        )
+        $proof = [ordered]@{
+            schema_version=1; product='WinImgNormalizer'; version='1.0.0'; repository_url=$repositoryUrl;
+            visibility='public'; tag='v1.0.0'; source_revision='8edbcbaeb3425ec3a52eeafde212c32553755af1';
+            release_id=100; release_url=($repositoryUrl + '/releases/tag/v1.0.0');
+            published_at='2026-10-07T00:00:00Z'; observed_at='2026-10-07T00:00:01Z';
+            assets=@($assets | ForEach-Object {
+                [ordered]@{ id=$_.id; name=$_.name; bytes=$_.bytes; sha256=$_.sha256;
+                    download_url=($repositoryUrl + '/releases/download/v1.0.0/' + $_.name);
+                    downloaded_bytes=$_.bytes; downloaded_sha256=$_.sha256 }
+            })
+        }
+        [IO.File]::WriteAllText((Join-Path $root $publicationRelative), (($proof | ConvertTo-Json -Depth 12) + "`n"), $utf8)
+        $releasePath = Join-Path $root 'release-metadata.json'
+        $release = [IO.File]::ReadAllText($releasePath) | ConvertFrom-Json
+        $release.release_state = 'published'; $release.tag = $proof.tag; $release.release_date = '2026-10-07'
+        $release.release_url = $proof.release_url; $release.asset_filename = $proof.assets[0].name
+        $release.asset_bytes = $proof.assets[0].bytes; $release.asset_sha256 = $proof.assets[0].sha256
+        $release.download_url = $proof.assets[0].download_url
+        [IO.File]::WriteAllText($releasePath, (($release | ConvertTo-Json -Depth 8 -Compress) + "`n"), $utf8)
+        $metadata = New-WebsiteMetadata
+        $metadata.preparation_state = 'published'; $metadata.download.state = 'available'
+        $metadata.download.render_link = $true; $metadata.download.label = 'Download WinImgNormalizer 1.0.0'
+        [IO.File]::WriteAllText((Join-Path $root 'docs/website/metadata.json'), (($metadata | ConvertTo-Json -Depth 16) + "`n"), $utf8)
+        $notes = [IO.File]::ReadAllText((Join-Path $root 'docs/release/NOTES.md')).Replace("`r`n", "`n").TrimEnd()
+        $changelog = "# Changelog`n`n<!-- Generated by tools/release/Update-ReleaseMetadata.ps1; edit docs/release/NOTES.md. -->`n`n## 1.0.0 (2026-10-07)`n`n$notes`n"
+        [IO.File]::WriteAllText((Join-Path $root 'CHANGELOG.md'), $changelog, $utf8)
+        $links = @('[Release](' + $proof.release_url + ')') + @($proof.assets | ForEach-Object { '[' + $_.name + '](' + $_.download_url + ')' })
+        [IO.File]::AppendAllText((Join-Path $root 'docs/website/PRODUCT_COPY.md'), ("`n" + ($links -join "`n") + "`n"), $utf8)
+        return $root
+    }
+    function Assert-WebsiteRejected([string]$Metadata, [string]$Root = $draftRepository, [string]$Reason) {
         $observed = Invoke-WebsiteGuard -Metadata $Metadata -Root $Root
         $observed.Exit | Should -Be 1
         $observed.Text | Should -Match 'WEBSITE HANDOFF INVALID:'
         $observed.Text | Should -Not -Match 'ParserError|ParameterBindingException'
+        if ($Reason) { $observed.Text | Should -Match $Reason }
     }
     function Get-WebsiteRepositoryState([string]$Root) {
         return @(Get-ChildItem -LiteralPath $Root -File -Recurse | Sort-Object FullName | ForEach-Object {
@@ -120,19 +191,20 @@ BeforeAll {
             }
         }
     }
+    $draftRepository = New-WebsiteRepository
 }
 
 Describe 'T073 framework-neutral website preparation and metadata boundary' {
-    It 'accepts the checked-in draft through explicit and script-relative native CLI paths' {
+    It 'accepts the checked-in state and a deliberate draft through native CLI paths' {
         foreach ($result in @((Invoke-WebsiteGuard), (Invoke-WebsiteGuard -DefaultPaths),
-            (Invoke-WebsiteGuard -Metadata (Write-WebsiteMetadata (New-WebsiteMetadata))))) {
+            (Invoke-WebsiteGuard -Root $draftRepository -Metadata (Write-WebsiteMetadata (New-WebsiteMetadata))))) {
             $result.Exit | Should -Be 0
             $result.Text | Should -Match 'WEBSITE HANDOFF VALID:'
         }
     }
     It 'keeps the only release version and publication fields in the canonical release record' {
         $metadata = New-WebsiteMetadata
-        $release = Get-Content -LiteralPath (Join-Path $repository 'release-metadata.json') -Raw | ConvertFrom-Json
+        $release = Get-Content -LiteralPath (Join-Path $draftRepository 'release-metadata.json') -Raw | ConvertFrom-Json
         $metadata.release_metadata_file | Should -Be '../../release-metadata.json'
         $metadata.PSObject.Properties.Name | Should -Not -Contain 'version'
         $metadata.product.PSObject.Properties.Name | Should -Not -Contain 'version'
@@ -288,8 +360,8 @@ Describe 'T073 framework-neutral website preparation and metadata boundary' {
         Assert-WebsiteRejected -Metadata (Join-Path $repository 'README.md')
         $root = New-WebsiteRepository
         Assert-WebsiteRejected -Root $root -Metadata (Write-WebsiteMetadata (New-WebsiteMetadata))
-        Assert-WebsiteRejected -Metadata (Join-Path $owned 'missing.json')
-        $path = Join-Path $owned 'directory.json'
+        Assert-WebsiteRejected -Metadata (Join-Path (Join-Path $draftRepository '.scratch') 'missing.json')
+        $path = Join-Path (Join-Path $draftRepository '.scratch') 'directory.json'
         [IO.Directory]::CreateDirectory($path) | Out-Null
         Assert-WebsiteRejected -Metadata $path
     }
@@ -329,6 +401,165 @@ Describe 'T073 framework-neutral website preparation and metadata boundary' {
             $stream.WriteByte([byte]($value -bxor 1))
         } finally { $stream.Dispose() }
         Assert-WebsiteRejected -Root $root
+    }
+}
+
+Describe 'T073 recorded published website consistency using synthetic offline controls' {
+    It 'accepts the exact recorded identity and approved document links without modifying its replica' {
+        $root = New-PublishedWebsiteRepository
+        $beforeReplica = Get-WebsiteRepositoryState $root
+        $observed = Invoke-WebsiteGuard -Root $root
+        $observed.Exit | Should -Be 0
+        $observed.Text | Should -Match 'published record.*exact recorded download identity.*no deployment'
+        (Get-WebsiteRepositoryState $root) | Should -Be $beforeReplica
+    }
+    It 'refuses a published handoff without a regular bounded publication observation' {
+        $root = New-PublishedWebsiteRepository
+        $path = Join-Path $root $publicationRelative
+        Move-Item -LiteralPath $path -Destination ($path + '.owned-missing-control')
+        Assert-WebsiteRejected -Root $root
+        [IO.File]::WriteAllText($path, (' ' * 65537), $utf8)
+        Assert-WebsiteRejected -Root $root -Reason 'bounded to 64 KiB'
+    }
+    It 'rejects publication observation <Field> rather than trusting a claimed release identity' -ForEach @(
+        @{Field='schema_version';Value='1';Reason='Publication schema version'},
+        @{Field='visibility';Value='private';Reason='Release visibility'},
+        @{Field='tag';Value='v9.9.9';Reason='Published tag'},
+        @{Field='source_revision';Value=('a'*40);Reason='Published source revision'},
+        @{Field='release_id';Value=0;Reason='Release ID'},
+        @{Field='release_id';Value='100';Reason='Release ID'},
+        @{Field='repository_url';Value='https://github.com/another-owner/another-repository';Reason='Published repository'},
+        @{Field='release_url';Value='https://github.com/PikkuJanne/WinImgNormalizer/releases/latest';Reason='Published release URL'},
+        @{Field='published_at';Value='2026-02-30T00:00:00Z';Reason='Publication time'},
+        @{Field='published_at';Value='2026-10-07T00:00:00+00:00';Reason='Publication time'},
+        @{Field='observed_at';Value='2026-10-06T23:59:59Z';Reason='cannot precede publication'}
+    ) {
+        $root = New-PublishedWebsiteRepository
+        $path = Join-Path $root $publicationRelative
+        $proof = Read-WebsiteFixtureJson $path
+        $proof.$Field = $Value
+        [IO.File]::WriteAllText($path, ($proof | ConvertTo-Json -Depth 12), $utf8)
+        Assert-WebsiteRejected -Root $root -Reason $Reason
+    }
+    It 'refuses missing, extra and incorrectly cased publication fields and asset sets' {
+        foreach ($kind in @('missing field','extra field','cased field','missing asset','extra asset','reordered assets','duplicate ID')) {
+            $root = New-PublishedWebsiteRepository
+            $path = Join-Path $root $publicationRelative
+            $proof = Read-WebsiteFixtureJson $path
+            switch ($kind) {
+                'missing field' { $proof.PSObject.Properties.Remove('source_revision') }
+                'extra field' { $proof | Add-Member -NotePropertyName owner_approved -NotePropertyValue $true }
+                'cased field' {
+                    $value = $proof.source_revision; $proof.PSObject.Properties.Remove('source_revision')
+                    $proof | Add-Member -NotePropertyName Source_Revision -NotePropertyValue $value
+                }
+                'missing asset' { $proof.assets = @($proof.assets[0],$proof.assets[1]) }
+                'extra asset' { $proof.assets = @($proof.assets) + @($proof.assets[0]) }
+                'reordered assets' { $proof.assets = @($proof.assets[1],$proof.assets[0],$proof.assets[2]) }
+                'duplicate ID' { $proof.assets[1].id = $proof.assets[0].id }
+            }
+            [IO.File]::WriteAllText($path, ($proof | ConvertTo-Json -Depth 12), $utf8)
+            Assert-WebsiteRejected -Root $root
+        }
+    }
+    It 'rejects published asset <Index> <Field> when recorded bytes, hashes or URLs are changed' -ForEach @(
+        @{Index=0;Field='name';Value='WinImgNormalizer.zip';Reason='Published asset name'},
+        @{Index=0;Field='bytes';Value='184659';Reason='Published asset bytes'},
+        @{Index=0;Field='sha256';Value=('a'*64);Reason='Published asset sha256'},
+        @{Index=0;Field='downloaded_bytes';Value=184658;Reason='Observed public download bytes'},
+        @{Index=0;Field='downloaded_sha256';Value=('a'*64);Reason='Observed public download SHA-256'},
+        @{Index=0;Field='download_url';Value='https://github.com/PikkuJanne/WinImgNormalizer/releases/latest/download/WinImgNormalizer-1.0.0-portable.zip';Reason='Published download URL'},
+        @{Index=1;Field='sha256';Value=('a'*64);Reason='Published asset sha256'},
+        @{Index=2;Field='downloaded_sha256';Value=('a'*64);Reason='Observed public download SHA-256'}
+    ) {
+        $root = New-PublishedWebsiteRepository
+        $path = Join-Path $root $publicationRelative
+        $proof = Read-WebsiteFixtureJson $path
+        $proof.assets[$Index].$Field = $Value
+        [IO.File]::WriteAllText($path, ($proof | ConvertTo-Json -Depth 12), $utf8)
+        Assert-WebsiteRejected -Root $root -Reason $Reason
+    }
+    It 'rejects canonical published <Field> that disagrees with the recorded public asset' -ForEach @(
+        @{Field='tag';Value='v9.9.9';Reason='Canonical published tag'},
+        @{Field='release_date';Value='2026-10-06';Reason='Canonical publication date'},
+        @{Field='release_url';Value='https://github.com/PikkuJanne/WinImgNormalizer/releases/latest';Reason='Canonical published release URL'},
+        @{Field='asset_filename';Value='WinImgNormalizer.zip';Reason='Canonical download filename'},
+        @{Field='asset_bytes';Value=1;Reason='Canonical download bytes'},
+        @{Field='asset_sha256';Value=('a'*64);Reason='Canonical download SHA-256'},
+        @{Field='download_url';Value='https://invented.example.invalid/file.zip';Reason='Canonical download URL'}
+    ) {
+        $root = New-PublishedWebsiteRepository
+        $path = Join-Path $root 'release-metadata.json'
+        $release = [IO.File]::ReadAllText($path) | ConvertFrom-Json
+        $release.$Field = $Value
+        [IO.File]::WriteAllText($path, ($release | ConvertTo-Json -Depth 8), $utf8)
+        Assert-WebsiteRejected -Root $root -Reason $Reason
+    }
+    It 'rejects published website projection <Field> rather than accepting a mismatched download state' -ForEach @(
+        @{Object='root';Field='preparation_state';Value='draft';Reason='Release state'},
+        @{Object='download';Field='state';Value='unavailable';Reason='Download state'},
+        @{Object='download';Field='render_link';Value=$false;Reason='Download link visibility'},
+        @{Object='download';Field='render_link';Value='true';Reason='Download link visibility'},
+        @{Object='download';Field='label';Value='Download WinImgNormalizer 9.9.9';Reason='Download label'}
+    ) {
+        $root = New-PublishedWebsiteRepository
+        $path = Join-Path $root 'docs/website/metadata.json'
+        $metadata = [IO.File]::ReadAllText($path) | ConvertFrom-Json
+        $target = if ($Object -eq 'root') { $metadata } else { $metadata.$Object }
+        $target.$Field = $Value
+        [IO.File]::WriteAllText($path, ($metadata | ConvertTo-Json -Depth 16), $utf8)
+        Assert-WebsiteRejected -Root $root -Reason $Reason
+    }
+    It 'keeps publication from authorizing uploads, screenshots or deployment' {
+        foreach ($kind in @('upload','screenshot','deployment')) {
+            $root = New-PublishedWebsiteRepository
+            $path = Join-Path $root 'docs/website/metadata.json'
+            $metadata = [IO.File]::ReadAllText($path) | ConvertFrom-Json
+            switch ($kind) {
+                'upload' { $metadata.processing.uploads = $true }
+                'screenshot' { $metadata.screenshots = @([pscustomobject]@{path='../../WinImgNormalizer_icon_variant.png'}) }
+                'deployment' { $metadata.deployment.domain = 'https://invented.example.invalid' }
+            }
+            [IO.File]::WriteAllText($path, ($metadata | ConvertTo-Json -Depth 16), $utf8)
+            Assert-WebsiteRejected -Root $root
+        }
+    }
+    It 'refuses arbitrary and floating release destinations even in published visitor copy' {
+        foreach ($uri in @('https://invented.example.invalid/file.zip',
+            'https://github.com/PikkuJanne/WinImgNormalizer/releases/latest',
+            'https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer.zip',
+            'https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v9.9.9/WinImgNormalizer-1.0.0-portable.zip',
+            'https://github.com@invented.example.invalid/file.zip')) {
+            $root = New-PublishedWebsiteRepository
+            [IO.File]::AppendAllText((Join-Path $root 'docs/website/PRODUCT_COPY.md'), ("`n[Download](" + $uri + ")`n"), $utf8)
+            Assert-WebsiteRejected -Root $root -Reason 'unreviewed HTTP\(S\) destination|bare-domain or email autolink destinations'
+        }
+    }
+    It 'rejects ambiguous duplicate keys in <Target> instead of relying on parser overwrite order' -ForEach @(
+        @{Target='canonical';Key='download_url';Alias='download_url'},
+        @{Target='proof';Key='source_revision';Alias='source_revision'},
+        @{Target='proof';Key='source_revision';Alias='\u0073ource_revision'},
+        @{Target='proof';Key='source_revision';Alias='Source_Revision'},
+        @{Target='proof';Key='sha256';Alias='sha256'},
+        @{Target='website';Key='render_link';Alias='render_link'}
+    ) {
+        $root = New-PublishedWebsiteRepository
+        $relative = switch ($Target) {
+            'canonical' { 'release-metadata.json' }
+            'proof' { $publicationRelative }
+            'website' { 'docs/website/metadata.json' }
+        }
+        $path = Join-Path $root $relative
+        $text = [IO.File]::ReadAllText($path)
+        # Put a duplicate before the unchanged original. Readers that keep the
+        # last value would otherwise preserve the original passing projection.
+        $pattern = '"' + [regex]::Escape($Key) + '"\s*:'
+        $first = [regex]::Match($text, $pattern)
+        $first.Success | Should -BeTrue
+        $duplicate = '"' + $Alias + '":null,' + $first.Value
+        $changed = $text.Substring(0, $first.Index) + $duplicate + $text.Substring($first.Index + $first.Length)
+        [IO.File]::WriteAllText($path, $changed, $utf8)
+        Assert-WebsiteRejected -Root $root -Reason 'JSON object keys must be unique'
     }
 }
 

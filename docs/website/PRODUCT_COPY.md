@@ -1,8 +1,8 @@
 # Website product copy
 
 Prepared visitor copy for a future product page. Apply the metadata and asset rules
-in [the integration handoff](INTEGRATION.md); this document does not establish a
-published release or a deployed website. Application version and release fields
+in [the integration handoff](INTEGRATION.md). The recorded public release is
+available; website integration and deployment remain separate. Application version and release fields
 come from [canonical release metadata](../../release-metadata.json).
 
 ## Title and introduction
@@ -18,14 +18,16 @@ derivatives: keep the originals and a separate backup.
 
 ## Current availability
 
-WinImgNormalizer is unreleased and unsigned. A portable package has been prepared
-and tested locally; no public release download is established.
+WinImgNormalizer 1.0.0 is published and unsigned.
 
-**Release download not available**
+**[Download WinImgNormalizer 1.0.0](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer-1.0.0-portable.zip)**
 
-Use **View source** for the repository and **Read the quick start** for setup and
-usage guidance. Their destinations are defined in the integration handoff. The
-availability message has no download link.
+The [release page](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0)
+includes provenance and checksum sidecars. The ZIP is 184659 bytes, with SHA-256
+`251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d`.
+Its embedded unreleased wording records the preparation snapshot; the approved
+files were published unchanged. Use **View source** and **Read the quick start**
+for source and setup guidance.
 
 ## How it works
 
@@ -52,7 +54,8 @@ with a warning. The target is not a guaranteed file-size cap.
 ## Requirements and tested scope
 
 - 64-bit Windows 10 or 11 with Windows PowerShell 5.1 or PowerShell 7. Windows 10
-  has not been tested; recorded desktop checks used Windows 11 and hosted checks
+  testing is out of project scope and has not been run; recorded desktop checks
+  used Windows 11 and hosted checks
   used Windows Server 2025.
 - ImageMagick 7.1.2-32 or a newer supported 7.x build, obtained separately from its
   [official Windows downloads](https://imagemagick.org/download/#windows-binary-release).

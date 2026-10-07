@@ -6,9 +6,16 @@ folder under Pictures, makes JPEG derivatives and copies supported videos unchan
 Your source files remain untouched. JPEGs are lossy derivatives: keep the originals
 and a separate backup.
 
-**Version 1.0.0 is unreleased and unsigned.** A portable ZIP has been prepared and
-tested locally; no public release or download is established. See the
-[changelog](CHANGELOG.md) and [draft release metadata](release-metadata.json).
+**Version 1.0.0 is published and unsigned.**
+[Download the portable ZIP](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer-1.0.0-portable.zip)
+or view the [release and checksum sidecars](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0).
+The ZIP is 184659 bytes; SHA-256:
+`251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d`.
+See the [changelog](CHANGELOG.md) and [verified release metadata](release-metadata.json).
+The approved ZIP was built from commit `8edbcbaeb3425ec3a52eeafde212c32553755af1`.
+Its embedded guide, changelog and provenance retain preparation-time unreleased
+wording; the release publishes those unchanged bytes. Windows 10 testing is out
+of scope for this project and no Windows 10 test result is claimed.
 
 ## Requirements
 
