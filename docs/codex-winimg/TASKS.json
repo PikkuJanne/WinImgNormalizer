@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repository": "PikkuJanne/WinImgNormalizer",
   "baseline_commit": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
-  "next_task": "M4-T06",
+  "next_task": null,
   "state_semantics": "done = task acceptance verified; remote synchronization and CI are separate observations. Owner-gate tasks cannot be done without owner evidence.",
   "allowed_states": [
     "pending",
@@ -1109,11 +1109,14 @@
       "depends_on": [
         "M4-T05"
       ],
-      "state": "awaiting_owner",
+      "state": "done",
       "evidence": [
-        "evidence/M4-T06.json"
+        "evidence/M4-T06.json",
+        "evidence/M4-T06-publication.json",
+        "evidence/M4-T06-validation.json",
+        "evidence/M4-T06-publication-ci.json"
       ],
-      "blocked_reason": "Exact v1.0.0 tag/public-release approval for the named candidate and asset remains absent; Windows 10 testing is owner-excluded D43 and is not a blocker.",
+      "blocked_reason": null,
       "card": "tasks/M4-T06.md"
     }
   ]

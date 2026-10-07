@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "task_id": "M4-T06",
+  "state": "done",
+  "recorded_utc": "2026-10-07T06:34:05.769146Z",
+  "implementation_commit": "9dcc504071540302d6cbbde2de985b25cc4d1929",
+  "owner_approval": {
+    "state": "approved",
+    "actor": "project owner (human user)",
+    "statement": "v1.0.0 Approved",
+    "recorded_utc": "2026-10-07T05:47:43Z",
+    "approved_commit": "8edbcbaeb3425ec3a52eeafde212c32553755af1",
+    "timestamp_qualification": "Agent record time after the direct owner reply; no exact human-message timestamp is claimed.",
+    "scope": "Exact v1.0.0 tag at the reviewed source and public GitHub Release of the unchanged ZIP plus provenance/checksum sidecars; no website deployment or new metadata-PR merge permission.",
+    "prompt_context": "Reply to the concrete proposal naming v1.0.0 at 8edbcbaeb3425ec3a52eeafde212c32553755af1, public visibility, ZIP 184659 bytes/SHA256 251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d and both exact sidecars."
+  },
+  "publication": {
+    "schema_version": 1,
+    "product": "WinImgNormalizer",
+    "version": "1.0.0",
+    "repository_url": "https://github.com/PikkuJanne/WinImgNormalizer",
+    "visibility": "public",
+    "tag": "v1.0.0",
+    "source_revision": "8edbcbaeb3425ec3a52eeafde212c32553755af1",
+    "release_id": 405427114,
+    "release_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0",
+    "published_at": "2026-10-07T05:56:49Z",
+    "observed_at": "2026-10-07T05:57:16.683785Z",
+    "assets": [
+      {
+        "id": 617739200,
+        "name": "WinImgNormalizer-1.0.0-portable.zip",
+        "bytes": 184659,
+        "sha256": "251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d",
+        "download_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer-1.0.0-portable.zip",
+        "downloaded_bytes": 184659,
+        "downloaded_sha256": "251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d"
+      },
+      {
+        "id": 617739199,
+        "name": "build-provenance.json",
+        "bytes": 763,
+        "sha256": "901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae",
+        "download_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/build-provenance.json",
+        "downloaded_bytes": 763,
+        "downloaded_sha256": "901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae"
+      },
+      {
+        "id": 617739201,
+        "name": "SHA256SUMS.txt",
+        "bytes": 190,
+        "sha256": "2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497",
+        "download_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/SHA256SUMS.txt",
+        "downloaded_bytes": 190,
+        "downloaded_sha256": "2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497"
+      }
+    ]
+  },
+  "independent_public_verification": {
+    "path": ".scratch/M4-T06-independent-public-download-12f36fea83754111a48ab7bfe6033b5f/public-download-verification.json",
+    "bytes": 8912,
+    "sha256": "57182cfb3a3bfc577280fb3cb73d1967b2e8e388f3280fb8df6e0e8d4b7fc758"
+  },
+  "prepublication_readiness": {
+    "path": ".scratch/M4-T06-publication-readiness-review.json",
+    "bytes": 19537,
+    "sha256": "9c94f0f1a9d1b6f7787367d9b9b7dc3e9fe562469ecb1162280a2beb31731019"
+  },
+  "source_parity": {
+    "path": ".scratch/M4-T06-I-source-parity-9dcc.json",
+    "bytes": 24272,
+    "sha256": "39006a3cdf5d520a7092a253d9a8b4bc6da73f56b119c8072c09c1a148bff0f0"
+  },
+  "prior_awaiting_owner_record": "evidence/M4-T06.json",
+  "local_default_branch": {
+    "operation": "verified clean fast-forward, then return to codex/winimg-hardening",
+    "before": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
+    "after": "ccbf6626d280d3864622c7d442e1ff68e4e55397",
+    "native_exit": 0,
+    "remote_default_branch_push": false
+  },
+  "case_results": [
+    {
+      "case_id": "T075",
+      "state": "passed",
+      "reason": "Direct exact owner consent, actual tag/source/ZIP/license/manifest/sidecar and anonymous public-byte verification, followed by matching published canonical and website projections on both maintained PowerShell hosts."
+    }
+  ],
+  "limitations": [
+    "The approved ZIP and sidecars retain preparation-time unreleased wording; release notes disclose their unchanged build-time snapshot.",
+    "The dated offline witness and metadata guards are consistency checks, not fresh network authentication or owner approval.",
+    "Checksums identify bytes; the release remains unsigned.",
+    "Windows 10 testing is owner-excluded D43; no Windows 10 pass is inferred.",
+    "Live UNC remains owner-excluded D35; local/lexical checks retain their accepted scope.",
+    "Historical D37/T067 owner workflow/appearance acceptance remains bound to 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad.",
+    "No website deployment, public owner-media reuse or new final metadata-PR merge is authorized."
+  ],
+  "checkpoint_limit": "This record-only checkpoint cannot contain its own future final SHA, push, PR update or CI success; observe them externally after commit."
+}

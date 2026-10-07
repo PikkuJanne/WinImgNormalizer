@@ -1,31 +1,26 @@
 # Next session handoff
 
-**M4-T06 is awaiting_owner; T075 is not_run.** Progress remains 27/28 tasks and
-74/75 cases. Windows 10 testing is explicitly **out of project scope (D43)**;
-do not request it or treat it as an acceptance/release blocker.
+**M4-T06 is done; project task progress is 28/28 and specified cases 75/75.**
+The approved public [v1.0.0 release](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0) and unchanged three
+assets were anonymously verified twice. Read [publication evidence](evidence/M4-T06-publication.json),
+[exact clean desktop validation](evidence/M4-T06-validation.json) and
+[implementation CI](evidence/M4-T06-publication-ci.json).
 
-Read [publication evidence](evidence/M4-T06.json) and the
-[exact remaining tag/public-release proposal](RELEASE_CANDIDATE.md).
-Owner PR26 merge is already complete at 94dff68d9474e0d0218beba81353c699fc7a6c4b
-(head fd6cd26dea4747b963313f9d9f11ffd3189b4458, merged 2026-10-07T05:01:46Z).
-Do not request or execute that merge again. Reverify live clean feature/main,
-canonical remote, current tags/releases and the containing checkpoint's actual
-post-commit SHA/PR/CI; this file cannot embed its own future identity.
+Publication source remains **8edbcbaeb3425ec3a52eeafde212c32553755af1**, ZIP SHA-256
+**251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d**. Do not move its tag, rebuild/relabel the release
+or replace released bytes. Embedded unreleased wording is the disclosed preparation
+snapshot. Public metadata implementation is **9dcc504071540302d6cbbde2de985b25cc4d1929**.
 
-The remaining approval must name new tag **v1.0.0** at candidate
-**8edbcbaeb3425ec3a52eeafde212c32553755af1** and a **public GitHub Release**, attaching
-WinImgNormalizer-1.0.0-portable.zip (**184659 bytes**, SHA-256
-**251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d**) plus exact build-provenance.json/SHA256SUMS.txt.
-Task selection and a testing exclusion do not record exact publication permission.
+Reverify the containing checkpoint's actual clean/live feature SHA and exact CI;
+these records cannot self-name their final commit or certify future pushes.
+The actual owner PR27 merge/local main is ccbf6626d280d3864622c7d442e1ff68e4e55397.
+[PR28](https://github.com/PikkuJanne/WinImgNormalizer/pull/28) needs separate owner
+merge action after its actual checks; do not infer that permission from release
+approval. Use safe clean fast-forward synchronization after any actual owner merge.
+No next implementation task is selected.
 
-Before approved publication, verify the actual tag/source/license/ZIP/manifest and
-sidecars. Review preparation-time unreleased guide/changelog wording and necessary
-draft-only builder/generator/website projection/guard transitions. Any changed
-source/tag/artifact identity requires relevant tests, rebuild/smoke/rehash as needed
-and new precise owner approval. Verify real public download bytes before updating
-download metadata. Current draft gates cannot prove published-state consistency.
-Website deployment/public owner-media reuse remain unapproved; no provider context
-exists. Preserve D35/D37 and the separate WinImgNormalizer-main snapshot.
-
-Use the clean feature checkout C:/projects/WinImgNormalizer; no reset, clean, stash,
-rebase, force push, silent pull, default-branch mutation or subsequent task is implied.
+Windows 10 testing is expressly outside project scope (D43); do not request it or
+make it a release gate. Preserve D35 live-UNC exclusion and historical T067/D37
+consent at 5a32fc6533c6f9fae1d36c271b515d1d1dd4d8ad. Website deployment/public
+owner-media reuse remain unapproved and need actual repository/provider context.
+Preserve the separate WinImgNormalizer-main snapshot and all raw ignored evidence.
