@@ -18,7 +18,7 @@ BeforeAll {
     [IO.File]::WriteAllText((Join-Path $owned '.winimg-fixture-root'), 'M4-T06 owned synthetic website controls; no release, public download or owner approval is established by these fixtures.', [Text.UTF8Encoding]::new($false))
     $publicPaths = @('tools/website/Test-WebsiteHandoff.ps1', 'docs/website/metadata.json',
         'docs/website/PRODUCT_COPY.md', 'docs/website/INTEGRATION.md', 'WinImgNormalizer_icon_variant.png',
-        'WinImgNormalizer_variant.ico', 'WinImgNormalizer_poster.png', 'WinImgNormalizer.ps1',
+        'WinImgNormalizer_variant.ico', 'WinImgNormalizer.ps1',
         'WinImgNormalizer.bat', 'release-metadata.json', 'README.md', 'CHANGELOG.md', 'LICENSE',
         'SECURITY.md', 'docs/BEHAVIOR.md', 'docs/release/GETTING_STARTED.md', 'docs/release/NOTES.md',
         'docs/release/THIRD_PARTY_NOTICES.md', 'docs/release/PACKAGING.md',
@@ -305,7 +305,7 @@ Describe 'T073 framework-neutral website preparation and metadata boundary' {
         @{Index=0;Field='sha256';Value=('a'*64)}, @{Index=0;Field='bytes';Value=1},
         @{Index=0;Field='width';Value=1}, @{Index=0;Field='width';Value='1024'}, @{Index=0;Field='media_type';Value='image/jpeg'},
         @{Index=0;Field='path';Value='../../README.md'}, @{Index=0;Field='usage';Value='screenshot'},
-        @{Index=1;Field='sizes';Value=@(16,32)}, @{Index=2;Field='display';Value=$true}
+        @{Index=1;Field='sizes';Value=@(16,32)}, @{Index=1;Field='display';Value=$false}
     ) {
         $metadata = New-WebsiteMetadata
         $metadata.assets[$Index].$Field = $Value

@@ -314,10 +314,9 @@ try {
 
     $assets = @(
         @{ id='icon'; path='../../WinImgNormalizer_icon_variant.png'; media_type='image/png'; bytes=11141; sha256='479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9'; width=1024; height=1024; sizes=@(); usage='branding'; display=$true; alt='WinImgNormalizer image icon' },
-        @{ id='favicon'; path='../../WinImgNormalizer_variant.ico'; media_type='image/vnd.microsoft.icon'; bytes=22917; sha256='78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79'; width=$null; height=$null; sizes=@(16,32,48,64,128,256); usage='branding'; display=$true; alt='WinImgNormalizer icon' },
-        @{ id='legacy_poster'; path='../../WinImgNormalizer_poster.png'; media_type='image/png'; bytes=2397241; sha256='99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926'; width=1536; height=1024; sizes=@(); usage='historical_reference_only'; display=$false; alt='Historical WinImgNormalizer poster artwork; not a screenshot or current size guarantee' }
+        @{ id='favicon'; path='../../WinImgNormalizer_variant.ico'; media_type='image/vnd.microsoft.icon'; bytes=22917; sha256='78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79'; width=$null; height=$null; sizes=@(16,32,48,64,128,256); usage='branding'; display=$true; alt='WinImgNormalizer icon' }
     )
-    if ($metadata.assets -isnot [array] -or $metadata.assets.Count -ne $assets.Count) { throw 'Only the three reviewed original branding assets may be catalogued.' }
+    if ($metadata.assets -isnot [array] -or $metadata.assets.Count -ne $assets.Count) { throw 'Only the two retained original branding assets may be catalogued.' }
     for ($index = 0; $index -lt $assets.Count; $index++) {
         $asset = $metadata.assets[$index]
         $expected = $assets[$index]
@@ -349,9 +348,9 @@ try {
         }
     }
     if ($metadata.preparation_state -ceq 'draft') {
-        Write-Output ('WEBSITE HANDOFF VALID: draft content for {0} {1}; downloads unavailable; 3 original assets; no publication.' -f $release.product,$release.version)
+        Write-Output ('WEBSITE HANDOFF VALID: draft content for {0} {1}; downloads unavailable; 2 original assets; no publication.' -f $release.product,$release.version)
     } else {
-        Write-Output ('WEBSITE HANDOFF VALID: published record for {0} {1}; exact recorded download identity; 3 original assets; no deployment.' -f $release.product,$release.version)
+        Write-Output ('WEBSITE HANDOFF VALID: published record for {0} {1}; exact recorded download identity; 2 original assets; no deployment.' -f $release.product,$release.version)
     }
     exit 0
 } catch {

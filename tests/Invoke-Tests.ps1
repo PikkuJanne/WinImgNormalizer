@@ -35,7 +35,7 @@ function Get-TestSourceBindings {
         if (Test-Path -LiteralPath $publicationFile -PathType Leaf) { $files += $publicationFile }
         # Website preparation checks bind the exact public handoff and existing
         # branding bytes; arbitrary nearby docs/assets are not evidence inputs.
-        foreach ($websiteFile in @('tools/website/Test-WebsiteHandoff.ps1','docs/website/metadata.json','docs/website/PRODUCT_COPY.md','docs/website/INTEGRATION.md','WinImgNormalizer_icon_variant.png','WinImgNormalizer_variant.ico','WinImgNormalizer_poster.png')) {
+        foreach ($websiteFile in @('tools/website/Test-WebsiteHandoff.ps1','docs/website/metadata.json','docs/website/PRODUCT_COPY.md','docs/website/INTEGRATION.md','WinImgNormalizer_icon_variant.png','WinImgNormalizer_variant.ico')) {
             $files += Join-Path $repositoryRoot $websiteFile
         }
         $files += Join-Path $PSScriptRoot 'fixtures/LauncherConsoleFixture.cs'
