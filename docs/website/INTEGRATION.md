@@ -64,19 +64,16 @@ describe artwork, not processed-media results.
 |---|---|---|---:|---|
 | [PNG icon](../../WinImgNormalizer_icon_variant.png) | Product branding illustration | 1024 × 1024; 8-bit RGBA PNG | 11141 | `479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9` |
 | [ICO icon](../../WinImgNormalizer_variant.ico) | Favicon source artwork | Six sizes: 16, 32, 48, 64, 128 and 256 pixels square | 22917 | `78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79` |
-| [Original poster](../../WinImgNormalizer_poster.png) | Historical reference only; `display: false` | 1536 × 1024; 8-bit RGB PNG | 2397241 | `99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926` |
 
 The icon depicts a stylized photo frame, overlapping frames and five green bars.
 Suggested alternative text: **WinImgNormalizer product icon with a stylized photo
 frame.** Use an empty alternative text when it is decorative beside the written
 product name. The ICO is branding artwork, with no implication of a new GUI.
 
-The poster is original promotional artwork with a drawn folder/terminal diagram.
-It contains legacy `JPEG ≤ 1MB` text, an earlier output-name illustration and
-`100 items processed, 37% done`. These are illustrative artwork details. Hold it
-from the current hero, screenshot gallery, workflow instructions and result
-comparisons: current behavior uses a best-effort 1 MiB target and current run names.
-Keep `legacy_poster` marked `historical_reference_only` with display disabled.
+The obsolete promotional poster was removed from the current tree during the
+10 October 2026 website cleanup. Historical audit records and published releases
+remain unchanged. Neither retained repository icon is a source for the new
+jvuorela.com website; that project uses owner-supplied artwork separately.
 
 Retain repository attribution and license notices. No new asset author, separate
 license, benchmark or measured saving is inferred from the artwork.

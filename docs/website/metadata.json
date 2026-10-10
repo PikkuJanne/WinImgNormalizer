@@ -75,19 +75,6 @@
       "usage": "branding",
       "display": true,
       "alt": "WinImgNormalizer icon"
-    },
-    {
-      "id": "legacy_poster",
-      "path": "../../WinImgNormalizer_poster.png",
-      "media_type": "image/png",
-      "bytes": 2397241,
-      "sha256": "99b1cd73450e725a5cce26a00ecdb6e660166ff8b5b9f75896882cfe7825d926",
-      "width": 1536,
-      "height": 1024,
-      "sizes": [],
-      "usage": "historical_reference_only",
-      "display": false,
-      "alt": "Historical WinImgNormalizer poster artwork; not a screenshot or current size guarantee"
     }
   ],
   "screenshots": [],

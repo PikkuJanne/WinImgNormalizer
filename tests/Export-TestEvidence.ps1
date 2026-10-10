@@ -32,7 +32,7 @@ function Get-ExportSourceBindings {
     $releaseSources += @(
         'tools/website/Test-WebsiteHandoff.ps1', 'docs/website/metadata.json',
         'docs/website/PRODUCT_COPY.md', 'docs/website/INTEGRATION.md',
-        'WinImgNormalizer_icon_variant.png', 'WinImgNormalizer_variant.ico', 'WinImgNormalizer_poster.png'
+        'WinImgNormalizer_icon_variant.png', 'WinImgNormalizer_variant.ico'
     )
     foreach ($source in $Sources) {
         $relative = if ($source.relative_path) { $source.relative_path } else { $source.path }

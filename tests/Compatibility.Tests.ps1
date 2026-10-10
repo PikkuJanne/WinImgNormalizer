@@ -175,7 +175,7 @@ Describe 'T066 synthetic evidence export privacy and containment' {
             'tools/release/Build-Release.ps1','docs/release/GETTING_STARTED.md',
             'docs/release/THIRD_PARTY_NOTICES.md','docs/release/PACKAGING.md','docs/BEHAVIOR.md','SECURITY.md',
             'tools/website/Test-WebsiteHandoff.ps1','docs/website/metadata.json','docs/website/PRODUCT_COPY.md',
-            'docs/website/INTEGRATION.md','WinImgNormalizer_icon_variant.png','WinImgNormalizer_variant.ico','WinImgNormalizer_poster.png')
+            'docs/website/INTEGRATION.md','WinImgNormalizer_icon_variant.png','WinImgNormalizer_variant.ico')
         if (Test-Path -LiteralPath (Join-Path $repository 'docs/release/publication-v1.0.0.json') -PathType Leaf) {
             $publicPaths += 'docs/release/publication-v1.0.0.json'
         }

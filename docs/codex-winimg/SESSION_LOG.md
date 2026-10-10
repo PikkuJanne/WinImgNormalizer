@@ -2776,3 +2776,12 @@ The release is unsigned; website deployment/public owner-media reuse remain held
 
 This evidence-only checkpoint cannot name its own future final SHA, push or CI.
 Observe those externally and verify source 71 parity to named implementation I.
+
+
+## 2026-10-10 — Scoped obsolete website poster cleanup
+
+The final multi-tool website owner request authorizes removing the historical
+poster and its direct live metadata/test-source references. The two application
+icons, application/launcher/release code and published v1.0.0 remain preserved.
+The isolated base is e5376d41879a2e4ffb5da5e607bfb634f1598621. Candidate validation and GitHub delivery
+are recorded in docs/WEBSITE_ASSET_CLEANUP.md and external website evidence.
