@@ -14,16 +14,16 @@
     "HEIC/HEIF and external profile corpus not tested; native delegate presence is not a support claim"
   ],
   "portable_imagemagick": {
-    "version": "7.1.2-32",
-    "asset": "ImageMagick-7.1.2-32-portable-Q16-x64.7z",
-    "url": "https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-32/ImageMagick-7.1.2-32-portable-Q16-x64.7z",
-    "sha256": "2540f87550bd24488d71248427b8ab6754573a0506ea0cbe943579fdbddab299",
-    "bytes": 11984505,
-    "provenance": "Official ImageMagick/ImageMagick release API asset digest, read 2026-10-04",
+    "version": "7.1.2-35",
+    "asset": "ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.7z",
+    "url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.7z",
+    "sha256": "e5c9885121240757089b2985aa1217810bd159b1b2e368826d00c5c22f460e69",
+    "bytes": 12115553,
+    "provenance": "Current hotfix development pin: authenticated upstream Release workflow41175952230, source39ad88fc, upstream Beta selected for patched libheif1.23.7; details tools/release/runtime-lock.json",
     "state": "downloaded_verified_and_executed_from_ignored_scratch",
-    "executable_sha256": "37bead7a1f64cc0ab12eae4cec72cadd2fdb3b223eb1b332a11d42010653f3a2",
+    "executable_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
     "installer_used": false,
     "persistent_path_change": false,
-    "owner_authorization": "2026-10-04: Please download and continue"
+    "owner_authorization": "2026-10-31 maintainer hotfix assignment"
   }
 }

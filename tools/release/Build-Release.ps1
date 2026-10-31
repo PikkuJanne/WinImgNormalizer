@@ -2,7 +2,8 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)][ValidatePattern('^[0-9a-f]{40}$')][string]$Revision,
-    [Parameter(Mandatory)][string]$OutputDirectory
+    [Parameter(Mandatory)][string]$OutputDirectory,
+    [switch]$IncludeDependencySource
 )
 
 $ErrorActionPreference = 'Stop'
@@ -125,6 +126,60 @@ foreach ($name in $allowlist.Keys) {
     $entries[$name] = $bytes
     $fileRecords += [ordered]@{ path = $name; source_path = $allowlist[$name]; bytes = $bytes.Length; sha256 = Get-ReleaseHash $bytes }
 }
+# Binary bytes are never taken from Git history. The reviewed tracked lock fixes
+# the exact upstream payload; staging authenticates it before this offline build.
+$runtimeLock = $utf8.GetString((Get-ReleaseBlob 'tools/release/runtime-lock.json')) | ConvertFrom-Json
+$runtimeRoot = Join-Path $repository 'runtime'
+Assert-ReleaseAncestors $runtimeRoot
+$runtimeManifestPath = Join-Path $runtimeRoot 'runtime-manifest.json'
+if (-not (Test-Path -LiteralPath $runtimeManifestPath -PathType Leaf)) {
+    throw 'Verified bundled runtime is absent. Run tools/release/Stage-Runtime.ps1 -Download before building.'
+}
+$runtimeManifestBytes = [IO.File]::ReadAllBytes($runtimeManifestPath)
+$runtimeManifest = $utf8.GetString($runtimeManifestBytes) | ConvertFrom-Json
+$sourceNoticeBytes = Get-ReleaseBlob 'docs/release/IMAGEMAGICK_SOURCE.md'
+$runtimeFiles = @($runtimeLock.files) + @([pscustomobject]@{path='SOURCE_INFORMATION.md';bytes=$sourceNoticeBytes.Length;sha256=Get-ReleaseHash $sourceNoticeBytes})
+if ($runtimeManifest.schema_version -ne 1 -or $runtimeManifest.engine_relative_path -cne $runtimeLock.engine_relative_path -or
+    $runtimeManifest.engine_version -cne $runtimeLock.engine_version -or
+    $runtimeManifest.upstream_source_revision -cne $runtimeLock.upstream_source_revision -or
+    @($runtimeManifest.files).Count -ne $runtimeFiles.Count) {
+    throw 'Staged runtime manifest differs from the reviewed runtime lock.'
+}
+foreach ($field in @('portable_asset', 'sbom_asset', 'source_asset')) {
+    if (($runtimeManifest.$field | ConvertTo-Json -Depth 6 -Compress) -cne ($runtimeLock.$field | ConvertTo-Json -Depth 6 -Compress)) {
+        throw 'Staged upstream runtime provenance differs from the reviewed runtime lock.'
+    }
+}
+$runtimePaths = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+foreach ($record in $runtimeFiles) {
+    $path = [string]$record.path
+    if ($path -match '(^|/)\.\.?(/|$)|\\|:|^/' -or -not $runtimePaths.Add($path)) { throw 'Unsafe runtime lock path.' }
+    $inputPath = Join-Path $runtimeRoot $path
+    Assert-ReleaseAncestors $inputPath
+    $item = Get-Item -LiteralPath $inputPath -ErrorAction Stop
+    if ($item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) { throw 'Runtime input is not an ordinary file.' }
+    [byte[]]$bytes = [IO.File]::ReadAllBytes($inputPath)
+    $hash = Get-ReleaseHash $bytes
+    $stagedRecord = @($runtimeManifest.files | Where-Object { $_.path -ceq $path })
+    if ($bytes.Length -ne [long]$record.bytes -or $hash -cne $record.sha256 -or $stagedRecord.Count -ne 1 -or
+        $stagedRecord[0].sha256 -cne $hash -or [long]$stagedRecord[0].bytes -ne $bytes.Length) { throw 'Staged runtime file failed the reviewed length/hash contract.' }
+    $name = 'runtime/' + $path
+    $entries[$name] = $bytes
+    $fileRecords += [ordered]@{path=$name;source_path=$null;origin='authenticated upstream runtime';bytes=$bytes.Length;sha256=$hash}
+}
+$null = $runtimePaths.Add('runtime-manifest.json')
+foreach ($item in Get-ChildItem -LiteralPath $runtimeRoot -Recurse -Force -File) {
+    $relative = $item.FullName.Substring($runtimeRoot.Length + 1).Replace('\','/')
+    if (-not $runtimePaths.Contains($relative)) { throw 'Runtime staging contains a file outside the reviewed allowlist.' }
+}
+$entries['runtime/runtime-manifest.json'] = $runtimeManifestBytes
+$fileRecords += [ordered]@{path='runtime/runtime-manifest.json';source_path=$null;origin='generated runtime integrity manifest';bytes=$runtimeManifestBytes.Length;sha256=Get-ReleaseHash $runtimeManifestBytes}
+$markerBytes = [IO.File]::ReadAllBytes((Join-Path $repository 'portable-runtime.json'))
+$marker = $utf8.GetString($markerBytes) | ConvertFrom-Json
+if ($marker.schema_version -ne 1 -or $marker.runtime_required -ne $true -or
+    $marker.runtime_manifest_sha256 -cne (Get-ReleaseHash $runtimeManifestBytes)) { throw 'Portable runtime marker failed validation.' }
+$entries['portable-runtime.json'] = $markerBytes
+$fileRecords += [ordered]@{path='portable-runtime.json';source_path=$null;origin='generated required-runtime marker';bytes=$markerBytes.Length;sha256=Get-ReleaseHash $markerBytes}
 $application = $utf8.GetString($entries['WinImgNormalizer.ps1']).TrimStart([char]0xfeff)
 $versions = [regex]::Matches($application, '(?m)^function Get-WinImgVersion\s*\{\s*return ''((?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*))''\s*\}')
 if ($versions.Count -ne 1) { throw 'Source must expose exactly one literal semantic application version.' }
@@ -144,6 +199,7 @@ if ((Get-ReleaseHash $entries['CHANGELOG.md']) -cne (Get-ReleaseHash $utf8.GetBy
 $manifest = [ordered]@{
     schema_version = 1; product = 'WinImgNormalizer'; version = $version
     release_state = 'unreleased'; source_revision = $Revision; digital_signature = $null
+    bundled_runtime = [ordered]@{required=$true;version=$runtimeLock.engine_version;upstream_channel=$runtimeLock.upstream_channel;manifest_sha256=Get-ReleaseHash $runtimeManifestBytes}
     files = $fileRecords
 }
 $entries['package-manifest.json'] = $utf8.GetBytes(($manifest | ConvertTo-Json -Depth 6 -Compress) + "`n")
@@ -180,12 +236,26 @@ $provenance = [ordered]@{
     asset_filename = $asset; asset_bytes = $assetBytes; asset_sha256 = $assetHash
     package_manifest_sha256 = Get-ReleaseHash $entries['package-manifest.json']
     builder_source_sha256 = Get-ReleaseHash (Get-ReleaseBlob 'tools/release/Build-Release.ps1')
+    bundled_runtime = [ordered]@{version=$runtimeLock.engine_version;upstream_channel=$runtimeLock.upstream_channel;upstream_source_revision=$runtimeLock.upstream_source_revision;upstream_workflow_url=$runtimeLock.upstream_workflow_url;manifest_sha256=Get-ReleaseHash $runtimeManifestBytes;portable_asset=$runtimeLock.portable_asset;sbom_asset=$runtimeLock.sbom_asset;source_asset=$runtimeLock.source_asset}
+    dependency_assets_included = [bool]$IncludeDependencySource
     reproducibility = 'Exact Git content, ordinal entries, fixed ZIP time/attributes and the NoCompression setting. ZIP framing varies by runtime. Byte equality must be verified for the actual build hosts; no universal ZIP-writer guarantee.'
 }
 $provenancePath = Join-Path $staging 'build-provenance.json'
-[IO.File]::WriteAllText($provenancePath, ($provenance | ConvertTo-Json -Depth 4 -Compress) + "`n", $utf8)
+[IO.File]::WriteAllText($provenancePath, ($provenance | ConvertTo-Json -Depth 10 -Compress) + "`n", $utf8)
 $provenanceHash = (Get-FileHash -LiteralPath $provenancePath -Algorithm SHA256).Hash.ToLowerInvariant()
-[IO.File]::WriteAllText((Join-Path $staging 'SHA256SUMS.txt'), "$assetHash  $asset`n$provenanceHash  build-provenance.json`n", $utf8)
+$checksums = "$assetHash  $asset`n$provenanceHash  build-provenance.json`n"
+if ($IncludeDependencySource) {
+    # The unmodified source/build archive and original portable/SBOM bytes are
+    # promoted alongside the application, satisfying same-place source access
+    # and preserving developer reproducibility after upstream artifact expiry.
+    $dependencyAssets = & (Join-Path $PSScriptRoot 'Stage-Runtime.ps1') -CacheOnly -IncludeDependencySource
+    foreach ($path in @($dependencyAssets.PortableArchive, $dependencyAssets.Sbom, $dependencyAssets.DependencySource)) {
+        $name = [IO.Path]::GetFileName($path)
+        [IO.File]::Copy($path, (Join-Path $staging $name), $false)
+        $checksums += (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() + '  ' + $name + "`n"
+    }
+}
+[IO.File]::WriteAllText((Join-Path $staging 'SHA256SUMS.txt'), $checksums, $utf8)
 Assert-ReleaseRevision
 Assert-ReleaseAncestors $output
 Assert-ReleaseAncestors $staging

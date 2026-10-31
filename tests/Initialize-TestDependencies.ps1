@@ -101,7 +101,11 @@ $pesterManifest = Expand-VerifiedModuleArchive -Archive $pesterArchive -ModuleNa
 $imageSpecification = (Get-Content -LiteralPath (Join-Path $PSScriptRoot $specification.imagemagick_specification) -Raw | ConvertFrom-Json).portable_imagemagick
 
 if ([string]::IsNullOrWhiteSpace($MagickPath)) {
-    $imageArchive = Get-VerifiedArchive -File (Join-Path $scratchRoot ('tools/ImageMagick-' + $imageSpecification.version + '-Q16-x64/' + $imageSpecification.asset)) -Url $imageSpecification.url -Sha256 $imageSpecification.sha256 -Bytes $imageSpecification.bytes
+    # Reuse the release stager's authenticated upstream artifact route. The
+    # public mirror only exists after publication; CI must not depend on it.
+    $runtimeAssets = & (Join-Path $repositoryRoot 'tools/release/Stage-Runtime.ps1') -Download:$Download -CacheOnly
+    $imageArchive = $runtimeAssets.PortableArchive
+    Assert-VerifiedFile -File $imageArchive -Sha256 $imageSpecification.sha256 -Bytes $imageSpecification.bytes
     # Use Windows' libarchive tar (7z-capable), not a competing Git GNU tar on PATH.
     $tarPath = Join-Path $env:SystemRoot 'System32\tar.exe'
     $tar = Get-Command $tarPath -CommandType Application -ErrorAction Stop | Select-Object -First 1

@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "engine_relative_path": "imagemagick/magick.exe",
+  "engine_version": "7.1.2-35",
+  "upstream_channel": "Beta",
+  "quantum": "Q16-HDRI",
+  "architecture": "x64",
+  "upstream_repository": "ImageMagick/ImageMagick",
+  "upstream_source_revision": "39ad88fc5637b0ed9d2adbf37c3c5f6f174c63a3",
+  "upstream_workflow_run": 41175952230,
+  "upstream_workflow_url": "https://github.com/ImageMagick/ImageMagick/actions/runs/41175952230",
+  "authentication": "Pinned GitHub Actions artifact ZIP API digest plus valid ImageMagick Studio LLC Authenticode signature; inner archive, executable, config and SBOM digests verified before staging.",
+  "authenticode_subject": "CN=ImageMagick Studio LLC, O=ImageMagick Studio LLC, L=Landenberg, S=Pennsylvania, C=US",
+  "authenticode_thumbprint": "914B06763E35729D86F82D4CC62C3E96A9E44261",
+  "portable_asset": {
+    "name": "ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.7z",
+    "bytes": 12115553,
+    "sha256": "e5c9885121240757089b2985aa1217810bd159b1b2e368826d00c5c22f460e69",
+    "artifact_id": 13032677871,
+    "artifact_zip_bytes": 12086899,
+    "artifact_zip_sha256": "0e1a17956a5fe654f05232445034a0ca4384c4f211596da43cbe0da5bd30b1a9",
+    "mirror_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.7z"
+  },
+  "sbom_asset": {
+    "name": "ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.cdx.json",
+    "bytes": 30681,
+    "sha256": "e96ac6d9a2c66089a0b33fd2ae2d0c19c8f49a93f8f2429cb7b697b64743060e",
+    "artifact_id": 13033167001,
+    "artifact_zip_bytes": 4129,
+    "artifact_zip_sha256": "3cf7ea0de26202b8b9d0b1b384d38bba6a3b25ed05ff42bfa7d5d2585595b6f1",
+    "mirror_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.cdx.json"
+  },
+  "source_asset": {
+    "name": "ImageMagick-7.1.2-35-Windows.7z",
+    "bytes": 769007903,
+    "sha256": "63b325cafef55e6ab1268f898cff9e4fe2ce91bcd77f0a00df7460888f8a7643",
+    "artifact_id": 13032672864,
+    "artifact_zip_bytes": 769136445,
+    "artifact_zip_sha256": "cf5b4cf72e6e698349510b2d3f6f78e198e2c540ae36dfe009a805ff9c6a7489",
+    "mirror_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/ImageMagick-7.1.2-35-Windows.7z"
+  },
+  "files": [
+    {
+      "path": "imagemagick/colors.xml",
+      "bytes": 1411,
+      "sha256": "37b986dc355641021434859f77b5e1f30b21670c847706ee9b77418e0874dfa6"
+    },
+    {
+      "path": "imagemagick/configure.xml",
+      "bytes": 1169,
+      "sha256": "4647da94ab309e58e39c2cf1a725407596d479ae468c6d14adddd18a6d265026"
+    },
+    {
+      "path": "imagemagick/delegates.xml",
+      "bytes": 10004,
+      "sha256": "d6447b0e9c748690b63717d7942987f854b021761613fcb212f6148c8a63d665"
+    },
+    {
+      "path": "imagemagick/english.xml",
+      "bytes": 54885,
+      "sha256": "d24898b7f43eff80dfee3343a7693edcbc6920eec0b07991bd47a6674e85eb48"
+    },
+    {
+      "path": "imagemagick/LICENSE.txt",
+      "bytes": 12663,
+      "sha256": "5ffcbc771d4cc2827ca8c4505f6b5b61e0bc1d933e0f41a47eea16ed06db4f90"
+    },
+    {
+      "path": "imagemagick/locale.xml",
+      "bytes": 2509,
+      "sha256": "9a22865c9ba728a88aeea2bd64d238e39886ec1a87d791353e9266a3198ab296"
+    },
+    {
+      "path": "imagemagick/log.xml",
+      "bytes": 1701,
+      "sha256": "c246daab249adda19a7754fe8769e6ef08a7d0b5c8ce4742a036593a6e47ea17"
+    },
+    {
+      "path": "imagemagick/magick.exe",
+      "bytes": 32395952,
+      "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+    },
+    {
+      "path": "imagemagick/mime.xml",
+      "bytes": 136869,
+      "sha256": "e7ca58e71b1e30cf2d18453e3fce2e266e3c85a090253f6d5a1d2ed2011b1c81"
+    },
+    {
+      "path": "imagemagick/NOTICE.txt",
+      "bytes": 431056,
+      "sha256": "a677b2417e1a6debd8b0983b63c80e71803a7979def75a9933067eaa7eed0250"
+    },
+    {
+      "path": "imagemagick/policy.xml",
+      "bytes": 8363,
+      "sha256": "690864d5fa289d4a3fc18d6962dcad006eabf3f9fc79b5335ad417fb38702a70"
+    },
+    {
+      "path": "imagemagick/sRGB.icc",
+      "bytes": 60960,
+      "sha256": "83174717332326ddc198d9df188a4daec27b8979ba152cebbfc470c793d0bb11"
+    },
+    {
+      "path": "imagemagick/thresholds.xml",
+      "bytes": 11788,
+      "sha256": "068487187c65f8ba9963ee0d73b31261cde9cd255bf879edcb093241e1c6a36b"
+    },
+    {
+      "path": "imagemagick/type-ghostscript.xml",
+      "bytes": 9470,
+      "sha256": "8cdd0a89929342e438d90b4b95b4417fc90737858cefc9161f454e0f7e1435b4"
+    },
+    {
+      "path": "imagemagick/type.xml",
+      "bytes": 691,
+      "sha256": "ba4160241fb0fff29563b40430b24f5d993cd5f1e423f85ee99c17749901c8ad"
+    },
+    {
+      "path": "imagemagick/upstream-sbom.cdx.json",
+      "bytes": 30681,
+      "sha256": "e96ac6d9a2c66089a0b33fd2ae2d0c19c8f49a93f8f2429cb7b697b64743060e"
+    }
+  ]
+}

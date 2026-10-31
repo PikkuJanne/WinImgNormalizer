@@ -1,106 +1,88 @@
-# Portable package preparation
+# Portable packaging
 
-`tools/release/Build-Release.ps1` prepares an **unreleased, unsigned** local ZIP from
-an explicitly named clean current commit. It creates no tag or public release,
-publishes no downloads, and does not run the packaged application automatically.
-Publication and website deployment require the separate owner-approved gates.
+The standard ZIP includes a verified app-relative ImageMagick engine. No separate
+ImageMagick installation is required for the portable ZIP. Application processing
+never downloads dependencies or changes PATH, registry, execution policy or an
+installed ImageMagick. Source-only clones retain supported external-engine use.
 
-## Published version
+## Stage the reviewed runtime
 
-Version 1.0.0 was published on 2026-10-07 from the approved source commit
-`8edbcbaeb3425ec3a52eeafde212c32553755af1`. The public ZIP and both sidecars
-are the unchanged preparation artifacts; their embedded unreleased fields record
-the build-time snapshot. See [the observed publication record](publication-v1.0.0.json)
-and [canonical release metadata](../../release-metadata.json) for the public identity.
-Do not move this tag, rebuild this release or replace its assets.
+`tools/release/runtime-lock.json` pins the exact official upstream portable build,
+artifact ZIP digest, inner archive digest, signed executable, configuration files,
+SBOM and corresponding-source archive. The chosen engine is ImageMagick 7.1.2-35
+**Beta**, Q16-HDRI x64, source `39ad88fc5637b0ed9d2adbf37c3c5f6f174c63a3`, from
+[official workflow 41175952230](https://github.com/ImageMagick/ImageMagick/actions/runs/41175952230).
+The upstream Beta was selected because it includes libheif 1.23.7's current security
+fixes; the latest tagged 7.1.2-34 Windows portable carries older libheif 1.23.6.
+The WinImgNormalizer patch is a stable application release after automated gates.
 
-The builder continues to accept only clean, explicitly unreleased preparation
-revisions. It refuses the current published checkpoint without creating output.
-Builder regression tests use deliberately draft owned replicas and label their
-synthetic smoke packages accordingly; those packages do not recreate or replace
-the approved release. A future release needs its own reviewed preparation revision.
-
-## Build a reviewed revision
-
-Use Windows PowerShell 5.1 or PowerShell 7, Git and the repository's ordinary local
-filesystem. Review and commit the intended source first. The builder requires the
-full 40-character current `HEAD` revision, rejects tracked/staged/untracked changes,
-and checks that the selected files are ordinary Git blobs. Ignored scratch outputs
-are excluded. It does not repair a dirty checkout or update source files.
-
-Run from the repository root, choosing an absent output directory below the ignored
-`.scratch` directory:
+Run at development/build time, using Windows PowerShell 5.1 or PowerShell 7:
 
 ```powershell
-$releaseRevision = (git rev-parse HEAD).Trim()
-.\tools\release\Build-Release.ps1 -Revision $releaseRevision -OutputDirectory '.scratch\release candidate with spaces'
+.\tools\release\Stage-Runtime.ps1 -Download
 ```
 
-Use a new output directory for each build. The builder refuses an existing target
-and linked output paths or ancestors. Build artifacts stay in the explicitly owned
-scratch directory; no existing destination file is replaced. Git blobs supply the
-package bytes, including the launcher's required CRLF bytes, independently of a
-checkout's text-conversion settings.
+This stages `runtime/` and `portable-runtime.json` beside the existing launcher;
+both are Git ignored. `-DestinationRoot <checkout>` stages the identical verified
+payload into another maintained checkout. Existing differing runtime files are
+refused. The default cache is `.scratch/runtime-downloads`; `-CacheDirectory`
+supports an already authenticated shared cache. The public release mirrors exact
+upstream portable/SBOM/source assets to preserve future reproducibility after
+Actions retention. Before publication the developer-only fallback uses an existing
+authenticated GitHub CLI to read the same repository's draft dependency assets
+with read-only access. Initial acquisition can fetch the original upstream
+artifact ZIP, verifies the independent GitHub API digest, extracts its single
+expected file, and verifies the inner hash. The executable publisher signature is also checked before staging.
+No global installation or configuration change occurs.
 
-## Exact content boundary
+## Build the final revision once
 
-The portable ZIP contains these seven tracked inputs, mapped to root filenames,
-plus the generated `package-manifest.json`:
+Review and commit all intended source first. Build from the final clean current
+40-character revision, with an absent destination beneath ignored `.scratch`:
 
-| Tracked source | ZIP filename |
-| --- | --- |
-| `WinImgNormalizer.ps1` | `WinImgNormalizer.ps1` |
-| `WinImgNormalizer.bat` | `WinImgNormalizer.bat` |
-| `LICENSE` | `LICENSE` |
-| `CHANGELOG.md` | `CHANGELOG.md` |
-| `docs/release/GETTING_STARTED.md` | `GETTING_STARTED.md` |
-| `docs/release/THIRD_PARTY_NOTICES.md` | `THIRD_PARTY_NOTICES.md` |
-| `tests/fixtures/colour/LICENSE-CC0.txt` | `LICENSE-CC0.txt` |
+```powershell
+.\tools\release\Stage-Runtime.ps1 -Download -IncludeDependencySource
+$releaseRevision = (git rev-parse HEAD).Trim()
+.\tools\release\Build-Release.ps1 -Revision $releaseRevision `
+  -OutputDirectory '.scratch\release candidate' -IncludeDependencySource
+```
 
-Only the retained third-party license text is selected from the fixture tree; tests,
-ICC fixture files, synthetic media and reference artifacts are excluded. The ZIP
-also excludes Git internals, governance/handoff records, development tools, raw
-media, logs, secrets, branding assets and earlier builds. Runtime entry points stay
-self-contained. No ImageMagick binary or installer is bundled or downloaded.
+The builder downloads nothing. It validates all staged files against the exact
+tracked lock and source notice, rejects extras/reparse points/dirty source, and
+uses exact Git blob bytes for application/documentation entries. It never commits
+a binary distribution. Runtime-required marker and integrity manifest distinguish
+the portable package from a source checkout; missing/damaged release runtime
+fails without trying another executable.
 
-The manifest records the application version from `Get-WinImgVersion`, exact source
-commit, each selected source/ZIP mapping, byte lengths and SHA-256 values. The
-output directory contains `WinImgNormalizer-<version>-portable.zip`, outer
-`build-provenance.json` recording its identity/checksum, and `SHA256SUMS.txt` hashing
-the ZIP and provenance file. The checksum file does not hash itself. Public
-release/download fields stay unestablished. These records identify source and bytes;
-they provide no signature, publisher verification or attestation.
+The ZIP allowlist consists of the original seven tracked package files, the
+runtime-required marker, generated runtime/package manifests, selected upstream
+runtime files listed in the lock, upstream SBOM and source-information notice.
+Unused ImageMagick command executables and changelog are omitted; all shipped
+configuration, license, notices and ICC bytes remain unchanged. No tests, media,
+logs, Git metadata, credentials, or developer dependencies enter the ZIP.
 
-## Reproducibility and verification
+Output is `WinImgNormalizer-<version>-portable.zip`, `build-provenance.json`, and
+`SHA256SUMS.txt`. With `-IncludeDependencySource`, the output also contains the exact
+original upstream portable 7z, SBOM and complete Windows source/build 7z for release
+publication. These satisfy source/relink access and preserve dependency identity;
+they are optional downloads for recipients, not processing prerequisites.
 
-The builder sorts entries, requests the .NET `NoCompression` setting and normalizes entry
-timestamps to a fixed ZIP-compatible date. It omits observation time, local paths
-and host identity from package bytes. Repeated builds of the same revision with the
-same builder/runtime are intended to produce byte-identical ZIPs. Tests must compare
-the actual archive hashes before recording that observation. This is not a claim
-that every Git, .NET or ZIP implementation on every platform produces identical
-bytes. Windows PowerShell 5.1's .NET Framework writer can encode uncompressed data
-as DEFLATE stored blocks, adding framing bytes; the tested PowerShell 7 writer uses
-ZIP Stored entries. Identical extracted files can therefore have different ZIP
-lengths and hashes across these hosts. Independently verify content equality
-through the manifest and extracted file hashes when comparing environments.
+The builder sorts entries, fixes ZIP timestamps and attributes and requests .NET
+NoCompression. Repeated builds on the same writer are checked for equality;
+.NET Framework and current .NET can produce different ZIP framing. Promote the
+one actually tested build unchanged. Provenance binds application source, upstream
+source, files, ZIP and source assets. Checksum files provide byte identity, not a
+signature on WinImgNormalizer. The upstream engine's own signature is retained.
 
-Packaging regressions cover T069 (exact allowlist and source contents), T070
-(fresh extraction and matching entry-point smoke checks with documented
-prerequisites), and T071 (recomputed checksums and exact revision provenance).
-Run them in both supported PowerShell hosts. Use new extraction directories with
-spaces and approved synthetic source data. Real extracted-script image/video checks
-use the existing `OutputParent` test seam to keep output in owned scratch, separate
-from real Pictures. Exact extracted BAT setup/pause checks exercise the matching
-PS1; they do not establish a completed media batch through the BAT. Check source
-preservation, real native results, derivatives/video bytes and ordinary-account
-observations. Keep raw artifacts and private paths local; persist sanitized evidence
-with actual results and limitations. A launcher test using a substitute PS1 driver
-is not evidence that the extracted application processed media.
+## Publication and verification
 
-An artifact built before the implementation commit cannot claim that future SHA.
-After an evidence-only checkpoint, the package can remain bound to the preceding
-implementation commit when all package/build inputs retain their recorded bytes.
-For eventual release, rebuild or verify against the actual approved tag revision;
-never label an earlier artifact with an unverified newer revision. No application
-smoke test, signing check or owner acceptance is implied by a successful build.
+The scoped 31 October 2026 maintainer instruction authorizes normal merge/tag/stable
+release publication after the mandatory automated Windows gates. Publish the
+tested bytes and sidecars plus corresponding-source assets, then fresh-download
+the public ZIP and checksum, verify digest/source/tag identity, extract to another
+clean directory, and rerun real media smoke. Never replace a published artifact.
+Repository website copy is updated; live website deployment is separate.
+
+Version 1.0.0 and its tag/assets remain unchanged. Its original external-engine
+requirement and build-time unreleased metadata are historical; see
+[the publication record](publication-v1.0.0.json).
