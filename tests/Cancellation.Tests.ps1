@@ -25,8 +25,17 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Microsoft.Win32.SafeHandles;
 public static class CancellationFixture {
  [DllImport("kernel32.dll", SetLastError=true)] static extern bool IsProcessInJob(IntPtr process,IntPtr job,out bool answer);
+ [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] static extern SafeFileHandle CreateFileW(string path,uint access,uint share,IntPtr security,uint disposition,uint flags,IntPtr template);
+ static FileStream OpenCandidate(string path) {
+  // The normalizer intentionally uses extended paths for owned long scratch.
+  // Framework's string FileStream constructor still applies MAX_PATH rules.
+  SafeFileHandle handle=CreateFileW(path,0x40000000,0,IntPtr.Zero,3,0x80,IntPtr.Zero);
+  if(handle.IsInvalid){int error=Marshal.GetLastWin32Error();handle.Dispose();throw new System.ComponentModel.Win32Exception(error);}
+  try{return new FileStream(handle,FileAccess.Write);}catch{handle.Dispose();throw;}
+ }
  static string Q(string s){return "\""+s.Replace("\"","\\\"")+"\"";}
  public static int Main(string[] args){
   string mode=args[0],root=args[1],role=args.Length>2?args[2]:"root";
@@ -49,7 +58,7 @@ public static class CancellationFixture {
     if(!File.Exists(Path.Combine(root,"root.identity"))||!File.Exists(Path.Combine(root,"child.identity"))||!File.Exists(Path.Combine(root,"grand.identity")))return 4;
     if(args.Length>4&&args[3]!="-"){
      using(FileStream input=new FileStream(args[3],FileMode.Open,FileAccess.Read,FileShare.Read))
-     using(FileStream output=new FileStream(args[4],FileMode.Open,FileAccess.Write,FileShare.None)){input.CopyTo(output);output.Flush(true);}
+     using(FileStream output=OpenCandidate(args[4])){input.CopyTo(output);output.Flush(true);}
     }
     File.WriteAllText(Path.Combine(root,"ready.txt"),"owned root-child-grandchild ready");
    }

@@ -1,9 +1,10 @@
 # Getting started with WinImgNormalizer
 
-The prepared portable package is **version 1.0.1, unreleased and unsigned**.
+This portable package is **version 1.0.1 and unsigned**.
 `package-manifest.json` records its exact source revision; [CHANGELOG.md](CHANGELOG.md)
-has release notes. ZIP preparation does not establish a public download, released
-tag or verified publisher. The filename/path examples below are illustrative.
+has release notes. Build records use `unreleased` for their preparation-time state;
+the public GitHub release and matching checksum establish publication of these
+unchanged bytes. The filename/path examples below are illustrative.
 
 ## Verify and extract
 

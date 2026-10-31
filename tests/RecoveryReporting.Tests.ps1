@@ -100,6 +100,12 @@ BeforeAll {
         $Text|Should -Match ('SUMMARY ConvertedImages='+$Images+' CopiedVideos='+$Videos+' Duplicates='+$Duplicates+' Unsupported=0 Errors=0 SizeWarnings=0 NativeWarnings=0')
         $Text|Should -Match ('TimestampWarnings='+$TimestampWarnings+';?\s+ScanComplete='+$ScanComplete+';?\s+IncompleteDirectories='+$Directories+';?\s+UninspectableEntries=0;?\s+SkippedLinks='+$Links+';?\s+LogWarnings='+$LogWarnings+';?\s+FallbackDropped=\d+')
     }
+    function Get-RecoverySummaryText([object]$Result){
+        # The field console summarizes counts; detailed accounting remains in
+        # the actual disk log or its bounded emergency fallback.
+        $disk=if($Result.LogPath -and [IO.File]::Exists($Result.LogPath)){[IO.File]::ReadAllText($Result.LogPath)}else{''}
+        return $disk+"`n"+$Result.EmergencyText
+    }
     function Get-RecoveryByteHash([byte[]]$Bytes){
         $sha=[Security.Cryptography.SHA256]::Create()
         try{return ([BitConverter]::ToString($sha.ComputeHash($Bytes))).Replace('-','').ToLowerInvariant()}finally{$sha.Dispose()}
@@ -207,7 +213,7 @@ Describe 'M3-T01 inaccessible traversal and ancillary reporting (T047-T050)' {
             $result=Invoke-RecoveryRun $source $parent;$result.Code|Should -Be 2
             $combined=$result.Text+"`n"+$result.EmergencyText
             $combined|Should -Match 'Incomplete source scan';$combined|Should -Match ([regex]::Escape('denied[1]%d'))
-            Assert-RecoverySummary $combined $(if($Eligible){1}else{0}) $(if($Eligible){1}else{0}) -ScanComplete $false -Directories 1
+            Assert-RecoverySummary (Get-RecoverySummaryText $result) $(if($Eligible){1}else{0}) $(if($Eligible){1}else{0}) -ScanComplete $false -Directories 1
             $afterApplication=Get-RecoveryAclState $denied ('acl-'+$suffix+'-after-application')
             $afterApplication.Sddl|Should -Be $applied.Sddl;$afterApplication.Control|Should -Be $applied.Control
             $afterApplication.DescriptorSha256|Should -Be $applied.DescriptorSha256;$afterApplication.DaclSha256|Should -Be $applied.DaclSha256
@@ -235,7 +241,7 @@ Describe 'M3-T01 inaccessible traversal and ancillary reporting (T047-T050)' {
         if($created){([IO.File]::GetAttributes($link) -band [IO.FileAttributes]::ReparsePoint)|Should -Not -Be 0}
         $before=Get-RecoveryState $source;$outsideBefore=Get-RecoveryState $outside
         $r=Invoke-RecoveryRun $source $parent;$r.Code|Should -Be 2
-        Assert-RecoverySummary ($r.Text+$r.EmergencyText) 1 1 -Links $(if($created){3}else{2})
+        Assert-RecoverySummary (Get-RecoverySummaryText $r) 1 1 -Links $(if($created){3}else{2})
         foreach($name in (@('loop','outside-directory')+$(if($created){@('outside-file.png')}else{@()}))){($r.Text+$r.EmergencyText)|Should -Match ([regex]::Escape($name));[IO.File]::Exists((Join-Path $r.Run $name))|Should -BeFalse;[IO.Directory]::Exists((Join-Path $r.Run $name))|Should -BeFalse}
         Assert-RecoveryMedia $r @('inside.jpeg') @('inside.mp4') $source
         Get-RecoveryState $source|Should -Be $before;Get-RecoveryState $outside|Should -Be $outsideBefore
@@ -257,7 +263,7 @@ Describe 'M3-T01 inaccessible traversal and ancillary reporting (T047-T050)' {
         Mock Add-WinImgRunLogLine {throw 'A disabled initial log sink must never be appended.'}
         $r=Invoke-RecoveryRun $source $parent;$r.Code|Should -Be 2
         $r.EmergencyText|Should -Match '(?i)log';$r.EmergencyText|Should -Match 'Controlled initial run-log creation failure'
-        Assert-RecoverySummary ($r.Text+$r.EmergencyText) $(if($Eligible){1}else{0}) $(if($Eligible){1}else{0}) -LogWarnings 1
+        Assert-RecoverySummary (Get-RecoverySummaryText $r) $(if($Eligible){1}else{0}) $(if($Eligible){1}else{0}) -LogWarnings 1
         Should -Invoke New-WinImgRunLogFile -Times 1 -Exactly;Should -Invoke Add-WinImgRunLogLine -Times 0 -Exactly
         if($Eligible){Assert-RecoveryMedia $r @('image.jpeg') @('video.mp4') $source}
         Get-RecoveryState $source|Should -Be $before
@@ -274,7 +280,7 @@ Describe 'M3-T01 inaccessible traversal and ancillary reporting (T047-T050)' {
         }
         try{$r=Invoke-RecoveryRun $source $parent $runner}finally{if($script:recoveryLogLock){$script:recoveryLogLock.Dispose();$script:recoveryLogLock=$null}}
         $r.Code|Should -Be 2;$r.EmergencyText|Should -Match '(?i)(log|logging).*(failed|degrad|unavailable)'
-        Assert-RecoverySummary ($r.Text+$r.EmergencyText) 1 1 -LogWarnings 1
+        Assert-RecoverySummary (Get-RecoverySummaryText $r) 1 1 -LogWarnings 1
         $r.EmergencyText|Should -Match 'NATIVE IMG: Attempt=1';$r.EmergencyText|Should -Match 'SUMMARY ConvertedImages=1'
         [IO.File]::ReadAllText($r.LogPath)|Should -Not -Match 'SUMMARY ConvertedImages='
         Assert-RecoveryMedia $r @('image.jpeg') @('video.mp4') $source;Get-RecoveryState $source|Should -Be $before
@@ -375,7 +381,7 @@ finally {
         }
         $r=Invoke-RecoveryRun $source $parent;$r.Code|Should -Be 2
         $combined=$r.Text+$r.EmergencyText;$combined|Should -Match '(?i)timestamp';$combined|Should -Match $Field
-        Assert-RecoverySummary $combined $images $videos -Duplicates 1 -TimestampWarnings 1
+        Assert-RecoverySummary (Get-RecoverySummaryText $r) $images $videos -Duplicates 1 -TimestampWarnings 1
         $log=[IO.File]::ReadAllText($r.LogPath);$log|Should -Match ('retained status: '+$duplicateStatus)
         Should -Invoke Set-WinImgOutputTimestampValue -Times 1 -Exactly -ParameterFilter {$Path.EndsWith($firstSuffix,[StringComparison]::OrdinalIgnoreCase) -and $Name -eq 'LastWriteTimeUtc'}
         Should -Invoke Set-WinImgOutputTimestampValue -Times 1 -Exactly -ParameterFilter {$Path.EndsWith($firstSuffix,[StringComparison]::OrdinalIgnoreCase) -and $Name -eq 'CreationTimeUtc'}
