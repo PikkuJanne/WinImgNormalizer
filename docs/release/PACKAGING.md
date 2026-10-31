@@ -29,11 +29,23 @@ refused. The default cache is `.scratch/runtime-downloads`; `-CacheDirectory`
 supports an already authenticated shared cache. The public release mirrors exact
 upstream portable/SBOM/source assets to preserve future reproducibility after
 Actions retention. Before publication the developer-only fallback uses an existing
-authenticated GitHub CLI to read the same repository's draft dependency assets
-with read-only access. Initial acquisition can fetch the original upstream
+authenticated GitHub CLI to request the same repository's draft dependency assets.
+Read-only CI tokens can receive a missing-release response for a draft; initial
+acquisition then fetches the original public upstream
 artifact ZIP, verifies the independent GitHub API digest, extracts its single
 expected file, and verifies the inner hash. The executable publisher signature is also checked before staging.
 No global installation or configuration change occurs.
+
+PE inspection identifies Microsoft OpenMP as the engine's only required non-inbox
+DLL. Staging additionally downloads the exact official Microsoft Visual C++ v14
+Redistributable 14.51.36247.0 x64, checks its independent Microsoft WinGet digest
+and Microsoft signature, and extracts `VCOMP140.DLL` from pinned cabinet bytes.
+No installer or MSI is executed. The unchanged signed DLL and original runtime
+license plus full plain-text extraction are staged beside `magick.exe`. Its only
+PE dependency is Windows `KERNEL32.dll`; actual acceptance checks that the engine
+loads the app-local copy, rather than an installed Visual Studio copy. The full
+source/digest/license/signature record is `runtime-lock.json`'s `vc_runtime` field
+and is preserved in the runtime manifest and outer build provenance.
 
 ## Build the final revision once
 

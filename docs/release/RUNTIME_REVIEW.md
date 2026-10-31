@@ -47,8 +47,12 @@ the SBOM and a version banner alone do not demonstrate those results. This revie
 does not establish that a build is universally safe or that future advisories
 cannot affect it.
 
-The portable EXE is static and brings no side-by-side ImageMagick DLLs. Unused
-command EXEs are excluded. All selected upstream config, ICC, LICENSE and NOTICE
+The portable EXE statically contains ImageMagick and its codec delegates, and has
+one required non-inbox import: Microsoft OpenMP `VCOMP140.DLL`. The x64 DLL is
+shipped app-locally; its PE imports are only `KERNEL32.dll`, with no delay imports.
+An actual held-open engine process verifies the loaded OpenMP path and hash belong
+to the payload, so an installed Visual C++ runtime cannot mask an omitted file.
+Unused command EXEs are excluded. All selected upstream config, ICC, LICENSE and NOTICE
 files remain byte-identical. Complete upstream Windows/delegate source/build
 bytes are distributed alongside the release for source and relink rights; see
 [source information](IMAGEMAGICK_SOURCE.md). Original upstream portable/SBOM assets

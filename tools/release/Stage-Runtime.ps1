@@ -66,6 +66,89 @@ function Invoke-StageGitHubProcess {
     }
 }
 
+function Get-StageMicrosoftAsset($Pin) {
+    $target = Join-Path $cache $Pin.name
+    Assert-StageAncestors $cache
+    if (Test-Path -LiteralPath $target) { Assert-StageFile $target $Pin; return $target }
+    if (-not $Download) { throw ('Microsoft runtime cache is absent; run tools/release/Stage-Runtime.ps1 -Download: ' + $Pin.name) }
+    $null = [IO.Directory]::CreateDirectory($cache)
+    $partial = $target + '.' + [Guid]::NewGuid().ToString('N') + '.partial'
+    $previousProtocol = [Net.ServicePointManager]::SecurityProtocol
+    try {
+        [Net.ServicePointManager]::SecurityProtocol = $previousProtocol -bor [Net.SecurityProtocolType]::Tls12
+        Invoke-WebRequest -UseBasicParsing -Uri $Pin.url -OutFile $partial -ErrorAction Stop
+    } finally { [Net.ServicePointManager]::SecurityProtocol = $previousProtocol }
+    Assert-StageFile $partial $Pin
+    [IO.File]::Move($partial, $target)
+    return $target
+}
+
+function Assert-StagePublisher([string]$Path, $Pin) {
+    $signature = Get-AuthenticodeSignature -LiteralPath $Path
+    if ($signature.Status -ne 'Valid' -or $signature.SignerCertificate.Thumbprint -cne $Pin.authenticode_thumbprint -or
+        $signature.SignerCertificate.Subject -cne $Pin.authenticode_subject) {
+        throw 'Runtime publisher signature did not validate; no runtime staged.'
+    }
+}
+
+function Expand-StageMicrosoftRuntime([string]$Installer, [string]$LicenseDocument, [string]$StagingRoot) {
+    # Never execute the redistributable or invoke MSI. Extract the exact reviewed
+    # cabinet ranges from authenticated bytes using the inbox archive reader.
+    Assert-StagePublisher $Installer $lock.vc_runtime.installer
+    $work = Join-Path $StagingRoot 'microsoft-extraction'
+    $null = [IO.Directory]::CreateDirectory($work)
+    $cabinet = Join-Path $work 'attached.cab'
+    $bytes = [IO.File]::ReadAllBytes($Installer)
+    $pin = $lock.vc_runtime.cabinet
+    $slice = New-Object byte[] ([int]$pin.bytes)
+    [Buffer]::BlockCopy($bytes, [int]$pin.offset, $slice, 0, $slice.Length)
+    [IO.File]::WriteAllBytes($cabinet, $slice)
+    Assert-StageFile $cabinet $pin
+    $reader = Join-Path $env:SystemRoot 'System32/tar.exe'
+    & $reader -xf $cabinet -C $work $pin.minimum_cabinet_name
+    if ($LASTEXITCODE -ne 0) { throw 'Microsoft runtime cabinet extraction failed.' }
+    $minimum = Join-Path $work $pin.minimum_cabinet_name
+    Assert-StageFile $minimum ([pscustomobject]@{bytes=$pin.minimum_cabinet_bytes;sha256=$pin.minimum_cabinet_sha256})
+    & $reader -xf $minimum -C $work $pin.dll_entry
+    if ($LASTEXITCODE -ne 0) { throw 'Microsoft OpenMP extraction failed.' }
+    $dll = Join-Path $work $pin.dll_entry
+    Assert-StageFile $dll $lock.vc_runtime.dll
+    Assert-StagePublisher $dll $lock.vc_runtime.dll
+    if ((Get-Item -LiteralPath $dll).VersionInfo.FileVersion -cne $lock.vc_runtime.version) { throw 'Microsoft OpenMP version differs from the reviewed pin.' }
+    [IO.File]::Copy($dll, (Join-Path $StagingRoot $lock.vc_runtime.dll.path), $false)
+    [IO.File]::Copy($LicenseDocument, (Join-Path $StagingRoot $lock.vc_runtime.license_docx_path), $false)
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $zip = [IO.Compression.ZipFile]::OpenRead($LicenseDocument)
+    try {
+        $entry = $zip.GetEntry('word/document.xml')
+        $streamReader = [IO.StreamReader]::new($entry.Open())
+        try { $documentText = $streamReader.ReadToEnd() } finally { $streamReader.Dispose() }
+        $settings = [Xml.XmlReaderSettings]::new()
+        $settings.DtdProcessing = [Xml.DtdProcessing]::Prohibit; $settings.XmlResolver = $null
+        $textReader = [IO.StringReader]::new($documentText)
+        $xmlReader = [Xml.XmlReader]::Create($textReader, $settings)
+        $document = [Xml.XmlDocument]::new(); $document.XmlResolver = $null
+        try { $document.Load($xmlReader) } finally { $xmlReader.Dispose(); $textReader.Dispose() }
+        $namespaces = [Xml.XmlNamespaceManager]::new($document.NameTable)
+        $namespaces.AddNamespace('w','http://schemas.openxmlformats.org/wordprocessingml/2006/main')
+        [string[]]$paragraphs = @($document.SelectNodes('//w:body/w:p',$namespaces) | ForEach-Object {
+            ($_.SelectNodes('.//w:t',$namespaces) | ForEach-Object { $_.InnerText }) -join ''
+        })
+        [IO.File]::WriteAllLines((Join-Path $StagingRoot $lock.vc_runtime.license_text_path), $paragraphs, $utf8)
+    } finally { $zip.Dispose() }
+    # Keep installer/cabinets in ignored cache evidence, outside the shipped tree.
+    $retained = Join-Path $cache ('microsoft-extraction-' + [Guid]::NewGuid().ToString('N'))
+    $resolvedWork = [IO.Path]::GetFullPath($work)
+    $resolvedRetained = [IO.Path]::GetFullPath($retained)
+    if (-not $resolvedWork.StartsWith([IO.Path]::GetFullPath($StagingRoot) + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase) -or
+        -not $resolvedRetained.StartsWith($cache + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+        throw 'Microsoft extraction move must stay inside the owned staging/cache directories.'
+    }
+    Assert-StageAncestors $resolvedWork
+    Assert-StageAncestors $resolvedRetained
+    [IO.Directory]::Move($work, $retained)
+}
+
 function Get-StageAsset($Pin) {
     $target = Join-Path $cache $Pin.name
     Assert-StageAncestors $cache
@@ -140,10 +223,12 @@ if (-not $CacheOnly -and -not (Test-Path -LiteralPath (Join-Path $destination 'W
 }
 $archive = Get-StageAsset $lock.portable_asset
 $sbom = Get-StageAsset $lock.sbom_asset
+$microsoftInstaller = Get-StageMicrosoftAsset $lock.vc_runtime.installer
+$microsoftLicense = Get-StageMicrosoftAsset $lock.vc_runtime.license
 $source = $null
 if ($IncludeDependencySource) { $source = Get-StageAsset $lock.source_asset }
 if ($CacheOnly) {
-    return [pscustomobject]@{PortableArchive=$archive;Sbom=$sbom;DependencySource=$source}
+    return [pscustomobject]@{PortableArchive=$archive;Sbom=$sbom;DependencySource=$source;MicrosoftRedistributable=$microsoftInstaller;MicrosoftLicense=$microsoftLicense}
 }
 $staging = Join-Path $cache ('staging-' + [Guid]::NewGuid().ToString('N'))
 Assert-StageAncestors $staging
@@ -156,10 +241,11 @@ foreach ($name in $names) {
         throw 'Unexpected upstream portable archive layout.'
     }
 }
-$selected = @($lock.files | Where-Object path -ne 'imagemagick/upstream-sbom.cdx.json' | ForEach-Object { [IO.Path]::GetFileName($_.path) })
+$selected = @($lock.files | Where-Object { $_.path -ne 'imagemagick/upstream-sbom.cdx.json' -and $_.origin -ne 'microsoft' } | ForEach-Object { [IO.Path]::GetFileName($_.path) })
 & $tar -xf $archive -C (Join-Path $staging 'imagemagick') @selected
 if ($LASTEXITCODE -ne 0) { throw 'Runtime archive extraction failed.' }
 [IO.File]::Copy($sbom, (Join-Path $staging 'imagemagick/upstream-sbom.cdx.json'), $false)
+Expand-StageMicrosoftRuntime -Installer $microsoftInstaller -LicenseDocument $microsoftLicense -StagingRoot $staging
 foreach ($file in $lock.files) { Assert-StageFile (Join-Path $staging $file.path) $file }
 $engine = Join-Path $staging $lock.engine_relative_path
 $signature = Get-AuthenticodeSignature -LiteralPath $engine
@@ -175,7 +261,7 @@ $manifest = [ordered]@{
     schema_version=1;engine_relative_path=$lock.engine_relative_path;engine_version=$lock.engine_version
     upstream_channel=$lock.upstream_channel;upstream_source_revision=$lock.upstream_source_revision
     upstream_workflow_url=$lock.upstream_workflow_url;portable_asset=$lock.portable_asset
-    sbom_asset=$lock.sbom_asset;source_asset=$lock.source_asset;files=$files
+    sbom_asset=$lock.sbom_asset;source_asset=$lock.source_asset;vc_runtime=$lock.vc_runtime;files=$files
 }
 $manifestPath = Join-Path $staging 'runtime-manifest.json'
 [IO.File]::WriteAllText($manifestPath, ($manifest | ConvertTo-Json -Depth 10 -Compress) + "`n", $utf8)

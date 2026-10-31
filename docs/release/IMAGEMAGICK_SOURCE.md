@@ -34,3 +34,10 @@ WinImgNormalizer does not restrict rights granted by the component licenses.
 The exact original portable archive and SBOM are also mirrored as separate release
 assets for reproducible developer staging after upstream Actions artifacts expire.
 No dependency is downloaded while media are processed.
+
+The engine's required Microsoft OpenMP `VCOMP140.DLL` is also included app-locally.
+It is a separate proprietary Microsoft runtime component, not part of the LGPL
+delegate source/relink grant described above. Its original Microsoft runtime
+license and complete plain-text extraction accompany it, and the exact official
+redistributable source/digests/signatures are recorded in the integrity manifest.
+No Microsoft installer runs and no machine-wide runtime is changed.

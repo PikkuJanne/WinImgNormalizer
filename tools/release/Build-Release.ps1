@@ -145,7 +145,7 @@ if ($runtimeManifest.schema_version -ne 1 -or $runtimeManifest.engine_relative_p
     @($runtimeManifest.files).Count -ne $runtimeFiles.Count) {
     throw 'Staged runtime manifest differs from the reviewed runtime lock.'
 }
-foreach ($field in @('portable_asset', 'sbom_asset', 'source_asset')) {
+foreach ($field in @('portable_asset', 'sbom_asset', 'source_asset', 'vc_runtime')) {
     if (($runtimeManifest.$field | ConvertTo-Json -Depth 6 -Compress) -cne ($runtimeLock.$field | ConvertTo-Json -Depth 6 -Compress)) {
         throw 'Staged upstream runtime provenance differs from the reviewed runtime lock.'
     }
@@ -236,7 +236,7 @@ $provenance = [ordered]@{
     asset_filename = $asset; asset_bytes = $assetBytes; asset_sha256 = $assetHash
     package_manifest_sha256 = Get-ReleaseHash $entries['package-manifest.json']
     builder_source_sha256 = Get-ReleaseHash (Get-ReleaseBlob 'tools/release/Build-Release.ps1')
-    bundled_runtime = [ordered]@{version=$runtimeLock.engine_version;upstream_channel=$runtimeLock.upstream_channel;upstream_source_revision=$runtimeLock.upstream_source_revision;upstream_workflow_url=$runtimeLock.upstream_workflow_url;manifest_sha256=Get-ReleaseHash $runtimeManifestBytes;portable_asset=$runtimeLock.portable_asset;sbom_asset=$runtimeLock.sbom_asset;source_asset=$runtimeLock.source_asset}
+    bundled_runtime = [ordered]@{version=$runtimeLock.engine_version;upstream_channel=$runtimeLock.upstream_channel;upstream_source_revision=$runtimeLock.upstream_source_revision;upstream_workflow_url=$runtimeLock.upstream_workflow_url;manifest_sha256=Get-ReleaseHash $runtimeManifestBytes;portable_asset=$runtimeLock.portable_asset;sbom_asset=$runtimeLock.sbom_asset;source_asset=$runtimeLock.source_asset;vc_runtime=$runtimeLock.vc_runtime}
     dependency_assets_included = [bool]$IncludeDependencySource
     reproducibility = 'Exact Git content, ordinal entries, fixed ZIP time/attributes and the NoCompression setting. ZIP framing varies by runtime. Byte equality must be verified for the actual build hosts; no universal ZIP-writer guarantee.'
 }
