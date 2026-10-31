@@ -37,8 +37,10 @@ function Get-TestSourceBindings {
         $files += Join-Path $repositoryRoot 'docs/release/RUNTIME_IMPORTS.json'
         # Bind the dated public-byte witness when present. Legacy deliberately
         # draft fixtures have no witness; published consistency requires it.
-        $publicationFile = Join-Path $repositoryRoot 'docs/release/publication-v1.0.0.json'
-        if (Test-Path -LiteralPath $publicationFile -PathType Leaf) { $files += $publicationFile }
+        foreach ($publicationRelative in @('docs/release/publication-v1.0.0.json','docs/release/publication-v1.0.1.json','docs/release/identity-v1.0.1.json')) {
+            $publicationFile = Join-Path $repositoryRoot $publicationRelative
+            if (Test-Path -LiteralPath $publicationFile -PathType Leaf) { $files += $publicationFile }
+        }
         # Website preparation checks bind the exact public handoff and existing
         # branding bytes; arbitrary nearby docs/assets are not evidence inputs.
         foreach ($websiteFile in @('tools/website/Test-WebsiteHandoff.ps1','docs/website/metadata.json','docs/website/PRODUCT_COPY.md','docs/website/INTEGRATION.md','WinImageNormalizer.png','WinImageNormalizer.ico')) {

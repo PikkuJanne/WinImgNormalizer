@@ -1,0 +1,1733 @@
+{
+  "schema_version": 1,
+  "version": "1.0.1",
+  "record_state": "verified_public_delivery",
+  "observed_at_utc": "2026-10-31T20:01:14.6229881Z",
+  "release_source_tag_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+  "later_publication_metadata_commit": "",
+  "metadata_commit_is_separate_from_release_source": true,
+  "local_windows_coverage": [
+    {
+      "source_commit": "e04180e0bd7c7f3a361052ed0ae5f3c901dcd042",
+      "tested_checkout_commit": "e04180e0bd7c7f3a361052ed0ae5f3c901dcd042",
+      "os": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "shell": "7.6.5",
+      "edition": "Core",
+      "total": 716,
+      "passed": 716,
+      "skipped": 0,
+      "exit": 0,
+      "source_clean": true,
+      "app_sha256": "8ba7e98f221e4b0de19a8e26e89c8fde1d31d867fcfd1761cf5f0f7e02e3bbbb",
+      "engine_version": "7.1.2-35",
+      "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+      "real_codec_extensions": [
+        "jpg",
+        "jpeg",
+        "png",
+        "bmp",
+        "tif",
+        "tiff",
+        "gif",
+        "webp",
+        "heic",
+        "heif"
+      ]
+    },
+    {
+      "source_commit": "e04180e0bd7c7f3a361052ed0ae5f3c901dcd042",
+      "tested_checkout_commit": "e04180e0bd7c7f3a361052ed0ae5f3c901dcd042",
+      "os": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "shell": "5.1.26100.9711",
+      "edition": "Desktop",
+      "total": 716,
+      "passed": 716,
+      "skipped": 0,
+      "exit": 0,
+      "source_clean": true,
+      "app_sha256": "8ba7e98f221e4b0de19a8e26e89c8fde1d31d867fcfd1761cf5f0f7e02e3bbbb",
+      "engine_version": "7.1.2-35",
+      "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+      "real_codec_extensions": [
+        "jpg",
+        "jpeg",
+        "png",
+        "bmp",
+        "tif",
+        "tiff",
+        "gif",
+        "webp",
+        "heic",
+        "heif"
+      ]
+    }
+  ],
+  "local_analysis": [
+    {
+      "source_commit": "e04180e0bd7c7f3a361052ed0ae5f3c901dcd042",
+      "os": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "shell": "7.6.5",
+      "scanned_files": 14,
+      "findings": 0,
+      "exit": 0
+    },
+    {
+      "source_commit": "e04180e0bd7c7f3a361052ed0ae5f3c901dcd042",
+      "os": "Microsoft Windows 11 Pro",
+      "os_build": "26300",
+      "shell": "5.1.26100.9711",
+      "scanned_files": 14,
+      "findings": 0,
+      "exit": 0
+    }
+  ],
+  "source_feature_ci": {
+    "run_id": 41231071132,
+    "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41231071132",
+    "source_commit": "0168069f62d9bc5db3aeb0248b5d6172ae585d0d",
+    "workflow_head_commit": "0168069f62d9bc5db3aeb0248b5d6172ae585d0d",
+    "event": "pull_request",
+    "status": "completed",
+    "conclusion": "success",
+    "passed": true,
+    "jobs": [
+      {
+        "parent_shell": "powershell",
+        "requested_runner": "windows-2025",
+        "passed": true,
+        "steps": [
+          {
+            "name": "Authenticate build-only runtime dependency cache",
+            "passed": true
+          },
+          {
+            "name": "Test exact offline portable bytes as an ordinary disposable account",
+            "passed": true
+          },
+          {
+            "name": "Run mandatory tests with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Run scoped static analysis with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Prove a broken assertion returns failure",
+            "passed": true
+          },
+          {
+            "name": "Prove an unsafe expression returns analysis failure",
+            "passed": true
+          },
+          {
+            "name": "Export allowlisted synthetic evidence",
+            "passed": true
+          },
+          {
+            "name": "Upload sanitized synthetic evidence",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "parent_shell": "pwsh",
+        "requested_runner": "windows-2025",
+        "passed": true,
+        "steps": [
+          {
+            "name": "Authenticate build-only runtime dependency cache",
+            "passed": true
+          },
+          {
+            "name": "Test exact offline portable bytes as an ordinary disposable account",
+            "passed": true
+          },
+          {
+            "name": "Run mandatory tests with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Run scoped static analysis with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Prove a broken assertion returns failure",
+            "passed": true
+          },
+          {
+            "name": "Prove an unsafe expression returns analysis failure",
+            "passed": true
+          },
+          {
+            "name": "Export allowlisted synthetic evidence",
+            "passed": true
+          },
+          {
+            "name": "Upload sanitized synthetic evidence",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
+  "source_packaged_observations": [
+    {
+      "stage": "source",
+      "parent_ci_shell": "powershell",
+      "worker_shell": "5.1.26100.33648",
+      "os": "Microsoft Windows Server 2025 Datacenter",
+      "os_build": "26100",
+      "ordinary_user": true,
+      "outbound_probe_blocked": true,
+      "zip_sha256": "d74336d94edd86b0151f8459a4eabb2770a02b70ecfbdb00a9e8cc9403edd8e4",
+      "app_version": "1.0.1",
+      "engine": {
+        "version": "Version: ImageMagick 7.1.2-35 (Beta) Q16-HDRI x64 39ad88f:20261030 https://imagemagick.org",
+        "source": "bundled",
+        "relative_path": "runtime\\imagemagick\\magick.exe",
+        "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+      },
+      "legacy_engine": {
+        "banner": "Version: ImageMagick 7.1.2-5 Q16-HDRI x64 4a620c2:20251006 https://imagemagick.org",
+        "sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+        "variant": "DLL installer unpacked without installation"
+      },
+      "private_openmp": {
+        "relative_path": "runtime/imagemagick/VCOMP140.DLL",
+        "sha256": "95d4ce4a6802d1e18b5e0e1722cc30ea72ca7e033f83828f05c0b7b993fe7cbf",
+        "loaded_from_private_payload": true,
+        "real_decode_exit": 0
+      },
+      "video_fixture": {
+        "sha256": "0c3b1d3595e27bf610cbeb0653c0e2fcb805305102015c927673a2c00fd9f1b7",
+        "bytes": 895,
+        "decoded_frames": 2
+      },
+      "cases": [
+        {
+          "name": "A1-baseline-refusal",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-real-newer-compatible-PATH",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-BAT-oldPATH",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-BAT-clean-different-CWD",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A6-interactive-BAT-success",
+          "exit": 0,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A6-interactive-BAT-partial",
+          "exit": 2,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A3-unexpected-major-decoy",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-missing-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-empty-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-video-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-corrupt-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-explicit-policy-denial",
+          "exit": 2,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A5-real-packaged-codecs",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        }
+      ],
+      "real_packaged_codecs": [
+        "JPEG",
+        "PNG",
+        "WebP",
+        "GIF",
+        "TIFF",
+        "HEIC",
+        "HEIF"
+      ],
+      "release_state": null
+    },
+    {
+      "stage": "source",
+      "parent_ci_shell": "pwsh",
+      "worker_shell": "5.1.26100.33648",
+      "os": "Microsoft Windows Server 2025 Datacenter",
+      "os_build": "26100",
+      "ordinary_user": true,
+      "outbound_probe_blocked": true,
+      "zip_sha256": "2168b60cf882baf92a6c4c41e8da8cd2a24ab553afa7987406745b4b66a334e5",
+      "app_version": "1.0.1",
+      "engine": {
+        "version": "Version: ImageMagick 7.1.2-35 (Beta) Q16-HDRI x64 39ad88f:20261030 https://imagemagick.org",
+        "source": "bundled",
+        "relative_path": "runtime\\imagemagick\\magick.exe",
+        "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+      },
+      "legacy_engine": {
+        "banner": "Version: ImageMagick 7.1.2-5 Q16-HDRI x64 4a620c2:20251006 https://imagemagick.org",
+        "sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+        "variant": "DLL installer unpacked without installation"
+      },
+      "private_openmp": {
+        "relative_path": "runtime/imagemagick/VCOMP140.DLL",
+        "sha256": "95d4ce4a6802d1e18b5e0e1722cc30ea72ca7e033f83828f05c0b7b993fe7cbf",
+        "loaded_from_private_payload": true,
+        "real_decode_exit": 0
+      },
+      "video_fixture": {
+        "sha256": "0c3b1d3595e27bf610cbeb0653c0e2fcb805305102015c927673a2c00fd9f1b7",
+        "bytes": 895,
+        "decoded_frames": 2
+      },
+      "cases": [
+        {
+          "name": "A1-baseline-refusal",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-real-newer-compatible-PATH",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-BAT-oldPATH",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-BAT-clean-different-CWD",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A6-interactive-BAT-success",
+          "exit": 0,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A6-interactive-BAT-partial",
+          "exit": 2,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A3-unexpected-major-decoy",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-missing-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-empty-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-video-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-corrupt-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-explicit-policy-denial",
+          "exit": 2,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A5-real-packaged-codecs",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        }
+      ],
+      "real_packaged_codecs": [
+        "JPEG",
+        "PNG",
+        "WebP",
+        "GIF",
+        "TIFF",
+        "HEIC",
+        "HEIF"
+      ],
+      "release_state": null
+    }
+  ],
+  "exact_prerelease_candidate_ci": {
+    "run_id": 41233089750,
+    "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41233089750",
+    "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+    "workflow_head_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+    "event": "workflow_dispatch",
+    "status": "completed",
+    "conclusion": "success",
+    "passed": true,
+    "jobs": [
+      {
+        "parent_shell": "powershell",
+        "requested_runner": "windows-2025",
+        "passed": true,
+        "steps": [
+          {
+            "name": "Authenticate build-only runtime dependency cache",
+            "passed": true
+          },
+          {
+            "name": "Test exact offline portable bytes as an ordinary disposable account",
+            "passed": true
+          },
+          {
+            "name": "Run mandatory tests with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Run scoped static analysis with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Prove a broken assertion returns failure",
+            "passed": true
+          },
+          {
+            "name": "Prove an unsafe expression returns analysis failure",
+            "passed": true
+          },
+          {
+            "name": "Export allowlisted synthetic evidence",
+            "passed": true
+          },
+          {
+            "name": "Upload sanitized synthetic evidence",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "parent_shell": "pwsh",
+        "requested_runner": "windows-2025",
+        "passed": true,
+        "steps": [
+          {
+            "name": "Authenticate build-only runtime dependency cache",
+            "passed": true
+          },
+          {
+            "name": "Test exact offline portable bytes as an ordinary disposable account",
+            "passed": true
+          },
+          {
+            "name": "Run mandatory tests with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Run scoped static analysis with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Prove a broken assertion returns failure",
+            "passed": true
+          },
+          {
+            "name": "Prove an unsafe expression returns analysis failure",
+            "passed": true
+          },
+          {
+            "name": "Export allowlisted synthetic evidence",
+            "passed": true
+          },
+          {
+            "name": "Upload sanitized synthetic evidence",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
+  "exact_candidate_observations": [
+    {
+      "stage": "candidate",
+      "parent_ci_shell": "powershell",
+      "worker_shell": "5.1.26100.33648",
+      "os": "Microsoft Windows Server 2025 Datacenter",
+      "os_build": "26100",
+      "ordinary_user": true,
+      "outbound_probe_blocked": true,
+      "zip_sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+      "app_version": "1.0.1",
+      "engine": {
+        "version": "Version: ImageMagick 7.1.2-35 (Beta) Q16-HDRI x64 39ad88f:20261030 https://imagemagick.org",
+        "source": "bundled",
+        "relative_path": "runtime\\imagemagick\\magick.exe",
+        "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+      },
+      "legacy_engine": {
+        "banner": "Version: ImageMagick 7.1.2-5 Q16-HDRI x64 4a620c2:20251006 https://imagemagick.org",
+        "sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+        "variant": "DLL installer unpacked without installation"
+      },
+      "private_openmp": {
+        "relative_path": "runtime/imagemagick/VCOMP140.DLL",
+        "sha256": "95d4ce4a6802d1e18b5e0e1722cc30ea72ca7e033f83828f05c0b7b993fe7cbf",
+        "loaded_from_private_payload": true,
+        "real_decode_exit": 0
+      },
+      "video_fixture": {
+        "sha256": "0c3b1d3595e27bf610cbeb0653c0e2fcb805305102015c927673a2c00fd9f1b7",
+        "bytes": 895,
+        "decoded_frames": 2
+      },
+      "cases": [
+        {
+          "name": "A1-baseline-refusal",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-real-newer-compatible-PATH",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-BAT-oldPATH",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-BAT-clean-different-CWD",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A6-interactive-BAT-success",
+          "exit": 0,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A6-interactive-BAT-partial",
+          "exit": 2,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A3-unexpected-major-decoy",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-missing-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-empty-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-video-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-corrupt-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-explicit-policy-denial",
+          "exit": 2,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A5-real-packaged-codecs",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        }
+      ],
+      "real_packaged_codecs": [
+        "JPEG",
+        "PNG",
+        "WebP",
+        "GIF",
+        "TIFF",
+        "HEIC",
+        "HEIF"
+      ],
+      "release_state": {
+        "tag": "v1.0.1",
+        "prerelease": true,
+        "stable": false,
+        "latest": false,
+        "anonymous_download": true,
+        "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18"
+      }
+    },
+    {
+      "stage": "candidate",
+      "parent_ci_shell": "pwsh",
+      "worker_shell": "5.1.26100.33648",
+      "os": "Microsoft Windows Server 2025 Datacenter",
+      "os_build": "26100",
+      "ordinary_user": true,
+      "outbound_probe_blocked": true,
+      "zip_sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+      "app_version": "1.0.1",
+      "engine": {
+        "version": "Version: ImageMagick 7.1.2-35 (Beta) Q16-HDRI x64 39ad88f:20261030 https://imagemagick.org",
+        "source": "bundled",
+        "relative_path": "runtime\\imagemagick\\magick.exe",
+        "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+      },
+      "legacy_engine": {
+        "banner": "Version: ImageMagick 7.1.2-5 Q16-HDRI x64 4a620c2:20251006 https://imagemagick.org",
+        "sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+        "variant": "DLL installer unpacked without installation"
+      },
+      "private_openmp": {
+        "relative_path": "runtime/imagemagick/VCOMP140.DLL",
+        "sha256": "95d4ce4a6802d1e18b5e0e1722cc30ea72ca7e033f83828f05c0b7b993fe7cbf",
+        "loaded_from_private_payload": true,
+        "real_decode_exit": 0
+      },
+      "video_fixture": {
+        "sha256": "0c3b1d3595e27bf610cbeb0653c0e2fcb805305102015c927673a2c00fd9f1b7",
+        "bytes": 895,
+        "decoded_frames": 2
+      },
+      "cases": [
+        {
+          "name": "A1-baseline-refusal",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-real-newer-compatible-PATH",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-BAT-oldPATH",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-BAT-clean-different-CWD",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A6-interactive-BAT-success",
+          "exit": 0,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A6-interactive-BAT-partial",
+          "exit": 2,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A3-unexpected-major-decoy",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-missing-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-empty-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-video-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-corrupt-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-explicit-policy-denial",
+          "exit": 2,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A5-real-packaged-codecs",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        }
+      ],
+      "real_packaged_codecs": [
+        "JPEG",
+        "PNG",
+        "WebP",
+        "GIF",
+        "TIFF",
+        "HEIC",
+        "HEIF"
+      ],
+      "release_state": {
+        "tag": "v1.0.1",
+        "prerelease": true,
+        "stable": false,
+        "latest": false,
+        "anonymous_download": true,
+        "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18"
+      }
+    }
+  ],
+  "exact_stable_public_ci": {
+    "run_id": 41234831588,
+    "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41234831588",
+    "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+    "workflow_head_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+    "event": "workflow_dispatch",
+    "status": "completed",
+    "conclusion": "success",
+    "passed": true,
+    "jobs": [
+      {
+        "parent_shell": "powershell",
+        "requested_runner": "windows-2025",
+        "passed": true,
+        "steps": [
+          {
+            "name": "Authenticate build-only runtime dependency cache",
+            "passed": true
+          },
+          {
+            "name": "Test exact offline portable bytes as an ordinary disposable account",
+            "passed": true
+          },
+          {
+            "name": "Run mandatory tests with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Run scoped static analysis with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Prove a broken assertion returns failure",
+            "passed": true
+          },
+          {
+            "name": "Prove an unsafe expression returns analysis failure",
+            "passed": true
+          },
+          {
+            "name": "Export allowlisted synthetic evidence",
+            "passed": true
+          },
+          {
+            "name": "Upload sanitized synthetic evidence",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "parent_shell": "pwsh",
+        "requested_runner": "windows-2025",
+        "passed": true,
+        "steps": [
+          {
+            "name": "Authenticate build-only runtime dependency cache",
+            "passed": true
+          },
+          {
+            "name": "Test exact offline portable bytes as an ordinary disposable account",
+            "passed": true
+          },
+          {
+            "name": "Run mandatory tests with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Run scoped static analysis with verified development dependencies",
+            "passed": true
+          },
+          {
+            "name": "Prove a broken assertion returns failure",
+            "passed": true
+          },
+          {
+            "name": "Prove an unsafe expression returns analysis failure",
+            "passed": true
+          },
+          {
+            "name": "Export allowlisted synthetic evidence",
+            "passed": true
+          },
+          {
+            "name": "Upload sanitized synthetic evidence",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
+  "exact_stable_observations": [
+    {
+      "stage": "stable",
+      "parent_ci_shell": "powershell",
+      "worker_shell": "5.1.26100.33648",
+      "os": "Microsoft Windows Server 2025 Datacenter",
+      "os_build": "26100",
+      "ordinary_user": true,
+      "outbound_probe_blocked": true,
+      "zip_sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+      "app_version": "1.0.1",
+      "engine": {
+        "version": "Version: ImageMagick 7.1.2-35 (Beta) Q16-HDRI x64 39ad88f:20261030 https://imagemagick.org",
+        "source": "bundled",
+        "relative_path": "runtime\\imagemagick\\magick.exe",
+        "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+      },
+      "legacy_engine": {
+        "banner": "Version: ImageMagick 7.1.2-5 Q16-HDRI x64 4a620c2:20251006 https://imagemagick.org",
+        "sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+        "variant": "DLL installer unpacked without installation"
+      },
+      "private_openmp": {
+        "relative_path": "runtime/imagemagick/VCOMP140.DLL",
+        "sha256": "95d4ce4a6802d1e18b5e0e1722cc30ea72ca7e033f83828f05c0b7b993fe7cbf",
+        "loaded_from_private_payload": true,
+        "real_decode_exit": 0
+      },
+      "video_fixture": {
+        "sha256": "0c3b1d3595e27bf610cbeb0653c0e2fcb805305102015c927673a2c00fd9f1b7",
+        "bytes": 895,
+        "decoded_frames": 2
+      },
+      "cases": [
+        {
+          "name": "A1-baseline-refusal",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-real-newer-compatible-PATH",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-BAT-oldPATH",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-BAT-clean-different-CWD",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A6-interactive-BAT-success",
+          "exit": 0,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A6-interactive-BAT-partial",
+          "exit": 2,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A3-unexpected-major-decoy",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-missing-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-empty-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-video-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-corrupt-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-explicit-policy-denial",
+          "exit": 2,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A5-real-packaged-codecs",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        }
+      ],
+      "real_packaged_codecs": [
+        "JPEG",
+        "PNG",
+        "WebP",
+        "GIF",
+        "TIFF",
+        "HEIC",
+        "HEIF"
+      ],
+      "release_state": {
+        "tag": "v1.0.1",
+        "prerelease": false,
+        "stable": true,
+        "latest": true,
+        "anonymous_download": true,
+        "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18"
+      }
+    },
+    {
+      "stage": "stable",
+      "parent_ci_shell": "pwsh",
+      "worker_shell": "5.1.26100.33648",
+      "os": "Microsoft Windows Server 2025 Datacenter",
+      "os_build": "26100",
+      "ordinary_user": true,
+      "outbound_probe_blocked": true,
+      "zip_sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+      "app_version": "1.0.1",
+      "engine": {
+        "version": "Version: ImageMagick 7.1.2-35 (Beta) Q16-HDRI x64 39ad88f:20261030 https://imagemagick.org",
+        "source": "bundled",
+        "relative_path": "runtime\\imagemagick\\magick.exe",
+        "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+      },
+      "legacy_engine": {
+        "banner": "Version: ImageMagick 7.1.2-5 Q16-HDRI x64 4a620c2:20251006 https://imagemagick.org",
+        "sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+        "variant": "DLL installer unpacked without installation"
+      },
+      "private_openmp": {
+        "relative_path": "runtime/imagemagick/VCOMP140.DLL",
+        "sha256": "95d4ce4a6802d1e18b5e0e1722cc30ea72ca7e033f83828f05c0b7b993fe7cbf",
+        "loaded_from_private_payload": true,
+        "real_decode_exit": 0
+      },
+      "video_fixture": {
+        "sha256": "0c3b1d3595e27bf610cbeb0653c0e2fcb805305102015c927673a2c00fd9f1b7",
+        "bytes": 895,
+        "decoded_frames": 2
+      },
+      "cases": [
+        {
+          "name": "A1-baseline-refusal",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps51",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-clean-ps7",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-real-newer-compatible-PATH",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A1-BAT-oldPATH",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A2-BAT-clean-different-CWD",
+          "exit": 0,
+          "entry": "exact packaged BAT",
+          "private_console_output": false
+        },
+        {
+          "name": "A6-interactive-BAT-success",
+          "exit": 0,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A6-interactive-BAT-partial",
+          "exit": 2,
+          "entry": "exact packaged BAT in private real console",
+          "private_console_output": true
+        },
+        {
+          "name": "A3-unexpected-major-decoy",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-missing-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-empty-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A4-video-without-engine",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-corrupt-packaged-engine",
+          "exit": 1,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A3-explicit-policy-denial",
+          "exit": 2,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        },
+        {
+          "name": "A5-real-packaged-codecs",
+          "exit": 0,
+          "entry": "exact packaged PS1 -File",
+          "private_console_output": false
+        }
+      ],
+      "real_packaged_codecs": [
+        "JPEG",
+        "PNG",
+        "WebP",
+        "GIF",
+        "TIFF",
+        "HEIC",
+        "HEIF"
+      ],
+      "release_state": {
+        "tag": "v1.0.1",
+        "prerelease": false,
+        "stable": true,
+        "latest": true,
+        "anonymous_download": true,
+        "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18"
+      }
+    }
+  ],
+  "later_metadata_ci": null,
+  "artifact": {
+    "filename": "WinImgNormalizer-1.0.1-portable.zip",
+    "bytes": 33652800,
+    "sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+    "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+    "app_sha256": "8ba7e98f221e4b0de19a8e26e89c8fde1d31d867fcfd1761cf5f0f7e02e3bbbb",
+    "bundled_engine": "7.1.2-35",
+    "upstream_channel": "Beta",
+    "runtime_manifest_sha256": "5efa916c9ee643e94cac53dcce704ab9ad17a0cbce16e430350d03998c1d28b9",
+    "provenance_sha256": "cb7a7813c4112a3fa5378a1b2b5803d23292817ea5e6c520a783a9cf96513539"
+  },
+  "publication": {
+    "release_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.1",
+    "zip_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/WinImgNormalizer-1.0.1-portable.zip",
+    "tag": "v1.0.1",
+    "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+    "sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+    "stable": true,
+    "latest": true,
+    "anonymous_downloaded_assets": 6,
+    "observed_at": "2026-10-31T19:35:44.4719315Z",
+    "assets": [
+      {
+        "name": "WinImgNormalizer-1.0.1-portable.zip",
+        "bytes": 33652800,
+        "sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/WinImgNormalizer-1.0.1-portable.zip"
+      },
+      {
+        "name": "build-provenance.json",
+        "bytes": 4553,
+        "sha256": "cb7a7813c4112a3fa5378a1b2b5803d23292817ea5e6c520a783a9cf96513539",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/build-provenance.json"
+      },
+      {
+        "name": "SHA256SUMS.txt",
+        "bytes": 518,
+        "sha256": "aaf7a98fc4d40f0c15e3b991f0efcb610410a7c8d0bf323b48ad44b363e822f7",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/SHA256SUMS.txt"
+      },
+      {
+        "name": "ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.7z",
+        "bytes": 12115553,
+        "sha256": "e5c9885121240757089b2985aa1217810bd159b1b2e368826d00c5c22f460e69",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.7z"
+      },
+      {
+        "name": "ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.cdx.json",
+        "bytes": 30681,
+        "sha256": "e96ac6d9a2c66089a0b33fd2ae2d0c19c8f49a93f8f2429cb7b697b64743060e",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/ImageMagick-7.1.2-35-portable-Q16-HDRI-x64.cdx.json"
+      },
+      {
+        "name": "ImageMagick-7.1.2-35-Windows.7z",
+        "bytes": 769007903,
+        "sha256": "63b325cafef55e6ab1268f898cff9e4fe2ce91bcd77f0a00df7460888f8a7643",
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/ImageMagick-7.1.2-35-Windows.7z"
+      }
+    ]
+  },
+  "windows10_executed": false,
+  "platform_limit": "Windows 10 itself was not executed. Windows 11 Pro build26300 and Windows Server2025 are recorded separately.",
+  "presentation": "Original ASCII wordmark, numbered input/engine/process/result sections, adaptive light/dark colours, plain NO_COLOR/redirected output, actual progress/counts and complete Unicode output/report paths. Interactive BAT pauses; redirected runs finish unattended.",
+  "scope": "Synthetic media only. No owner testing, system ImageMagick installation changes or live website deployment. This script only reads existing evidence and public APIs.",
+  "source_feature_full_suite_observations": [
+    {
+      "stage": "source",
+      "parent_ci_shell": "powershell",
+      "normal_mandatory": {
+        "source_commit": "232ac83f203f78b097de2f350603b17297a9ec57",
+        "tested_checkout_commit": "232ac83f203f78b097de2f350603b17297a9ec57",
+        "os": "Microsoft Windows Server 2025 Datacenter",
+        "os_build": "26100",
+        "shell": "5.1.26100.33648",
+        "edition": "Desktop",
+        "total": 716,
+        "passed": 716,
+        "skipped": 0,
+        "exit": 0,
+        "source_clean": true,
+        "app_sha256": "08e1b485549e5e3d37bb2ab6c8d385d4b48426f2db18815695cfb675ad77ac7a",
+        "engine_version": "7.1.2-35",
+        "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "real_codec_extensions": [
+          "jpg",
+          "jpeg",
+          "png",
+          "bmp",
+          "tif",
+          "tiff",
+          "gif",
+          "webp",
+          "heic",
+          "heif"
+        ]
+      },
+      "normal_analyzer": {
+        "version": "1.25.0",
+        "scanned_files": 14,
+        "findings": 0,
+        "exit": 0
+      },
+      "assertion_control": {
+        "total": 717,
+        "passed": 716,
+        "failed": 1,
+        "skipped": 0,
+        "exit": 1,
+        "intended_failure_verified": true
+      },
+      "analyzer_control": {
+        "scanned_files": 14,
+        "scoped_findings": 0,
+        "control_findings": 1,
+        "exit": 1,
+        "intended_failure_verified": true
+      }
+    },
+    {
+      "stage": "source",
+      "parent_ci_shell": "pwsh",
+      "normal_mandatory": {
+        "source_commit": "232ac83f203f78b097de2f350603b17297a9ec57",
+        "tested_checkout_commit": "232ac83f203f78b097de2f350603b17297a9ec57",
+        "os": "Microsoft Windows Server 2025 Datacenter",
+        "os_build": "26100",
+        "shell": "7.6.7",
+        "edition": "Core",
+        "total": 716,
+        "passed": 716,
+        "skipped": 0,
+        "exit": 0,
+        "source_clean": true,
+        "app_sha256": "08e1b485549e5e3d37bb2ab6c8d385d4b48426f2db18815695cfb675ad77ac7a",
+        "engine_version": "7.1.2-35",
+        "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "real_codec_extensions": [
+          "jpg",
+          "jpeg",
+          "png",
+          "bmp",
+          "tif",
+          "tiff",
+          "gif",
+          "webp",
+          "heic",
+          "heif"
+        ]
+      },
+      "normal_analyzer": {
+        "version": "1.25.0",
+        "scanned_files": 14,
+        "findings": 0,
+        "exit": 0
+      },
+      "assertion_control": {
+        "total": 717,
+        "passed": 716,
+        "failed": 1,
+        "skipped": 0,
+        "exit": 1,
+        "intended_failure_verified": true
+      },
+      "analyzer_control": {
+        "scanned_files": 14,
+        "scoped_findings": 0,
+        "control_findings": 1,
+        "exit": 1,
+        "intended_failure_verified": true
+      }
+    }
+  ],
+  "exact_candidate_full_suite_observations": [
+    {
+      "stage": "candidate",
+      "parent_ci_shell": "powershell",
+      "normal_mandatory": {
+        "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+        "tested_checkout_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+        "os": "Microsoft Windows Server 2025 Datacenter",
+        "os_build": "26100",
+        "shell": "5.1.26100.33648",
+        "edition": "Desktop",
+        "total": 716,
+        "passed": 716,
+        "skipped": 0,
+        "exit": 0,
+        "source_clean": true,
+        "app_sha256": "08e1b485549e5e3d37bb2ab6c8d385d4b48426f2db18815695cfb675ad77ac7a",
+        "engine_version": "7.1.2-35",
+        "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "real_codec_extensions": [
+          "jpg",
+          "jpeg",
+          "png",
+          "bmp",
+          "tif",
+          "tiff",
+          "gif",
+          "webp",
+          "heic",
+          "heif"
+        ]
+      },
+      "normal_analyzer": {
+        "version": "1.25.0",
+        "scanned_files": 14,
+        "findings": 0,
+        "exit": 0
+      },
+      "assertion_control": {
+        "total": 717,
+        "passed": 716,
+        "failed": 1,
+        "skipped": 0,
+        "exit": 1,
+        "intended_failure_verified": true
+      },
+      "analyzer_control": {
+        "scanned_files": 14,
+        "scoped_findings": 0,
+        "control_findings": 1,
+        "exit": 1,
+        "intended_failure_verified": true
+      }
+    },
+    {
+      "stage": "candidate",
+      "parent_ci_shell": "pwsh",
+      "normal_mandatory": {
+        "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+        "tested_checkout_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+        "os": "Microsoft Windows Server 2025 Datacenter",
+        "os_build": "26100",
+        "shell": "7.6.7",
+        "edition": "Core",
+        "total": 716,
+        "passed": 716,
+        "skipped": 0,
+        "exit": 0,
+        "source_clean": true,
+        "app_sha256": "08e1b485549e5e3d37bb2ab6c8d385d4b48426f2db18815695cfb675ad77ac7a",
+        "engine_version": "7.1.2-35",
+        "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "real_codec_extensions": [
+          "jpg",
+          "jpeg",
+          "png",
+          "bmp",
+          "tif",
+          "tiff",
+          "gif",
+          "webp",
+          "heic",
+          "heif"
+        ]
+      },
+      "normal_analyzer": {
+        "version": "1.25.0",
+        "scanned_files": 14,
+        "findings": 0,
+        "exit": 0
+      },
+      "assertion_control": {
+        "total": 717,
+        "passed": 716,
+        "failed": 1,
+        "skipped": 0,
+        "exit": 1,
+        "intended_failure_verified": true
+      },
+      "analyzer_control": {
+        "scanned_files": 14,
+        "scoped_findings": 0,
+        "control_findings": 1,
+        "exit": 1,
+        "intended_failure_verified": true
+      }
+    }
+  ],
+  "exact_stable_full_suite_observations": [
+    {
+      "stage": "stable",
+      "parent_ci_shell": "powershell",
+      "normal_mandatory": {
+        "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+        "tested_checkout_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+        "os": "Microsoft Windows Server 2025 Datacenter",
+        "os_build": "26100",
+        "shell": "5.1.26100.33648",
+        "edition": "Desktop",
+        "total": 716,
+        "passed": 716,
+        "skipped": 0,
+        "exit": 0,
+        "source_clean": true,
+        "app_sha256": "08e1b485549e5e3d37bb2ab6c8d385d4b48426f2db18815695cfb675ad77ac7a",
+        "engine_version": "7.1.2-35",
+        "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "real_codec_extensions": [
+          "jpg",
+          "jpeg",
+          "png",
+          "bmp",
+          "tif",
+          "tiff",
+          "gif",
+          "webp",
+          "heic",
+          "heif"
+        ]
+      },
+      "normal_analyzer": {
+        "version": "1.25.0",
+        "scanned_files": 14,
+        "findings": 0,
+        "exit": 0
+      },
+      "assertion_control": {
+        "total": 717,
+        "passed": 716,
+        "failed": 1,
+        "skipped": 0,
+        "exit": 1,
+        "intended_failure_verified": true
+      },
+      "analyzer_control": {
+        "scanned_files": 14,
+        "scoped_findings": 0,
+        "control_findings": 1,
+        "exit": 1,
+        "intended_failure_verified": true
+      }
+    },
+    {
+      "stage": "stable",
+      "parent_ci_shell": "pwsh",
+      "normal_mandatory": {
+        "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+        "tested_checkout_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+        "os": "Microsoft Windows Server 2025 Datacenter",
+        "os_build": "26100",
+        "shell": "7.6.7",
+        "edition": "Core",
+        "total": 716,
+        "passed": 716,
+        "skipped": 0,
+        "exit": 0,
+        "source_clean": true,
+        "app_sha256": "08e1b485549e5e3d37bb2ab6c8d385d4b48426f2db18815695cfb675ad77ac7a",
+        "engine_version": "7.1.2-35",
+        "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "real_codec_extensions": [
+          "jpg",
+          "jpeg",
+          "png",
+          "bmp",
+          "tif",
+          "tiff",
+          "gif",
+          "webp",
+          "heic",
+          "heif"
+        ]
+      },
+      "normal_analyzer": {
+        "version": "1.25.0",
+        "scanned_files": 14,
+        "findings": 0,
+        "exit": 0
+      },
+      "assertion_control": {
+        "total": 717,
+        "passed": 716,
+        "failed": 1,
+        "skipped": 0,
+        "exit": 1,
+        "intended_failure_verified": true
+      },
+      "analyzer_control": {
+        "scanned_files": 14,
+        "scoped_findings": 0,
+        "control_findings": 1,
+        "exit": 1,
+        "intended_failure_verified": true
+      }
+    }
+  ],
+  "maintained_local_checkout": {
+    "scope": "Maintained local checkout verification; synthetic media only",
+    "passed": true,
+    "source_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+    "application_version": "1.0.1",
+    "os": "Microsoft Windows 11 Pro",
+    "os_build": "26300",
+    "runtime_manifest_sha256": "5efa916c9ee643e94cac53dcce704ab9ad17a0cbce16e430350d03998c1d28b9",
+    "engine_version": "7.1.2-35 Beta Q16-HDRI x64",
+    "engine_source": "bundled",
+    "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+    "cases": [
+      {
+        "name": "actual maintained BAT absent source",
+        "exit": 1,
+        "entry": null,
+        "shell": null,
+        "edition": null,
+        "jpegs": null,
+        "video_bytes": null,
+        "video_sha256": null,
+        "originals_unchanged": null,
+        "source_validation_before_destination": true,
+        "no_pause": true,
+        "version_visible": true
+      },
+      {
+        "name": "ps51-default",
+        "exit": 0,
+        "entry": "actual public Command with owned OutputParent seam",
+        "shell": "5.1.26100.9711",
+        "edition": "Desktop",
+        "jpegs": 2,
+        "video_bytes": 895,
+        "video_sha256": "0c3b1d3595e27bf610cbeb0653c0e2fcb805305102015c927673a2c00fd9f1b7",
+        "originals_unchanged": true,
+        "source_validation_before_destination": null,
+        "no_pause": null,
+        "version_visible": null
+      },
+      {
+        "name": "ps7-explicit-cap",
+        "exit": 0,
+        "entry": "actual public Command with owned OutputParent seam",
+        "shell": "7.6.5",
+        "edition": "Core",
+        "jpegs": 2,
+        "video_bytes": 895,
+        "video_sha256": "0c3b1d3595e27bf610cbeb0653c0e2fcb805305102015c927673a2c00fd9f1b7",
+        "originals_unchanged": true,
+        "source_validation_before_destination": null,
+        "no_pause": null,
+        "version_visible": null
+      }
+    ],
+    "full_jpeg_decode": {
+      "files": 4,
+      "format": "JPEG",
+      "width": 16,
+      "height": 12,
+      "frames": 1,
+      "exit": 0
+    },
+    "originals_unchanged": true,
+    "path_unchanged": true,
+    "worktree_clean": true,
+    "network_denied": false,
+    "actual_local_bat_valid_media_success_claimed": false,
+    "qualification": "Maintained-local smoke; no disposable-account/offline or valid-media actual-BAT claim. Actual BAT uses an absent source; positive tests bind the public Command output seam to ignored scratch.",
+    "stale_zero_index_lock_preserved": true
+  }
+}

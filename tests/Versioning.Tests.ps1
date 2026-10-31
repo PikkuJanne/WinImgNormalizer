@@ -32,6 +32,9 @@ BeforeAll {
     $artifactPaths = @('WinImgNormalizer.ps1', 'tools/release/Update-ReleaseMetadata.ps1', 'docs/release/NOTES.md', 'CHANGELOG.md', 'release-metadata.json')
     $proofRelative = 'docs/release/publication-v1.0.0.json'
     if ([IO.File]::Exists((Join-Path $repository $proofRelative))) { $artifactPaths += $proofRelative }
+    foreach ($liveRecord in @('docs/release/publication-v1.0.1.json','docs/release/identity-v1.0.1.json')) {
+        if ([IO.File]::Exists((Join-Path $repository $liveRecord))) { $artifactPaths += $liveRecord }
+    }
     function Get-VersionBindings {
         foreach ($relative in $artifactPaths + @('tests/Versioning.Tests.ps1', 'LICENSE')) {
             [pscustomobject]@{ Path = $relative; Sha256 = (Get-FileHash -LiteralPath (Join-Path $repository $relative)).Hash.ToLowerInvariant() }
@@ -219,8 +222,11 @@ Describe 'M4-T01 one application version and witnessed release artifacts' {
             foreach ($field in @('tag', 'release_date', 'release_url', 'asset_filename', 'asset_bytes', 'asset_sha256', 'download_url')) { $metadata.$field | Should -BeNullOrEmpty }
         } else {
             $metadata.tag | Should -BeExactly ('v' + $version)
-            $metadata.asset_sha256 | Should -BeExactly '251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d'
-            [IO.File]::Exists((Join-Path $repository $proofRelative)) | Should -BeTrue
+            $liveProofPath = Join-Path $repository ('docs/release/publication-v' + $version + '.json')
+            [IO.File]::Exists($liveProofPath) | Should -BeTrue
+            $liveProof = Read-VersionJson $liveProofPath
+            $metadata.asset_sha256 | Should -BeExactly $liveProof.assets[0].sha256
+            $metadata.asset_bytes | Should -Be $liveProof.assets[0].bytes
         }
         [IO.File]::ReadAllText((Join-Path $repository 'CHANGELOG.md')) | Should -Match ([regex]::Escape($version))
     }

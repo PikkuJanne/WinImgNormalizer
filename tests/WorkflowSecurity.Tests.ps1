@@ -25,6 +25,7 @@ BeforeAll {
 
     function Get-WorkflowPolicyViolations {
         param([string]$Text)
+        $Text = $Text.Replace("`r`n", "`n")
         $violations = @()
         # This sole build-time cache acquisition may read the repository's draft
         # dependency assets. Its ephemeral contents-read token is never inherited
@@ -128,8 +129,24 @@ BeforeAll {
             $Text -notmatch 'Invoke-Tests\.ps1 -DeliberateFailure' -or
             $Text -notmatch 'Invoke-StaticAnalysis\.ps1 -DeliberateFailure' -or
             $Text -notmatch 'Export-TestEvidence\.ps1[^\r\n]*-OutputDirectory \.scratch/ci-export' -or
-            $Text -notmatch 'Invoke-HotfixAcceptance\.ps1 -Build -CandidateTag \$env:WINIMG_CANDIDATE_TAG -DownloadDependencies -DisposableRunner') {
+            $Text -notmatch 'Invoke-HotfixAcceptance\.ps1 @acceptanceArguments') {
             $violations += 'Mandatory corpus, static analysis, controls and sanitized export are required.'
+        }
+        $expectedAcceptance = @'
+      - name: Test exact offline portable bytes as an ordinary disposable account
+        run: |
+          $acceptanceArguments = @{ DownloadDependencies=$true; DisposableRunner=$true; ResultDirectory='.scratch/ci-hotfix' }
+          if ($env:WINIMG_CANDIDATE_TAG) { $acceptanceArguments.CandidateTag=$env:WINIMG_CANDIDATE_TAG }
+          else {
+            $canonical = [IO.File]::ReadAllText((Join-Path (Get-Location) 'release-metadata.json')) | ConvertFrom-Json
+            if ($canonical.release_state -eq 'published') { $acceptanceArguments.PublicTag=$canonical.tag }
+            else { $acceptanceArguments.Build=$true }
+          }
+          ./tests/Invoke-HotfixAcceptance.ps1 @acceptanceArguments
+'@
+        $expectedAcceptance = $expectedAcceptance.Replace("`r`n", "`n")
+        if (@([regex]::Matches($Text, [regex]::Escape($expectedAcceptance))).Count -ne 1) {
+            $violations += 'Packaged acceptance must prefer explicit candidate, then published PublicTag, then unreleased Build.'
         }
         $cachePosition = $Text.IndexOf('      - name: Authenticate build-only runtime dependency cache', [StringComparison]::Ordinal)
         $acceptancePosition = $Text.IndexOf('      - name: Test exact offline portable bytes as an ordinary disposable account', [StringComparison]::Ordinal)
@@ -163,6 +180,10 @@ BeforeAll {
 Describe 'T066 workflow least privilege, reviewed actions and synthetic evidence' {
     It 'accepts the actual workflow with both full Windows hosts and real failure controls' {
         @(Get-WorkflowPolicyViolations $workflow).Count | Should -Be 0
+    }
+
+    It 'accepts the same reviewed workflow with Windows line endings' {
+        @(Get-WorkflowPolicyViolations ($workflow.Replace("`n", "`r`n"))).Count | Should -Be 0
     }
 
     It 'rejects root contents write permission' {
@@ -214,6 +235,45 @@ Describe 'T066 workflow least privilege, reviewed actions and synthetic evidence
     It 'rejects dispatch expressions interpolated into executable shell text' {
         $mutation = $workflow.Replace('          ./tests/Invoke-Tests.ps1 -DownloadDependencies', '          Write-Host "${{ inputs.candidate_tag }}"' + "`n          ./tests/Invoke-Tests.ps1 -DownloadDependencies")
         Assert-WorkflowMutationRejected $mutation 'Dispatch input must enter scripts only through the validated environment value.'
+    }
+
+    It 'rejects <Mode> routing that could rebuild published bytes or ignore an explicit candidate' -ForEach @(
+        @{Mode='ignored explicit candidate';Before='if ($env:WINIMG_CANDIDATE_TAG) { $acceptanceArguments.CandidateTag=$env:WINIMG_CANDIDATE_TAG }';After='if ($false) { $acceptanceArguments.CandidateTag=$env:WINIMG_CANDIDATE_TAG }'},
+        @{Mode='published rebuild';Before='if ($canonical.release_state -eq ''published'') { $acceptanceArguments.PublicTag=$canonical.tag }';After='if ($canonical.release_state -eq ''published'') { $acceptanceArguments.Build=$true }'},
+        @{Mode='unreleased public fallback';Before='else { $acceptanceArguments.Build=$true }';After='else { $acceptanceArguments.PublicTag=''v1.0.0'' }'}
+    ) {
+        Assert-WorkflowMutationRejected ($workflow.Replace($Before,$After)) 'Packaged acceptance must prefer explicit candidate, then published PublicTag, then unreleased Build.'
+    }
+
+    It 'executes the actual workflow argument selection for <Mode> without processing or network access' -ForEach @(
+        @{Mode='candidate while unreleased';State='unreleased';Candidate='v1.0.1';Expected='CandidateTag'},
+        @{Mode='candidate after publication';State='published';Candidate='v1.0.1';Expected='CandidateTag'},
+        @{Mode='canonical public download';State='published';Candidate='';Expected='PublicTag'},
+        @{Mode='unreleased build';State='unreleased';Candidate='';Expected='Build'}
+    ) {
+        $route = [regex]::Match($workflow, '(?m)^      - name: Test exact offline portable bytes as an ordinary disposable account\n        run: \|\n(?<code>(?:^ {10}[^\r\n]*\n)+)')
+        $route.Success | Should -BeTrue
+        $code = $route.Groups['code'].Value -replace '(?m)^ {10}', ''
+        $code = $code.Replace('./tests/Invoke-HotfixAcceptance.ps1','Invoke-HotfixArgumentFixture')
+        function Invoke-HotfixArgumentFixture {
+            param([switch]$Build,[string]$CandidateTag,[string]$PublicTag,[switch]$DownloadDependencies,[switch]$DisposableRunner,[string]$ResultDirectory)
+            return [pscustomobject]@{Keys=@($PSBoundParameters.Keys);Build=[bool]$Build;CandidateTag=$CandidateTag;PublicTag=$PublicTag;DownloadDependencies=[bool]$DownloadDependencies;DisposableRunner=[bool]$DisposableRunner;ResultDirectory=$ResultDirectory}
+        }
+        $directory = Join-Path $repository ('.scratch/workflow-routing-' + [guid]::NewGuid().ToString('N'))
+        [IO.Directory]::CreateDirectory($directory) | Out-Null
+        [IO.File]::WriteAllText((Join-Path $directory 'release-metadata.json'), ('{"release_state":"'+$State+'","tag":"v1.0.1"}'), [Text.UTF8Encoding]::new($false))
+        $oldCandidate = $env:WINIMG_CANDIDATE_TAG
+        Push-Location -LiteralPath $directory
+        try {
+            $env:WINIMG_CANDIDATE_TAG = $Candidate
+            $observed = & ([scriptblock]::Create($code))
+        } finally { Pop-Location; $env:WINIMG_CANDIDATE_TAG=$oldCandidate }
+        $observed.Keys | Should -Contain $Expected
+        foreach ($other in @('CandidateTag','PublicTag','Build') | Where-Object {$_ -ne $Expected}) { $observed.Keys | Should -Not -Contain $other }
+        if ($Expected -eq 'Build') { $observed.Build | Should -BeTrue } else { $observed.$Expected | Should -Be 'v1.0.1' }
+        $observed.DownloadDependencies | Should -BeTrue
+        $observed.DisposableRunner | Should -BeTrue
+        $observed.ResultDirectory | Should -Be '.scratch/ci-hotfix'
     }
 
     It 'rejects a permission YAML alias hiding the effective grant' {

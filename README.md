@@ -6,12 +6,17 @@ folder under Pictures, makes JPEG derivatives and copies supported videos unchan
 Your source files remain untouched. JPEGs are lossy derivatives: keep the originals
 and a separate backup.
 
-**Version 1.0.1 is unreleased and unsigned.** This patch makes the standard
-portable ZIP self-contained. No separate ImageMagick installation required for the portable ZIP.
-Public release details will be recorded here after the tested bytes are published.
-See the [changelog](CHANGELOG.md), [release metadata](release-metadata.json)
-and [package guide](docs/release/GETTING_STARTED.md).
-
+**Version 1.0.1 is published and unsigned.**
+[Download the portable ZIP](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/WinImgNormalizer-1.0.1-portable.zip)
+or view the [release, checksums and provenance](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.1).
+The ZIP is 33652800 bytes; SHA-256:
+`0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5`.
+Source and tag commit: `25cd8da78595abd256d96b2ff7d117e2b3a02c18`.
+No separate ImageMagick installation required for the portable ZIP. Its pinned
+upstream engine is ImageMagick 7.1.2-35 Beta Q16-HDRI with patched HEIF support.
+Build records retain their preparation-time state; these exact bytes were tested
+and promoted unchanged. See [release metadata](release-metadata.json), the
+[changelog](CHANGELOG.md) and [package guide](docs/release/GETTING_STARTED.md).
 ## Requirements
 
 - 64-bit Windows 10 or 11, with Windows PowerShell 5.1 or PowerShell 7.

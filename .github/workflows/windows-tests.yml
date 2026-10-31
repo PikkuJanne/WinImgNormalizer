@@ -42,7 +42,14 @@ jobs:
           if ($env:WINIMG_CANDIDATE_TAG) { ./tests/Get-HotfixCandidate.ps1 -Tag $env:WINIMG_CANDIDATE_TAG }
       - name: Test exact offline portable bytes as an ordinary disposable account
         run: |
-          ./tests/Invoke-HotfixAcceptance.ps1 -Build -CandidateTag $env:WINIMG_CANDIDATE_TAG -DownloadDependencies -DisposableRunner -ResultDirectory .scratch/ci-hotfix
+          $acceptanceArguments = @{ DownloadDependencies=$true; DisposableRunner=$true; ResultDirectory='.scratch/ci-hotfix' }
+          if ($env:WINIMG_CANDIDATE_TAG) { $acceptanceArguments.CandidateTag=$env:WINIMG_CANDIDATE_TAG }
+          else {
+            $canonical = [IO.File]::ReadAllText((Join-Path (Get-Location) 'release-metadata.json')) | ConvertFrom-Json
+            if ($canonical.release_state -eq 'published') { $acceptanceArguments.PublicTag=$canonical.tag }
+            else { $acceptanceArguments.Build=$true }
+          }
+          ./tests/Invoke-HotfixAcceptance.ps1 @acceptanceArguments
       - name: Run mandatory tests with verified development dependencies
         run: |
           ./tests/Invoke-Tests.ps1 -DownloadDependencies -ResultDirectory .scratch/ci-tests
