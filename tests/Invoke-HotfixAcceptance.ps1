@@ -14,11 +14,31 @@ param(
     [string]$PublicTag
 )
 $ErrorActionPreference = 'Stop'
+# A PS7 parent can pass its incompatible module directories to powershell.exe.
+# Reset only this worker process before its first module-backed cmdlet executes.
+function Initialize-HotfixWorkerModulePath {
+    $profileRoot = [Environment]::GetFolderPath('UserProfile')
+    $programFilesRoot = [Environment]::GetFolderPath('ProgramFiles')
+    $windowsRoot = [Environment]::GetFolderPath('Windows')
+    $trustedPaths = @(
+        [IO.Path]::Combine($PSHOME, 'Modules'),
+        [IO.Path]::Combine($programFilesRoot, 'WindowsPowerShell\Modules'),
+        [IO.Path]::Combine($windowsRoot, 'System32\WindowsPowerShell\v1.0\Modules'),
+        [IO.Path]::Combine($profileRoot, 'Documents\WindowsPowerShell\Modules')
+    )
+    [Environment]::SetEnvironmentVariable('PSModulePath', [string]::Join(';', $trustedPaths), 'Process')
+}
+if ($Worker) { Initialize-HotfixWorkerModulePath }
 $repository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $utf8 = [Text.UTF8Encoding]::new($false)
 function Assert-Hotfix([bool]$Condition, [string]$Message) { if (-not $Condition) { throw $Message } }
 function ConvertTo-HotfixArgument([string]$Value) {
     return '"' + [regex]::Replace([regex]::Replace($Value, '(\\*)"', '$1$1\"'), '(\\+)$', '$1$1') + '"'
+}
+function Get-HotfixBoundedConsoleDiagnostic([string]$Text) {
+    $safe = [regex]::Replace($Text, '[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', ' ')
+    if ($safe.Length -le 1400) { return $safe }
+    return $safe.Substring(0, 300) + "`n[console capture bounded]`n" + $safe.Substring($safe.Length - 1000)
 }
 function Invoke-HotfixProcess([string]$Executable, [string[]]$Tokens, [string]$Work, [hashtable]$Environment, [int]$Timeout = 120000, [switch]$InteractiveConsole) {
     $start = New-Object Diagnostics.ProcessStartInfo
@@ -137,6 +157,42 @@ function Test-HotfixPrivateOpenMp([string]$EnginePath, [string]$PackageRoot, [st
         $process.Dispose()
     }
 }
+function Test-HotfixLegacyModuleEnvironment([string]$LegacyShell, [string]$ModernShell, [string]$Work) {
+    $driver = Join-Path $Work 'verify-legacy-module-environment.ps1'
+    $record = Join-Path $Work 'legacy-module-environment.json'
+    $initializer = (Get-Command Initialize-HotfixWorkerModulePath).ScriptBlock.ToString()
+    $text = @'
+param([string]$Record)
+$ErrorActionPreference = 'Stop'
+$initialAvailable = $null -ne (Get-Command Get-FileHash -ErrorAction SilentlyContinue)
+if ($initialAvailable) { throw 'The PS7-only inherited module-path control did not reproduce missing PS5 Get-FileHash.' }
+function Initialize-HotfixWorkerModulePath {
+'@ + "`r`n" + $initializer + "`r`n}" + @'
+
+Initialize-HotfixWorkerModulePath
+$hashCommand = Get-Command Get-FileHash -ErrorAction Stop
+$cimCommand = Get-Command Get-CimInstance -ErrorAction Stop
+$hash = Get-FileHash -LiteralPath $PSCommandPath -Algorithm SHA256
+$os = Get-CimInstance Win32_OperatingSystem
+if (-not $hash.Hash -or -not $os.BuildNumber) { throw 'Restored built-in cmdlets did not execute.' }
+$result = [ordered]@{
+    Shell = $PSVersionTable.PSVersion.ToString(); Edition = $PSVersionTable.PSEdition
+    InitialGetFileHashAvailable = $initialAvailable; RestoredGetFileHashAvailable = $true
+    RestoredGetCimInstanceAvailable = $true; HashModule = $hashCommand.Source
+    CimModule = $cimCommand.Source; ProcessOnlyEnvironmentReset = $true; Exit = 0
+}
+[IO.File]::WriteAllText($Record, ($result | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
+exit 0
+'@
+    [IO.File]::WriteAllText($driver, $text, [Text.UTF8Encoding]::new($false))
+    $ps7Modules = [IO.Path]::Combine([IO.Path]::GetDirectoryName($ModernShell), 'Modules')
+    Assert-Hotfix ([IO.Directory]::Exists($ps7Modules)) 'Actual PS7-only module directory is unavailable for the regression control.'
+    $result = Invoke-HotfixProcess $LegacyShell @('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$driver,$record) $Work @{ PSModulePath = $ps7Modules }
+    Assert-Hotfix ($result.Exit -eq 0 -and [IO.File]::Exists($record)) ('Real PS5 module-environment regression failed: ' + $result.Error)
+    $observation = [IO.File]::ReadAllText($record) | ConvertFrom-Json
+    Assert-Hotfix (-not $observation.InitialGetFileHashAvailable -and $observation.RestoredGetFileHashAvailable -and $observation.RestoredGetCimInstanceAvailable -and $observation.Edition -eq 'Desktop') 'Legacy module-environment regression observations are invalid.'
+    return $observation
+}
 Assert-Hotfix ($env:OS -eq 'Windows_NT') 'Real Windows is mandatory.'
 $root = [IO.Path]::GetFullPath((Join-Path $repository $ResultDirectory))
 $scratch = [IO.Path]::GetFullPath((Join-Path $repository '.scratch'))
@@ -219,6 +275,7 @@ if (-not $Worker) {
     }
     # Account/firewall changes are restricted to an ephemeral GitHub-hosted VM.
     Assert-Hotfix ($DisposableRunner -and $env:GITHUB_ACTIONS -eq 'true' -and $env:RUNNER_ENVIRONMENT -eq 'github-hosted') 'Exact BAT/-File offline acceptance requires the disposable hosted runner; desktop settings are never changed.'
+    $legacyModuleEnvironment = Test-HotfixLegacyModuleEnvironment $legacyShell $modernShell $root
     $userName = 'winimg' + [guid]::NewGuid().ToString('N').Substring(0, 12)
     $password = New-Object Security.SecureString
     $random = New-Object byte[] 32
@@ -258,7 +315,7 @@ if (-not $Worker) {
             New-NetFirewallRule -Name $rule -DisplayName $rule -Direction Outbound -Action Block -Program $program -Profile Any | Out-Null
             $rules.Add($rule)
         }
-        $configuration = [ordered]@{ ArchivePath = [IO.Path]::GetFullPath($ArchivePath); ResultDirectory = $ResultDirectory; LegacyMagickPath = $LegacyMagickPath; BaselineZipPath = $BaselineZipPath; RuntimeDirectory = $firewallExtract; FirewallRules = $rules.Count; Candidate = $candidate }
+        $configuration = [ordered]@{ ArchivePath = [IO.Path]::GetFullPath($ArchivePath); ResultDirectory = $ResultDirectory; LegacyMagickPath = $LegacyMagickPath; BaselineZipPath = $BaselineZipPath; RuntimeDirectory = $firewallExtract; FirewallRules = $rules.Count; Candidate = $candidate; LegacyModuleEnvironment = $legacyModuleEnvironment }
         [IO.File]::WriteAllText((Join-Path $root 'runner-control.json'), ($configuration | ConvertTo-Json), $utf8)
         $tokens = @('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$PSCommandPath,'-Worker','-ArchivePath',$ArchivePath,'-ResultDirectory',$ResultDirectory,'-LegacyMagickPath',$LegacyMagickPath,'-BaselineZipPath',$BaselineZipPath)
         $child = Start-Process -FilePath $legacyShell -ArgumentList (($tokens | ForEach-Object { ConvertTo-HotfixArgument $_ }) -join ' ') -Credential ([Management.Automation.PSCredential]::new($qualifiedUser, $password)) -LoadUserProfile -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $root 'worker.stdout.txt') -RedirectStandardError (Join-Path $root 'worker.stderr.txt') -WorkingDirectory $repository
@@ -268,7 +325,10 @@ if (-not $Worker) {
             $detail = ''
             $summaryPath = Join-Path $root 'acceptance-summary.json'
             if ([IO.File]::Exists($summaryPath)) {
-                try { $detail = [string](([IO.File]::ReadAllText($summaryPath) | ConvertFrom-Json).Error) } catch { $detail = '' }
+                try {
+                    $failure = [IO.File]::ReadAllText($summaryPath) | ConvertFrom-Json
+                    $detail = 'Command=' + $failure.ErrorCommand + '; Line=' + $failure.ErrorLine + '; ' + $failure.Error
+                } catch { $detail = '' }
             }
             if (-not $detail) {
                 $errorPath = Join-Path $root 'worker.stderr.txt'
@@ -335,6 +395,7 @@ try {
         $summary.OutboundProbeBlocked = $true
         $control = Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw -Encoding UTF8 | ConvertFrom-Json
         if ($control.Candidate) { $summary.Candidate = $control.Candidate }
+        $summary.LegacyModuleEnvironment = $control.LegacyModuleEnvironment
     }
     $package = Join-Path $root ('portable ' + [char]0x00e5 + [char]0x96ea)
     if (-not $InstrumentedLocal) { $package = (Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw -Encoding UTF8 | ConvertFrom-Json).RuntimeDirectory }
@@ -471,14 +532,14 @@ try {
         Assert-HotfixMixed (Invoke-HotfixEntry 'A2-BAT-clean-different-CWD' $application $legacyShell $source $systemPath 0 -Bat)
         $interactiveSuccess = Invoke-HotfixEntry 'A6-interactive-BAT-success' $application $legacyShell $source $legacyPath 0 -Bat -InteractiveConsole
         Assert-HotfixMixed $interactiveSuccess
-        Assert-Hotfix ($interactiveSuccess.Result.Out -match '\[04 / RESULT\]\s+COMPLETE' -and $interactiveSuccess.Result.Out -match 'Press any key to close\.') 'Interactive BAT success/pause did not render the real result.'
+        Assert-Hotfix ($interactiveSuccess.Result.Out -match '\[04 / RESULT\]\s+COMPLETE' -and $interactiveSuccess.Result.Out -match 'Press any key to close\.') ('Interactive BAT success/pause did not render the real result. Actual captured console: ' + (Get-HotfixBoundedConsoleDiagnostic $interactiveSuccess.Result.Out))
         $partialSource = Join-Path $root 'interactive partial inputs'; [IO.Directory]::CreateDirectory($partialSource) | Out-Null
         foreach ($name in @('tiny.jpg','tiny.png','clip.mp4')) { Copy-Item -LiteralPath (Join-Path $source $name) -Destination (Join-Path $partialSource $name) }
         [IO.File]::WriteAllBytes((Join-Path $partialSource 'corrupt.jpg'), [byte[]](0,1,2,3,4))
         $partialBefore = Get-HotfixSourceState $partialSource
         $interactivePartial = Invoke-HotfixEntry 'A6-interactive-BAT-partial' $application $legacyShell $partialSource $legacyPath 2 -Bat -InteractiveConsole
         Assert-HotfixMixed $interactivePartial
-        Assert-Hotfix ($interactivePartial.Result.Out -match '\[04 / RESULT\]\s+PARTIAL' -and $interactivePartial.Result.Out -match 'corrupt.jpg' -and $interactivePartial.Result.Out -match 'Press any key to close\.') 'Interactive BAT partial result or cause/pause is missing.'
+        Assert-Hotfix ($interactivePartial.Result.Out -match '\[04 / RESULT\]\s+PARTIAL' -and $interactivePartial.Result.Out -match 'corrupt.jpg' -and $interactivePartial.Result.Out -match 'Press any key to close\.') ('Interactive BAT partial result or cause/pause is missing. Actual captured console: ' + (Get-HotfixBoundedConsoleDiagnostic $interactivePartial.Result.Out))
         Assert-Hotfix ((Get-HotfixSourceState $partialSource) -ceq $partialBefore) 'Interactive partial originals changed.'
         $control = Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw -Encoding UTF8 | ConvertFrom-Json
         Assert-Hotfix ($control.FirewallRules -ge 4) 'Offline application/children firewall restrictions were not applied.'
@@ -554,6 +615,9 @@ try {
     $summary.Passed = $true
 } catch {
     $summary.Error = $_.Exception.Message
+    $summary.ErrorCommand = [string]$_.InvocationInfo.MyCommand.Name
+    $summary.ErrorLine = [int]$_.InvocationInfo.ScriptLineNumber
+    if ($summary.ErrorCommand.Length -gt 120) { $summary.ErrorCommand = $summary.ErrorCommand.Substring(0, 120) }
     [IO.File]::WriteAllText((Join-Path $root 'acceptance-summary.json'), ($summary | ConvertTo-Json -Depth 10), $utf8)
     throw
 }

@@ -63,6 +63,7 @@ BeforeAll {
             ProcessPath = [Environment]::GetEnvironmentVariable('PATH', 'Process')
             UserProfile = [Environment]::GetEnvironmentVariable('USERPROFILE', 'Process')
             ProcessPolicy = (Get-ExecutionPolicy -Scope Process).ToString()
+            ProcessModulePath = [Environment]::GetEnvironmentVariable('PSModulePath', 'Process')
         } | ConvertTo-Json -Depth 5 -Compress
     }
     $securityBefore = Get-LauncherSecurityState
@@ -117,6 +118,9 @@ $record = [ordered]@{
     ProcessId = $PID
     StartedTicks = (Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks
     ExitCode = [int]$env:WINIMG_LAUNCHER_CODE
+    ModuleProbeHash = $env:WINIMG_LAUNCHER_MODULE_HASH
+    ModuleProbeBase = $env:WINIMG_LAUNCHER_MODULE_BASE
+    ModulePath = $env:PSModulePath
 }
 [IO.File]::WriteAllText($env:WINIMG_LAUNCHER_RECORD, ($record | ConvertTo-Json -Depth 6), [Text.UTF8Encoding]::new($false))
 [IO.File]::WriteAllText(($env:WINIMG_LAUNCHER_RECORD + '.ready'), 'Driver observation is complete.', [Text.UTF8Encoding]::new($false))
@@ -240,6 +244,9 @@ exit ([int]$env:WINIMG_LAUNCHER_CODE)
             $consoleObservation.ExitCode | Should -Be $process.ExitCode
             $consoleObservation.ControllerExitCode | Should -Be $process.ExitCode
             if (-not $LeaveInputOpen) {
+                $consoleObservation.CaptureStage | Should -BeExactly 'BeforePauseKey'
+                $consoleObservation.PauseSnapshotMembersVerified | Should -BeTrue
+                $consoleObservation.PauseSnapshotCharacters | Should -BeGreaterThan 0
                 $consoleObservation.KeyRecordsWritten | Should -Be 2
                 @($consoleObservation.MembersBeforeKey).Count | Should -Be 2
                 @($consoleObservation.MembersBeforeKey) | Should -Contain $consoleObservation.ControllerId
@@ -286,6 +293,7 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
         $result.ExitCode | Should -Be 37
         $result.PauseObserved | Should -BeFalse
         $result.StdOut | Should -Match 'Console fixture credibility control'
+        $result.ConsoleFixture.CaptureStage | Should -BeExactly 'AfterCmdExit'
         $result.StdErr | Should -BeNullOrEmpty
         $result.ConsoleFixture.KeyRecordsWritten | Should -BeNullOrEmpty
         [IO.File]::Exists($case.Record) | Should -BeFalse
@@ -376,6 +384,33 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
         $result.PauseObserved | Should -BeTrue
         $result.StdOut | Should -Not -Match 'did not complete reliably'
         $result.StdErr | Should -BeNullOrEmpty
+    }
+
+    It 'T063 loads real Windows PowerShell built-in modules despite an inherited PS7-only module path' {
+        $case = New-LauncherCase 'ps7-module-environment'
+        $modernHost = (Get-Command pwsh.exe -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
+        $modernModules = Join-Path ([IO.Path]::GetDirectoryName($modernHost)) 'Modules'
+        Test-Path -LiteralPath (Join-Path $modernModules 'Microsoft.PowerShell.Utility/Microsoft.PowerShell.Utility.psd1') -PathType Leaf | Should -BeTrue
+        $moduleProbe = @'
+$ErrorActionPreference = 'Stop'
+$hash = Get-FileHash -LiteralPath $PSCommandPath -Algorithm SHA256 -ErrorAction Stop
+$env:WINIMG_LAUNCHER_MODULE_HASH = $hash.Hash
+$env:WINIMG_LAUNCHER_MODULE_BASE = (Get-Command Get-FileHash -CommandType Function,Cmdlet -ErrorAction Stop).Module.ModuleBase
+'@
+        $driver = Join-Path $case.Root 'WinImgNormalizer.ps1'
+        [IO.File]::WriteAllText($driver, ($moduleProbe + "`r`n" + $driverText), [Text.UTF8Encoding]::new($true))
+        $expectedHash = (Get-FileHash -LiteralPath $driver -Algorithm SHA256).Hash
+        $before = $env:PSModulePath
+        $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -ExpectDriver -VerifyPause -Environment @{ PSModulePath=$modernModules }
+        $result.ExitCode | Should -Be 0
+        $result.Driver.Edition | Should -Be 'Desktop'
+        $result.Driver.Version | Should -Match '^5\.1\.'
+        $result.Driver.ModuleProbeHash | Should -Be $expectedHash
+        [string]::Equals($result.Driver.ModuleProbeBase,[IO.Path]::GetDirectoryName($legacyHost),[StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
+        $result.Driver.ModulePath | Should -Not -Match ([regex]::Escape($modernModules))
+        $result.PauseObserved | Should -BeTrue
+        $result.StdErr | Should -BeNullOrEmpty
+        $env:PSModulePath | Should -BeExactly $before
     }
 
     It 'T062 preserves a single literal source and companion path with <Label>' -ForEach @(

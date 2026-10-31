@@ -1,5 +1,7 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
+rem Let Windows PowerShell discover its own modules instead of inherited PS7 modules.
+set "PSModulePath="
 rem Preserve the native status even if an inherited variable shadows ERRORLEVEL.
 set "ERRORLEVEL="
 set "WINIMG_PAUSE="

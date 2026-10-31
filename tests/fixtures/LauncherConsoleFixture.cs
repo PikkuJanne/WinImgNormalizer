@@ -36,6 +36,12 @@ public static class LauncherConsoleFixture {
     [DllImport("kernel32.dll", SetLastError=true)] static extern bool SetInformationJobObject(IntPtr job, int kind, ref JobExtended limits, uint length);
     [DllImport("kernel32.dll", SetLastError=true)] static extern bool AssignProcessToJobObject(IntPtr job, IntPtr process);
     static void Check(bool value, string operation) { if (!value) throw new Win32Exception(Marshal.GetLastWin32Error(), operation); }
+    static string ScreenLines(string cells, int width) {
+        var lines = new StringBuilder();
+        for (int offset = 0; offset < cells.Length; offset += width)
+            lines.AppendLine(cells.Substring(offset, Math.Min(width, cells.Length-offset)).TrimEnd());
+        return lines.ToString();
+    }
 
     public static int Main() {
         // Capture the parent's pipes before console allocation replaces the
@@ -48,6 +54,7 @@ public static class LauncherConsoleFixture {
         int result = 1, inputEnabled = 1;
         Thread keyThread = null;
         Exception inputError = null;
+        string pauseSnapshot = null;
         var record = new Dictionary<string, object>();
         try {
             job = CreateJobObjectW(IntPtr.Zero, IntPtr.Zero); Check(job != IntPtr.Zero, "CreateJobObjectW");
@@ -88,13 +95,17 @@ public static class LauncherConsoleFixture {
                     if (line == null || Interlocked.CompareExchange(ref inputEnabled, 0, 1) != 1 || child.HasExited) return;
                     uint[] members = new uint[32]; uint count = 0;
                     var pauseClock = Stopwatch.StartNew(); bool pauseReady = false;
+                    string observedPauseScreen = null;
                     while (!child.HasExited && pauseClock.ElapsedMilliseconds < 35000) {
                         count = GetConsoleProcessList(members, (uint)members.Length);
                         ScreenInfo current; Check(GetConsoleScreenBufferInfo(screen, out current), "Pause screen info");
                         uint length = (uint)(current.Size.X * (current.Cursor.Y + 1));
                         var currentText = new StringBuilder((int)length); uint actual;
                         Check(ReadConsoleOutputCharacterW(screen, currentText, length, new Coord(0, 0), out actual), "Pause screen capture");
-                        if (count == 2 && currentText.ToString().Contains("Press any key to close.")) { pauseReady=true; break; }
+                        if (count == 2 && currentText.ToString().Contains("Press any key to close.")) {
+                            observedPauseScreen=ScreenLines(currentText.ToString(),current.Size.X);
+                            pauseReady=true; break;
+                        }
                         Thread.Sleep(20);
                     }
                     if (!pauseReady) throw new Exception("Private console did not reach its actual pause after the driver/probe exited.");
@@ -102,6 +113,13 @@ public static class LauncherConsoleFixture {
                     bool self = false, target = false;
                     foreach (uint member in exact) { if (member == Process.GetCurrentProcess().Id) self = true; if (member == child.Id) target = true; }
                     if (!self || !target) throw new Exception("Owned controller and CMD are absent from private console.");
+                    // Preserve the actual completed screen before releasing
+                    // pause. CMD exit can shrink cursor Y and hide earlier rows.
+                    lock (record) {
+                        pauseSnapshot=observedPauseScreen;
+                        record["PauseSnapshotCharacters"]=pauseSnapshot.Length;
+                        record["PauseSnapshotMembersVerified"]=true;
+                    }
                     InputRecord[] keys = new InputRecord[] {
                         new InputRecord { Kind = 1, Key = new KeyEvent { Down = 1, Repeat = 1, Virtual = 88, Character = 'x' } },
                         new InputRecord { Kind = 1, Key = new KeyEvent { Down = 0, Repeat = 1, Virtual = 88, Character = 'x' } }
@@ -116,17 +134,24 @@ public static class LauncherConsoleFixture {
             if (!child.WaitForExit(45000)) throw new Exception("Owned CMD exceeded the private console fixture's 45-second bound.");
             result = child.ExitCode;
             lock (record) { record["ExitCode"] = result; }
-            ScreenInfo info; Check(GetConsoleScreenBufferInfo(screen, out info), "GetConsoleScreenBufferInfo");
-            uint characters = (uint)(info.Size.X * (info.Cursor.Y + 1));
-            var capture = new StringBuilder((int)characters); uint read;
-            Check(ReadConsoleOutputCharacterW(screen, capture, characters, new Coord(0, 0), out read), "ReadConsoleOutputCharacterW");
-            var lines = new StringBuilder(); string cells = capture.ToString();
-            for (int offset = 0; offset < cells.Length; offset += info.Size.X)
-                lines.AppendLine(cells.Substring(offset, Math.Min(info.Size.X, cells.Length-offset)).TrimEnd());
-            byte[] captured = new UTF8Encoding(false).GetBytes(lines.ToString());
-            parentOutput.Write(captured, 0, captured.Length);
             keyThread.Join(100);
-            lock (record) { if (inputError != null) throw inputError; }
+            string capturedScreen;
+            lock (record) {
+                if (inputError != null) throw inputError;
+                capturedScreen=pauseSnapshot;
+                record["CaptureStage"]=capturedScreen==null?"AfterCmdExit":"BeforePauseKey";
+            }
+            if (capturedScreen==null) {
+                // A command that never pauses still provides its genuine final
+                // screen; parent stdin may deliberately remain open in controls.
+                ScreenInfo info; Check(GetConsoleScreenBufferInfo(screen, out info), "GetConsoleScreenBufferInfo");
+                uint characters = (uint)(info.Size.X * (info.Cursor.Y + 1));
+                var capture = new StringBuilder((int)characters); uint read;
+                Check(ReadConsoleOutputCharacterW(screen, capture, characters, new Coord(0, 0), out read), "ReadConsoleOutputCharacterW");
+                capturedScreen=ScreenLines(capture.ToString(),info.Size.X);
+            }
+            byte[] captured = new UTF8Encoding(false).GetBytes(capturedScreen);
+            parentOutput.Write(captured, 0, captured.Length);
         } catch (Exception ex) {
             result = 1;
             lock (record) { record["HarnessError"] = ex.ToString(); }
