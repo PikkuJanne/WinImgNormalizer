@@ -2148,7 +2148,7 @@ function Invoke-WinImgNormalizer {
     $session = [WinImgNormalizer.CancellationSession]::Begin($CancellationState, $CaptureConsoleControl)
     $script:WinImgCancellationContext = $context
     if ($CaptureConsoleControl -and -not $session.Registered) {
-      Write-Host ('Console Ctrl+C handler unavailable (Win32={0}); host termination may bypass cooperative cleanup.' -f $session.RegistrationErrorCode) -ForegroundColor Yellow
+      Write-WinImgConsoleLine ('Console Ctrl+C handler unavailable (Win32={0}); host termination may bypass cooperative cleanup.' -f $session.RegistrationErrorCode) -Kind Warning
     }
     $CancellationContext = $context
 

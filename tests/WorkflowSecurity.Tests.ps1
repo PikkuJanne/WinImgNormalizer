@@ -131,6 +131,14 @@ BeforeAll {
             $Text -notmatch 'Invoke-HotfixAcceptance\.ps1 -Build -CandidateTag \$env:WINIMG_CANDIDATE_TAG -DownloadDependencies -DisposableRunner') {
             $violations += 'Mandatory corpus, static analysis, controls and sanitized export are required.'
         }
+        $cachePosition = $Text.IndexOf('      - name: Authenticate build-only runtime dependency cache', [StringComparison]::Ordinal)
+        $acceptancePosition = $Text.IndexOf('      - name: Test exact offline portable bytes as an ordinary disposable account', [StringComparison]::Ordinal)
+        $mandatoryPosition = $Text.IndexOf('      - name: Run mandatory tests with verified development dependencies', [StringComparison]::Ordinal)
+        if ($cachePosition -lt 0 -or $acceptancePosition -le $cachePosition -or $mandatoryPosition -le $acceptancePosition -or
+            $Text -notmatch 'if \(-not \$acceptance\.Passed -or \$acceptance\.PSObject\.Properties\[''Error''\]\)' -or
+            $Text -notmatch 'Copy-Item -LiteralPath \.scratch/ci-hotfix/acceptance-summary\.json -Destination \.scratch/ci-export/hotfix-evidence\.json') {
+            $violations += 'Packaged acceptance must run early, preserve mandatory gates and export only passing sanitized evidence.'
+        }
         if (@([regex]::Matches($Text, '\$controlExit -ne 1')).Count -ne 2 -or
             $Text -notmatch '\$control\.total_count -ne \(\$normal\.total_count \+ 1\)' -or
             $Text -notmatch '\$control\.failed_count -ne 1' -or

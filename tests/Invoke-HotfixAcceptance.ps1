@@ -173,7 +173,11 @@ if (-not $Worker) {
         Assert-Hotfix (Test-HotfixOutbound) 'Pre-isolation outbound credibility probe could not reach GitHub.'
         $user = New-LocalUser -Name $userName -Password $password -AccountNeverExpires -UserMayNotChangePassword
         $createdUser = $true
-        Add-LocalGroupMember -SID 'S-1-5-32-545' -Member $user.SID
+        $qualifiedUser = [Environment]::MachineName + '\' + $userName
+        $usersMembers = @(Get-LocalGroupMember -SID 'S-1-5-32-545')
+        if (@($usersMembers | Where-Object { $_.SID.Value -eq $user.SID.Value }).Count -eq 0) {
+            Add-LocalGroupMember -SID 'S-1-5-32-545' -Member $qualifiedUser
+        }
         # The clean checkout and all synthetic dependency siblings are owned by
         # this disposable VM. Grant only read/execute/traverse there; restore the
         # original checkout ACL in finally, including inherited propagation.
@@ -197,7 +201,7 @@ if (-not $Worker) {
         $configuration = [ordered]@{ ArchivePath = [IO.Path]::GetFullPath($ArchivePath); ResultDirectory = $ResultDirectory; LegacyMagickPath = $LegacyMagickPath; BaselineZipPath = $BaselineZipPath; RuntimeDirectory = $firewallExtract; FirewallRules = $rules.Count; Candidate = $candidate }
         [IO.File]::WriteAllText((Join-Path $root 'runner-control.json'), ($configuration | ConvertTo-Json), $utf8)
         $tokens = @('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$PSCommandPath,'-Worker','-ArchivePath',$ArchivePath,'-ResultDirectory',$ResultDirectory,'-LegacyMagickPath',$LegacyMagickPath,'-BaselineZipPath',$BaselineZipPath)
-        $child = Start-Process -FilePath $legacyShell -ArgumentList (($tokens | ForEach-Object { ConvertTo-HotfixArgument $_ }) -join ' ') -Credential ([Management.Automation.PSCredential]::new($userName, $password)) -LoadUserProfile -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $root 'worker.stdout.txt') -RedirectStandardError (Join-Path $root 'worker.stderr.txt') -WorkingDirectory $repository
+        $child = Start-Process -FilePath $legacyShell -ArgumentList (($tokens | ForEach-Object { ConvertTo-HotfixArgument $_ }) -join ' ') -Credential ([Management.Automation.PSCredential]::new($qualifiedUser, $password)) -LoadUserProfile -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $root 'worker.stdout.txt') -RedirectStandardError (Join-Path $root 'worker.stderr.txt') -WorkingDirectory $repository
         $null = $child.Handle
         if (-not $child.WaitForExit(600000)) { $child.Kill(); throw 'Ordinary-account acceptance exceeded deadline.' }
         if ($child.ExitCode -ne 0) {
@@ -225,7 +229,6 @@ if (-not $Worker) {
         }
         Assert-Hotfix ($child.ExitCode -eq 0) ('Ordinary-account acceptance failed; inspect owned worker output. Exit=' + $child.ExitCode)
         if ($public) { [IO.File]::WriteAllText((Join-Path $root 'public-release.json'), ($public | ConvertTo-Json), $utf8) }
-        Copy-Item -LiteralPath (Join-Path $root 'acceptance-summary.json') -Destination (Join-Path $repository '.scratch/ci-export/hotfix-evidence.json')
     } finally {
         foreach ($rule in $rules) { Remove-NetFirewallRule -Name $rule -ErrorAction Continue }
         if ($checkoutAcl) { Set-Acl -LiteralPath $repository -AclObject $checkoutAcl }
