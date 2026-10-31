@@ -41,10 +41,17 @@ PowerShell 7 remain supported. The application processes locally and does not up
 
 ## Verification and limitations
 
-Automated hotfix evidence records actual Windows OS/build, both shell hosts,
-real old-PATH red-to-green reproduction, package integrity, codecs, policy denial,
-console paths, original hashes and public-byte checks. No Windows 10 execution
-is claimed. Hosted Windows Server results are reported as Windows Server results.
+The application tests passed 716/716 in both Windows PowerShell 5.1 and PowerShell 7
+on Windows 11 Pro build 26300. The merged source and exact public candidate also
+passed 716/716 per host on Windows Server 2025 build 26100, with zero analyzer
+findings and both expected failure controls. Actual candidate and stable public
+downloads passed all 17 ordinary-account, outbound-blocked package cases per host,
+including real old-PATH red-to-green reproduction, all seven packaged codecs,
+private DLL loading, policy denial and the actual BAT/private-console paths.
+The [publication record](https://github.com/PikkuJanne/WinImgNormalizer/blob/main/docs/release/publication-v1.0.1.json) identifies fresh downloads of all
+six unchanged assets; sanitized hotfix evidence records each run and source
+separately. No Windows 10 execution is claimed. Hosted Windows Server results are
+reported as Windows Server results.
 The application is unsigned; checksums identify bytes, not a verified publisher.
 
 ## Earlier release

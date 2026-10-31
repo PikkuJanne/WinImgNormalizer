@@ -1130,11 +1130,29 @@
   ],
   "hotfix_1_0_1": {
     "date": "2026-10-31",
-    "status": "in_progress",
+    "status": "done",
     "base_commit": "e8d7b6c2b4566f408c22ed998f155e1baf1a7dc8",
     "authorization": "Maintainer HOTFIX.md + ACCEPTANCE.md, including normal merge and stable publication",
     "evidence": "evidence/HOTFIX-1.0.1.json",
     "human_test_gate": false,
-    "website_deployment": false
+    "website_deployment": false,
+    "checkpoint": {
+      "observed_at_utc": "2026-10-31T20:01:14.6229881Z",
+      "phase": "complete",
+      "release_source_tag_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+      "later_publication_metadata_commit": "",
+      "release_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.1",
+      "zip_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/WinImgNormalizer-1.0.1-portable.zip",
+      "zip_sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+      "stable_latest": true,
+      "fresh_public_smoke_both_hosts": true,
+      "full_tag_ci_complete": true,
+      "source_ci_url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41231071132",
+      "candidate_ci_url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41233089750",
+      "stable_ci_url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41234831588",
+      "windows10_executed": false,
+      "human_test_gate": false,
+      "website_deployment": false
+    }
   }
 }

@@ -25,6 +25,9 @@ BeforeAll {
         'tools/release/Update-ReleaseMetadata.ps1', 'tests/Website.Tests.ps1')
     $publicationRelative = 'docs/release/publication-v1.0.0.json'
     if ([IO.File]::Exists((Join-Path $repository $publicationRelative))) { $publicPaths += $publicationRelative }
+    foreach ($liveRecord in @('docs/release/publication-v1.0.1.json','docs/release/identity-v1.0.1.json')) {
+        if ([IO.File]::Exists((Join-Path $repository $liveRecord))) { $publicPaths += $liveRecord }
+    }
     $before = @($publicPaths | ForEach-Object {
         [pscustomobject]@{ path = $_; sha256 = (Get-FileHash -LiteralPath (Join-Path $repository $_)).Hash.ToLowerInvariant() }
     }) | ConvertTo-Json -Compress

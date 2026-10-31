@@ -18,10 +18,14 @@ derivatives: keep the originals and a separate backup.
 
 ## Current availability
 
-WinImgNormalizer 1.0.1 is unreleased and unsigned. The canonical release record
-will supply the public download link and checksum after publication. Use
-**View source** and **Read the quick start** for current source and setup guidance.
+WinImgNormalizer 1.0.1 is published and unsigned.
 
+**[Download WinImgNormalizer 1.0.1](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/WinImgNormalizer-1.0.1-portable.zip)**
+
+The [release page](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.1) includes checksums, provenance and
+the complete upstream dependency source. The ZIP is 33652800 bytes; SHA-256
+`0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5`. The tested bytes were promoted unchanged.
+No separate ImageMagick installation required for the portable ZIP.
 ## How it works
 
 1. Keep `WinImgNormalizer.ps1` and `WinImgNormalizer.bat` together with their

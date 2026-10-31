@@ -97,6 +97,15 @@ the public ZIP and checksum, verify digest/source/tag identity, extract to anoth
 clean directory, and rerun real media smoke. Never replace a published artifact.
 Repository website copy is updated; live website deployment is separate.
 
+Version 1.0.1 was built once from source/tag commit
+`25cd8da78595abd256d96b2ff7d117e2b3a02c18` and promoted without replacing its six
+assets. The [publication record](publication-v1.0.1.json) binds fresh anonymous
+downloads to the tested hashes; [identity](identity-v1.0.1.json) retains their
+source and byte identities. Later repository publication metadata is separate
+from that immutable release source. CI prefers an explicit candidate tag, then
+downloads the canonical stable public tag for published metadata, and builds
+only an unreleased checkout. It does not rebuild a published package.
+
 Version 1.0.0 and its tag/assets remain unchanged. Its original external-engine
 requirement and build-time unreleased metadata are historical; see
 [the publication record](publication-v1.0.0.json).

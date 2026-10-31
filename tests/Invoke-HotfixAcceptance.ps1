@@ -231,13 +231,22 @@ if (-not $Worker) {
         $ArchivePath = Join-Path $packageDirectory $built.asset_filename
     }
     $public = $null
+    $harnessCheckoutRevision = $null
     if ($PublicTag) {
         Assert-Hotfix ($PublicTag -match '^v\d+\.\d+\.\d+$') 'Only a stable tag can be verified.'
+        $canonical = [IO.File]::ReadAllText((Join-Path $repository 'release-metadata.json')) | ConvertFrom-Json
+        Assert-Hotfix ($canonical.release_state -ceq 'published' -and $canonical.tag -ceq $PublicTag -and $canonical.version -ceq $PublicTag.Substring(1)) 'Public acceptance must identify the canonical published release.'
+        $recordedIdentity = [IO.File]::ReadAllText((Join-Path $repository ('docs/release/identity-' + $PublicTag + '.json'))) | ConvertFrom-Json
+        $recordedZip = @($recordedIdentity.assets | Where-Object name -CEQ $canonical.asset_filename)
+        Assert-Hotfix ($recordedIdentity.version -ceq $canonical.version -and $recordedIdentity.source_revision -cmatch '^[0-9a-f]{40}$' -and $recordedZip.Count -eq 1 -and $recordedZip[0].sha256 -ceq $canonical.asset_sha256 -and $recordedZip[0].bytes -eq $canonical.asset_bytes) 'Canonical public bytes differ from the recorded release identity.'
+        $harnessCheckoutRevision = (& git -C $repository rev-parse HEAD).Trim()
+        Assert-Hotfix ($LASTEXITCODE -eq 0 -and $harnessCheckoutRevision -cmatch '^[0-9a-f]{40}$') 'Acceptance harness checkout identity is unavailable.'
         $release = Invoke-RestMethod -Uri ('https://api.github.com/repos/PikkuJanne/WinImgNormalizer/releases/tags/' + $PublicTag)
         $latest = Invoke-RestMethod -Uri 'https://api.github.com/repos/PikkuJanne/WinImgNormalizer/releases/latest'
-        Assert-Hotfix (-not $release.draft -and -not $release.prerelease -and $latest.tag_name -eq $PublicTag) 'Public release is not stable/latest.'
+        Assert-Hotfix (-not $release.draft -and -not $release.prerelease -and $release.tag_name -ceq $PublicTag -and $latest.tag_name -ceq $PublicTag -and $latest.id -eq $release.id) 'Public release is not stable/latest.'
         $asset = @($release.assets | Where-Object name -eq ('WinImgNormalizer-' + $PublicTag.Substring(1) + '-portable.zip'))
         Assert-Hotfix ($asset.Count -eq 1) 'Public portable asset is absent or ambiguous.'
+        Assert-Hotfix ($asset[0].name -ceq $canonical.asset_filename -and $asset[0].size -eq $canonical.asset_bytes -and $asset[0].digest -ceq ('sha256:' + $canonical.asset_sha256) -and $asset[0].browser_download_url -ceq $canonical.download_url) 'Public API asset differs from the canonical published bytes.'
         $download = Join-Path $root 'public-download'
         [IO.Directory]::CreateDirectory($download) | Out-Null
         foreach ($name in @($asset[0].name, 'SHA256SUMS.txt', 'build-provenance.json')) {
@@ -247,10 +256,12 @@ if (-not $Worker) {
         }
         $downloaded = Join-Path $download $asset[0].name
         $digest = (Get-FileHash -LiteralPath $downloaded).Hash.ToLowerInvariant()
+        $downloadedBytes = (Get-Item -LiteralPath $downloaded).Length
+        Assert-Hotfix ($digest -ceq $canonical.asset_sha256 -and $downloadedBytes -eq $canonical.asset_bytes -and $asset[0].digest -ceq ('sha256:' + $digest)) 'Anonymous public ZIP differs from the canonical digest or byte count.'
         $provenance = Get-Content -LiteralPath (Join-Path $download 'build-provenance.json') -Raw -Encoding UTF8 | ConvertFrom-Json
         $sums = Get-Content -LiteralPath (Join-Path $download 'SHA256SUMS.txt') -Raw -Encoding UTF8
         Assert-Hotfix ($sums -match ('(?m)^' + $digest + '  ' + [regex]::Escape($asset[0].name) + '\r?$')) 'Public checksum sidecar differs.'
-        Assert-Hotfix ($provenance.asset_sha256 -eq $digest -and $provenance.version -eq $PublicTag.Substring(1)) 'Public provenance differs.'
+        Assert-Hotfix ($provenance.asset_sha256 -ceq $digest -and $provenance.asset_bytes -eq $downloadedBytes -and $provenance.asset_filename -ceq $canonical.asset_filename -and $provenance.version -ceq $canonical.version -and $provenance.source_revision -ceq $recordedIdentity.source_revision) 'Public provenance differs from the recorded source or bytes.'
         $provenanceDigest = (Get-FileHash -LiteralPath (Join-Path $download 'build-provenance.json')).Hash.ToLowerInvariant()
         Assert-Hotfix ($sums -match ('(?m)^' + $provenanceDigest + '  build-provenance\.json\r?$')) 'Public provenance checksum differs.'
         Add-Type -AssemblyName System.IO.Compression.FileSystem
@@ -263,15 +274,23 @@ if (-not $Worker) {
         if ($ArchivePath) { Assert-Hotfix ((Get-FileHash -LiteralPath $ArchivePath).Hash -ieq $digest) 'Published ZIP differs from the tested build.' }
         $tag = Invoke-RestMethod -Uri ('https://api.github.com/repos/PikkuJanne/WinImgNormalizer/git/ref/tags/' + $PublicTag)
         if ($tag.object.type -eq 'tag') { $tag = [pscustomobject]@{ object = (Invoke-RestMethod -Uri $tag.object.url).object } }
-        Assert-Hotfix ($tag.object.sha -eq $provenance.source_revision) 'Public tag differs from provenance source.'
+        Assert-Hotfix ($tag.object.type -ceq 'commit' -and $tag.object.sha -ceq $provenance.source_revision -and $tag.object.sha -ceq $recordedIdentity.source_revision) 'Public tag differs from the recorded release source.'
         $ArchivePath = $downloaded
-        $public = [ordered]@{ Tag = $PublicTag; ReleaseUrl = $release.html_url; ZipUrl = $asset[0].browser_download_url; Sha256 = $digest; SourceRevision = $provenance.source_revision; Stable = $true; Latest = $true }
+        $public = [ordered]@{ AnonymousPublicDownload = $true; Tag = $PublicTag; ReleaseUrl = $release.html_url; ZipUrl = $asset[0].browser_download_url; Sha256 = $digest; Bytes = $downloadedBytes; SourceRevision = $provenance.source_revision; Stable = $true; Latest = $true }
     }
     Assert-Hotfix ([IO.File]::Exists($ArchivePath)) 'A real portable archive is required.'
     if ($InstrumentedLocal) {
         & $PSCommandPath -Worker -InstrumentedLocal -ArchivePath $ArchivePath -ResultDirectory $ResultDirectory -LegacyMagickPath $LegacyMagickPath -BaselineZipPath $BaselineZipPath
-        if ($public) { [IO.File]::WriteAllText((Join-Path $root 'public-release.json'), ($public | ConvertTo-Json), $utf8) }
-        exit $LASTEXITCODE
+        $workerExit = $LASTEXITCODE
+        if ($public -and $workerExit -eq 0) {
+            $summaryPath = Join-Path $root 'acceptance-summary.json'
+            $localSummary = [IO.File]::ReadAllText($summaryPath) | ConvertFrom-Json
+            $localSummary | Add-Member -NotePropertyName Public -NotePropertyValue $public
+            $localSummary | Add-Member -NotePropertyName HarnessCheckoutRevision -NotePropertyValue $harnessCheckoutRevision
+            [IO.File]::WriteAllText($summaryPath, ($localSummary | ConvertTo-Json -Depth 10), $utf8)
+            [IO.File]::WriteAllText((Join-Path $root 'public-release.json'), ($public | ConvertTo-Json), $utf8)
+        }
+        exit $workerExit
     }
     # Account/firewall changes are restricted to an ephemeral GitHub-hosted VM.
     Assert-Hotfix ($DisposableRunner -and $env:GITHUB_ACTIONS -eq 'true' -and $env:RUNNER_ENVIRONMENT -eq 'github-hosted') 'Exact BAT/-File offline acceptance requires the disposable hosted runner; desktop settings are never changed.'
@@ -315,7 +334,7 @@ if (-not $Worker) {
             New-NetFirewallRule -Name $rule -DisplayName $rule -Direction Outbound -Action Block -Program $program -Profile Any | Out-Null
             $rules.Add($rule)
         }
-        $configuration = [ordered]@{ ArchivePath = [IO.Path]::GetFullPath($ArchivePath); ResultDirectory = $ResultDirectory; LegacyMagickPath = $LegacyMagickPath; BaselineZipPath = $BaselineZipPath; RuntimeDirectory = $firewallExtract; FirewallRules = $rules.Count; Candidate = $candidate; LegacyModuleEnvironment = $legacyModuleEnvironment }
+        $configuration = [ordered]@{ ArchivePath = [IO.Path]::GetFullPath($ArchivePath); ResultDirectory = $ResultDirectory; LegacyMagickPath = $LegacyMagickPath; BaselineZipPath = $BaselineZipPath; RuntimeDirectory = $firewallExtract; FirewallRules = $rules.Count; Candidate = $candidate; Public = $public; HarnessCheckoutRevision = $harnessCheckoutRevision; LegacyModuleEnvironment = $legacyModuleEnvironment }
         [IO.File]::WriteAllText((Join-Path $root 'runner-control.json'), ($configuration | ConvertTo-Json), $utf8)
         $tokens = @('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$PSCommandPath,'-Worker','-ArchivePath',$ArchivePath,'-ResultDirectory',$ResultDirectory,'-LegacyMagickPath',$LegacyMagickPath,'-BaselineZipPath',$BaselineZipPath)
         $child = Start-Process -FilePath $legacyShell -ArgumentList (($tokens | ForEach-Object { ConvertTo-HotfixArgument $_ }) -join ' ') -Credential ([Management.Automation.PSCredential]::new($qualifiedUser, $password)) -LoadUserProfile -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $root 'worker.stdout.txt') -RedirectStandardError (Join-Path $root 'worker.stderr.txt') -WorkingDirectory $repository
@@ -395,6 +414,7 @@ try {
         $summary.OutboundProbeBlocked = $true
         $control = Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw -Encoding UTF8 | ConvertFrom-Json
         if ($control.Candidate) { $summary.Candidate = $control.Candidate }
+        if ($control.Public) { $summary.Public = $control.Public; $summary.HarnessCheckoutRevision = $control.HarnessCheckoutRevision }
         $summary.LegacyModuleEnvironment = $control.LegacyModuleEnvironment
     }
     $package = Join-Path $root ('portable ' + [char]0x00e5 + [char]0x96ea)

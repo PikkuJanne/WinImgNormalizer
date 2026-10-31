@@ -41,11 +41,14 @@ projection. Keep the existing metadata derivation check before integration.
 | License and author | `release-metadata.json.license`, `author`; retain [the full MIT notice](../../LICENSE). |
 | Description, requirements and limitations | [Product copy](PRODUCT_COPY.md), checked against [README](../../README.md) and [behavior](../BEHAVIOR.md). |
 
-The current canonical state is `unreleased` for the 1.0.1 patch. Keep download
-rendering disabled until the public release is observed and canonical publication
-metadata is recorded. No separate ImageMagick installation required for the portable ZIP.
-Website deployment is outside this hotfix.
-
+The current canonical state is `published`, tag `v1.0.1`, dated 2026-10-31.
+The [release page](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.1) exposes the unchanged tested ZIP,
+checksum/provenance sidecars and corresponding-source assets. The
+[publication record](../release/publication-v1.0.1.json) binds fresh anonymous
+downloads of all six assets to their tested bytes and source/tag commit.
+Display **Download WinImgNormalizer 1.0.1** using the canonical download URL.
+No separate ImageMagick installation required for the portable ZIP. Website
+deployment remains outside this hotfix.
 ## Original artwork
 
 Reference the original repository files below; do not copy or recreate them during
