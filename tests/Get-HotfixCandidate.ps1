@@ -8,7 +8,7 @@ if (Test-Path -LiteralPath $output) { throw 'Candidate cache already exists; no 
 $releaseText = @(& gh release view $Tag --repo PikkuJanne/WinImgNormalizer --json tagName,isDraft,isPrerelease,targetCommitish,assets,url)
 if ($LASTEXITCODE -ne 0) { throw 'Cannot read the authorized draft candidate release.' }
 $release = ($releaseText -join "`n") | ConvertFrom-Json
-if ($release.isPrerelease -or $release.tagName -ne $Tag) { throw 'Only the selected stable release or its unpublished draft can be verified.' }
+if ($release.tagName -ne $Tag) { throw 'Only the explicitly selected release can be verified.' }
 $latest = $false
 $publicTagSource = $null
 if (-not $release.isDraft) {
@@ -16,10 +16,10 @@ if (-not $release.isDraft) {
     # default Windows credentials or authenticated gh download route.
     $anonymousRelease = Invoke-RestMethod -Uri ('https://api.github.com/repos/PikkuJanne/WinImgNormalizer/releases/tags/' + $Tag)
     $anonymousLatest = Invoke-RestMethod -Uri 'https://api.github.com/repos/PikkuJanne/WinImgNormalizer/releases/latest'
-    if ($anonymousRelease.draft -or $anonymousRelease.prerelease -or $anonymousRelease.tag_name -ne $Tag) { throw 'Anonymous release readback is not the selected public stable release.' }
+    if ($anonymousRelease.draft -or $anonymousRelease.tag_name -ne $Tag -or [bool]$anonymousRelease.prerelease -ne [bool]$release.isPrerelease) { throw 'Anonymous release readback differs from the explicitly selected public release state.' }
     $latest = $anonymousLatest.tag_name -eq $Tag
-    if (-not $latest) { throw 'Published candidate is not the public latest stable release.' }
-    $release = [pscustomobject]@{ tagName = $anonymousRelease.tag_name; isDraft = $false; isPrerelease = $false; assets = $anonymousRelease.assets; url = $anonymousRelease.html_url }
+    if (-not $release.isPrerelease -and -not $latest) { throw 'Published stable candidate is not the public latest release.' }
+    $release = [pscustomobject]@{ tagName = $anonymousRelease.tag_name; isDraft = $false; isPrerelease = [bool]$anonymousRelease.prerelease; assets = $anonymousRelease.assets; url = $anonymousRelease.html_url }
     $tagReference = Invoke-RestMethod -Uri ('https://api.github.com/repos/PikkuJanne/WinImgNormalizer/git/ref/tags/' + $Tag)
     $tagObject = $tagReference.object
     if ($tagObject.type -eq 'tag') { $tagObject = (Invoke-RestMethod -Uri $tagObject.url).object }
@@ -53,6 +53,6 @@ if ($provenance.source_revision -ne $source -or $provenance.version -ne $version
     $sums -notmatch ('(?m)^' + $digest + '  ' + [regex]::Escape($name) + '\r?$')) { throw 'Draft candidate bytes/checksum/provenance do not match the exact source checkout.' }
 $provenanceDigest = (Get-FileHash -LiteralPath (Join-Path $output 'build-provenance.json')).Hash.ToLowerInvariant()
 if ($sums -notmatch ('(?m)^' + $provenanceDigest + '  build-provenance\.json\r?$')) { throw 'Draft provenance checksum differs.' }
-$record = [ordered]@{ Tag = $Tag; Version = $version; SourceRevision = $source; AssetFilename = $name; Sha256 = $digest; Draft = [bool]$release.isDraft; Stable = (-not $release.isDraft); Latest = $latest; ReleaseUrl = $release.url; AnonymousPublicDownload = (-not $release.isDraft); PublicTagSourceRevision = $publicTagSource }
+$record = [ordered]@{ Tag = $Tag; Version = $version; SourceRevision = $source; AssetFilename = $name; Sha256 = $digest; Draft = [bool]$release.isDraft; Prerelease = [bool]$release.isPrerelease; Stable = (-not $release.isDraft -and -not $release.isPrerelease); Latest = $latest; ReleaseUrl = $release.url; AnonymousPublicDownload = (-not $release.isDraft); PublicTagSourceRevision = $publicTagSource }
 [IO.File]::WriteAllText((Join-Path $output 'candidate.json'), ($record | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
-Write-Output ('Verified exact release bytes: ' + $name + ' SHA256 ' + $digest + '; draft=' + $release.isDraft + '; latest=' + $latest)
+Write-Output ('Verified exact release bytes: ' + $name + ' SHA256 ' + $digest + '; draft=' + $release.isDraft + '; prerelease=' + $release.isPrerelease + '; latest=' + $latest)

@@ -101,7 +101,8 @@ if (-not $Worker) {
     if ($CandidateTag) {
         Assert-Hotfix ($CandidateTag -match '^v\d+\.\d+\.\d+$') 'Candidate tag must be a stable version.'
         $candidate = Get-Content -LiteralPath (Join-Path $repository '.scratch/ci-candidate/candidate.json') -Raw | ConvertFrom-Json
-        Assert-Hotfix ($candidate.Tag -eq $CandidateTag -and ($candidate.Draft -or ($candidate.Stable -and $candidate.Latest)) -and $candidate.SourceRevision -eq (& git -C $repository rev-parse HEAD).Trim()) 'Release acquisition is absent or belongs to another revision.'
+        $acceptedCandidateState = $candidate.Draft -or ($candidate.Prerelease -and -not $candidate.Draft -and $candidate.AnonymousPublicDownload) -or ($candidate.Stable -and $candidate.Latest)
+        Assert-Hotfix ($candidate.Tag -eq $CandidateTag -and $acceptedCandidateState -and $candidate.SourceRevision -eq (& git -C $repository rev-parse HEAD).Trim()) 'Release acquisition is absent or belongs to another revision.'
         $ArchivePath = Join-Path $repository ('.scratch/ci-candidate/' + $candidate.AssetFilename)
         Assert-Hotfix ((Get-FileHash -LiteralPath $ArchivePath).Hash -ieq $candidate.Sha256) 'Candidate cache was changed after authenticated acquisition.'
     } elseif ($Build) {

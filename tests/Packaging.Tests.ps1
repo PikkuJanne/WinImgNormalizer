@@ -329,6 +329,24 @@ Describe 'M4-T02 portable release content and revision refusal' {
         }
     }
 
+    It 'T069 captures native stderr and nonzero status for staging fallback while retaining Stop' {
+        $tokens = $null; $errors = $null
+        $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $repository 'tools/release/Stage-Runtime.ps1'), [ref]$tokens, [ref]$errors)
+        $errors.Count | Should -Be 0
+        $definition = $ast.Find({ param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq 'Invoke-StageGitHubProcess' }, $true)
+        $definition | Should -Not -BeNullOrEmpty
+        . ([scriptblock]::Create($definition.Extent.Text))
+        $beforePreference = $ErrorActionPreference
+        try {
+            $ErrorActionPreference = 'Stop'
+            $result = Invoke-StageGitHubProcess -Executable $cmd -Arguments @('/d','/c','echo controlled staging diagnostic 1>&2 & exit /b 37') -TimeoutMilliseconds 10000
+            $result.ExitCode | Should -Be 37
+            $result.StdErr | Should -Match 'controlled staging diagnostic'
+            $result.StdOut | Should -BeNullOrEmpty
+            $ErrorActionPreference | Should -Be 'Stop'
+        } finally { $ErrorActionPreference = $beforePreference }
+    }
+
     It 'T069 includes exactly the approved Git inputs and authenticated runtime with canonical bytes' {
         $expectedNames = @($allowlist.path + $runtimeNames + @('package-manifest.json'))
         [Array]::Sort($expectedNames, [StringComparer]::Ordinal)

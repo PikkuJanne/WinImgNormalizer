@@ -52,7 +52,8 @@ command EXEs are excluded. All selected upstream config, ICC, LICENSE and NOTICE
 files remain byte-identical. Complete upstream Windows/delegate source/build
 bytes are distributed alongside the release for source and relink rights; see
 [source information](IMAGEMAGICK_SOURCE.md). Original upstream portable/SBOM assets
-are mirrored unchanged for reproducibility after Actions retention. CI initially
-obtains them from the same ordinary release in draft state using a repository
-read-only token scoped only to development staging. Media processing has no
+are mirrored unchanged for reproducibility after Actions retention. Before publication, CI obtains the exact authenticated upstream workflow artifacts
+with its read-only build credential. A maintainer can also use the same release in
+draft state; the CI read token cannot see drafts. After publication the pinned
+public mirror supplies the identical bytes. Media processing has no
 network path and receives no publication credential.

@@ -36,6 +36,36 @@ function Assert-StageFile([string]$Path, $Pin) {
     }
 }
 
+function Invoke-StageGitHubProcess {
+    param([string]$Executable, [string[]]$Arguments, [int]$TimeoutMilliseconds = 900000)
+    # Windows PowerShell 5.1 can promote native stderr to a terminating error
+    # under ErrorActionPreference=Stop even for an expected nonzero fallback.
+    # Capture both streams directly and make the actual exit code authoritative.
+    $start = New-Object Diagnostics.ProcessStartInfo
+    $start.FileName = $Executable
+    $start.Arguments = ($Arguments | ForEach-Object {
+        '"' + [regex]::Replace([regex]::Replace([string]$_, '(\\*)"', '$1$1\"'), '(\\+)$', '$1$1') + '"'
+    }) -join ' '
+    $start.UseShellExecute = $false; $start.CreateNoWindow = $true
+    $start.WindowStyle = [Diagnostics.ProcessWindowStyle]::Hidden
+    $start.RedirectStandardOutput = $true; $start.RedirectStandardError = $true
+    $process = New-Object Diagnostics.Process
+    $process.StartInfo = $start
+    $started = $false
+    try {
+        if (-not $process.Start()) { throw 'GitHub dependency request did not start.' }
+        $started = $true
+        $stdout = $process.StandardOutput.ReadToEndAsync()
+        $stderr = $process.StandardError.ReadToEndAsync()
+        if (-not $process.WaitForExit($TimeoutMilliseconds)) { $process.Kill(); throw 'GitHub dependency request timed out.' }
+        if (-not $stdout.Wait(10000) -or -not $stderr.Wait(10000)) { throw 'GitHub dependency response capture did not complete.' }
+        return [pscustomobject]@{ ExitCode=$process.ExitCode; StdOut=$stdout.GetAwaiter().GetResult(); StdErr=$stderr.GetAwaiter().GetResult() }
+    } finally {
+        if ($started -and -not $process.HasExited) { $process.Kill(); $null = $process.WaitForExit(5000) }
+        $process.Dispose()
+    }
+}
+
 function Get-StageAsset($Pin) {
     $target = Join-Path $cache $Pin.name
     Assert-StageAncestors $cache
@@ -63,9 +93,8 @@ function Get-StageAsset($Pin) {
         # for this repository; no cross-repository credential is required.
         $draftDirectory = Join-Path $cache ('draft-assets-' + [Guid]::NewGuid().ToString('N'))
         $null = [IO.Directory]::CreateDirectory($draftDirectory)
-        $draftOutput = @(& $gh release download v1.0.1 --repo PikkuJanne/WinImgNormalizer --pattern $Pin.name --dir $draftDirectory 2>&1)
-        $draftExit = $LASTEXITCODE
-        if ($draftExit -eq 0) {
+        $draftResult = Invoke-StageGitHubProcess -Executable $gh -Arguments @('release','download','v1.0.1','--repo','PikkuJanne/WinImgNormalizer','--pattern',[string]$Pin.name,'--dir',$draftDirectory)
+        if ($draftResult.ExitCode -eq 0) {
             $draftAsset = Join-Path $draftDirectory $Pin.name
             Assert-StageFile $draftAsset $Pin
             [IO.File]::Move($draftAsset, $target)
