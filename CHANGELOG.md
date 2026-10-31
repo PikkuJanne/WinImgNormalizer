@@ -29,7 +29,8 @@ preserving the established image/output pipeline and original-file safeguards.
 ## Terminal
 
 - Original ASCII wordmark and numbered INPUT / ENGINE / PROCESS / RESULT sections,
-  cyan labels, amber warnings and red errors where the console supports colour.
+  cyan/teal labels, amber warnings and red errors, with darker colours for light
+  backgrounds and plain foreground labels when the palette is unavailable.
 - Actual engine version/source, bounded progress, meaningful result counts and
   complete copyable Output, Report and Log paths. NO_COLOR and redirected/no RawUI
   hosts use plain lines. The BAT preserves the specific cause and exit 0/1/2/130.

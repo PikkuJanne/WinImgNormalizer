@@ -69,6 +69,29 @@ Describe 'Hotfix field console deterministic presentation' {
         Should -Invoke Write-Host -Times 1 -Exactly -ParameterFilter { [string]$Object -match '^\[03 / PROCESS\]' -and -not $ForegroundColor }
     }
 
+    It 'keeps word labels legible on a <Background> background without forcing it' -ForEach @(
+        @{Background='dark';Light=$false;Label='Cyan';Warning='Yellow';Failure='Red'},
+        @{Background='light';Light=$true;Label='DarkCyan';Warning='DarkYellow';Failure='DarkRed'}
+    ) {
+        $script:consoleFixtureLight = $Light
+        Mock Get-WinImgConsoleCapabilities { [pscustomobject]@{Interactive=$true;Color=$true;Width=80;Light=$script:consoleFixtureLight} }
+        Mock Write-Host {}
+        Write-WinImgConsoleLine '[01 / INPUT]' Label
+        Write-WinImgConsoleLine 'WARNING: optional decoder unavailable' Warning
+        Write-WinImgConsoleLine 'ERROR: runtime integrity failed' Error
+        Should -Invoke Write-Host -Times 1 -Exactly -ParameterFilter { $Object -eq '[01 / INPUT]' -and [string]$ForegroundColor -eq $Label -and -not $BackgroundColor }
+        Should -Invoke Write-Host -Times 1 -Exactly -ParameterFilter { [string]$Object -like 'WARNING:*' -and [string]$ForegroundColor -eq $Warning -and -not $BackgroundColor }
+        Should -Invoke Write-Host -Times 1 -Exactly -ParameterFilter { [string]$Object -like 'ERROR:*' -and [string]$ForegroundColor -eq $Failure -and -not $BackgroundColor }
+    }
+
+    It 'keeps NO_COLOR labels in the host foreground on a <Background> background' -ForEach @(@{Background='dark';Light=$false},@{Background='light';Light=$true}) {
+        $script:consoleFixtureLight = $Light
+        Mock Get-WinImgConsoleCapabilities { [pscustomobject]@{Interactive=$true;Color=$false;Width=80;Light=$script:consoleFixtureLight} }
+        Mock Write-Host {}
+        Write-WinImgConsoleLine '[04 / RESULT]   PARTIAL - review warnings' Warning
+        Should -Invoke Write-Host -Times 1 -Exactly -ParameterFilter { [string]$Object -match 'PARTIAL' -and -not $ForegroundColor -and -not $BackgroundColor }
+    }
+
     It 'draws bounded actual progress through the interactive host branch' {
         Mock Get-WinImgConsoleCapabilities { [pscustomobject]@{Interactive=$true;Color=$true;Width=40} }
         Mock Write-Progress {}

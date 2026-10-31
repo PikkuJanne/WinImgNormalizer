@@ -32,6 +32,8 @@ function Get-TestSourceBindings {
         foreach ($hotfixFile in @('tools/release/Stage-Runtime.ps1','tools/release/runtime-lock.json','docs/release/IMAGEMAGICK_SOURCE.md','docs/release/RUNTIME_REVIEW.md','tests/hotfix-dependencies.json','tests/Get-HotfixCandidate.ps1','tests/Initialize-HotfixAcceptance.ps1','tests/Invoke-HotfixAcceptance.ps1','tests/fixtures/console/40.txt','tests/fixtures/console/80.txt','tests/fixtures/console/120.txt')) {
             $files += Join-Path $repositoryRoot $hotfixFile
         }
+        $files += Join-Path $PSScriptRoot 'fixtures/video/synthetic-color.mp4'
+        $files += Join-Path $PSScriptRoot 'fixtures/video/PROVENANCE.json'
         # Bind the dated public-byte witness when present. Legacy deliberately
         # draft fixtures have no witness; published consistency requires it.
         $publicationFile = Join-Path $repositoryRoot 'docs/release/publication-v1.0.0.json'

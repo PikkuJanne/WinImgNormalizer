@@ -95,12 +95,17 @@ function Get-WinImgVersion {
 # Presentation stays out of the persistent log and CSV. Console colours never
 # supply the only meaning; redirected hosts use ordinary complete lines.
 function Get-WinImgConsoleCapabilities {
-  $interactive = $false; $width = 80
+  $interactive = $false; $width = 80; $light = $false; $knownBackground = $false
   try {
     $interactive = [Environment]::UserInteractive -and -not [Console]::IsInputRedirected -and -not [Console]::IsOutputRedirected -and -not [Console]::IsErrorRedirected
-    if ($interactive) { $width = [Math]::Max(20, [Math]::Min(120, $Host.UI.RawUI.WindowSize.Width)) }
+    if ($interactive) {
+      $width = [Math]::Max(20, [Math]::Min(120, $Host.UI.RawUI.WindowSize.Width))
+      $background = $Host.UI.RawUI.BackgroundColor
+      $knownBackground = [Enum]::IsDefined([ConsoleColor], $background)
+      $light = [string]$background -in @('White','Gray','Yellow','Cyan','Green','Magenta')
+    }
   } catch { $interactive = $false }
-  return [pscustomobject]@{ Interactive=$interactive; Color=($interactive -and $null -eq $env:NO_COLOR); Width=$width }
+  return [pscustomobject]@{ Interactive=$interactive; Color=($interactive -and $knownBackground -and $null -eq $env:NO_COLOR); Width=$width; Light=$light }
 }
 
 function Write-WinImgConsoleLine {
@@ -108,7 +113,12 @@ function Write-WinImgConsoleLine {
   $safe = [regex]::Replace($Text, '[\x00-\x1f\x7f]', ' ')
   $caps = Get-WinImgConsoleCapabilities
   if ($caps.Color) {
-    $color = switch ($Kind) { 'Label' { 'Cyan' }; 'Warning' { 'Yellow' }; 'Error' { 'Red' }; default { $null } }
+    $color = switch ($Kind) {
+      'Label' { if ($caps.Light) { 'DarkCyan' } else { 'Cyan' } }
+      'Warning' { if ($caps.Light) { 'DarkYellow' } else { 'Yellow' } }
+      'Error' { if ($caps.Light) { 'DarkRed' } else { 'Red' } }
+      default { $null }
+    }
     if ($color) { Write-Host $safe -ForegroundColor $color; return }
   }
   Write-Host $safe

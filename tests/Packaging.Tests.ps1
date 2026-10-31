@@ -339,7 +339,7 @@ Describe 'M4-T02 portable release content and revision refusal' {
         $beforePreference = $ErrorActionPreference
         try {
             $ErrorActionPreference = 'Stop'
-            $result = Invoke-StageGitHubProcess -Executable $cmd -Arguments @('/d','/c','echo controlled staging diagnostic 1>&2 & exit /b 37') -TimeoutMilliseconds 10000
+            $result = Invoke-StageGitHubProcess -Executable $hostExecutable -Arguments @('-NoProfile','-NonInteractive','-Command',"[Console]::Error.WriteLine('controlled staging diagnostic'); exit 37") -TimeoutMilliseconds 10000
             $result.ExitCode | Should -Be 37
             $result.StdErr | Should -Match 'controlled staging diagnostic'
             $result.StdOut | Should -BeNullOrEmpty

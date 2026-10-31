@@ -314,7 +314,11 @@ try {
         $bitmap.Save((Join-Path $source 'tiny.jpg'), [Drawing.Imaging.ImageFormat]::Jpeg)
         $bitmap.Save((Join-Path $source 'tiny.png'), [Drawing.Imaging.ImageFormat]::Png)
     } finally { $graphics.Dispose(); $bitmap.Dispose() }
-    [IO.File]::WriteAllBytes((Join-Path $source 'clip.mp4'), [byte[]](0,0,0,24,102,116,121,112,109,112,52,50,0,0,0,0,109,112,52,50,105,115,111,109))
+    $videoFixture = Join-Path $PSScriptRoot 'fixtures/video/synthetic-color.mp4'
+    $videoProvenance = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'fixtures/video/PROVENANCE.json') -Raw | ConvertFrom-Json
+    Assert-Hotfix ((Get-Item -LiteralPath $videoFixture).Length -eq $videoProvenance.bytes -and (Get-FileHash -LiteralPath $videoFixture).Hash -ieq $videoProvenance.sha256 -and $videoProvenance.verification.full_decode_exit -eq 0 -and $videoProvenance.verification.decoded_frames -eq 2) 'The authenticated, fully decoded synthetic video fixture differs from its provenance.'
+    Copy-Item -LiteralPath $videoFixture -Destination (Join-Path $source 'clip.mp4')
+    $summary.VideoFixture = [ordered]@{ Sha256 = $videoProvenance.sha256; Bytes = $videoProvenance.bytes; Codec = $videoProvenance.verification.codec; Width = $videoProvenance.verification.width; Height = $videoProvenance.verification.height; DecodedFrames = $videoProvenance.verification.decoded_frames; FullDecodeExit = $videoProvenance.verification.full_decode_exit; ProvenanceSha256 = (Get-FileHash -LiteralPath (Join-Path $PSScriptRoot 'fixtures/video/PROVENANCE.json')).Hash.ToLowerInvariant() }
     $sourceBefore = Get-HotfixSourceState $source
     $ownedOutput = Join-Path $root 'instrumented-output'
     [IO.Directory]::CreateDirectory($ownedOutput) | Out-Null
@@ -380,6 +384,17 @@ try {
         Assert-HotfixMixed (Invoke-HotfixEntry ('A1-' + $label) $application $shell $source $legacyPath 0)
         Assert-HotfixMixed (Invoke-HotfixEntry ('A2-clean-' + $label) $application $shell $source $systemPath 0 -WithCap)
     }
+    # An independently staged genuine compatible build newer than the old CI
+    # pin must remain irrelevant to the standard package's selected backend.
+    $newerExternal = Join-Path $root 'genuine newer compatible external engine'
+    [IO.Directory]::CreateDirectory($newerExternal) | Out-Null
+    foreach ($file in Get-ChildItem -LiteralPath (Split-Path -Parent $engine) -File) { [IO.File]::Copy($file.FullName, (Join-Path $newerExternal $file.Name), $false) }
+    $newerExecutable = Join-Path $newerExternal 'magick.exe'
+    $newerPath = $newerExternal + ';' + $systemPath
+    $newerBanner = Invoke-HotfixProcess $newerExecutable @('-version') $root @{ PATH = $newerPath }
+    Assert-Hotfix ($newerBanner.Exit -eq 0 -and $newerBanner.Out -match '7\.1\.2-35.*Q16-HDRI x64' -and (Get-FileHash -LiteralPath $newerExecutable).Hash -ieq $summary.Engine.Sha256) 'The genuine newer-compatible external fixture is invalid.'
+    Assert-HotfixMixed (Invoke-HotfixEntry 'A3-real-newer-compatible-PATH' $application $legacyShell $source $newerPath 0)
+    $summary.NewerCompatiblePath = [ordered]@{ Banner = ($newerBanner.Out -split '\r?\n')[0]; Sha256 = (Get-FileHash -LiteralPath $newerExecutable).Hash.ToLowerInvariant(); ComparedWithOldCIPin = '7.1.2-32'; HarnessOnlyVersionProbe = $true; ApplicationEngineSource = 'bundled'; ApplicationEnginePathVerifiedInLog = $true }
     if (-not $InstrumentedLocal) {
         Assert-HotfixMixed (Invoke-HotfixEntry 'A1-BAT-oldPATH' $application $legacyShell $source $legacyPath 0 -Bat)
         Assert-HotfixMixed (Invoke-HotfixEntry 'A2-BAT-clean-different-CWD' $application $legacyShell $source $systemPath 0 -Bat)
