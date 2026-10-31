@@ -36,7 +36,11 @@ BeforeAll {
         [pscustomobject]@{ path = 'WinImgNormalizer.bat'; source_path = 'WinImgNormalizer.bat' },
         [pscustomobject]@{ path = 'WinImgNormalizer.ps1'; source_path = 'WinImgNormalizer.ps1' }
     )
-    $replicaPaths = @($allowlist | ForEach-Object { $_.source_path }) + @('tools/release/Build-Release.ps1', 'tools/release/Update-ReleaseMetadata.ps1', 'docs/release/NOTES.md', 'release-metadata.json', '.gitattributes', '.gitignore')
+    $currentVersion = (Get-Content -LiteralPath (Join-Path $repository 'release-metadata.json') -Raw | ConvertFrom-Json).version
+    $runtimeLock = Get-Content -LiteralPath (Join-Path $repository 'tools/release/runtime-lock.json') -Raw | ConvertFrom-Json
+    $runtimeManifest = Get-Content -LiteralPath (Join-Path $repository 'runtime/runtime-manifest.json') -Raw | ConvertFrom-Json
+    $runtimeNames = @($runtimeManifest.files | ForEach-Object { 'runtime/' + $_.path }) + @('runtime/runtime-manifest.json', 'portable-runtime.json')
+    $replicaPaths = @($allowlist | ForEach-Object { $_.source_path }) + @('tools/release/Build-Release.ps1', 'tools/release/Update-ReleaseMetadata.ps1', 'tools/release/Stage-Runtime.ps1', 'tools/release/runtime-lock.json', 'docs/release/IMAGEMAGICK_SOURCE.md', 'docs/release/NOTES.md', 'release-metadata.json', '.gitattributes', '.gitignore')
     $bindingsBefore = @($replicaPaths + @('tests/Packaging.Tests.ps1', 'tests/fixtures/LauncherConsoleFixture.cs', 'tests/legacy/toolchain.json') | Select-Object -Unique | ForEach-Object {
         [pscustomobject]@{ Path = $_; Sha256 = (Get-FileHash -LiteralPath (Join-Path $repository $_)).Hash.ToLowerInvariant() }
     })
@@ -121,6 +125,13 @@ BeforeAll {
             $null = [IO.Directory]::CreateDirectory((Split-Path -Parent $target))
             [IO.File]::WriteAllBytes($target, [IO.File]::ReadAllBytes((Join-Path $repository $relative)))
         }
+        # Runtime bytes stay ignored and out of Git. The builder independently
+        # authenticates this identical staged payload against the tracked lock.
+        foreach ($relative in $runtimeNames) {
+            $target = Join-Path $root $relative
+            [IO.Directory]::CreateDirectory((Split-Path -Parent $target)) | Out-Null
+            [IO.File]::Copy((Join-Path $repository $relative), $target, $false)
+        }
         # Builder regressions use an explicitly draft, owned fixture even after
         # the real release is public. This does not reconstruct the approved ZIP.
         $fixtureMetadataPath = Join-Path $root 'release-metadata.json'
@@ -196,7 +207,7 @@ try {
     $replica = New-PackageReplica
     $built = Invoke-PackageBuild $replica
     if ($built.ExitCode -ne 0) { throw ('Initial synthetic portable build failed: ' + $built.StdOut + $built.StdErr) }
-    $assetFilename = 'WinImgNormalizer-1.0.0-portable.zip'
+    $assetFilename = 'WinImgNormalizer-' + $currentVersion + '-portable.zip'
     $zipPath = Join-Path $built.OutputDirectory $assetFilename
     $entries = @(Read-PackageArchive $zipPath)
     $manifestEntry = @($entries | Where-Object { $_.Path -ceq 'package-manifest.json' })
@@ -267,19 +278,11 @@ try {
         $started = $false; $text = New-Object Text.StringBuilder
         try {
             if (-not $process.Start()) { throw 'Packaged BAT console process did not start.' }
-            $started = $true; $stderr = $process.StandardError.ReadToEndAsync()
+            $started = $true; $stderr = $process.StandardError.ReadToEndAsync(); $stdout = $process.StandardOutput.ReadToEndAsync()
             $clock = [Diagnostics.Stopwatch]::StartNew()
-            $expected = if ($Arguments.Count -eq 0) { 'ERROR:.*exactly one FOLDER' } else { 'ERROR: Processing did not complete reliably' }
-            do {
-                $lineTask = $process.StandardOutput.ReadLineAsync()
-                if (-not $lineTask.Wait([Math]::Max(1, 20000 - [int]$clock.ElapsedMilliseconds))) { throw 'Packaged BAT did not reach its setup result.' }
-                $line = $lineTask.GetAwaiter().GetResult()
-                if ($null -eq $line) { throw 'Packaged BAT exited before its setup result.' }
-                $null = $text.AppendLine($line)
-            } while ($line -notmatch $expected -and $clock.ElapsedMilliseconds -lt 20000)
-            if ($line -notmatch $expected) { throw 'Packaged BAT setup result was not observed.' }
+            while (-not [IO.File]::Exists($record + '.ready') -and -not $process.HasExited -and $clock.ElapsedMilliseconds -lt 15000) { Start-Sleep -Milliseconds 20 }
+            if (-not [IO.File]::Exists($record + '.ready')) { throw 'Packaged private console readiness marker is missing.' }
             $pauseObserved = -not $process.WaitForExit(200)
-            $stdout = $process.StandardOutput.ReadToEndAsync()
             $process.StandardInput.WriteLine('x'); $process.StandardInput.Flush(); $process.StandardInput.Close()
             if (-not $process.WaitForExit(15000)) { throw 'Packaged BAT exceeded its completion bound.' }
             if (-not $stdout.Wait(5000) -or -not $stderr.Wait(5000)) { throw 'Packaged BAT streams did not finish.' }
@@ -326,19 +329,21 @@ Describe 'M4-T02 portable release content and revision refusal' {
         }
     }
 
-    It 'T069 includes exactly the seven approved Git inputs and generated manifest with canonical bytes' {
-        $expectedNames = @($allowlist.path + @('package-manifest.json'))
+    It 'T069 includes exactly the approved Git inputs and authenticated runtime with canonical bytes' {
+        $expectedNames = @($allowlist.path + $runtimeNames + @('package-manifest.json'))
         [Array]::Sort($expectedNames, [StringComparer]::Ordinal)
         @($entries.Path) -join '|' | Should -BeExactly ($expectedNames -join '|')
-        @($manifest.files).Count | Should -Be 7
-        @($manifest.files.path) -join '|' | Should -BeExactly ($allowlist.path -join '|')
+        @($manifest.files).Count | Should -Be ($expectedNames.Count - 1)
+        @($manifest.files | Where-Object source_path).path -join '|' | Should -BeExactly ($allowlist.path -join '|')
         $manifest.schema_version | Should -Be 1
         $manifest.product | Should -BeExactly 'WinImgNormalizer'
-        $manifest.version | Should -BeExactly '1.0.0'
+        $manifest.version | Should -BeExactly $currentVersion
         $manifest.release_state | Should -BeExactly 'unreleased'
         $manifest.source_revision | Should -BeExactly $replica.Revision
         $manifest.digital_signature | Should -BeNullOrEmpty
-        @($manifest.PSObject.Properties.Name) -join '|' | Should -BeExactly 'schema_version|product|version|release_state|source_revision|digital_signature|files'
+        @($manifest.PSObject.Properties.Name) -join '|' | Should -BeExactly 'schema_version|product|version|release_state|source_revision|digital_signature|bundled_runtime|files'
+        $manifest.bundled_runtime.required | Should -BeTrue
+        $manifest.bundled_runtime.version | Should -BeExactly $runtimeLock.engine_version
         foreach ($approved in $allowlist) {
             $entry = @($entries | Where-Object { $_.Path -ceq $approved.path })[0]
             $blob = (Invoke-PackageGit $replica.Root @('show', ($replica.Revision + ':' + $approved.source_path)) -Binary).Bytes
@@ -353,8 +358,16 @@ Describe 'M4-T02 portable release content and revision refusal' {
         $batText = [Text.Encoding]::ASCII.GetString(@($entries | Where-Object { $_.Path -ceq 'WinImgNormalizer.bat' })[0].Bytes)
         $batText | Should -Match "`r`n"
         $batText.Replace("`r`n", '') | Should -Not -Match "`n"
-        foreach ($entry in $entries) { [Text.Encoding]::UTF8.GetString($entry.Bytes) | Should -Not -Match 'synthetic-private-control-secret|Synthetic tracked exclusion control' }
-        @($entries.Path) -join '|' | Should -Not -Match '(?i)(\.git|tests/|tools/|credentials|\.scratch|AGENTS|codex-winimg|magick\.exe)'
+        foreach ($entry in $entries | Where-Object { $_.Path -notlike 'runtime/imagemagick/*' }) { [Text.Encoding]::UTF8.GetString($entry.Bytes) | Should -Not -Match 'synthetic-private-control-secret|Synthetic tracked exclusion control' }
+        @($entries.Path) -join '|' | Should -Not -Match '(?i)(\.git|tests/|tools/|credentials|\.scratch|AGENTS|codex-winimg)'
+        foreach ($relative in $runtimeNames) {
+            $entry = @($entries | Where-Object Path -CEQ $relative)[0]
+            $record = @($manifest.files | Where-Object path -CEQ $relative)[0]
+            $record.source_path | Should -BeNullOrEmpty
+            $record.sha256 | Should -BeExactly (Get-PackageSha256 $entry.Bytes)
+            $record.bytes | Should -Be $entry.Length
+            (Get-PackageSha256 $entry.Bytes) | Should -BeExactly (Get-FileHash -LiteralPath (Join-Path $repository $relative)).Hash.ToLowerInvariant()
+        }
     }
 
     It 'T069 refuses dirty <Label> without creating an output directory' -ForEach @(
@@ -400,6 +413,19 @@ Describe 'M4-T02 portable release content and revision refusal' {
         Test-Path -LiteralPath $result.OutputDirectory | Should -BeFalse
     }
 
+    It 'T069 refuses <Mode> private runtime bytes before producing a portable archive' -ForEach @(
+        @{ Mode = 'missing' }, @{ Mode = 'corrupt' }, @{ Mode = 'unexpected' }
+    ) {
+        $case = New-PackageReplica
+        $engine = Join-Path $case.Root ('runtime/' + $runtimeLock.engine_relative_path)
+        if ($Mode -eq 'missing') { [IO.File]::Move($engine, (Join-Path $case.Root '.scratch/held-magick.exe')) }
+        elseif ($Mode -eq 'corrupt') { [IO.File]::WriteAllBytes($engine, [byte[]](0,1,2,3)) }
+        else { [IO.File]::WriteAllText((Join-Path $case.Root 'runtime/unreviewed.txt'), 'owned unexpected runtime control') }
+        $result = Invoke-PackageBuild $case
+        $result.ExitCode | Should -Not -Be 0
+        Test-Path -LiteralPath $result.OutputDirectory | Should -BeFalse
+    }
+
     It 'T069 refuses committed <Label> drift instead of packaging stale release claims' -ForEach @(
         @{ Label = 'generated changelog'; Mode = 'changelog' }, @{ Label = 'version metadata'; Mode = 'metadata' }
     ) {
@@ -410,7 +436,7 @@ Describe 'M4-T02 portable release content and revision refusal' {
         } else {
             $relative = 'release-metadata.json'
             $path = Join-Path $case.Root $relative
-            $text = [IO.File]::ReadAllText($path).Replace('"version":"1.0.0"', '"version":"9.8.7"')
+            $text = [IO.File]::ReadAllText($path).Replace(('"version":"' + $currentVersion + '"'), '"version":"9.8.7"')
             [IO.File]::WriteAllText($path, $text, [Text.UTF8Encoding]::new($false))
         }
         $null = Invoke-PackageGit $case.Root @('add', '--', $relative)
@@ -429,7 +455,7 @@ Describe 'M4-T02 portable release content and revision refusal' {
         $matches = [regex]::Matches($text, '(?s)(function\s+Get-WinImgVersion\s*\{\s*return\s*)''([^'']+)''(\s*\})')
         $matches.Count | Should -Be 1
         $literal = $matches[0].Groups[2]
-        $literal.Value | Should -BeExactly '1.0.0'
+        $literal.Value | Should -BeExactly $currentVersion
         $changed = $text.Substring(0, $literal.Index) + '9.8.7' + $text.Substring($literal.Index + $literal.Length)
         [IO.File]::WriteAllText($path, $changed, [Text.UTF8Encoding]::new($true))
         $tokens = @('-NoLogo', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', (Join-Path $case.Root 'tools/release/Update-ReleaseMetadata.ps1'))
@@ -514,11 +540,13 @@ Describe 'M4-T02 checksum and reproducibility evidence' {
         $provenance.package_manifest_sha256 | Should -BeExactly (Get-PackageSha256 $manifestEntry[0].Bytes)
         $builderBlob = (Invoke-PackageGit $replica.Root @('show', ($replica.Revision + ':tools/release/Build-Release.ps1')) -Binary).Bytes
         $provenance.builder_source_sha256 | Should -BeExactly (Get-PackageSha256 $builderBlob)
-        @($provenance.PSObject.Properties.Name) -join '|' | Should -BeExactly 'schema_version|product|version|release_state|source_revision|digital_signature|asset_filename|asset_bytes|asset_sha256|package_manifest_sha256|builder_source_sha256|reproducibility'
+        @($provenance.PSObject.Properties.Name) -join '|' | Should -BeExactly 'schema_version|product|version|release_state|source_revision|digital_signature|asset_filename|asset_bytes|asset_sha256|package_manifest_sha256|builder_source_sha256|bundled_runtime|dependency_assets_included|reproducibility'
+        $provenance.bundled_runtime.version | Should -BeExactly $runtimeLock.engine_version
+        $provenance.dependency_assets_included | Should -BeFalse
         foreach ($property in $provenance.PSObject.Properties) { $property.Name | Should -Not -Match '(?i)(path|timestamp|built_at|user|host)' }
         $text = [IO.File]::ReadAllText($provenancePath)
         $text | Should -Not -Match ([regex]::Escape($ownedRoot))
-        $text | Should -Not -Match '[A-Za-z]:[\\/]|\\\\|synthetic-private-control-secret'
+        $text | Should -Not -Match '(?<![A-Za-z])[A-Za-z]:[\\/]|\\\\|synthetic-private-control-secret'
         $built.Result.source_revision | Should -BeExactly $replica.Revision
         $built.Result.version | Should -BeExactly $manifest.version
         $built.Result.asset_filename | Should -BeExactly $assetFilename
@@ -560,10 +588,10 @@ Describe 'M4-T02 checksum and reproducibility evidence' {
 }
 
 Describe 'M4-T02 exact clean extracted portable entry points' {
-    It 'T070 extracts only approved root files into a fresh directory with spaces' {
+    It 'T070 extracts only approved files and the private runtime into a fresh directory with spaces' {
         $extracted | Should -Match ' '
-        @(Get-ChildItem -LiteralPath $extracted -Force).Count | Should -Be 8
-        @(Get-ChildItem -LiteralPath $extracted -Directory -Force).Count | Should -Be 0
+        @(Get-ChildItem -LiteralPath $extracted -Force).Count | Should -Be 10
+        @(Get-ChildItem -LiteralPath $extracted -Directory -Force).Count | Should -Be 1
         foreach ($entry in $smokeEntries) {
             (Get-FileHash -LiteralPath (Join-Path $extracted $entry.Path)).Hash.ToLowerInvariant() | Should -BeExactly (Get-PackageSha256 $entry.Bytes)
         }
@@ -589,7 +617,7 @@ Describe 'M4-T02 exact clean extracted portable entry points' {
         $result.StdOut | Should -Match 'ERROR:.*exactly one FOLDER'
         $result.StdErr | Should -BeNullOrEmpty
         $result.PauseObserved | Should -BeTrue
-        @(Get-ChildItem -LiteralPath $extracted -File -Force).Count | Should -Be 8
+        @(Get-ChildItem -LiteralPath $extracted -File -Force).Count | Should -Be 9
     }
 
     It 'T070 invokes the matching extracted BAT and PS1 through real Windows PowerShell for invalid source setup' {
@@ -598,7 +626,8 @@ Describe 'M4-T02 exact clean extracted portable entry points' {
         $result = Invoke-PackagedBat -Arguments @($missing)
         $result.ExitCode | Should -Be 1
         $result.StdOut | Should -Match '(?i)(source|folder).*(exist|found)|not.*(exist|found)'
-        $result.StdOut | Should -Match 'ERROR: Processing did not complete reliably \(exit code 1\)'
+        $result.StdOut | Should -Match '(?i)(ERROR|FAILED|Setup error)'
+        $result.StdOut | Should -Not -Match 'did not complete reliably'
         $result.StdErr | Should -BeNullOrEmpty
         $result.PauseObserved | Should -BeTrue
         Test-Path -LiteralPath $missing | Should -BeFalse
@@ -629,7 +658,7 @@ $context = [ordered]@{
     ProcessPolicy = (Get-ExecutionPolicy -Scope Process).ToString()
 }
 . $Application
-$result = @(Invoke-WinImgNormalizer -Source $Source -OutputParent $OutputParent -MagickPath $Magick -NativeTemporaryRoot $TemporaryRoot)
+$result = @(Invoke-WinImgNormalizer -Source $Source -OutputParent $OutputParent -NativeTemporaryRoot $TemporaryRoot)
 if ($result.Count -ne 1 -or $result[0] -isnot [int]) { throw 'Extracted normalizer must return one integer result.' }
 $context.ExitCode = $result[0]
 [IO.File]::WriteAllText($Record, ($context | ConvertTo-Json -Depth 8), [Text.UTF8Encoding]::new($false))
@@ -652,7 +681,7 @@ exit $result[0]
         # The owned generated output can exceed MAX_PATH. Inspect it independently
         # using a canonical local extended path, as the native Windows API requires.
         $nativeJpeg = '\\?\' + [IO.Path]::GetFullPath($jpeg)
-        $identified = Invoke-PackageProcess (New-PackageProcessStart $magick @('identify', '-ping', '-format', '%m|%wx%h', ('JPEG:' + $nativeJpeg)) $ownedRoot)
+        $identified = Invoke-PackageProcess (New-PackageProcessStart $magick @('identify', '+ping', '-regard-warnings', '-format', '%m|%wx%h', ('JPEG:' + $nativeJpeg)) $ownedRoot)
         $identifyDiagnostic = $identified.StdErr.Substring(0, [Math]::Min(1000, $identified.StdErr.Length))
         $identified.ExitCode | Should -Be 0 -Because ('native JPEG inspection must succeed; stderr: ' + $identifyDiagnostic)
         $identified.StdOut | Should -BeExactly 'JPEG|32x24'
@@ -660,10 +689,11 @@ exit $result[0]
         @($png, $video | ForEach-Object { Get-PackageFileState $_ }) -join '|' | Should -BeExactly ($before -join '|')
         $logs = @(Get-ChildItem -LiteralPath $runs[0].FullName -Recurse -File -Filter '*.log'); $logs.Count | Should -Be 1
         $log = [IO.File]::ReadAllText($logs[0].FullName)
-        $log | Should -Match 'WinImgNormalizer 1\.0\.0 started'
+        $log | Should -Match ([regex]::Escape('WinImgNormalizer ' + $currentVersion + ' started'))
+        $log | Should -Match 'ImageMagick engine source: bundled'
         $log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=1 Duplicates=0 Unsupported=0 Errors=0'
         Get-PackageSecurityState | Should -BeExactly $securityBefore
-        $observations.Add([pscustomobject]@{ Kind = 'exact extracted PS1 real media using owned OutputParent seam'; ActualCleanImplementationRevision = $smokeIsActualRevision; SourceRevision = $smokeProvenance.source_revision; AssetSha256 = $smokeProvenance.asset_sha256; ImageMagickSha256 = $imagePin.portable_imagemagick.executable_sha256; Context = $context; JpegSha256 = (Get-FileHash -LiteralPath $jpeg).Hash.ToLowerInvariant(); VideoSha256 = (Get-FileHash -LiteralPath $video).Hash.ToLowerInvariant(); ManualDragAndDrop = $false; RealPicturesNormalization = $false })
+        $observations.Add([pscustomobject]@{ Kind = 'exact extracted PS1 real media using bundled engine and owned OutputParent seam'; ActualCleanImplementationRevision = $smokeIsActualRevision; SourceRevision = $smokeProvenance.source_revision; AssetSha256 = $smokeProvenance.asset_sha256; ImageMagickSha256 = (Get-FileHash -LiteralPath (Join-Path $extracted ('runtime/' + $runtimeLock.engine_relative_path))).Hash.ToLowerInvariant(); Context = $context; JpegSha256 = (Get-FileHash -LiteralPath $jpeg).Hash.ToLowerInvariant(); VideoSha256 = (Get-FileHash -LiteralPath $video).Hash.ToLowerInvariant(); ManualDragAndDrop = $false; RealPicturesNormalization = $false })
     }
 }
 

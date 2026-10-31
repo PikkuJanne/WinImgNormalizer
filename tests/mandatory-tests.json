@@ -28,7 +28,8 @@
     "Versioning.Tests.ps1",
     "Packaging.Tests.ps1",
     "Documentation.Tests.ps1",
-    "Website.Tests.ps1"
+    "Website.Tests.ps1",
+    "Console.Tests.ps1"
   ],
   "required_case_ids": [
     "T005",

@@ -26,6 +26,13 @@ BeforeAll {
     function Get-WorkflowPolicyViolations {
         param([string]$Text)
         $violations = @()
+        # This sole build-time cache acquisition may read the repository's draft
+        # dependency assets. Its ephemeral contents-read token is never inherited
+        # by application tests, saved by checkout, printed or uploaded.
+        $acquisitionPattern = '(?m)^      - name: Authenticate build-only runtime dependency cache\n        env:\n          GH_TOKEN: \$\{\{ github.token \}\}\n        run: \|\n          \./tools/release/Stage-Runtime\.ps1 -Download -CacheOnly\n          if \(\$env:WINIMG_CANDIDATE_TAG\) \{ \./tests/Get-HotfixCandidate\.ps1 -Tag \$env:WINIMG_CANDIDATE_TAG \}\n'
+        $acquisition = @([regex]::Matches($Text, $acquisitionPattern))
+        if ($acquisition.Count -ne 1) { $violations += 'Only the exact build-only cache step may receive the contents-read token.' }
+        $credentialPolicyText = [regex]::Replace($Text, $acquisitionPattern, '')
         # This is a deliberately narrow policy audit of this workflow's plain
         # YAML form, not a general YAML parser. Aliases/merges must be reviewed
         # explicitly because they can hide a permission or credential override.
@@ -34,11 +41,16 @@ BeforeAll {
         }
         if ($Text.Contains("`t")) { $violations += 'Nonstandard YAML indentation.' }
         $triggers = Get-WorkflowFieldBlock -Text $Text -Key 'on' -Indent 0
-        $triggerLines = @($triggers -split '\n' | Select-Object -Skip 1)
+        $triggerLines = @($triggers -split '\n' | Select-Object -Skip 1 | Where-Object { $_ -match '^  \S' })
         if ($triggerLines.Count -ne 3 -or @($triggerLines | Where-Object { $_ -notmatch '^  (push|pull_request|workflow_dispatch):\s*$' }).Count -gt 0 -or
             @($triggerLines | Select-Object -Unique).Count -ne 3) {
             $violations += 'Only push, pull_request and workflow_dispatch are allowed.'
         }
+        $dispatch = Get-WorkflowFieldBlock -Text $triggers -Key 'workflow_dispatch' -Indent 2
+        $expectedDispatch = "  workflow_dispatch:`n    inputs:`n      candidate_tag:`n        description: Exact release bytes to verify before or after publication`n        required: false`n        default: ''`n        type: string"
+        if ($dispatch -cne $expectedDispatch) { $violations += 'Dispatch may accept only the validated unpublished candidate tag.' }
+        $inputPolicyText = $Text.Replace('      WINIMG_CANDIDATE_TAG: ${{ inputs.candidate_tag }}', '')
+        if ($inputPolicyText -match '(?i)\$\{\{\s*inputs(?:\.|\[)') { $violations += 'Dispatch input must enter scripts only through the validated environment value.' }
         $lines = $Text -split '\r?\n'
         if ($Text -notmatch '(?m)^permissions:\s*$') { $violations += 'Missing explicit root permissions.' }
         for ($i = 0; $i -lt $lines.Count; $i++) {
@@ -58,8 +70,8 @@ BeforeAll {
                 $violations += 'Every permissions block must grant contents read only.'
             }
         }
-        if ($Text -match '(?i)\$\{\{\s*(?:secrets(?:\.|\[)|github\.token)' -or $Text -match '(?im)^\s*(token|GH_TOKEN|GITHUB_TOKEN|ssh-key|allow-unsafe-pr-checkout):' -or
-            $Text -match '(?im)^\s*secrets:') { $violations += 'Explicit secrets or checkout credential override.' }
+        if ($credentialPolicyText -match '(?i)\$\{\{\s*(?:secrets(?:\.|\[)|github\.token)' -or $credentialPolicyText -match '(?im)^\s*(token|GH_TOKEN|GITHUB_TOKEN|ssh-key|allow-unsafe-pr-checkout):' -or
+            $credentialPolicyText -match '(?im)^\s*secrets:') { $violations += 'Explicit secrets or checkout credential override.' }
         if ($Text -match '(?i)\$\{\{\s*github\.event(?:\.|\[)') {
             $violations += 'Contributor-controlled event data interpolated into workflow.'
         }
@@ -93,9 +105,9 @@ BeforeAll {
         else {
             $pathBlock = Get-WorkflowFieldBlock -Text $upload[0].Value -Key 'path' -Indent 10
             $paths = @($pathBlock -split '\n' | Select-Object -Skip 1 | ForEach-Object { $_.Trim() })
-            $allowlist = @('.scratch/ci-export/test-evidence.json', '.scratch/ci-export/static-analysis-evidence.json')
-            if ($paths.Count -ne 2 -or @($paths | Where-Object { $_ -cnotin $allowlist }).Count -gt 0 -or
-                @($paths | Select-Object -Unique).Count -ne 2) {
+            $allowlist = @('.scratch/ci-export/test-evidence.json', '.scratch/ci-export/static-analysis-evidence.json', '.scratch/ci-export/hotfix-evidence.json')
+            if ($paths.Count -ne 3 -or @($paths | Where-Object { $_ -cnotin $allowlist }).Count -gt 0 -or
+                @($paths | Select-Object -Unique).Count -ne 3) {
                 $violations += 'Artifact paths must be the exact sanitized JSON allowlist.'
             }
             if ($upload[0].Value -notmatch '(?m)^ {10}if-no-files-found: error\s*$' -or
@@ -115,7 +127,8 @@ BeforeAll {
             $Text -notmatch 'Invoke-StaticAnalysis\.ps1 -DownloadDependencies -ResultDirectory \.scratch/ci-analysis' -or
             $Text -notmatch 'Invoke-Tests\.ps1 -DeliberateFailure' -or
             $Text -notmatch 'Invoke-StaticAnalysis\.ps1 -DeliberateFailure' -or
-            $Text -notmatch 'Export-TestEvidence\.ps1[^\r\n]*-OutputDirectory \.scratch/ci-export') {
+            $Text -notmatch 'Export-TestEvidence\.ps1[^\r\n]*-OutputDirectory \.scratch/ci-export' -or
+            $Text -notmatch 'Invoke-HotfixAcceptance\.ps1 -Build -CandidateTag \$env:WINIMG_CANDIDATE_TAG -DownloadDependencies -DisposableRunner') {
             $violations += 'Mandatory corpus, static analysis, controls and sanitized export are required.'
         }
         if (@([regex]::Matches($Text, '\$controlExit -ne 1')).Count -ne 2 -or
@@ -182,6 +195,17 @@ Describe 'T066 workflow least privilege, reviewed actions and synthetic evidence
     It 'rejects exposing the workflow token as an environment override' {
         $mutation = $workflow.Replace('      WINIMG_CI_RUNNER_LABEL: windows-2025', '      WINIMG_CI_RUNNER_LABEL: windows-2025' + "`n      GH_TOKEN: " + '${{ github.token }}')
         Assert-WorkflowMutationRejected $mutation 'Explicit secrets or checkout credential override.'
+    }
+
+    It 'rejects broadening the build-only runtime cache token scope to application tests' {
+        $mutation = $workflow.Replace('Stage-Runtime.ps1 -Download -CacheOnly', 'tests/Invoke-Tests.ps1 -DownloadDependencies')
+        Assert-WorkflowMutationRejected $mutation 'Only the exact build-only cache step may receive the contents-read token.'
+        @(Get-WorkflowPolicyViolations $mutation) | Should -Contain 'Explicit secrets or checkout credential override.'
+    }
+
+    It 'rejects dispatch expressions interpolated into executable shell text' {
+        $mutation = $workflow.Replace('          ./tests/Invoke-Tests.ps1 -DownloadDependencies', '          Write-Host "${{ inputs.candidate_tag }}"' + "`n          ./tests/Invoke-Tests.ps1 -DownloadDependencies")
+        Assert-WorkflowMutationRejected $mutation 'Dispatch input must enter scripts only through the validated environment value.'
     }
 
     It 'rejects a permission YAML alias hiding the effective grant' {
