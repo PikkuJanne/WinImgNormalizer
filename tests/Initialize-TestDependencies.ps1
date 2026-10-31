@@ -103,7 +103,7 @@ $imageSpecification = (Get-Content -LiteralPath (Join-Path $PSScriptRoot $specif
 if ([string]::IsNullOrWhiteSpace($MagickPath)) {
     # Reuse the release stager's authenticated upstream artifact route. The
     # public mirror only exists after publication; CI must not depend on it.
-    $runtimeAssets = & (Join-Path $repositoryRoot 'tools/release/Stage-Runtime.ps1') -Download:$Download -CacheOnly
+    $runtimeAssets = & (Join-Path $repositoryRoot 'tools/release/Stage-Runtime.ps1') -Download:$Download
     $imageArchive = $runtimeAssets.PortableArchive
     Assert-VerifiedFile -File $imageArchive -Sha256 $imageSpecification.sha256 -Bytes $imageSpecification.bytes
     # Use Windows' libarchive tar (7z-capable), not a competing Git GNU tar on PATH.
@@ -121,6 +121,14 @@ if ([string]::IsNullOrWhiteSpace($MagickPath)) {
     [IO.Directory]::CreateDirectory($imageDirectory) | Out-Null
     & $tar.Source -xf $imageArchive -C $imageDirectory
     if ($LASTEXITCODE -ne 0) { throw 'ImageMagick extraction failed.' }
+    # Exercise the same signed app-local runtime as the shipped payload, rather
+    # than letting a developer/CI system OpenMP DLL mask a missing dependency.
+    $runtimePin = Get-Content -LiteralPath (Join-Path $repositoryRoot 'tools/release/runtime-lock.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+    foreach ($dependency in @($runtimePin.files | Where-Object origin -eq 'microsoft')) {
+        $verified = Join-Path $runtimeAssets.RuntimeDirectory $dependency.path
+        Assert-VerifiedFile -File $verified -Sha256 $dependency.sha256 -Bytes $dependency.bytes
+        [IO.File]::Copy($verified, (Join-Path $imageDirectory ([IO.Path]::GetFileName($dependency.path))), $false)
+    }
     $MagickPath = Join-Path $imageDirectory 'magick.exe'
 }
 $MagickPath = (Get-Item -LiteralPath $MagickPath).FullName

@@ -29,7 +29,7 @@ function Get-ExportSourceBindings {
         'CHANGELOG.md', 'release-metadata.json', 'README.md', 'LICENSE', '.gitattributes', '.gitignore',
         'docs/release/publication-v1.0.0.json', 'docs/release/publication-v1.0.1.json', 'docs/release/identity-v1.0.1.json',
         'tools/release/Stage-Runtime.ps1', 'tools/release/runtime-lock.json',
-        'docs/release/IMAGEMAGICK_SOURCE.md', 'docs/release/RUNTIME_REVIEW.md'
+        'docs/release/IMAGEMAGICK_SOURCE.md', 'docs/release/RUNTIME_REVIEW.md', 'docs/release/RUNTIME_IMPORTS.json'
     )
     $releaseSources += @(
         'tools/website/Test-WebsiteHandoff.ps1', 'docs/website/metadata.json',

@@ -94,6 +94,35 @@ function Get-WinImgVersion {
 
 # Presentation stays out of the persistent log and CSV. Console colours never
 # supply the only meaning; redirected hosts use ordinary complete lines.
+function Initialize-WinImgConsoleEncoding {
+  param([Nullable[bool]]$OutputRedirected, [Nullable[bool]]$ErrorRedirected)
+  $state = [pscustomobject]@{ PreviousEncoding=$null; Changed=$false }
+  try {
+    if (-not $PSBoundParameters.ContainsKey('OutputRedirected')) { $OutputRedirected = [Console]::IsOutputRedirected }
+    if (-not $PSBoundParameters.ContainsKey('ErrorRedirected')) { $ErrorRedirected = [Console]::IsErrorRedirected }
+    if ($OutputRedirected -or $ErrorRedirected) {
+      $state.PreviousEncoding = [Console]::OutputEncoding
+      $state.Changed = $true
+      # ConsoleHost uses this encoding for redirected Write-Host as well as the
+      # standard output/error writers. A UTF-8 reader cannot recover characters
+      # already replaced by the default Windows OEM encoder.
+      [Console]::OutputEncoding = [Text.UTF8Encoding]::new($false)
+    }
+  } catch {
+    # Hosts without a usable Console still retain the information-stream path.
+    if ($state.Changed) { try { [Console]::OutputEncoding = $state.PreviousEncoding } catch {} }
+    $state.Changed = $false
+  }
+  return $state
+}
+
+function Restore-WinImgConsoleEncoding {
+  param([object]$State)
+  if ($State -and $State.Changed) {
+    try { [Console]::OutputEncoding = $State.PreviousEncoding } catch {}
+  }
+}
+
 function Get-WinImgConsoleCapabilities {
   $interactive = $false; $width = 80; $light = $false; $knownBackground = $false
   try {
@@ -2686,6 +2715,8 @@ function Invoke-WinImgNormalizerCommand {
 
   # Preserve the two existing positional forms; reject ambiguous/ignored extras.
   $ErrorActionPreference = 'Stop'
+  $encodingScope = Initialize-WinImgConsoleEncoding
+  try {
   $Source = $null
   $MaxBytes = 1MB
   if (@($Arguments).Count -lt 1 -or @($Arguments).Count -gt 2) {
@@ -2715,6 +2746,7 @@ function Invoke-WinImgNormalizerCommand {
     catch { Write-WinImgEmergencyReport $message }
     return 1
   }
+  } finally { Restore-WinImgConsoleEncoding $encodingScope }
 }
 
 if ($MyInvocation.InvocationName -ne '.') {

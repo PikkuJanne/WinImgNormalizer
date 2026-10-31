@@ -29,6 +29,8 @@ function Invoke-HotfixProcess([string]$Executable, [string[]]$Tokens, [string]$W
     $start.UseShellExecute = $false; $start.CreateNoWindow = $true
     $start.WindowStyle = [Diagnostics.ProcessWindowStyle]::Hidden
     $start.RedirectStandardOutput = $true; $start.RedirectStandardError = $true; $start.RedirectStandardInput = $true
+    $start.StandardOutputEncoding = [Text.UTF8Encoding]::new($false)
+    $start.StandardErrorEncoding = [Text.UTF8Encoding]::new($false)
     foreach ($key in @($start.EnvironmentVariables.Keys)) {
         if ([string]$key -ieq 'PSModulePath' -or [string]$key -like 'MAGICK_*') { $start.EnvironmentVariables.Remove([string]$key) }
     }
@@ -58,7 +60,7 @@ function Invoke-HotfixProcess([string]$Executable, [string[]]$Tokens, [string]$W
         Assert-Hotfix ($out.Wait(5000) -and $err.Wait(5000)) 'Acceptance child streams incomplete.'
         $console = $null
         if ($InteractiveConsole) {
-            $console = Get-Content -LiteralPath $record -Raw | ConvertFrom-Json
+            $console = Get-Content -LiteralPath $record -Raw -Encoding UTF8 | ConvertFrom-Json
             Assert-Hotfix (-not $console.HarnessError -and $console.PrivateConsoleAllocated -and $console.PrivateConsoleOutput -and $console.PrivateJobAssignedBeforeCmd -and $console.KeyRecordsWritten -eq 2 -and @($console.MembersBeforeKey).Count -eq 2 -and $console.ExitCode -eq $process.ExitCode) 'Actual private-console processing/pause evidence is invalid.'
         }
         return [pscustomobject]@{ Exit = $process.ExitCode; Out = $out.GetAwaiter().GetResult(); Error = $err.GetAwaiter().GetResult(); Console = $console }
@@ -76,6 +78,64 @@ function Test-HotfixOutbound {
         if (-not $attempt.AsyncWaitHandle.WaitOne(5000)) { return $false }
         try { $socket.EndConnect($attempt); return $socket.Connected } catch { return $false }
     } finally { $socket.Close() }
+}
+function Test-HotfixPrivateOpenMp([string]$EnginePath, [string]$PackageRoot, [string]$Work) {
+    $manifest = [IO.File]::ReadAllText((Join-Path $PackageRoot 'runtime/runtime-manifest.json')) | ConvertFrom-Json
+    $records = @($manifest.files | Where-Object { [IO.Path]::GetFileName([string]$_.path) -ieq 'VCOMP140.DLL' })
+    Assert-Hotfix ($records.Count -eq 1) 'Packaged Microsoft OpenMP runtime is absent or ambiguous.'
+    $expected = [IO.Path]::GetFullPath((Join-Path $PackageRoot ('runtime/' + $records[0].path)))
+    Assert-Hotfix ([IO.File]::Exists($expected) -and (Get-FileHash -LiteralPath $expected).Hash -ieq $records[0].sha256) 'Packaged OpenMP runtime differs from its integrity manifest.'
+    $start = New-Object Diagnostics.ProcessStartInfo
+    $start.FileName = $EnginePath
+    $start.Arguments = '-size 1x1 -depth 8 RGB:- -format "%m|%w|%h" info:'
+    $start.WorkingDirectory = Split-Path -Parent $EnginePath
+    $start.UseShellExecute = $false; $start.CreateNoWindow = $true
+    $start.WindowStyle = [Diagnostics.ProcessWindowStyle]::Hidden
+    $start.RedirectStandardInput = $true; $start.RedirectStandardOutput = $true; $start.RedirectStandardError = $true
+    $start.StandardOutputEncoding = [Text.UTF8Encoding]::new($false)
+    $start.StandardErrorEncoding = [Text.UTF8Encoding]::new($false)
+    foreach ($key in @($start.EnvironmentVariables.Keys)) {
+        if ([string]$key -like 'MAGICK_*' -or [string]$key -ieq 'LIBHEIF_PLUGIN_PATH') { $start.EnvironmentVariables.Remove([string]$key) }
+    }
+    $start.EnvironmentVariables['PATH'] = $start.WorkingDirectory + ';' + (Join-Path $env:SystemRoot 'System32')
+    $start.EnvironmentVariables['MAGICK_HOME'] = $start.WorkingDirectory
+    $start.EnvironmentVariables['MAGICK_CONFIGURE_PATH'] = $start.WorkingDirectory
+    $start.EnvironmentVariables['MAGICK_CODER_MODULE_PATH'] = $start.WorkingDirectory
+    $start.EnvironmentVariables['MAGICK_FILTER_MODULE_PATH'] = $start.WorkingDirectory
+    $start.EnvironmentVariables['LIBHEIF_PLUGIN_PATH'] = $start.WorkingDirectory
+    $start.EnvironmentVariables['TEMP'] = $Work; $start.EnvironmentVariables['TMP'] = $Work
+    $process = New-Object Diagnostics.Process
+    $process.StartInfo = $start
+    $started = $false
+    try {
+        Assert-Hotfix ($process.Start()) 'Owned OpenMP loading probe did not start.'
+        $started = $true
+        $out = $process.StandardOutput.ReadToEndAsync(); $err = $process.StandardError.ReadToEndAsync()
+        $clock = [Diagnostics.Stopwatch]::StartNew()
+        $loaded = @()
+        while (-not $process.HasExited -and $clock.ElapsedMilliseconds -lt 10000) {
+            $process.Refresh()
+            $loaded = @($process.Modules | Where-Object ModuleName -IEQ 'VCOMP140.DLL')
+            if ($loaded.Count -eq 1) { break }
+            Start-Sleep -Milliseconds 20
+        }
+        Assert-Hotfix ($loaded.Count -eq 1 -and -not $process.HasExited) 'Owned engine did not remain available for same-user module inspection while awaiting synthetic RGB input.'
+        $actual = [IO.Path]::GetFullPath($loaded[0].FileName)
+        Assert-Hotfix ([string]::Equals($actual, $expected, [StringComparison]::OrdinalIgnoreCase)) 'Engine loaded OpenMP from outside the verified private payload.'
+        $actualHash = (Get-FileHash -LiteralPath $actual -Algorithm SHA256).Hash.ToLowerInvariant()
+        Assert-Hotfix ($actualHash -eq $records[0].sha256) 'Actual loaded OpenMP module hash differs from the payload manifest.'
+        $pixels = [byte[]](64,160,96)
+        $process.StandardInput.BaseStream.Write($pixels, 0, $pixels.Length)
+        $process.StandardInput.Close()
+        Assert-Hotfix ($process.WaitForExit(15000)) 'Owned engine did not complete its tiny RGB decode.'
+        Assert-Hotfix ($out.Wait(5000) -and $err.Wait(5000)) 'OpenMP loading probe streams incomplete.'
+        $decoded = $out.GetAwaiter().GetResult()
+        Assert-Hotfix ($process.ExitCode -eq 0 -and $decoded -eq 'RGB|1|1' -and -not $err.GetAwaiter().GetResult()) 'Owned engine failed the actual one-pixel RGB decode after module inspection.'
+        return [ordered]@{ Module = 'VCOMP140.DLL'; RelativePath = 'runtime/' + $records[0].path; Sha256 = $actualHash; LoadedPathMatchesPrivatePayload = $true; SameUserOwnedProcess = $true; ObservedWhileAwaitingSyntheticInput = $true; InputRgbBytes = 3; Decoded = $decoded; Exit = $process.ExitCode }
+    } finally {
+        if ($started -and -not $process.HasExited) { $process.Kill(); $null = $process.WaitForExit(5000) }
+        $process.Dispose()
+    }
 }
 Assert-Hotfix ($env:OS -eq 'Windows_NT') 'Real Windows is mandatory.'
 $root = [IO.Path]::GetFullPath((Join-Path $repository $ResultDirectory))
@@ -100,7 +160,7 @@ if (-not $Worker) {
     $candidate = $null
     if ($CandidateTag) {
         Assert-Hotfix ($CandidateTag -match '^v\d+\.\d+\.\d+$') 'Candidate tag must be a stable version.'
-        $candidate = Get-Content -LiteralPath (Join-Path $repository '.scratch/ci-candidate/candidate.json') -Raw | ConvertFrom-Json
+        $candidate = Get-Content -LiteralPath (Join-Path $repository '.scratch/ci-candidate/candidate.json') -Raw -Encoding UTF8 | ConvertFrom-Json
         $acceptedCandidateState = $candidate.Draft -or ($candidate.Prerelease -and -not $candidate.Draft -and $candidate.AnonymousPublicDownload) -or ($candidate.Stable -and $candidate.Latest)
         Assert-Hotfix ($candidate.Tag -eq $CandidateTag -and $acceptedCandidateState -and $candidate.SourceRevision -eq (& git -C $repository rev-parse HEAD).Trim()) 'Release acquisition is absent or belongs to another revision.'
         $ArchivePath = Join-Path $repository ('.scratch/ci-candidate/' + $candidate.AssetFilename)
@@ -131,8 +191,8 @@ if (-not $Worker) {
         }
         $downloaded = Join-Path $download $asset[0].name
         $digest = (Get-FileHash -LiteralPath $downloaded).Hash.ToLowerInvariant()
-        $provenance = Get-Content -LiteralPath (Join-Path $download 'build-provenance.json') -Raw | ConvertFrom-Json
-        $sums = Get-Content -LiteralPath (Join-Path $download 'SHA256SUMS.txt') -Raw
+        $provenance = Get-Content -LiteralPath (Join-Path $download 'build-provenance.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+        $sums = Get-Content -LiteralPath (Join-Path $download 'SHA256SUMS.txt') -Raw -Encoding UTF8
         Assert-Hotfix ($sums -match ('(?m)^' + $digest + '  ' + [regex]::Escape($asset[0].name) + '\r?$')) 'Public checksum sidecar differs.'
         Assert-Hotfix ($provenance.asset_sha256 -eq $digest -and $provenance.version -eq $PublicTag.Substring(1)) 'Public provenance differs.'
         $provenanceDigest = (Get-FileHash -LiteralPath (Join-Path $download 'build-provenance.json')).Hash.ToLowerInvariant()
@@ -273,11 +333,11 @@ try {
         Assert-Hotfix (-not $administrator) 'Packaged offline acceptance must run as an ordinary account.'
         Assert-Hotfix (-not (Test-HotfixOutbound)) 'Offline credibility probe unexpectedly reached GitHub.'
         $summary.OutboundProbeBlocked = $true
-        $control = Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw | ConvertFrom-Json
+        $control = Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw -Encoding UTF8 | ConvertFrom-Json
         if ($control.Candidate) { $summary.Candidate = $control.Candidate }
     }
     $package = Join-Path $root ('portable ' + [char]0x00e5 + [char]0x96ea)
-    if (-not $InstrumentedLocal) { $package = (Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw | ConvertFrom-Json).RuntimeDirectory }
+    if (-not $InstrumentedLocal) { $package = (Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw -Encoding UTF8 | ConvertFrom-Json).RuntimeDirectory }
     else { Expand-Archive -LiteralPath $ArchivePath -DestinationPath $package }
     $baseline = Join-Path $root 'baseline-extracted'
     Expand-Archive -LiteralPath $BaselineZipPath -DestinationPath $baseline
@@ -306,8 +366,9 @@ try {
     $current = Invoke-HotfixProcess $engine @('-version') $root @{ PATH = $systemPath }
     Assert-Hotfix ($current.Exit -eq 0) 'The shipped engine fails to start.'
     $summary.Engine = [ordered]@{ Version = ($current.Out -split '\r?\n')[0]; Source = 'bundled'; RelativePath = $engine.Substring($package.Length + 1); Sha256 = (Get-FileHash -LiteralPath $engine).Hash.ToLowerInvariant() }
+    $summary.PrivateOpenMp = Test-HotfixPrivateOpenMp $engine $package $root
     $summary.ZipSha256 = (Get-FileHash -LiteralPath $ArchivePath).Hash.ToLowerInvariant()
-    $source = Join-Path $root 'same synthetic input'
+    $source = Join-Path $root ('same synthetic input ' + [char]0x00e5 + [char]0x96ea)
     [IO.Directory]::CreateDirectory($source) | Out-Null
     Add-Type -AssemblyName System.Drawing
     $bitmap = [Drawing.Bitmap]::new(16,12)
@@ -318,7 +379,7 @@ try {
         $bitmap.Save((Join-Path $source 'tiny.png'), [Drawing.Imaging.ImageFormat]::Png)
     } finally { $graphics.Dispose(); $bitmap.Dispose() }
     $videoFixture = Join-Path $PSScriptRoot 'fixtures/video/synthetic-color.mp4'
-    $videoProvenance = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'fixtures/video/PROVENANCE.json') -Raw | ConvertFrom-Json
+    $videoProvenance = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'fixtures/video/PROVENANCE.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert-Hotfix ((Get-Item -LiteralPath $videoFixture).Length -eq $videoProvenance.bytes -and (Get-FileHash -LiteralPath $videoFixture).Hash -ieq $videoProvenance.sha256 -and $videoProvenance.verification.full_decode_exit -eq 0 -and $videoProvenance.verification.decoded_frames -eq 2) 'The authenticated, fully decoded synthetic video fixture differs from its provenance.'
     Copy-Item -LiteralPath $videoFixture -Destination (Join-Path $source 'clip.mp4')
     $summary.VideoFixture = [ordered]@{ Sha256 = $videoProvenance.sha256; Bytes = $videoProvenance.bytes; Codec = $videoProvenance.verification.codec; Width = $videoProvenance.verification.width; Height = $videoProvenance.verification.height; DecodedFrames = $videoProvenance.verification.decoded_frames; FullDecodeExit = $videoProvenance.verification.full_decode_exit; ProvenanceSha256 = (Get-FileHash -LiteralPath (Join-Path $PSScriptRoot 'fixtures/video/PROVENANCE.json')).Hash.ToLowerInvariant() }
@@ -363,6 +424,13 @@ try {
         Assert-Hotfix ($result.Exit -eq $Expected) ($Label + ' exit ' + $result.Exit + ', expected ' + $Expected + ': ' + $result.Out + $result.Error)
         Assert-Hotfix ($result.Out -notmatch '[\x1b\x08\x0d](?!\n)') ($Label + ' redirected output contains terminal controls.')
         $after = @(Get-ChildItem -LiteralPath $pictures -Directory | Where-Object FullName -notin $before)
+        if (-not $InteractiveConsole) {
+            foreach ($run in $after) {
+                Assert-Hotfix ($result.Out -match ('(?m)^' + [regex]::Escape($run.FullName) + '\r?$')) ($Label + ' did not preserve the complete Unicode output path on its own redirected line.')
+                $reports = @(Get-ChildItem -LiteralPath $run.FullName -Recurse -File -Filter '*.csv')
+                Assert-Hotfix ($reports.Count -eq 1 -and $result.Out -match ('(?m)^' + [regex]::Escape($reports[0].FullName) + '\r?$')) ($Label + ' did not preserve the complete Unicode report path on its own redirected line.')
+            }
+        }
         $summary.Cases += [ordered]@{ Name = $Label; Exit = $result.Exit; Shell = $(if ($Bat) { 'CMD / Windows PowerShell 5.1' } else { [IO.Path]::GetFileName($Shell) }); Entry = $(if ($InstrumentedLocal) { 'instrumented command function' } elseif ($InteractiveConsole) { 'exact packaged BAT in private real console' } elseif ($Bat) { 'exact packaged BAT' } else { 'exact packaged PS1 -File' }); Outputs = $after.Count; PrivateConsoleOutput = [bool]$result.Console.PrivateConsoleOutput }
         return [pscustomobject]@{ Result = $result; Runs = $after }
     }
@@ -412,7 +480,7 @@ try {
         Assert-HotfixMixed $interactivePartial
         Assert-Hotfix ($interactivePartial.Result.Out -match '\[04 / RESULT\]\s+PARTIAL' -and $interactivePartial.Result.Out -match 'corrupt.jpg' -and $interactivePartial.Result.Out -match 'Press any key to close\.') 'Interactive BAT partial result or cause/pause is missing.'
         Assert-Hotfix ((Get-HotfixSourceState $partialSource) -ceq $partialBefore) 'Interactive partial originals changed.'
-        $control = Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw | ConvertFrom-Json
+        $control = Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw -Encoding UTF8 | ConvertFrom-Json
         Assert-Hotfix ($control.FirewallRules -ge 4) 'Offline application/children firewall restrictions were not applied.'
         $summary.Offline = 'All tested PowerShell/CMD hosts and shipped runtime executables had outbound deny rules on the disposable hosted VM. Downloads and fixtures were staged before the rules; no desktop firewall changes.'
     } else {

@@ -4,7 +4,7 @@ param([switch]$Download)
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
 $root = Join-Path $repository '.scratch/hotfix-dependencies'
-$pin = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'hotfix-dependencies.json') -Raw | ConvertFrom-Json
+$pin = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'hotfix-dependencies.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 function Get-HotfixVerifiedArchive([string]$Name, $Specification) {
     $path = Join-Path $root $Name
     if (-not [IO.File]::Exists($path)) {

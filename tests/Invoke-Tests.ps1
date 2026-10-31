@@ -34,6 +34,7 @@ function Get-TestSourceBindings {
         }
         $files += Join-Path $PSScriptRoot 'fixtures/video/synthetic-color.mp4'
         $files += Join-Path $PSScriptRoot 'fixtures/video/PROVENANCE.json'
+        $files += Join-Path $repositoryRoot 'docs/release/RUNTIME_IMPORTS.json'
         # Bind the dated public-byte witness when present. Legacy deliberately
         # draft fixtures have no witness; published consistency requires it.
         $publicationFile = Join-Path $repositoryRoot 'docs/release/publication-v1.0.0.json'

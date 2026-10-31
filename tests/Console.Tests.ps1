@@ -7,9 +7,119 @@ BeforeAll {
         RunState='Completed'; DestinationRoot=$fullOutput; CsvPath=$fullReport
         Summary=[pscustomobject]@{ Counts=[pscustomobject]@{ Discovered=12; Converted=11; CopiedVideo=1; Error=0 } }
     }
+    $consoleScratch = Join-Path $repository ('.scratch/console-bytes-' + [guid]::NewGuid().ToString('N'))
+    Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($consoleScratch))
+    $null = [IO.Directory]::CreateDirectory($consoleScratch)
+    $consoleChildHost = (Get-Process -Id $PID).Path
+    function Invoke-ConsoleByteCapture([string]$Mode) {
+        $root = Join-Path $consoleScratch ($Mode + '-' + [guid]::NewGuid().ToString('N'))
+        $null = [IO.Directory]::CreateDirectory($root)
+        $driver = Join-Path $root 'unicode-driver.ps1'
+        $record = Join-Path $root 'encoding.json'
+        $unicodePath = Join-Path $root ('synthetic ' + [char]0x00e5 + [char]0x96ea + '\complete output.jpeg')
+        $encodedApplication = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes((Join-Path $repository 'WinImgNormalizer.ps1')))
+        $encodedRecord = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($record))
+        $driverText = @'
+$ErrorActionPreference = 'Stop'
+[Console]::OutputEncoding = [Text.Encoding]::GetEncoding(437)
+$before = [Console]::OutputEncoding.CodePage
+$errorBefore = [Console]::Error.Encoding.CodePage
+. ([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('__APPLICATION__')))
+$script:unicodePath = '__PATH_LITERAL__'
+$script:mode = '__MODE__'
+$script:during = $null
+$script:errorDuring = $null
+function Write-UnicodeFixture {
+    $script:during = [Console]::OutputEncoding.CodePage
+    $script:errorDuring = [Console]::Error.Encoding.CodePage
+    Write-WinImgConsoleLine ('Output: ' + $script:unicodePath)
+    [Console]::Error.WriteLine('Diagnostic: ' + $script:unicodePath)
+}
+function Get-WinImgUsage { Write-UnicodeFixture; return ('Usage: WinImgNormalizer.ps1 <sourceFolder> [maxBytes] ' + $script:unicodePath) }
+function Invoke-WinImgNormalizer {
+    Write-UnicodeFixture
+    switch ($script:mode) {
+        'run-error' { throw [IO.IOException]::new('Synthetic failure: ' + $script:unicodePath) }
+        'setup' { Write-WinImgConsoleLine ('Setup error: ' + $script:unicodePath) -Kind Error; return 1 }
+        'partial' { return 2 }
+        'cancel' { return 130 }
+        default { return 0 }
+    }
+}
+$arguments = @()
+if ($script:mode -ne 'usage') { $arguments = @($script:unicodePath) }
+$code = Invoke-WinImgNormalizerCommand -Arguments $arguments -CaptureConsoleControl $false
+$result = [ordered]@{ Before=$before; During=$script:during; After=[Console]::OutputEncoding.CodePage;
+    ErrorBefore=$errorBefore; ErrorDuring=$script:errorDuring; ErrorAfter=[Console]::Error.Encoding.CodePage;
+    Edition=$PSVersionTable.PSEdition; Version=$PSVersionTable.PSVersion.ToString(); Code=$code;
+    OutputRedirected=[Console]::IsOutputRedirected; ErrorRedirected=[Console]::IsErrorRedirected }
+$recordPath = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('__RECORD__'))
+[IO.File]::WriteAllText($recordPath, ($result | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
+exit $code
+'@
+        $driverText = $driverText.Replace('__APPLICATION__',$encodedApplication).Replace('__PATH_LITERAL__',$unicodePath.Replace("'","''")).Replace('__RECORD__',$encodedRecord).Replace('__MODE__',$Mode)
+        # Windows PowerShell must decode the driver itself before the app can
+        # select its pipe encoding. Keep a real Unicode literal in BOM-marked UTF-8.
+        [IO.File]::WriteAllText($driver, $driverText, [Text.UTF8Encoding]::new($true))
+        $start = [Diagnostics.ProcessStartInfo]::new()
+        $start.FileName = $consoleChildHost
+        $start.Arguments = '-NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "' + $driver + '"'
+        $start.UseShellExecute=$false; $start.CreateNoWindow=$true
+        $start.RedirectStandardOutput=$true; $start.RedirectStandardError=$true
+        $process = [Diagnostics.Process]::new(); $process.StartInfo=$start
+        $stdout = [IO.MemoryStream]::new(); $stderr = [IO.MemoryStream]::new()
+        try {
+            if (-not $process.Start()) { throw 'Native Unicode fixture did not start.' }
+            $outTask = $process.StandardOutput.BaseStream.CopyToAsync($stdout)
+            $errTask = $process.StandardError.BaseStream.CopyToAsync($stderr)
+            if (-not $process.WaitForExit(15000)) { $process.Kill(); throw 'Native Unicode fixture exceeded its deadline.' }
+            if (-not $outTask.Wait(5000) -or -not $errTask.Wait(5000)) { throw 'Native Unicode fixture streams did not complete.' }
+            $outBytes=$stdout.ToArray(); $errBytes=$stderr.ToArray()
+            [IO.File]::WriteAllBytes((Join-Path $root 'stdout.bin'), $outBytes)
+            [IO.File]::WriteAllBytes((Join-Path $root 'stderr.bin'), $errBytes)
+            $utf8 = [Text.UTF8Encoding]::new($false,$true)
+            if (-not [IO.File]::Exists($record)) { throw ('Native Unicode fixture did not record its result: ' + $utf8.GetString($errBytes)) }
+            return [pscustomobject]@{ ExitCode=$process.ExitCode; StdOut=$utf8.GetString($outBytes); StdErr=$utf8.GetString($errBytes);
+                UnicodePath=$unicodePath; State=(Get-Content -LiteralPath $record -Raw -Encoding UTF8 | ConvertFrom-Json) }
+        } finally {
+            if ($process.Id -and -not $process.HasExited) { $process.Kill(); $null=$process.WaitForExit(5000) }
+            $process.Dispose(); $stdout.Dispose(); $stderr.Dispose()
+        }
+    }
 }
 
 Describe 'Hotfix field console deterministic presentation' {
+    It 'captures complete UTF-8 native stdout/error for <Mode> and restores the original OEM process encoding' -ForEach @(
+        @{Mode='success';Code=0}, @{Mode='partial';Code=2}, @{Mode='cancel';Code=130},
+        @{Mode='setup';Code=1}, @{Mode='run-error';Code=1}, @{Mode='usage';Code=1}
+    ) {
+        $actual = Invoke-ConsoleByteCapture $Mode
+        $actual.ExitCode | Should -Be $Code
+        $actual.State.Code | Should -Be $Code
+        $actual.State.Edition | Should -Be $PSVersionTable.PSEdition
+        $actual.State.Version | Should -Be $PSVersionTable.PSVersion.ToString()
+        $actual.State.OutputRedirected | Should -BeTrue
+        $actual.State.ErrorRedirected | Should -BeTrue
+        $actual.State.Before | Should -Be 437
+        $actual.State.During | Should -Be 65001
+        $actual.State.After | Should -Be 437
+        $actual.State.ErrorBefore | Should -Be 437
+        $actual.State.ErrorDuring | Should -Be 65001
+        $actual.State.ErrorAfter | Should -Be 437
+        $actual.StdOut | Should -Match ([regex]::Escape($actual.UnicodePath))
+        $actual.StdErr | Should -BeExactly ('Diagnostic: ' + $actual.UnicodePath + [Environment]::NewLine)
+        $actual.StdOut | Should -Not -Match '[\x1b\x00-\x08]'
+    }
+
+    It 'leaves the encoding untouched for an interactive standard console' {
+        $before = [Console]::OutputEncoding
+        $scope = Initialize-WinImgConsoleEncoding -OutputRedirected $false -ErrorRedirected $false
+        try {
+            $scope.Changed | Should -BeFalse
+            [object]::ReferenceEquals([Console]::OutputEncoding,$before) | Should -BeTrue
+        } finally { Restore-WinImgConsoleEncoding $scope }
+    }
+
     It 'renders actual state at <Width> columns and keeps final paths complete' -ForEach @(@{Width=40},@{Width=80},@{Width=120}) {
         $lines = @(
             Get-WinImgConsoleLayout Start ([pscustomobject]@{Source='Tour photos'}) $Width

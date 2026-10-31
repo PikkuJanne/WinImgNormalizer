@@ -43,7 +43,7 @@ foreach ($pattern in @($name, 'SHA256SUMS.txt', 'build-provenance.json')) {
 }
 $zip = Join-Path $output $name
 $digest = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()
-$provenance = Get-Content -LiteralPath (Join-Path $output 'build-provenance.json') -Raw | ConvertFrom-Json
+$provenance = Get-Content -LiteralPath (Join-Path $output 'build-provenance.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $source = (& git -C $repository rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0 -or $source -notmatch '^[0-9a-f]{40}$') { throw 'Candidate checkout source could not be established.' }
 if ($publicTagSource -and $publicTagSource -ne $source) { throw 'Anonymous public tag differs from the exact tested source checkout.' }
