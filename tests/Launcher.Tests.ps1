@@ -413,6 +413,25 @@ $env:WINIMG_LAUNCHER_MODULE_BASE = (Get-Command Get-FileHash -CommandType Functi
         $env:PSModulePath | Should -BeExactly $before
     }
 
+    It 'T062 captures one wide CJK glyph per displayed glyph and preserves following result and pause rows' {
+        $case = New-LauncherCase 'wide-cell-screen'
+        $unicode = [string][char]0x00e5 + [char]0x96ea
+        $screenDriver = "Write-Host '[01 / INPUT] $unicode'`r`nWrite-Host '[04 / RESULT] COMPLETE'`r`nWrite-Host 'Output: synthetic destination'`r`nWrite-Host 'Report: synthetic report.csv'`r`n"
+        [IO.File]::WriteAllText((Join-Path $case.Root 'WinImgNormalizer.ps1'), ($screenDriver + $driverText), [Text.UTF8Encoding]::new($true))
+        $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -ExpectDriver -VerifyPause
+        $result.ExitCode | Should -Be 0
+        $result.ConsoleFixture.CaptureMethod | Should -BeExactly 'ReadConsoleOutputW'
+        $result.ConsoleFixture.CaptureStage | Should -BeExactly 'BeforePauseKey'
+        $result.StdOut | Should -Match ('(?m)^\[01 / INPUT\] ' + [regex]::Escape($unicode) + '\r?$')
+        [regex]::Matches($result.StdOut,[string][char]0x96ea).Count | Should -Be 1
+        $result.StdOut | Should -Match '(?m)^\[04 / RESULT\] COMPLETE\r?$'
+        $result.StdOut | Should -Match '(?m)^Output: synthetic destination\r?$'
+        $result.StdOut | Should -Match '(?m)^Report: synthetic report.csv\r?$'
+        $result.StdOut | Should -Match '(?m)^Press any key to close\.\r?$'
+        $result.PauseObserved | Should -BeTrue
+        $result.StdErr | Should -BeNullOrEmpty
+    }
+
     It 'T062 preserves a single literal source and companion path with <Label>' -ForEach @(
         @{ Label = 'spaces'; Directory = 'folder with spaces'; Separator = '' },
         @{ Label = 'Unicode'; Directory = 'Unicode-' + [char]0x00E5 + [char]0x96EA; Separator = '' },
