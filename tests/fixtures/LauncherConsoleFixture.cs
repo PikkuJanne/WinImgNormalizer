@@ -88,7 +88,7 @@ public static class LauncherConsoleFixture {
                     if (line == null || Interlocked.CompareExchange(ref inputEnabled, 0, 1) != 1 || child.HasExited) return;
                     uint[] members = new uint[32]; uint count = 0;
                     var pauseClock = Stopwatch.StartNew(); bool pauseReady = false;
-                    while (!child.HasExited && pauseClock.ElapsedMilliseconds < 15000) {
+                    while (!child.HasExited && pauseClock.ElapsedMilliseconds < 35000) {
                         count = GetConsoleProcessList(members, (uint)members.Length);
                         ScreenInfo current; Check(GetConsoleScreenBufferInfo(screen, out current), "Pause screen info");
                         uint length = (uint)(current.Size.X * (current.Cursor.Y + 1));

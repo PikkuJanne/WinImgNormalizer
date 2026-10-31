@@ -471,6 +471,46 @@ Describe 'M1-T01 reviewed ImageMagick identity and preflight (T010)' {
         }
     }
 
+    It 'fails closed on explicit policy include trees rather than dropping a sibling restriction before engine execution' {
+        $package = New-PreflightRuntimePackage
+        $policyRoot = New-PreflightDirectory 'included-administrator-policy'
+        [IO.File]::WriteAllText((Join-Path $policyRoot 'policy.xml'), '<policymap><include file="restriction.xml" /></policymap>')
+        [IO.File]::WriteAllText((Join-Path $policyRoot 'restriction.xml'), '<policymap><policy domain="coder" rights="none" pattern="JPEG" /></policymap>')
+        $previousConfigure = $env:MAGICK_CONFIGURE_PATH
+        $selection = $null
+        try {
+            $env:MAGICK_CONFIGURE_PATH = $policyRoot
+            $selection = Get-WinImgBundledRuntime -ApplicationRoot $package.Root
+            Mock Invoke-WinImgNativeProcess { throw 'An engine must not start after policy isolation failed.' }
+            { Initialize-WinImgBundledEnvironment $selection } | Should -Throw '*include tree*no image engine was executed*'
+            Should -Invoke Invoke-WinImgNativeProcess -Times 0 -Exactly
+        } finally {
+            Remove-WinImgEngineSelection $selection
+            $env:MAGICK_CONFIGURE_PATH = $previousConfigure
+        }
+    }
+
+    It 'rejects <Kind> policy XML before native execution rather than discarding unparseable restrictions' -ForEach @(
+        @{Kind='DTD';Xml='<!DOCTYPE policymap [<!ENTITY restriction "none">]><policymap><policy domain="coder" rights="&restriction;" pattern="JPEG" /></policymap>'},
+        @{Kind='corrupt';Xml='<policymap><policy domain="coder" rights="none" pattern="JPEG" />'}
+    ) {
+        $package = New-PreflightRuntimePackage
+        $policyRoot = New-PreflightDirectory 'invalid-administrator-policy'
+        [IO.File]::WriteAllText((Join-Path $policyRoot 'policy.xml'), $Xml)
+        $previousConfigure = $env:MAGICK_CONFIGURE_PATH
+        $selection = $null
+        try {
+            $env:MAGICK_CONFIGURE_PATH = $policyRoot
+            $selection = Get-WinImgBundledRuntime -ApplicationRoot $package.Root
+            Mock Invoke-WinImgNativeProcess { throw 'An engine must not start after policy XML validation failed.' }
+            { Initialize-WinImgBundledEnvironment $selection } | Should -Throw
+            Should -Invoke Invoke-WinImgNativeProcess -Times 0 -Exactly
+        } finally {
+            Remove-WinImgEngineSelection $selection
+            $env:MAGICK_CONFIGURE_PATH = $previousConfigure
+        }
+    }
+
     It 'resolves the verified real executable despite shadowing aliases and functions in a child host' {
         $work = New-PreflightDirectory 'shadowed-magick'
         $script = Join-Path $work 'Check-Application-Identity.ps1'

@@ -20,7 +20,7 @@ function Assert-Hotfix([bool]$Condition, [string]$Message) { if (-not $Condition
 function ConvertTo-HotfixArgument([string]$Value) {
     return '"' + [regex]::Replace([regex]::Replace($Value, '(\\*)"', '$1$1\"'), '(\\+)$', '$1$1') + '"'
 }
-function Invoke-HotfixProcess([string]$Executable, [string[]]$Tokens, [string]$Work, [hashtable]$Environment, [int]$Timeout = 120000) {
+function Invoke-HotfixProcess([string]$Executable, [string[]]$Tokens, [string]$Work, [hashtable]$Environment, [int]$Timeout = 120000, [switch]$InteractiveConsole) {
     $start = New-Object Diagnostics.ProcessStartInfo
     $start.FileName = $Executable
     $start.Arguments = ($Tokens | ForEach-Object { ConvertTo-HotfixArgument $_ }) -join ' '
@@ -32,16 +32,36 @@ function Invoke-HotfixProcess([string]$Executable, [string[]]$Tokens, [string]$W
     foreach ($key in @($start.EnvironmentVariables.Keys)) {
         if ([string]$key -ieq 'PSModulePath' -or [string]$key -like 'MAGICK_*') { $start.EnvironmentVariables.Remove([string]$key) }
     }
-    if ($Environment) { foreach ($key in $Environment.Keys) { $start.EnvironmentVariables[$key] = $Environment[$key] } }
+    if ($Environment) {
+        foreach ($key in $Environment.Keys) {
+            if ($null -eq $Environment[$key]) { $start.EnvironmentVariables.Remove([string]$key) }
+            else { $start.EnvironmentVariables[$key] = $Environment[$key] }
+        }
+    }
     $process = New-Object Diagnostics.Process
     $process.StartInfo = $start
     try {
         Assert-Hotfix ($process.Start()) 'Acceptance child failed to start.'
-        $process.StandardInput.Close()
         $out = $process.StandardOutput.ReadToEndAsync(); $err = $process.StandardError.ReadToEndAsync()
+        if ($InteractiveConsole) {
+            $record = [string]$start.EnvironmentVariables['WINIMG_TEST_PRIVATE_CONSOLE_RECORD']
+            Assert-Hotfix ([IO.Path]::IsPathRooted($record) -and $record.StartsWith($Work + '\', [StringComparison]::OrdinalIgnoreCase)) 'Private-console record must belong to acceptance scratch.'
+            $clock = [Diagnostics.Stopwatch]::StartNew()
+            while (-not [IO.File]::Exists($record + '.ready') -and -not $process.HasExited -and $clock.ElapsedMilliseconds -lt 15000) { Start-Sleep -Milliseconds 20 }
+            Assert-Hotfix ([IO.File]::Exists($record + '.ready')) 'Private-console fixture did not become ready.'
+            # The fixture injects only after the real pause label is visible and
+            # its private console contains exactly the controller and owned CMD.
+            $process.StandardInput.WriteLine('x'); $process.StandardInput.Flush()
+        }
+        $process.StandardInput.Close()
         if (-not $process.WaitForExit($Timeout)) { $process.Kill(); throw 'Acceptance child exceeded its deadline.' }
         Assert-Hotfix ($out.Wait(5000) -and $err.Wait(5000)) 'Acceptance child streams incomplete.'
-        return [pscustomobject]@{ Exit = $process.ExitCode; Out = $out.GetAwaiter().GetResult(); Error = $err.GetAwaiter().GetResult() }
+        $console = $null
+        if ($InteractiveConsole) {
+            $console = Get-Content -LiteralPath $record -Raw | ConvertFrom-Json
+            Assert-Hotfix (-not $console.HarnessError -and $console.PrivateConsoleAllocated -and $console.PrivateConsoleOutput -and $console.PrivateJobAssignedBeforeCmd -and $console.KeyRecordsWritten -eq 2 -and @($console.MembersBeforeKey).Count -eq 2 -and $console.ExitCode -eq $process.ExitCode) 'Actual private-console processing/pause evidence is invalid.'
+        }
+        return [pscustomobject]@{ Exit = $process.ExitCode; Out = $out.GetAwaiter().GetResult(); Error = $err.GetAwaiter().GetResult(); Console = $console }
     } finally { $process.Dispose() }
 }
 function Get-HotfixSourceState([string]$Directory) {
@@ -211,6 +231,15 @@ try {
     $version = [regex]::Match([IO.File]::ReadAllText($application), '(?m)^function Get-WinImgVersion\s*\{\s*return ''(?<version>\d+\.\d+\.\d+)''')
     Assert-Hotfix $version.Success 'Packaged version source missing.'
     $summary.ApplicationVersion = $version.Groups['version'].Value
+    $consoleFixture = $null
+    if (-not $InstrumentedLocal) {
+        $consoleFixture = Join-Path $root 'AcceptancePrivateConsole.exe'
+        $compiler = Join-Path $env:SystemRoot 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
+        $fixtureSource = Join-Path $PSScriptRoot 'fixtures/LauncherConsoleFixture.cs'
+        $compile = Invoke-HotfixProcess $compiler @('/nologo','/target:winexe','/reference:System.Web.Extensions.dll',('/out:' + $consoleFixture),$fixtureSource) $root @{}
+        Assert-Hotfix ($compile.Exit -eq 0 -and [IO.File]::Exists($consoleFixture)) 'Packaged processing private-console fixture did not compile.'
+        $summary.ConsoleFixture = [ordered]@{ SourceSha256 = (Get-FileHash -LiteralPath $fixtureSource).Hash.ToLowerInvariant(); ExecutableSha256 = (Get-FileHash -LiteralPath $consoleFixture).Hash.ToLowerInvariant(); CompilerSha256 = (Get-FileHash -LiteralPath $compiler).Hash.ToLowerInvariant() }
+    }
     $engines = @(Get-ChildItem -LiteralPath $package -Recurse -File -Filter magick.exe)
     Assert-Hotfix ($engines.Count -eq 1) 'The portable archive must contain exactly one private engine.'
     $engine = $engines[0].FullName
@@ -242,7 +271,7 @@ try {
     if (-not $pictures) { $pictures = Join-Path $env:USERPROFILE 'Pictures' }
     if (-not $InstrumentedLocal) { Assert-Hotfix ($pictures.StartsWith($env:USERPROFILE + '\', [StringComparison]::OrdinalIgnoreCase) -and $env:USERNAME -like 'winimg*') 'Exact entry-point outputs must belong to the disposable account.' }
     [IO.Directory]::CreateDirectory($pictures) | Out-Null
-    function Invoke-HotfixEntry([string]$Label, [string]$Script, [string]$Shell, [string]$InputDirectory, [string]$PathValue, [int]$Expected, [switch]$Bat, [switch]$WithCap, [hashtable]$AdditionalEnvironment) {
+    function Invoke-HotfixEntry([string]$Label, [string]$Script, [string]$Shell, [string]$InputDirectory, [string]$PathValue, [int]$Expected, [switch]$Bat, [switch]$WithCap, [hashtable]$AdditionalEnvironment, [switch]$InteractiveConsole) {
         $before = @(Get-ChildItem -LiteralPath $pictures -Directory | ForEach-Object FullName)
         $environment = @{ PATH = $PathValue; WINIMG_NO_PAUSE = '1'; NO_COLOR = '1'; TEMP = $root; TMP = $root }
         if ($AdditionalEnvironment) { foreach ($key in $AdditionalEnvironment.Keys) { $environment[$key] = $AdditionalEnvironment[$key] } }
@@ -257,17 +286,26 @@ try {
             $environment['WINIMG_ACCEPTANCE_SOURCE'] = $InputDirectory
             $tokens = @('/d','/v:off','/s','/c','""%WINIMG_ACCEPTANCE_BAT%" "%WINIMG_ACCEPTANCE_SOURCE%""')
             $Shell = $cmd
+            if ($InteractiveConsole) {
+                $environment['WINIMG_NO_PAUSE'] = $null
+                $environment['NO_COLOR'] = $null
+                $environment['WINIMG_TEST_PRIVATE_CONSOLE_CMD'] = $cmd
+                $environment['WINIMG_TEST_PRIVATE_CONSOLE_ARGUMENTS'] = '/d /v:off /s /c ' + $tokens[-1]
+                $environment['WINIMG_TEST_PRIVATE_CONSOLE_RECORD'] = Join-Path $root ($Label + '.console.json')
+                $Shell = $consoleFixture
+                $tokens = @()
+            }
         } else {
             $tokens = @('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$Script,$InputDirectory)
             if ($WithCap) { $tokens += '1048576' }
         }
-        $result = Invoke-HotfixProcess $Shell $tokens $root $environment
+        $result = Invoke-HotfixProcess $Shell $tokens $root $environment -InteractiveConsole:$InteractiveConsole
         [IO.File]::WriteAllText((Join-Path $root ($Label + '.stdout.txt')), $result.Out, $utf8)
         [IO.File]::WriteAllText((Join-Path $root ($Label + '.stderr.txt')), $result.Error, $utf8)
         Assert-Hotfix ($result.Exit -eq $Expected) ($Label + ' exit ' + $result.Exit + ', expected ' + $Expected + ': ' + $result.Out + $result.Error)
         Assert-Hotfix ($result.Out -notmatch '[\x1b\x08\x0d](?!\n)') ($Label + ' redirected output contains terminal controls.')
         $after = @(Get-ChildItem -LiteralPath $pictures -Directory | Where-Object FullName -notin $before)
-        $summary.Cases += [ordered]@{ Name = $Label; Exit = $result.Exit; Shell = [IO.Path]::GetFileName($Shell); Entry = $(if ($InstrumentedLocal) { 'instrumented command function' } elseif ($Bat) { 'exact packaged BAT' } else { 'exact packaged PS1 -File' }); Outputs = $after.Count }
+        $summary.Cases += [ordered]@{ Name = $Label; Exit = $result.Exit; Shell = $(if ($Bat) { 'CMD / Windows PowerShell 5.1' } else { [IO.Path]::GetFileName($Shell) }); Entry = $(if ($InstrumentedLocal) { 'instrumented command function' } elseif ($InteractiveConsole) { 'exact packaged BAT in private real console' } elseif ($Bat) { 'exact packaged BAT' } else { 'exact packaged PS1 -File' }); Outputs = $after.Count; PrivateConsoleOutput = [bool]$result.Console.PrivateConsoleOutput }
         return [pscustomobject]@{ Result = $result; Runs = $after }
     }
     $red = Invoke-HotfixEntry 'A1-baseline-refusal' (Join-Path $baseline 'WinImgNormalizer.ps1') $legacyShell $source $legacyPath 1
@@ -294,10 +332,24 @@ try {
     if (-not $InstrumentedLocal) {
         Assert-HotfixMixed (Invoke-HotfixEntry 'A1-BAT-oldPATH' $application $legacyShell $source $legacyPath 0 -Bat)
         Assert-HotfixMixed (Invoke-HotfixEntry 'A2-BAT-clean-different-CWD' $application $legacyShell $source $systemPath 0 -Bat)
+        $interactiveSuccess = Invoke-HotfixEntry 'A6-interactive-BAT-success' $application $legacyShell $source $legacyPath 0 -Bat -InteractiveConsole
+        Assert-HotfixMixed $interactiveSuccess
+        Assert-Hotfix ($interactiveSuccess.Result.Out -match '\[04 / RESULT\]\s+COMPLETE' -and $interactiveSuccess.Result.Out -match 'Press any key to close\.') 'Interactive BAT success/pause did not render the real result.'
+        $partialSource = Join-Path $root 'interactive partial inputs'; [IO.Directory]::CreateDirectory($partialSource) | Out-Null
+        foreach ($name in @('tiny.jpg','tiny.png','clip.mp4')) { Copy-Item -LiteralPath (Join-Path $source $name) -Destination (Join-Path $partialSource $name) }
+        [IO.File]::WriteAllBytes((Join-Path $partialSource 'corrupt.jpg'), [byte[]](0,1,2,3,4))
+        $partialBefore = Get-HotfixSourceState $partialSource
+        $interactivePartial = Invoke-HotfixEntry 'A6-interactive-BAT-partial' $application $legacyShell $partialSource $legacyPath 2 -Bat -InteractiveConsole
+        Assert-HotfixMixed $interactivePartial
+        Assert-Hotfix ($interactivePartial.Result.Out -match '\[04 / RESULT\]\s+PARTIAL' -and $interactivePartial.Result.Out -match 'corrupt.jpg' -and $interactivePartial.Result.Out -match 'Press any key to close\.') 'Interactive BAT partial result or cause/pause is missing.'
+        Assert-Hotfix ((Get-HotfixSourceState $partialSource) -ceq $partialBefore) 'Interactive partial originals changed.'
         $control = Get-Content -LiteralPath (Join-Path $root 'runner-control.json') -Raw | ConvertFrom-Json
         Assert-Hotfix ($control.FirewallRules -ge 4) 'Offline application/children firewall restrictions were not applied.'
         $summary.Offline = 'All tested PowerShell/CMD hosts and shipped runtime executables had outbound deny rules on the disposable hosted VM. Downloads and fixtures were staged before the rules; no desktop firewall changes.'
-    } else { $summary.Offline = 'Not claimed for this supplemental desktop run; no network settings changed.' }
+    } else {
+        $summary.Offline = 'Not claimed for this supplemental desktop run; no network settings changed.'
+        $summary.InteractivePackagedProcessing = 'Not executed in instrumented local mode; exact packaged console processing is exercised only in the disposable profile.'
+    }
     # A PATH/current-directory executable must never become a release backend.
     $decoySource = Join-Path $root 'Decoy.cs'
     $decoyMarker = Join-Path $root 'DECOY-WAS-EXECUTED.txt'

@@ -1565,11 +1565,30 @@ function Initialize-WinImgBundledEnvironment {
     if (-not (Test-Path -LiteralPath $policy -PathType Leaf)) { continue }
     Assert-WinImgRegularRuntimeFile $policy
     if ((Get-Item -LiteralPath $policy).Length -gt 1MB) { throw 'Explicit ImageMagick policy exceeds the configuration bound.' }
+    $policyBytes = [IO.File]::ReadAllBytes($policy)
+    if ($policyBytes.Length -gt 1MB) { throw 'Explicit ImageMagick policy exceeds the configuration bound.' }
+    # Snapshotting just the root of an include tree would silently remove its
+    # restrictions. Fail closed before even the version query. Prohibit DTDs
+    # and external resolution rather than dropping entity/default restrictions.
+    $settings = [Xml.XmlReaderSettings]::new()
+    $settings.DtdProcessing = [Xml.DtdProcessing]::Prohibit
+    $settings.XmlResolver = $null
+    $stream = [IO.MemoryStream]::new($policyBytes, $false)
+    $reader = $null
+    try {
+      $reader = [Xml.XmlReader]::Create($stream, $settings)
+      while ($reader.Read()) {
+        if ($reader.NodeType -eq [Xml.XmlNodeType]::Element -and $reader.LocalName -ieq 'include') {
+          throw 'Explicit ImageMagick policy contains an include tree that cannot be isolated safely. Use an administrator-approved self-contained policy; no image engine was executed.'
+        }
+      }
+    } finally { if ($reader) { $reader.Dispose() }; $stream.Dispose() }
     $directory = Join-Path $private ([string]$configure.Count)
     if (-not (New-WinImgExclusiveDirectory $directory)) { throw 'Could not allocate policy snapshot directory.' }
     $Selection.PolicyDirectories += $directory
     $copy = Join-Path $directory 'policy.xml'
-    [IO.File]::Copy($policy, $copy, $false)
+    $policyStream = [IO.File]::Open($copy, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+    try { $policyStream.Write($policyBytes, 0, $policyBytes.Length) } finally { $policyStream.Dispose() }
     $Selection.PolicyFiles += $copy
     $configure += $directory
   }

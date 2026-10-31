@@ -158,6 +158,26 @@ $markerPath = Join-Path $destination 'portable-runtime.json'
 if (Test-Path -LiteralPath $runtime) {
     # Idempotent staging verifies every existing byte; it never repairs a damaged
     # runtime in place or overwrites a different checkout's files.
+    Assert-StageAncestors $runtime
+    $expectedFiles = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    $expectedDirectories = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    $null = $expectedFiles.Add('runtime-manifest.json')
+    foreach ($file in $files) {
+        $null = $expectedFiles.Add([string]$file.path)
+        $parent = [IO.Path]::GetDirectoryName([string]$file.path)
+        while ($parent) {
+            $null = $expectedDirectories.Add($parent.Replace('\','/'))
+            $parent = [IO.Path]::GetDirectoryName($parent)
+        }
+    }
+    foreach ($item in Get-ChildItem -LiteralPath $runtime -Recurse -Force -ErrorAction Stop) {
+        if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Existing runtime contains a reparse point; no files replaced.' }
+        $relative = $item.FullName.Substring($runtime.Length + 1).Replace('\','/')
+        if (($item.PSIsContainer -and -not $expectedDirectories.Contains($relative)) -or
+            (-not $item.PSIsContainer -and -not $expectedFiles.Contains($relative))) {
+            throw ('Existing runtime contains an unexpected entry; no files replaced: ' + $relative)
+        }
+    }
     foreach ($file in $files) { Assert-StageFile (Join-Path $runtime $file.path) $file }
     $existingManifest = Join-Path $runtime 'runtime-manifest.json'
     if (Test-Path -LiteralPath $existingManifest) {
