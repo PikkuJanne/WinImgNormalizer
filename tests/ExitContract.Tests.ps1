@@ -87,6 +87,7 @@ BeforeAll {
         $work = New-ExitDirectory ($Label + '-' + [Guid]::NewGuid().ToString('N'))
         $source = New-ExitDirectory ($work.Substring($ownedRoot.Length + 1) + '/source')
         if ($Mode -ne 'empty') { Write-ExitBytes (Join-Path $source 'ignored.txt') ([Text.Encoding]::UTF8.GetBytes('Owned ignored sentinel.')) }
+        if ($Mode -eq 'setup') { Write-ExitBytes (Join-Path $source 'needs-decoder.png') ([byte[]]@(137,80,78,71,13,10,26,10)) }
         if ($Mode -eq 'partial') {
             Write-ExitBytes (Join-Path $source '01-corrupt.png') ([byte[]]@(137,80,78,71,13,10,26,10,0,0,0,0))
             New-ExitVideo (Join-Path $source '02-kept.mp4')
@@ -249,8 +250,18 @@ exit $code
                 try {
                     try { $child = [Diagnostics.Process]::GetProcessById($childIdentity.Pid) } catch [ArgumentException] { $driverExitedBeforePauseRelease = $true }
                     if ($child) {
-                        if ($child.StartTime.ToUniversalTime().Ticks -ne $childIdentity.StartTicks) { throw 'Safe driver process identity changed before pause inspection.' }
-                        if (-not $child.WaitForExit(5000)) { throw 'Safe driver did not exit after recording its code.' }
+                        if (-not $child.HasExited) {
+                            # The driver may exit between PID lookup and this
+                            # property getter (Desktop can return null). Only a
+                            # confirmed exit permits missing start information.
+                            $driverStart = $null
+                            try { $driverStart = $child.StartTime }
+                            catch { if (-not $child.HasExited) { throw } }
+                            if ($null -ne $driverStart) {
+                                if ($driverStart.ToUniversalTime().Ticks -ne $childIdentity.StartTicks) { throw 'Safe driver process identity changed before pause inspection.' }
+                                if (-not $child.WaitForExit(5000)) { throw 'Safe driver did not exit after recording its code.' }
+                            } elseif (-not $child.HasExited) { throw 'Safe driver start time is unavailable while the process remains running.' }
+                        }
                         $driverExitedBeforePauseRelease = $true
                     }
                 } finally { if ($child) { $child.Dispose() } }
@@ -396,10 +407,10 @@ Describe 'M3-T05 actual script command exit contract (T061/T063)' {
 
 Describe 'M3-T05 complete application flow through the exact production BAT (T061/T063)' {
     It 'preserves application <Code> after the actual BAT echo and pause for <Label>' -ForEach @(
-        @{ Label = 'completed ignored input'; Mode = 'ignored'; Code = 0; Message = 'Completed successfully' },
-        @{ Label = 'dependency setup failure'; Mode = 'setup'; Code = 1; Message = 'Processing did not complete reliably \(exit code 1\)' },
-        @{ Label = 'controlled global failure'; Mode = 'global'; Code = 1; Message = 'Processing did not complete reliably \(exit code 1\)' },
-        @{ Label = 'actual file failure with kept output'; Mode = 'partial'; Code = 2; Message = 'Completed with warnings|Completed with.*partial' },
+        @{ Label = 'completed ignored input'; Mode = 'ignored'; Code = 0; Message = '\[04 / RESULT\]\s+COMPLETE' },
+        @{ Label = 'dependency setup failure'; Mode = 'setup'; Code = 1; Message = 'Setup error: ImageMagick magick.exe was not found' },
+        @{ Label = 'controlled global failure'; Mode = 'global'; Code = 1; Message = 'Run error: Owned global failure' },
+        @{ Label = 'actual file failure with kept output'; Mode = 'partial'; Code = 2; Message = '\[04 / RESULT\]\s+PARTIAL' },
         @{ Label = 'controlled cooperative interruption'; Mode = 'cancel'; Code = 130; Message = 'cancelled|canceled|interrupted' }
     ) {
         $case = New-ExitCase ('batch-' + $Mode) $Mode
@@ -408,6 +419,7 @@ Describe 'M3-T05 complete application flow through the exact production BAT (T06
         $result.StdOut | Should -Match ('(?i)' + $Message)
         $result.StdOut | Should -Match '(?i)Press any key'
         $result.StdOut | Should -Not -Match '(?m)^Done\.'
+        $result.StdOut | Should -Not -Match 'Processing did not complete reliably'
     }
 }
 

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "scope": "Disposable automated hotfix acceptance only; never read by the application.",
+  "legacy_installer": {
+    "url": "https://github.com/ImageMagick/ImageMagick/releases/download/7.1.2-5/ImageMagick-7.1.2-5-Q16-HDRI-x64-dll.exe",
+    "sha256": "da6c3b614d0881898f8a61570397a77b573a0386a198488defac77b62e4d5ba1",
+    "bytes": 24002456,
+    "provenance": "Official ImageMagick release API digest and valid ImageMagick Studio LLC Authenticode signature verified 2026-10-31. Installer is extracted, never installed.",
+    "executable_sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2"
+  },
+  "innoextract": {
+    "url": "https://github.com/dscharrer/innoextract/releases/download/1.9/innoextract-1.9-windows.zip",
+    "sha256": "6989342c9b026a00a72a38f23b62a8e6a22cc5de69805cf47d68ac2fec993065",
+    "bytes": 520705,
+    "provenance": "Upstream detached signature verified 2026-10-31 with upstream HTTPS public key fingerprint ADE9653703D4ADE0E997758128555A66D7E1DEC9. This recorded SHA256 pins those authenticated bytes.",
+    "signature_url": "https://github.com/dscharrer/innoextract/releases/download/1.9/innoextract-1.9-windows.zip.sig",
+    "key_url": "https://constexpr.org/dscharrer.asc"
+  },
+  "baseline": {
+    "url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer-1.0.0-portable.zip",
+    "sha256": "251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d",
+    "bytes": 184659,
+    "provenance": "Public v1.0.0 release API digest, published SHA256SUMS and release-specific build-provenance source 8edbcbaeb3425ec3a52eeafde212c32553755af1."
+  }
+}

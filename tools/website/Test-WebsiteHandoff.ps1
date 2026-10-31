@@ -128,27 +128,38 @@ function Assert-WebsitePublishedProof {
     # This is offline consistency against the recorded publication observation.
     # It neither witnesses a fresh public download nor establishes a signature,
     # owner consent or website deployment approval.
-    Assert-WebsiteValue $Release.version '1.0.0' 'Reviewed published version'
+    if ($Release.version -cnotmatch '^1\.0\.[0-9]+$') { throw 'Unrecognized recorded publication version.' }
     $proofPath = Assert-WebsiteRegularPath (Join-Path $Root ('docs/release/publication-v' + $Release.version + '.json')) $Root
     $proof = Read-WebsiteJson $proofPath
     Assert-WebsiteKeys $proof @('schema_version','product','version','repository_url','visibility','tag','source_revision','release_id','release_url','published_at','observed_at','assets') 'Publication observation'
     Assert-WebsiteValue $proof.schema_version 1 'Publication schema version'
     Assert-WebsiteValue $proof.product 'WinImgNormalizer' 'Published product'
-    Assert-WebsiteValue $proof.version '1.0.0' 'Published version'
+    Assert-WebsiteValue $proof.version $Release.version 'Published version'
     Assert-WebsiteValue $proof.repository_url 'https://github.com/PikkuJanne/WinImgNormalizer' 'Published repository'
     Assert-WebsiteValue $proof.visibility 'public' 'Release visibility'
-    Assert-WebsiteValue $proof.tag 'v1.0.0' 'Published tag'
-    Assert-WebsiteValue $proof.source_revision '8edbcbaeb3425ec3a52eeafde212c32553755af1' 'Published source revision'
+    Assert-WebsiteValue $proof.tag ('v' + $Release.version) 'Published tag'
+    if ($Release.version -ceq '1.0.0') { Assert-WebsiteValue $proof.source_revision '8edbcbaeb3425ec3a52eeafde212c32553755af1' 'Published source revision' }
     Assert-WebsitePositiveInteger $proof.release_id 'Release ID'
     Assert-WebsiteValue $proof.release_url ($proof.repository_url + '/releases/tag/' + $proof.tag) 'Published release URL'
     $publishedAt = ConvertFrom-WebsiteUtcTimestamp $proof.published_at 'Publication time'
     $observedAt = ConvertFrom-WebsiteUtcTimestamp $proof.observed_at 'Publication observation time'
     if ($observedAt -lt $publishedAt) { throw 'The publication observation cannot precede publication.' }
+    if ($Release.version -ceq '1.0.0') {
     $expectedAssets = @(
         @{ name='WinImgNormalizer-1.0.0-portable.zip'; bytes=184659; sha256='251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d' },
         @{ name='build-provenance.json'; bytes=763; sha256='901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae' },
         @{ name='SHA256SUMS.txt'; bytes=190; sha256='2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497' }
     )
+    } else {
+        $identityPath = Assert-WebsiteRegularPath (Join-Path $Root ('docs/release/identity-v' + $Release.version + '.json')) $Root
+        $identity = Read-WebsiteJson $identityPath
+        Assert-WebsiteKeys $identity @('schema_version','version','source_revision','assets') 'Release identity'
+        Assert-WebsiteValue $identity.schema_version 1 'Release identity schema'
+        Assert-WebsiteValue $identity.version $Release.version 'Release identity version'
+        Assert-WebsiteValue $proof.source_revision $identity.source_revision 'Published source revision'
+        $expectedAssets = @($identity.assets)
+        if ($expectedAssets.Count -ne 6) { throw 'The release identity must bind all six published assets.' }
+    }
     if ($proof.assets -isnot [array] -or $proof.assets.Count -ne $expectedAssets.Count) {
         throw 'The publication observation must bind exactly the three reviewed assets.'
     }
@@ -160,7 +171,7 @@ function Assert-WebsitePublishedProof {
         Assert-WebsitePositiveInteger $asset.id 'Published asset ID'
         if ($assetIds -contains $asset.id) { throw 'Published asset IDs must be distinct.' }
         $assetIds += $asset.id
-        foreach ($field in @('name','bytes','sha256')) { Assert-WebsiteValue $asset.$field $expected[$field] ('Published asset ' + $field) }
+        foreach ($field in @('name','bytes','sha256')) { Assert-WebsiteValue $asset.$field $expected.$field ('Published asset ' + $field) }
         Assert-WebsiteValue $asset.download_url ($proof.repository_url + '/releases/download/' + $proof.tag + '/' + $asset.name) 'Published download URL'
         Assert-WebsiteValue $asset.downloaded_bytes $expected.bytes 'Observed public download bytes'
         Assert-WebsiteValue $asset.downloaded_sha256 $expected.sha256 'Observed public download SHA-256'
@@ -278,9 +289,9 @@ try {
     Assert-WebsiteArray $metadata.platform.tested_ci @('Windows Server 2025') 'Tested CI'
     Assert-WebsiteArray $metadata.platform.untested_os @('Windows 10') 'Untested platform'
     Assert-WebsiteKeys $metadata.prerequisites @('imagemagick_minimum','supported_major','external_installation','format_support_depends_on_build','details_file') 'Prerequisites'
-    Assert-WebsiteValue $metadata.prerequisites.imagemagick_minimum '7.1.2-32' 'ImageMagick minimum'
+    Assert-WebsiteValue $metadata.prerequisites.imagemagick_minimum '7.1.2-35' 'ImageMagick minimum'
     Assert-WebsiteValue $metadata.prerequisites.supported_major 7 'ImageMagick major'
-    Assert-WebsiteValue $metadata.prerequisites.external_installation $true 'External dependency installation'
+    Assert-WebsiteValue $metadata.prerequisites.external_installation $false 'External dependency installation'
     Assert-WebsiteValue $metadata.prerequisites.format_support_depends_on_build $true 'Codec qualification'
     Assert-WebsiteValue $metadata.prerequisites.details_file '../../README.md' 'Prerequisites reference'
 
@@ -313,8 +324,8 @@ try {
     }
 
     $assets = @(
-        @{ id='icon'; path='../../WinImgNormalizer_icon_variant.png'; media_type='image/png'; bytes=11141; sha256='479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9'; width=1024; height=1024; sizes=@(); usage='branding'; display=$true; alt='WinImgNormalizer image icon' },
-        @{ id='favicon'; path='../../WinImgNormalizer_variant.ico'; media_type='image/vnd.microsoft.icon'; bytes=22917; sha256='78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79'; width=$null; height=$null; sizes=@(16,32,48,64,128,256); usage='branding'; display=$true; alt='WinImgNormalizer icon' }
+        @{ id='icon'; path='../../WinImageNormalizer.png'; media_type='image/png'; bytes=1770820; sha256='072d17d388fe85bdc6c8e639a8c9d39a02dbce4cd6b3950a01566d4d3c09040c'; width=1254; height=1254; sizes=@(); usage='branding'; display=$true; alt='WinImgNormalizer image icon' },
+        @{ id='favicon'; path='../../WinImageNormalizer.ico'; media_type='image/vnd.microsoft.icon'; bytes=370070; sha256='4c2bdee255af2c5123343638e4419ba64d134dfd2d606de382231f3de266d88e'; width=$null; height=$null; sizes=@(256,128,64,48,32,16); usage='branding'; display=$true; alt='WinImgNormalizer icon' }
     )
     if ($metadata.assets -isnot [array] -or $metadata.assets.Count -ne $assets.Count) { throw 'Only the two retained original branding assets may be catalogued.' }
     for ($index = 0; $index -lt $assets.Count; $index++) {
@@ -323,7 +334,7 @@ try {
         Assert-WebsiteKeys $asset @($expected.Keys) 'Branding asset'
         foreach ($field in $expected.Keys) {
             if ($field -eq 'sizes') { Assert-WebsiteArray $asset.$field $expected[$field] 'Icon sizes' }
-            else { Assert-WebsiteValue $asset.$field $expected[$field] ('Asset ' + $field) }
+            else { Assert-WebsiteValue $asset.$field $expected.$field ('Asset ' + $field) }
         }
         $assetPath = Assert-WebsiteRegularPath (Join-Path $websiteDirectory $asset.path) $root
         if ((Get-Item -LiteralPath $assetPath).Length -ne $asset.bytes -or

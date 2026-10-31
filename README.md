@@ -6,58 +6,44 @@ folder under Pictures, makes JPEG derivatives and copies supported videos unchan
 Your source files remain untouched. JPEGs are lossy derivatives: keep the originals
 and a separate backup.
 
-**Version 1.0.0 is published and unsigned.**
-[Download the portable ZIP](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer-1.0.0-portable.zip)
-or view the [release and checksum sidecars](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0).
-The ZIP is 184659 bytes; SHA-256:
-`251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d`.
-See the [changelog](CHANGELOG.md) and [verified release metadata](release-metadata.json).
-The approved ZIP was built from commit `8edbcbaeb3425ec3a52eeafde212c32553755af1`.
-Its embedded guide, changelog and provenance retain preparation-time unreleased
-wording; the release publishes those unchanged bytes. Windows 10 testing is out
-of scope for this project and no Windows 10 test result is claimed.
+**Version 1.0.1 is unreleased and unsigned.** This patch makes the standard
+portable ZIP self-contained. No separate ImageMagick installation required for the portable ZIP.
+Public release details will be recorded here after the tested bytes are published.
+See the [changelog](CHANGELOG.md), [release metadata](release-metadata.json)
+and [package guide](docs/release/GETTING_STARTED.md).
 
 ## Requirements
 
 - 64-bit Windows 10 or 11, with Windows PowerShell 5.1 or PowerShell 7.
-- ImageMagick **7.1.2-32 or a newer supported 7.x build**, separately obtained from
-  its [official Windows downloads](https://imagemagick.org/download/#windows-binary-release).
-  Make the chosen `magick.exe` available through PATH in the launching session.
-- Ordinary read access to the source and write access to the Windows Pictures
-  location and temporary storage; enough free space for copies and scratch files.
+- The complete official portable ZIP, including its private runtime folder and
+  integrity marker. No separate ImageMagick installation required for the portable ZIP.
+- Ordinary read access to the source and write access to Pictures and temporary storage.
 
-ImageMagick is required even for video-only or empty folders. Image conversion
-requires JPEG write support and a decoder for the source format. Codec availability and installed
-security policy can prevent individual files from working; a recognized extension
-does not guarantee a usable decoder. The tool does not install or update software.
-Keep ImageMagick and its delegates updated and retain its security policy.
+The portable package uses one verified app-relative engine for all probes and image
+processing, independently of an older or absent system ImageMagick. It does not install
+software, download anything while processing, or change PATH, registry or security policy.
+Empty and video-only folders do not initialize an image engine. Videos keep their bytes.
+A missing optional decoder is a per-file partial result; JPEG/PNG and video siblings continue.
 
-Desktop checks ran on Windows 11 Pro build 26300 with Windows PowerShell
-5.1.26100.9444 and PowerShell 7.6.5. Hosted checks ran on Windows Server 2025
-Datacenter 10.0.26100 with PS 5.1.26100.33438 and PS 7.6.6. The maintained full gates
-use ImageMagick 7.1.2-32 portable Q16 x64; the same version's Q16-HDRI x64 build has
-separate colour and owner workflow checks. Windows 10 has not been tested. These
-results establish the recorded builds, rather than every newer codec build.
+A fresh source clone has no binary payload. Developers can stage the same verified
+runtime with `tools/release/Stage-Runtime.ps1 -Download`, or deliberately use a trusted
+external ImageMagick 7.1.2-35 or newer supported 7.x build on PATH. A damaged packaged
+runtime fails closed and tells you to re-extract the official ZIP.
+
+Automated coverage records the actual OS, shell and engine in the hotfix evidence.
+Windows 10 has not been executed; Windows 11 and maintained Windows Server CI are distinct
+platforms. Compatibility with Windows PowerShell 5.1 remains required.
 
 ## Quick start
 
-1. Review the source. Keep `WinImgNormalizer.ps1` and `WinImgNormalizer.bat` together
-   with their original names in an ordinary folder, such as Downloads. For a
-   trusted prepared ZIP, follow [verification and extraction](docs/release/GETTING_STARTED.md).
-2. In PowerShell, check the selected ImageMagick executable:
-
-   ```powershell
-   Get-Command magick.exe -CommandType Application
-   magick.exe -version
-   magick.exe -list format
-   ```
-
-3. Drag exactly one source folder onto `WinImgNormalizer.bat`. The launcher uses
-   Windows PowerShell 5.1, displays the outcome and pauses before closing. Use an
-   ordinary account. It supplies `-ExecutionPolicy Bypass` only to that child
-   process; it does not change persistent policy or override Group Policy.
-4. Open the new `<source>_WinImgNormalized_<yyyyMMdd_HHmmss>_<runId>` folder in your
-   Windows Pictures location. Review its log and CSV before relying on the copy.
+1. Download the official portable ZIP and checksum sidecars, then follow
+   [verification and extraction](docs/release/GETTING_STARTED.md). Keep the complete
+   extracted folder together, including `runtime` and `portable-runtime.json`.
+2. Drag exactly one source folder onto `WinImgNormalizer.bat`, or onto its shortcut.
+   The launcher uses Windows PowerShell 5.1. An interactive console pauses before
+   closing; redirected automation exits without a key read or prompt.
+3. Read the result and full Output, Report and Log paths. Completed files remain
+   available when another item fails. Open the new folder under Pictures.
 
 Pictures means the Windows known folder, which may be redirected or cloud-synced;
 it is not always `%USERPROFILE%\Pictures`. The application processes files on your
@@ -185,8 +171,8 @@ exists. Per-item errors appear in an existing run's log; readable siblings conti
 | `Usage: WinImgNormalizer.ps1 <sourceFolder> [maxBytes] (one folder only)` | Pass exactly one directory and optionally the byte target. |
 | `maxBytes must be a positive whole number from 1 to 9223372036854775807.` | Use digits for a positive integer, such as `2097152`, rather than `2MiB`, zero or a fraction. |
 | `The destination is inside or equal to the source, including a directory alias.` | Choose a source subfolder whose tree does not contain Pictures. |
-| `ImageMagick magick.exe was not found.` | Make the selected executable available on PATH; run the three prerequisite checks above. |
-| `ImageMagick 7.1.2-32 or newer supported 7.x build is required` | Update the dependency from its official source. |
+| `ImageMagick magick.exe was not found.` | In a fresh source clone, stage the verified private runtime or select a trusted supported engine on PATH. In a portable ZIP, re-extract the complete official archive. |
+| `ImageMagick 7.1.2-35 or newer supported 7.x build is required` | Update the dependency from its official source. |
 | `This ImageMagick build has no JPEG encoder` | Choose a build with JPEG write support. |
 | `Missing HEIC decoder` (or another named decoder) | Check that format's read support and installed policy; the file was not converted. |
 | `WARN IMG` / `Could not reach target; best-effort saved` | Inspect the retained JPEG; choose a larger byte target if needed. |
@@ -206,3 +192,6 @@ disable protection software to bypass a failure.
 WinImgNormalizer is a personal tool by Janne Vuorela, provided under the
 [MIT license](LICENSE) without warranty. The embedded sRGB profile is CC0;
 see [third-party notices](docs/release/THIRD_PARTY_NOTICES.md).
+
+The source-only missing-engine error is: `ImageMagick magick.exe was not found.`
+Stage the developer runtime with `tools/release/Stage-Runtime.ps1 -Download`.

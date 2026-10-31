@@ -542,13 +542,15 @@ Describe 'M2-T05 bounded output cannot conceal errors (T045)' {
         $trace.Result.ExitCode | Should -Be 0; $trace.Result.StdOutTruncated | Should -BeTrue; $trace.Result.StdErrTruncated | Should -BeTrue
         $result.Log | Should -Match 'Category=OutputLimit'; $result.Log | Should -Match 'stdout useful last detail'
         $result.Log | Should -Not -Match 'OK IMG:|WARN IMG:|DelayMs='
-        # Keep the native-diagnostic console budget; bound the two new report lines separately.
+        # The field console replaces raw accounting with two bounded result
+        # lines. Detailed accounting and native reasons remain in the real log.
         $consoleLines=@($result.Text -split '\r?\n')
-        $reportLines=@($consoleLines | Where-Object { $_ -match '^(ACCOUNTING Discovered=|Final report outcome: State=)' })
+        $reportLines=@($consoleLines | Where-Object { $_ -match '^(\[04 / RESULT\]|\d+ images converted \|)' })
         $reportLines.Count | Should -Be 2
-        @($reportLines | Where-Object { $_ -match '^ACCOUNTING ' })[0].Length | Should -BeLessOrEqual 2048
-        @($reportLines | Where-Object { $_ -match '^Final report outcome: ' })[0].Length | Should -BeLessOrEqual 1024
-        (@($consoleLines | Where-Object { $_ -notmatch '^(ACCOUNTING Discovered=|Final report outcome: State=)' }) -join [Environment]::NewLine).Length | Should -BeLessThan 4096
+        @($reportLines | Where-Object { $_ -match '^\[04 / RESULT\]' })[0] | Should -Match 'PARTIAL'
+        @($reportLines | Where-Object { $_ -match '^\d+ images converted \|' })[0] | Should -Match '0 images converted \| 1 videos copied \| 1 errors'
+        $result.Log | Should -Match 'ACCOUNTING Discovered=|Final report outcome: State='
+        ($consoleLines -join [Environment]::NewLine).Length | Should -BeLessThan 4096
         $result.Text | Should -Not -Match 'O{64}|E{64}'
         $result.Log.Length | Should -BeLessThan 40000
         Assert-DiagnosticsPreserved $case $result

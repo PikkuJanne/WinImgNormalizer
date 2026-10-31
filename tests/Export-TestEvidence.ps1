@@ -27,12 +27,14 @@ function Get-ExportSourceBindings {
         'tools/release/Build-Release.ps1', 'docs/release/GETTING_STARTED.md',
         'docs/release/THIRD_PARTY_NOTICES.md', 'docs/release/PACKAGING.md', 'docs/BEHAVIOR.md', 'SECURITY.md',
         'CHANGELOG.md', 'release-metadata.json', 'README.md', 'LICENSE', '.gitattributes', '.gitignore',
-        'docs/release/publication-v1.0.0.json'
+        'docs/release/publication-v1.0.0.json', 'docs/release/publication-v1.0.1.json', 'docs/release/identity-v1.0.1.json',
+        'tools/release/Stage-Runtime.ps1', 'tools/release/runtime-lock.json',
+        'docs/release/IMAGEMAGICK_SOURCE.md', 'docs/release/RUNTIME_REVIEW.md', 'docs/release/RUNTIME_IMPORTS.json'
     )
     $releaseSources += @(
         'tools/website/Test-WebsiteHandoff.ps1', 'docs/website/metadata.json',
         'docs/website/PRODUCT_COPY.md', 'docs/website/INTEGRATION.md',
-        'WinImgNormalizer_icon_variant.png', 'WinImgNormalizer_variant.ico'
+        'WinImageNormalizer.png', 'WinImageNormalizer.ico'
     )
     foreach ($source in $Sources) {
         $relative = if ($source.relative_path) { $source.relative_path } else { $source.path }

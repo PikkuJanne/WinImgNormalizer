@@ -1,0 +1,12 @@
+WINIMG // NORMALIZER  v1.0.1
+----------------------------------------
+[01 / INPUT]
+Tour photos
+[02 / ENGINE]   ImageMagick 7.1.2.35 | bundled | offline
+[03] 67% 8 / 12 : stage-left-with-a-d...
+[04 / RESULT]   COMPLETE
+11 images converted | 1 videos copied | 0 errors
+Output:
+C:\Synthetic media\Tour photos\output with a deliberately long and complete path
+Report:
+C:\Synthetic media\Tour photos\output with a deliberately long and complete path\reports\WinImgNormalizer.csv

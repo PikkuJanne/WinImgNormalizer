@@ -63,3 +63,39 @@
 Append a decision with problem, alternatives, choice, compatibility effect, tests and
 owner approval when required. Do not use a new decision to silently drop an accepted
 improvement or turn a failing requirement into an optional test.
+
+## 31 October 2026 — 1.0.1 distribution and console repair
+
+The maintainer authorized the complete scoped hotfix, normal merge and stable
+publication in one assignment. For this patch, automated console snapshots and
+Windows acceptance replace retired owner/manual/appearance gates. Website
+publication and global machine/settings changes remain excluded.
+
+D17's original security rationale remains valid: the old 7.1.2-5 executable must
+never decode the input. The distribution now carries one authenticated app-relative
+runtime, verifies every staged file before execution and isolates child search
+paths while retaining explicit policy restrictions. Source-only discovery accepts
+compatible newer 7.x builds meeting the reviewed core/delegate security criteria.
+The build pin authenticates packaging bytes; it is not a PATH equality test.
+
+D18's former empty/video-only engine requirement is superseded: safe inventory
+runs first, and only image work resolves the engine. A damaged release fails closed
+for image work. Optional missing codecs remain named per-file partial outcomes.
+Source clones can stage the identical verified payload with the development command.
+
+The standard payload is the upstream signed 7.1.2-35 Beta Q16-HDRI x64 build from
+31 October, rather than stable 7.1.2-34 with affected libheif 1.23.6. The selected
+payload includes libheif 1.23.7. Its upstream beta status, authenticated SBOM,
+corresponding source and notices are explicit in release provenance and notices.
+No build is described as universally safe. Relevant advisory review and exact
+upstream identities are in tools/release/runtime-lock.json.
+
+The terminal uses original ASCII typography, numbered fields and optional console
+colours without a forced background or font. Full final paths are never shortened;
+only progress names are bounded. Redirected runs are plain and unattended. The BAT
+preserves the application's specific diagnosis and exact result without a second
+vague status. Interactive behavior is exercised in a private real Windows console.
+
+A final source revision is built once, tested, and those bytes are promoted. The
+public download is independently fetched/extracted/tested before handover. Windows
+10 availability is checked; a Windows 11/Server run is never labelled Windows 10.

@@ -78,7 +78,7 @@ function Invoke-BenchNative([string[]]$NativeArguments, [string]$Purpose) {
     return ($messages -join "`n")
 }
 $version = Invoke-BenchNative @('-version') 'tool version'
-if ($version -notmatch 'ImageMagick 7\.1\.2-32 ') { throw 'The benchmark requires the pinned ImageMagick 7.1.2-32.' }
+if ($version -notmatch ('ImageMagick ' + [regex]::Escape($dependencies.ImageMagickVersion) + '\b')) { throw 'The benchmark requires the authenticated current development engine pin.' }
 
 # Integer recipes avoid fonts and version-specific random-image generators.
 Add-Type -TypeDefinition @'

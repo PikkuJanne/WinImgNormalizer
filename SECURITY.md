@@ -35,13 +35,17 @@ sync software. Local processing does not prevent that synchronization.
 
 ## Dependency and download boundaries
 
-Obtain ImageMagick separately from its
-[official site](https://imagemagick.org/download/#windows-binary-release), keep it
-patched, and respect the installed
-[security policy](https://imagemagick.org/security-policy/). The application does
-not install dependencies or change machine-wide policy. Run with ordinary source,
-destination and temporary-storage permissions; do not disable protection software
-or weaken global execution/ImageMagick policy to make a file process.
+The official portable ZIP includes an authenticated, integrity-checked private
+ImageMagick runtime. The release provenance records upstream identity and delegate
+review. Preserve the whole package and its notices. A damaged runtime must be
+re-extracted from the official release; it never silently falls back to PATH.
+For source development, stage the same payload or obtain a supported external
+engine from the [official site](https://imagemagick.org/download/#windows-binary-release).
+Keep the engine and delegates patched, and respect the
+[security policy](https://imagemagick.org/security-policy/).
+The application does not install dependencies, change global PATH/registry/policy,
+or make runtime network requests. Run with ordinary permissions. Do not disable
+protection software or weaken execution/ImageMagick policy to process a file.
 
 Native image parsing carries residual risk. Per-image resource/time limits and
 owned-process cleanup are practical safeguards, not an exploit-proof sandbox.

@@ -1,3 +1,19 @@
+# Authorized 1.0.1 hotfix — 31 October 2026
+
+The maintainer's attached HOTFIX.md and ACCEPTANCE.md are one authorized delivery:
+implement the scoped runtime/console repair, automate Windows acceptance, use the
+normal merge route, publish a stable patch, and verify its public download. This
+patch supersedes the historical owner-test, appearance sign-off, one-task-per-chat
+and separate merge/release approval stops. It does not authorize website deployment,
+settings changes, protection bypasses, or changes to the installed system engine.
+
+Work starts at current public main `e8d7b6c2b4566f408c22ed998f155e1baf1a7dc8`
+in a clean dedicated clone/branch. Earlier dated records below remain historical.
+Current acceptance and release observations will be recorded in
+`evidence/HOTFIX-1.0.1.json`. No result is certified before it is actually observed.
+
+---
+
 # Website asset cleanup checkpoint — 10 October 2026
 
 This separately authorized cleanup starts from public main `e5376d41879a2e4ffb5da5e607bfb634f1598621` in a fresh

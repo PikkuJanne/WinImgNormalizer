@@ -19,5 +19,30 @@ target for conversion to sRGB before image metadata removal. No separate profile
 installation is required. The other colour profiles and synthetic test references
 in the development repository are excluded from the portable package.
 
-ImageMagick is a separately obtained prerequisite. Its installer, executable,
-delegates and development test dependencies are excluded from this package.
+The portable package includes the unchanged upstream **ImageMagick 7.1.2-35
+(Beta), Q16-HDRI x64** executable and its runtime configuration, ICC profile,
+license and complete delegate notices. ImageMagick is copyright ImageMagick
+Studio LLC and licensed under the ImageMagick License. Full license and delegate
+texts are retained in `runtime/imagemagick/LICENSE.txt` and
+`runtime/imagemagick/NOTICE.txt`; the exact upstream CycloneDX inventory is
+`runtime/imagemagick/upstream-sbom.cdx.json`.
+
+The static executable includes LGPL/MPL and permissive components. Complete
+corresponding Windows/delegate source and build scripts are available beside the
+binary download as `ImageMagick-7.1.2-35-Windows.7z`; see
+`runtime/SOURCE_INFORMATION.md` for source/relink instructions and rights. Source
+asset identities are in `runtime/runtime-manifest.json` and outer build provenance.
+No development test dependencies or installer are included in the portable ZIP.
+
+The engine also requires **Microsoft OpenMP VCOMP140.DLL 14.51.36247.0 x64**,
+copyright Microsoft Corporation. The unchanged, signed DLL is shipped beside
+`magick.exe`; a machine-wide Visual C++ installation is not required. It is
+extracted at build time from Microsoft's authenticated Visual C++ v14
+Redistributable and covered by the applicable Microsoft Visual Studio
+redistribution rights and runtime license, separately from the open-source
+ImageMagick/delegate licenses. The authoritative original license document and a
+complete plain-text extraction are retained in
+`runtime/imagemagick/MICROSOFT-VISUAL-C-RUNTIME-LICENSE.docx` and `.txt`.
+`runtime/runtime-manifest.json` and build provenance pin the official source URL,
+independently published Microsoft WinGet digest, signatures, exact DLL and license
+bytes. No redistributable installer is executed or included in the portable ZIP.

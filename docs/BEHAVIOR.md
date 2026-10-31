@@ -173,3 +173,19 @@ upload output from a managed Pictures folder. Copied videos retain embedded priv
 metadata; logs/CSV can reveal source/output paths and diagnostics. Inspect and
 sanitize support material before sharing. Metadata stripping cannot remove visible
 identifying image content. See the [security/reporting policy](../SECURITY.md).
+
+## Portable runtime and console
+
+The standard portable ZIP includes its verified private ImageMagick runtime.
+No separate ImageMagick installation required for the portable ZIP. The engine is
+chosen once after safe media inventory and is used by absolute path for every
+probe, inspection, conversion and final JPEG decode. Empty and video-only runs
+never resolve an engine; videos retain their bytes and metadata. Missing optional
+decoders are per-file partial outcomes. A damaged release fails closed; source
+checkouts can stage the same payload with `tools/release/Stage-Runtime.ps1 -Download`.
+
+The ASCII field console shows INPUT, ENGINE, PROCESS and RESULT sections. It reports
+actual version/source, bounded live progress and complete final paths. Cyan labels,
+amber warnings and red errors enhance interactive consoles without forcing a
+background. NO_COLOR and redirected/no RawUI hosts use plain text. Redirected BAT
+runs never prompt or pause. Cancellation retains completed outputs and exit 130.

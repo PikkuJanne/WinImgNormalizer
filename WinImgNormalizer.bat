@@ -1,57 +1,45 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
-rem An inherited variable can shadow CMD's dynamic native exit-code value.
+rem Let Windows PowerShell discover its own modules instead of inherited PS7 modules.
+set "PSModulePath="
+rem Preserve the native status even if an inherited variable shadows ERRORLEVEL.
 set "ERRORLEVEL="
+set "WINIMG_PAUSE="
+set "WINIMG_PS=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
+rem The probe emits nothing. Its inherited handles must remain unredirected.
+if "%WINIMG_NO_PAUSE%"=="1" goto arguments
+"%WINIMG_PS%" -NoLogo -NoProfile -NonInteractive -Command "try { if ([Environment]::UserInteractive -and -not [Console]::IsInputRedirected -and -not [Console]::IsOutputRedirected -and -not [Console]::IsErrorRedirected) { exit 0 } } catch {}; exit 1"
+if not errorlevel 1 set "WINIMG_PAUSE=1"
 
-if "%~1"=="" (
-  echo ERROR: Drag and drop exactly one FOLDER onto this .bat file.
-  pause
-  exit /b 1
-)
-
-rem Check stripped content first, then distinguish explicit "" from no argument.
-rem Only the empty case reaches the raw check, avoiding nested path quotes.
+:arguments
+if "%~1"=="" goto missing_argument
 if not "%~2"=="" goto extra_arguments
 if not "%2"=="" goto extra_arguments
-
 set "SRC=%~1"
-rem Preserve a trailing root/folder separator across native quoted argv parsing.
 if "%SRC:~-1%"=="\" set "SRC=%SRC%."
 if "%SRC:~-1%"=="/" set "SRC=%SRC%."
 set "PS1=%~dpn0.ps1"
-
-if not exist "%PS1%" (
-  echo ERROR: Missing PowerShell script: "%PS1%"
-  pause
-  exit /b 1
-)
-
-rem Retain the Windows PowerShell host and process-only execution policy.
-powershell -NoProfile -ExecutionPolicy Bypass -File "%PS1%" "%SRC%"
+if not exist "%PS1%" goto missing_script
+rem Keep Windows PowerShell 5.1 and process-only execution policy.
+"%WINIMG_PS%" -NoLogo -NoProfile -ExecutionPolicy Bypass -File "%PS1%" "%SRC%"
 set "WINIMG_EXIT=%ERRORLEVEL%"
-echo.
-if "%WINIMG_EXIT%"=="0" goto completed
-if "%WINIMG_EXIT%"=="2" goto partial
-if "%WINIMG_EXIT%"=="130" goto cancelled
-echo ERROR: Processing did not complete reliably (exit code %WINIMG_EXIT%). Press any key to close.
 goto finish
 
-:completed
-echo Completed successfully. Press any key to close.
+:missing_argument
+echo ERROR: Drag and drop exactly one FOLDER onto this .bat file.
+set "WINIMG_EXIT=1"
 goto finish
-
-:partial
-echo Completed with warnings or partial failures. Review the report. Press any key to close.
-goto finish
-
-:cancelled
-echo Cancelled. Completed outputs were retained. Press any key to close.
-
-:finish
-pause >nul
-exit /b %WINIMG_EXIT%
-
 :extra_arguments
 echo ERROR: Drop exactly one FOLDER; extra arguments are not supported.
-pause
-exit /b 1
+set "WINIMG_EXIT=1"
+goto finish
+:missing_script
+echo ERROR: Missing PowerShell script: "%PS1%". Re-extract the official portable ZIP.
+set "WINIMG_EXIT=1"
+:finish
+if not defined WINIMG_PAUSE goto return
+echo.
+echo Press any key to close.
+pause >nul
+:return
+exit /b %WINIMG_EXIT%

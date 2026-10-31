@@ -538,14 +538,16 @@ Describe 'M1-T02 generated namespace reservations (T016)' {
             return $created
         }
         $previousTemp = $env:TEMP
+        $emergency = New-Object 'Collections.Generic.List[string]'
+        Mock Write-WinImgEmergencyReport { param([string]$Message) $emergency.Add($Message) }
         try {
             $env:TEMP = $temporary
             $result = Invoke-TraversalRun -Source $source -OutputParent $parent
         } finally { $env:TEMP = $previousTemp }
         $result.Code | Should -Be 2
         $result.Text | Should -Match '(?i)Log warning: Creation failed'
-        $result.Text | Should -Match 'SUMMARY ConvertedImages=0 CopiedVideos=1 Duplicates=0 Unsupported=0 Errors=0 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0'
-        $result.Text | Should -Match 'ScanComplete=True IncompleteDirectories=0 UninspectableEntries=0 SkippedLinks=0 LogWarnings=1 FallbackDropped=0'
+        ($emergency -join "`n") | Should -Match 'SUMMARY ConvertedImages=0 CopiedVideos=1 Duplicates=0 Unsupported=0 Errors=0 SizeWarnings=0 NativeWarnings=0 TimestampWarnings=0'
+        ($emergency -join "`n") | Should -Match 'ScanComplete=True IncompleteDirectories=0 UninspectableEntries=0 SkippedLinks=0 LogWarnings=1 FallbackDropped=0'
         $result.Text | Should -Match 'Final reporting state: LogWarnings=1 DiskLogIncomplete=True FallbackDropped=0'
         $arrival.Path | Should -Not -BeNullOrEmpty
         (Get-FileHash -LiteralPath $arrival.Path -Algorithm SHA256).Hash | Should -Be $arrival.Hash

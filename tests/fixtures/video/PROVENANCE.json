@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "fixture": "synthetic-color.mp4",
+  "bytes": 895,
+  "sha256": "0c3b1d3595e27bf610cbeb0653c0e2fcb805305102015c927673a2c00fd9f1b7",
+  "origin": "Generated solely from FFmpeg's solid-colour lavfi source on 2026-10-31; no captured or third-party media.",
+  "license": "CC0-1.0; the synthetic fixture may be used and redistributed without restriction.",
+  "tool": {
+    "version": "9.0.2-essentials_build-www.gyan.dev",
+    "asset_url": "https://github.com/GyanD/codexffmpeg/releases/download/9.0.2/ffmpeg-9.0.2-essentials_build.7z",
+    "asset_bytes": 35430500,
+    "asset_sha256": "4705843ccaaf54257c16ad90f3e952ece33c17df964ecf7bfdbb0f49c7171077",
+    "authentication": "Upstream Windows-build maintainer GyanD/codexffmpeg GitHub release API asset digest and length independently read before download; matching archive extracted only into ignored .scratch. No installation or PATH modification. FFmpeg tools are not redistributed with the application or this fixture.",
+    "ffmpeg_sha256": "3256173f3f8bffd7df12227c68adf68025edb1832273a9530688a7bb1ed8edec",
+    "ffprobe_sha256": "f0d36ecbbdd3bcfac3efa078c96c7271c2e68b3810595552ac3b7f17e9a65c52"
+  },
+  "generation_arguments": ["-hide_banner", "-nostdin", "-v", "error", "-f", "lavfi", "-i", "color=c=0x40a060:s=32x24:r=1:d=2", "-an", "-c:v", "mpeg4", "-q:v", "2", "-flags:v", "+bitexact", "-fflags", "+bitexact", "-map_metadata", "-1", "-metadata", "encoder=", "-movflags", "+faststart", "synthetic-color.mp4"],
+  "repeat_generation": "A second fresh output from the same authenticated tool and arguments produced identical bytes and SHA-256.",
+  "verification": {
+    "ffprobe_arguments": ["-v", "error", "-count_frames", "-show_entries", "stream=codec_name,codec_type,width,height,nb_read_frames,r_frame_rate,duration", "-of", "json", "synthetic-color.mp4"],
+    "ffprobe_exit": 0,
+    "codec": "mpeg4",
+    "type": "video",
+    "width": 32,
+    "height": 24,
+    "rate": "1/1",
+    "duration_seconds": "2.000000",
+    "decoded_frames": 2,
+    "full_decode_arguments": ["-hide_banner", "-nostdin", "-v", "error", "-i", "synthetic-color.mp4", "-f", "hash", "-hash", "sha256", "-"],
+    "full_decode_exit": 0,
+    "decoded_frame_bytes_sha256": "00f7f5d4c1f41bc83bbed6e93295d0d77236f7626f7339c8d0b1935cfeeb7e8e"
+  }
+}

@@ -258,7 +258,10 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
             $trace.Add([pscustomobject]@{ Executable = $Executable; Arguments = @($Arguments) })
             if ($trace.Count -eq 1) { return [pscustomobject]@{ ExitCode = 9; StdErr = "magick.exe: sharing violation @ error/blob.c/OpenBlob/3590." } }
             $target = $Arguments[-1].Substring('JPEG:'.Length)
-            if (-not $target.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase)) {
+            $comparisonTarget = $target
+            if ($comparisonTarget.StartsWith('\\?\UNC\', [StringComparison]::OrdinalIgnoreCase)) { $comparisonTarget = '\\' + $comparisonTarget.Substring(8) }
+            elseif ($comparisonTarget.StartsWith('\\?\', [StringComparison]::Ordinal)) { $comparisonTarget = $comparisonTarget.Substring(4) }
+            if (-not $comparisonTarget.StartsWith($parent + '\', [StringComparison]::OrdinalIgnoreCase)) {
                 throw 'Injected conversion escaped its owned output parent.'
             }
             [IO.File]::WriteAllBytes($target, $jpegBytes)

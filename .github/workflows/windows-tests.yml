@@ -4,6 +4,12 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      candidate_tag:
+        description: Exact release bytes to verify before or after publication
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: read
@@ -13,7 +19,7 @@ jobs:
     name: ${{ matrix.shell }} on Windows Server 2025
     # Stable OS family; exact image/OS/host versions are recorded by the runners.
     runs-on: windows-2025
-    timeout-minutes: 25
+    timeout-minutes: 40
     strategy:
       fail-fast: false
       matrix:
@@ -23,10 +29,20 @@ jobs:
         shell: ${{ matrix.shell }}
     env:
       WINIMG_CI_RUNNER_LABEL: windows-2025
+      WINIMG_CANDIDATE_TAG: ${{ inputs.candidate_tag }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0; official tag/commit verified 2026-10-05
         with:
           persist-credentials: false
+      - name: Authenticate build-only runtime dependency cache
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ./tools/release/Stage-Runtime.ps1 -Download
+          if ($env:WINIMG_CANDIDATE_TAG) { ./tests/Get-HotfixCandidate.ps1 -Tag $env:WINIMG_CANDIDATE_TAG }
+      - name: Test exact offline portable bytes as an ordinary disposable account
+        run: |
+          ./tests/Invoke-HotfixAcceptance.ps1 -Build -CandidateTag $env:WINIMG_CANDIDATE_TAG -DownloadDependencies -DisposableRunner -ResultDirectory .scratch/ci-hotfix
       - name: Run mandatory tests with verified development dependencies
         run: |
           ./tests/Invoke-Tests.ps1 -DownloadDependencies -ResultDirectory .scratch/ci-tests
@@ -69,6 +85,9 @@ jobs:
         if: ${{ !cancelled() }}
         run: |
           ./tests/Export-TestEvidence.ps1 -ResultDirectories @('.scratch/ci-tests', '.scratch/ci-deliberate-failure') -StaticAnalysisDirectories @('.scratch/ci-analysis', '.scratch/ci-analysis-control') -OutputDirectory .scratch/ci-export
+          $acceptance = Get-Content -LiteralPath .scratch/ci-hotfix/acceptance-summary.json -Raw | ConvertFrom-Json
+          if (-not $acceptance.Passed -or $acceptance.PSObject.Properties['Error']) { throw 'Only a passing sanitized acceptance summary may be exported; failure details remain in bounded job diagnostics.' }
+          Copy-Item -LiteralPath .scratch/ci-hotfix/acceptance-summary.json -Destination .scratch/ci-export/hotfix-evidence.json
       - name: Upload sanitized synthetic evidence
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1; official tag/commit and upload sources reviewed 2026-10-05
@@ -77,6 +96,7 @@ jobs:
           path: |
             .scratch/ci-export/test-evidence.json
             .scratch/ci-export/static-analysis-evidence.json
+            .scratch/ci-export/hotfix-evidence.json
           # Explicit filenames only; .scratch is a dot directory. The exporter
           # rejects links and copies bounded fields, never raw logs/XML/media.
           include-hidden-files: true

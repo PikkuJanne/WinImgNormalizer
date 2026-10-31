@@ -132,6 +132,10 @@ BeforeAll {
     function New-VersionPublishedReplica {
         # Explicit synthetic consistency fixture; this does not witness T075.
         $root = New-VersionReplica
+        $legacyApp = Join-Path $root 'WinImgNormalizer.ps1'
+        [IO.File]::WriteAllText($legacyApp, ([IO.File]::ReadAllText($legacyApp).Replace("return '1.0.1'", "return '1.0.0'")), [Text.UTF8Encoding]::new($false))
+        $legacyMetadata = Join-Path $root 'release-metadata.json'
+        [IO.File]::WriteAllText($legacyMetadata, ([IO.File]::ReadAllText($legacyMetadata).Replace('1.0.1','1.0.0')), [Text.UTF8Encoding]::new($false))
         $proof = New-VersionPublicationProof
         [IO.File]::WriteAllText((Join-Path $root $proofRelative), (($proof | ConvertTo-Json -Depth 8 -Compress) + "`n"), [Text.UTF8Encoding]::new($false))
         $metadataPath = Join-Path $root 'release-metadata.json'

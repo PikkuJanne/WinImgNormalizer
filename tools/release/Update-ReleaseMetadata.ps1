@@ -113,20 +113,38 @@ if ([IO.File]::Exists($existingPath)) {
         }
         $releaseUrl = $metadata.repository_url + '/releases/tag/' + $metadata.proposed_tag
         if (-not (Test-ReleaseInteger $proof.schema_version) -or $proof.schema_version -ne 1 -or
-            $proof.product -cne $metadata.product -or $proof.version -cne $applicationVersion -or $applicationVersion -cne '1.0.0' -or
+            $proof.product -cne $metadata.product -or $proof.version -cne $applicationVersion  -or
             $proof.repository_url -cne $metadata.repository_url -or $proof.visibility -cne 'public' -or
             $proof.tag -cne $metadata.proposed_tag -or $proof.release_url -cne $releaseUrl -or
-            $proof.source_revision -cne '8edbcbaeb3425ec3a52eeafde212c32553755af1' -or
+            ($applicationVersion -ceq '1.0.0' -and $proof.source_revision -cne '8edbcbaeb3425ec3a52eeafde212c32553755af1') -or
             -not (Test-ReleaseInteger $proof.release_id) -or $proof.release_id -le 0) { throw 'Publication proof differs from the approved public release identity.' }
         $published = Get-ReleaseUtcInstant $proof.published_at
         $observed = Get-ReleaseUtcInstant $proof.observed_at
         if ($observed -lt $published) { throw 'Publication proof observation precedes publication.' }
+        if ($applicationVersion -ceq '1.0.0') {
         $approvedAssets = @(
             @{ name = 'WinImgNormalizer-1.0.0-portable.zip'; bytes = 184659; sha256 = '251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d' },
             @{ name = 'build-provenance.json'; bytes = 763; sha256 = '901598504d3bb60cdfa4a236873a07d3a7287cb8ff6b3c715b202b39865cefae' },
             @{ name = 'SHA256SUMS.txt'; bytes = 190; sha256 = '2257dbcd00707a93f3e811c9d3ff0eafb59a2e65bb756c440e152f1642540497' }
         )
-        if ($proof.assets -isnot [Array] -or $proof.assets.Count -ne 3) { throw 'Publication proof must contain the exact three ordered release assets.' }
+        } else {
+            # Separate publication identity records bind a later release to the
+            # observed tested bytes. They never promote an unreleased candidate.
+            $identity = Read-ReleaseJson (Join-Path $repository ('docs/release/identity-v' + $applicationVersion + '.json'))
+            Assert-ReleaseFields $identity @('schema_version','version','source_revision','assets')
+            if ($identity.schema_version -ne 1 -or $identity.version -cne $applicationVersion -or
+                $identity.source_revision -isnot [string] -or $identity.source_revision -cnotmatch '^[0-9a-f]{40}$') { throw 'Publication identity record is malformed.' }
+            $approvedAssets = @($identity.assets)
+            if ($approvedAssets.Count -ne 6 -or $approvedAssets[0].name -cne ('WinImgNormalizer-' + $applicationVersion + '-portable.zip') -or
+                $approvedAssets[1].name -cne 'build-provenance.json' -or $approvedAssets[2].name -cne 'SHA256SUMS.txt') { throw 'Publication identity requires the package, sidecars and three upstream dependency assets.' }
+            foreach ($item in $approvedAssets) {
+                Assert-ReleaseFields $item @('name','bytes','sha256')
+                if ($item.name -isnot [string] -or $item.name -match '[/\\:]' -or
+                    -not (Test-ReleaseInteger $item.bytes) -or $item.bytes -le 0 -or $item.sha256 -isnot [string] -or $item.sha256 -cnotmatch '^[0-9a-f]{64}$') { throw 'Publication asset identity is malformed.' }
+            }
+            if ($proof.source_revision -cne $identity.source_revision) { throw 'Publication proof source differs from the recorded release identity.' }
+        }
+        if ($proof.assets -isnot [Array] -or $proof.assets.Count -ne $approvedAssets.Count) { throw 'Publication proof must contain the exact ordered release assets.' }
         $ids = New-Object 'Collections.Generic.HashSet[long]'
         for ($index = 0; $index -lt $approvedAssets.Count; $index++) {
             $asset = $proof.assets[$index]; $approved = $approvedAssets[$index]

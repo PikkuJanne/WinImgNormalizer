@@ -137,7 +137,7 @@ BeforeAll {
     }
 
     $supportedVersionText = @'
-Version: ImageMagick 7.1.2-32 Q16-HDRI x64 synthetic-test-build
+Version: ImageMagick 7.1.2-35 Q16-HDRI x64 synthetic-test-build
 Copyright: (C) ImageMagick Studio LLC
 Features: Cipher DPC HDRI OpenMP
 Delegates (built-in): bzlib jpeg lcms png tiff webp zlib
@@ -146,12 +146,12 @@ Delegates (built-in): bzlib jpeg lcms png tiff webp zlib
    Format  Module    Mode  Description
 -----------------------------------------------------
      JPEG* JPEG      rw-   Joint Photographic Experts Group JFIF format
-      PNG* PNG       rw-   Portable Network Graphics
+      PNG* PNG       rw-   Portable Network Graphics (libpng 1.6.59)
       BMP* BMP       rw-   Microsoft Windows bitmap image
      TIFF* TIFF      rw+   Tagged Image File Format
       GIF* GIF       rw+   CompuServe graphics interchange format
-     HEIC* HEIC      rw+   High Efficiency Image Format
-     HEIF* HEIC      rw+   High Efficiency Image Format
+     HEIC* HEIC      rw+   High Efficiency Image Format (1.23.7)
+     HEIF* HEIC      rw+   High Efficiency Image Format (1.23.7)
      WEBP* WEBP      rw+   WebP Image Format
 '@
 
@@ -207,6 +207,24 @@ Delegates (built-in): bzlib jpeg lcms png tiff webp zlib
         Test-Path -LiteralPath $Path | Should -BeFalse
     }
 
+    function New-PreflightRuntimePackage {
+        $root = New-PreflightDirectory 'synthetic-runtime-package'
+        $runtime = Join-Path $root 'runtime'
+        $engineDirectory = Join-Path $runtime 'imagemagick'
+        $null = [IO.Directory]::CreateDirectory($engineDirectory)
+        $engine = Join-Path $engineDirectory 'magick.exe'
+        [IO.File]::WriteAllBytes($engine, [byte[]](77,90,0,1,2,3))
+        $manifest = [ordered]@{ schema_version=1; engine_relative_path='imagemagick/magick.exe'; engine_version='7.1.2-35'; files=@(
+            [ordered]@{path='imagemagick/magick.exe'; bytes=6; sha256=(Get-FileHash -LiteralPath $engine -Algorithm SHA256).Hash.ToLowerInvariant()}
+        ) }
+        $manifestPath = Join-Path $runtime 'runtime-manifest.json'
+        [IO.File]::WriteAllText($manifestPath, ($manifest | ConvertTo-Json -Depth 6), [Text.UTF8Encoding]::new($false))
+        $marker = @{runtime_required=$true; runtime_manifest_sha256=(Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256).Hash.ToLowerInvariant()}
+        [IO.File]::WriteAllText((Join-Path $root 'portable-runtime.json'), ($marker | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
+        [IO.File]::WriteAllText((Join-Path $root 'package-manifest.json'), '{"product":"WinImgNormalizer"}')
+        return [pscustomobject]@{Root=$root;Runtime=$runtime;Engine=$engine;Manifest=$manifestPath}
+    }
+
     # The M0-T03 suite performs its child-host import probe before this file.
     # This direct import is also callable-only when this suite is selected alone.
     . $application
@@ -226,7 +244,11 @@ Describe 'M1-T01 friendly argument and source validation (T008)' {
         $before = Get-PreflightSourceState $source
         $parent = Join-Path $work 'output'
         $selectedMagick = $magick
-        if ($Case -eq 'dependency') { $selectedMagick = Join-Path $work 'missing-magick.exe' }
+        if ($Case -eq 'dependency') {
+            $selectedMagick = Join-Path $work 'missing-magick.exe'
+            [IO.File]::WriteAllBytes((Join-Path $source 'needs-decoder.png'), [byte[]](1,2,3))
+            $before = Get-PreflightSourceState $source
+        }
         $script = Join-Path $work 'WinImgNormalizer.contained.ps1'
         $text = [IO.File]::ReadAllText($application)
         $entry = 'exit (Invoke-WinImgNormalizerCommand -Arguments $args)'
@@ -360,6 +382,135 @@ Describe 'M1-T01 root-preserving paths (T009)' {
 }
 
 Describe 'M1-T01 reviewed ImageMagick identity and preflight (T010)' {
+    It 'accepts a compatible newer supported 7.x external build rather than requiring the package pin' -ForEach @(
+        @{Version='Version: ImageMagick 7.1.2-36 Q16-HDRI x64';Expected='7.1.2.36'},
+        @{Version='Version: ImageMagick 7.2.0-0 Q16-HDRI x64';Expected='7.2.0.0'}
+    ) {
+        $info = Get-WinImgMagickInfo -MagickPath $magick -PreflightRunner (New-ControlledPreflightRunner -VersionText $Version)
+        $info.Version.ToString() | Should -Be $Expected
+        $info.Source | Should -Be 'external'
+    }
+
+    It 'rejects an unexpected future major rather than treating a higher banner as compatible' {
+        { Get-WinImgMagickInfo -MagickPath $magick -PreflightRunner (New-ControlledPreflightRunner -VersionText 'Version: ImageMagick 8.0.0-0 Q16-HDRI x64') } | Should -Throw '*supported ImageMagick 7*'
+    }
+
+    It 'does not treat a newer external core as proof that affected decoder libraries are patched' {
+        $formats = $supportedFormatText.Replace('libpng 1.6.59','libpng 1.6.58').Replace('(1.23.7)','(1.23.6)')
+        $info = Get-WinImgMagickInfo -MagickPath $magick -PreflightRunner (New-ControlledPreflightRunner -VersionText 'Version: ImageMagick 7.1.2-36 Q16-HDRI x64' -FormatText $formats)
+        $info.Formats.PNG.Read | Should -BeFalse
+        $info.Formats.HEIC.Read | Should -BeFalse
+        $info.Formats.HEIF.Read | Should -BeFalse
+        $info.Formats.JPEG.Read | Should -BeTrue
+        $info.Formats.JPEG.Write | Should -BeTrue
+    }
+
+    It 'authenticates the complete private payload without executing its synthetic inert engine' {
+        $package = New-PreflightRuntimePackage
+        Mock Invoke-WinImgNativeProcess { throw 'Manifest validation must not execute an engine.' }
+        $selection = Get-WinImgBundledRuntime -ApplicationRoot $package.Root
+        $selection.Path | Should -Be $package.Engine
+        $selection.Source | Should -Be 'bundled'
+        Should -Invoke Invoke-WinImgNativeProcess -Times 0 -Exactly
+    }
+
+    It 'refuses <Damage> package damage before any process or PATH fallback' -ForEach @(
+        @{Damage='engine missing'}, @{Damage='engine corrupt'}, @{Damage='manifest corrupt'}, @{Damage='marker missing'}, @{Damage='unexpected DLL'}
+    ) {
+        $package = New-PreflightRuntimePackage
+        switch ($Damage) {
+            'engine missing' { [IO.File]::Delete($package.Engine) }
+            'engine corrupt' { [IO.File]::AppendAllText($package.Engine, 'tampered') }
+            'manifest corrupt' { [IO.File]::AppendAllText($package.Manifest, 'tampered') }
+            'marker missing' { [IO.File]::Delete((Join-Path $package.Root 'portable-runtime.json')) }
+            'unexpected DLL' { [IO.File]::WriteAllBytes((Join-Path (Split-Path $package.Engine -Parent) 'unexpected.dll'), [byte[]](1,2,3)) }
+        }
+        Mock Invoke-WinImgNativeProcess { throw 'Damaged package must not execute an engine.' }
+        Mock Resolve-WinImgMagickApplication { throw 'Damaged package must not fall back to PATH.' }
+        { Get-WinImgBundledRuntime -ApplicationRoot $package.Root } | Should -Throw '*Re-extract the official portable ZIP*'
+        Should -Invoke Invoke-WinImgNativeProcess -Times 0 -Exactly
+        Should -Invoke Resolve-WinImgMagickApplication -Times 0 -Exactly
+    }
+
+    It 'recognizes an unpacked source tree as source rather than a damaged portable package' {
+        $source = New-PreflightDirectory 'fresh-source-tree'
+        Get-WinImgBundledRuntime -ApplicationRoot $source | Should -BeNullOrEmpty
+    }
+
+    It 'isolates private runtime search paths while retaining an explicitly applied policy without copying delegate configuration' {
+        $package = New-PreflightRuntimePackage
+        $policyRoot = New-PreflightDirectory 'administrator-policy'
+        $policy = '<policymap><policy domain="coder" rights="none" pattern="JPEG" /></policymap>'
+        [IO.File]::WriteAllText((Join-Path $policyRoot 'policy.xml'), $policy)
+        [IO.File]::WriteAllText((Join-Path $policyRoot 'delegates.xml'), '<delegatemap />')
+        $previousConfigure = $env:MAGICK_CONFIGURE_PATH
+        $previousPath = $env:PATH
+        $previousXdg = $env:XDG_CONFIG_HOME
+        $selection = $null
+        try {
+            $env:MAGICK_CONFIGURE_PATH = $policyRoot
+            $env:XDG_CONFIG_HOME = $policyRoot
+            $selection = Get-WinImgBundledRuntime -ApplicationRoot $package.Root
+            Initialize-WinImgBundledEnvironment $selection
+            $engineRoot = Split-Path $package.Engine -Parent
+            $selection.Environment.PATH | Should -Be ($engineRoot + ';' + [Environment]::SystemDirectory + ';' + $env:SystemRoot)
+            $selection.Environment.MAGICK_CODER_MODULE_PATH | Should -Be $engineRoot
+            $selection.Environment.LIBHEIF_PLUGIN_PATH | Should -Be $engineRoot
+            $selection.Environment.XDG_CONFIG_HOME | Should -Not -Be $policyRoot
+            $selection.Environment.XDG_CONFIG_HOME | Should -Be $selection.Environment.USERPROFILE
+            $selection.Environment.MAGICK_CONFIGURE_PATH | Should -Not -Match ([regex]::Escape($policyRoot))
+            @($selection.PolicyFiles | Where-Object { [IO.File]::ReadAllText($_) -eq $policy }).Count | Should -Be 1
+            @($selection.PolicyDirectories | ForEach-Object { Get-ChildItem -LiteralPath $_ -File -Filter delegates.xml }).Count | Should -Be 0
+            $env:PATH | Should -Be $previousPath
+            $env:MAGICK_CONFIGURE_PATH | Should -Be $policyRoot
+            $env:XDG_CONFIG_HOME | Should -Be $policyRoot
+        } finally {
+            Remove-WinImgEngineSelection $selection
+            $env:MAGICK_CONFIGURE_PATH = $previousConfigure
+            $env:XDG_CONFIG_HOME = $previousXdg
+        }
+    }
+
+    It 'fails closed on explicit policy include trees rather than dropping a sibling restriction before engine execution' {
+        $package = New-PreflightRuntimePackage
+        $policyRoot = New-PreflightDirectory 'included-administrator-policy'
+        [IO.File]::WriteAllText((Join-Path $policyRoot 'policy.xml'), '<policymap><include file="restriction.xml" /></policymap>')
+        [IO.File]::WriteAllText((Join-Path $policyRoot 'restriction.xml'), '<policymap><policy domain="coder" rights="none" pattern="JPEG" /></policymap>')
+        $previousConfigure = $env:MAGICK_CONFIGURE_PATH
+        $selection = $null
+        try {
+            $env:MAGICK_CONFIGURE_PATH = $policyRoot
+            $selection = Get-WinImgBundledRuntime -ApplicationRoot $package.Root
+            Mock Invoke-WinImgNativeProcess { throw 'An engine must not start after policy isolation failed.' }
+            { Initialize-WinImgBundledEnvironment $selection } | Should -Throw '*include tree*no image engine was executed*'
+            Should -Invoke Invoke-WinImgNativeProcess -Times 0 -Exactly
+        } finally {
+            Remove-WinImgEngineSelection $selection
+            $env:MAGICK_CONFIGURE_PATH = $previousConfigure
+        }
+    }
+
+    It 'rejects <Kind> policy XML before native execution rather than discarding unparseable restrictions' -ForEach @(
+        @{Kind='DTD';Xml='<!DOCTYPE policymap [<!ENTITY restriction "none">]><policymap><policy domain="coder" rights="&restriction;" pattern="JPEG" /></policymap>'},
+        @{Kind='corrupt';Xml='<policymap><policy domain="coder" rights="none" pattern="JPEG" />'}
+    ) {
+        $package = New-PreflightRuntimePackage
+        $policyRoot = New-PreflightDirectory 'invalid-administrator-policy'
+        [IO.File]::WriteAllText((Join-Path $policyRoot 'policy.xml'), $Xml)
+        $previousConfigure = $env:MAGICK_CONFIGURE_PATH
+        $selection = $null
+        try {
+            $env:MAGICK_CONFIGURE_PATH = $policyRoot
+            $selection = Get-WinImgBundledRuntime -ApplicationRoot $package.Root
+            Mock Invoke-WinImgNativeProcess { throw 'An engine must not start after policy XML validation failed.' }
+            { Initialize-WinImgBundledEnvironment $selection } | Should -Throw
+            Should -Invoke Invoke-WinImgNativeProcess -Times 0 -Exactly
+        } finally {
+            Remove-WinImgEngineSelection $selection
+            $env:MAGICK_CONFIGURE_PATH = $previousConfigure
+        }
+    }
+
     It 'resolves the verified real executable despite shadowing aliases and functions in a child host' {
         $work = New-PreflightDirectory 'shadowed-magick'
         $script = Join-Path $work 'Check-Application-Identity.ps1'
@@ -372,6 +523,7 @@ function Invoke-SyntheticMagickShadow { throw 'A magick alias was invoked.' }
 Set-Alias -Name magick -Value Invoke-SyntheticMagickShadow
 Set-Alias -Name magick.exe -Value Invoke-SyntheticMagickShadow
 . ([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('__APPLICATION__')))
+function Get-WinImgBundledRuntime { return $null }
 $info = Get-WinImgMagickInfo
 [Console]::WriteLine($info.Path)
 [Console]::WriteLine($info.Version)
@@ -383,10 +535,11 @@ $info = Get-WinImgMagickInfo
         $lines = @($result.StdOut.Trim() -split '\r?\n')
         $lines.Count | Should -Be 2
         $lines[0] | Should -Be $magick
-        $lines[1] | Should -Be '7.1.2.32'
+        $lines[1] | Should -Be '7.1.2.35'
     }
 
     It 'ignores function and alias names and resolves only an Application command' {
+        Mock Get-WinImgBundledRuntime { return $null }
         $applicationCommand = Microsoft.PowerShell.Core\Get-Command -Name $magick -CommandType Application -ErrorAction Stop
         Mock Get-Command {
             if ($CommandType -ne 'Application') { throw 'Dependency lookup accepted non-Application commands.' }
@@ -399,6 +552,8 @@ $info = Get-WinImgMagickInfo
 
     It 'fails missing application without invoking a same-name function or creating output' {
         $source = New-PreflightDirectory 'missing-magick-source'
+        [IO.File]::WriteAllBytes((Join-Path $source 'needs-decoder.png'), [byte[]](1,2,3))
+        Mock Get-WinImgBundledRuntime { return $null }
         $parent = Join-Path $ownedRoot ('unused-output-' + [Guid]::NewGuid().ToString('N'))
         Mock Get-Command { return $null }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -MagickPath '' -PreflightRunner {
@@ -414,6 +569,7 @@ $info = Get-WinImgMagickInfo
         $source = Join-Path $work 'source'
         $null = [IO.Directory]::CreateDirectory($source)
         $fake = Join-Path $work 'magick.ps1'
+        [IO.File]::WriteAllBytes((Join-Path $source 'needs-decoder.png'), [byte[]](1,2,3))
         [IO.File]::WriteAllText($fake, 'throw "This file must never execute."')
         $parent = Join-Path $work 'output'
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -MagickPath $fake -PreflightRunner {
@@ -428,14 +584,15 @@ $info = Get-WinImgMagickInfo
         @{ Label = 'nonzero version exit'; VersionExit = 7; FormatExit = 0; Version = 'current'; Formats = 'valid'; Timeout = $false; Pattern = '(?i)(version|exit|ImageMagick)' },
         @{ Label = 'timeout'; VersionExit = 0; FormatExit = 0; Version = 'current'; Formats = 'valid'; Timeout = $true; Pattern = '(?i)(timed out|timeout)' },
         @{ Label = 'unparseable version'; VersionExit = 0; FormatExit = 0; Version = 'not ImageMagick'; Formats = 'valid'; Timeout = $false; Pattern = '(?i)(version|ImageMagick)' },
-        @{ Label = 'older than reviewed supported build'; VersionExit = 0; FormatExit = 0; Version = 'Version: ImageMagick 7.1.2-14 Q16 x64'; Formats = 'valid'; Timeout = $false; Pattern = '(?i)(7\.1\.2-32|supported|patched|upgrade)' },
-        @{ Label = 'ImageMagick 6'; VersionExit = 0; FormatExit = 0; Version = 'Version: ImageMagick 6.9.13-0 Q16 x64'; Formats = 'valid'; Timeout = $false; Pattern = '(?i)(7\.1\.2-32|supported|patched|upgrade)' },
+        @{ Label = 'older than reviewed supported build'; VersionExit = 0; FormatExit = 0; Version = 'Version: ImageMagick 7.1.2-14 Q16 x64'; Formats = 'valid'; Timeout = $false; Pattern = '(?i)(7\.1\.2-35|supported|patched|upgrade)' },
+        @{ Label = 'ImageMagick 6'; VersionExit = 0; FormatExit = 0; Version = 'Version: ImageMagick 6.9.13-0 Q16 x64'; Formats = 'valid'; Timeout = $false; Pattern = '(?i)(7\.1\.2-35|supported|patched|upgrade)' },
         @{ Label = 'nonzero codec command'; VersionExit = 0; FormatExit = 9; Version = 'current'; Formats = 'valid'; Timeout = $false; Pattern = '(?i)(format|codec|exit)' },
         @{ Label = 'unparseable codec table'; VersionExit = 0; FormatExit = 0; Version = 'current'; Formats = 'invalid table'; Timeout = $false; Pattern = '(?i)(format|codec)' }
     ) {
         $work = New-PreflightDirectory 'dependency-response'
         $source = Join-Path $work 'source'
         $null = [IO.Directory]::CreateDirectory($source)
+        [IO.File]::WriteAllBytes((Join-Path $source 'needs-decoder.png'), [byte[]](1,2,3))
         $parent = Join-Path $work 'output'
         $versionText = $Version
         if ($Version -eq 'current') { $versionText = $supportedVersionText }
@@ -453,8 +610,8 @@ $info = Get-WinImgMagickInfo
     It 'parses and records the exact real pinned executable, supported version, delegates and relevant codecs' {
         $info = Get-WinImgMagickInfo -MagickPath $magick
         $info.Path | Should -Be $magick
-        $info.Version.ToString() | Should -Match '^7\.1\.2[-\.]32$'
-        $info.VersionText | Should -Match 'ImageMagick 7\.1\.2-32'
+        $info.Version.ToString() | Should -Match '^7\.1\.2[-\.]35$'
+        $info.VersionText | Should -Match 'ImageMagick 7\.1\.2-35'
         $info.Delegates | Should -Match 'jpeg'
         $info.Formats.JPEG.Read | Should -BeTrue
         $info.Formats.JPEG.Write | Should -BeTrue
@@ -462,8 +619,8 @@ $info = Get-WinImgMagickInfo
     }
 
     It 'parses <Label> capability rows including non-starred read-only HEIC' -ForEach @(
-        @{ Label = 'module-column'; FormatText = "JPEG* JPEG rw- JPEG description`nHEIC HEIC r-- HEIC description`nPNG* PNG rw- PNG description" },
-        @{ Label = 'static portable'; FormatText = "JPEG* rw- JPEG description`nHEIC r-- HEIC description`nPNG* rw- PNG description" }
+        @{ Label = 'module-column'; FormatText = "JPEG* JPEG rw- JPEG description`nHEIC HEIC r-- HEIC description (1.23.7)`nPNG* PNG rw- PNG description (libpng 1.6.59)" },
+        @{ Label = 'static portable'; FormatText = "JPEG* rw- JPEG description`nHEIC r-- HEIC description (1.23.7)`nPNG* rw- PNG description (libpng 1.6.59)" }
     ) {
         $info = Get-WinImgMagickInfo -MagickPath $magick -PreflightRunner (New-ControlledPreflightRunner -FormatText $FormatText)
         $info.Formats.JPEG.Read | Should -BeTrue
@@ -607,7 +764,7 @@ Describe 'M1-T01 per-format capability handling (T011)' {
         $log | Should -Match '(?i)missing-decoder\.heic.*(decoder|read|codec|HEIC)'
         $log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=1 Duplicates=0 Unsupported=0 Errors=1'
         $log | Should -Match ([regex]::Escape($magick))
-        $log | Should -Match 'ImageMagick 7\.1\.2-32'
+        $log | Should -Match 'ImageMagick 7\.1\.2-35'
         $log | Should -Match '(?i)Delegates.*jpeg'
     }
 
@@ -756,7 +913,19 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
             Should -Be (Get-FileHash -LiteralPath $video -Algorithm SHA256).Hash
     }
 
-    It 'requires reviewed ImageMagick for video-only input and does not copy on dependency failure' {
+    It 'completes an empty run as a no-op without resolving or starting an image engine' {
+        $work = New-PreflightDirectory 'empty-without-engine'
+        $source = Join-Path $work 'source'
+        $null = [IO.Directory]::CreateDirectory($source)
+        $parent = Join-Path $work 'output'
+        Mock Get-WinImgMagickInfo { throw 'Empty run must not resolve any engine.' }
+        $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -MagickPath (Join-Path $work 'missing-magick.exe') -PreflightRunner { throw 'Empty run must not start an engine.' }
+        $result.Code | Should -Be 0 -Because $result.Text
+        $result.Text | Should -Match 'No images or videos found|no-op|NO-OP'
+        Should -Invoke Get-WinImgMagickInfo -Times 0 -Exactly
+    }
+
+    It 'does not resolve or start ImageMagick for video-only input even with an unavailable engine' {
         $work = New-PreflightDirectory 'video-dependency-failure'
         $source = Join-Path $work 'source'
         $null = [IO.Directory]::CreateDirectory($source)
@@ -764,14 +933,17 @@ Describe 'M1-T01 destination and video-only policy (T012)' {
         [IO.File]::WriteAllBytes($video, [byte[]](50, 51, 52, 53))
         $before = (Get-FileHash -LiteralPath $video -Algorithm SHA256).Hash
         $parent = Join-Path $work 'output'
-        $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -PreflightRunner (New-ControlledPreflightRunner -VersionExitCode 3)
-        $result.Code | Should -Be 1
-        $result.Text | Should -Match '(?i)(ImageMagick|version)'
-        Assert-PreflightNoOutput $parent
+        Mock Get-WinImgMagickInfo { throw 'Video-only run must not resolve any engine.' }
+        $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -MagickPath (Join-Path $work 'missing-magick.exe') -PreflightRunner { throw 'Video-only run must not start an engine.' }
+        $result.Code | Should -Be 0 -Because $result.Text
+        $run = @(Get-ChildItem -LiteralPath $parent -Directory)
+        $run.Count | Should -Be 1
+        (Get-FileHash -LiteralPath (Join-Path $run[0].FullName 'video.mp4') -Algorithm SHA256).Hash | Should -Be $before
+        Should -Invoke Get-WinImgMagickInfo -Times 0 -Exactly
         (Get-FileHash -LiteralPath $video -Algorithm SHA256).Hash | Should -Be $before
     }
 
-    It 'does not require JPEG encoding for video-only input after dependency verification' {
+    It 'does not require JPEG encoding or dependency verification for video-only input' {
         $work = New-PreflightDirectory 'video-without-jpeg'
         $source = Join-Path $work 'source'
         $null = [IO.Directory]::CreateDirectory($source)

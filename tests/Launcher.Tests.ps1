@@ -63,6 +63,7 @@ BeforeAll {
             ProcessPath = [Environment]::GetEnvironmentVariable('PATH', 'Process')
             UserProfile = [Environment]::GetEnvironmentVariable('USERPROFILE', 'Process')
             ProcessPolicy = (Get-ExecutionPolicy -Scope Process).ToString()
+            ProcessModulePath = [Environment]::GetEnvironmentVariable('PSModulePath', 'Process')
         } | ConvertTo-Json -Depth 5 -Compress
     }
     $securityBefore = Get-LauncherSecurityState
@@ -117,6 +118,9 @@ $record = [ordered]@{
     ProcessId = $PID
     StartedTicks = (Get-Process -Id $PID).StartTime.ToUniversalTime().Ticks
     ExitCode = [int]$env:WINIMG_LAUNCHER_CODE
+    ModuleProbeHash = $env:WINIMG_LAUNCHER_MODULE_HASH
+    ModuleProbeBase = $env:WINIMG_LAUNCHER_MODULE_BASE
+    ModulePath = $env:PSModulePath
 }
 [IO.File]::WriteAllText($env:WINIMG_LAUNCHER_RECORD, ($record | ConvertTo-Json -Depth 6), [Text.UTF8Encoding]::new($false))
 [IO.File]::WriteAllText(($env:WINIMG_LAUNCHER_RECORD + '.ready'), 'Driver observation is complete.', [Text.UTF8Encoding]::new($false))
@@ -214,10 +218,20 @@ exit ([int]$env:WINIMG_LAUNCHER_CODE)
                     # claiming the BAT is waiting at its retained pause.
                     while ($clock.ElapsedMilliseconds -lt 15000) {
                         $sameDriver = $false
-                        try {
-                            $child = [Diagnostics.Process]::GetProcessById([int]$driver.ProcessId)
-                            try { $sameDriver = (-not $child.HasExited -and $child.StartTime.ToUniversalTime().Ticks -eq [long]$driver.StartedTicks) } finally { $child.Dispose() }
-                        } catch [ArgumentException] { $sameDriver = $false }
+                        $child = $null
+                        try { $child = [Diagnostics.Process]::GetProcessById([int]$driver.ProcessId) }
+                        catch [ArgumentException] { $child = $null }
+                        if ($child) {
+                            try {
+                                if (-not $child.HasExited) {
+                                    $driverStart = $null
+                                    try { $driverStart = $child.StartTime }
+                                    catch { if (-not $child.HasExited) { throw } }
+                                    if ($null -ne $driverStart) { $sameDriver = $driverStart.ToUniversalTime().Ticks -eq [long]$driver.StartedTicks }
+                                    elseif (-not $child.HasExited) { throw 'Synthetic driver start time is unavailable while the process remains running.' }
+                                }
+                            } finally { $child.Dispose() }
+                        }
                         if (-not $sameDriver) { break }
                         Start-Sleep -Milliseconds 20
                     }
@@ -240,6 +254,9 @@ exit ([int]$env:WINIMG_LAUNCHER_CODE)
             $consoleObservation.ExitCode | Should -Be $process.ExitCode
             $consoleObservation.ControllerExitCode | Should -Be $process.ExitCode
             if (-not $LeaveInputOpen) {
+                $consoleObservation.CaptureStage | Should -BeExactly 'BeforePauseKey'
+                $consoleObservation.PauseSnapshotMembersVerified | Should -BeTrue
+                $consoleObservation.PauseSnapshotCharacters | Should -BeGreaterThan 0
                 $consoleObservation.KeyRecordsWritten | Should -Be 2
                 @($consoleObservation.MembersBeforeKey).Count | Should -Be 2
                 @($consoleObservation.MembersBeforeKey) | Should -Contain $consoleObservation.ControllerId
@@ -286,17 +303,18 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
         $result.ExitCode | Should -Be 37
         $result.PauseObserved | Should -BeFalse
         $result.StdOut | Should -Match 'Console fixture credibility control'
+        $result.ConsoleFixture.CaptureStage | Should -BeExactly 'AfterCmdExit'
         $result.StdErr | Should -BeNullOrEmpty
         $result.ConsoleFixture.KeyRecordsWritten | Should -BeNullOrEmpty
         [IO.File]::Exists($case.Record) | Should -BeFalse
     }
 
     It 'T061 preserves native exit <Code> after real child exit, message and blocked pause' -ForEach @(
-        @{ Code = 0; Message = 'Completed successfully.' },
-        @{ Code = 1; Message = 'ERROR: Processing did not complete reliably (exit code 1).' },
-        @{ Code = 2; Message = 'Completed with warnings or partial failures.' },
-        @{ Code = 130; Message = 'Cancelled. Completed outputs were retained.' },
-        @{ Code = 37; Message = 'ERROR: Processing did not complete reliably (exit code 37).' }
+        @{ Code = 0; Message = 'Press any key to close.' },
+        @{ Code = 1; Message = 'Press any key to close.' },
+        @{ Code = 2; Message = 'Press any key to close.' },
+        @{ Code = 130; Message = 'Press any key to close.' },
+        @{ Code = 37; Message = 'Press any key to close.' }
     ) {
         $case = New-LauncherCase ('code-' + $Code)
         $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -Code $Code -ExpectDriver -VerifyPause
@@ -311,9 +329,9 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
     }
 
     It 'T061 ignores an inherited ERRORLEVEL variable when the actual child returns <Code>' -ForEach @(
-        @{ Code = 0; Message = 'Completed successfully.' },
-        @{ Code = 2; Message = 'Completed with warnings or partial failures.' },
-        @{ Code = 130; Message = 'Cancelled. Completed outputs were retained.' }
+        @{ Code = 0; Message = 'Press any key to close.' },
+        @{ Code = 2; Message = 'Press any key to close.' },
+        @{ Code = 130; Message = 'Press any key to close.' }
     ) {
         $case = New-LauncherCase ('inherited-errorlevel-' + $Code)
         $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -Code $Code -ExpectDriver -VerifyPause -Environment @{ ERRORLEVEL = '47' }
@@ -368,15 +386,60 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
         [IO.File]::Exists($case.Record) | Should -BeFalse
     }
 
-    It 'T061 retains native9009 and a failure message when the unchanged host is unavailable in child PATH' {
-        $case = New-LauncherCase 'missing-host'
-        $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -VerifyPause -Environment @{ PATH = '' }
-        $result.ExitCode | Should -Be 9009
+    It 'T061 selects the real Windows PowerShell host even with an empty child PATH' {
+        $case = New-LauncherCase 'empty-path'
+        $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -ExpectDriver -VerifyPause -Environment @{ PATH = '' }
+        $result.ExitCode | Should -Be 0
+        $result.Driver.Edition | Should -Be 'Desktop'
         $result.PauseObserved | Should -BeTrue
-        $result.StdOut | Should -Match 'ERROR: Processing did not complete reliably \(exit code 9009\)\.'
-        $result.StdOut | Should -Not -Match 'Completed successfully\.|\bDone\.'
-        $result.StdErr | Should -Match 'powershell'
-        [IO.File]::Exists($case.Record) | Should -BeFalse
+        $result.StdOut | Should -Not -Match 'did not complete reliably'
+        $result.StdErr | Should -BeNullOrEmpty
+    }
+
+    It 'T063 loads real Windows PowerShell built-in modules despite an inherited PS7-only module path' {
+        $case = New-LauncherCase 'ps7-module-environment'
+        $modernHost = (Get-Command pwsh.exe -CommandType Application -ErrorAction Stop | Select-Object -First 1).Source
+        $modernModules = Join-Path ([IO.Path]::GetDirectoryName($modernHost)) 'Modules'
+        Test-Path -LiteralPath (Join-Path $modernModules 'Microsoft.PowerShell.Utility/Microsoft.PowerShell.Utility.psd1') -PathType Leaf | Should -BeTrue
+        $moduleProbe = @'
+$ErrorActionPreference = 'Stop'
+$hash = Get-FileHash -LiteralPath $PSCommandPath -Algorithm SHA256 -ErrorAction Stop
+$env:WINIMG_LAUNCHER_MODULE_HASH = $hash.Hash
+$env:WINIMG_LAUNCHER_MODULE_BASE = (Get-Command Get-FileHash -CommandType Function,Cmdlet -ErrorAction Stop).Module.ModuleBase
+'@
+        $driver = Join-Path $case.Root 'WinImgNormalizer.ps1'
+        [IO.File]::WriteAllText($driver, ($moduleProbe + "`r`n" + $driverText), [Text.UTF8Encoding]::new($true))
+        $expectedHash = (Get-FileHash -LiteralPath $driver -Algorithm SHA256).Hash
+        $before = $env:PSModulePath
+        $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -ExpectDriver -VerifyPause -Environment @{ PSModulePath=$modernModules }
+        $result.ExitCode | Should -Be 0
+        $result.Driver.Edition | Should -Be 'Desktop'
+        $result.Driver.Version | Should -Match '^5\.1\.'
+        $result.Driver.ModuleProbeHash | Should -Be $expectedHash
+        [string]::Equals($result.Driver.ModuleProbeBase,[IO.Path]::GetDirectoryName($legacyHost),[StringComparison]::OrdinalIgnoreCase) | Should -BeTrue
+        $result.Driver.ModulePath | Should -Not -Match ([regex]::Escape($modernModules))
+        $result.PauseObserved | Should -BeTrue
+        $result.StdErr | Should -BeNullOrEmpty
+        $env:PSModulePath | Should -BeExactly $before
+    }
+
+    It 'T062 captures one wide CJK glyph per displayed glyph and preserves following result and pause rows' {
+        $case = New-LauncherCase 'wide-cell-screen'
+        $unicode = [string][char]0x00e5 + [char]0x96ea
+        $screenDriver = "Write-Host '[01 / INPUT] $unicode'`r`nWrite-Host '[04 / RESULT] COMPLETE'`r`nWrite-Host 'Output: synthetic destination'`r`nWrite-Host 'Report: synthetic report.csv'`r`n"
+        [IO.File]::WriteAllText((Join-Path $case.Root 'WinImgNormalizer.ps1'), ($screenDriver + $driverText), [Text.UTF8Encoding]::new($true))
+        $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -ExpectDriver -VerifyPause
+        $result.ExitCode | Should -Be 0
+        $result.ConsoleFixture.CaptureMethod | Should -BeExactly 'ReadConsoleOutputW'
+        $result.ConsoleFixture.CaptureStage | Should -BeExactly 'BeforePauseKey'
+        $result.StdOut | Should -Match ('(?m)^\[01 / INPUT\] ' + [regex]::Escape($unicode) + '\r?$')
+        [regex]::Matches($result.StdOut,[string][char]0x96ea).Count | Should -Be 1
+        $result.StdOut | Should -Match '(?m)^\[04 / RESULT\] COMPLETE\r?$'
+        $result.StdOut | Should -Match '(?m)^Output: synthetic destination\r?$'
+        $result.StdOut | Should -Match '(?m)^Report: synthetic report.csv\r?$'
+        $result.StdOut | Should -Match '(?m)^Press any key to close\.\r?$'
+        $result.PauseObserved | Should -BeTrue
+        $result.StdErr | Should -BeNullOrEmpty
     }
 
     It 'T062 preserves a single literal source and companion path with <Label>' -ForEach @(
@@ -398,7 +461,7 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
         $result = Invoke-LauncherChild -Case $case -Arguments @($inputArgument) -ExpectDriver -VerifyPause
         $result.ExitCode | Should -Be 0
         $result.PauseObserved | Should -BeTrue
-        $result.StdOut | Should -Match 'Completed successfully\.'
+        $result.StdOut | Should -Match 'Press any key to close\.'
         $result.StdErr | Should -BeNullOrEmpty
         @($result.Driver.Arguments).Count | Should -Be 1
         $result.Driver.Arguments[0] | Should -BeExactly $expectedArgument

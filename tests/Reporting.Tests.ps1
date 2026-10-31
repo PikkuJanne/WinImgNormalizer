@@ -393,7 +393,7 @@ Describe 'M3-T04 degraded CSV and cancellation outcomes (T060)' {
         $source=New-ReportingDirectory 'final-console/source';$parent=New-ReportingDirectory 'final-console/output'
         New-ReportingImage (Join-Path $source 'image.png');Set-ReportingDirectoryTimes $source;$before=Get-ReportingSourceState $source
         Mock Write-Host {param($Object,$ForegroundColor,$NoNewline)
-            if([string]$Object -match '^ACCOUNTING Discovered='){throw [IO.IOException]::new('Controlled final console sink unavailable')}
+            if([string]$Object -match '^\[04 / RESULT\]'){throw [IO.IOException]::new('Controlled final console sink unavailable')}
             $arguments=@{Object=$Object};if($null -ne $ForegroundColor){$arguments.ForegroundColor=$ForegroundColor};if($NoNewline){$arguments.NoNewline=$true}
             & $writeHostCommand @arguments
         }

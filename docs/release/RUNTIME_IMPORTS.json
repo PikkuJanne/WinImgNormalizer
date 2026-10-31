@@ -1,0 +1,72 @@
+{
+  "review_date": "2026-10-31",
+  "scope": "Read-only PE import inspection and actual owned-process module loading; no machine runtime installation or changes.",
+  "engine": {
+    "relative_path": "runtime/imagemagick/magick.exe",
+    "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+    "machine": "AMD64",
+    "direct_imports": [
+      "ADVAPI32.dll",
+      "DNSAPI.dll",
+      "GDI32.dll",
+      "IPHLPAPI.DLL",
+      "KERNEL32.dll",
+      "MSIMG32.dll",
+      "SHELL32.dll",
+      "USER32.dll",
+      "VCOMP140.DLL",
+      "WS2_32.dll",
+      "api-ms-win-core-synch-l1-2-0.dll",
+      "bcrypt.dll",
+      "gdiplus.dll",
+      "ole32.dll",
+      "urlmon.dll"
+    ],
+    "delay_imports": []
+  },
+  "app_local_dependency": {
+    "relative_path": "runtime/imagemagick/VCOMP140.DLL",
+    "version": "14.51.36247.0",
+    "bytes": 212920,
+    "sha256": "95d4ce4a6802d1e18b5e0e1722cc30ea72ca7e033f83828f05c0b7b993fe7cbf",
+    "signature": "Valid",
+    "publisher": "Microsoft Windows Software Compatibility Publisher",
+    "direct_imports": [
+      "KERNEL32.dll"
+    ],
+    "delay_imports": [],
+    "installer_executed": false,
+    "machine_path_modified": false,
+    "registry_modified": false
+  },
+  "observed_modules": [
+    {
+      "Module": "VCOMP140.DLL",
+      "RelativePath": "runtime/imagemagick/VCOMP140.DLL",
+      "Sha256": "95d4ce4a6802d1e18b5e0e1722cc30ea72ca7e033f83828f05c0b7b993fe7cbf",
+      "LoadedPathMatchesPrivatePayload": true,
+      "SameUserOwnedProcess": true,
+      "ObservedWhileAwaitingSyntheticInput": true,
+      "InputRgbBytes": 3,
+      "Decoded": "RGB|1|1",
+      "Exit": 0
+    },
+    {
+      "Module": "VCOMP140.DLL",
+      "RelativePath": "runtime/imagemagick/VCOMP140.DLL",
+      "Sha256": "95d4ce4a6802d1e18b5e0e1722cc30ea72ca7e033f83828f05c0b7b993fe7cbf",
+      "LoadedPathMatchesPrivatePayload": true,
+      "SameUserOwnedProcess": true,
+      "ObservedWhileAwaitingSyntheticInput": true,
+      "InputRgbBytes": 3,
+      "Decoded": "RGB|1|1",
+      "Exit": 0
+    }
+  ],
+  "shells": [
+    "Windows PowerShell 5.1.26100.9711",
+    "PowerShell 7.6.5"
+  ],
+  "windows_10_executed": false,
+  "limitation": "PE imports establish required side-by-side DLL closure, not execution on Windows 10 or absence of every optional dynamically loaded OS component. Exact package offline acceptance runs separately."
+}
