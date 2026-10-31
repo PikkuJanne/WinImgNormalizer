@@ -2785,3 +2785,15 @@ poster and its direct live metadata/test-source references. The two application
 icons, application/launcher/release code and published v1.0.0 remain preserved.
 The isolated base is e5376d41879a2e4ffb5da5e607bfb634f1598621. Candidate validation and GitHub delivery
 are recorded in docs/WEBSITE_ASSET_CLEANUP.md and external website evidence.
+
+
+## 2026-10-31 — Maintainer-authorized 1.0.1 hotfix
+
+Fetched origin/tags and started at e8d7b6c in a clean clone on
+hotfix/portable-runtime-console. v1.0.0 was the sole published stable release.
+The non-Git snapshot and maintained local checkout were preserved. Reproduced
+the old gate with authenticated upstream 7.1.2-5 Q16-HDRI DLL bytes without letting
+the old decoder process media. Dependency, packaging, native selection, console,
+acceptance and documentation changes are in progress. Results and delivery will
+be recorded only after actual gates/public-byte observations. Historical evidence
+and v1.0.0 bytes are unchanged.

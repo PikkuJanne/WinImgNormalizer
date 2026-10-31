@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "preparation_state": "published",
+  "preparation_state": "draft",
   "release_metadata_file": "../../release-metadata.json",
   "product": {
     "name": "WinImgNormalizer",
@@ -9,16 +9,28 @@
   "repository_url": "https://github.com/PikkuJanne/WinImgNormalizer",
   "license": "MIT",
   "platform": {
-    "supported_os": ["Windows 10 x64", "Windows 11 x64"],
-    "powershell": ["Windows PowerShell 5.1", "PowerShell 7"],
-    "tested_desktop": ["Windows 11 Pro build 26300"],
-    "tested_ci": ["Windows Server 2025"],
-    "untested_os": ["Windows 10"]
+    "supported_os": [
+      "Windows 10 x64",
+      "Windows 11 x64"
+    ],
+    "powershell": [
+      "Windows PowerShell 5.1",
+      "PowerShell 7"
+    ],
+    "tested_desktop": [
+      "Windows 11 Pro build 26300"
+    ],
+    "tested_ci": [
+      "Windows Server 2025"
+    ],
+    "untested_os": [
+      "Windows 10"
+    ]
   },
   "prerequisites": {
-    "imagemagick_minimum": "7.1.2-32",
+    "imagemagick_minimum": "7.1.2-35",
     "supported_major": 7,
-    "external_installation": true,
+    "external_installation": false,
     "format_support_depends_on_build": true,
     "details_file": "../../README.md"
   },
@@ -36,9 +48,9 @@
     "hosting_provider": null
   },
   "download": {
-    "state": "available",
-    "render_link": true,
-    "label": "Download WinImgNormalizer 1.0.0"
+    "state": "unavailable",
+    "render_link": false,
+    "label": "Release download not available"
   },
   "documents": {
     "product_copy": "PRODUCT_COPY.md",
@@ -52,12 +64,12 @@
   "assets": [
     {
       "id": "icon",
-      "path": "../../WinImgNormalizer_icon_variant.png",
+      "path": "../../WinImageNormalizer.png",
       "media_type": "image/png",
-      "bytes": 11141,
-      "sha256": "479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9",
-      "width": 1024,
-      "height": 1024,
+      "bytes": 1770820,
+      "sha256": "072d17d388fe85bdc6c8e639a8c9d39a02dbce4cd6b3950a01566d4d3c09040c",
+      "width": 1254,
+      "height": 1254,
       "sizes": [],
       "usage": "branding",
       "display": true,
@@ -65,13 +77,20 @@
     },
     {
       "id": "favicon",
-      "path": "../../WinImgNormalizer_variant.ico",
+      "path": "../../WinImageNormalizer.ico",
       "media_type": "image/vnd.microsoft.icon",
-      "bytes": 22917,
-      "sha256": "78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79",
+      "bytes": 370070,
+      "sha256": "4c2bdee255af2c5123343638e4419ba64d134dfd2d606de382231f3de266d88e",
       "width": null,
       "height": null,
-      "sizes": [16, 32, 48, 64, 128, 256],
+      "sizes": [
+        256,
+        128,
+        64,
+        48,
+        32,
+        16
+      ],
       "usage": "branding",
       "display": true,
       "alt": "WinImgNormalizer icon"

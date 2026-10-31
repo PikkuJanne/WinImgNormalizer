@@ -147,7 +147,7 @@ BeforeAll {
     $formatText = Invoke-DocumentationMagick @('-list', 'format')
     function New-DocumentationCapabilityControl([string]$Mode) {
         $version = $versionText; $formats = $formatText
-        if ($Mode -eq 'version') { $version = $version.Replace('7.1.2-32', '7.1.1-47') }
+        if ($Mode -eq 'version') { $version = $version.Replace('7.1.2-35', '7.1.1-47') }
         if ($Mode -eq 'jpeg') { $formats = [regex]::Replace($formats, '(?m)^(\s*JPEG\*?\s+(?:[A-Z0-9]+\s+)?)rw', '${1}r-') }
         return { param($Executable, $Arguments)
             $text = if ($Arguments[0] -eq '-version') { $version } elseif ($Arguments[0] -eq '-list') { $formats } else { throw 'Unexpected documentation control query.' }
@@ -227,12 +227,12 @@ Describe 'M4-T03 documentation parity with actual behavior (T072)' {
     }
 
     It 'T072 reproduces the documented <Label> prerequisite failure before output allocation' -ForEach @(
-        @{ Label = 'missing executable'; Mode = 'missing'; Message = 'ImageMagick magick.exe was not found. Install a supported build and put its executable on PATH.'; Fragment = 'ImageMagick magick.exe was not found.' },
-        @{ Label = 'old version control'; Mode = 'version'; Message = 'ImageMagick 7.1.2-32 or newer supported 7.x build is required; update the dependency before running.'; Fragment = 'ImageMagick 7.1.2-32 or newer supported 7.x build is required' },
+        @{ Label = 'missing executable'; Mode = 'missing'; Message = 'ImageMagick magick.exe was not found. Download the self-contained portable release, or stage the developer runtime with tools/release/Stage-Runtime.ps1.'; Fragment = 'ImageMagick magick.exe was not found.' },
+        @{ Label = 'old version control'; Mode = 'version'; Message = 'ImageMagick 7.1.2-35 or newer supported 7.x build is required; update the dependency before running.'; Fragment = 'ImageMagick 7.1.2-35 or newer supported 7.x build is required' },
         @{ Label = 'missing JPEG writer control'; Mode = 'jpeg'; Message = 'This ImageMagick build has no JPEG encoder; install a build with JPEG write support.'; Fragment = 'This ImageMagick build has no JPEG encoder' }
     ) {
         $source = New-DocumentationDirectory 'dependency source'; $parent = Join-Path $ownedRoot ('absent prerequisite output-' + [Guid]::NewGuid().ToString('N'))
-        if ($Mode -eq 'jpeg') { $null = Invoke-DocumentationMagick @('-size', '4x4', 'xc:red', ('PNG:' + (Join-Path $source 'synthetic readable.png'))) }
+        $null = Invoke-DocumentationMagick @('-size', '4x4', 'xc:red', ('PNG:' + (Join-Path $source 'synthetic readable.png')))
         $parameters = @{ Arguments = @($source); OutputParent = $parent }
         if ($Mode -eq 'missing') { $parameters.MagickPath = Join-Path $ownedRoot 'absent-magick.exe' } else { $parameters.PreflightRunner = New-DocumentationCapabilityControl $Mode }
         $result = Invoke-DocumentationCommand @parameters
@@ -243,12 +243,32 @@ Describe 'M4-T03 documentation parity with actual behavior (T072)' {
         Test-Path -LiteralPath $parent | Should -BeFalse
         if ($Mode -eq 'jpeg') {
             # JPEG writing is required for readable images. A genuine empty run
-            # still requires ImageMagick but does not require its JPEG writer.
+            # requires no image engine or JPEG writer.
             $empty = New-DocumentationDirectory 'empty dependency source'
             $emptyParent = New-DocumentationDirectory 'empty dependency output'
             $emptyResult = Invoke-DocumentationCommand -Arguments @($empty) -OutputParent $emptyParent -PreflightRunner (New-DocumentationCapabilityControl 'jpeg')
             $emptyResult.Code | Should -Be 0 -Because $emptyResult.Text
             (Get-DocumentationRun $emptyParent).Log | Should -Match 'SUMMARY ConvertedImages=0 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0'
+        }
+    }
+
+    It 'T072 inventories empty and video-only sources without resolving an image engine' {
+        Mock Get-WinImgMagickInfo { throw 'No image engine is permitted in this case.' }
+        foreach ($kind in @('empty','video')) {
+            $source=New-DocumentationDirectory ('engine-free '+$kind)
+            $parent=New-DocumentationDirectory ('engine-free output '+$kind)
+            if ($kind -eq 'video') { New-DocumentationVideo (Join-Path $source 'synthetic.mp4') }
+            $result=Invoke-DocumentationCommand -Arguments @($source) -OutputParent $parent -MagickPath (Join-Path $ownedRoot 'absent.exe')
+            $result.Code | Should -Be 0 -Because $result.Text
+            $result.Text | Should -Match 'Not needed'
+            if ($kind -eq 'video') {
+                $run=Get-DocumentationRun $parent
+                (Get-FileHash -LiteralPath (Join-Path $run.Root 'synthetic.mp4')).Hash | Should -Be (Get-FileHash -LiteralPath (Join-Path $source 'synthetic.mp4')).Hash
+            } else { $result.Text | Should -Match 'nothing to process' }
+        }
+        Should -Invoke Get-WinImgMagickInfo -Times 0 -Exactly
+        foreach ($relative in @('README.md','docs/release/GETTING_STARTED.md')) {
+            (Get-DocumentationText $relative) | Should -Match 'No separate ImageMagick installation required for the portable ZIP'
         }
     }
 
@@ -333,15 +353,16 @@ Describe 'M4-T03 documentation parity with actual behavior (T072)' {
             foreach ($name in @('tag', 'release_date', 'release_url', 'asset_filename', 'asset_bytes', 'asset_sha256', 'download_url')) { $metadata.$name | Should -BeNullOrEmpty }
         } else {
             $metadata.release_state | Should -BeExactly 'published'
-            $metadata.tag | Should -BeExactly 'v1.0.0'
-            $metadata.asset_filename | Should -BeExactly 'WinImgNormalizer-1.0.0-portable.zip'
-            $metadata.asset_bytes | Should -Be 184659
-            $metadata.asset_sha256 | Should -BeExactly '251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d'
-            $metadata.release_url | Should -BeExactly 'https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0'
-            $metadata.download_url | Should -BeExactly 'https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer-1.0.0-portable.zip'
-            Get-DocumentationText 'README.md' | Should -Match '(?i)1\.0\.0 is published and unsigned'
-            Get-DocumentationText 'README.md' | Should -Match '(?i)preparation.time unreleased wording'
-            Get-DocumentationText 'docs/release/GETTING_STARTED.md' | Should -Match '(?i)unreleased'
+            $metadata.tag | Should -BeExactly ('v' + (Get-WinImgVersion))
+            $metadata.asset_filename | Should -BeExactly ('WinImgNormalizer-' + (Get-WinImgVersion) + '-portable.zip')
+            $metadata.asset_bytes | Should -BeGreaterThan 0
+            $metadata.asset_sha256 | Should -Match '^[0-9a-f]{64}$'
+            $proof = Get-Content -LiteralPath (Join-Path $repository ('docs/release/publication-v' + (Get-WinImgVersion) + '.json')) -Raw | ConvertFrom-Json
+            $metadata.asset_sha256 | Should -BeExactly $proof.assets[0].sha256
+            $metadata.asset_bytes | Should -Be $proof.assets[0].bytes
+            $metadata.release_url | Should -BeExactly $proof.release_url
+            $metadata.download_url | Should -BeExactly $proof.assets[0].download_url
+            Get-DocumentationText 'README.md' | Should -Match '(?i)is published and unsigned'
             # The maintained generator verifies the dated witness and canonical
             # publication fields; this does not authenticate a fresh download.
             & (Join-Path $repository 'tools/release/Update-ReleaseMetadata.ps1') -Check

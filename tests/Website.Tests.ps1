@@ -17,8 +17,8 @@ BeforeAll {
     [IO.Directory]::CreateDirectory($owned) | Out-Null
     [IO.File]::WriteAllText((Join-Path $owned '.winimg-fixture-root'), 'M4-T06 owned synthetic website controls; no release, public download or owner approval is established by these fixtures.', [Text.UTF8Encoding]::new($false))
     $publicPaths = @('tools/website/Test-WebsiteHandoff.ps1', 'docs/website/metadata.json',
-        'docs/website/PRODUCT_COPY.md', 'docs/website/INTEGRATION.md', 'WinImgNormalizer_icon_variant.png',
-        'WinImgNormalizer_variant.ico', 'WinImgNormalizer.ps1',
+        'docs/website/PRODUCT_COPY.md', 'docs/website/INTEGRATION.md', 'WinImageNormalizer.png',
+        'WinImageNormalizer.ico', 'WinImgNormalizer.ps1',
         'WinImgNormalizer.bat', 'release-metadata.json', 'README.md', 'CHANGELOG.md', 'LICENSE',
         'SECURITY.md', 'docs/BEHAVIOR.md', 'docs/release/GETTING_STARTED.md', 'docs/release/NOTES.md',
         'docs/release/THIRD_PARTY_NOTICES.md', 'docs/release/PACKAGING.md',
@@ -118,6 +118,10 @@ BeforeAll {
     }
     function New-PublishedWebsiteRepository {
         $root = New-WebsiteRepository
+        $legacyApp = Join-Path $root 'WinImgNormalizer.ps1'
+        [IO.File]::WriteAllText($legacyApp, ([IO.File]::ReadAllText($legacyApp).Replace("return '1.0.1'", "return '1.0.0'")), $utf8)
+        $legacyMetadata = Join-Path $root 'release-metadata.json'
+        [IO.File]::WriteAllText($legacyMetadata, ([IO.File]::ReadAllText($legacyMetadata).Replace('1.0.1','1.0.0')), $utf8)
         # These IDs/times are explicit synthetic offline controls. Only the root
         # publication operation and actual downloaded bytes can establish T075.
         $repositoryUrl = 'https://github.com/PikkuJanne/WinImgNormalizer'
@@ -285,7 +289,7 @@ Describe 'T073 framework-neutral website preparation and metadata boundary' {
         @{Field='screenshots'}, @{Field='comparisons'}
     ) {
         $metadata = New-WebsiteMetadata
-        $metadata.$Field = @([pscustomobject]@{ path='../../WinImgNormalizer_icon_variant.png'; caption='Invented application output'; sha256=$metadata.assets[0].sha256 })
+        $metadata.$Field = @([pscustomobject]@{ path='../../WinImageNormalizer.png'; caption='Invented application output'; sha256=$metadata.assets[0].sha256 })
         Assert-WebsiteRejected (Write-WebsiteMetadata $metadata)
     }
     It 'refuses metadata with stale <Field> identity or prerequisites' -ForEach @(
@@ -392,7 +396,7 @@ Describe 'T073 framework-neutral website preparation and metadata boundary' {
     }
     It 'detects actual tampering with an owned branding file even when metadata remains untouched' {
         $root = New-WebsiteRepository
-        $asset = Join-Path $root 'WinImgNormalizer_icon_variant.png'
+        $asset = Join-Path $root 'WinImageNormalizer.png'
         $stream = [IO.File]::Open($asset, [IO.FileMode]::Open, [IO.FileAccess]::ReadWrite, [IO.FileShare]::None)
         try {
             $null = $stream.Seek(-1, [IO.SeekOrigin]::End)
@@ -517,7 +521,7 @@ Describe 'T073 recorded published website consistency using synthetic offline co
             $metadata = [IO.File]::ReadAllText($path) | ConvertFrom-Json
             switch ($kind) {
                 'upload' { $metadata.processing.uploads = $true }
-                'screenshot' { $metadata.screenshots = @([pscustomobject]@{path='../../WinImgNormalizer_icon_variant.png'}) }
+                'screenshot' { $metadata.screenshots = @([pscustomobject]@{path='../../WinImageNormalizer.png'}) }
                 'deployment' { $metadata.deployment.domain = 'https://invented.example.invalid' }
             }
             [IO.File]::WriteAllText($path, ($metadata | ConvertTo-Json -Depth 16), $utf8)

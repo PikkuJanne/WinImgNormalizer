@@ -1,6 +1,6 @@
 # Getting started with WinImgNormalizer
 
-The prepared portable package is **version 1.0.0, unreleased and unsigned**.
+The prepared portable package is **version 1.0.1, unreleased and unsigned**.
 `package-manifest.json` records its exact source revision; [CHANGELOG.md](CHANGELOG.md)
 has release notes. ZIP preparation does not establish a public download, released
 tag or verified publisher. The filename/path examples below are illustrative.
@@ -12,7 +12,7 @@ actual hash with the exact filename's entry in `SHA256SUMS.txt` and the value
 provided through that trusted channel. Replace this path with your prepared ZIP:
 
 ```powershell
-Get-FileHash -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.0-portable.zip' -Algorithm SHA256
+Get-FileHash -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.1-portable.zip' -Algorithm SHA256
 ```
 
 A matching checksum identifies bytes relative to a trusted value; it is not a
@@ -21,7 +21,7 @@ If you trust the verified ZIP and Windows marks it as downloaded, selectively
 unblock that exact ZIP before extracting:
 
 ```powershell
-Unblock-File -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.0-portable.zip'
+Unblock-File -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.1-portable.zip'
 ```
 
 Extract into a new ordinary folder with a name such as `WinImg Normalizer` in
@@ -33,30 +33,25 @@ or make an unsigned script satisfy `AllSigned`. See Microsoft's
 [hashing documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash)
 and [selective unblocking documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/unblock-file).
 
-## Prepare ImageMagick
+## Private image engine
 
-Use 64-bit Windows 10 or 11 with Windows PowerShell 5.1 or PowerShell 7. Obtain
-ImageMagick separately from its [official Windows downloads](https://imagemagick.org/download/#windows-binary-release).
-The application requires **7.1.2-32 or a newer supported 7.x build**. Keep ImageMagick
-and its delegates updated. The maintained test baseline is portable 7.1.2-32 Q16
-x64; the same version's Q16-HDRI x64 build has separate colour and owner workflow
-checks. Windows 11 was tested; Windows 10 has not been tested. The changelog records
-exact hosts; these checks do not certify every newer build.
+No separate ImageMagick installation required for the portable ZIP. Keep the entire
+extracted package together: `runtime` contains the verified private engine and its
+notices, and `portable-runtime.json` identifies an intact distribution. Every probe,
+conversion and final JPEG decode uses that engine. A missing or corrupt runtime
+fails before execution: re-extract the official ZIP into a new folder.
 
-Follow the dependency's installation instructions or use its portable x64 build.
-Make the chosen `magick.exe` available through PATH in the launching session.
-In PowerShell, check the actual application and compiled capabilities:
+The application does not download, install or update dependencies during a run.
+An older ImageMagick on PATH is not used by the standard ZIP. Empty and video-only
+folders need no image engine. Videos are copied byte-for-byte and keep their metadata.
+An unavailable optional decoder produces a named per-file warning/partial result;
+other supported files still complete. Explicit local and administrator policy denials
+remain effective; the application never tries another engine to evade a denial.
 
-```powershell
-Get-Command magick.exe -CommandType Application
-magick.exe -version
-magick.exe -list format
-```
-
-Image conversion requires JPEG write support and a decoder for the source format;
-codecs such as HEIC/HEIF vary by build and installed policy. ImageMagick is required even for
-video-only or empty folders. No ImageMagick binary/installer is bundled. The
-application does not download, install or update dependencies during a run.
+A fresh source clone contains no binary artifacts. Developers can use the repository's
+`tools/release/Stage-Runtime.ps1 -Download` command to stage the same verified runtime,
+or select a trusted ImageMagick 7.1.2-35 or newer supported 7.x engine on PATH.
+Windows PowerShell 5.1 and PowerShell 7 remain supported. Windows 10 has not been tested.
 
 ## Choose a source and run
 
@@ -73,7 +68,7 @@ outside scope. Local long paths still depend on the host, filesystem and tools.
 
 Drag exactly one source folder onto `WinImgNormalizer.bat`. The launcher uses
 Windows PowerShell 5.1 with `-ExecutionPolicy Bypass` for that child process only,
-then displays the outcome and pauses. It does not change persistent policy or
+then displays the outcome and pauses in an interactive console. Redirected runs exit unattended. It does not change persistent policy or
 override Group Policy. See Microsoft's [execution-policy documentation](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies).
 Do not change machine-wide policy, disable protection software or weaken ImageMagick
 policy. If organizational controls block execution, follow your organization's process.

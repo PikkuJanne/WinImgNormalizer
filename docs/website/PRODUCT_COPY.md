@@ -18,24 +18,18 @@ derivatives: keep the originals and a separate backup.
 
 ## Current availability
 
-WinImgNormalizer 1.0.0 is published and unsigned.
-
-**[Download WinImgNormalizer 1.0.0](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.0/WinImgNormalizer-1.0.0-portable.zip)**
-
-The [release page](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0)
-includes provenance and checksum sidecars. The ZIP is 184659 bytes, with SHA-256
-`251828028e144759c919645f423fde08641cabf42e04db7024d7ad17da4ba14d`.
-Its embedded unreleased wording records the preparation snapshot; the approved
-files were published unchanged. Use **View source** and **Read the quick start**
-for source and setup guidance.
+WinImgNormalizer 1.0.1 is unreleased and unsigned. The canonical release record
+will supply the public download link and checksum after publication. Use
+**View source** and **Read the quick start** for current source and setup guidance.
 
 ## How it works
 
 1. Keep `WinImgNormalizer.ps1` and `WinImgNormalizer.bat` together with their
-   original names. Install ImageMagick separately and make the selected
-   `magick.exe` available on PATH. Follow the [quick start](../../README.md).
+   original names, including the private runtime folder. No separate ImageMagick
+   installation required for the portable ZIP. Follow the [quick start](../../README.md).
 2. Drag exactly one source folder onto the BAT. It uses Windows PowerShell 5.1,
-   displays the outcome and pauses before closing. The PS1 also supports direct
+   displays the outcome and pauses in interactive consoles. Redirected automation
+   finishes unattended. The PS1 also supports direct
    positional invocation in Windows PowerShell 5.1 or PowerShell 7.
 3. Open the new run folder under your Windows Pictures location. Subdirectories
    are mirrored; completed outputs remain if another item fails.
@@ -54,14 +48,13 @@ with a warning. The target is not a guaranteed file-size cap.
 ## Requirements and tested scope
 
 - 64-bit Windows 10 or 11 with Windows PowerShell 5.1 or PowerShell 7. Windows 10
-  testing is out of project scope and has not been run; recorded desktop checks
+  has not been executed; recorded desktop checks
   used Windows 11 and hosted checks
   used Windows Server 2025.
-- ImageMagick 7.1.2-32 or a newer supported 7.x build, obtained separately from its
-  [official Windows downloads](https://imagemagick.org/download/#windows-binary-release).
-  ImageMagick is required even for an empty or video-only source. Image conversion
-  needs JPEG write support and the source format's decoder; installed codecs and
-  security policy can prevent individual files from working.
+- No separate ImageMagick installation required for the portable ZIP. Its private
+  verified engine runs offline, even when system ImageMagick is older or absent.
+  Empty and video-only folders need no engine; a missing optional decoder is a
+  per-file partial result. Keep the complete extracted folder together.
 - Ordinary read access to the source and write access to Pictures and temporary
   storage, with sufficient free space for copies and scratch files.
 

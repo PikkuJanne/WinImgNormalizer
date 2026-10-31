@@ -1,5 +1,12 @@
 {
-  "website_cleanup_checkpoint": {"date":"2026-10-10","scope":"Owner-authorized obsolete website-only material cleanup; historical engineering tasks/acceptance retained.","status":"prepared_pending_github_checks","base_commit":"e5376d41879a2e4ffb5da5e607bfb634f1598621","evidence":"../WEBSITE_ASSET_CLEANUP.md","release_history_changed":false},
+  "website_cleanup_checkpoint": {
+    "date": "2026-10-10",
+    "scope": "Owner-authorized obsolete website-only material cleanup; historical engineering tasks/acceptance retained.",
+    "status": "prepared_pending_github_checks",
+    "base_commit": "e5376d41879a2e4ffb5da5e607bfb634f1598621",
+    "evidence": "../WEBSITE_ASSET_CLEANUP.md",
+    "release_history_changed": false
+  },
   "schema_version": 1,
   "repository": "PikkuJanne/WinImgNormalizer",
   "baseline_commit": "4b918da50639d8fc7e3fddc6d6b3678880ea4098",
@@ -482,7 +489,7 @@
       ],
       "scope": [
         "Document the 1,048,576-byte default and ensure the ImageMagick extent string represents the intended number of bytes.",
-        "Separate compliant and valid-above-target outcomes while keeping the 100→50 scale sequence and existing best-effort behavior initially.",
+        "Separate compliant and valid-above-target outcomes while keeping the 100\u219250 scale sequence and existing best-effort behavior initially.",
         "Measure representative synthetic/copy quality and timings; propose algorithm changes only with owner-visible evidence."
       ],
       "acceptance": [
@@ -848,7 +855,7 @@
       "scope": [
         "Prepare the owner checklist and concrete comparison evidence without using private images in the repository.",
         "Have the owner run the unchanged everyday launch flow with approved disposable copies on Windows.",
-        "Record approval or requested changes with tested commit; do not approve subjective image quality or default changes on the owner’s behalf.",
+        "Record approval or requested changes with tested commit; do not approve subjective image quality or default changes on the owner\u2019s behalf.",
         "Perform only the explicitly authorized D36 HDRI colour repair: clamp converted sRGB before white composition, verify T036 and full PS5.1/PS7 gates with separately bound HDRI colour runs, then prepare a short guided owner recheck. No new defaults or M4 work."
       ],
       "acceptance": [
@@ -1001,8 +1008,8 @@
       ],
       "scope": [
         "Prepare framework-neutral product copy, metadata fields and a simple website integration handoff.",
-        "Use the repository’s existing icon/poster and actual approved screenshots/comparisons; do not fabricate a UI or before/after.",
-        "Connect planned download metadata to versioned GitHub Release assets only after they exist; leave deployment to the website’s own approved workflow."
+        "Use the repository\u2019s existing icon/poster and actual approved screenshots/comparisons; do not fabricate a UI or before/after.",
+        "Connect planned download metadata to versioned GitHub Release assets only after they exist; leave deployment to the website\u2019s own approved workflow."
       ],
       "acceptance": [
         "No upload form, processing API, server-side conversion or runtime account requirement is introduced.",
@@ -1090,7 +1097,7 @@
         18
       ],
       "scope": [
-        "Verify the owner’s recorded approval identifies the exact merge target, version, artifact and permitted operations.",
+        "Verify the owner\u2019s recorded approval identifies the exact merge target, version, artifact and permitted operations.",
         "Execute only approved merge/tag/release actions; revalidate the actual post-merge/tag revision and release artifact when its identity changes.",
         "Update download metadata only with verified public assets. Website deployment requires its own explicit approval and repository context."
       ],
@@ -1120,5 +1127,14 @@
       "blocked_reason": null,
       "card": "tasks/M4-T06.md"
     }
-  ]
+  ],
+  "hotfix_1_0_1": {
+    "date": "2026-10-31",
+    "status": "in_progress",
+    "base_commit": "e8d7b6c2b4566f408c22ed998f155e1baf1a7dc8",
+    "authorization": "Maintainer HOTFIX.md + ACCEPTANCE.md, including normal merge and stable publication",
+    "evidence": "evidence/HOTFIX-1.0.1.json",
+    "human_test_gate": false,
+    "website_deployment": false
+  }
 }

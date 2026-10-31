@@ -41,18 +41,10 @@ projection. Keep the existing metadata derivation check before integration.
 | License and author | `release-metadata.json.license`, `author`; retain [the full MIT notice](../../LICENSE). |
 | Description, requirements and limitations | [Product copy](PRODUCT_COPY.md), checked against [README](../../README.md) and [behavior](../BEHAVIOR.md). |
 
-The current canonical state is `published`, tag `v1.0.0`, dated 2026-10-07.
-The [release page](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.0)
-and exact portable ZIP download were observed after anonymous downloads matched
-all three approved assets. The [publication record](../release/publication-v1.0.0.json)
-binds the source revision, release/asset IDs, byte lengths and hashes at the recorded
-observation time. The ZIP retains its preparation-time wording unchanged.
-
-Display **Download WinImgNormalizer 1.0.0** with `render_link: true`, using only
-the canonical `download_url`. Source and documentation links remain separate
-navigation. No placeholder, latest-release shortcut or source archive substitutes
-for this verified portable package. A future unreleased preparation must instead
-show **Release download not available** with `render_link: false`.
+The current canonical state is `unreleased` for the 1.0.1 patch. Keep download
+rendering disabled until the public release is observed and canonical publication
+metadata is recorded. No separate ImageMagick installation required for the portable ZIP.
+Website deployment is outside this hotfix.
 
 ## Original artwork
 
@@ -62,8 +54,8 @@ describe artwork, not processed-media results.
 
 | Asset | Intended use | Original dimensions | Bytes | SHA-256 |
 |---|---|---|---:|---|
-| [PNG icon](../../WinImgNormalizer_icon_variant.png) | Product branding illustration | 1024 × 1024; 8-bit RGBA PNG | 11141 | `479f819325df22004e38f42183ff1d1e2351f753abed935a59357fed7da750f9` |
-| [ICO icon](../../WinImgNormalizer_variant.ico) | Favicon source artwork | Six sizes: 16, 32, 48, 64, 128 and 256 pixels square | 22917 | `78ef6c01d0b466e72e3bad4fe83bb12b57a74c2f245a1274a559857d35374e79` |
+| [PNG icon](../../WinImageNormalizer.png) | Product branding illustration | 1254 × 1254; 8-bit RGBA PNG | 1770820 | `072d17d388fe85bdc6c8e639a8c9d39a02dbce4cd6b3950a01566d4d3c09040c` |
+| [ICO icon](../../WinImageNormalizer.ico) | Favicon source artwork | Six sizes: 16, 32, 48, 64, 128 and 256 pixels square | 370070 | `4c2bdee255af2c5123343638e4419ba64d134dfd2d606de382231f3de266d88e` |
 
 The icon depicts a stylized photo frame, overlapping frames and five green bars.
 Suggested alternative text: **WinImgNormalizer product icon with a stylized photo
