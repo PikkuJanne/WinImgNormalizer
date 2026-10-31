@@ -218,10 +218,20 @@ exit ([int]$env:WINIMG_LAUNCHER_CODE)
                     # claiming the BAT is waiting at its retained pause.
                     while ($clock.ElapsedMilliseconds -lt 15000) {
                         $sameDriver = $false
-                        try {
-                            $child = [Diagnostics.Process]::GetProcessById([int]$driver.ProcessId)
-                            try { $sameDriver = (-not $child.HasExited -and $child.StartTime.ToUniversalTime().Ticks -eq [long]$driver.StartedTicks) } finally { $child.Dispose() }
-                        } catch [ArgumentException] { $sameDriver = $false }
+                        $child = $null
+                        try { $child = [Diagnostics.Process]::GetProcessById([int]$driver.ProcessId) }
+                        catch [ArgumentException] { $child = $null }
+                        if ($child) {
+                            try {
+                                if (-not $child.HasExited) {
+                                    $driverStart = $null
+                                    try { $driverStart = $child.StartTime }
+                                    catch { if (-not $child.HasExited) { throw } }
+                                    if ($null -ne $driverStart) { $sameDriver = $driverStart.ToUniversalTime().Ticks -eq [long]$driver.StartedTicks }
+                                    elseif (-not $child.HasExited) { throw 'Synthetic driver start time is unavailable while the process remains running.' }
+                                }
+                            } finally { $child.Dispose() }
+                        }
                         if (-not $sameDriver) { break }
                         Start-Sleep -Milliseconds 20
                     }

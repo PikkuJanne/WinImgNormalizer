@@ -250,8 +250,18 @@ exit $code
                 try {
                     try { $child = [Diagnostics.Process]::GetProcessById($childIdentity.Pid) } catch [ArgumentException] { $driverExitedBeforePauseRelease = $true }
                     if ($child) {
-                        if ($child.StartTime.ToUniversalTime().Ticks -ne $childIdentity.StartTicks) { throw 'Safe driver process identity changed before pause inspection.' }
-                        if (-not $child.WaitForExit(5000)) { throw 'Safe driver did not exit after recording its code.' }
+                        if (-not $child.HasExited) {
+                            # The driver may exit between PID lookup and this
+                            # property getter (Desktop can return null). Only a
+                            # confirmed exit permits missing start information.
+                            $driverStart = $null
+                            try { $driverStart = $child.StartTime }
+                            catch { if (-not $child.HasExited) { throw } }
+                            if ($null -ne $driverStart) {
+                                if ($driverStart.ToUniversalTime().Ticks -ne $childIdentity.StartTicks) { throw 'Safe driver process identity changed before pause inspection.' }
+                                if (-not $child.WaitForExit(5000)) { throw 'Safe driver did not exit after recording its code.' }
+                            } elseif (-not $child.HasExited) { throw 'Safe driver start time is unavailable while the process remains running.' }
+                        }
                         $driverExitedBeforePauseRelease = $true
                     }
                 } finally { if ($child) { $child.Dispose() } }
