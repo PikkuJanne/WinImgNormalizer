@@ -105,6 +105,9 @@ if (-not $Worker) {
         $ArchivePath = Join-Path $repository ('.scratch/ci-candidate/' + $candidate.AssetFilename)
         Assert-Hotfix ((Get-FileHash -LiteralPath $ArchivePath).Hash -ieq $candidate.Sha256) 'Candidate cache was changed after authenticated acquisition.'
     } elseif ($Build) {
+        # Authenticate and stage only the existing verified cache here. Network
+        # acquisition belongs to the preceding build-only workflow step.
+        $null = & (Join-Path $repository 'tools/release/Stage-Runtime.ps1')
         $revision = (& git -C $repository rev-parse HEAD).Trim()
         $packageDirectory = Join-Path $root 'build'
         $built = & (Join-Path $repository 'tools/release/Build-Release.ps1') -Revision $revision -OutputDirectory $packageDirectory
@@ -163,12 +166,20 @@ if (-not $Worker) {
     foreach ($character in ('W!9x' + [Convert]::ToBase64String($random)).ToCharArray()) { $password.AppendChar($character) }
     $password.MakeReadOnly()
     $createdUser = $false
+    $checkoutAcl = $null
     $rules = New-Object 'Collections.Generic.List[string]'
     try {
         Assert-Hotfix (Test-HotfixOutbound) 'Pre-isolation outbound credibility probe could not reach GitHub.'
         $user = New-LocalUser -Name $userName -Password $password -AccountNeverExpires -UserMayNotChangePassword
         $createdUser = $true
         Add-LocalGroupMember -SID 'S-1-5-32-545' -Member $user.SID
+        # The clean checkout and all synthetic dependency siblings are owned by
+        # this disposable VM. Grant only read/execute/traverse there; restore the
+        # original checkout ACL in finally, including inherited propagation.
+        $checkoutAcl = Get-Acl -LiteralPath $repository
+        $readAcl = Get-Acl -LiteralPath $repository
+        $readAcl.AddAccessRule([Security.AccessControl.FileSystemAccessRule]::new($user.SID, 'ReadAndExecute', 'ContainerInherit,ObjectInherit', 'None', 'Allow'))
+        Set-Acl -LiteralPath $repository -AclObject $readAcl
         $acl = Get-Acl -LiteralPath $root
         $acl.AddAccessRule([Security.AccessControl.FileSystemAccessRule]::new($user.SID, 'FullControl', 'ContainerInherit,ObjectInherit', 'None', 'Allow'))
         Set-Acl -LiteralPath $root -AclObject $acl
@@ -188,11 +199,35 @@ if (-not $Worker) {
         $child = Start-Process -FilePath $legacyShell -ArgumentList (($tokens | ForEach-Object { ConvertTo-HotfixArgument $_ }) -join ' ') -Credential ([Management.Automation.PSCredential]::new($userName, $password)) -LoadUserProfile -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $root 'worker.stdout.txt') -RedirectStandardError (Join-Path $root 'worker.stderr.txt') -WorkingDirectory $repository
         $null = $child.Handle
         if (-not $child.WaitForExit(600000)) { $child.Kill(); throw 'Ordinary-account acceptance exceeded deadline.' }
+        if ($child.ExitCode -ne 0) {
+            $detail = ''
+            $summaryPath = Join-Path $root 'acceptance-summary.json'
+            if ([IO.File]::Exists($summaryPath)) {
+                try { $detail = [string](([IO.File]::ReadAllText($summaryPath) | ConvertFrom-Json).Error) } catch { $detail = '' }
+            }
+            if (-not $detail) {
+                $errorPath = Join-Path $root 'worker.stderr.txt'
+                if ([IO.File]::Exists($errorPath)) {
+                    $reader = [IO.StreamReader]::new($errorPath)
+                    try {
+                        $characters = New-Object char[] 4096
+                        $count = $reader.Read($characters, 0, $characters.Length)
+                        $detail = [string]::new($characters, 0, $count)
+                    } finally { $reader.Dispose() }
+                }
+            }
+            $detail = $detail.Replace($root, '<acceptance>').Replace($repository, '<checkout>').Replace($env:USERPROFILE, '<runner-profile>').Replace($userName, '<disposable-user>')
+            $detail = [regex]::Replace($detail, '(?i)[A-Z]:[\\/]Users[\\/][^\\/\r\n" ]+', '<profile>')
+            $detail = [regex]::Replace($detail, '[\x00-\x08\x0b\x0c\x0e-\x1f]', ' ')
+            if ($detail.Length -gt 1800) { $detail = $detail.Substring(0, 1800) + ' [bounded]' }
+            Write-Host ('Acceptance worker cause: ' + $detail)
+        }
         Assert-Hotfix ($child.ExitCode -eq 0) ('Ordinary-account acceptance failed; inspect owned worker output. Exit=' + $child.ExitCode)
         if ($public) { [IO.File]::WriteAllText((Join-Path $root 'public-release.json'), ($public | ConvertTo-Json), $utf8) }
         Copy-Item -LiteralPath (Join-Path $root 'acceptance-summary.json') -Destination (Join-Path $repository '.scratch/ci-export/hotfix-evidence.json')
     } finally {
         foreach ($rule in $rules) { Remove-NetFirewallRule -Name $rule -ErrorAction Continue }
+        if ($checkoutAcl) { Set-Acl -LiteralPath $repository -AclObject $checkoutAcl }
         if ($createdUser) { Remove-LocalUser -Name $userName }
         $password.Dispose()
     }
@@ -213,6 +248,21 @@ try {
         Assert-Hotfix ($ownName -like 'winimg*' -and $ownProfile -and $ownProfile -notmatch '(?i)runneradmin') 'Disposable token/profile identity is invalid.'
         $env:USERPROFILE = $ownProfile
         $env:USERNAME = $ownName
+        $env:HOME = $ownProfile
+        $roamingData = [Environment]::GetFolderPath('ApplicationData')
+        $localData = [Environment]::GetFolderPath('LocalApplicationData')
+        if (-not $roamingData) { $roamingData = Join-Path $ownProfile 'AppData/Roaming' }
+        if (-not $localData) { $localData = Join-Path $ownProfile 'AppData/Local' }
+        Assert-Hotfix ($roamingData.StartsWith($ownProfile + '\', [StringComparison]::OrdinalIgnoreCase) -and $localData.StartsWith($ownProfile + '\', [StringComparison]::OrdinalIgnoreCase)) 'Disposable application-data paths belong to another profile.'
+        [IO.Directory]::CreateDirectory($roamingData) | Out-Null
+        [IO.Directory]::CreateDirectory($localData) | Out-Null
+        $env:APPDATA = $roamingData
+        $env:LOCALAPPDATA = $localData
+        $env:TEMP = $root
+        $env:TMP = $root
+        $profileDrive = [IO.Path]::GetPathRoot($ownProfile).TrimEnd('\')
+        $env:HOMEDRIVE = $profileDrive
+        $env:HOMEPATH = $ownProfile.Substring($profileDrive.Length)
     }
     $summary.Environment = [ordered]@{ OS = $os.Caption; Build = $os.BuildNumber; Shell = $PSVersionTable.PSVersion.ToString(); Administrator = $administrator }
     if (-not $InstrumentedLocal) {

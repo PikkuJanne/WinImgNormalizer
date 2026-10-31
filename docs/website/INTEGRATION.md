@@ -57,10 +57,9 @@ describe artwork, not processed-media results.
 | [PNG icon](../../WinImageNormalizer.png) | Product branding illustration | 1254 × 1254; 8-bit RGBA PNG | 1770820 | `072d17d388fe85bdc6c8e639a8c9d39a02dbce4cd6b3950a01566d4d3c09040c` |
 | [ICO icon](../../WinImageNormalizer.ico) | Favicon source artwork | Six sizes: 16, 32, 48, 64, 128 and 256 pixels square | 370070 | `4c2bdee255af2c5123343638e4419ba64d134dfd2d606de382231f3de266d88e` |
 
-The icon depicts a stylized photo frame, overlapping frames and five green bars.
-Suggested alternative text: **WinImgNormalizer product icon with a stylized photo
-frame.** Use an empty alternative text when it is decorative beside the written
-product name. The ICO is branding artwork, with no implication of a new GUI.
+Suggested alternative text: **WinImgNormalizer product icon.** Use an empty
+alternative text when it is decorative beside the written product name. The ICO
+is branding artwork, with no implication of a new GUI.
 
 The obsolete promotional poster was removed from the current tree during the
 10 October 2026 website cleanup. Historical audit records and published releases

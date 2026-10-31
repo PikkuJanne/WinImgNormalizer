@@ -38,7 +38,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          ./tools/release/Stage-Runtime.ps1 -Download -CacheOnly
+          ./tools/release/Stage-Runtime.ps1 -Download
           if ($env:WINIMG_CANDIDATE_TAG) { ./tests/Get-HotfixCandidate.ps1 -Tag $env:WINIMG_CANDIDATE_TAG }
       - name: Run mandatory tests with verified development dependencies
         run: |

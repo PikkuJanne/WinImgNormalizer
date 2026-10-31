@@ -29,7 +29,7 @@ BeforeAll {
         # This sole build-time cache acquisition may read the repository's draft
         # dependency assets. Its ephemeral contents-read token is never inherited
         # by application tests, saved by checkout, printed or uploaded.
-        $acquisitionPattern = '(?m)^      - name: Authenticate build-only runtime dependency cache\n        env:\n          GH_TOKEN: \$\{\{ github.token \}\}\n        run: \|\n          \./tools/release/Stage-Runtime\.ps1 -Download -CacheOnly\n          if \(\$env:WINIMG_CANDIDATE_TAG\) \{ \./tests/Get-HotfixCandidate\.ps1 -Tag \$env:WINIMG_CANDIDATE_TAG \}\n'
+        $acquisitionPattern = '(?m)^      - name: Authenticate build-only runtime dependency cache\n        env:\n          GH_TOKEN: \$\{\{ github.token \}\}\n        run: \|\n          \./tools/release/Stage-Runtime\.ps1 -Download\n          if \(\$env:WINIMG_CANDIDATE_TAG\) \{ \./tests/Get-HotfixCandidate\.ps1 -Tag \$env:WINIMG_CANDIDATE_TAG \}\n'
         $acquisition = @([regex]::Matches($Text, $acquisitionPattern))
         if ($acquisition.Count -ne 1) { $violations += 'Only the exact build-only cache step may receive the contents-read token.' }
         $credentialPolicyText = [regex]::Replace($Text, $acquisitionPattern, '')
@@ -198,7 +198,7 @@ Describe 'T066 workflow least privilege, reviewed actions and synthetic evidence
     }
 
     It 'rejects broadening the build-only runtime cache token scope to application tests' {
-        $mutation = $workflow.Replace('Stage-Runtime.ps1 -Download -CacheOnly', 'tests/Invoke-Tests.ps1 -DownloadDependencies')
+        $mutation = $workflow.Replace('Stage-Runtime.ps1 -Download', 'tests/Invoke-Tests.ps1 -DownloadDependencies')
         Assert-WorkflowMutationRejected $mutation 'Only the exact build-only cache step may receive the contents-read token.'
         @(Get-WorkflowPolicyViolations $mutation) | Should -Contain 'Explicit secrets or checkout credential override.'
     }
