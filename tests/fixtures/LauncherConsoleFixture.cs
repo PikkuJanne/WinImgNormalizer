@@ -20,6 +20,12 @@ public static class LauncherConsoleFixture {
     [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] static extern IntPtr CreateFileW(string path, uint access, uint sharing, IntPtr security, uint disposition, uint flags, IntPtr template);
     [DllImport("kernel32.dll")] static extern bool CloseHandle(IntPtr handle);
     [DllImport("kernel32.dll", SetLastError=true)] static extern uint GetConsoleProcessList(uint[] members, uint count);
+    [StructLayout(LayoutKind.Sequential)] struct Coord { public short X, Y; public Coord(short x, short y) { X=x; Y=y; } }
+    [StructLayout(LayoutKind.Sequential)] struct Rect { public short Left, Top, Right, Bottom; }
+    [StructLayout(LayoutKind.Sequential)] struct ScreenInfo { public Coord Size, Cursor; public ushort Attributes; public Rect Window; public Coord Maximum; }
+    [DllImport("kernel32.dll", SetLastError=true)] static extern bool SetConsoleScreenBufferSize(IntPtr screen, Coord size);
+    [DllImport("kernel32.dll", SetLastError=true)] static extern bool GetConsoleScreenBufferInfo(IntPtr screen, out ScreenInfo info);
+    [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] static extern bool ReadConsoleOutputCharacterW(IntPtr screen, StringBuilder text, uint count, Coord start, out uint read);
     [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)] struct KeyEvent { public int Down; public ushort Repeat, Virtual, Scan; public char Character; public uint Controls; }
     [StructLayout(LayoutKind.Explicit, Size=20)] struct InputRecord { [FieldOffset(0)] public ushort Kind; [FieldOffset(4)] public KeyEvent Key; }
     [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] static extern bool WriteConsoleInputW(IntPtr input, InputRecord[] records, uint length, out uint written);
@@ -37,7 +43,7 @@ public static class LauncherConsoleFixture {
         Stream parentOutput = Console.OpenStandardOutput(), parentError = Console.OpenStandardError();
         StreamReader parentInput = new StreamReader(Console.OpenStandardInput());
         Process child = null;
-        IntPtr input = IntPtr.Zero, job = IntPtr.Zero;
+        IntPtr input = IntPtr.Zero, screen = IntPtr.Zero, job = IntPtr.Zero;
         bool allocated = false;
         int result = 1, inputEnabled = 1;
         Thread keyThread = null;
@@ -57,16 +63,22 @@ public static class LauncherConsoleFixture {
             Check(input != new IntPtr(-1), "CONIN$");
             Check(SetHandleInformation(input, 1, 1), "SetHandleInformation");
             Check(SetStdHandle(-10, input), "SetStdHandle");
+            screen = CreateFileW("CONOUT$", 0xC0000000, 3, IntPtr.Zero, 3, 0, IntPtr.Zero);
+            Check(screen != new IntPtr(-1), "CONOUT$");
+            Check(SetHandleInformation(screen, 1, 1), "SetHandleInformation output");
+            Check(SetConsoleScreenBufferSize(screen, new Coord(120, 5000)), "SetConsoleScreenBufferSize");
+            Check(SetStdHandle(-11, screen), "SetStdHandle output");
+            Check(SetStdHandle(-12, screen), "SetStdHandle error");
+            record["PrivateConsoleOutput"] = true;
 
             var start = new ProcessStartInfo(Environment.GetEnvironmentVariable("WINIMG_TEST_PRIVATE_CONSOLE_CMD"), Environment.GetEnvironmentVariable("WINIMG_TEST_PRIVATE_CONSOLE_ARGUMENTS"));
             start.UseShellExecute = false; start.CreateNoWindow = false; start.WindowStyle = ProcessWindowStyle.Hidden;
-            // CMD uses the private console input. Only output/error are pipes.
-            start.RedirectStandardOutput = true; start.RedirectStandardError = true;
+            // All three CMD handles are real private console handles, proving
+            // the interactive branch. Capture the screen after CMD has exited.
+            start.RedirectStandardOutput = false; start.RedirectStandardError = false;
             child = Process.Start(start);
             record["ControllerId"] = Process.GetCurrentProcess().Id;
             record["CmdId"] = child.Id; record["CmdStartTicks"] = child.StartTime.ToUniversalTime().Ticks;
-            var output = child.StandardOutput.BaseStream.CopyToAsync(parentOutput);
-            var error = child.StandardError.BaseStream.CopyToAsync(parentError);
             string recordPath = Environment.GetEnvironmentVariable("WINIMG_TEST_PRIVATE_CONSOLE_RECORD");
             File.WriteAllText(recordPath + ".identity.json", new JavaScriptSerializer().Serialize(record), new UTF8Encoding(false));
             File.WriteAllText(recordPath + ".ready", "Owned CMD was created with private console input.", new UTF8Encoding(false));
@@ -74,9 +86,18 @@ public static class LauncherConsoleFixture {
                 try {
                     string line = parentInput.ReadLine();
                     if (line == null || Interlocked.CompareExchange(ref inputEnabled, 0, 1) != 1 || child.HasExited) return;
-                    uint[] members = new uint[32];
-                    uint count = GetConsoleProcessList(members, (uint)members.Length);
-                    if (count != 2) throw new Exception("Private console must contain only this controller and its CMD after driver exit.");
+                    uint[] members = new uint[32]; uint count = 0;
+                    var pauseClock = Stopwatch.StartNew(); bool pauseReady = false;
+                    while (!child.HasExited && pauseClock.ElapsedMilliseconds < 15000) {
+                        count = GetConsoleProcessList(members, (uint)members.Length);
+                        ScreenInfo current; Check(GetConsoleScreenBufferInfo(screen, out current), "Pause screen info");
+                        uint length = (uint)(current.Size.X * (current.Cursor.Y + 1));
+                        var currentText = new StringBuilder((int)length); uint actual;
+                        Check(ReadConsoleOutputCharacterW(screen, currentText, length, new Coord(0, 0), out actual), "Pause screen capture");
+                        if (count == 2 && currentText.ToString().Contains("Press any key to close.")) { pauseReady=true; break; }
+                        Thread.Sleep(20);
+                    }
+                    if (!pauseReady) throw new Exception("Private console did not reach its actual pause after the driver/probe exited.");
                     uint[] exact = new uint[count]; Array.Copy(members, exact, count);
                     bool self = false, target = false;
                     foreach (uint member in exact) { if (member == Process.GetCurrentProcess().Id) self = true; if (member == child.Id) target = true; }
@@ -95,7 +116,15 @@ public static class LauncherConsoleFixture {
             if (!child.WaitForExit(45000)) throw new Exception("Owned CMD exceeded the private console fixture's 45-second bound.");
             result = child.ExitCode;
             lock (record) { record["ExitCode"] = result; }
-            if (!output.Wait(5000) || !error.Wait(5000)) throw new Exception("Owned CMD streams did not finish.");
+            ScreenInfo info; Check(GetConsoleScreenBufferInfo(screen, out info), "GetConsoleScreenBufferInfo");
+            uint characters = (uint)(info.Size.X * (info.Cursor.Y + 1));
+            var capture = new StringBuilder((int)characters); uint read;
+            Check(ReadConsoleOutputCharacterW(screen, capture, characters, new Coord(0, 0), out read), "ReadConsoleOutputCharacterW");
+            var lines = new StringBuilder(); string cells = capture.ToString();
+            for (int offset = 0; offset < cells.Length; offset += info.Size.X)
+                lines.AppendLine(cells.Substring(offset, Math.Min(info.Size.X, cells.Length-offset)).TrimEnd());
+            byte[] captured = new UTF8Encoding(false).GetBytes(lines.ToString());
+            parentOutput.Write(captured, 0, captured.Length);
             keyThread.Join(100);
             lock (record) { if (inputError != null) throw inputError; }
         } catch (Exception ex) {
@@ -109,6 +138,7 @@ public static class LauncherConsoleFixture {
             }
             if (child != null) child.Dispose();
             if (input != IntPtr.Zero && input != new IntPtr(-1)) CloseHandle(input);
+            if (screen != IntPtr.Zero && screen != new IntPtr(-1)) CloseHandle(screen);
             if (allocated) FreeConsole();
             parentOutput.Flush(); parentError.Flush();
         }

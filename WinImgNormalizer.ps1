@@ -1,11 +1,11 @@
-﻿<#
+<#
 WinImgNormalizer.ps1
 Non-destructive image normalizer + archive prep for mixed photo folders
 
 Author: Janne Vuorela
 Target OS: Windows 10/11
 PowerShell: Windows PowerShell 5.1+, also works on PowerShell 7
-Dependencies: ImageMagick 7.1.2-32+ supported 7.x (magick.exe in PATH), optional: .bat wrapper
+Dependencies: private verified ImageMagick in the portable ZIP; optional .bat wrapper
 
 SYNOPSIS
     Recursively mirrors a source folder into a safe copy under the user’s Pictures folder,
@@ -41,7 +41,7 @@ MY INTENDED USAGE
     - I keep the original source intact.
 
 SETUP
-    1) Install ImageMagick 7.1.2-32 or newer supported 7.x; ensure `magick.exe` is on PATH.
+    1) Extract the complete official portable ZIP. No separate ImageMagick installation required.
     2) Keep these two files together (same base name):
          • WinImgNormalizer.ps1
          • WinImgNormalizer.bat  (enables drag-and-drop)
@@ -87,9 +87,85 @@ LICENSE / WARRANTY
 
 
 # The sole application version source also drives development release metadata.
-# Keep it inside the script so the familiar two-file distribution stays portable.
+# Keep it inside the script so package metadata and direct use agree.
 function Get-WinImgVersion {
-  return '1.0.0'
+  return '1.0.1'
+}
+
+# Presentation stays out of the persistent log and CSV. Console colours never
+# supply the only meaning; redirected hosts use ordinary complete lines.
+function Get-WinImgConsoleCapabilities {
+  $interactive = $false; $width = 80
+  try {
+    $interactive = [Environment]::UserInteractive -and -not [Console]::IsInputRedirected -and -not [Console]::IsOutputRedirected -and -not [Console]::IsErrorRedirected
+    if ($interactive) { $width = [Math]::Max(20, [Math]::Min(120, $Host.UI.RawUI.WindowSize.Width)) }
+  } catch { $interactive = $false }
+  return [pscustomobject]@{ Interactive=$interactive; Color=($interactive -and $null -eq $env:NO_COLOR); Width=$width }
+}
+
+function Write-WinImgConsoleLine {
+  param([string]$Text, [ValidateSet('Normal','Label','Warning','Error')]$Kind='Normal')
+  $safe = [regex]::Replace($Text, '[\x00-\x1f\x7f]', ' ')
+  $caps = Get-WinImgConsoleCapabilities
+  if ($caps.Color) {
+    $color = switch ($Kind) { 'Label' { 'Cyan' }; 'Warning' { 'Yellow' }; 'Error' { 'Red' }; default { $null } }
+    if ($color) { Write-Host $safe -ForegroundColor $color; return }
+  }
+  Write-Host $safe
+}
+
+function Get-WinImgConsoleLayout {
+  param([ValidateSet('Start','Engine','Progress','Result','Failure')]$ConsoleEvent, [object]$Data, [int]$Width=80)
+  $boundedWidth = [Math]::Max(20, [Math]::Min(120, $Width))
+  switch ($ConsoleEvent) {
+    'Start' {
+      if ($boundedWidth -lt 60) { 'WINIMG // NORMALIZER  v' + (Get-WinImgVersion) }
+      else { 'W I N I M G  //  NORMALIZER                       v' + (Get-WinImgVersion) }
+      '-' * [Math]::Min(56, $boundedWidth)
+      '[01 / INPUT]'
+      [string]$Data.Source
+    }
+    'Engine' {
+      if (-not $Data.Path) { '[02 / ENGINE]   Not needed (no image decoding)' }
+      else {
+        $display = if ($Data.PSObject.Properties['DisplayVersion']) { $Data.DisplayVersion } else { $Data.Version }
+        '[02 / ENGINE]   ImageMagick {0} | {1} | offline' -f $display, $Data.Source
+      }
+    }
+    'Progress' {
+      $percent = [Math]::Max(0, [Math]::Min(100, [int]$Data.Percent))
+      $blocks = [int][Math]::Floor($percent / 10)
+      $prefix = '[03 / PROCESS] [{0}{1}] {2}% ' -f ('#' * $blocks), ('-' * (10-$blocks)), $percent
+      if ($boundedWidth -lt 60) { $prefix = '[03] {0}% ' -f $percent }
+      $available = [Math]::Max(1, $boundedWidth - $prefix.Length)
+      $name = [regex]::Replace([string]$Data.Status, '[\x00-\x1f\x7f]', ' ')
+      if ($name.Length -gt $available) {
+        $name = if ($available -gt 3) { $name.Substring(0, $available-3) + '...' } else { $name.Substring(0, $available) }
+      }
+      $prefix + $name
+    }
+    'Result' {
+      $status = switch ($Data.RunState) { 'Completed' { 'COMPLETE' }; 'Partial' { 'PARTIAL - review warnings' }; 'Interrupted' { 'CANCELLED' }; default { 'FAILED' } }
+      '[04 / RESULT]   ' + $status
+      '{0} images converted | {1} videos copied | {2} errors' -f $Data.Summary.Counts.Converted,$Data.Summary.Counts.CopiedVideo,$Data.Summary.Counts.Error
+      if ($Data.Summary.Counts.Discovered -eq 0 -and $Data.RunState -eq 'Completed') { 'No eligible media found; nothing to process.' }
+      elseif ($Data.RunState -ne 'Completed') {
+        if ($Data.Summary.Counts.Converted + $Data.Summary.Counts.CopiedVideo -gt 0) { 'Completed outputs retained.' }
+        else { 'No completed media outputs.' }
+      }
+      if ($Data.DestinationRoot) { 'Output:'; [string]$Data.DestinationRoot }
+      if ($Data.CsvPath) { 'Report:'; [string]$Data.CsvPath }
+    }
+    'Failure' { '[04 / RESULT]   FAILED'; [string]$Data.Cause; 'No output created.' }
+  }
+}
+
+function Write-WinImgConsoleEvent {
+  param([string]$ConsoleEvent, [object]$Data, [string]$Kind='Normal')
+  $caps = Get-WinImgConsoleCapabilities
+  foreach ($line in @(Get-WinImgConsoleLayout -ConsoleEvent $ConsoleEvent -Data $Data -Width $caps.Width)) {
+    Write-WinImgConsoleLine -Text $line -Kind $Kind
+  }
 }
 
 function Get-WinImgUsage {
@@ -730,7 +806,7 @@ namespace WinImgNormalizer {
       string message = error.Message; result.StartError = message.Length > 512 ? message.Substring(0,512) : message;
       Win32Exception native = error as Win32Exception; if (native != null) result.Win32ErrorCode = native.NativeErrorCode;
     }
-    public static NativeResult Run(string executable, string[] arguments, int limit, int timeout, string[] environmentNames, string[] environmentValues) {
+    public static NativeResult Run(string executable, string[] arguments, int limit, int timeout, string[] environmentNames, string[] environmentValues, string workingDirectory) {
       NativeResult result = new NativeResult(); result.CaptureLimit = limit;
       // Capture one batch state; later scopes must not retarget this launch.
       CancellationState cancellation=CancellationSession.Current;
@@ -768,7 +844,7 @@ namespace WinImgNormalizer {
         foreach(string argument in arguments) { command.Append(' '); command.Append(Quote(argument)); }
         if(CancellationRequested(cancellation,result)) return result;
         // JOB_LIST assigns atomically before the initial thread can execute.
-        Check(CreateProcessW(executable,command,IntPtr.Zero,IntPtr.Zero,true,0x08080404,environment,null,ref startup,out process));
+        Check(CreateProcessW(executable,command,IntPtr.Zero,IntPtr.Zero,true,0x08080404,environment,String.IsNullOrEmpty(workingDirectory)?null:workingDirectory,ref startup,out process));
         launched=true; result.ProcessId=(int)process.processId;
         bool inJob; Check(IsProcessInJob(process.process,job,out inJob));
         if (!inJob) throw new InvalidOperationException("Native process was not assigned to its private job.");
@@ -849,9 +925,19 @@ function Invoke-WinImgNativeProcess {
     [ValidateRange(1,2147483647)][int]$TimeoutMilliseconds = 15000,
     [hashtable]$Environment = @{})
   Initialize-WinImgProcessApi
+  $workingDirectory = $null
+  # One verified private engine is pinned for the run. Its child environment is
+  # isolated without changing the caller's PATH, registry, policy or settings.
+  if ($script:WinImgEngineSelection -and $Executable -ieq $script:WinImgEngineSelection.Path -and $script:WinImgEngineSelection.Source -eq 'bundled') {
+    $privateEnvironment = @{}
+    foreach ($key in $script:WinImgEngineSelection.Environment.Keys) { $privateEnvironment[$key] = $script:WinImgEngineSelection.Environment[$key] }
+    foreach ($key in $Environment.Keys) { $privateEnvironment[$key] = $Environment[$key] }
+    $Environment = $privateEnvironment
+    $workingDirectory = [IO.Path]::GetDirectoryName($Executable)
+  }
   $names = [string[]]@($Environment.Keys | Sort-Object)
   $values = [string[]]@($names | ForEach-Object { [string]$Environment[$_] })
-  return [WinImgNormalizer.NativeProcess]::Run($Executable, $Arguments, $OutputLimit, $TimeoutMilliseconds, $names, $values)
+  return [WinImgNormalizer.NativeProcess]::Run($Executable, $Arguments, $OutputLimit, $TimeoutMilliseconds, $names, $values, $workingDirectory)
 }
 
 # Internal policies may lower these ceilings for synthetic controls, never raise
@@ -1408,14 +1494,122 @@ function ConvertTo-WinImgByteCap {
   return $number
 }
 
+function Assert-WinImgRegularRuntimeFile {
+  param([string]$Path)
+  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($Path))
+  $item = Get-Item -LiteralPath $Path -Force -ErrorAction Stop
+  if ($item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) { throw 'Runtime files must be regular files without reparse points.' }
+}
+
+function Get-WinImgBundledRuntime {
+  param([string]$ApplicationRoot = $PSScriptRoot)
+  $markerPath = Join-Path $ApplicationRoot 'portable-runtime.json'
+  $runtimeRoot = Join-Path $ApplicationRoot 'runtime'
+  $packaged = Test-Path -LiteralPath (Join-Path $ApplicationRoot 'package-manifest.json') -PathType Leaf
+  if (-not $packaged -and -not (Test-Path -LiteralPath $markerPath) -and -not (Test-Path -LiteralPath $runtimeRoot)) { return $null }
+  try {
+    Assert-WinImgNoReparseAncestors $ApplicationRoot
+    Assert-WinImgNoReparseAncestors $runtimeRoot
+    Assert-WinImgRegularRuntimeFile $markerPath
+    $marker = Get-Content -LiteralPath $markerPath -Raw -ErrorAction Stop | ConvertFrom-Json
+    if ($marker.runtime_required -ne $true -or $marker.runtime_manifest_sha256 -notmatch '^[a-fA-F0-9]{64}$') { throw 'Invalid runtime marker.' }
+    $manifestPath = Join-Path $runtimeRoot 'runtime-manifest.json'
+    Assert-WinImgRegularRuntimeFile $manifestPath
+    if ((Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256 -ErrorAction Stop).Hash -ine $marker.runtime_manifest_sha256) { throw 'Runtime manifest checksum mismatch.' }
+    $manifest = Get-Content -LiteralPath $manifestPath -Raw -ErrorAction Stop | ConvertFrom-Json
+    if ($manifest.schema_version -ne 1 -or $manifest.engine_relative_path -cne 'imagemagick/magick.exe' -or @($manifest.files).Count -lt 1) { throw 'Invalid runtime manifest.' }
+    $listed = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    foreach ($record in $manifest.files) {
+      $relative = [string]$record.path
+      if ([IO.Path]::IsPathRooted($relative) -or $relative -match '[:\\]|(^|/)\.\.(/|$)|[\x00-\x1f]' -or -not $listed.Add($relative)) { throw 'Unsafe or duplicate runtime path.' }
+      $path = [IO.Path]::GetFullPath((Join-Path $runtimeRoot $relative))
+      if (-not $path.StartsWith($runtimeRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Runtime path escapes its private directory.' }
+      Assert-WinImgRegularRuntimeFile $path
+      $item = Get-Item -LiteralPath $path -Force -ErrorAction Stop
+      if ($item.PSIsContainer -or $record.sha256 -notmatch '^[a-fA-F0-9]{64}$' -or $item.Length -ne $record.bytes -or
+          (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash -ine $record.sha256) { throw ('Runtime file integrity failure: ' + $relative) }
+    }
+    foreach ($item in Get-ChildItem -LiteralPath $runtimeRoot -Recurse -Force -ErrorAction Stop) {
+      if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Runtime contains a reparse point.' }
+      if (-not $item.PSIsContainer) {
+        $relative = $item.FullName.Substring($runtimeRoot.Length + 1).Replace('\','/')
+        if ($relative -ne 'runtime-manifest.json' -and -not $listed.Contains($relative)) { throw ('Unexpected runtime file: ' + $relative) }
+      }
+    }
+    if (-not $listed.Contains($manifest.engine_relative_path)) { throw 'Runtime executable is not authenticated by its manifest.' }
+    $executable = [IO.Path]::GetFullPath((Join-Path $runtimeRoot $manifest.engine_relative_path))
+    return [pscustomobject]@{ Path=$executable; Source='bundled'; Version=$manifest.engine_version; ManifestSha256=$marker.runtime_manifest_sha256; Environment=@{}; PolicyDirectories=@(); PolicyFiles=@() }
+  } catch {
+    throw ('Packaged ImageMagick is missing or damaged. Re-extract the official portable ZIP; no external engine was tried. ' + $_.Exception.Message)
+  }
+}
+
+function Initialize-WinImgBundledEnvironment {
+  param([object]$Selection)
+  $engineRoot = [IO.Path]::GetDirectoryName($Selection.Path)
+  $temporaryRoot = Resolve-WinImgNativeTemporaryRoot
+  $private = [IO.Path]::Combine($temporaryRoot, ('WinImgNormalizer-policy-' + [guid]::NewGuid().ToString('N')))
+  if (-not (New-WinImgExclusiveDirectory $private)) { throw 'Could not allocate private engine configuration.' }
+  $Selection.PolicyDirectories += $private
+  # Copy only policy.xml from explicit or customary policy locations. Never
+  # import an unrelated installation's delegates, modules or DLL search paths.
+  $policyLocations = @()
+  if ($env:MAGICK_CONFIGURE_PATH) { $policyLocations += $env:MAGICK_CONFIGURE_PATH.Split([IO.Path]::PathSeparator) }
+  if ($env:MAGICK_HOME) { $policyLocations += $env:MAGICK_HOME }
+  if ($env:XDG_CONFIG_HOME) { $policyLocations += Join-Path $env:XDG_CONFIG_HOME 'ImageMagick' }
+  foreach ($profileRoot in @($env:USERPROFILE, $env:HOME)) { if ($profileRoot) { $policyLocations += Join-Path $profileRoot '.config/ImageMagick' } }
+  foreach ($profileRoot in @($env:APPDATA, $env:LOCALAPPDATA, $env:PROGRAMDATA)) { if ($profileRoot) { $policyLocations += Join-Path $profileRoot 'ImageMagick' } }
+  $configure = @($engineRoot)
+  foreach ($location in ($policyLocations | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Select-Object -Unique)) {
+    $policy = Join-Path $location 'policy.xml'
+    if (-not (Test-Path -LiteralPath $policy -PathType Leaf)) { continue }
+    Assert-WinImgRegularRuntimeFile $policy
+    if ((Get-Item -LiteralPath $policy).Length -gt 1MB) { throw 'Explicit ImageMagick policy exceeds the configuration bound.' }
+    $directory = Join-Path $private ([string]$configure.Count)
+    if (-not (New-WinImgExclusiveDirectory $directory)) { throw 'Could not allocate policy snapshot directory.' }
+    $Selection.PolicyDirectories += $directory
+    $copy = Join-Path $directory 'policy.xml'
+    [IO.File]::Copy($policy, $copy, $false)
+    $Selection.PolicyFiles += $copy
+    $configure += $directory
+  }
+  $Selection.Environment = @{
+    PATH = $engineRoot + ';' + [Environment]::SystemDirectory + ';' + $env:SystemRoot
+    MAGICK_HOME = $engineRoot
+    MAGICK_CONFIGURE_PATH = $configure -join [IO.Path]::PathSeparator
+    MAGICK_CODER_MODULE_PATH = $engineRoot
+    MAGICK_FILTER_MODULE_PATH = $engineRoot
+    LIBHEIF_PLUGIN_PATH = $engineRoot
+    HOME = $private; USERPROFILE = $private; APPDATA = $private; LOCALAPPDATA = $private; XDG_CONFIG_HOME = $private; XDG_CACHE_HOME = $private
+  }
+}
+
+function Remove-WinImgEngineSelection {
+  param([object]$Selection)
+  if (-not $Selection -or $Selection.Source -ne 'bundled') { return }
+  foreach ($path in $Selection.PolicyFiles) { [IO.File]::Delete($path) }
+  for ($index = $Selection.PolicyDirectories.Count - 1; $index -ge 0; $index--) { [IO.Directory]::Delete($Selection.PolicyDirectories[$index], $false) }
+}
+
 function Resolve-WinImgMagickApplication {
   param([string]$MagickPath)
   $name = if ($MagickPath) { $MagickPath } else { 'magick.exe' }
   $application = Get-Command $name -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
   if (-not $application -or [IO.Path]::GetExtension($application.Path) -ine '.exe') {
-    throw "ImageMagick magick.exe was not found. Install a supported build and put its executable on PATH."
+    throw 'ImageMagick magick.exe was not found. Download the self-contained portable release, or stage the developer runtime with tools/release/Stage-Runtime.ps1.'
   }
-  return (Get-Item -LiteralPath $application.Path -ErrorAction Stop).FullName
+  $resolved = (Get-Item -LiteralPath $application.Path -ErrorAction Stop).FullName
+  Assert-WinImgRegularRuntimeFile $resolved
+  if (-not $MagickPath) {
+    $directory = [IO.Path]::GetDirectoryName($resolved)
+    $workingDirectory = [IO.Path]::GetFullPath((Get-Location).ProviderPath)
+    $sourceRoot = if ($script:WinImgCancellationContext) { $script:WinImgCancellationContext.ReportState.SourceRoot } else { $null }
+    if ($directory.Equals($workingDirectory, [StringComparison]::OrdinalIgnoreCase) -or
+        ($sourceRoot -and (Test-WinImgPathContained -Root $sourceRoot -Path $resolved))) {
+      throw 'ImageMagick discovery refused an executable in the media or working directory. Use the official portable release or stage the developer runtime.'
+    }
+  }
+  return $resolved
 }
 
 # Version/format queries need their output and exit status, independently of the
@@ -1429,15 +1623,28 @@ function Invoke-WinImgPreflightProcess {
 
 function Get-WinImgMagickInfo {
   param([string]$MagickPath, [scriptblock]$PreflightRunner)
-  $executable = Resolve-WinImgMagickApplication $MagickPath
+  # MagickPath is an internal source-test seam, never a public positional option.
+  # A distributed package always resolves its own authenticated private runtime.
+  $selection = $null
+  if (-not $MagickPath -or (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'package-manifest.json'))) { $selection = Get-WinImgBundledRuntime }
+  if ($selection) {
+    $script:WinImgEngineSelection = $selection
+    Initialize-WinImgBundledEnvironment $selection
+    $executable = $selection.Path
+  } else {
+    $executable = Resolve-WinImgMagickApplication $MagickPath
+    $selection = [pscustomobject]@{ Path=$executable; Source='external'; Environment=@{} }
+    $script:WinImgEngineSelection = $selection
+  }
   if (-not $PreflightRunner) { $PreflightRunner = { param($Executable, $Arguments) Invoke-WinImgPreflightProcess $Executable $Arguments } }
   $version = & $PreflightRunner $executable @('-version')
   Assert-WinImgNativeQuery -Result $version -Context 'ImageMagick version query; no files were processed' -AllowStdOut
   $match = [regex]::Match($version.StdOut, '(?m)^Version: ImageMagick (7)\.(\d+)\.(\d+)-(\d+)\b')
   if (-not $match.Success) { throw 'Unrecognized ImageMagick version; use a supported ImageMagick 7 build.' }
   $build = [version]($match.Groups[1].Value + '.' + $match.Groups[2].Value + '.' + $match.Groups[3].Value + '.' + $match.Groups[4].Value)
-  # Reviewed 2026-10-04: 7.1.2-32 includes jpeg:extent hang and JPEG/GIF/XMP fixes.
-  if ($build -lt [version]'7.1.2.32') { throw 'ImageMagick 7.1.2-32 or newer supported 7.x build is required; update the dependency before running.' }
+  # Reviewed 2026-10-31: -35 incorporates the current core and delegate fixes.
+  # Source discovery accepts qualifying newer 7.x, independent of the package pin.
+  if ($build -lt [version]'7.1.2.35') { throw 'ImageMagick 7.1.2-35 or newer supported 7.x build is required; update the dependency before running.' }
   $formatResult = & $PreflightRunner $executable @('-list','format')
   Assert-WinImgNativeQuery -Result $formatResult -Context 'ImageMagick format query; no files were processed' -AllowStdOut
   $formats = @{}
@@ -1447,8 +1654,25 @@ function Get-WinImgMagickInfo {
     }
   }
   if ($formats.Count -eq 0) { throw 'ImageMagick returned no usable format capability information.' }
+  if ($selection.Source -eq 'external') {
+    # A newer core banner alone does not establish that separately supplied
+    # decoders include the reviewed fixes. Unknown/old affected codecs become
+    # per-file unsupported results; unaffected images and videos can complete.
+    foreach ($decoder in @(
+      @{Name='PNG'; Minimum=[version]'1.6.59'; Pattern='(?im)^\s*PNG\*?\s+.*?libpng\s+(\d+\.\d+\.\d+)'},
+      @{Name='HEIC'; Minimum=[version]'1.23.7'; Pattern='(?im)^\s*HEIC\*?\s+.*?\((\d+\.\d+\.\d+)\)'},
+      @{Name='HEIF'; Minimum=[version]'1.23.7'; Pattern='(?im)^\s*HEIF\*?\s+.*?\((\d+\.\d+\.\d+)\)'}
+    )) {
+      if ($formats.ContainsKey($decoder.Name) -and $formats[$decoder.Name].Read) {
+        $decoderVersion = [regex]::Match($formatResult.StdOut, $decoder.Pattern)
+        if (-not $decoderVersion.Success -or [version]$decoderVersion.Groups[1].Value -lt $decoder.Minimum) { $formats[$decoder.Name].Read = $false }
+      }
+    }
+  }
   $delegates = [regex]::Match($version.StdOut, '(?m)^Delegates[^:]*:\s*(.*)$').Groups[1].Value.Trim()
-  return [pscustomobject]@{ Path = $executable; Version = $build; VersionText = $version.StdOut.Trim(); Delegates = $delegates; Formats = $formats }
+  $displayVersion = [regex]::Match($version.StdOut, '(?m)^Version: ImageMagick (7\.\d+\.\d+-\d+(?: \(Beta\))?\s+Q\d+(?:-HDRI)?\s+\S+)').Groups[1].Value
+  if (-not $displayVersion) { $displayVersion = $build.ToString() }
+  return [pscustomobject]@{ Path = $executable; Version = $build; DisplayVersion=$displayVersion; VersionText = $version.StdOut.Trim(); Delegates = $delegates; Formats = $formats; Source=$selection.Source; Sha256=(Get-FileHash -LiteralPath $executable -Algorithm SHA256).Hash.ToLowerInvariant() }
 }
 
 function Test-WinImgDestinationWritable {
@@ -1545,7 +1769,7 @@ function Set-WinImgLogFailure {
   $notice = 'Log warning: {0} failed ({1}); disk logging disabled. Continuing with a bounded console fallback; the run is degraded.' -f $Phase, $State.FailureReason
   Add-WinImgLogFallback -State $State -Line $notice
   Write-WinImgEmergencyReport $notice
-  try { Write-Host $notice -ForegroundColor Yellow }
+  try { Write-WinImgConsoleLine $notice -Kind Warning }
   catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog $State; throw }
   catch { if (Test-WinImgCancellationException $_) { throw }; Write-WinImgEmergencyReport 'The normal console report also failed; stderr fallback is best effort.' }
 }
@@ -1587,10 +1811,8 @@ function Write-WinImgRunLog {
   if (-not $Quiet) {
     try {
       switch ($Level) {
-        'ERR' { Write-Host $line -ForegroundColor Red }
-        'WARN' { Write-Host $line -ForegroundColor Yellow }
-        'OK' { Write-Host $line -ForegroundColor Green }
-        default { Write-Host $line }
+        'ERR' { Write-WinImgConsoleLine ('ERROR: ' + $Message) -Kind Error }
+        'WARN' { Write-WinImgConsoleLine ('WARNING: ' + $Message) -Kind Warning }
       }
     } catch [Management.Automation.PipelineStoppedException] {
       Complete-WinImgRunLog $State; Write-WinImgEmergencyReport 'Reporting interrupted.'; throw
@@ -1794,8 +2016,18 @@ function Write-WinImgReportProgress {
   param([object]$State, [string]$Status, [int]$PercentComplete, [switch]$Completed)
   if (-not $State.ProgressEnabled) { return }
   try {
-    if ($Completed) { Write-Progress -Activity 'WinImgNormalizer' -Completed }
-    else { Write-Progress -Activity 'WinImgNormalizer' -Status $Status -PercentComplete $PercentComplete }
+    $caps = Get-WinImgConsoleCapabilities
+    if ($Completed) {
+      if ($caps.Interactive) { Write-Progress -Activity 'W I N I M G // NORMALIZER' -Completed }
+      return
+    }
+    if (-not $State.PSObject.Properties['ConsoleProgressTicks']) { $State | Add-Member -NotePropertyName ConsoleProgressTicks -NotePropertyValue ([long]0) }
+    $now = [Diagnostics.Stopwatch]::GetTimestamp()
+    if ($State.ConsoleProgressTicks -ne 0 -and ($now-$State.ConsoleProgressTicks) / [double][Diagnostics.Stopwatch]::Frequency -lt 0.25 -and $PercentComplete -lt 100) { return }
+    $State.ConsoleProgressTicks = $now
+    $line = Get-WinImgConsoleLayout -ConsoleEvent Progress -Data ([pscustomobject]@{ Status=$Status; Percent=$PercentComplete }) -Width $caps.Width
+    if ($caps.Interactive) { Write-Progress -Activity 'W I N I M G // NORMALIZER' -Status $line -PercentComplete $PercentComplete }
+    else { Write-WinImgConsoleLine $line }
   }
   catch [Management.Automation.PipelineStoppedException] { throw }
   catch {
@@ -1843,7 +2075,12 @@ function Complete-WinImgReport {
   if ($LogState) { Write-WinImgRunLog -State $LogState -Message $line -Quiet }
   # The aggregate line's own log write can fail; observe that degradation last.
   if ($LogState -and $LogState.Degraded -and -not $Interrupted) { $State.RunState='Partial' }
-  try { Write-Host $line; Write-Host ('Final report outcome: State={0} ReportWarnings={1} ReportComplete={2} LogWarnings={3}; CSV={4}' -f $State.RunState,$State.ReportWarnings,$State.ReportComplete,$(if ($LogState) { $LogState.FailureCount } else { 0 }),$csvHint) }
+  try {
+    $kind = if ($State.RunState -eq 'Completed') { 'Label' } else { 'Warning' }
+    Write-WinImgConsoleEvent -ConsoleEvent Result -Data $State -Kind $kind
+    if ($LogState) { Write-WinImgConsoleLine 'Log:'; Write-WinImgConsoleLine $LogState.Path }
+    if ($LogState) { Write-WinImgRunLog -State $LogState -Message ('Final report outcome: State={0} ReportWarnings={1} ReportComplete={2} LogWarnings={3}; CSV={4}' -f $State.RunState,$State.ReportWarnings,$State.ReportComplete,$LogState.FailureCount,$csvHint) -Quiet }
+  }
   catch [Management.Automation.PipelineStoppedException] { throw }
   catch {
     if (Test-WinImgCancellationException $_) { throw }
@@ -1868,6 +2105,7 @@ function Invoke-WinImgNormalizer {
   )
   $ErrorActionPreference = 'Stop'
   $previousContext = $script:WinImgCancellationContext
+  $previousEngineSelection = $script:WinImgEngineSelection
   $context = [pscustomobject]@{
     Stats = [ordered]@{ Converted=0; CopiedVideo=0; SkippedDuplicate=0; Unsupported=0; Errors=0; SizeWarnings=0; NativeWarnings=0; TimestampWarnings=0 }
     Total=0; Started=0; Current=$null; ScanComplete=$false; Destination=$null; LogState=$null
@@ -1888,6 +2126,7 @@ function Invoke-WinImgNormalizer {
   $logState = $null
   $stats = $CancellationContext.Stats
   $reportState = $CancellationContext.ReportState
+  Write-WinImgConsoleEvent -ConsoleEvent Start -Data ([pscustomobject]@{ Source=$Source }) -Kind Label
   Assert-WinImgCancellation
 
   # Complete basic setup before creating Pictures, run folders, logs or mirrors.
@@ -1904,8 +2143,6 @@ function Invoke-WinImgNormalizer {
     }
     # This precedes enumeration and, critically, the destination write probe.
     $pictures = Assert-WinImgSafeDestination -SourceRoot $srcRoot -OutputParent $pictures
-    $magickInfo = Get-WinImgMagickInfo -MagickPath $MagickPath -PreflightRunner $PreflightRunner
-    $MagickCmd = $magickInfo.Path
     $imgExts = '.jpg','.jpeg','.png','.bmp','.tif','.tiff','.gif','.heic','.heif','.webp'
     $videoExts = '.mp4','.mov','.mkv','.avi','.m4v','.wmv','.webm','.mts','.m2ts','.3gp','.3g2'
     $imageCoders = @{ '.jpg'='JPEG'; '.jpeg'='JPEG'; '.png'='PNG'; '.bmp'='BMP'; '.tif'='TIFF'; '.tiff'='TIFF'; '.gif'='GIF'; '.heic'='HEIC'; '.heif'='HEIF'; '.webp'='WEBP' }
@@ -1921,6 +2158,13 @@ function Invoke-WinImgNormalizer {
     $CancellationContext.Total = $allFiles.Count
     $CancellationContext.ScanComplete = $sourceTree.ScanComplete
     Assert-WinImgCancellation
+    $magickInfo = [pscustomobject]@{ Path=''; Version=$null; VersionText=''; Delegates=''; Formats=@{}; Source='Not needed'; Sha256='' }
+    $MagickCmd = ''
+    if (@($allFiles | Where-Object { $imageCoders.ContainsKey($_.Extension.ToLowerInvariant()) }).Count -gt 0) {
+      $magickInfo = Get-WinImgMagickInfo -MagickPath $MagickPath -PreflightRunner $PreflightRunner
+      $MagickCmd = $magickInfo.Path
+    }
+    Write-WinImgConsoleEvent -ConsoleEvent Engine -Data $magickInfo -Kind Label
     $missingCoders = @{}
     foreach ($f in $allFiles) {
       $coder = $imageCoders[$f.Extension.ToLowerInvariant()]
@@ -1943,11 +2187,11 @@ function Invoke-WinImgNormalizer {
     $pictures = $destinationInfo.Path
   } catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
   catch { if (Test-WinImgCancellationException $_) { throw };
-    Write-Host ('Setup error: ' + $_.Exception.Message) -ForegroundColor Red
+    Write-WinImgConsoleEvent -ConsoleEvent Failure -Data ([pscustomobject]@{ Cause=('Setup error: ' + $_.Exception.Message) }) -Kind Error
     if ($_.Exception.Data['WinImgNativeDetail']) {
       # No run log exists before setup succeeds. Keep its native reason visible
       # within a small console bound without creating output during preflight.
-      Write-Host ('Native setup details: ' + (Get-WinImgBoundedText ([string]$_.Exception.Data['WinImgNativeDetail']) 512)) -ForegroundColor Red
+      Write-WinImgConsoleLine ('Native setup details: ' + (Get-WinImgBoundedText ([string]$_.Exception.Data['WinImgNativeDetail']) 512)) -Kind Error
     }
     Assert-WinImgCancellation
     return 1
@@ -1981,7 +2225,7 @@ function Invoke-WinImgNormalizer {
     }
   } catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
   catch { if (Test-WinImgCancellationException $_) { throw };
-    Write-Host ('Setup error: could not create the destination directory. ' + $_.Exception.Message) -ForegroundColor Red
+    Write-WinImgConsoleEvent -ConsoleEvent Failure -Data ([pscustomobject]@{ Cause=('Setup error: could not create the destination directory. ' + $_.Exception.Message) }) -Kind Error
     Assert-WinImgCancellation
     return 1
   }
@@ -2002,12 +2246,15 @@ function Invoke-WinImgNormalizer {
   Write-Log ("MaxBytes: {0} bytes ({1} MiB; best-effort target)" -f $MaxBytes.ToString([Globalization.CultureInfo]::InvariantCulture), [Math]::Round($MaxBytes/1MB,2))
 
   Write-Log ('Per-image limits: RuntimeMs={0}; MemoryBytes={1}; MapBytes={2}; DiskBytes={3}; Threads={4}; stricter installed policies remain effective; timeout/resource failure ends this item and continues siblings.' -f $ExecutionPolicy.TimeoutMilliseconds,$ExecutionPolicy.MemoryBytes,$ExecutionPolicy.MapBytes,$ExecutionPolicy.DiskBytes,$ExecutionPolicy.Threads)
-  Write-Log ('ImageMagick executable: ' + $MagickCmd)
-  foreach ($line in ($magickInfo.VersionText -split '\r?\n')) { Write-Log $line }
-  Write-Log ('Relevant formats: ' + (($imageCoders.Values | Select-Object -Unique | Sort-Object | ForEach-Object {
-    $mode = $magickInfo.Formats[$_]
-    '{0}:read={1},write={2}' -f $_, [bool]$mode.Read, [bool]$mode.Write
-  }) -join '; '))
+  if ($MagickCmd) {
+    Write-Log ('ImageMagick executable: ' + $MagickCmd)
+    Write-Log ('ImageMagick engine source: {0}; SHA256: {1}' -f $magickInfo.Source, $magickInfo.Sha256)
+    foreach ($line in ($magickInfo.VersionText -split '\r?\n')) { Write-Log $line }
+    Write-Log ('Relevant formats: ' + (($imageCoders.Values | Select-Object -Unique | Sort-Object | ForEach-Object {
+      $mode = $magickInfo.Formats[$_]
+      '{0}:read={1},write={2}' -f $_, [bool]$mode.Read, [bool]$mode.Write
+    }) -join '; '))
+  } else { Write-Log 'ImageMagick: Not needed (no images require decoding).' }
   Write-Log ('Destination space estimate: {0} bytes; available: {1}' -f $destinationInfo.RequiredBytes, $destinationInfo.AvailableBytes)
   if ($null -eq $destinationInfo.AvailableBytes) { Write-Log 'Free space could not be measured for this destination; writes may still fail.' 'WARN' }
 
@@ -2354,19 +2601,6 @@ function Invoke-WinImgNormalizer {
   Write-WinImgReportProgress -State $reportState -Completed
   Sync-WinImgReportStats -State $reportState -Stats $stats
 
-  Write-Host ""
-  Write-Host "Summary:" -ForegroundColor Cyan
-  Write-Host ("  Converted images : {0}" -f $stats.Converted)
-  Write-Host ("  Above byte target: {0} (included in converted images)" -f $stats.SizeWarnings)
-  Write-Host ("  Native warnings: {0} (included in converted images)" -f $stats.NativeWarnings)
-  Write-Host ("  Timestamp warnings: {0} (included in finalized images/videos)" -f $stats.TimestampWarnings)
-  Write-Host ("  Scan complete: {0}; incomplete directories: {1}; uninspectable entries: {2}; skipped links: {3}" -f $sourceTree.ScanComplete, $sourceTree.InaccessibleDirectoryCount, $sourceTree.UninspectableEntryCount, $sourceTree.SkippedReparsePointCount)
-  Write-Host ("  Copied videos    : {0}" -f $stats.CopiedVideo)
-  Write-Host ("  Duplicates       : {0}" -f $stats.SkippedDuplicate)
-  Write-Host ("  Ignored files    : {0}" -f $stats.Unsupported)
-  Write-Host ("  Errors           : {0}" -f $stats.Errors)
-  Write-Host ("  Log file         : {0}" -f $LogPath)
-
   Write-Log ("SUMMARY ConvertedImages={0} CopiedVideos={1} Duplicates={2} Unsupported={3} Errors={4} SizeWarnings={5} NativeWarnings={6} TimestampWarnings={7} ScanComplete={8} IncompleteDirectories={9} UninspectableEntries={10} SkippedLinks={11} LogWarnings={12} FallbackDropped={13}" -f
     $stats.Converted,$stats.CopiedVideo,$stats.SkippedDuplicate,$stats.Unsupported,$stats.Errors,$stats.SizeWarnings,$stats.NativeWarnings,$stats.TimestampWarnings,
     $sourceTree.ScanComplete,$sourceTree.InaccessibleDirectoryCount,$sourceTree.UninspectableEntryCount,$sourceTree.SkippedReparsePointCount,$logState.FailureCount,$logState.FallbackDroppedLines)
@@ -2388,7 +2622,7 @@ function Invoke-WinImgNormalizer {
     $summary = 'INTERRUPTED Mode=Cooperative ExitCode=130 ConvertedImages={0} CopiedVideos={1} Started={2} Unstarted={3} Current={4} ScanComplete={5} CompletedOutputs=Retained Cleanup=BestEffortOwnedOnly' -f $stats.Converted,$stats.CopiedVideo,$context.Started,([Math]::Max(0,$context.Total-$context.Started)),$current,$context.ScanComplete
     $summary = Get-WinImgBoundedText $summary 2048
     Write-WinImgReportProgress -State $context.ReportState -Completed
-    try { Write-Host $summary -ForegroundColor Yellow }
+    try { Write-WinImgConsoleLine $summary -Kind Warning }
     catch [Management.Automation.PipelineStoppedException] { throw }
     catch { if (Test-WinImgCancellationException $_) { throw }; Write-WinImgEmergencyReport $summary }
     if ($context.LogState) { Write-WinImgRunLog -State $context.LogState -Message $summary -Level WARN -Quiet }
@@ -2400,6 +2634,11 @@ function Invoke-WinImgNormalizer {
       catch { Write-WinImgEmergencyReport 'Final report could not complete after a stopped run; completed media are retained.' }
     }
     $script:WinImgCancellationContext = $previousContext
+    if ($script:WinImgEngineSelection -and $script:WinImgEngineSelection -ne $previousEngineSelection) {
+      try { Remove-WinImgEngineSelection $script:WinImgEngineSelection }
+      catch { Write-WinImgEmergencyReport 'Private engine policy snapshot could not be removed.' }
+    }
+    $script:WinImgEngineSelection = $previousEngineSelection
     if ($session) { $session.Dispose() }
   }
 }
@@ -2421,7 +2660,7 @@ function Invoke-WinImgNormalizerCommand {
   $Source = $null
   $MaxBytes = 1MB
   if (@($Arguments).Count -lt 1 -or @($Arguments).Count -gt 2) {
-    Write-Host (Get-WinImgUsage) -ForegroundColor Red
+    Write-WinImgConsoleLine (Get-WinImgUsage) -Kind Error
     return 1
   }
   $Source = $Arguments[0]
@@ -2442,7 +2681,7 @@ function Invoke-WinImgNormalizerCommand {
     # cancellation is handled by the active run; stopped/force-killed hosts may
     # bypass this boundary and have no promised report or application exit code.
     $message = 'Run error: ' + (Get-WinImgBoundedText (ConvertTo-WinImgLogText $_.Exception.Message) 1024)
-    try { Write-Host $message -ForegroundColor Red }
+    try { Write-WinImgConsoleLine $message -Kind Error }
     catch [Management.Automation.PipelineStoppedException] { throw }
     catch { Write-WinImgEmergencyReport $message }
     return 1

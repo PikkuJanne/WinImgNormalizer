@@ -292,11 +292,11 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
     }
 
     It 'T061 preserves native exit <Code> after real child exit, message and blocked pause' -ForEach @(
-        @{ Code = 0; Message = 'Completed successfully.' },
-        @{ Code = 1; Message = 'ERROR: Processing did not complete reliably (exit code 1).' },
-        @{ Code = 2; Message = 'Completed with warnings or partial failures.' },
-        @{ Code = 130; Message = 'Cancelled. Completed outputs were retained.' },
-        @{ Code = 37; Message = 'ERROR: Processing did not complete reliably (exit code 37).' }
+        @{ Code = 0; Message = 'Press any key to close.' },
+        @{ Code = 1; Message = 'Press any key to close.' },
+        @{ Code = 2; Message = 'Press any key to close.' },
+        @{ Code = 130; Message = 'Press any key to close.' },
+        @{ Code = 37; Message = 'Press any key to close.' }
     ) {
         $case = New-LauncherCase ('code-' + $Code)
         $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -Code $Code -ExpectDriver -VerifyPause
@@ -311,9 +311,9 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
     }
 
     It 'T061 ignores an inherited ERRORLEVEL variable when the actual child returns <Code>' -ForEach @(
-        @{ Code = 0; Message = 'Completed successfully.' },
-        @{ Code = 2; Message = 'Completed with warnings or partial failures.' },
-        @{ Code = 130; Message = 'Cancelled. Completed outputs were retained.' }
+        @{ Code = 0; Message = 'Press any key to close.' },
+        @{ Code = 2; Message = 'Press any key to close.' },
+        @{ Code = 130; Message = 'Press any key to close.' }
     ) {
         $case = New-LauncherCase ('inherited-errorlevel-' + $Code)
         $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -Code $Code -ExpectDriver -VerifyPause -Environment @{ ERRORLEVEL = '47' }
@@ -368,15 +368,14 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
         [IO.File]::Exists($case.Record) | Should -BeFalse
     }
 
-    It 'T061 retains native9009 and a failure message when the unchanged host is unavailable in child PATH' {
-        $case = New-LauncherCase 'missing-host'
-        $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -VerifyPause -Environment @{ PATH = '' }
-        $result.ExitCode | Should -Be 9009
+    It 'T061 selects the real Windows PowerShell host even with an empty child PATH' {
+        $case = New-LauncherCase 'empty-path'
+        $result = Invoke-LauncherChild -Case $case -Arguments @($case.Source) -ExpectDriver -VerifyPause -Environment @{ PATH = '' }
+        $result.ExitCode | Should -Be 0
+        $result.Driver.Edition | Should -Be 'Desktop'
         $result.PauseObserved | Should -BeTrue
-        $result.StdOut | Should -Match 'ERROR: Processing did not complete reliably \(exit code 9009\)\.'
-        $result.StdOut | Should -Not -Match 'Completed successfully\.|\bDone\.'
-        $result.StdErr | Should -Match 'powershell'
-        [IO.File]::Exists($case.Record) | Should -BeFalse
+        $result.StdOut | Should -Not -Match 'did not complete reliably'
+        $result.StdErr | Should -BeNullOrEmpty
     }
 
     It 'T062 preserves a single literal source and companion path with <Label>' -ForEach @(
@@ -398,7 +397,7 @@ Describe 'M3-T05 actual Windows CMD launcher contract' {
         $result = Invoke-LauncherChild -Case $case -Arguments @($inputArgument) -ExpectDriver -VerifyPause
         $result.ExitCode | Should -Be 0
         $result.PauseObserved | Should -BeTrue
-        $result.StdOut | Should -Match 'Completed successfully\.'
+        $result.StdOut | Should -Match 'Press any key to close\.'
         $result.StdErr | Should -BeNullOrEmpty
         @($result.Driver.Arguments).Count | Should -Be 1
         $result.Driver.Arguments[0] | Should -BeExactly $expectedArgument
