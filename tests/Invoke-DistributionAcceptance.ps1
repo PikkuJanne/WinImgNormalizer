@@ -266,6 +266,11 @@ try {
         Assert-Distribution (-not $instrumentation.HarnessError -and $instrumentation.PrivateJobAssignedBeforeShell) ($label+' instrumentation failed: '+$instrumentation.HarnessError)
         foreach($child in $instrumentation.Processes){Assert-Distribution ($child.Path -iin $isolation.ProgramPaths) 'An actual application child executable lacked a pre-applied outbound deny rule.'}
         Assert-Distribution ($result.Exit -eq $instrumentation.ObservedChildExitCode) 'Actual child exit and helper exit disagree.'
+        $sibling=[IO.Path]::ChangeExtension($target,'.ps1')
+        $hosts=@($instrumentation.Processes|Where-Object {$_.CommandLine -and $_.CommandLine.Contains($sibling) -and $_.CommandLine.Contains($source)})
+        Assert-Distribution ($hosts.Count -eq 1 -and $hosts[0].CommandLine -match '(?i)-File\s') 'The actual launched host did not execute the BAT sibling PS1 with the quoted synthetic source.'
+        $expectedHost=if($Entry -eq 'PS7'){$ps7}else{$ps5}
+        Assert-Distribution ($hosts[0].Path -ieq $expectedHost -and $hosts[0].ExitCode -eq $result.Exit) 'The real production PS5.1 or direct PS7 child/exit differs from its entry contract.'
         $after=@(Get-ChildItem -LiteralPath $pictures -Directory|Where-Object FullName -notin $before)
         $console=[string]$instrumentation.Console
         Assert-Distribution ($console.Contains($app)) 'Actual application directory was not visible in the launcher console.'
@@ -288,7 +293,7 @@ try {
             if($Layout -eq 'bare'){Assert-Distribution ($console -match 'WinImgNormalizer-1\.0\.2-portable\.zip' -and $console -match '(?i)incomplete') 'Bare-copy diagnostic is not truthful and asset-specific.'}
         }
         foreach($file in $expected.files){Assert-Distribution ((Get-DistributionHash (Join-Path $source $file.input)) -ceq $file.input_sha256) 'Input bytes changed in the actual launcher run.'}
-        $summary.Cases += [ordered]@{Name=$label;Exit=$result.Exit;Images=$(if($expectedExit -eq 0){2}else{0});Videos=$(if($expectedExit -eq 0){1}else{0});InputsUnchanged=$true;GdiDecodeVerified=($expectedExit -eq 0);ColdCache=($Negative -ne 'trusted-cache');ExplicitAuthenticatedCacheReuse=($Negative -eq 'trusted-cache');NoRuntimeStaging=$true;ShortcutTarget='Application Ä 2026/WinImgNormalizer.bat';ShortcutArguments='quoted disposable Desktop/Sample Kesä 2026';UnrelatedStartIn=$true;DropEquivalent=($Entry -eq 'BAT-shortcut');BatExitPropagated=($Entry -in @('BAT-shortcut','BAT-exit'));Entry=$Entry;EngineChildren=$engineChildren.Count;EngineSha256=$(if($engineChildren.Count){$engineChildren[0].Sha256}else{$null});EngineSource=$(if($engineChildren.Count){if($Layout -eq 'portable'){'bundled'}else{'cache'}}else{'none'});AllDecoderChildrenAuthenticated=$true;OldPathEngineUnused=$true;ExistingShortcutPreserved=($Layout -eq 'pull-upgrade')}
+        $summary.Cases += [ordered]@{Name=$label;Exit=$result.Exit;Images=$(if($expectedExit -eq 0){2}else{0});Videos=$(if($expectedExit -eq 0){1}else{0});InputsUnchanged=$true;GdiDecodeVerified=($expectedExit -eq 0);ColdCache=($Negative -ne 'trusted-cache');ExplicitAuthenticatedCacheReuse=($Negative -eq 'trusted-cache');NoRuntimeStaging=$true;ShortcutTarget='Application Ä 2026/WinImgNormalizer.bat';ShortcutArguments='quoted disposable Desktop/Sample Kesä 2026';UnrelatedStartIn=$true;ActualSiblingScriptSha256=(Get-DistributionHash $sibling);ActualBatSha256=(Get-DistributionHash $target);ActualHostExit=$hosts[0].ExitCode;DropEquivalent=($Entry -eq 'BAT-shortcut');BatExitPropagated=($Entry -in @('BAT-shortcut','BAT-exit'));Entry=$Entry;EngineChildren=$engineChildren.Count;EngineSha256=$(if($engineChildren.Count){$engineChildren[0].Sha256}else{$null});EngineSource=$(if($engineChildren.Count){if($Layout -eq 'portable'){'bundled'}else{'cache'}}else{'none'});AllDecoderChildrenAuthenticated=$true;OldPathEngineUnused=$true;ExistingShortcutPreserved=($Layout -eq 'pull-upgrade')}
         Write-DistributionJson (Join-Path $root 'distribution-summary.json') $summary
         Write-Host ('PASS '+$label+' exit '+$result.Exit+' authenticated decoder children '+$engineChildren.Count)
     }

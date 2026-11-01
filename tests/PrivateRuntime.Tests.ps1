@@ -188,6 +188,9 @@ finally { Remove-WinImgEngineSelection $s }
                 $start.Arguments = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand ' + $encoded
                 $start.UseShellExecute=$false; $start.CreateNoWindow=$true
                 $start.RedirectStandardOutput=$true; $start.RedirectStandardError=$true
+                foreach ($key in @($start.EnvironmentVariables.Keys)) {
+                    if ([string]::Equals([string]$key,'PSModulePath',[StringComparison]::OrdinalIgnoreCase)) { $start.EnvironmentVariables.Remove([string]$key) }
+                }
                 $start.EnvironmentVariables['LOCALAPPDATA']=$case.Profile
                 $child = New-Object Diagnostics.Process
                 $child.StartInfo=$start
