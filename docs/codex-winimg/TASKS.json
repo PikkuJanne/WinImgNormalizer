@@ -1157,11 +1157,25 @@
   },
   "hotfix_1_0_2": {
     "date": "2026-11-01",
-    "status": "in_progress",
+    "status": "done",
     "base_commit": "c210a8fbe4f71e57a4df5192e0baa0b1199bb091",
     "authorization": "Explicit owner request: continuous scoped repair, checks, normal merge/tag/stable publication; no human acceptance stop",
-    "evidence": "evidence/HOTFIX-1.0.2-baseline.json",
+    "evidence": "evidence/HOTFIX-1.0.2.json",
     "human_test_gate": false,
-    "website_deployment": false
+    "website_deployment": false,
+    "checkpoint": {
+      "phase": "verified_public_delivery",
+      "observed_at_utc": "2026-11-01T11:51:24.1219753Z",
+      "release_source_tag_commit": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+      "release_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.2",
+      "zip_sha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da",
+      "stable_latest": true,
+      "fresh_public_both_hosts": true,
+      "original_failing_target_confirmed": false,
+      "known_maintained_checkout_verified": true,
+      "windows10_executed": false,
+      "website_changed": false,
+      "human_test_gate": false
+    }
   }
 }

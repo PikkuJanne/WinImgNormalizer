@@ -1,3 +1,33 @@
+# WinImgNormalizer 1.0.2 stable delivery verified — 1 November 2026
+
+The authorized launcher repair is merged and the stable/latest release is public.
+Portable ZIP: https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.2/WinImgNormalizer-1.0.2-portable.zip
+Release: https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.2
+SHA-256: d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da
+Source/tag: ccfd47b33fad111a433614a853b4b0daab2a37f9. Six canonical assets were built
+once, tested, promoted unchanged and fresh-downloaded with matching SHA-256s.
+
+Clean Windows 11 full suites passed 758/758 per host. The final premerge Windows
+Server 2025 corpus passed 764/764 per host, both analyzers and exact failure
+controls. Exact candidate and fresh stable public bytes passed 17 portable and
+29 distribution cases per host, offline as ordinary disposable users. The public
+run tested the actual GitHub tag archive, not the earlier equivalent archive.
+
+The maintained local checkout was fast-forwarded and its unchanged production
+callable entry passed synthetic conversion checks in PS5.1 and PS7 with genuine
+7.1.2-5 on process PATH. This supplemental OutputParent-seam run is distinct from
+the genuine BAT/shortcut shell acceptance in hosted disposable profiles. The
+owner's original failing shortcut remains unconfirmed. The preserved non-Git
+snapshot, owner input collection, unrelated shortcuts, website and owner system
+configuration were not changed. No human test or appearance gate remains.
+Windows 10 was not executed; actual Windows 11 and Server results are distinct.
+
+Evidence: evidence/HOTFIX-1.0.2.json, plus the baseline/local supplements and strict
+release identity/publication records. This publication checkpoint cannot contain
+its own future commit SHA; final local/remote synchronization is observed after
+its normal metadata merge, separately from the immutable release source/tag.
+
+---
 # Authorized 1.0.2 launcher repair — 1 November 2026
 
 The owner authorized this continuous scoped repair, normal merge, next free stable

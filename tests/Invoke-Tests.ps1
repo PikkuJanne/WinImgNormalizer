@@ -37,7 +37,7 @@ function Get-TestSourceBindings {
         $files += Join-Path $repositoryRoot 'docs/release/RUNTIME_IMPORTS.json'
         # Bind the dated public-byte witness when present. Legacy deliberately
         # draft fixtures have no witness; published consistency requires it.
-        foreach ($publicationRelative in @('docs/release/publication-v1.0.0.json','docs/release/publication-v1.0.1.json','docs/release/identity-v1.0.1.json')) {
+        foreach ($publicationRelative in @('docs/release/publication-v1.0.0.json','docs/release/publication-v1.0.1.json','docs/release/identity-v1.0.1.json','docs/release/publication-v1.0.2.json','docs/release/identity-v1.0.2.json')) {
             $publicationFile = Join-Path $repositoryRoot $publicationRelative
             if (Test-Path -LiteralPath $publicationFile -PathType Leaf) { $files += $publicationFile }
         }

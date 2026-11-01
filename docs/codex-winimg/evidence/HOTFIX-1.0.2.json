@@ -1,0 +1,704 @@
+{
+  "schema_version": 1,
+  "version": "1.0.2",
+  "record_state": "verified_public_delivery",
+  "observed_at_utc": "2026-11-01T11:51:24.0480517Z",
+  "release_source_tag_commit": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+  "metadata_commit_is_separate_from_release_source": true,
+  "metadata_checkpoint_cannot_contain_its_own_future_commit_sha": true,
+  "implementation_pr": "https://github.com/PikkuJanne/WinImgNormalizer/pull/32",
+  "baseline": "HOTFIX-1.0.2-baseline.json",
+  "local_supplement": "HOTFIX-1.0.2-local.json",
+  "canonical_build": {
+    "build_count": 1,
+    "source_revision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+    "asset": {
+      "name": "WinImgNormalizer-1.0.2-portable.zip",
+      "bytes": 33663469,
+      "sha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da"
+    },
+    "package_has_redundant_compressed_payload": false,
+    "development_ci_builds_are_not_the_canonical_asset": true
+  },
+  "source_payload": {
+    "path": "resources/private-runtime.zip",
+    "bytes": 13760329,
+    "sha256": "0289a6e663df27c92a151dff10440023dda325599e86b1c33fa2ec1f02660a6e",
+    "manifest_sha256": "5efa916c9ee643e94cac53dcce704ab9ad17a0cbce16e430350d03998c1d28b9",
+    "ordinary_git_blob_not_lfs": true,
+    "expanded_binaries_remain_ignored": true
+  },
+  "premerge_ci": {
+    "Schema": 1,
+    "Run": 41299376052,
+    "URL": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41299376052",
+    "SourceCommit": "cb89da12c8daeeab53a89ff47575956ad94ba611",
+    "WorkflowConclusion": "success",
+    "Scope": "Exact-head premerge push evidence; CI-built ZIP is not the later canonical merged release artifact.",
+    "Hosts": [
+      {
+        "Host": "powershell",
+        "Commit": "cb89da12c8daeeab53a89ff47575956ad94ba611",
+        "Shell": "5.1.26100.33648",
+        "Edition": "Desktop",
+        "OS": "Microsoft Windows Server 2025 Datacenter",
+        "Build": "26100",
+        "Normal": {
+          "Exit": 0,
+          "Total": 764,
+          "Passed": 764,
+          "Failed": 0,
+          "Skipped": 0,
+          "NotRun": 0,
+          "SourceUnchanged": true,
+          "CommitUnchanged": true,
+          "PolicyUnchanged": true
+        },
+        "DeliberateAssertion": {
+          "Exit": 1,
+          "Total": 765,
+          "Passed": 764,
+          "Failed": 1,
+          "Skipped": 0
+        },
+        "Analyzer": {
+          "Exit": 0,
+          "Files": 15,
+          "Findings": 0
+        },
+        "AnalyzerControl": {
+          "Exit": 1,
+          "Findings": 1,
+          "ControlFindings": 1,
+          "Detected": true
+        },
+        "Hotfix": {
+          "Passed": true,
+          "Cases": 17,
+          "Version": "1.0.2",
+          "NonAdmin": true,
+          "EngineSha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+        },
+        "Distribution": {
+          "Passed": true,
+          "Cases": 29,
+          "Revision": "cb89da12c8daeeab53a89ff47575956ad94ba611",
+          "NonAdmin": true,
+          "OutboundBlocked": true,
+          "PositiveCases": 25,
+          "NegativeCases": 4,
+          "InputsUnchanged": true,
+          "EngineSources": [
+            {
+              "Name": "bundled",
+              "Count": 6
+            },
+            {
+              "Name": "cache",
+              "Count": 19
+            },
+            {
+              "Name": "none",
+              "Count": 4
+            }
+          ],
+          "EngineSha256": [
+            "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+          ],
+          "AppHashes": [
+            {
+              "Sha256": "5720056aa1e1eb2a19594e9c4dd8e79e321dbf78140a0157d273cc4d11ae0c8e",
+              "Layouts": [
+                "bare",
+                "portable"
+              ]
+            },
+            {
+              "Sha256": "802e6b930fd7c56293a97b15113b3657e29b1f4a3ddd5fefae00405f3ee919f9",
+              "Layouts": [
+                "clone",
+                "pull-upgrade",
+                "source-archive"
+              ]
+            }
+          ],
+          "PortableSha256": "d8e4c98a01851bc84a2ebccc493e4422d41f09a845a42c45854b2fd214fa1ca4",
+          "SourceArchiveSha256": "f715392dd4642c47398bc3bcee14e08af0b0cef2d76a240b4be9526285ccb34c"
+        },
+        "ArtifactHashes": [
+          {
+            "Name": "distribution-evidence.json",
+            "Sha256": "9b2d41ac7172d2d8fa2a21fcf817a80a677509302a74400f6c32240c7028fda1"
+          },
+          {
+            "Name": "hotfix-evidence.json",
+            "Sha256": "ce2b62a202266b729424898402fabef262284cc7be3d12c4f37ec3997b1d4137"
+          },
+          {
+            "Name": "static-analysis-evidence.json",
+            "Sha256": "27be9b006b7ebfdf7d418f25850a05fbb9824967da56ab4d7795725845c31e5f"
+          },
+          {
+            "Name": "test-evidence.json",
+            "Sha256": "0c560ce9a2e94b2a76c1d967fcb9d35f2b0938484fb5ea1953385f5513e34dc6"
+          }
+        ]
+      },
+      {
+        "Host": "pwsh",
+        "Commit": "cb89da12c8daeeab53a89ff47575956ad94ba611",
+        "Shell": "7.6.9",
+        "Edition": "Core",
+        "OS": "Microsoft Windows Server 2025 Datacenter",
+        "Build": "26100",
+        "Normal": {
+          "Exit": 0,
+          "Total": 764,
+          "Passed": 764,
+          "Failed": 0,
+          "Skipped": 0,
+          "NotRun": 0,
+          "SourceUnchanged": true,
+          "CommitUnchanged": true,
+          "PolicyUnchanged": true
+        },
+        "DeliberateAssertion": {
+          "Exit": 1,
+          "Total": 765,
+          "Passed": 764,
+          "Failed": 1,
+          "Skipped": 0
+        },
+        "Analyzer": {
+          "Exit": 0,
+          "Files": 15,
+          "Findings": 0
+        },
+        "AnalyzerControl": {
+          "Exit": 1,
+          "Findings": 1,
+          "ControlFindings": 1,
+          "Detected": true
+        },
+        "Hotfix": {
+          "Passed": true,
+          "Cases": 17,
+          "Version": "1.0.2",
+          "NonAdmin": true,
+          "EngineSha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+        },
+        "Distribution": {
+          "Passed": true,
+          "Cases": 29,
+          "Revision": "cb89da12c8daeeab53a89ff47575956ad94ba611",
+          "NonAdmin": true,
+          "OutboundBlocked": true,
+          "PositiveCases": 25,
+          "NegativeCases": 4,
+          "InputsUnchanged": true,
+          "EngineSources": [
+            {
+              "Name": "bundled",
+              "Count": 6
+            },
+            {
+              "Name": "cache",
+              "Count": 19
+            },
+            {
+              "Name": "none",
+              "Count": 4
+            }
+          ],
+          "EngineSha256": [
+            "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+          ],
+          "AppHashes": [
+            {
+              "Sha256": "5720056aa1e1eb2a19594e9c4dd8e79e321dbf78140a0157d273cc4d11ae0c8e",
+              "Layouts": [
+                "bare",
+                "portable"
+              ]
+            },
+            {
+              "Sha256": "802e6b930fd7c56293a97b15113b3657e29b1f4a3ddd5fefae00405f3ee919f9",
+              "Layouts": [
+                "clone",
+                "pull-upgrade",
+                "source-archive"
+              ]
+            }
+          ],
+          "PortableSha256": "e99e340ee3fbecbab9d1d97152df69e2bb3cc38f2f3355e7d75adf437dda952b",
+          "SourceArchiveSha256": "f715392dd4642c47398bc3bcee14e08af0b0cef2d76a240b4be9526285ccb34c"
+        },
+        "ArtifactHashes": [
+          {
+            "Name": "distribution-evidence.json",
+            "Sha256": "fcd42e91448262a7dd9caf7d29b8c61e0aa7446e67ef56bc2152da8abbd0c2bb"
+          },
+          {
+            "Name": "hotfix-evidence.json",
+            "Sha256": "24ae350199b1865c9d51cd07457950a6f84ffcf686ee9e97b70cf5d56e93268a"
+          },
+          {
+            "Name": "static-analysis-evidence.json",
+            "Sha256": "b75f721b713bec5db3f003efa2e4f9f5cbc848137e9a4f57eb0fdeb7d77d2fe7"
+          },
+          {
+            "Name": "test-evidence.json",
+            "Sha256": "3d1956b5ec4ca25f6f2c8f38b4c71a741d20e3ebac25a139d8365f4762c86966"
+          }
+        ]
+      }
+    ]
+  },
+  "local_full_gates": {
+    "schema": 1,
+    "scope": "Actual full mandatory Windows 11 regression gates; no shortcut/offline claim is made by these full-suite observations",
+    "runs": [
+      {
+        "observed_at_utc": "2026-11-01T10:38:32.263456Z",
+        "source_commit": "070bd63659c4442ee58cd42f1b643cf95579f23e",
+        "application_sha256": "802e6b930fd7c56293a97b15113b3657e29b1f4a3ddd5fefae00405f3ee919f9",
+        "launcher_sha256": "eb026821070f9920324f3fcf5b0b959b92a192ff364f3cb61a0ad405c7a86aca",
+        "os": "Microsoft Windows 11 Pro",
+        "os_version": "10.0.26300",
+        "os_build": "26300",
+        "powershell": "7.6.5",
+        "edition": "Core",
+        "architecture_bits": 64,
+        "exit_code": 0,
+        "result": "Passed",
+        "total": 758,
+        "passed": 758,
+        "failed": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "gate_failures": [],
+        "source_clean_before": true,
+        "source_clean_after": true,
+        "source_unchanged": true,
+        "commit_unchanged": true,
+        "persistent_policy_unchanged": true,
+        "engine_version": "7.1.2-35",
+        "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "raw_summary_sha256": "7b7c2225af72f1c12aee37896e475ce893ad26588f55e5b7c99705eb0c356b5e",
+        "results_xml_sha256": "8ba3da037be9a342e6afaba51bbd35fd56282f1ba5c06ff208b8dd1ffcfb88e4"
+      },
+      {
+        "observed_at_utc": "2026-11-01T10:38:32.7196367Z",
+        "source_commit": "070bd63659c4442ee58cd42f1b643cf95579f23e",
+        "application_sha256": "802e6b930fd7c56293a97b15113b3657e29b1f4a3ddd5fefae00405f3ee919f9",
+        "launcher_sha256": "eb026821070f9920324f3fcf5b0b959b92a192ff364f3cb61a0ad405c7a86aca",
+        "os": "Microsoft Windows 11 Pro",
+        "os_version": "10.0.26300",
+        "os_build": "26300",
+        "powershell": "5.1.26100.9711",
+        "edition": "Desktop",
+        "architecture_bits": 64,
+        "exit_code": 0,
+        "result": "Passed",
+        "total": 758,
+        "passed": 758,
+        "failed": 0,
+        "skipped": 0,
+        "not_run": 0,
+        "gate_failures": [],
+        "source_clean_before": true,
+        "source_clean_after": true,
+        "source_unchanged": true,
+        "commit_unchanged": true,
+        "persistent_policy_unchanged": true,
+        "engine_version": "7.1.2-35",
+        "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "raw_summary_sha256": "172270b34c632a19b026987a9e687c3647072232ebf67c18ef5cfb45efdbab7e",
+        "results_xml_sha256": "5aa80a851ef9876ab379c57e67feaf5420270da94e2b71dd6362151578760044"
+      }
+    ],
+    "windows10_executed": false
+  },
+  "local_full_scope": {
+    "tested_commit": "070bd63659c4442ee58cd42f1b643cf95579f23e",
+    "later_premerge_commit": "cb89da12c8daeeab53a89ff47575956ad94ba611",
+    "only_changed_paths": [
+      "tests/Compatibility.Tests.ps1",
+      "tests/Export-TestEvidence.ps1"
+    ],
+    "application_and_payload_unchanged": true
+  },
+  "maintained_real_checkout": {
+    "schema": 1,
+    "scope": "Deployed real maintained checkout supplemental verification; original owner failing shortcut/target is unconfirmed, distinct from synthetic release-layout shell acceptance",
+    "runs": [
+      {
+        "schema": 1,
+        "observed_at_utc": "2026-11-01T11:23:33.5015353Z",
+        "scope": "Maintained real local checkout, unchanged production callable boundary with existing internal OutputParent only; supplemental, not BAT/shortcut/offline evidence",
+        "source_revision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+        "application_sha256": "802e6b930fd7c56293a97b15113b3657e29b1f4a3ddd5fefae00405f3ee919f9",
+        "launcher_sha256": "eb026821070f9920324f3fcf5b0b959b92a192ff364f3cb61a0ad405c7a86aca",
+        "source_clean_before_after": true,
+        "os": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "powershell": "5.1.26100.9711",
+        "edition": "Desktop",
+        "exit_code": 0,
+        "old_engine_version": "7.1.2-5 Q16-HDRI x64 Modules",
+        "old_engine_sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+        "old_engine_on_process_path": true,
+        "selected_engine_source": "bundled",
+        "independent_jpeg_pixel_reads": 9984,
+        "selected_engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "native_children_observed": 8,
+        "all_native_children_authenticated": true,
+        "output_jpeg_dimensions": [
+          "96x64",
+          "80x48"
+        ],
+        "white_corner_at_least": 245,
+        "video_byte_identical": true,
+        "all_source_expected_hashes_unchanged": true,
+        "csv_rows": 3,
+        "converted": 2,
+        "copied_video": 1,
+        "errors": 0,
+        "no_owner_media": true,
+        "no_persistent_system_changes": true,
+        "helper_source_sha256": "cf43cbf1068c4a0f94657d1237c708dc73509a6f6b959506246db8c66523d833",
+        "raw_children_sha256": "ea05ea7073cba5838ca62ee3964b75cbc29f7e620712275fc01f184fe24fc6dd",
+        "raw_console_sha256": "93e7f10464611a11d9915af3c721c048fb3940f5a22881405f0f6b4bdc53e470",
+        "raw_host_sha256": "c174e1900b99215cb7f1c0fc5dffd0714f6ed1d40f83f385b56286f907682538",
+        "helper_sha256": "0d5c580395e4d048cccc3fc78019ad091e2562c7e6b9568d30f3beeebd26f89d",
+        "verification_driver_sha256": "55a2a03d0da28b0762e92f77e01bdba97566c36a6288f63dd8ee52c425eca2b1",
+        "owner_failing_shortcut_confirmed": false
+      },
+      {
+        "schema": 1,
+        "observed_at_utc": "2026-11-01T11:23:33.8156841Z",
+        "scope": "Maintained real local checkout, unchanged production callable boundary with existing internal OutputParent only; supplemental, not BAT/shortcut/offline evidence",
+        "source_revision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+        "application_sha256": "802e6b930fd7c56293a97b15113b3657e29b1f4a3ddd5fefae00405f3ee919f9",
+        "launcher_sha256": "eb026821070f9920324f3fcf5b0b959b92a192ff364f3cb61a0ad405c7a86aca",
+        "source_clean_before_after": true,
+        "os": "Microsoft Windows 11 Pro",
+        "os_build": "26300",
+        "powershell": "7.6.5",
+        "edition": "Core",
+        "exit_code": 0,
+        "old_engine_version": "7.1.2-5 Q16-HDRI x64 Modules",
+        "old_engine_sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+        "old_engine_on_process_path": true,
+        "selected_engine_source": "bundled",
+        "independent_jpeg_pixel_reads": 9984,
+        "selected_engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+        "native_children_observed": 8,
+        "all_native_children_authenticated": true,
+        "output_jpeg_dimensions": [
+          "96x64",
+          "80x48"
+        ],
+        "white_corner_at_least": 245,
+        "video_byte_identical": true,
+        "all_source_expected_hashes_unchanged": true,
+        "csv_rows": 3,
+        "converted": 2,
+        "copied_video": 1,
+        "errors": 0,
+        "no_owner_media": true,
+        "no_persistent_system_changes": true,
+        "helper_source_sha256": "cf43cbf1068c4a0f94657d1237c708dc73509a6f6b959506246db8c66523d833",
+        "raw_children_sha256": "52f6dc89bc90a5b45da5af27b8c622ad255c6589ad5cbd88aa3f94aa934683dd",
+        "raw_console_sha256": "e3594ba0a8bd127c48102e1f6e840a7cbf15c5b2247a5808d3016a7c86f3fcb7",
+        "raw_host_sha256": "be8929a1a1282306b4256088762a0ba48bde5de2d755fc100dc23f25d5d746ce",
+        "helper_sha256": "17e8d68a03a855d1fa83eceecf606e5edec4e0e7574e9443c7a443e0270b66db",
+        "verification_driver_sha256": "55a2a03d0da28b0762e92f77e01bdba97566c36a6288f63dd8ee52c425eca2b1",
+        "owner_failing_shortcut_confirmed": false
+      }
+    ]
+  },
+  "exact_canonical_candidate": {
+    "Run": 41302368106,
+    "URL": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41302368106",
+    "Conclusion": "success",
+    "WorkflowDefinitionRevision": "67b76ddb02e2660cce36d2db46c46fa28c1a148e",
+    "TestedTagRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+    "Stage": "Public prerelease candidate; stable publication not yet observed. Source archive is exact-commit git archive equivalent.",
+    "Hosts": [
+      {
+        "ParentShell": "powershell",
+        "Candidate": {
+          "Tag": "v1.0.2",
+          "Version": "1.0.2",
+          "SourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+          "AssetFilename": "WinImgNormalizer-1.0.2-portable.zip",
+          "Sha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da",
+          "Draft": false,
+          "Prerelease": true,
+          "Stable": false,
+          "Latest": false,
+          "ReleaseUrl": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.2",
+          "AnonymousPublicDownload": true,
+          "PublicTagSourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9"
+        },
+        "HotfixPassed": true,
+        "HotfixCases": 17,
+        "DistributionPassed": true,
+        "DistributionCases": 29,
+        "SourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+        "PublicTag": "",
+        "PortableSha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da",
+        "SourceArchiveSha256": "0f26fb8e3645c4802c9af1937559462a0b329082bcbd70a7c7d0cc33b1651346",
+        "Environment": {
+          "Administrator": false,
+          "Build": "26100",
+          "OS": "Microsoft Windows Server 2025 Datacenter",
+          "Shell": "5.1.26100.33648"
+        },
+        "OutboundBlocked": true,
+        "InputsUnchanged": true,
+        "EngineHashes": [
+          "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+        ],
+        "EvidenceHashes": [
+          {
+            "Sha256": "490e1c222e017297a70d9d5ecd9830ddf4864bd9d41eaff0e6a570f88aa1fbed",
+            "Name": "distribution-evidence.json"
+          },
+          {
+            "Sha256": "37aed9621146e66f1ceab748f12141228257e16715d3d7840c03145582dda58b",
+            "Name": "hotfix-evidence.json"
+          }
+        ]
+      },
+      {
+        "ParentShell": "pwsh",
+        "Candidate": {
+          "Tag": "v1.0.2",
+          "Version": "1.0.2",
+          "SourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+          "AssetFilename": "WinImgNormalizer-1.0.2-portable.zip",
+          "Sha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da",
+          "Draft": false,
+          "Prerelease": true,
+          "Stable": false,
+          "Latest": false,
+          "ReleaseUrl": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.2",
+          "AnonymousPublicDownload": true,
+          "PublicTagSourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9"
+        },
+        "HotfixPassed": true,
+        "HotfixCases": 17,
+        "DistributionPassed": true,
+        "DistributionCases": 29,
+        "SourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+        "PublicTag": "",
+        "PortableSha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da",
+        "SourceArchiveSha256": "0f26fb8e3645c4802c9af1937559462a0b329082bcbd70a7c7d0cc33b1651346",
+        "Environment": {
+          "Administrator": false,
+          "Build": "26100",
+          "OS": "Microsoft Windows Server 2025 Datacenter",
+          "Shell": "5.1.26100.33648"
+        },
+        "OutboundBlocked": true,
+        "InputsUnchanged": true,
+        "EngineHashes": [
+          "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+        ],
+        "EvidenceHashes": [
+          {
+            "Sha256": "490e1c222e017297a70d9d5ecd9830ddf4864bd9d41eaff0e6a570f88aa1fbed",
+            "Name": "distribution-evidence.json"
+          },
+          {
+            "Sha256": "aa344a62707d9a11667a44385a10347608b13a56d4be5b6bd90c0d45e0682b21",
+            "Name": "hotfix-evidence.json"
+          }
+        ]
+      }
+    ]
+  },
+  "fresh_public_verification": {
+    "Run": 41302923697,
+    "URL": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41302923697",
+    "Conclusion": "success",
+    "WorkflowDefinitionRevision": "67b76ddb02e2660cce36d2db46c46fa28c1a148e",
+    "TestedTagRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+    "Stage": "Fresh stable/latest public portable ZIP and actual public tag archive; exact immutable canonical bytes, new disposable ordinary profiles and isolated cold caches.",
+    "Hosts": [
+      {
+        "ParentShell": "powershell",
+        "Candidate": {
+          "Tag": "v1.0.2",
+          "Version": "1.0.2",
+          "SourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+          "AssetFilename": "WinImgNormalizer-1.0.2-portable.zip",
+          "Sha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da",
+          "Draft": false,
+          "Prerelease": false,
+          "Stable": true,
+          "Latest": true,
+          "ReleaseUrl": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.2",
+          "AnonymousPublicDownload": true,
+          "PublicTagSourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9"
+        },
+        "HotfixPassed": true,
+        "HotfixCases": 17,
+        "DistributionPassed": true,
+        "DistributionCases": 29,
+        "PublicTag": "v1.0.2",
+        "TestedSourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+        "PortableSha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da",
+        "ActualPublicTagArchiveSha256": "4f9c30c5be917be320677f25fd769473ec1da85de4e5c6d0777905fdf6f7f436",
+        "Environment": {
+          "Administrator": false,
+          "Build": "26100",
+          "OS": "Microsoft Windows Server 2025 Datacenter",
+          "Shell": "5.1.26100.33648"
+        },
+        "OutboundBlocked": true,
+        "PositiveCases": 25,
+        "NegativeCases": 4,
+        "InputsUnchanged": true,
+        "EngineHashes": [
+          "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+        ],
+        "AppHashes": [
+          "5720056aa1e1eb2a19594e9c4dd8e79e321dbf78140a0157d273cc4d11ae0c8e",
+          "802e6b930fd7c56293a97b15113b3657e29b1f4a3ddd5fefae00405f3ee919f9"
+        ],
+        "EvidenceHashes": [
+          {
+            "Name": "distribution-evidence.json",
+            "Sha256": "f1bf192bb51d1b6f724520f2dd4699596de9555d7f70b5f2b0684d58b7aadcb7"
+          },
+          {
+            "Name": "hotfix-evidence.json",
+            "Sha256": "eb2501ab14848dd3990f068fdd695cea91b392a583ffac19b14610faab918001"
+          }
+        ]
+      },
+      {
+        "ParentShell": "pwsh",
+        "Candidate": {
+          "Tag": "v1.0.2",
+          "Version": "1.0.2",
+          "SourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+          "AssetFilename": "WinImgNormalizer-1.0.2-portable.zip",
+          "Sha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da",
+          "Draft": false,
+          "Prerelease": false,
+          "Stable": true,
+          "Latest": true,
+          "ReleaseUrl": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.2",
+          "AnonymousPublicDownload": true,
+          "PublicTagSourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9"
+        },
+        "HotfixPassed": true,
+        "HotfixCases": 17,
+        "DistributionPassed": true,
+        "DistributionCases": 29,
+        "PublicTag": "v1.0.2",
+        "TestedSourceRevision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+        "PortableSha256": "d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da",
+        "ActualPublicTagArchiveSha256": "4f9c30c5be917be320677f25fd769473ec1da85de4e5c6d0777905fdf6f7f436",
+        "Environment": {
+          "Administrator": false,
+          "Build": "26100",
+          "OS": "Microsoft Windows Server 2025 Datacenter",
+          "Shell": "5.1.26100.33648"
+        },
+        "OutboundBlocked": true,
+        "PositiveCases": 25,
+        "NegativeCases": 4,
+        "InputsUnchanged": true,
+        "EngineHashes": [
+          "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440"
+        ],
+        "AppHashes": [
+          "5720056aa1e1eb2a19594e9c4dd8e79e321dbf78140a0157d273cc4d11ae0c8e",
+          "802e6b930fd7c56293a97b15113b3657e29b1f4a3ddd5fefae00405f3ee919f9"
+        ],
+        "EvidenceHashes": [
+          {
+            "Name": "distribution-evidence.json",
+            "Sha256": "f1bf192bb51d1b6f724520f2dd4699596de9555d7f70b5f2b0684d58b7aadcb7"
+          },
+          {
+            "Name": "hotfix-evidence.json",
+            "Sha256": "2d62786edad7fa91083519bd6ffda9b28cb543447da99ebd930ffb6175035c77"
+          }
+        ]
+      }
+    ]
+  },
+  "publication": {
+    "stable": true,
+    "latest": true,
+    "draft": false,
+    "prerelease": false,
+    "release_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.2",
+    "zip_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.2/WinImgNormalizer-1.0.2-portable.zip",
+    "source_revision": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+    "fresh_downloaded_assets": 6,
+    "all_assets_match_canonical": true,
+    "identity_record": "../../release/identity-v1.0.2.json",
+    "publication_record": "../../release/publication-v1.0.2.json"
+  },
+  "post_publication_metadata_gates": [
+    {
+      "shell": "7.6.5",
+      "edition": "Core",
+      "total": 208,
+      "passed": 208,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0,
+      "gate_failures": [],
+      "analyzer_exit": 0,
+      "analyzer_findings": 0
+    },
+    {
+      "shell": "5.1.26100.9711",
+      "edition": "Desktop",
+      "total": 208,
+      "passed": 208,
+      "failed": 0,
+      "skipped": 0,
+      "exit": 0,
+      "gate_failures": [],
+      "analyzer_exit": 0,
+      "analyzer_findings": 0
+    }
+  ],
+  "test_infrastructure_corrections": [
+    {
+      "run": 41301863586,
+      "cause": "Read-only CI could not acquire a private draft; no app test executed.",
+      "resolution": "Same bytes exposed as explicitly non-latest public prerelease, then tested before stable promotion."
+    },
+    {
+      "run": 41301963905,
+      "cause": "Portable17 passed; distribution firewall setup rejected a 260-character future path before cases ran.",
+      "resolution": "Dispatch-only workflow result directory shortened; tagged code and six canonical files unchanged."
+    }
+  ],
+  "limits": {
+    "windows10_executed": false,
+    "actual_os": [
+      "Windows 11 Pro build26300",
+      "Windows Server 2025 Datacenter build26100"
+    ],
+    "original_owner_failing_target_confirmed": false,
+    "known_maintained_checkout_deployed_and_verified": true,
+    "preserved_non_git_snapshot_edited": false,
+    "real_local_verification": "Unchanged maintained callable entry using only the existing OutputParent seam; distinct from real BAT/shortcut offline cases on disposable hosted profiles.",
+    "shell_action": "Windows ShellExecuteEx genuine BAT shortcut with quoted source argument; drop-equivalent, not physical Explorer drag.",
+    "owner_media_used": false,
+    "owner_system_configuration_changed": false,
+    "website_changed": false,
+    "human_acceptance_gate": false
+  }
+}

@@ -28,6 +28,7 @@ function Get-ExportSourceBindings {
         'docs/release/THIRD_PARTY_NOTICES.md', 'docs/release/PACKAGING.md', 'docs/BEHAVIOR.md', 'SECURITY.md',
         'CHANGELOG.md', 'release-metadata.json', 'README.md', 'LICENSE', '.gitattributes', '.gitignore',
         'docs/release/publication-v1.0.0.json', 'docs/release/publication-v1.0.1.json', 'docs/release/identity-v1.0.1.json',
+        'docs/release/publication-v1.0.2.json', 'docs/release/identity-v1.0.2.json',
         'tools/release/Stage-Runtime.ps1', 'tools/release/runtime-lock.json',
         'resources/private-runtime.zip', 'resources/private-runtime.json',
         'docs/release/IMAGEMAGICK_SOURCE.md', 'docs/release/RUNTIME_REVIEW.md', 'docs/release/RUNTIME_IMPORTS.json'
