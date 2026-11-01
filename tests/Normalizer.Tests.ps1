@@ -82,7 +82,9 @@ BeforeAll {
         }
         $start.EnvironmentVariables['PATH'] = [IO.Path]::GetDirectoryName($magick) + ';' + $env:PATH
         $start.EnvironmentVariables['TEMP'] = $temporary
-        $start.EnvironmentVariables['LOCALAPPDATA'] = Join-Path $WorkDirectory 'cold-local-app-data'
+        # Keep each child cold without extending the already descriptive work
+        # path past native CreateProcessW's application-directory path limit.
+        $start.EnvironmentVariables['LOCALAPPDATA'] = New-OwnedDirectory ('cache-' + [guid]::NewGuid().ToString('N').Substring(0,8))
         $start.EnvironmentVariables['TMP'] = $temporary
         $start.EnvironmentVariables['MAGICK_TEMPORARY_PATH'] = $temporary
         $process = New-Object Diagnostics.Process

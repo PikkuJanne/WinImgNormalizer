@@ -161,6 +161,13 @@ try {
     $ownProfile=[Environment]::GetFolderPath('UserProfile')
     Assert-Distribution ($ownProfile -and $ownProfile -match '(?i)\\winimgdist[^\\]+$') 'The loaded profile must belong to this disposable account.'
     $env:USERPROFILE=$ownProfile;$env:USERNAME=($identity.Name -split '\\')[-1]
+    # CreateProcessWithLogon loads this user's hive but can retain runneradmin's
+    # TEMP/APPDATA environment. In particular csc cannot use that private TEMP.
+    # Rebuild only this worker's process environment from its actual profile.
+    $env:APPDATA=Join-Path $ownProfile 'AppData/Roaming'
+    $env:LOCALAPPDATA=Join-Path $ownProfile 'AppData/Local'
+    foreach($directory in @($env:APPDATA,$env:LOCALAPPDATA)){[IO.Directory]::CreateDirectory($directory)|Out-Null}
+    $env:TEMP=$root;$env:TMP=$root
     Assert-Distribution (-not (Test-DistributionOutbound)) 'Outbound credibility probe unexpectedly succeeded.';$summary.OutboundBlocked=$true
     $isolation=[IO.File]::ReadAllText((Join-Path $root 'isolation-control.json'))|ConvertFrom-Json
     Assert-Distribution ($isolation.EveryTestedHostAndEngineOutboundBlocked -and $isolation.CacheRulesAppliedBeforeFirstRun -and $isolation.FirewallRules -gt 10) 'Disposable outbound isolation controls are absent.'
@@ -230,7 +237,7 @@ try {
         $rows=@(Import-Csv -LiteralPath $csv[0].FullName)
         Assert-Distribution ($Console -match '2 images converted\s*\|\s*1 videos copied\s*\|\s*0 errors') 'Actual console counts differ.'
         Assert-Distribution ($rows.Count -eq 3) 'CSV must contain three input records.'
-        Assert-Distribution (@($rows|Where-Object Status -CEQ 'Converted').Count -eq 2 -and @($rows|Where-Object Status -CEQ 'CopiedVideo').Count -eq 1) 'CSV counts/statuses differ from the actual expected outputs.'
+        Assert-Distribution (@($rows|Where-Object Status -CEQ 'text:Converted').Count -eq 2 -and @($rows|Where-Object Status -CEQ 'text:CopiedVideo').Count -eq 1) 'CSV counts/statuses differ from the actual expected outputs.'
     }
     function Invoke-DistributionCase([string]$Layout,[string]$PathMode,[string]$Entry,[string]$Negative='') {
         $label=$Layout+'-'+$PathMode+'-'+$Entry+$(if($Negative){'-'+$Negative}else{''})
