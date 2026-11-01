@@ -132,7 +132,7 @@ if(-not $Worker) {
             $rule='WinImgDistribution-'+[guid]::NewGuid().ToString('N')
             New-NetFirewallRule -Name $rule -DisplayName $rule -Direction Outbound -Action Block -Program $program -Profile Any|Out-Null;$rules.Add($rule)
         }
-        Write-DistributionJson (Join-Path $root 'isolation-control.json') @{FirewallRules=$rules.Count;ProgramPaths=@($programs|Select-Object -Unique);EveryTestedHostAndEngineOutboundBlocked=$true;CacheRulesAppliedBeforeFirstRun=$true;DownloadsCompletedBeforeIsolation=$true}
+        Write-DistributionJson (Join-Path $root 'isolation-control.json') @{WorkerSid=$user.SID.Value;HostedParentVerified=$true;FirewallRules=$rules.Count;ProgramPaths=@($programs|Select-Object -Unique);EveryTestedHostAndEngineOutboundBlocked=$true;CacheRulesAppliedBeforeFirstRun=$true;DownloadsCompletedBeforeIsolation=$true}
         $tokens=@('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$PSCommandPath,'-Worker','-ArchivePath',$ArchivePath,'-SourceArchivePath',$SourceArchivePath,'-LegacyMagickPath',$LegacyMagickPath,'-Revision',$Revision,'-ResultDirectory',$ResultDirectory)
         if($PublicTag){$tokens+=@('-PublicTag',$PublicTag)}
         $workerProcess=Start-Process -FilePath $ps5 -ArgumentList (($tokens|ForEach-Object {Quote-Distribution $_})-join ' ') -Credential ([Management.Automation.PSCredential]::new(([Environment]::MachineName+'\'+$userName),$password)) -LoadUserProfile -WindowStyle Hidden -WorkingDirectory $repository -RedirectStandardOutput (Join-Path $root 'worker.stdout.txt') -RedirectStandardError (Join-Path $root 'worker.stderr.txt') -PassThru
@@ -159,12 +159,17 @@ if(-not $Worker) {
     exit 0
 }
 
-Assert-Distribution ($env:GITHUB_ACTIONS -eq 'true' -and $env:RUNNER_ENVIRONMENT -eq 'github-hosted') 'Exact positive BAT/source-archive acceptance runs only inside its disposable hosted profile; desktop Pictures are never used.'
+Assert-Distribution ([IO.File]::Exists((Join-Path $root 'isolation-control.json'))) 'Exact positive BAT/source-archive acceptance requires its parent-created disposable isolation control; desktop Pictures are never used.'
 $summary=[ordered]@{Schema=1;Passed=$false;SourceRevision=$Revision;PublicTag=$PublicTag;Cases=@();Windows10Executed=$false;Limitation='No authorized automated Windows 10 environment is available. Actual Windows Server build is recorded; desktop settings and output collections are untouched.'}
 try {
     $os=Get-CimInstance Win32_OperatingSystem
     $identity=[Security.Principal.WindowsIdentity]::GetCurrent();$admin=[Security.Principal.WindowsPrincipal]::new($identity).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
     $summary.Environment=@{OS=$os.Caption;Build=$os.BuildNumber;Shell=$PSVersionTable.PSVersion.ToString();Administrator=$admin}
+    # PS5.1 CreateProcessWithLogon rebuilds the user's environment and may drop
+    # GITHUB_ACTIONS/RUNNER_ENVIRONMENT. The parent verified both before creating
+    # the account/rules; authenticate its actual disposable token here instead.
+    $isolation=[IO.File]::ReadAllText((Join-Path $root 'isolation-control.json'))|ConvertFrom-Json
+    Assert-Distribution ($isolation.HostedParentVerified -and $identity.User.Value -ceq $isolation.WorkerSid) 'Worker token does not match the disposable account created by the hosted parent.'
     Assert-Distribution (-not $admin -and $identity.Name -like '*\winimgdist*') 'Worker must be the ordinary disposable account.'
     $ownProfile=[Environment]::GetFolderPath('UserProfile')
     Assert-Distribution ($ownProfile -and $ownProfile -match '(?i)\\winimgdist[^\\]+$') 'The loaded profile must belong to this disposable account.'
@@ -177,7 +182,6 @@ try {
     foreach($directory in @($env:APPDATA,$env:LOCALAPPDATA)){[IO.Directory]::CreateDirectory($directory)|Out-Null}
     $env:TEMP=$root;$env:TMP=$root
     Assert-Distribution (-not (Test-DistributionOutbound)) 'Outbound credibility probe unexpectedly succeeded.';$summary.OutboundBlocked=$true
-    $isolation=[IO.File]::ReadAllText((Join-Path $root 'isolation-control.json'))|ConvertFrom-Json
     Assert-Distribution ($isolation.EveryTestedHostAndEngineOutboundBlocked -and $isolation.CacheRulesAppliedBeforeFirstRun -and $isolation.FirewallRules -gt 10) 'Disposable outbound isolation controls are absent.'
     $summary.Offline=@{FirewallRules=$isolation.FirewallRules;DownloadsCompletedBeforeIsolation=[bool]$isolation.DownloadsCompletedBeforeIsolation;ColdCachePathsBlockedBeforeCreation=$true;ActualApplicationChildrenCheckedAgainstBlockedPaths=$true}
     $summary.PortableSha256=Get-DistributionHash $ArchivePath;$summary.SourceArchiveSha256=Get-DistributionHash $SourceArchivePath
