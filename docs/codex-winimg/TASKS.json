@@ -1,7 +1,7 @@
 {
   "jpeg_icc_1_0_3": {
     "date": "2026-11-01",
-    "status": "in_progress",
+    "status": "done",
     "base_commit": "2f754c9600f866366f4321dcaae01ba111c03ef1",
     "authorization": "Explicit user request: colour repair through normal checked merge, tag, stable publication and fresh public portable/source-ZIP replay; no owner-testing gate",
     "evidence": "evidence/JPEG-ICC-1.0.3.json",
@@ -9,12 +9,21 @@
     "website_deployment": false,
     "dependency_selection_changed": false,
     "checkpoint": {
-      "phase": "candidate_replay_verified_publication_pending",
+      "phase": "verified_public_delivery",
       "candidate_source_commit": "a2d9499677f52fcdea09db2a0f4ebd0229fb153b",
       "candidate_distribution_cases_passed": 18,
       "candidate_distribution_cases_total": 18,
-      "public_portable_source_replay_complete": false,
-      "private_batch_available": false
+      "public_portable_source_replay_complete": true,
+      "private_batch_available": false,
+      "observed_at_utc": "2026-11-01T14:35:42.1770278Z",
+      "release_source_tag_commit": "3c266fa6e11285ba74506ad92564bd89a7368532",
+      "release_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.3",
+      "zip_sha256": "be3b6d0675eb1b65cbb82e770a12a0dabfd0f9de34a4c5d02f1fb1b4cb4a13da",
+      "stable_latest": true,
+      "public_replay_passed": 18,
+      "public_replay_total": 18,
+      "local_launch_reconciled": true,
+      "website_files_changed": false
     }
   },
   "website_cleanup_checkpoint": {

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "version": "1.0.3",
-  "record_state": "candidate_replay_verified_publication_pending",
+  "record_state": "verified_public_delivery",
   "base_commit": "2f754c9600f866366f4321dcaae01ba111c03ef1",
   "scope": "JPEG colour repair through stable publication; no dependency detection change or live website deployment",
   "baseline": {
@@ -225,7 +225,7 @@
   "private_batch": {
     "available": false,
     "content_accessed": false,
-    "coverage": "Unavailable in this environment; no private-batch result claimed. Synthetic acceptance continues."
+    "coverage": "User-supplied private input directory was unavailable; no private-batch result claimed. Acceptance uses approved synthetic inputs."
   },
   "repair_validation": {
     "stage": "Local candidate ZIP replay; not a public release result",
@@ -476,7 +476,258 @@
     "counts_note": "In each mixed run:13 inputs,10 JPEGs,5 ICC-managed,4 warning previews assuming sRGB,1 ordinary untagged sRGB image,3 genuine failures. Negative reasons:damaged scan,uncharacterized CMYK,CMYK with unusable ICC.",
     "public_replay_pending": true
   },
-  "public_release_validation": null,
+  "public_release_validation": {
+    "scope": "Fresh anonymous stable public portable ZIP and actual GitHub tag source ZIP; not a local Git archive",
+    "passed": true,
+    "cases": 18,
+    "portable_sha256": "be3b6d0675eb1b65cbb82e770a12a0dabfd0f9de34a4c5d02f1fb1b4cb4a13da",
+    "source_archive_sha256": "c455cf54a3540e5b32ecb09e95ea612feda1a7bc5e1b1b3d5e02b0dcd26e0ee6",
+    "public_source_url": "https://github.com/PikkuJanne/WinImgNormalizer/archive/refs/tags/v1.0.3.zip",
+    "old_system_imagemagick_first_on_path": "7.1.2-32",
+    "matrix": "2 distributions x BAT/direct PS5.1/direct PS7 x views/negative/mixed",
+    "actual_results": [
+      {
+        "Layout": "portable",
+        "Route": "BAT",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "BAT",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "BAT",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS51",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS51",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS51",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS7",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS7",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS7",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "BAT",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "BAT",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "BAT",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS51",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS51",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS51",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS7",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS7",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS7",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      }
+    ],
+    "genuine_failure_reasons": [
+      "Damaged JPEG pixel scan",
+      "Uncharacterized CMYK",
+      "CMYK with unusable embedded ICC"
+    ],
+    "ordinary_untagged_srgb_per_mixed_run": 1
+  },
   "windows10_executed": false,
   "human_testing_gate": false,
   "website_deployed": false,
@@ -557,5 +808,125 @@
     "source_change": "EXIF parser catches only its explicit malformed-metadata FormatException; unexpected resource, I/O and cancellation faults propagate.",
     "verifier_change": "Independent GDI reference comparison decodes identical byte buffers via streams held for bitmap lifetimes, including a measured 261-character synthetic output path.",
     "production_scope": "Two-line typed-exception repair; no other application changes since the earlier actual ZIP replay."
+  },
+  "observed_at_utc": "2026-11-01T14:35:42.1770278Z",
+  "release_source_tag_commit": "3c266fa6e11285ba74506ad92564bd89a7368532",
+  "metadata_commit_is_separate_from_release_source": true,
+  "metadata_checkpoint_cannot_contain_its_own_future_commit_sha": true,
+  "stable_release": {
+    "tag": "v1.0.3",
+    "source_commit": "3c266fa6e11285ba74506ad92564bd89a7368532",
+    "release_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.3",
+    "stable": true,
+    "latest": true,
+    "draft": false,
+    "portable_bytes": 33681996,
+    "portable_sha256": "be3b6d0675eb1b65cbb82e770a12a0dabfd0f9de34a4c5d02f1fb1b4cb4a13da",
+    "public_source_archive_sha256": "c455cf54a3540e5b32ecb09e95ea612feda1a7bc5e1b1b3d5e02b0dcd26e0ee6",
+    "publication_identity_file": "../../release/identity-v1.0.3.json",
+    "publication_proof_file": "../../release/publication-v1.0.3.json",
+    "assets_downloaded_verified": 6
+  },
+  "stable_candidate_validation": {
+    "source_commit": "3c266fa6e11285ba74506ad92564bd89a7368532",
+    "portable_sha256": "be3b6d0675eb1b65cbb82e770a12a0dabfd0f9de34a4c5d02f1fb1b4cb4a13da",
+    "source_archive_kind": "Local Git archive; separate earlier candidate evidence",
+    "source_archive_sha256": "c6d917ec60f39ce6570f36591cd0a5d4f2270e2da71eee15e3f1b9de3fd6e936",
+    "passed": true,
+    "cases": 18,
+    "old_system_imagemagick_first_on_path": "7.1.2-5"
+  },
+  "local_launch_reconciliation": {
+    "original_launch_copy_reconciled": true,
+    "backup_preserved": true,
+    "maintained_checkouts_reconciled": 2,
+    "unrelated_files_preserved": true,
+    "media_published": false,
+    "private_paths_published": false,
+    "actual_cases": [
+      {
+        "route": "BAT",
+        "input_count": 13,
+        "output_count": 10,
+        "colour_managed": 5,
+        "colour_assumed": 4,
+        "genuine_failures": 3,
+        "exit_code": 2,
+        "independent_references_passed": true,
+        "source_unchanged": true
+      },
+      {
+        "route": "PS51",
+        "input_count": 13,
+        "output_count": 10,
+        "colour_managed": 5,
+        "colour_assumed": 4,
+        "genuine_failures": 3,
+        "exit_code": 2,
+        "independent_references_passed": true,
+        "source_unchanged": true
+      },
+      {
+        "route": "PS7",
+        "input_count": 13,
+        "output_count": 10,
+        "colour_managed": 5,
+        "colour_assumed": 4,
+        "genuine_failures": 3,
+        "exit_code": 2,
+        "independent_references_passed": true,
+        "source_unchanged": true
+      }
+    ]
+  },
+  "final_ci": {
+    "source_commit": "3c266fa6e11285ba74506ad92564bd89a7368532",
+    "required_checks_passed": true,
+    "conclusion": "success",
+    "runs": [
+      {
+        "id": 41312679993,
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41312679993",
+        "attempt": 1,
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 41312684491,
+        "url": "https://github.com/PikkuJanne/WinImgNormalizer/actions/runs/41312684491",
+        "attempt": 2,
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "hosts": [
+      {
+        "host": "powershell",
+        "total": 805,
+        "passed": 805,
+        "failed": 0,
+        "skipped": 0,
+        "portable_acceptance_cases": 17,
+        "distribution_acceptance_cases": 29,
+        "analysis_findings": 0,
+        "deliberate_assertion_expected": true,
+        "deliberate_analysis_expected": true
+      },
+      {
+        "host": "pwsh",
+        "total": 805,
+        "passed": 805,
+        "failed": 0,
+        "skipped": 0,
+        "portable_acceptance_cases": 17,
+        "distribution_acceptance_cases": 29,
+        "analysis_findings": 0,
+        "deliberate_assertion_expected": true,
+        "deliberate_analysis_expected": true
+      }
+    ],
+    "notes": "Only completed observations are recorded. An earlier blank-console infrastructure attempt is separate from successful unchanged-source checks; assertions were preserved."
   }
 }

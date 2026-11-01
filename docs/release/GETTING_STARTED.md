@@ -1,6 +1,6 @@
 # Getting started with WinImgNormalizer
 
-This portable package is **version 1.0.3, in release preparation and unsigned**.
+This portable package is **version 1.0.3 and unsigned**.
 `package-manifest.json` records its exact source revision; [CHANGELOG.md](CHANGELOG.md)
 has release notes. Build records use `unreleased` for their preparation-time state;
 the public GitHub release and matching checksum establish publication of these

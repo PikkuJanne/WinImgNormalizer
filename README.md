@@ -6,13 +6,15 @@ folder under Pictures, makes JPEG derivatives and copies supported videos unchan
 Your source files remain untouched. JPEGs are lossy derivatives: keep the originals
 and a separate backup.
 
-**Version 1.0.3 is in release preparation and unsigned.**
-This patch preserves usable JPEG viewing copies when embedded ICC metadata is
-unusable, with an explicit warning when colour must be assumed. Valid source
-profiles still receive colour-managed conversion to sRGB. Release links and exact
-asset hashes will be recorded after publication and fresh-download verification.
-The offline distribution paths fixed in 1.0.2 remain unchanged: normal clones,
-`git pull`, tagged source ZIPs and portable ZIPs use the pinned private engine.
+**Version 1.0.3 is published and unsigned.**
+[Download the portable ZIP](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.3/WinImgNormalizer-1.0.3-portable.zip)
+or view the [stable release, checksums and provenance](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.3).
+The ZIP is 33681996 bytes; SHA-256:
+`be3b6d0675eb1b65cbb82e770a12a0dabfd0f9de34a4c5d02f1fb1b4cb4a13da`.
+Source and tag commit: `3c266fa6e11285ba74506ad92564bd89a7368532`.
+Version 1.0.3 repairs JPEG colour-profile handling, retaining valid wide-gamut
+conversion and clearly identified approximate previews when ICC metadata is unusable.
+The offline clone/source-ZIP/cache distribution paths fixed in 1.0.2 remain unchanged.
 Earlier releases retain their original tags, notes and asset bytes.
 No separate ImageMagick installation required. The pinned
 upstream engine is ImageMagick 7.1.2-35 Beta Q16-HDRI with patched HEIF support.
