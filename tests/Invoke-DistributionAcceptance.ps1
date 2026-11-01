@@ -53,6 +53,17 @@ function Test-DistributionOutbound {
 }
 function Get-DistributionHash([string]$Path) { (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant() }
 function Write-DistributionJson([string]$Path,$Value) {[IO.File]::WriteAllText($Path,($Value|ConvertTo-Json -Depth 14),$utf8)}
+function Test-DistributionVisiblePath([string]$ConsoleText,[string]$ExpectedPath) {
+    if([string]::IsNullOrEmpty($ConsoleText) -or [string]::IsNullOrEmpty($ExpectedPath)){return $false}
+    # CONOUT captures are rectangular rows, so a visible full path can cross a
+    # soft row boundary. Join adjacent nonempty rows only; preserve every space
+    # and source character and still require the complete literal path.
+    $normalized=$ConsoleText.Replace("`r`n","`n").Replace("`r","`n")
+    foreach($block in [regex]::Split($normalized,'\n{2,}')){
+        if($block.Replace("`n",'').IndexOf($ExpectedPath,[StringComparison]::Ordinal) -ge 0){return $true}
+    }
+    return $false
+}
 function Get-DistributionCases {
     foreach($layout in @('portable','clone','source-archive','pull-upgrade')){
         foreach($pathMode in @('old','none')){
@@ -307,7 +318,9 @@ try {
         Assert-Distribution ($hosts[0].Path -ieq $expectedHost -and $hosts[0].ExitCode -eq $result.Exit) 'The real production PS5.1 or direct PS7 child/exit differs from its entry contract.'
         $after=@(Get-ChildItem -LiteralPath $pictures -Directory|Where-Object FullName -notin $before)
         $console=[string]$instrumentation.Console
-        Assert-Distribution ($console.Contains($app)) 'Actual application directory was not visible in the launcher console.'
+        $screenDiagnostic=$console
+        if($screenDiagnostic.Length -gt 1400){$screenDiagnostic=$screenDiagnostic.Substring(0,700)+"`n[screen bounded]`n"+$screenDiagnostic.Substring($screenDiagnostic.Length-700)}
+        Assert-Distribution (Test-DistributionVisiblePath $console $app) ($label+' actual application directory was not visible in the launcher console; actual child exit='+$result.Exit+'; screen='+$screenDiagnostic)
         $engineChildren=@($instrumentation.Processes|Where-Object {[IO.Path]::GetFileName($_.Path) -ieq 'magick.exe'})
         $expectedExit=if($Negative -eq 'trusted-cache'){0}elseif($Negative -or $Layout -eq 'bare'){1}else{0}
         Assert-Distribution ($result.Exit -eq $expectedExit) ($label+' actual exit '+$result.Exit+' expected '+$expectedExit+'. Console: '+$console)

@@ -346,3 +346,42 @@ Describe 'Public private-runtime evidence bindings' {
         { Get-ExportSourceBindings @([pscustomobject]@{ relative_path='resources/private-runtime.zip'; sha256='not-a-digest' }) } | Should -Throw '*Unsafe evidence source binding*'
     }
 }
+
+Describe 'Real console path visibility across terminal rows' {
+    BeforeAll {
+        $repository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+        $tokens = $null; $parseErrors = $null
+        $harness = [Management.Automation.Language.Parser]::ParseFile((Join-Path $repository 'tests/Invoke-DistributionAcceptance.ps1'), [ref]$tokens, [ref]$parseErrors)
+        if ($parseErrors.Count) { throw 'The maintained distribution harness did not parse.' }
+        $definition = $harness.Find({ param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq 'Test-DistributionVisiblePath' }, $true)
+        if (-not $definition) { throw 'The maintained console path validator is absent.' }
+        . ([scriptblock]::Create($definition.Extent.Text))
+        $expectedApp = 'D:\a\WinImgNormalizer\WinImgNormalizer\.scratch\ci-distribution\source-archive-none-PS7\Application Ä 2026'
+        $firstRow = $expectedApp.Substring(0,80)
+        $secondRow = $expectedApp.Substring(80)
+    }
+    It 'accepts the full literal unwrapped application directory' {
+        Test-DistributionVisiblePath ("Application:`r`n" + $expectedApp + "`r`nSelected engine: cache") $expectedApp | Should -BeTrue
+    }
+    It 'accepts the same non-ASCII path wrapped at actual 80-column console rows' {
+        Test-DistributionVisiblePath ("Application:`r`n" + $firstRow + "`r`n" + $secondRow + "`r`nSelected engine: cache") $expectedApp | Should -BeTrue
+    }
+    It 'accepts LF row separators without changing source characters' {
+        Test-DistributionVisiblePath ($firstRow + "`n" + $secondRow) $expectedApp | Should -BeTrue
+    }
+    It 'rejects the same basename under a different root' {
+        Test-DistributionVisiblePath ($expectedApp.Replace('D:\a\WinImgNormalizer','D:\other\WinImgNormalizer')) $expectedApp | Should -BeFalse
+    }
+    It 'rejects an absent application path' {
+        Test-DistributionVisiblePath '[02 / ENGINE] Selected engine: none' $expectedApp | Should -BeFalse
+    }
+    It 'does not remove meaningful spaces to manufacture a match' {
+        Test-DistributionVisiblePath ($expectedApp.Replace('Application Ä 2026','ApplicationÄ2026')) $expectedApp | Should -BeFalse
+    }
+    It 'does not join nonadjacent rows across a blank separator' {
+        Test-DistributionVisiblePath ($firstRow + "`r`n`r`n" + $secondRow) $expectedApp | Should -BeFalse
+    }
+    It 'does not discard intervening console text' {
+        Test-DistributionVisiblePath ($firstRow + "`r`nUNRELATED`r`n" + $secondRow) $expectedApp | Should -BeFalse
+    }
+}
