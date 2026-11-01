@@ -6,10 +6,15 @@ folder under Pictures, makes JPEG derivatives and copies supported videos unchan
 Your source files remain untouched. JPEGs are lossy derivatives: keep the originals
 and a separate backup.
 
-**Version 1.0.2 is in release preparation and unsigned.**
-The [v1.0.1 release](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.1)
-remains unchanged. Version 1.0.2 repairs offline image runs from a normal clone,
-`git pull`, and GitHub's tagged source ZIP as well as the full portable ZIP.
+**Version 1.0.2 is published and unsigned.**
+[Download the portable ZIP](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.2/WinImgNormalizer-1.0.2-portable.zip)
+or view the [stable release, checksums and provenance](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.2).
+The ZIP is 33663469 bytes; SHA-256:
+`d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da`.
+Source and tag commit: `ccfd47b33fad111a433614a853b4b0daab2a37f9`.
+Version 1.0.2 repairs offline image runs from a normal clone, `git pull`, and
+GitHub's tagged source ZIP as well as the full portable ZIP. Versions 1.0.0 and
+1.0.1 retain their original tags and asset bytes.
 No separate ImageMagick installation required. The pinned
 upstream engine is ImageMagick 7.1.2-35 Beta Q16-HDRI with patched HEIF support.
 Build records retain their preparation-time state; these exact bytes were tested

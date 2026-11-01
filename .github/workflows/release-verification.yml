@@ -51,18 +51,18 @@ jobs:
             ArchivePath = Join-Path .scratch/ci-candidate $candidate.AssetFilename
             LegacyMagickPath = $control.LegacyMagickPath
             DisposableRunner = $true
-            ResultDirectory = '.scratch/exact-distribution'
+            ResultDirectory = '.scratch/ed'
           }
           if ($candidate.Stable -and $candidate.Latest) { $arguments.PublicTag = $candidate.Tag }
           ./tests/Invoke-DistributionAcceptance.ps1 @arguments
       - name: Export passing sanitized release evidence
         run: |
           $hotfix = Get-Content -LiteralPath .scratch/exact-hotfix/acceptance-summary.json -Raw | ConvertFrom-Json
-          $distribution = Get-Content -LiteralPath .scratch/exact-distribution/distribution-summary.json -Raw | ConvertFrom-Json
+          $distribution = Get-Content -LiteralPath .scratch/ed/distribution-summary.json -Raw | ConvertFrom-Json
           if (-not $hotfix.Passed -or $hotfix.PSObject.Properties['Error'] -or -not $distribution.Passed -or $distribution.PSObject.Properties['Error']) { throw 'Only passing sanitized exact-byte evidence may be exported.' }
           New-Item -ItemType Directory -Path .scratch/exact-release-export | Out-Null
           Copy-Item -LiteralPath .scratch/exact-hotfix/acceptance-summary.json -Destination .scratch/exact-release-export/hotfix-evidence.json
-          Copy-Item -LiteralPath .scratch/exact-distribution/distribution-summary.json -Destination .scratch/exact-release-export/distribution-evidence.json
+          Copy-Item -LiteralPath .scratch/ed/distribution-summary.json -Destination .scratch/exact-release-export/distribution-evidence.json
       - name: Upload exact release evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1; official tag/commit and upload sources reviewed 2026-10-05
         with:

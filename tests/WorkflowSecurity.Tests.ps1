@@ -180,6 +180,30 @@
 
 Describe 'Exact release verification workflow security' {
     BeforeAll {
+        function Get-ExactReleaseFutureProgramLengths([string]$Text) {
+            $directory = [regex]::Match($Text, "(?m)^\s+ResultDirectory = '(?<path>[^']+)'\s*$")
+            if (-not $directory.Success) { throw 'Exact distribution result directory is absent.' }
+            $tokens = $null; $parseErrors = $null
+            $harness = [Management.Automation.Language.Parser]::ParseFile((Join-Path $repository 'tests/Invoke-DistributionAcceptance.ps1'), [ref]$tokens, [ref]$parseErrors)
+            if ($parseErrors.Count) { throw 'Distribution harness did not parse.' }
+            foreach ($name in @('Get-DistributionCases','Get-DistributionCaseLabel')) {
+                $definition = $harness.Find({ param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq $name }, $true)
+                if (-not $definition) { throw 'Distribution case definition is absent.' }
+                . ([scriptblock]::Create($definition.Extent.Text))
+            }
+            $payload = [IO.File]::ReadAllText((Join-Path $repository 'resources/private-runtime.json')) | ConvertFrom-Json
+            $metadata = [IO.File]::ReadAllText((Join-Path $repository 'release-metadata.json')) | ConvertFrom-Json
+            $runnerCheckout = 'D:\a\WinImgNormalizer\WinImgNormalizer'
+            $resultRoot = [IO.Path]::Combine($runnerCheckout, $directory.Groups['path'].Value.Replace('/', '\'))
+            foreach ($case in @(Get-DistributionCases)) {
+                $caseRoot = [IO.Path]::Combine($resultRoot, (Get-DistributionCaseLabel $case))
+                foreach ($relative in @('Application Ä 2026\runtime\imagemagick\magick.exe', ('Cold LocalAppData\WinImgNormalizer\runtimes\' + $metadata.version + '-' + $payload.sha256 + '\runtime\imagemagick\magick.exe'))) {
+                    $program = [IO.Path]::Combine($caseRoot, $relative)
+                    [pscustomobject]@{ Case=(Get-DistributionCaseLabel $case); Length=$program.Length }
+                }
+            }
+        }
+
         function Get-ExactReleaseViolations([string]$Text) {
             $Text=$Text.Replace("`r`n","`n");$violations=@()
             $triggers=Get-WorkflowFieldBlock -Text $Text -Key 'on' -Indent 0
@@ -201,6 +225,7 @@ Describe 'Exact release verification workflow security' {
             $allowed=@('.scratch/exact-release-export/hotfix-evidence.json','.scratch/exact-release-export/distribution-evidence.json')
             if($paths.Count -ne 2 -or @($paths|Where-Object {$_ -cnotin $allowed}).Count -or @($paths|Select-Object -Unique).Count -ne 2 -or $Text -notmatch "-not \`$hotfix\.Passed" -or $Text -notmatch "-not \`$distribution\.Passed" -or $Text -notmatch 'if-no-files-found: error' -or $Text -notmatch 'overwrite: false'){$violations+='Only passing sanitized evidence allowlist may be uploaded.'}
             if($Text -match '(?im)continue-on-error:|pull_request_target:|workflow_run:'){$violations+='No bypass triggers or ignored failures.'}
+            if(@(Get-ExactReleaseFutureProgramLengths $Text | Where-Object Length -GE 260).Count){$violations+='Future firewall executable paths must remain below MAX_PATH.'}
             $violations
         }
     }
@@ -227,6 +252,16 @@ Describe 'Exact release verification workflow security' {
     }
     It 'rejects persisting credentials in the exact tag checkout' {
         @(Get-ExactReleaseViolations ($releaseWorkflow.Replace('persist-credentials: false','persist-credentials: true'))) | Should -Contain 'Exact tag checkout without saved credentials required.'
+    }
+    It 'keeps every real future app and digest-cache firewall path below MAX_PATH' {
+        $lengths = @(Get-ExactReleaseFutureProgramLengths $releaseWorkflow)
+        $lengths.Count | Should -BeGreaterThan 50
+        @($lengths | Where-Object Case -Match 'corrupt-payload').Count | Should -BeGreaterThan 0
+        @($lengths | Where-Object Length -GE 260).Count | Should -Be 0
+    }
+    It 'rejects the observed long result root that makes a future cache rule invalid' {
+        $longRoot = $releaseWorkflow.Replace('.scratch/ed', '.scratch/exact-distribution')
+        @(Get-ExactReleaseViolations $longRoot) | Should -Contain 'Future firewall executable paths must remain below MAX_PATH.'
     }
 }
 
