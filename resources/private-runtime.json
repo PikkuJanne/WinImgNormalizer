@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "file": "private-runtime.zip",
+  "bytes": 13760329,
+  "sha256": "0289a6e663df27c92a151dff10440023dda325599e86b1c33fa2ec1f02660a6e",
+  "runtime_manifest_sha256": "5efa916c9ee643e94cac53dcce704ab9ad17a0cbce16e430350d03998c1d28b9",
+  "origin": "Exact runtime/* and portable-runtime.json from checksum-verified official WinImgNormalizer 1.0.1 portable asset; recompressed using ZIP Deflate, fixed 2000-01-01 timestamps, ordinal names, zero external attributes.",
+  "origin_url": "https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/WinImgNormalizer-1.0.1-portable.zip",
+  "origin_sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+  "lock": "tools/release/runtime-lock.json",
+  "notices": "docs/release/THIRD_PARTY_NOTICES.md",
+  "source_information": "docs/release/IMAGEMAGICK_SOURCE.md",
+  "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+  "runtime_requirements": "Windows inbox ZIP reader only; no network, installer, 7-Zip, Python or developer staging on the application path. Expanded runtime remains Git-ignored. The full portable ZIP omits this redundant compressed payload."
+}

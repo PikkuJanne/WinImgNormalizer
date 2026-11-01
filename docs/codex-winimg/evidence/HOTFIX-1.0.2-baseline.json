@@ -1,0 +1,121 @@
+{
+  "schema": 1,
+  "observed_utc": "2026-11-01T10:02:32.2433455Z",
+  "os": "Windows 11 Pro 10.0.26300 x64",
+  "ps51": "5.1.26100.9711",
+  "baseline_tag": "v1.0.1",
+  "tag_commit": "25cd8da78595abd256d96b2ff7d117e2b3a02c18",
+  "public_portable_sha256": "0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5",
+  "legacy_engine": {
+    "distribution": "Official 7.1.2-5 DLL installer extracted without installation using pinned development helper",
+    "modules": true,
+    "sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+    "version": "7.1.2-5 Q16-HDRI x64",
+    "installer_authenticode": "Valid"
+  },
+  "cases": [
+    {
+      "layout": "source",
+      "exit": 1,
+      "output_media": 0,
+      "native_preflight_calls": [
+        {
+          "arguments": [
+            "-version"
+          ],
+          "sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+          "exit": 0,
+          "selected": "external old process PATH"
+        }
+      ],
+      "console_engine_stage_present": false,
+      "actual_bat_refusal_exit": 1,
+      "fixture_verification": "no output"
+    },
+    {
+      "layout": "bare",
+      "exit": 1,
+      "output_media": 0,
+      "native_preflight_calls": [
+        {
+          "arguments": [
+            "-version"
+          ],
+          "sha256": "b98d9708e98f84625e308f3dcd3daedfb7399a2e6a2ddb2171b2070397b8ffb2",
+          "exit": 0,
+          "selected": "external old process PATH"
+        }
+      ],
+      "console_engine_stage_present": false,
+      "actual_bat_refusal_exit": 1,
+      "fixture_verification": "no output"
+    },
+    {
+      "layout": "portable",
+      "exit": 0,
+      "output_media": 3,
+      "native_preflight_calls": [
+        {
+          "arguments": [
+            "-version"
+          ],
+          "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+          "exit": 0,
+          "selected": "authenticated bundled app-relative"
+        },
+        {
+          "arguments": [
+            "-list",
+            "format"
+          ],
+          "sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+          "exit": 0,
+          "selected": "authenticated bundled app-relative"
+        }
+      ],
+      "console_engine_stage_present": true,
+      "actual_bat_refusal_exit": null,
+      "fixture_verification": "System.Drawing independent full JPEG decodes 96x64 and80x48, white corner >=245, MP4 SHA256 identical, all expected source hashes unchanged; CSV rows3"
+    }
+  ],
+  "local": {
+    "active_shortcut_confirmed": false,
+    "local_cause": "unconfirmed",
+    "shortcut_search": "Read-only known project roots, redirected Desktop, and Public Desktop; no identifiable WinImgNormalizer .lnk",
+    "preserved_snapshot": {
+      "git": false,
+      "marker": "PROJECT_CLOSED.txt explicitly identifies preserved original baseline snapshot, not current repository",
+      "bat_sha256": "a9f0ea98cabada82b593abafa5e38e0cca356926f665b85006dc1f8256bccabb",
+      "ps1_sha256": "3d31eaea3d926c2d2a4f75dc32856e6681fcf03f2f29ac89020aa1a4a907133a",
+      "executed": false
+    },
+    "maintained_checkout": {
+      "commit": "c210a8fbe4f71e57a4df5192e0baa0b1199bb091",
+      "git_clean": true,
+      "ignored_runtime_present": true,
+      "bat_sha256": "eb026821070f9920324f3fcf5b0b959b92a192ff364f3cb61a0ad405c7a86aca",
+      "ps1_sha256": "08e1b485549e5e3d37bb2ab6c8d385d4b48426f2db18815695cfb675ad77ac7a",
+      "sibling": "WinImgNormalizer.ps1 beside BAT resolved by %~dpn0.ps1",
+      "exit": 0,
+      "selected": "bundled",
+      "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+      "entry": "Unchanged script dot-sourced callable boundary with OutputParent set only to disposable evidence output; real native preflight wrapper, no MagickPath injection",
+      "fixtures_verified": true
+    }
+  },
+  "limitations": [
+    "Baseline control and maintained-checkout output use existing internal OutputParent test seam to avoid owner Pictures writes, not claimed as exact BAT processing.",
+    "Actual source and bare BAT refusal were separately executed and propagated exit 1.",
+    "Application outbound traffic was not blocked during these local baseline observations; offline restricted-account release gates belong to automated acceptance.",
+    "Windows 10 was not run."
+  ],
+  "system_configuration_modified": false,
+  "private_media_used": false,
+  "baseline_output_isolation": {
+    "actual_bat_cases": "Source archive and bare pair BAT launched unchanged with quoted synthetic source argument, WINIMG_NO_PAUSE=1, old engine in process-only PATH, and unrelated current working directory. Both failed before Pictures resolution could create an output; no profile override used.",
+    "control_and_maintained": "Existing callable boundary dot-sourced unchanged PS1 and passed OutputParent pointing to disposable evidence directories. A PreflightRunner observer delegated to the real Invoke-WinImgPreflightProcess and recorded native path/hash/query/output. No MagickPath injection or fake result.",
+    "registry_or_profile_modification": false,
+    "physical_explorer_drag": false,
+    "shortcut_baseline": false
+  }
+}

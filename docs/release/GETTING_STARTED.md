@@ -1,6 +1,6 @@
 # Getting started with WinImgNormalizer
 
-This portable package is **version 1.0.1 and unsigned**.
+This portable package is **version 1.0.2 and unsigned**.
 `package-manifest.json` records its exact source revision; [CHANGELOG.md](CHANGELOG.md)
 has release notes. Build records use `unreleased` for their preparation-time state;
 the public GitHub release and matching checksum establish publication of these
@@ -13,7 +13,7 @@ actual hash with the exact filename's entry in `SHA256SUMS.txt` and the value
 provided through that trusted channel. Replace this path with your prepared ZIP:
 
 ```powershell
-Get-FileHash -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.1-portable.zip' -Algorithm SHA256
+Get-FileHash -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.2-portable.zip' -Algorithm SHA256
 ```
 
 A matching checksum identifies bytes relative to a trusted value; it is not a
@@ -22,7 +22,7 @@ If you trust the verified ZIP and Windows marks it as downloaded, selectively
 unblock that exact ZIP before extracting:
 
 ```powershell
-Unblock-File -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.1-portable.zip'
+Unblock-File -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.2-portable.zip'
 ```
 
 Extract into a new ordinary folder with a name such as `WinImg Normalizer` in
@@ -49,9 +49,13 @@ An unavailable optional decoder produces a named per-file warning/partial result
 other supported files still complete. Explicit local and administrator policy denials
 remain effective; the application never tries another engine to evade a denial.
 
-A fresh source clone contains no binary artifacts. Developers can use the repository's
-`tools/release/Stage-Runtime.ps1 -Download` command to stage the same verified runtime,
-or select a trusted ImageMagick 7.1.2-35 or newer supported 7.x engine on PATH.
+A fresh source clone or tagged source ZIP includes a compressed private runtime.
+It verifies those local bytes and initializes a versioned per-user cache offline
+on the first image run. No developer staging or system ImageMagick is required.
+Keep the complete source copy together, including `resources`. A bare BAT/PS1 pair
+uses only an authenticated cache for this version; without it the app identifies
+the incomplete directory and names `WinImgNormalizer-1.0.2-portable.zip` before any
+external decoder. Damaged recognized runtime files fail closed.
 Windows PowerShell 5.1 and PowerShell 7 remain supported. Windows 10 has not been tested.
 
 ## Choose a source and run

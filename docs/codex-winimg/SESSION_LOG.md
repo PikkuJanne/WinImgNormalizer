@@ -1,3 +1,28 @@
+# Authorized 1.0.2 launcher repair — 1 November 2026
+
+The owner authorized this continuous scoped repair, normal merge, next free stable
+tag and publication. Live tags checked: 1.0.2 is free. No human acceptance or routine
+approval gate applies; no website or owner system configuration changes apply.
+The original workspace is a preserved non-Git snapshot. Its PROJECT_CLOSED record
+identifies the maintained checkout; that checkout is inspected separately without
+discarding user work. No identifiable project/Desktop shortcut was available, so
+the owner's exact failing target remains unconfirmed.
+
+The real v1.0.1 source archive and bare BAT/PS1 failed at genuine module-enabled
+7.1.2-5 on process PATH, before codec discovery, with exit 1 and no outputs. The
+checksum-verified portable control and maintained staged checkout succeeded with
+synthetic input through the existing OutputParent seam. Actual Windows 11 Pro
+build 26300; no Windows 10 run claimed. See evidence/HOTFIX-1.0.2-baseline.json.
+
+The repair tracks one compressed authenticated runtime in source, reuses healthy
+app-relative packaged bytes, or verifies and atomically publishes a per-user
+version/digest cache offline. Normal launches never select system ImageMagick.
+Bare copies fail truthfully without authenticated version-matched cache bytes.
+Engine diagnostics precede resolver failures. Existing policy/conversion contracts
+remain. Implementation and release gates are in progress; no publication is yet
+claimed. Hosted ordinary-account offline launcher tests are being added.
+
+---
 ## 2026-10-31 - WinImgNormalizer 1.0.1 delivered
 
 <!-- hotfix-1.0.1-checkpoint 2026-10-31T20:01:14.6229881Z -->

@@ -89,6 +89,48 @@ exit $code
 }
 
 Describe 'Hotfix field console deterministic presentation' {
+    It 'shows the engine section and actual app directory before a private resolver failure without inventing an engine' {
+        $source = Join-Path $consoleScratch ('resolver-source-' + [guid]::NewGuid().ToString('N'))
+        [IO.Directory]::CreateDirectory($source) | Out-Null
+        [IO.File]::WriteAllBytes((Join-Path $source 'synthetic.png'), [byte[]](1,2,3))
+        $output = Join-Path $consoleScratch ('unused-output-' + [guid]::NewGuid().ToString('N'))
+        # A previous run's selection must never leak into this failure report.
+        $script:WinImgEngineDiagnostic = [pscustomobject]@{Path='C:\stale\magick.exe';Source='external';DisplayVersion='7.1.2-5 Q16-HDRI x64'}
+        Mock Get-WinImgPrivateRuntime { throw 'Incomplete WinImgNormalizer app copy; WinImgNormalizer-1.0.2-portable.zip is the complete portable asset.' }
+        Mock Invoke-WinImgNativeProcess { throw 'No runtime bytes must mean no native execution.' }
+        $observed = @(& Invoke-WinImgNormalizerCommand -Arguments @($source) -OutputParent $output -CaptureConsoleControl $false 6>&1 2>&1)
+        @($observed | Where-Object { $_ -is [int] }) | Should -Be @(1)
+        $text = (@($observed | Where-Object { $_ -isnot [int] }) -join "`n")
+        $text.IndexOf('[02 / ENGINE]') | Should -BeGreaterThan $text.IndexOf('[01 / INPUT]')
+        $text.IndexOf('[04 / RESULT]') | Should -BeGreaterThan $text.IndexOf('[02 / ENGINE]')
+        $text | Should -Match ('Application:\s+' + [regex]::Escape($repository))
+        $text | Should -Match 'Selected engine: none'
+        $text | Should -Match 'Incomplete WinImgNormalizer app copy'
+        $text | Should -Not -Match 'external|stale|7\.1\.2|Not needed'
+        Test-Path -LiteralPath $output | Should -BeFalse
+        Should -Invoke Invoke-WinImgNativeProcess -Times 0 -Exactly
+    }
+
+    It 'shows only the selected path with an unavailable version when policy isolation fails before a query' {
+        $source = Join-Path $consoleScratch ('policy-source-' + [guid]::NewGuid().ToString('N'))
+        [IO.Directory]::CreateDirectory($source) | Out-Null
+        [IO.File]::WriteAllBytes((Join-Path $source 'synthetic.png'), [byte[]](1,2,3))
+        $output = Join-Path $consoleScratch ('unused-policy-output-' + [guid]::NewGuid().ToString('N'))
+        Mock Get-WinImgPrivateRuntime { return [pscustomobject]@{Path='C:\synthetic-private\magick.exe';Source='cache';Version='7.1.2-35';Environment=@{};PolicyFiles=@();PolicyDirectories=@()} }
+        Mock Initialize-WinImgBundledEnvironment { throw 'Explicit policy denied before any engine query.' }
+        Mock Invoke-WinImgNativeProcess { throw 'Policy denial must not execute an engine.' }
+        $observed = @(& Invoke-WinImgNormalizerCommand -Arguments @($source) -OutputParent $output -CaptureConsoleControl $false 6>&1 2>&1)
+        @($observed | Where-Object { $_ -is [int] }) | Should -Be @(1)
+        $text = (@($observed | Where-Object { $_ -isnot [int] }) -join "`n")
+        $text.IndexOf('[04 / RESULT]') | Should -BeGreaterThan $text.IndexOf('[02 / ENGINE]')
+        $text | Should -Match 'Selected engine: cache \| version unavailable'
+        $text | Should -Match ([regex]::Escape('C:\synthetic-private\magick.exe'))
+        $text | Should -Match 'Explicit policy denied before any engine query'
+        $text | Should -Not -Match 'external|7\.1\.2-35|Selected engine: none'
+        Test-Path -LiteralPath $output | Should -BeFalse
+        Should -Invoke Invoke-WinImgNativeProcess -Times 0 -Exactly
+    }
+
     It 'captures complete UTF-8 native stdout/error for <Mode> and restores the original OEM process encoding' -ForEach @(
         @{Mode='success';Code=0}, @{Mode='partial';Code=2}, @{Mode='cancel';Code=130},
         @{Mode='setup';Code=1}, @{Mode='run-error';Code=1}, @{Mode='usage';Code=1}

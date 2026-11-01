@@ -39,9 +39,13 @@ The official portable ZIP includes an authenticated, integrity-checked private
 ImageMagick runtime. The release provenance records upstream identity and delegate
 review. Preserve the whole package and its notices. A damaged runtime must be
 re-extracted from the official release; it never silently falls back to PATH.
-For source development, stage the same payload or obtain a supported external
-engine from the [official site](https://imagemagick.org/download/#windows-binary-release).
-Keep the engine and delegates patched, and respect the
+Normal clones and tagged source ZIPs carry one compressed private runtime with
+digest pins embedded in the script. The cold first run verifies local bytes,
+extracts into an exclusive temporary sibling and atomically publishes a versioned
+per-user cache. Every use re-verifies all files; runtime files are read-locked for
+the run. Bare BAT/PS1 copies reuse only that version's authenticated cache or fail
+before any external decoder. No normal launcher path selects a system engine.
+The existing runtime lock retains the dependency inventory and review. Respect the
 [security policy](https://imagemagick.org/security-policy/).
 The application does not install dependencies, change global PATH/registry/policy,
 or make runtime network requests. Run with ordinary permissions. Do not disable

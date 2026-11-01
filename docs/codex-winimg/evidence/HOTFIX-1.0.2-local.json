@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "observed_utc": "2026-11-01T10:05:51.3859834Z",
+  "scope": "Independent private-runtime resolver/cache and distribution instrumentation review",
+  "tested_application_sha256": "5d8bc649cfd553c5fafefc2b7f91d5105b2aada7f33256475bd029f3d11b28f2",
+  "host": "Windows 11 Pro build26300 x64",
+  "resolved_defect": "Fresh Windows PowerShell5.1 source resolver could not find IO.Compression.ZipArchive; explicit System.IO.Compression assembly load added and verified in fresh hosts.",
+  "normal_command": {
+    "host": "5.1.26100.9711",
+    "exit": 0,
+    "layout": "PS1 plus tracked resources only, no expanded runtime or portable marker",
+    "cache": "unique initially absent LOCALAPPDATA tree",
+    "path": "genuine module-enabled ImageMagick7.1.2-5 before Windows system paths",
+    "injection": "Existing OutputParent seam only, no MagickPath/PreflightRunner/ProcessRunner",
+    "selected_source": "cache",
+    "engine_sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+    "jpeg_decodes": [
+      "96x64",
+      "80x48"
+    ],
+    "corner_minimum": 245,
+    "video_byte_identical": true,
+    "all_input_expected_hashes_unchanged": true,
+    "csv_records": 3,
+    "console_counts": "2 converted,1 copied,0 errors"
+  },
+  "readlock_probes": [
+    {
+      "Host": "5.1.26100.9711",
+      "Source": "cache",
+      "Version": "7.1.2.35",
+      "Sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+      "ReadHandles": 22,
+      "WriteDenied": true,
+      "AncestorRenameDenied": true,
+      "RealNativeVersionAndCodecQuery": true,
+      "ColdCache": true
+    },
+    {
+      "Host": "7.6.5",
+      "Source": "cache",
+      "Version": "7.1.2.35",
+      "Sha256": "a8f31207c24880b546cce7bb5bce7bac14c0c8dc15b76ce3a376e4f4f05bf440",
+      "ReadHandles": 22,
+      "WriteDenied": true,
+      "AncestorRenameDenied": true,
+      "RealNativeVersionAndCodecQuery": true,
+      "ColdCache": true
+    }
+  ],
+  "findings": [
+    "No normal PATH fallback: private selection must succeed or throw; external path is reachable only through the existing internal MagickPath seam.",
+    "Recognized package damage is authoritative and cannot fall back to healthy cache; source payload integrity is checked even when cache exists.",
+    "Private manifest is pinned in PS1, all runtime files validated and held against write/delete through execution.",
+    "Zip entry allowlist, normalized descendant paths, duplicate/link/reparse checks, exclusive sibling extraction and atomic publish preserve fail-closed handling.",
+    "Existing self-contained restrictive policy snapshot rules are retained for both bundled and cache selections.",
+    "Distribution helper creates genuine .lnk target BAT with quoted source and unrelated Start in; ShellExecuteEx and an inherited private job inspect actual executable paths/hashes/command lines/exits. Direct CMD/BAT propagation is separately tested."
+  ],
+  "nonblocking_observation": "Concurrent losing extraction retains its unique non-executable staging sibling; no cache corruption or fallback arises, but repeated concurrent cold starts may leave unused files.",
+  "limitations": [
+    "Supplemental local review did not block outbound traffic, use a disposable Windows account or claim exact BAT/shortcut processing. Those release gates belong to hosted acceptance.",
+    "No Windows10 execution.",
+    "Instrumentation static review is not execution evidence; actual hosted run must pass."
+  ]
+}

@@ -106,9 +106,9 @@ BeforeAll {
         else {
             $pathBlock = Get-WorkflowFieldBlock -Text $upload[0].Value -Key 'path' -Indent 10
             $paths = @($pathBlock -split '\n' | Select-Object -Skip 1 | ForEach-Object { $_.Trim() })
-            $allowlist = @('.scratch/ci-export/test-evidence.json', '.scratch/ci-export/static-analysis-evidence.json', '.scratch/ci-export/hotfix-evidence.json')
-            if ($paths.Count -ne 3 -or @($paths | Where-Object { $_ -cnotin $allowlist }).Count -gt 0 -or
-                @($paths | Select-Object -Unique).Count -ne 3) {
+            $allowlist = @('.scratch/ci-export/test-evidence.json', '.scratch/ci-export/static-analysis-evidence.json', '.scratch/ci-export/hotfix-evidence.json', '.scratch/ci-export/distribution-evidence.json')
+            if ($paths.Count -ne 4 -or @($paths | Where-Object { $_ -cnotin $allowlist }).Count -gt 0 -or
+                @($paths | Select-Object -Unique).Count -ne 4) {
                 $violations += 'Artifact paths must be the exact sanitized JSON allowlist.'
             }
             if ($upload[0].Value -notmatch '(?m)^ {10}if-no-files-found: error\s*$' -or

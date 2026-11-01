@@ -1,4 +1,4 @@
-WINIMG // NORMALIZER  v1.0.1
+WINIMG // NORMALIZER  v1.0.2
 ----------------------------------------
 [01 / INPUT]
 Tour photos
