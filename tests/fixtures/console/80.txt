@@ -1,4 +1,4 @@
-W I N I M G  //  NORMALIZER                       v1.0.2
+W I N I M G  //  NORMALIZER                       v{VERSION}
 --------------------------------------------------------
 [01 / INPUT]
 Tour photos

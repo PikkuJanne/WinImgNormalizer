@@ -504,5 +504,46 @@
     "not_a_full_suite_claim": true,
     "distribution_assertion_fix": "Expected bare-copy asset filename now derives from the tested portable package manifest version, retaining exact ordinal filename matching.",
     "distribution_validation": "Actual candidate package version and filename derived; stale 1.0.2 diagnostic rejected; complete script parses in both Windows PowerShell hosts."
+  },
+  "local_full_suites_before_console_refresh": [
+    {
+      "source_commit": "a2d9499677f52fcdea09db2a0f4ebd0229fb153b",
+      "host": "5.1.26100.9711",
+      "total": 805,
+      "passed": 802,
+      "failed": 3,
+      "skipped": 0,
+      "failure_reason": "Three console snapshots retained 1.0.2 in their title; all other assertions passed."
+    },
+    {
+      "source_commit": "a2d9499677f52fcdea09db2a0f4ebd0229fb153b",
+      "host": "7.6.5",
+      "total": 805,
+      "passed": 802,
+      "failed": 3,
+      "skipped": 0,
+      "failure_reason": "Three console snapshots retained 1.0.2 in their title; all other assertions passed."
+    }
+  ],
+  "console_refresh_validation": {
+    "hosts": [
+      "5.1.26100.9711",
+      "7.6.5"
+    ],
+    "passed_per_host": 24,
+    "failed_per_host": 0,
+    "skipped_per_host": 0,
+    "change": "Version placeholder uses the sole application version; all remaining layout bytes compare exactly.",
+    "not_a_new_full_suite_claim": true
+  },
+  "final_candidate_validation": {
+    "source_commit": "28563a43e9de6ccf90791041d41ef94dc3fabe0d",
+    "portable_sha256": "4e8216746f737bf31b3e74bca6d1b877758b9046258ade549a67387f045dc209",
+    "source_archive_kind": "local git archive, not public tag archive",
+    "source_archive_sha256": "f46b4f3170044de75520b9a9a2a11449c5deb93bcab83b359257359045e0e9db",
+    "passed": true,
+    "cases": 18,
+    "old_path_version": "7.1.2-5",
+    "public_replay_pending": true
   }
 }
