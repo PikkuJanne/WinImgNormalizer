@@ -297,7 +297,8 @@ try {
         Assert-Distribution ($result.Exit -eq $instrumentation.ObservedChildExitCode) 'Actual child exit and helper exit disagree.'
         $sibling=[IO.Path]::ChangeExtension($target,'.ps1')
         $hosts=@($instrumentation.Processes|Where-Object {$_.CommandLine -and $_.CommandLine.Contains($sibling) -and $_.CommandLine.Contains($source)})
-        Assert-Distribution ($hosts.Count -eq 1 -and $hosts[0].CommandLine -match '(?i)-File\s') 'The actual launched host did not execute the BAT sibling PS1 with the quoted synthetic source.'
+        $hostDiagnostic=@($instrumentation.Processes|Where-Object {[IO.Path]::GetFileName($_.Path) -in @('powershell.exe','pwsh.exe')}|Select-Object Path,CommandLine,ExitCode)|ConvertTo-Json -Compress
+        Assert-Distribution ($hosts.Count -eq 1 -and $hosts[0].CommandLine -match '(?i)(?:^|\s)"?-File"?(?=\s|$)') ($label+' actual host did not execute the BAT sibling PS1 with the quoted synthetic source; matched='+$hosts.Count+'; observed hosts='+$hostDiagnostic+'; console='+$instrumentation.Console)
         $expectedHost=if($Entry -eq 'PS7'){$ps7}else{$ps5}
         Assert-Distribution ($hosts[0].Path -ieq $expectedHost -and $hosts[0].ExitCode -eq $result.Exit) 'The real production PS5.1 or direct PS7 child/exit differs from its entry contract.'
         $after=@(Get-ChildItem -LiteralPath $pictures -Directory|Where-Object FullName -notin $before)
