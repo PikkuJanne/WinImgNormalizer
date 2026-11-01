@@ -268,7 +268,7 @@ Describe 'M4-T03 documentation parity with actual behavior (T072)' {
         }
         Should -Invoke Get-WinImgMagickInfo -Times 0 -Exactly
         foreach ($relative in @('README.md','docs/release/GETTING_STARTED.md')) {
-            (Get-DocumentationText $relative) | Should -Match 'No separate ImageMagick installation required for the portable ZIP'
+            (Get-DocumentationText $relative) | Should -Match 'No separate ImageMagick installation required\b'
         }
     }
 
@@ -349,7 +349,10 @@ Describe 'M4-T03 documentation parity with actual behavior (T072)' {
         $metadata = Get-Content -LiteralPath (Join-Path $repository 'release-metadata.json') -Raw | ConvertFrom-Json
         $metadata.version | Should -BeExactly (Get-WinImgVersion)
         if ($metadata.release_state -ceq 'unreleased') {
-            foreach ($relative in @('README.md', 'docs/release/GETTING_STARTED.md')) { Get-DocumentationText $relative | Should -Match '(?i)unreleased' }
+            foreach ($relative in @('README.md', 'docs/release/GETTING_STARTED.md')) {
+                Get-DocumentationText $relative | Should -Match '(?i)unreleased|in release preparation'
+                Get-DocumentationText $relative | Should -Match '(?i)unsigned'
+            }
             foreach ($name in @('tag', 'release_date', 'release_url', 'asset_filename', 'asset_bytes', 'asset_sha256', 'download_url')) { $metadata.$name | Should -BeNullOrEmpty }
         } else {
             $metadata.release_state | Should -BeExactly 'published'

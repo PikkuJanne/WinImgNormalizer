@@ -47,7 +47,7 @@ function Get-TestSourceBindings {
             $files += Join-Path $repositoryRoot $websiteFile
         }
         $files += Join-Path $PSScriptRoot 'fixtures/LauncherConsoleFixture.cs'
-        foreach ($distributionFile in @('resources/private-runtime.zip','resources/private-runtime.json','tests/Invoke-DistributionAcceptance.ps1','tests/fixtures/DistributionShellFixture.cs')) {
+        foreach ($distributionFile in @('resources/private-runtime.zip','resources/private-runtime.json','tests/Invoke-DistributionAcceptance.ps1','tests/fixtures/DistributionShellFixture.cs','.github/workflows/release-verification.yml')) {
             $files += Join-Path $repositoryRoot $distributionFile
         }
         $files += @(Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'fixtures/distribution') -Recurse -File | ForEach-Object FullName)

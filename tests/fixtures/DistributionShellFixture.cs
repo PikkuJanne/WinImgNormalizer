@@ -71,6 +71,7 @@ public static class DistributionShellFixture {
         var record=new Dictionary<string,object>();var processes=new List<Dictionary<string,object>>();
         var handles=new Dictionary<uint,IntPtr>();var records=new Dictionary<uint,Dictionary<string,object>>();
         var hashes=new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase);
+        var hashThreads=new Dictionary<string,Thread>(StringComparer.OrdinalIgnoreCase);
         IntPtr job=IntPtr.Zero,port=IntPtr.Zero,screen=IntPtr.Zero,shellProcess=IntPtr.Zero;
         bool running=true;Thread observer=null;int exit=1;string captured="";string failure=null;
         string recordPath=args.Length==3?args[2]:(args.Length==4?args[3]:null);
@@ -90,24 +91,29 @@ public static class DistributionShellFixture {
                     if(!GetQueuedCompletionStatus(port,out message,out key,out processId,30))continue;
                     uint pid=(uint)processId.ToInt64();if(pid==Process.GetCurrentProcess().Id)continue;
                     if(message==6) {
-                        IntPtr process=OpenProcess(0x100000|0x1000,false,pid);
-                        if(process==IntPtr.Zero)throw new Exception("Could not inspect an actual owned child "+pid);
+                        IntPtr process=OpenProcess(0x1000,false,pid);
+                        if(process==IntPtr.Zero)throw new Win32Exception(Marshal.GetLastWin32Error(),"Could not inspect an actual owned child "+pid);
                         var path=new StringBuilder(32768);uint length=(uint)path.Capacity;Check(QueryFullProcessImageNameW(process,0,path,ref length),"Query owned image");
-                        // The application read-locks its authenticated engine
-                        // throughout this run. Reuse that path's first observed
-                        // file hash so very short later probes are not delayed
-                        // behind repeated hashing of the same 32 MB executable.
-                        string hash;if(!hashes.TryGetValue(path.ToString(),out hash)) {
-                            using(var algorithm=SHA256.Create())using(var stream=File.OpenRead(path.ToString()))hash=BitConverter.ToString(algorithm.ComputeHash(stream)).Replace("-","").ToLowerInvariant();
-                            hashes[path.ToString()]=hash;
+                        string imagePath=path.ToString();
+                        // Open every reported child immediately. Hashing 32 MB
+                        // inline delayed the next NEW_PROCESS notification past
+                        // short probes' lifetimes on a busy hosted runner.
+                        // Hash each observed path concurrently while the app
+                        // retains its runtime read locks for this whole run.
+                        if(!hashThreads.ContainsKey(imagePath)) {
+                            var hashThread=new Thread(delegate(){try {
+                                string hash;using(var algorithm=SHA256.Create())using(var stream=File.OpenRead(imagePath))hash=BitConverter.ToString(algorithm.ComputeHash(stream)).Replace("-","").ToLowerInvariant();
+                                lock(hashes){hashes[imagePath]=hash;}
+                            }catch(Exception error){failure=error.ToString();}});
+                            hashThread.IsBackground=true;hashThreads[imagePath]=hashThread;hashThread.Start();
                         }
-                        var item=new Dictionary<string,object>{{"Pid",pid},{"Path",path.ToString()},{"Sha256",hash},{"CommandLine",CommandLine(process)}};
+                        var item=new Dictionary<string,object>{{"Pid",pid},{"Path",imagePath},{"CommandLine",CommandLine(process)}};
                         lock(processes){processes.Add(item);handles[pid]=process;records[pid]=item;}
                     } else if(message==7 || message==8) {
                         lock(processes){if(handles.ContainsKey(pid)){uint code;Check(GetExitCodeProcess(handles[pid],out code),"Owned exit");records[pid]["ExitCode"]=code;}}
                     }
                 }}catch(Exception error){failure=error.ToString();}
-            });observer.IsBackground=true;observer.Start();
+            });observer.IsBackground=true;observer.Priority=ThreadPriority.AboveNormal;observer.Start();
             if(args.Length==3) {
                 var shell=new ShellInfo{Size=Marshal.SizeOf(typeof(ShellInfo)),Mask=0x40|0x100|0x400|0x8000,Verb="open",File=args[0],Directory=args[1],Show=0};
                 Check(ShellExecuteExW(ref shell),"ShellExecuteEx real BAT shortcut");shellProcess=shell.Process;
@@ -133,8 +139,10 @@ public static class DistributionShellFixture {
             string final=Capture(screen);if(final.Length>captured.Length)captured=final;
             uint actual;Check(GetExitCodeProcess(shellProcess,out actual),"Shell child actual exit");record["ShellProcessExitCode"]=actual;
             Thread.Sleep(150);running=false;observer.Join(2000);
+            foreach(var hashThread in hashThreads.Values)if(!hashThread.Join(10000))throw new Exception("Observed executable hash exceeded its bound.");
             if(failure!=null)throw new Exception(failure);
             lock(processes){
+                foreach(var item in processes){string imagePath=(string)item["Path"];lock(hashes){item["Sha256"]=hashes[imagePath];}}
                 foreach(var pair in handles){uint code;Check(GetExitCodeProcess(pair.Value,out code),"Final owned exit");records[pair.Key]["ExitCode"]=code;}
                 bool observed=false;foreach(var item in processes)if(Convert.ToUInt32(item["Pid"])==shellPid)observed=true;
                 if(!observed)throw new Exception("Shell process escaped owned job instrumentation.");

@@ -4,6 +4,8 @@ BeforeAll {
     $guard = Join-Path $repository 'tools/website/Test-WebsiteHandoff.ps1'
     $metadataPath = Join-Path $repository 'docs/website/metadata.json'
     $hostExecutable = (Get-Process -Id $PID).Path
+    . (Join-Path $repository 'WinImgNormalizer.ps1')
+    $sourceVersion = Get-WinImgVersion
     $scratch = Join-Path $repository '.scratch'
     $current = [IO.DirectoryInfo]::new($scratch)
     while ($current) {
@@ -122,9 +124,13 @@ BeforeAll {
     function New-PublishedWebsiteRepository {
         $root = New-WebsiteRepository
         $legacyApp = Join-Path $root 'WinImgNormalizer.ps1'
-        [IO.File]::WriteAllText($legacyApp, ([IO.File]::ReadAllText($legacyApp).Replace("return '1.0.1'", "return '1.0.0'")), $utf8)
+        $applicationText = [IO.File]::ReadAllText($legacyApp)
+        if (-not $applicationText.Contains("return '$sourceVersion'")) { throw 'Synthetic website fixture could not identify the real source version.' }
+        [IO.File]::WriteAllText($legacyApp, ($applicationText.Replace("return '$sourceVersion'", "return '1.0.0'")), $utf8)
         $legacyMetadata = Join-Path $root 'release-metadata.json'
-        [IO.File]::WriteAllText($legacyMetadata, ([IO.File]::ReadAllText($legacyMetadata).Replace('1.0.1','1.0.0')), $utf8)
+        $legacyRelease = Read-WebsiteFixtureJson $legacyMetadata
+        $legacyRelease.version = '1.0.0'; $legacyRelease.proposed_tag = 'v1.0.0'
+        [IO.File]::WriteAllText($legacyMetadata, ($legacyRelease | ConvertTo-Json -Depth 8 -Compress), $utf8)
         # These IDs/times are explicit synthetic offline controls. Only the root
         # publication operation and actual downloaded bytes can establish T075.
         $repositoryUrl = 'https://github.com/PikkuJanne/WinImgNormalizer'
@@ -202,9 +208,25 @@ BeforeAll {
 }
 
 Describe 'T073 framework-neutral website preparation and metadata boundary' {
-    It 'accepts the checked-in state and a deliberate draft through native CLI paths' {
-        foreach ($result in @((Invoke-WebsiteGuard), (Invoke-WebsiteGuard -DefaultPaths),
-            (Invoke-WebsiteGuard -Root $draftRepository -Metadata (Write-WebsiteMetadata (New-WebsiteMetadata))))) {
+    It 'keeps frozen website publication distinct from the current application and accepts a deliberate draft' {
+        $checkedInWebsite = Read-WebsiteFixtureJson $metadataPath
+        $websiteVersion = [regex]::Match($checkedInWebsite.download.label, '^Download WinImgNormalizer (\d+\.\d+\.\d+)$')
+        $websiteVersion.Success | Should -BeTrue
+        foreach ($result in @((Invoke-WebsiteGuard), (Invoke-WebsiteGuard -DefaultPaths))) {
+            if ($websiteVersion.Groups[1].Value -ceq $sourceVersion) {
+                $result.Exit | Should -Be 0
+                $result.Text | Should -Match 'WEBSITE HANDOFF VALID:'
+            } else {
+                # This application patch does not update or deploy visitor copy.
+                # The unchanged prior website cannot claim the new release's
+                # canonical identity; its read-only guard must reject that mix.
+                [version]$websiteVersion.Groups[1].Value | Should -BeLessThan ([version]$sourceVersion)
+                $result.Exit | Should -Be 1
+                $result.Text | Should -Match 'WEBSITE HANDOFF INVALID:'
+                $result.Text | Should -Not -Match 'ParserError|ParameterBindingException'
+            }
+        }
+        foreach ($result in @((Invoke-WebsiteGuard -Root $draftRepository -Metadata (Write-WebsiteMetadata (New-WebsiteMetadata))))) {
             $result.Exit | Should -Be 0
             $result.Text | Should -Match 'WEBSITE HANDOFF VALID:'
         }
