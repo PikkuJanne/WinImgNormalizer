@@ -210,6 +210,9 @@ try {
     Assert-Distribution ($old.Exit -eq 0 -and $old.Out -match '7\.1\.2-5 Q16-HDRI x64' -and $old.Out -match 'Modules') 'Actual old DLL engine did not execute.'
     $summary.Legacy=@{Banner=$old.Out.Trim();Sha256=$legacyHash}
     $portableManifestRoot=Join-Path $root 'manifest-control';Expand-Archive -LiteralPath $ArchivePath -DestinationPath $portableManifestRoot
+    $packageManifest=[IO.File]::ReadAllText((Join-Path $portableManifestRoot 'package-manifest.json'))|ConvertFrom-Json
+    Assert-Distribution ($packageManifest.schema_version -eq 1 -and $packageManifest.product -ceq 'WinImgNormalizer' -and $packageManifest.version -cmatch '^(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)$') 'Tested portable package has no unambiguous stable application version.'
+    $expectedPortableAsset='WinImgNormalizer-'+$packageManifest.version+'-portable.zip'
     $runtimeManifest=[IO.File]::ReadAllText((Join-Path $portableManifestRoot 'runtime/runtime-manifest.json'))|ConvertFrom-Json
     $enginePin=@($runtimeManifest.files|Where-Object path -CEQ $runtimeManifest.engine_relative_path)[0]
     $pictures=[Environment]::GetFolderPath('MyPictures');if(-not $pictures){$pictures=Join-Path ([Environment]::GetFolderPath('UserProfile')) 'Pictures'}
@@ -337,7 +340,7 @@ try {
             $engineIndex=$console.IndexOf('[02 / ENGINE]');$resultIndex=$console.IndexOf('[04 / RESULT]');Assert-Distribution ($engineIndex -ge 0 -and $resultIndex -gt $engineIndex) 'Engine diagnostic order is wrong.'
             Assert-Distribution ($console -notmatch 'update the dependency setup|install ImageMagick|7\.1\.2-35 or newer') 'Negative control repeated the original misleading external-upgrade advice.'
             Assert-Distribution ($console -match 'Selected engine: none') 'Rejected runtime invented a selected external engine or a version.'
-            if($Layout -eq 'bare'){Assert-Distribution ($console -match 'WinImgNormalizer-1\.0\.2-portable\.zip' -and $console -match '(?i)incomplete') 'Bare-copy diagnostic is not truthful and asset-specific.'}
+            if($Layout -eq 'bare'){Assert-Distribution (($console.IndexOf($expectedPortableAsset,[StringComparison]::Ordinal) -ge 0) -and $console -match '(?i)incomplete') 'Bare-copy diagnostic is not truthful and asset-specific.'}
         }
         foreach($file in $expected.files){Assert-Distribution ((Get-DistributionHash (Join-Path $source $file.input)) -ceq $file.input_sha256) 'Input bytes changed in the actual launcher run.'}
         $summary.Cases += [ordered]@{Name=$label;Exit=$result.Exit;Images=$(if($expectedExit -eq 0){2}else{0});Videos=$(if($expectedExit -eq 0){1}else{0});InputsUnchanged=$true;GdiDecodeVerified=($expectedExit -eq 0);ColdCache=($Negative -ne 'trusted-cache');ExplicitAuthenticatedCacheReuse=($Negative -eq 'trusted-cache');NoRuntimeStaging=$true;ShortcutTarget='Application Ä 2026/WinImgNormalizer.bat';ShortcutArguments='quoted disposable Desktop/Sample Kesä 2026';UnrelatedStartIn=$true;ActualSiblingScriptSha256=(Get-DistributionHash $sibling);ActualBatSha256=(Get-DistributionHash $target);ActualHostExit=$hosts[0].ExitCode;DropEquivalent=($Entry -eq 'BAT-shortcut');BatExitPropagated=($Entry -in @('BAT-shortcut','BAT-exit'));Entry=$Entry;EngineChildren=$engineChildren.Count;EngineSha256=$(if($engineChildren.Count){$engineChildren[0].Sha256}else{$null});EngineSource=$(if($engineChildren.Count){if($Layout -eq 'portable'){'bundled'}else{'cache'}}else{'none'});AllDecoderChildrenAuthenticated=$true;OldPathEngineUnused=$true;ExistingShortcutPreserved=($Layout -eq 'pull-upgrade')}

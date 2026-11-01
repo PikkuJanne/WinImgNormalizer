@@ -27,7 +27,7 @@ BeforeAll {
         'tools/release/Update-ReleaseMetadata.ps1', 'tests/Website.Tests.ps1')
     $publicationRelative = 'docs/release/publication-v1.0.0.json'
     if ([IO.File]::Exists((Join-Path $repository $publicationRelative))) { $publicPaths += $publicationRelative }
-    foreach ($liveRecord in @('docs/release/publication-v1.0.1.json','docs/release/identity-v1.0.1.json','docs/release/publication-v1.0.2.json','docs/release/identity-v1.0.2.json')) {
+    foreach ($liveRecord in @('docs/release/publication-v1.0.1.json','docs/release/identity-v1.0.1.json','docs/release/publication-v1.0.2.json','docs/release/identity-v1.0.2.json','docs/release/publication-v1.0.3.json','docs/release/identity-v1.0.3.json')) {
         if ([IO.File]::Exists((Join-Path $repository $liveRecord))) { $publicPaths += $liveRecord }
     }
     $before = @($publicPaths | ForEach-Object {

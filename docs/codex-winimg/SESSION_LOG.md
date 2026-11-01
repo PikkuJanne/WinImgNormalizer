@@ -6,8 +6,13 @@ explicitly requests implementation through stable publication and public-downloa
 verification, superseding historical owner gates for this repair. Dependency
 detection, the private engine version, launcher/TUI and website are unchanged in
 scope. Synthetic colour fixtures and independent references are the required
-automated acceptance basis; test and release results remain unclaimed until
-measured. Earlier session evidence is preserved below.
+automated acceptance basis. Local candidate ZIP replay passed 18/18 actual cases,
+including the BAT and both direct PowerShell hosts across views/negative/mixed
+batches with old system ImageMagick first on PATH. Every mixed case retained
+10/13 JPEGs, including 4 explicit approximate previews; 3 negative controls failed
+as required. References passed and the processed inputs stayed unchanged. These
+candidate bytes do not establish public publication or public replay. Full/CI
+and release gates remain pending. Earlier session evidence is preserved below.
 
 ---
 

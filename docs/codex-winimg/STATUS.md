@@ -10,11 +10,21 @@ no website deployment is authorized.
 Work starts from maintained main `2f754c9600f866366f4321dcaae01ba111c03ef1` on a
 dedicated repair branch. The unchanged runtime and distribution paths from 1.0.2
 remain in scope as regression controls, not as dependency-selection changes.
-Colour implementation, synthetic reference checks and release gates are in
-progress. No 1.0.3 publication or private-batch result is claimed here yet.
+The local candidate ZIP replay passed all 18 actual cases: portable/source ZIP,
+real BAT/direct PS5.1/direct PS7, and views/negative/mixed batches with old system
+ImageMagick 7.1.2-5 first on PATH. Each mixed run retained 10 JPEGs from 13 inputs:
+5 ICC-managed, 4 explicit sRGB-assumption previews, 1 ordinary untagged RGB image
+and 3 genuine failures. Independent references passed and inputs stayed unchanged.
+These are candidate bytes, not the final published portable or public tag archive.
+Full checks, CI, publication and fresh public replay remain required. The private
+input directory was unavailable; no private-batch result is claimed.
 
-Evidence: `evidence/JPEG-ICC-1.0.3.json` will record only measured, sanitized
-aggregates. Earlier records below remain historical.
+Website handoff files retain their frozen historical release projection. The
+existing website tests explicitly distinguish that projection from the newer
+application's canonical metadata. No website files are changed or deployed.
+
+Evidence: `evidence/JPEG-ICC-1.0.3.json` records measured, sanitized aggregates and
+the exact untouched v1.0.2 source identity. Earlier records below remain historical.
 
 ---
 

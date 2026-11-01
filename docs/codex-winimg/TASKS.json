@@ -7,7 +7,15 @@
     "evidence": "evidence/JPEG-ICC-1.0.3.json",
     "human_test_gate": false,
     "website_deployment": false,
-    "dependency_selection_changed": false
+    "dependency_selection_changed": false,
+    "checkpoint": {
+      "phase": "candidate_replay_verified_publication_pending",
+      "candidate_source_commit": "a2d9499677f52fcdea09db2a0f4ebd0229fb153b",
+      "candidate_distribution_cases_passed": 18,
+      "candidate_distribution_cases_total": 18,
+      "public_portable_source_replay_complete": false,
+      "private_batch_available": false
+    }
   },
   "website_cleanup_checkpoint": {
     "date": "2026-10-10",

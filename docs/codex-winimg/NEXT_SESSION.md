@@ -1,11 +1,11 @@
 # JPEG ICC repair 1.0.3 in progress — 1 November 2026
 
-Continue the authorized repair through verified stable delivery. Reproduce the
-unmodified 1.0.2 launcher, validate/apply exact source ICC bytes, retain sound RGB
-JPEGs with explicit approximate-colour warnings only when needed, and preserve
-true failures. Verify actual output against independent synthetic references in
-Windows PowerShell 5.1, PowerShell 7 and the real BAT. Then complete normal checked
-merge/tag/publication and fresh public portable/source-ZIP mixed-ICC replay.
+Continue the authorized repair through verified stable delivery. The untouched
+v1.0.2 failure and exact source identity are recorded. Candidate portable/source
+ZIP replay passed 18/18 real BAT/direct PS5.1/direct PS7 cases against independent
+references with old system ImageMagick first on PATH. Full checks and CI must
+still pass, followed by normal merge/tag/publication and fresh public portable
+and actual public source-ZIP mixed-ICC replay. Candidate ZIPs are not public assets.
 
 No owner testing, installation or discretionary sign-off is pending. Private
 media, paths, metadata, filenames, hashes and raw logs must stay local. Record
