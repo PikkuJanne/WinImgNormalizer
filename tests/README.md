@@ -257,12 +257,15 @@ compared against independently computed RGB tuples within 3/255 per channel befo
 JPEG coding; final JPEG patch centers allow 12/255. Actual native probes differed
 by at most 1/255 before JPEG. Untagged RGB uses the stated sRGB assumption, known
 linear RGB is encoded into sRGB, and untagged CMYK fails before conversion.
-Malformed retained ICC profiles, decoder-rejected PNG iCCP, real profile/model
-mismatches and zero native exits with diagnostics must not finalize an inaccurate
-JPEG. A structurally valid ICC with an invalid curve also exercises the actual
-default native runner's rejection. An unsupported ICC version independently
-demonstrates a real native zero exit with diagnostics and a fully decoded JPEG;
-the default runner must still stop on the first failure and clean its candidate. A genuine ICC remains
+Malformed retained ICC profiles in formats other than JPEG, decoder-rejected PNG
+iCCP, real profile/model mismatches and non-ICC native diagnostics must not finalize
+an inaccurate JPEG. Ordinary RGB-family JPEGs with unusable ICC use the restricted
+preview path only after a clean profile-excluded decode; the CSV/log must identify
+the approximate sRGB assumption and count it as converted with a warning. Actual
+wide-gamut, split/reordered and narrowly padded JPEG profiles are compared against
+independent colour references, so merely stripping ICC cannot pass. Damaged scans
+and unresolved CMYK/YCCK remain failures, including a zero native exit accompanied
+by pixel-damage diagnostics. A genuine ICC remains
 active despite spoofed free metadata properties.
 
 Eight actual EXIF orientation tags have synthetic GPS, XMP, Photoshop/IPTC, comments

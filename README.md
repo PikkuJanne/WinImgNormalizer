@@ -6,15 +6,14 @@ folder under Pictures, makes JPEG derivatives and copies supported videos unchan
 Your source files remain untouched. JPEGs are lossy derivatives: keep the originals
 and a separate backup.
 
-**Version 1.0.2 is published and unsigned.**
-[Download the portable ZIP](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.2/WinImgNormalizer-1.0.2-portable.zip)
-or view the [stable release, checksums and provenance](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.2).
-The ZIP is 33663469 bytes; SHA-256:
-`d11cc6cff52d1fdb274547f6762bf0b7cd5bc6cc3dbf04f80be19cabdd0064da`.
-Source and tag commit: `ccfd47b33fad111a433614a853b4b0daab2a37f9`.
-Version 1.0.2 repairs offline image runs from a normal clone, `git pull`, and
-GitHub's tagged source ZIP as well as the full portable ZIP. Versions 1.0.0 and
-1.0.1 retain their original tags and asset bytes.
+**Version 1.0.3 is in release preparation and unsigned.**
+This patch preserves usable JPEG viewing copies when embedded ICC metadata is
+unusable, with an explicit warning when colour must be assumed. Valid source
+profiles still receive colour-managed conversion to sRGB. Release links and exact
+asset hashes will be recorded after publication and fresh-download verification.
+The offline distribution paths fixed in 1.0.2 remain unchanged: normal clones,
+`git pull`, tagged source ZIPs and portable ZIPs use the pinned private engine.
+Earlier releases retain their original tags, notes and asset bytes.
 No separate ImageMagick installation required. The pinned
 upstream engine is ImageMagick 7.1.2-35 Beta Q16-HDRI with patched HEIF support.
 Build records retain their preparation-time state; these exact bytes were tested
@@ -115,8 +114,15 @@ are never deleted, edited or replaced; completed results remain after a partial 
 
 Images are auto-oriented, converted to sRGB using their source characterization,
 composited onto white, then stripped of GPS/EXIF, XMP, IPTC, comments and ICC
-profiles. Untagged ordinary RGB is assumed to be sRGB; untagged CMYK, malformed
-profiles and unsupported colour models fail with an explanation. Original images
+profiles. Untagged ordinary RGB is assumed to be sRGB. Valid or safely recoverable
+JPEG ICC profiles are applied before conversion, including split profiles. If an
+ordinary RGB-family JPEG has unusable ICC metadata, a clean decode with that
+profile excluded can produce a viewing copy with a trustworthy alternative
+characterization, or with sRGB assumed. The latter reports: “JPEG saved; embedded
+colour profile unusable; sRGB assumed, colours may differ.” These previews count
+as converted images with warnings and return code 2; they are approximate colour.
+Damaged pixel data, policy/resource failures, uncharacterized CMYK/YCCK and
+unsupported colour models still fail with an explanation. Original images
 keep their embedded metadata. Copied videos **retain their original metadata**,
 including any location or identifying information. Reports can expose private
 paths and diagnostic details. Metadata stripping is not a guarantee of anonymity.
@@ -192,6 +198,7 @@ exists. Per-item errors appear in an existing run's log; readable siblings conti
 | `This ImageMagick build has no JPEG encoder` | Choose a build with JPEG write support. |
 | `Missing HEIC decoder` (or another named decoder) | Check that format's read support and installed policy; the file was not converted. |
 | `WARN IMG` / `Could not reach target; best-effort saved` | Inspect the retained JPEG; choose a larger byte target if needed. |
+| `JPEG saved; embedded colour profile unusable; sRGB assumed, colours may differ.` | The viewing copy is usable but its colour is approximate. Keep the original for accurate colour work. |
 | Colour/profile, policy, timeout or decode error | Review the item reason and bounded native details. Obtain a correctly characterized/decodable source; retain installed protections. |
 
 Message fragments above identify the relevant error; full messages can include

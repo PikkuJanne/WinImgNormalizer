@@ -1,0 +1,561 @@
+{
+  "schema_version": 1,
+  "version": "1.0.3",
+  "record_state": "candidate_replay_verified_publication_pending",
+  "base_commit": "2f754c9600f866366f4321dcaae01ba111c03ef1",
+  "scope": "JPEG colour repair through stable publication; no dependency detection change or live website deployment",
+  "baseline": {
+    "application_tag": "v1.0.2",
+    "launches": [
+      {
+        "errors": 6,
+        "entry": "Unmodified BAT / Windows PowerShell 5.1",
+        "exit_code": 2,
+        "actual_jpegs": 4,
+        "inputs": 10
+      },
+      {
+        "errors": 6,
+        "entry": "Direct PowerShell 7",
+        "exit_code": 2,
+        "actual_jpegs": 4,
+        "inputs": 10
+      }
+    ],
+    "engine": "ImageMagick 7.1.2-35 Beta Q16-HDRI",
+    "engine_source": "authenticated per-user cache",
+    "launch_working_directory": "reported existing launch directory",
+    "reported_launch_copy": "preserved pre-maintained non-Git snapshot identified by its PROJECT_CLOSED record",
+    "maintained_checkouts": "clean maintained main at base_commit",
+    "trace_scope": "approved synthetic JPEG fixtures only",
+    "source_icc_trace": [
+      {
+        "File": "02-good-srgb.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 588,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [],
+        "ValidationFailure": null,
+        "EncodeReached": true,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 588
+      },
+      {
+        "File": "03-good-wide.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 568,
+        "Declared": 568,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [],
+        "ValidationFailure": null,
+        "EncodeReached": true,
+        "IndependentBytes": 568,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 568,
+        "IndependentWideProfileOpens": true
+      },
+      {
+        "File": "04-wide-split-reversed.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 568,
+        "Declared": 24,
+        "SignatureIsAcsp": false,
+        "Tags": 1936077618,
+        "TableEnd": 23232931548,
+        "Assertions": [
+          "LengthMismatch",
+          "SignatureInvalid",
+          "TablePastEnd"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 568,
+        "NativeMatchesIndependent": false,
+        "IndependentDeclared": 568,
+        "IndependentWideProfileOpens": true
+      },
+      {
+        "File": "05-wide-outer-padding.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 571,
+        "Declared": 568,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [
+          "LengthMismatch"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 571,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 568,
+        "IndependentWideProfileOpens": true
+      },
+      {
+        "File": "06-bad-signature.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 588,
+        "SignatureIsAcsp": false,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [
+          "SignatureInvalid"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 588
+      },
+      {
+        "File": "07-zero-tags.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 588,
+        "SignatureIsAcsp": true,
+        "Tags": 0,
+        "TableEnd": 132,
+        "Assertions": [
+          "EmptyTable"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 588
+      },
+      {
+        "File": "08-huge-table.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 588,
+        "SignatureIsAcsp": true,
+        "Tags": 4294967295,
+        "TableEnd": 51539607672,
+        "Assertions": [
+          "TablePastEnd"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 588
+      },
+      {
+        "File": "09-declared-too-large.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 652,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [
+          "LengthMismatch"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 652
+      },
+      {
+        "File": "10-valid-later-sibling.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 568,
+        "Declared": 568,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [],
+        "ValidationFailure": null,
+        "EncodeReached": true,
+        "IndependentBytes": 568,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 568,
+        "IndependentWideProfileOpens": true
+      }
+    ],
+    "conclusion": "The reordered split profile was exported in a different byte order from the independent reader; the narrow padding case failed only the length assertion. Four malformed profiles trigger distinct header assertions before encode. These synthetic findings do not identify an unavailable private source.",
+    "actual_stale_launch_snapshot_replay": {
+      "inputs": 10,
+      "actual_jpegs": 10,
+      "errors": 0,
+      "version": "Pre-maintained snapshot; not v1.0.2",
+      "limitation": "Legacy stripping retained outputs but did not establish accurate ICC conversion. This observation is separate from the maintained v1.0.2 reproduction."
+    },
+    "source_identity": {
+      "tag": "v1.0.2",
+      "tag_commit": "ccfd47b33fad111a433614a853b4b0daab2a37f9",
+      "bat_ps1_diff_against_tag_exit_code": 0,
+      "launch_copy_matches_windows_checkout": true,
+      "hash_scope": "Actual Windows CRLF checkout/copy bytes; not raw Git blob bytes",
+      "bat_sha256": "eb026821070f9920324f3fcf5b0b959b92a192ff364f3cb61a0ad405c7a86aca",
+      "ps1_sha256": "802e6b930fd7c56293a97b15113b3657e29b1f4a3ddd5fefae00405f3ee919f9"
+    },
+    "actual_encode_trace": {
+      "encodes_reached": 4,
+      "untagged_encodes": 1,
+      "untagged_profile_flags": 0,
+      "tagged_encodes": 3,
+      "tagged_profile_flags_each": 1,
+      "tagged_flag_role": "sRGB target only",
+      "tagged_icc_skip": false,
+      "failed_before_encode": 6,
+      "validated_source_path_discarded": true,
+      "conclusion": "Source profile validation did not make encode consume its returned path; observed tagged encode used only the target profile flag."
+    }
+  },
+  "private_batch": {
+    "available": false,
+    "content_accessed": false,
+    "coverage": "Unavailable in this environment; no private-batch result claimed. Synthetic acceptance continues."
+  },
+  "repair_validation": {
+    "stage": "Local candidate ZIP replay; not a public release result",
+    "source_commit": "a2d9499677f52fcdea09db2a0f4ebd0229fb153b",
+    "passed": true,
+    "case_count": 18,
+    "portable_sha256": "19e4be32fabd5d2e60808970d776ac4038695d5d3b0a704f581d6996bf18d909",
+    "source_archive_sha256": "5c37b8d45a5b21be68084fbd70597fd518e4fd7da0fbd9104e50a4ce028154cd",
+    "source_archive_kind": "Local Git archive of candidate source; not downloaded GitHub tag archive",
+    "old_system_imagemagick_first_on_path": "7.1.2-5",
+    "matrix": "Portable/source ZIP x real BAT/direct PS5.1/direct PS7 x views/negative/mixed",
+    "cases": [
+      {
+        "Layout": "portable",
+        "Route": "BAT",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "BAT",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "BAT",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS51",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS51",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS51",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS7",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS7",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "portable",
+        "Route": "PS7",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "BAT",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "BAT",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "BAT",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS51",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS51",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS51",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS7",
+        "Group": "views",
+        "InputCount": 10,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 0,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS7",
+        "Group": "negative",
+        "InputCount": 3,
+        "OutputCount": 0,
+        "ColourManaged": 0,
+        "ColourAssumed": 0,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      },
+      {
+        "Layout": "source",
+        "Route": "PS7",
+        "Group": "mixed",
+        "InputCount": 13,
+        "OutputCount": 10,
+        "ColourManaged": 5,
+        "ColourAssumed": 4,
+        "GenuineFailures": 3,
+        "ExitCode": 2,
+        "IndependentReferencesPassed": true,
+        "SourceUnchanged": true
+      }
+    ],
+    "counts_note": "In each mixed run:13 inputs,10 JPEGs,5 ICC-managed,4 warning previews assuming sRGB,1 ordinary untagged sRGB image,3 genuine failures. Negative reasons:damaged scan,uncharacterized CMYK,CMYK with unusable ICC.",
+    "public_replay_pending": true
+  },
+  "public_release_validation": null,
+  "windows10_executed": false,
+  "human_testing_gate": false,
+  "website_deployed": false,
+  "website_files_changed": false,
+  "documentation_followup": {
+    "scope": "Original frozen-website/current-app state regression with v1.0.3 publication-record allowance; no visitor-copy changes",
+    "hosts": [
+      {
+        "unselected": 97,
+        "shell": "5.1.26100.9711",
+        "failed": 0,
+        "passed": 1,
+        "selected_executed": 1,
+        "process_exit": 0
+      },
+      {
+        "unselected": 97,
+        "shell": "7.6.5",
+        "failed": 0,
+        "passed": 1,
+        "selected_executed": 1,
+        "process_exit": 0
+      }
+    ],
+    "not_a_full_suite_claim": true,
+    "distribution_assertion_fix": "Expected bare-copy asset filename now derives from the tested portable package manifest version, retaining exact ordinal filename matching.",
+    "distribution_validation": "Actual candidate package version and filename derived; stale 1.0.2 diagnostic rejected; complete script parses in both Windows PowerShell hosts."
+  },
+  "local_full_suites_before_console_refresh": [
+    {
+      "source_commit": "a2d9499677f52fcdea09db2a0f4ebd0229fb153b",
+      "host": "5.1.26100.9711",
+      "total": 805,
+      "passed": 802,
+      "failed": 3,
+      "skipped": 0,
+      "failure_reason": "Three console snapshots retained 1.0.2 in their title; all other assertions passed."
+    },
+    {
+      "source_commit": "a2d9499677f52fcdea09db2a0f4ebd0229fb153b",
+      "host": "7.6.5",
+      "total": 805,
+      "passed": 802,
+      "failed": 3,
+      "skipped": 0,
+      "failure_reason": "Three console snapshots retained 1.0.2 in their title; all other assertions passed."
+    }
+  ],
+  "console_refresh_validation": {
+    "hosts": [
+      "5.1.26100.9711",
+      "7.6.5"
+    ],
+    "passed_per_host": 24,
+    "failed_per_host": 0,
+    "skipped_per_host": 0,
+    "change": "Version placeholder uses the sole application version; all remaining layout bytes compare exactly.",
+    "not_a_new_full_suite_claim": true
+  },
+  "final_candidate_validation": {
+    "source_commit": "28563a43e9de6ccf90791041d41ef94dc3fabe0d",
+    "portable_sha256": "4e8216746f737bf31b3e74bca6d1b877758b9046258ade549a67387f045dc209",
+    "source_archive_kind": "local git archive, not public tag archive",
+    "source_archive_sha256": "f46b4f3170044de75520b9a9a2a11449c5deb93bcab83b359257359045e0e9db",
+    "passed": true,
+    "cases": 18,
+    "old_path_version": "7.1.2-5",
+    "public_replay_pending": true
+  },
+  "final_colour_boundary_validation": {
+    "hosts": [
+      "5.1.26100.9711",
+      "7.6.5"
+    ],
+    "passed_per_host": 57,
+    "failed_per_host": 0,
+    "skipped_per_host": 0,
+    "source_change": "EXIF parser catches only its explicit malformed-metadata FormatException; unexpected resource, I/O and cancellation faults propagate.",
+    "verifier_change": "Independent GDI reference comparison decodes identical byte buffers via streams held for bitmap lifetimes, including a measured 261-character synthetic output path.",
+    "production_scope": "Two-line typed-exception repair; no other application changes since the earlier actual ZIP replay."
+  }
+}

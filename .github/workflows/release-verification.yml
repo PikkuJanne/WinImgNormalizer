@@ -55,6 +55,12 @@ jobs:
           }
           if ($candidate.Stable -and $candidate.Latest) { $arguments.PublicTag = $candidate.Tag }
           ./tests/Invoke-DistributionAcceptance.ps1 @arguments
+      - name: Replay mixed ICC colours from the existing exact portable and source ZIPs
+        run: |
+          $control = Get-Content -LiteralPath .scratch/exact-hotfix/runner-control.json -Raw | ConvertFrom-Json
+          $sourceArchive = '.scratch/ed/actual-public-tag.zip'
+          if (-not (Test-Path -LiteralPath $sourceArchive)) { $sourceArchive = '.scratch/ed/candidate-tag-equivalent.zip' }
+          ./tests/Invoke-IccDistributionAcceptance.ps1 -ArchivePath $control.ArchivePath -SourceArchivePath $sourceArchive -LegacyMagickPath $control.LegacyMagickPath -ResultDirectory .scratch/icc-zips
       - name: Export passing sanitized release evidence
         run: |
           $hotfix = Get-Content -LiteralPath .scratch/exact-hotfix/acceptance-summary.json -Raw | ConvertFrom-Json
@@ -63,6 +69,9 @@ jobs:
           New-Item -ItemType Directory -Path .scratch/exact-release-export | Out-Null
           Copy-Item -LiteralPath .scratch/exact-hotfix/acceptance-summary.json -Destination .scratch/exact-release-export/hotfix-evidence.json
           Copy-Item -LiteralPath .scratch/ed/distribution-summary.json -Destination .scratch/exact-release-export/distribution-evidence.json
+          $icc = Get-Content -LiteralPath .scratch/icc-zips/icc-distribution-summary.json -Raw | ConvertFrom-Json
+          if (-not $icc.Passed -or $icc.PSObject.Properties['Error']) { throw 'Only passing sanitized ICC ZIP replay evidence may be exported.' }
+          Copy-Item -LiteralPath .scratch/icc-zips/icc-distribution-summary.json -Destination .scratch/exact-release-export/icc-evidence.json
       - name: Upload exact release evidence
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1; official tag/commit and upload sources reviewed 2026-10-05
         with:
@@ -70,6 +79,7 @@ jobs:
           path: |
             .scratch/exact-release-export/hotfix-evidence.json
             .scratch/exact-release-export/distribution-evidence.json
+            .scratch/exact-release-export/icc-evidence.json
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 14

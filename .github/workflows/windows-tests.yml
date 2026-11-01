@@ -71,6 +71,12 @@ jobs:
             $arguments.ArchivePath = Join-Path .scratch/ci-hotfix/build ('WinImgNormalizer-' + $canonical.version + '-portable.zip')
           }
           ./tests/Invoke-DistributionAcceptance.ps1 @arguments
+      - name: Replay the JPEG ICC corpus through actual BAT and both hosts from fresh exact ZIPs
+        run: |
+          $control = Get-Content -LiteralPath .scratch/ci-hotfix/runner-control.json -Raw | ConvertFrom-Json
+          $sourceArchive = '.scratch/ci-distribution/actual-public-tag.zip'
+          if (-not (Test-Path -LiteralPath $sourceArchive)) { $sourceArchive = '.scratch/ci-distribution/candidate-tag-equivalent.zip' }
+          ./tests/Invoke-IccDistributionAcceptance.ps1 -ArchivePath $control.ArchivePath -SourceArchivePath $sourceArchive -LegacyMagickPath $control.LegacyMagickPath -ResultDirectory .scratch/icc-zips
       - name: Run mandatory tests with verified development dependencies
         run: |
           ./tests/Invoke-Tests.ps1 -DownloadDependencies -ResultDirectory .scratch/ci-tests
@@ -119,6 +125,9 @@ jobs:
           $distribution = Get-Content -LiteralPath .scratch/ci-distribution/distribution-summary.json -Raw | ConvertFrom-Json
           if (-not $distribution.Passed -or $distribution.PSObject.Properties['Error']) { throw 'Only passing sanitized distribution evidence may be exported.' }
           Copy-Item -LiteralPath .scratch/ci-distribution/distribution-summary.json -Destination .scratch/ci-export/distribution-evidence.json
+          $icc = Get-Content -LiteralPath .scratch/icc-zips/icc-distribution-summary.json -Raw | ConvertFrom-Json
+          if (-not $icc.Passed -or $icc.PSObject.Properties['Error']) { throw 'Only passing sanitized ICC ZIP replay evidence may be exported.' }
+          Copy-Item -LiteralPath .scratch/icc-zips/icc-distribution-summary.json -Destination .scratch/ci-export/icc-evidence.json
       - name: Upload sanitized synthetic evidence
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1; official tag/commit and upload sources reviewed 2026-10-05
@@ -129,6 +138,7 @@ jobs:
             .scratch/ci-export/static-analysis-evidence.json
             .scratch/ci-export/hotfix-evidence.json
             .scratch/ci-export/distribution-evidence.json
+            .scratch/ci-export/icc-evidence.json
           # Explicit filenames only; .scratch is a dot directory. The exporter
           # rejects links and copies bounded fields, never raw logs/XML/media.
           include-hidden-files: true

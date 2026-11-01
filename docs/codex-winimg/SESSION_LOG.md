@@ -1,3 +1,21 @@
+# Authorized JPEG ICC repair 1.0.3 — 1 November 2026
+
+Opened the scoped repair from maintained main
+`2f754c9600f866366f4321dcaae01ba111c03ef1` in an isolated feature worktree. The user
+explicitly requests implementation through stable publication and public-download
+verification, superseding historical owner gates for this repair. Dependency
+detection, the private engine version, launcher/TUI and website are unchanged in
+scope. Synthetic colour fixtures and independent references are the required
+automated acceptance basis. Local candidate ZIP replay passed 18/18 actual cases,
+including the BAT and both direct PowerShell hosts across views/negative/mixed
+batches with old system ImageMagick first on PATH. Every mixed case retained
+10/13 JPEGs, including 4 explicit approximate previews; 3 negative controls failed
+as required. References passed and the processed inputs stayed unchanged. These
+candidate bytes do not establish public publication or public replay. Full/CI
+and release gates remain pending. Earlier session evidence is preserved below.
+
+---
+
 # WinImgNormalizer 1.0.2 stable delivery verified — 1 November 2026
 
 The authorized launcher repair is merged and the stable/latest release is public.

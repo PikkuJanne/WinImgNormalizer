@@ -1,6 +1,6 @@
 # Getting started with WinImgNormalizer
 
-This portable package is **version 1.0.2 and unsigned**.
+This portable package is **version 1.0.3, in release preparation and unsigned**.
 `package-manifest.json` records its exact source revision; [CHANGELOG.md](CHANGELOG.md)
 has release notes. Build records use `unreleased` for their preparation-time state;
 the public GitHub release and matching checksum establish publication of these
@@ -13,7 +13,7 @@ actual hash with the exact filename's entry in `SHA256SUMS.txt` and the value
 provided through that trusted channel. Replace this path with your prepared ZIP:
 
 ```powershell
-Get-FileHash -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.2-portable.zip' -Algorithm SHA256
+Get-FileHash -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.3-portable.zip' -Algorithm SHA256
 ```
 
 A matching checksum identifies bytes relative to a trusted value; it is not a
@@ -22,7 +22,7 @@ If you trust the verified ZIP and Windows marks it as downloaded, selectively
 unblock that exact ZIP before extracting:
 
 ```powershell
-Unblock-File -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.2-portable.zip'
+Unblock-File -LiteralPath 'C:\Downloads\WinImgNormalizer-1.0.3-portable.zip'
 ```
 
 Extract into a new ordinary folder with a name such as `WinImg Normalizer` in
@@ -54,7 +54,7 @@ It verifies those local bytes and initializes a versioned per-user cache offline
 on the first image run. No developer staging or system ImageMagick is required.
 Keep the complete source copy together, including `resources`. A bare BAT/PS1 pair
 uses only an authenticated cache for this version; without it the app identifies
-the incomplete directory and names `WinImgNormalizer-1.0.2-portable.zip` before any
+the incomplete directory and names `WinImgNormalizer-1.0.3-portable.zip` before any
 external decoder. Damaged recognized runtime files fail closed.
 Windows PowerShell 5.1 and PowerShell 7 remain supported. Windows 10 has not been tested.
 
@@ -111,8 +111,14 @@ M4V, WMV, WebM, MTS, M2TS, 3GP and 3G2. Other extensions are ignored. Image name
 gain extension/numeric suffixes to avoid collisions. Final moves refuse replacement.
 
 Images are auto-oriented, converted to sRGB, composited onto white, then stripped
-of GPS/EXIF, XMP, IPTC, comments and ICC profiles. Untagged CMYK or invalid/incompatible
-profiles fail instead of guessing colour. Original images retain metadata. Copied
+of GPS/EXIF, XMP, IPTC, comments and ICC profiles. Valid and safely recoverable JPEG
+ICC profiles are applied before conversion. An otherwise sound ordinary RGB-family
+JPEG with unusable embedded ICC can produce an approximate sRGB viewing copy with
+the warning “JPEG saved; embedded colour profile unusable; sRGB assumed, colours
+may differ.” It counts as converted with a warning and exit 2. Full detail stays
+in the local log/CSV; recurring reasons receive one short console notice and final
+counts. Uncharacterized CMYK/YCCK, damaged pixels and policy/resource failures
+still fail. Original images retain metadata. Copied
 videos **retain their original metadata**, including possible identifying information.
 
 GIF/WebP becomes the first displayed logical frame; TIFF becomes its first page;

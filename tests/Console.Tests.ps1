@@ -169,7 +169,7 @@ Describe 'Hotfix field console deterministic presentation' {
             Get-WinImgConsoleLayout Progress ([pscustomobject]@{Percent=67;Status='8 / 12 : stage-left-with-a-deliberately-long-synthetic-name.png'}) $Width
             Get-WinImgConsoleLayout Result $resultState $Width
         )
-        $expected = Get-Content -LiteralPath (Join-Path $PSScriptRoot ('fixtures/console/' + $Width + '.txt'))
+        $expected = Get-Content -LiteralPath (Join-Path $PSScriptRoot ('fixtures/console/' + $Width + '.txt')) | ForEach-Object { $_.Replace('{VERSION}', (Get-WinImgVersion)) }
         ($lines -join "`n") | Should -BeExactly ($expected -join "`n")
         $lines | Should -Contain $fullOutput
         $lines | Should -Contain $fullReport

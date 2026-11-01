@@ -1,3 +1,21 @@
+# JPEG ICC repair 1.0.3 in progress — 1 November 2026
+
+Continue the authorized repair through verified stable delivery. The untouched
+v1.0.2 failure and exact source identity are recorded. Candidate portable/source
+ZIP replay passed 18/18 real BAT/direct PS5.1/direct PS7 cases against independent
+references with old system ImageMagick first on PATH. Full checks and CI must
+still pass, followed by normal merge/tag/publication and fresh public portable
+and actual public source-ZIP mixed-ICC replay. Candidate ZIPs are not public assets.
+
+No owner testing, installation or discretionary sign-off is pending. Private
+media, paths, metadata, filenames, hashes and raw logs must stay local. Record
+actual coverage or the batch's unavailability without inventing results. The
+website and dependency selection remain unchanged. Update the sanitized evidence
+and this current checkpoint only after observing results; earlier records below
+remain historical.
+
+---
+
 # WinImgNormalizer 1.0.2 stable delivery verified — 1 November 2026
 
 The authorized launcher repair is merged and the stable/latest release is public.

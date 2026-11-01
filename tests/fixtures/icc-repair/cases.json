@@ -1,0 +1,88 @@
+{
+  "files": [
+    {
+      "file": "views/01-untagged.jpg",
+      "expected": "ordinary",
+      "reference": "srgb",
+      "sha256": "fa708c4fd1e0732c355e128ebafd48e33fb7a6c55b616d30b699056e84ce0362"
+    },
+    {
+      "file": "views/02-good-srgb.jpg",
+      "expected": "normal ICC",
+      "reference": "srgb",
+      "sha256": "2c5f1a902dd6f6f247b6dcf6ebc51304f17bb8b5cf7bb42ab5ea72930a33ab4b"
+    },
+    {
+      "file": "views/03-good-wide.jpg",
+      "expected": "normal ICC",
+      "reference": "wide",
+      "sha256": "b924856ab0a60491da218623b576cc07904a4be0c43d979ccfc1f4836ded2956"
+    },
+    {
+      "file": "views/04-wide-split-reversed.jpg",
+      "expected": "normal ICC; genuine split profile",
+      "reference": "wide",
+      "sha256": "25b990cd5c1a6ef799c64f2725bc53b0141dc67799175f6a060cf5512bbf1e3f"
+    },
+    {
+      "file": "views/05-wide-outer-padding.jpg",
+      "expected": "validated original wide profile; not an sRGB fallback",
+      "reference": "wide",
+      "sha256": "2a568e3a942f5a03ae746bb63700065dd9497201fc0c8db5a02d16368eafcddc"
+    },
+    {
+      "file": "views/06-bad-signature.jpg",
+      "expected": "one warning; RGB preview only",
+      "reference": "srgb",
+      "sha256": "25c90d9abad6cfa7ff3d90069d7a347e06ed07fdb233170d1f10c5bed7b0a3ba"
+    },
+    {
+      "file": "views/07-zero-tags.jpg",
+      "expected": "one warning; RGB preview only",
+      "reference": "srgb",
+      "sha256": "4af85f18b23a4717bdf9d619531e75415746e3c79e241736f282ad7d699df21a"
+    },
+    {
+      "file": "views/08-huge-table.jpg",
+      "expected": "one warning; RGB preview only",
+      "reference": "srgb",
+      "sha256": "60a18d44be30e9fff82ff8c576f77897f13af4fcc542d7bf927360b8e78e394d"
+    },
+    {
+      "file": "views/09-declared-too-large.jpg",
+      "expected": "one warning; RGB preview only",
+      "reference": "srgb",
+      "sha256": "e617b3e12c1509aa95d0445fa1473916066b10d05bdf41075f44ef61a9d20a5d"
+    },
+    {
+      "file": "views/10-valid-later-sibling.jpg",
+      "expected": "normal ICC",
+      "reference": "wide",
+      "sha256": "b924856ab0a60491da218623b576cc07904a4be0c43d979ccfc1f4836ded2956"
+    },
+    {
+      "file": "negative/01-damaged-scan-and-bad-icc.jpg",
+      "expected": "reject; damaged pixel scan",
+      "reference": null,
+      "sha256": "c05e81d512e54b226d7b9f6f02f1e28e46a45674e4bde6cc57ef4d136d208479"
+    },
+    {
+      "file": "negative/02-untagged-cmyk.jpg",
+      "expected": "reject; ambiguous CMYK",
+      "reference": null,
+      "sha256": "4ceb80a893dfe41f66687ce10cf2dcc634ed387bd8fcd722577b7d21023f19e5"
+    },
+    {
+      "file": "negative/03-cmyk-bad-profile.jpg",
+      "expected": "reject; ambiguous CMYK",
+      "reference": null,
+      "sha256": "4b03e84b2cc68d798897853411b480f55c84aac811070aa29a8ff72bf85bfd12"
+    }
+  ],
+  "target_bytes": 1048576,
+  "view_dimensions": [
+    160,
+    240
+  ],
+  "notes": "All inputs synthetic. References use independent Pillow/LittleCMS; decode full frames."
+}

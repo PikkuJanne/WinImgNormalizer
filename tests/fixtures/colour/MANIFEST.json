@@ -70,5 +70,5 @@
     "source_url": "https://raw.githubusercontent.com/saucecontrol/Compact-ICC-Profiles/bdd84663061bc4ae95ca70decff54f581e27f702/license"
   },
   "verification": "Exact raw download size and Git blob SHA1 match the immutable GitHub contents API; profile header size, acsp signature, device colour space and PCS independently inspected.",
-  "use": "sRGB-v4 is the runtime target reference; AdobeCompat and CGATS001Compat are test source characterization profiles. No external image content."
+  "use": "sRGB-v4 is the runtime target reference; AdobeCompat-v2 is a test source profile and the embedded standard characterization for supported EXIF R03 Adobe RGB; CGATS001Compat is a test source characterization profile. No external image content."
 }
