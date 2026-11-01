@@ -107,9 +107,9 @@
         else {
             $pathBlock = Get-WorkflowFieldBlock -Text $upload[0].Value -Key 'path' -Indent 10
             $paths = @($pathBlock -split '\n' | Select-Object -Skip 1 | ForEach-Object { $_.Trim() })
-            $allowlist = @('.scratch/ci-export/test-evidence.json', '.scratch/ci-export/static-analysis-evidence.json', '.scratch/ci-export/hotfix-evidence.json', '.scratch/ci-export/distribution-evidence.json')
-            if ($paths.Count -ne 4 -or @($paths | Where-Object { $_ -cnotin $allowlist }).Count -gt 0 -or
-                @($paths | Select-Object -Unique).Count -ne 4) {
+            $allowlist = @('.scratch/ci-export/test-evidence.json', '.scratch/ci-export/static-analysis-evidence.json', '.scratch/ci-export/hotfix-evidence.json', '.scratch/ci-export/distribution-evidence.json', '.scratch/ci-export/icc-evidence.json')
+            if ($paths.Count -ne 5 -or @($paths | Where-Object { $_ -cnotin $allowlist }).Count -gt 0 -or
+                @($paths | Select-Object -Unique).Count -ne 5) {
                 $violations += 'Artifact paths must be the exact sanitized JSON allowlist.'
             }
             if ($upload[0].Value -notmatch '(?m)^ {10}if-no-files-found: error\s*$' -or
@@ -222,8 +222,8 @@ Describe 'Exact release verification workflow security' {
             if($Text -notmatch 'if \(\$candidate\.Stable -and \$candidate\.Latest\) \{ \$arguments\.PublicTag = \$candidate\.Tag \}'){$violations+='Public source archive verification required.'}
             $pathBlock=Get-WorkflowFieldBlock -Text $Text -Key 'path' -Indent 10
             $paths=@($pathBlock -split '\n'|Select-Object -Skip 1|ForEach-Object {$_.Trim()})
-            $allowed=@('.scratch/exact-release-export/hotfix-evidence.json','.scratch/exact-release-export/distribution-evidence.json')
-            if($paths.Count -ne 2 -or @($paths|Where-Object {$_ -cnotin $allowed}).Count -or @($paths|Select-Object -Unique).Count -ne 2 -or $Text -notmatch "-not \`$hotfix\.Passed" -or $Text -notmatch "-not \`$distribution\.Passed" -or $Text -notmatch 'if-no-files-found: error' -or $Text -notmatch 'overwrite: false'){$violations+='Only passing sanitized evidence allowlist may be uploaded.'}
+            $allowed=@('.scratch/exact-release-export/hotfix-evidence.json','.scratch/exact-release-export/distribution-evidence.json','.scratch/exact-release-export/icc-evidence.json')
+            if($paths.Count -ne 3 -or @($paths|Where-Object {$_ -cnotin $allowed}).Count -or @($paths|Select-Object -Unique).Count -ne 3 -or $Text -notmatch "-not \`$hotfix\.Passed" -or $Text -notmatch "-not \`$distribution\.Passed" -or $Text -notmatch "-not \`$icc\.Passed" -or $Text -notmatch 'if-no-files-found: error' -or $Text -notmatch 'overwrite: false'){$violations+='Only passing sanitized evidence allowlist may be uploaded.'}
             if($Text -match '(?im)continue-on-error:|pull_request_target:|workflow_run:'){$violations+='No bypass triggers or ignored failures.'}
             if(@(Get-ExactReleaseFutureProgramLengths $Text | Where-Object Length -GE 260).Count){$violations+='Future firewall executable paths must remain below MAX_PATH.'}
             $violations

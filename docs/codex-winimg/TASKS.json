@@ -1,4 +1,14 @@
 {
+  "jpeg_icc_1_0_3": {
+    "date": "2026-11-01",
+    "status": "in_progress",
+    "base_commit": "2f754c9600f866366f4321dcaae01ba111c03ef1",
+    "authorization": "Explicit user request: colour repair through normal checked merge, tag, stable publication and fresh public portable/source-ZIP replay; no owner-testing gate",
+    "evidence": "evidence/JPEG-ICC-1.0.3.json",
+    "human_test_gate": false,
+    "website_deployment": false,
+    "dependency_selection_changed": false
+  },
   "website_cleanup_checkpoint": {
     "date": "2026-10-10",
     "scope": "Owner-authorized obsolete website-only material cleanup; historical engineering tasks/acceptance retained.",

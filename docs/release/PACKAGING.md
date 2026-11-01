@@ -91,14 +91,16 @@ signature on WinImgNormalizer. The upstream engine's own signature is retained.
 
 ## Publication and verification
 
-The scoped 31 October 2026 maintainer instruction authorizes normal merge/tag/stable
-release publication after the mandatory automated Windows gates. Publish the
+The scoped 1 November 2026 JPEG colour-repair instruction authorizes normal
+merge/tag/stable release publication after the mandatory automated Windows gates,
+without a separate owner-testing or discretionary publication gate. Publish the
 tested bytes and sidecars plus corresponding-source assets. The same release can
 first be a public prerelease candidate for read-only hosted exact-byte checks,
 then be promoted to stable/latest without replacing any asset. Fresh-download
 the public ZIP and checksum, verify digest/source/tag identity, extract to another
 clean directory, and rerun real media smoke. Never replace a published artifact.
-Repository website copy is updated; live website deployment is separate.
+Canonical release records are updated after verification; no live website
+deployment is part of this repair.
 
 Version 1.0.1 was built once from source/tag commit
 `25cd8da78595abd256d96b2ff7d117e2b3a02c18` and promoted without replacing its six

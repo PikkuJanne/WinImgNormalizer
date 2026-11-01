@@ -1,3 +1,21 @@
+# JPEG ICC repair 1.0.3 in progress — 1 November 2026
+
+Continue the authorized repair through verified stable delivery. Reproduce the
+unmodified 1.0.2 launcher, validate/apply exact source ICC bytes, retain sound RGB
+JPEGs with explicit approximate-colour warnings only when needed, and preserve
+true failures. Verify actual output against independent synthetic references in
+Windows PowerShell 5.1, PowerShell 7 and the real BAT. Then complete normal checked
+merge/tag/publication and fresh public portable/source-ZIP mixed-ICC replay.
+
+No owner testing, installation or discretionary sign-off is pending. Private
+media, paths, metadata, filenames, hashes and raw logs must stay local. Record
+actual coverage or the batch's unavailability without inventing results. The
+website and dependency selection remain unchanged. Update the sanitized evidence
+and this current checkpoint only after observing results; earlier records below
+remain historical.
+
+---
+
 # WinImgNormalizer 1.0.2 stable delivery verified — 1 November 2026
 
 The authorized launcher repair is merged and the stable/latest release is public.

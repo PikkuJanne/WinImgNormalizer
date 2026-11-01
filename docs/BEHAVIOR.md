@@ -46,15 +46,28 @@ animation frame is coalesced, then orientation is applied. Logs record exposed
 source count, one selected image, omitted count and unit. Counts cannot describe
 container items hidden by a decoder. Animation and omitted pages are not preserved.
 
-Source ICC characterization remains attached through the sRGB transform. The
-target profile is embedded in the PS1, so no separately installed profile is
+Source ICC characterization is validated before the sRGB transform. For primary
+JPEG images, bounded ICC APP2 segments are reconstructed by sequence number; the
+validated profile bytes are the source actually applied. Valid split profiles and
+a narrowly recognized three-zero-byte suffix outside an otherwise valid declared
+profile preserve their source characterization. The target profile is embedded
+in the PS1, so no separately installed profile is
 required. The requested rendering intent is relative colorimetric with black-point
 compensation disabled; a profile supplying only a perceptual mapping may use the
 delegate's fallback. This does not certify arbitrary ICC contents or printing
 conditions. Untagged ordinary RGB is assumed sRGB; declared linear RGB/grayscale
 uses the decoder's transfer semantics. Untagged CMYK and unsupported unprofiled
-colour spaces fail instead of guessing. Malformed/incompatible profiles and native
-transform diagnostics also fail the item, even with zero native exit and JPEG bytes.
+colour spaces fail instead of guessing.
+
+An otherwise sound ordinary RGB-family JPEG with unusable embedded ICC metadata
+gets one restricted read with the suspect profile excluded. A trustworthy supported
+alternative characterization is used when available; otherwise its viewing copy
+assumes sRGB and reports “JPEG saved; embedded colour profile unusable; sRGB assumed,
+colours may differ.” The preview is converted with a warning, rather than counted
+as a failure or as an accurate ICC conversion. It must still pass full clean pixel
+decode, orientation, output validation and no-overwrite finalization. Unidentified
+decoder failures, policy/resource denials, damaged pixel data and unresolved
+CMYK/YCCK do not use this preview route. Other formats retain strict ICC handling.
 
 After orientation and colour conversion, alpha is composited onto white in encoded
 sRGB channels; fully transparent pixels become white. GPS/EXIF, XMP, IPTC, comments
@@ -107,7 +120,8 @@ guarantee subsequent writes.
 
 A diagnosed sharing/lock violation can retry the same scale twice, with 100/200 ms
 backoff and fresh scratch. Generic access denial, damaged input, missing codecs,
-ICC/policy errors and exhausted resources do not trigger scale fallback. Nonzero
+policy errors and exhausted resources do not trigger scale fallback. The restricted
+JPEG ICC preview route above is separate from sizing retries. Nonzero
 native exit does not finalize. Only the pinned JPEG writer's recognized zero-exit
 lossless-to-lossy notice is accepted after full validation; it still warns/code 2.
 Other conversion diagnostics fail. Inspection/validation remains strict.
@@ -145,7 +159,9 @@ contains staged media. A discovered regular file has one outcome: Converted,
 CopiedVideo, SkippedDuplicate, Ignored, Error, Cancelled or NotStarted. Warnings are
 attributes, not extra file counts. Separate ScanIssue rows describe unreadable
 locations and skipped links. The ACCOUNTING line reconciles known files, elapsed
-time and finalized files/second. Image savings pair processed-image input bytes
+time and finalized files/second. Colour warnings are a subset of converted images;
+recurring reasons receive one short console notice while full per-file colour
+paths and reasons remain in the local log/CSV. Image savings pair processed-image input bytes
 with validated JPEG bytes and can be negative; video bytes are separate. Skips,
 ignored files and errors contribute no image savings.
 

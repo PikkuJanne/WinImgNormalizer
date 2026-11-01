@@ -89,7 +89,7 @@ LICENSE / WARRANTY
 # The sole application version source also drives development release metadata.
 # Keep it inside the script so package metadata and direct use agree.
 function Get-WinImgVersion {
-  return '1.0.2'
+  return '1.0.3'
 }
 
 # Presentation stays out of the persistent log and CSV. Console colours never
@@ -200,6 +200,7 @@ function Get-WinImgConsoleLayout {
       $status = switch ($Data.RunState) { 'Completed' { 'COMPLETE' }; 'Partial' { 'PARTIAL - review warnings' }; 'Interrupted' { 'CANCELLED' }; default { 'FAILED' } }
       '[04 / RESULT]   ' + $status
       '{0} images converted | {1} videos copied | {2} errors' -f $Data.Summary.Counts.Converted,$Data.Summary.Counts.CopiedVideo,$Data.Summary.Counts.Error
+      if ($Data.Summary.PSObject.Properties['ColourManaged']) { '{0} colour managed | {1} sRGB assumed after unusable ICC | {2} colour warnings' -f $Data.Summary.ColourManaged,$Data.Summary.ColourAssumed,$Data.Summary.WarningCounts.ColourWarnings }
       if ($Data.Summary.Counts.Discovered -eq 0 -and $Data.RunState -eq 'Completed') { 'No eligible media found; nothing to process.' }
       elseif ($Data.RunState -ne 'Completed') {
         if ($Data.Summary.Counts.Converted + $Data.Summary.Counts.CopiedVideo -gt 0) { 'Completed outputs retained.' }
@@ -1398,90 +1399,252 @@ function Get-WinImgSourceImageInfo {
   return [pscustomobject]@{ SourceCount = $count; Omitted = $count - 1; Unit = $unit; Policy = $policy; Decoder = $decoder }
 }
 
-# Inspect the selected snapshot before stripping. Clear only free-form names
-# that could mask built-in metadata; the real ICC profile remains attached.
+function Read-WinImgIccUInt32 {
+  param([byte[]]$Bytes, [int]$Offset)
+  return [long]$Bytes[$Offset] * 16777216 + [long]$Bytes[$Offset+1] * 65536 + [long]$Bytes[$Offset+2] * 256 + [long]$Bytes[$Offset+3]
+}
+
+function New-WinImgIccException {
+  param([string]$Reason, [string]$Detail)
+  $exception = [IO.InvalidDataException]::new('Embedded ICC unusable: ' + $Reason + '; ' + $Detail)
+  $exception.Data['WinImgIccReason'] = $Reason
+  return $exception
+}
+
+# Read only the primary JPEG header, never thumbnail ICC or entropy-coded data.
+# APP2 sequence numbers, not physical marker order, define the profile bytes.
+function Get-WinImgJpegIccInfo {
+  param([string]$SnapshotPath, [object]$NativeContext)
+  $info = [pscustomobject]@{ IsJpeg=$false; HasIcc=$false; ProfileBytes=$null; Reason=''; Precision=0; Components=0; SafePreview=$false; Alternative=''; ExifBytes=$null; ProfileDetail='' }
+  $stream = [IO.FileStream]::new($SnapshotPath,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)
+  try {
+    if ($stream.ReadByte() -ne 255 -or $stream.ReadByte() -ne 216) { return $info }
+    $info.IsJpeg=$true; $parts=@{}; $expected=0; $total=0L; $unsupported=$false; $sawSof=$false; $exifAmbiguous=$false
+    for ($markerCount=0; $markerCount -lt 4096; $markerCount++) {
+      Assert-WinImgCancellation
+      if ($NativeContext) { $null = Get-WinImgRemainingTime $NativeContext }
+      if ($stream.Position -gt 67108864) { throw 'JPEG header byte limit exceeded.' }
+      if ($stream.ReadByte() -ne 255) { throw 'JPEG marker header is malformed.' }
+      do { $marker=$stream.ReadByte() } while ($marker -eq 255 -and $stream.Position -le 67108864)
+      if ($marker -lt 0 -or $marker -in @(0,216,217)) { throw 'JPEG ended or marker structure was invalid before its scan.' }
+      if ($marker -in @(1,208,209,210,211,212,213,214,215)) { throw 'Unexpected standalone JPEG header marker.' }
+      $high=$stream.ReadByte(); $low=$stream.ReadByte()
+      if ($high -lt 0 -or $low -lt 0) { throw 'JPEG segment length is truncated.' }
+      $length=256*$high+$low-2
+      if ($length -lt 0 -or $stream.Position+$length -gt $stream.Length) { throw 'JPEG segment is truncated.' }
+      if ($marker -eq 218) {
+        if (-not $sawSof -or $length -lt 4) { throw 'JPEG scan has no valid component header.' }
+        $info.SafePreview=$info.Precision -eq 8 -and $info.Components -in @(1,3) -and -not $unsupported
+        if ($info.HasIcc -and -not $info.Reason) {
+          if ($expected -eq 0 -or $parts.Count -ne $expected) { $info.Reason='IccSegmentsMissing' }
+          else {
+            $bytes=New-Object byte[] ([int]$total); $position=0
+            for ($index=1; $index -le $expected; $index++) {
+              if (-not $parts.ContainsKey($index)) { $info.Reason='IccSegmentsMissing'; break }
+              [Array]::Copy($parts[$index],0,$bytes,$position,$parts[$index].Length); $position+=$parts[$index].Length
+            }
+            if (-not $info.Reason) { $info.ProfileBytes=$bytes }
+          }
+        }
+        if ($info.ExifBytes -and -not $exifAmbiguous) { $info.Alternative=Get-WinImgJpegExifCharacterization -Bytes $info.ExifBytes }
+        return $info
+      }
+      $payload=New-Object byte[] $length; $read=0
+      while ($read -lt $length) {
+        $amount=$stream.Read($payload,$read,$length-$read)
+        if ($amount -le 0) { throw 'JPEG segment could not be read completely.' }
+        $read+=$amount
+      }
+      if ($marker -eq 226 -and $length -ge 12 -and [Text.Encoding]::ASCII.GetString($payload,0,12) -ceq "ICC_PROFILE`0") {
+        $info.HasIcc=$true
+        if ($length -lt 14) { $info.Reason='IccSegmentsMissing'; continue }
+        $sequence=[int]$payload[12]; $count=[int]$payload[13]
+        if ($count -eq 0 -or $sequence -eq 0 -or $sequence -gt $count) { $info.Reason='IccSegmentsContradictory'; continue }
+        if ($expected -ne 0 -and $expected -ne $count) { $info.Reason='IccSegmentsContradictory'; continue }
+        $expected=$count
+        if ($parts.ContainsKey($sequence)) { $info.Reason='IccSegmentsDuplicate'; continue }
+        $total+=$length-14
+        if ($total -gt 4194304) { $info.Reason='IccProfileLimit'; continue }
+        $part=New-Object byte[] ($length-14)
+        [Array]::Copy($payload,14,$part,0,$part.Length); $parts.Add($sequence,$part)
+      } elseif ($marker -in @(192,193,194,195,197,198,199,201,202,203,205,206,207)) {
+        if ($length -lt 6 -or $sawSof -or $length -ne 6+3*$payload[5]) { throw 'JPEG component header is malformed or ambiguous.' }
+        $sawSof=$true; $info.Precision=[int]$payload[0]; $info.Components=[int]$payload[5]
+        if ($marker -notin @(192,193,194)) { $unsupported=$true }
+      } elseif ($marker -eq 225 -and $length -ge 6 -and [Text.Encoding]::ASCII.GetString($payload,0,6) -ceq "Exif`0`0") {
+        if ($info.ExifBytes) { $exifAmbiguous=$true } else { $info.ExifBytes=$payload }
+      } elseif ($marker -eq 225 -and $length -ge 29 -and [Text.Encoding]::ASCII.GetString($payload,0,29).StartsWith('http://ns.adobe.com/xap/1.0/')) {
+        if ([Text.Encoding]::UTF8.GetString($payload) -match 'http://ns.adobe.com/hdr-gain-map/|urn:com:apple:photo:2020:aux:hdrgainmap|urn:iso:std:iso:ts:21496') { $unsupported=$true }
+      } elseif ($marker -eq 235 -or ($marker -eq 226 -and $length -ge 10 -and [Text.Encoding]::ASCII.GetString($payload,0,10) -eq 'urn:iso:st')) { $unsupported=$true }
+    }
+    throw 'JPEG header marker limit exceeded.'
+  } finally { $stream.Dispose() }
+}
+
+# EXIF's explicit sRGB value and the standardized R03 interoperability index
+# are supported alternate characterizations; arbitrary maker notes are not.
+function Get-WinImgJpegExifCharacterization {
+  param([byte[]]$Bytes)
+  try {
+    if ($Bytes.Length -lt 14) { return '' }
+    $little=[Text.Encoding]::ASCII.GetString($Bytes,6,2) -ceq 'II'
+    if (-not $little -and [Text.Encoding]::ASCII.GetString($Bytes,6,2) -cne 'MM') { return '' }
+    function Read-ExifNumber([int]$Offset,[int]$Size) {
+      if ($Offset -lt 6 -or [long]$Offset+$Size -gt $Bytes.Length) { throw 'EXIF bound' }
+      $value=0L
+      for ($b=0;$b -lt $Size;$b++) { $position=if ($little) {$Offset+$Size-1-$b} else {$Offset+$b}; $value=$value*256+$Bytes[$position] }
+      return $value
+    }
+    if ((Read-ExifNumber 8 2) -ne 42) { return '' }
+    $ifd=6+(Read-ExifNumber 10 4); $exif=0L; $interop=0L; $space=0L; $indexName=''; $seen=@{}; $visited=@{}
+    for ($level=0;$level -lt 3;$level++) {
+      if ($ifd -eq 0) { break }
+      if ($ifd -lt 14 -or $ifd+2 -gt $Bytes.Length -or $visited.ContainsKey($ifd)) { return '' }
+      $visited[$ifd]=$true
+      $entries=Read-ExifNumber ([int]$ifd) 2
+      if ($entries -gt 1024 -or $ifd+2+12*$entries -gt $Bytes.Length) { return '' }
+      for ($entry=0;$entry -lt $entries;$entry++) {
+        $offset=[int]($ifd+2+12*$entry); $tag=Read-ExifNumber $offset 2; $type=Read-ExifNumber ($offset+2) 2; $count=Read-ExifNumber ($offset+4) 4
+        if ($tag -in @(34665,40961,40965,1)) {
+          $key=[string]$level+':'+$tag
+          if ($seen.ContainsKey($key)) { return '' }; $seen[$key]=$true
+        }
+        if ($level -eq 0 -and $tag -eq 34665 -and $type -eq 4 -and $count -eq 1) { $exif=6+(Read-ExifNumber ($offset+8) 4) }
+        elseif ($level -eq 1 -and $tag -eq 40961 -and $type -eq 3 -and $count -eq 1) { $space=Read-ExifNumber ($offset+8) 2 }
+        elseif ($level -eq 1 -and $tag -eq 40965 -and $type -eq 4 -and $count -eq 1) { $interop=6+(Read-ExifNumber ($offset+8) 4) }
+        elseif ($level -eq 2 -and $tag -eq 1 -and $type -eq 2 -and $count -eq 4 -and [Text.Encoding]::ASCII.GetString($Bytes,$offset+8,4) -ceq "R03`0") { $indexName='AdobeRgb' }
+      }
+
+      $ifd=if ($level -eq 0) { $exif } else { $interop }
+    }
+    if ($space -eq 1 -and -not $indexName) { return 'Srgb' }
+    if ($space -eq 65535 -and $indexName -eq 'AdobeRgb') { return 'AdobeRgb' }
+  } catch { return '' }
+  return ''
+}
+
+function Assert-WinImgIccBytes {
+  param([byte[]]$Bytes, [string]$ColourSpace, [object]$NativeContext)
+  $length=$Bytes.Length
+  if ($length -lt 132 -or $length -gt 4194304) { throw (New-WinImgIccException 'IccLength' ('Actual='+$length)) }
+  $declared=Read-WinImgIccUInt32 $Bytes 0; $signature=[Text.Encoding]::ASCII.GetString($Bytes,36,4)
+  $tags=Read-WinImgIccUInt32 $Bytes 128; $tableEnd=132L+12L*$tags
+  $detail='Actual={0}; Declared={1}; Acsp={2}; Tags={3}; TableEnd={4}' -f $length,$declared,($signature -ceq 'acsp'),$tags,$tableEnd
+  $padding=$length-$declared -eq 3 -and $Bytes[$length-1] -eq 0 -and $Bytes[$length-2] -eq 0 -and $Bytes[$length-3] -eq 0
+  if ($declared -ne $length -and -not $padding) { throw (New-WinImgIccException 'IccDeclaredLength' $detail) }
+  if ($signature -cne 'acsp') { throw (New-WinImgIccException 'IccSignature' $detail) }
+  if ($tags -eq 0) { throw (New-WinImgIccException 'IccEmptyTagTable' $detail) }
+  if ($declared -lt 132 -or $tableEnd -gt $declared) { throw (New-WinImgIccException 'IccTagTableBounds' $detail) }
+  $model=[Text.Encoding]::ASCII.GetString($Bytes,16,4).Trim()
+  $allowed=switch ($ColourSpace) { 'sRGB' {'RGB'}; 'RGB' {'RGB'}; 'CMYK' {'CMYK'}; 'Gray' {'GRAY';'RGB'}; 'LinearGray' {'GRAY';'RGB'}; default {@()} }
+  if ($model -notin @($allowed)) { throw (New-WinImgIccException 'IccModelMismatch' ($detail+'; Model='+$model+'; Decoded='+$ColourSpace)) }
+  for ($index=0;$index -lt $tags;$index++) {
+    if ($index % 256 -eq 0) { Assert-WinImgCancellation; if ($NativeContext) { $null=Get-WinImgRemainingTime $NativeContext } }
+    $entry=[int](132+12*$index); $offset=Read-WinImgIccUInt32 $Bytes ($entry+4); $size=Read-WinImgIccUInt32 $Bytes ($entry+8)
+    if ($offset -lt $tableEnd -or $size -lt 8 -or $offset+$size -gt $declared) { throw (New-WinImgIccException 'IccTagPayloadBounds' $detail) }
+  }
+  if ($padding) { $trimmed=New-Object byte[] ([int]$declared); [Array]::Copy($Bytes,0,$trimmed,0,$trimmed.Length); $Bytes=$trimmed }
+  return [pscustomobject]@{ Bytes=$Bytes; Repaired=$padding; Detail=($detail+'; Model='+$model) }
+}
+
+function Test-WinImgIccOnlyOutcome {
+  param([object]$Result)
+  $outcome=Get-WinImgNativeOutcome -Result $Result
+  if ($outcome.Category -notin @('DamagedInput','DiagnosticFailure','NativeFailure') -or $outcome.ExitCode -notin @(0,1)) { return $false }
+  if (($Result.PSObject.Properties['StreamsComplete'] -and -not $Result.StreamsComplete) -or
+      ($Result.PSObject.Properties['DrainTimedOut'] -and $Result.DrainTimedOut) -or
+      ($Result.PSObject.Properties['ProcessId'] -and $Result.ProcessId -gt 0 -and $Result.PSObject.Properties['TreeTerminated'] -and -not $Result.TreeTerminated)) { return $false }
+  if ($Result.StdOut -or $Result.StartError -or $Result.TimedOut -or $Result.Cancelled) { return $false }
+  $detail=if ($Result.PSObject.Properties['StdErr']) { [string]$Result.StdErr } else { [string]$Result.DiagnosticOutput }
+  $lines=@($detail -split '\r?\n' | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+  return $lines.Count -gt 0 -and @($lines | Where-Object {
+    $_ -notmatch "^magick(?:\.exe)?: (?:ColorspaceColorProfileMismatch|unable to create color transform|unable to transform colorspace|invalid profile)[^\r\n]* @ (?:warning|error)/profile\.c/[A-Za-z0-9_]+/\d+\.$"
+  }).Count -eq 0
+}
+
+function Enable-WinImgJpegColourPreview {
+  param([object]$ColourInfo,[string]$SnapshotPath,[string]$MagickPath,[object]$NativeContext,[string]$Reason)
+  if (-not $ColourInfo.JpegInfo -or -not $ColourInfo.JpegInfo.SafePreview -or $ColourInfo.ColourSpace -notin @('sRGB','RGB','Gray')) {
+    throw ('Unusable JPEG ICC cannot characterize this decoded colour/components; no RGB preview was guessed. Reason='+$Reason)
+  }
+  # Exactly one ICC-excluded full decode establishes intact pixels. Keep every
+  # diagnostic fatal, including damaged scans from a native process exiting zero.
+  $result=Invoke-WinImgImageProcess -Executable $MagickPath -Arguments @('identify','+ping','-regard-warnings','-define','registry:filename:literal=true','-define','profile:skip=ICC','-format','%m|%[colorspace]|%n',(Get-WinImgNativeOutputPath $SnapshotPath)) -Context $NativeContext
+  Assert-WinImgNativeQuery -Result $result -Context 'ICC-excluded source full pixel decode' -AllowStdOut
+  if ($result.StdOut -notmatch '^JPEG\|(sRGB|RGB|Gray)\|1$') { throw 'ICC-excluded source is not a supported ordinary single JPEG.' }
+  $ColourInfo.HasIcc=$false; $ColourInfo.SourceProfilePath=''; $ColourInfo.ExcludeEmbeddedIcc=$true
+  $ColourInfo.ColourWarning=$true; $ColourInfo.ColourReason=$Reason; $ColourInfo.Policy='JpegIccAssumeSrgb'
+  $ColourInfo.WarningText='JPEG saved; embedded colour profile unusable; sRGB assumed, colours may differ.'
+  if ($ColourInfo.JpegInfo.Alternative -eq 'Srgb') {
+    $ColourInfo.Policy='JpegExifSrgb'; $ColourInfo.WarningText='JPEG saved; embedded colour profile unusable; explicit EXIF sRGB characterization used.'
+  } elseif ($ColourInfo.JpegInfo.Alternative -eq 'AdobeRgb') {
+    $ColourInfo.Policy='JpegExifAdobeRgb'; $ColourInfo.WarningText='JPEG saved; embedded colour profile unusable; EXIF Adobe RGB characterization used.'
+  }
+}
+
+
+# JPEG ICC is inspected independently before the native reader can reorder or
+# discard it. Other formats retain their existing embedded-profile read policy.
 function Get-WinImgColourInfo {
   param([string]$SnapshotPath, [string]$MagickPath, [object]$NativeContext)
   Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($SnapshotPath))
-  $nativePath = Get-WinImgNativeOutputPath $SnapshotPath
-  # profiles=none is an option fallback; leave the real ICC attached.
-  $result = Invoke-WinImgImageProcess -Executable $MagickPath -Arguments @('identify','-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0','-define','profiles=none','+set','profiles','+set','colorspace','-format','%[colorspace]|%[profiles]',$nativePath) -Context $NativeContext
+  $jpeg=Get-WinImgJpegIccInfo -SnapshotPath $SnapshotPath -NativeContext $NativeContext
+  $arguments=@('identify','-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0','-define','profiles=none','+set','profiles','+set','colorspace')
+  if ($jpeg.IsJpeg) { $arguments+=@('-define','profile:skip=ICC') }
+  $arguments+=@('-format','%[colorspace]|%[profiles]',(Get-WinImgNativeOutputPath $SnapshotPath))
+  $result=Invoke-WinImgImageProcess -Executable $MagickPath -Arguments $arguments -Context $NativeContext
   Assert-WinImgNativeQuery -Result $result -Context 'Colour/profile inspection' -AllowStdOut
-  if ($result.StdOut -notmatch '^([A-Za-z][A-Za-z0-9]*)\|([A-Za-z0-9, _:-]+)$') {
-    throw 'Colour/profile inspection failed or was ambiguous; no accurate conversion was claimed.'
-  }
-  $colourSpace = $Matches[1]
-  $profiles = @($Matches[2].ToLowerInvariant().Split(',') | ForEach-Object { $_.Trim() })
-  $hasIcc = $profiles -contains 'icc' -or $profiles -contains 'icm'
-  if ($hasIcc) { $policy = 'ProfileToSrgb' }
-  elseif ($colourSpace -eq 'sRGB') { $policy = 'AssumeSrgb' }
-  elseif ($colourSpace -eq 'RGB') { $policy = 'ConvertLinearRgb' }
-  elseif ($colourSpace -in @('Gray', 'LinearGray')) { $policy = 'ConvertGray' }
-  elseif ($colourSpace -eq 'CMYK') {
-    throw 'Untagged CMYK has no source ICC characterization; accurate sRGB colour cannot be inferred. Supply a correctly profiled source.'
-  } else {
-    throw ('Unprofiled ' + $colourSpace + ' colour is unsupported; supply a correctly profiled source instead of guessing its characterization.')
-  }
-  return [pscustomobject]@{ ColourSpace = $colourSpace; HasIcc = [bool]$hasIcc; Policy = $policy }
+  if ($result.StdOut -notmatch '^([A-Za-z][A-Za-z0-9]*)\|([A-Za-z0-9, _:-]+)$') { throw 'Colour/profile inspection failed or was ambiguous; no accurate conversion was claimed.' }
+  $colourSpace=$Matches[1]
+  $profiles=@($Matches[2].ToLowerInvariant().Split(',') | ForEach-Object { $_.Trim() })
+  $hasIcc=if ($jpeg.IsJpeg) { $jpeg.HasIcc } else { $profiles -contains 'icc' -or $profiles -contains 'icm' }
+  if ($hasIcc) { $policy='ProfileToSrgb' }
+  elseif ($colourSpace -eq 'sRGB') { $policy='AssumeSrgb' }
+  elseif ($colourSpace -eq 'RGB') { $policy='ConvertLinearRgb' }
+  elseif ($colourSpace -in @('Gray','LinearGray')) { $policy='ConvertGray' }
+  elseif ($colourSpace -eq 'CMYK') { throw 'Untagged CMYK has no source ICC characterization; accurate sRGB colour cannot be inferred. Supply a correctly profiled source.' }
+  else { throw ('Unprofiled '+$colourSpace+' colour is unsupported; supply a correctly profiled source instead of guessing its characterization.') }
+  return [pscustomobject]@{ ColourSpace=$colourSpace; HasIcc=[bool]$hasIcc; Policy=$policy; JpegInfo=$jpeg; SourceProfilePath=''; ExcludeEmbeddedIcc=[bool]$jpeg.IsJpeg; ColourWarning=$false; ColourReason=''; WarningText='' }
 }
 
 function New-WinImgSourceIccProfile {
   param([string]$SnapshotPath, [string]$MagickPath, [string]$ColourSpace,
-    [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates, [object]$NativeContext)
-  $allocated = New-WinImgImageCandidate -WorkRoot $WorkRoot
-  $profilePath = [IO.Path]::Combine([IO.Path]::GetDirectoryName($allocated), 'source.icc')
-  $ownership = [pscustomobject]@{ Path = $profilePath; FileOwned = $false; Removed = $false }
-  $OwnedCandidates.Add($ownership)
-  $reservation = [IO.FileStream]::new($profilePath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
-  $ownership.FileOwned = $true
-  $reservation.Dispose()
-  $nativeSource = Get-WinImgNativeOutputPath $SnapshotPath
-  $nativeProfile = Get-WinImgNativeOutputPath $profilePath
-  # Extract only the selected embedded ICC; every diagnostic is fatal here.
-  $result = Invoke-WinImgImageProcess -Executable $MagickPath -Arguments @('-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0',$nativeSource,('ICC:' + $nativeProfile)) -Context $NativeContext
-  Assert-WinImgNativeQuery -Result $result -Context 'Embedded ICC extraction'
-  Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($profilePath))
-  $item = Get-Item -LiteralPath $profilePath -Force -ErrorAction Stop
-  if ($item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $item.Length -lt 132) {
-    throw 'Embedded ICC is missing or truncated; no accurate colour conversion was claimed.'
+    [string]$WorkRoot, [System.Collections.Generic.List[object]]$OwnedCandidates, [object]$NativeContext, [object]$JpegInfo)
+  $allocated=New-WinImgImageCandidate -WorkRoot $WorkRoot
+  $profilePath=[IO.Path]::Combine([IO.Path]::GetDirectoryName($allocated),'source.icc')
+  $ownership=[pscustomobject]@{ Path=$profilePath; FileOwned=$false; Removed=$false }; $OwnedCandidates.Add($ownership)
+  $reservation=[IO.FileStream]::new($profilePath,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+  $ownership.FileOwned=$true; $reservation.Dispose()
+  if ($JpegInfo -and $JpegInfo.IsJpeg) {
+    if ($JpegInfo.Reason) { throw (New-WinImgIccException $JpegInfo.Reason 'Primary JPEG APP2 sequence is incomplete, contradictory or over its bound.') }
+    $validated=Assert-WinImgIccBytes -Bytes $JpegInfo.ProfileBytes -ColourSpace $ColourSpace -NativeContext $NativeContext
+    [IO.File]::WriteAllBytes($profilePath,$validated.Bytes)
+    $JpegInfo.ProfileDetail=$validated.Detail
+    $JpegInfo.Reason=if ($validated.Repaired) { 'IccZeroPaddingRemoved' } else { '' }
+  } else {
+    $result=Invoke-WinImgImageProcess -Executable $MagickPath -Arguments @('-ping','-regard-warnings','-define','registry:filename:literal=true','-define','image:frames=0',(Get-WinImgNativeOutputPath $SnapshotPath),('ICC:'+(Get-WinImgNativeOutputPath $profilePath))) -Context $NativeContext
+    Assert-WinImgNativeQuery -Result $result -Context 'Embedded ICC extraction'
+    Assert-WinImgNoReparseAncestors ([IO.Path]::GetDirectoryName($profilePath))
+    $item=Get-Item -LiteralPath $profilePath -Force -ErrorAction Stop
+    if ($item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or $item.Length -gt 4194304) { throw 'Embedded ICC extraction exceeds its safe file bound.' }
+    $validated=Assert-WinImgIccBytes -Bytes ([IO.File]::ReadAllBytes($profilePath)) -ColourSpace $ColourSpace -NativeContext $NativeContext
+    if ($validated.Repaired) { throw 'Outside ICC padding recovery is supported only for a primary JPEG profile.' }
   }
-  $length = $item.Length
-  $stream = [IO.FileStream]::new($profilePath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
-  try {
-    $header = New-Object byte[] 132
-    if ($stream.Read($header, 0, 132) -ne 132) { throw 'Embedded ICC header could not be read completely.' }
-    function Read-IccUInt32([byte[]]$Bytes, [int]$Offset) {
-      return [long]$Bytes[$Offset] * 16777216 + [long]$Bytes[$Offset + 1] * 65536 + [long]$Bytes[$Offset + 2] * 256 + [long]$Bytes[$Offset + 3]
-    }
-    $declared = Read-IccUInt32 $header 0
-    $signature = [Text.Encoding]::ASCII.GetString($header, 36, 4)
-    $model = [Text.Encoding]::ASCII.GetString($header, 16, 4).Trim()
-    $tags = Read-IccUInt32 $header 128
-    $tableEnd = 132 + 12 * $tags
-    if ($declared -ne $length -or $signature -ne 'acsp' -or $tags -eq 0 -or $tableEnd -gt $length) {
-      throw 'Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.'
-    }
-    $allowedModels = switch ($ColourSpace) {
-      'sRGB' { 'RGB' }; 'RGB' { 'RGB' }; 'CMYK' { 'CMYK' }
-      'Gray' { 'GRAY'; 'RGB' }; 'LinearGray' { 'GRAY'; 'RGB' }
-      default { @() }
-    }
-    if ($model -notin @($allowedModels)) {
-      throw ('Embedded ICC model ' + $model + ' does not match supported decoded ' + $ColourSpace + ' colour; no accurate conversion was claimed.')
-    }
-    $tag = New-Object byte[] 12
-    for ($index = 0; $index -lt $tags; $index++) {
-      if ($stream.Read($tag, 0, 12) -ne 12) { throw 'Embedded ICC tag table is truncated.' }
-      $offset = Read-IccUInt32 $tag 4
-      $size = Read-IccUInt32 $tag 8
-      # Shared tag payloads occur in compact profiles. Only
-      # enforce table/payload bounds; LCMS and native diagnostics check semantics.
-      if ($offset -lt $tableEnd -or $size -lt 8 -or $offset + $size -gt $length) {
-        throw 'Embedded ICC tag payload lies outside the profile; no accurate colour conversion was claimed.'
-      }
-    }
-  } finally { $stream.Dispose() }
   return $profilePath
+}
+
+function New-WinImgAdobeRgbProfile {
+  param([string]$WorkRoot,[System.Collections.Generic.List[object]]$OwnedCandidates)
+  # Compact-ICC-Profiles AdobeCompat-v2, CC0-1.0, immutable upstream commit
+  # bdd84663061bc4ae95ca70decff54f581e27f702; standard Adobe RGB characterization.
+  # SHA256 60fb2adecacf82132db0b1c09b303316f3bbd9e2823e7ba096d01627d12d57c9.
+  $bytes=[Convert]::FromBase64String('AAABdkFEQkUCEAAAbW50clJHQiBYWVogB+IAAwAUAAkADgAdYWNzcE1TRlQAAAAAc2F3c2N0cmwAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1oYW5kXsIZ29tUzMjeAr7E6+G1DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJZGVzYwAAAPAAAABfY3BydAAAAQwAAAAMd3RwdAAAARgAAAAUclhZWgAAASwAAAAUZ1hZWgAAAUAAAAAUYlhZWgAAAVQAAAAUclRSQwAAAWgAAAAOZ1RSQwAAAWgAAAAOYlRSQwAAAWgAAAAOZGVzYwAAAAAAAAAFQTk4QwAAAAAAAAAAAAAAAHRleHQAAAAAQ0MwAFhZWiAAAAAAAADzUQABAAAAARbMWFlaIAAAAAAAAJwYAABPpQAABPxYWVogAAAAAAAANI0AAKAsAAAPlVhZWiAAAAAAAAAmMQAAEC8AAL6cY3VydgAAAAAAAAABAjM=')
+  $path=[IO.Path]::Combine([IO.Path]::GetDirectoryName((New-WinImgImageCandidate -WorkRoot $WorkRoot)),'adobe-rgb.icc')
+  $ownership=[pscustomobject]@{ Path=$path; FileOwned=$false; Removed=$false }; $OwnedCandidates.Add($ownership)
+  $stream=[IO.FileStream]::new($path,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+  $ownership.FileOwned=$true
+  try { $stream.Write($bytes,0,$bytes.Length) } finally { $stream.Dispose() }
+  return $path
 }
 
 function New-WinImgSrgbProfile {
@@ -2100,6 +2263,7 @@ function Add-WinImgDiscoveredFile {
     Reason = $(if ($kind -eq 'Ignored') { 'Unsupported file extension; intentionally not processed' } else { 'Not started' })
     InputBytes = [long]$File.Length; OutputBytes = $null; ScalePercent = $null; Width = $null; Height = $null; Attempts = 0
     SizeWarning = $false; NativeWarning = $false; TimestampWarning = $false; FramesOmitted = 0
+    ColourWarning = $false; ColourPath = ''; ColourReason = ''
     AncillaryWarning = $false; NamingReason = ''; RetainedSourceRelativePath = ''; RetainedOutputRelativePath = ''; RetainedStatus = ''; Started = $false
   }
   $State.BySource.Add($relative, $row); $State.Rows.Add($row)
@@ -2116,10 +2280,16 @@ function Get-WinImgReportSummary {
   param([object]$State)
   $counts = [ordered]@{ Discovered=$State.Rows.Count; Converted=0; CopiedVideo=0; SkippedDuplicate=0; Ignored=0; Error=0; Cancelled=0; NotStarted=0 }
   [decimal]$inputBytes = 0; [decimal]$outputBytes = 0; [decimal]$videoBytes = 0
-  $warnings = [ordered]@{ SizeWarnings=0; NativeWarnings=0; TimestampWarnings=0; AncillaryWarnings=0; FramesOmitted=0 }
+  $colourManaged=0; $colourAssumed=0
+  $warnings = [ordered]@{ ColourWarnings=0; SizeWarnings=0; NativeWarnings=0; TimestampWarnings=0; AncillaryWarnings=0; FramesOmitted=0 }
   foreach ($row in $State.Rows) {
     if ($row.Status -notin @('Converted','CopiedVideo','SkippedDuplicate','Ignored','Error','Cancelled','NotStarted')) { throw 'Unknown file outcome; cannot report a reconciled partition.' }
     $counts[$row.Status]++
+    if ($row.Status -eq 'Converted') {
+      if ($row.ColourPath -in @('ProfileToSrgb','JpegExifAdobeRgb')) { $colourManaged++ }
+      if ($row.ColourPath -eq 'JpegIccAssumeSrgb') { $colourAssumed++ }
+      if ($row.ColourWarning) { $warnings.ColourWarnings++ }
+    }
     if ($row.Status -eq 'Converted') { $inputBytes += [decimal]$row.InputBytes; $outputBytes += [decimal]$row.OutputBytes }
     elseif ($row.Status -eq 'CopiedVideo') { $videoBytes += [decimal]$row.OutputBytes }
     foreach ($pair in @(@('SizeWarning','SizeWarnings'),@('NativeWarning','NativeWarnings'),@('TimestampWarning','TimestampWarnings'),@('AncillaryWarning','AncillaryWarnings'))) {
@@ -2132,7 +2302,7 @@ function Get-WinImgReportSummary {
   [decimal]$savings = $inputBytes - $outputBytes
   $seconds = $State.Clock.Elapsed.TotalSeconds
   return [pscustomobject]@{
-    Counts=$counts; WarningCounts=$warnings; PartitionBalanced=$true
+    Counts=$counts; WarningCounts=$warnings; ColourManaged=$colourManaged; ColourAssumed=$colourAssumed; PartitionBalanced=$true
     ImageInputBytes=$inputBytes; ImageOutputBytes=$outputBytes; ImageSavingsBytes=$savings
     ImageSavingsPercent=$(if ($inputBytes -gt 0) { 100 * ($savings / $inputBytes) } else { $null })
     VideoBytes=$videoBytes; ElapsedSeconds=$seconds
@@ -2189,8 +2359,8 @@ function Complete-WinImgRunReportFile { param([IO.TextWriter]$Writer) $Writer.Di
 
 function Write-WinImgOutcomeCsv {
   param([object]$State)
-  $columns = @('RecordType','SourceRelativePath','PlannedOutputRelativePath','OutputRelativePath','Kind','Status','Reason','InputBytes','OutputBytes','ImageSavingsBytes','ScalePercent','Width','Height','Attempts','SizeWarning','NativeWarning','TimestampWarning','FramesOmitted','AncillaryWarning','NamingReason','RetainedSourceRelativePath','RetainedOutputRelativePath','RetainedStatus','Started')
-  $numbers = @('InputBytes','OutputBytes','ImageSavingsBytes','ScalePercent','Width','Height','Attempts','SizeWarning','NativeWarning','TimestampWarning','FramesOmitted','AncillaryWarning','Started')
+  $columns = @('RecordType','SourceRelativePath','PlannedOutputRelativePath','OutputRelativePath','Kind','Status','Reason','InputBytes','OutputBytes','ImageSavingsBytes','ScalePercent','Width','Height','Attempts','SizeWarning','NativeWarning','TimestampWarning','FramesOmitted','AncillaryWarning','ColourPath','ColourReason','ColourWarning','NamingReason','RetainedSourceRelativePath','RetainedOutputRelativePath','RetainedStatus','Started')
+  $numbers = @('InputBytes','OutputBytes','ImageSavingsBytes','ScalePercent','Width','Height','Attempts','SizeWarning','NativeWarning','TimestampWarning','FramesOmitted','AncillaryWarning','ColourWarning','Started')
   $writer = $null; $phase = 'Creation'
   try {
     $writer = New-WinImgRunReportFile -Path $State.CsvPath -Header ($columns -join ',')
@@ -2283,13 +2453,14 @@ function Complete-WinImgReport {
   }
   $State.Summary = Get-WinImgReportSummary $State
   $c = $State.Summary.Counts; $s = $State.Summary; $w = $s.WarningCounts
-  $degraded = $Incomplete -or $State.ProcessingWarnings -or -not $State.ScanComplete -or $State.SkippedLinks -or $c.Error -or $c.NotStarted -or $State.ReportWarnings -or $State.ProgressWarnings -or $State.ConsoleWarnings -or $w.SizeWarnings -or $w.NativeWarnings -or $w.TimestampWarnings -or $w.AncillaryWarnings -or ($LogState -and $LogState.Degraded)
+  $degraded = $Incomplete -or $State.ProcessingWarnings -or -not $State.ScanComplete -or $State.SkippedLinks -or $c.Error -or $c.NotStarted -or $State.ReportWarnings -or $State.ProgressWarnings -or $State.ConsoleWarnings -or $w.SizeWarnings -or $w.NativeWarnings -or $w.TimestampWarnings -or $w.AncillaryWarnings -or $w.ColourWarnings -or ($LogState -and $LogState.Degraded)
   $State.RunState = if ($Interrupted) { 'Interrupted' } elseif ($degraded) { 'Partial' } else { 'Completed' }
   $line = 'ACCOUNTING Discovered={0} Converted={1} CopiedVideo={2} SkippedDuplicate={3} Ignored={4} Error={5} Cancelled={6} NotStarted={7} Balanced=True ScanComplete={8} IncompleteDirectories={9} UninspectableEntries={10} SkippedLinks={11} ImageInputBytes={12} ImageOutputBytes={13} ImageSavingsBytes={14} VideoBytes={15} ElapsedSeconds={16} FinalizedFilesPerSecond={17} ReportWarnings={18} ReportComplete={19} ProgressWarnings={20} ImageSavingsPercent={21} SizeWarnings={22} NativeWarnings={23} TimestampWarnings={24} AncillaryWarnings={25} FramesOmitted={26} ConsoleWarnings={27} ProcessingWarnings={28}' -f
     $c.Discovered,$c.Converted,$c.CopiedVideo,$c.SkippedDuplicate,$c.Ignored,$c.Error,$c.Cancelled,$c.NotStarted,$State.ScanComplete,$State.IncompleteDirectories,$State.UninspectableEntries,$State.SkippedLinks,
     $s.ImageInputBytes.ToString([Globalization.CultureInfo]::InvariantCulture),$s.ImageOutputBytes.ToString([Globalization.CultureInfo]::InvariantCulture),$s.ImageSavingsBytes.ToString([Globalization.CultureInfo]::InvariantCulture),$s.VideoBytes.ToString([Globalization.CultureInfo]::InvariantCulture),
     $s.ElapsedSeconds.ToString('F3',[Globalization.CultureInfo]::InvariantCulture),$(if ($null -ne $s.FilesPerSecond) { $s.FilesPerSecond.ToString('F3',[Globalization.CultureInfo]::InvariantCulture) } else { 'unknown' }),$State.ReportWarnings,$State.ReportComplete,$State.ProgressWarnings,
     $(if ($null -ne $s.ImageSavingsPercent) { $s.ImageSavingsPercent.ToString('F3',[Globalization.CultureInfo]::InvariantCulture) } else { 'unknown' }),$w.SizeWarnings,$w.NativeWarnings,$w.TimestampWarnings,$w.AncillaryWarnings,$w.FramesOmitted,$State.ConsoleWarnings,$State.ProcessingWarnings
+  $line += ' ColourManaged={0} ColourAssumed={1} ColourWarnings={2}' -f $s.ColourManaged,$s.ColourAssumed,$w.ColourWarnings
   $line=Get-WinImgBoundedText $line 2048
   $csvHint=Get-WinImgBoundedText (ConvertTo-WinImgLogText ([string]$State.CsvPath)) 512
   if ($LogState) { Write-WinImgRunLog -State $LogState -Message $line -Quiet }
@@ -2546,7 +2717,7 @@ function Invoke-WinImgNormalizer {
         Assert-WinImgCancellation
         # Every size attempt or diagnosed transient retry gets a new candidate.
         if ($attemptCount -gt 0) {
-          $previous = $OwnedCandidates[$OwnedCandidates.Count - 1]
+          $previous = @($OwnedCandidates | Where-Object { $_.Path -eq $DestPath })[0]
           try { Remove-WinImgOwnedCandidate -CandidatePath $previous.Path -FileOwned $previous.FileOwned; $previous.Removed = $true }
           catch [Management.Automation.PipelineStoppedException] { Complete-WinImgRunLog -State $logState; throw }
           catch { if (Test-WinImgCancellationException $_) { throw }; Write-Log ('Could not remove superseded image scratch: ' + $_.Exception.Message) 'WARN' }
@@ -2558,13 +2729,18 @@ function Invoke-WinImgNormalizer {
         $ownership.FileOwned = $true; $stream.Dispose(); $attemptCount++
         $ReportRow.Attempts = $attemptCount
         $nativeDestPath = Get-WinImgNativeOutputPath $DestPath
-        $nativeArguments = @('-quiet', '-regard-warnings', '-define', 'registry:filename:literal=true')
+        $nativeArguments = @('-regard-warnings', '-define', 'registry:filename:literal=true')
+        # JPEG damage diagnostics must survive the read; -quiet can hide a
+        # truncated scan even when native exit is zero and the output decodes.
+        if (-not $ColourInfo.JpegInfo.IsJpeg) { $nativeArguments = @('-quiet') + $nativeArguments }
         if ($SourceInfo) { $nativeArguments += @('-define', 'image:frames=0') }
+        if ($ColourInfo.ExcludeEmbeddedIcc) { $nativeArguments += @('-define','profile:skip=ICC') }
         $nativeArguments += Get-WinImgNativeOutputPath $SourcePath
         if ($SourceInfo -and $SourceInfo.Policy -eq 'FirstDisplayedFrame') { $nativeArguments += '-coalesce' }
         if ($SourceInfo) { $nativeArguments += '+repage' }
         $nativeArguments += '-auto-orient'
         if ($ColourInfo.HasIcc) {
+          if ($ColourInfo.ExcludeEmbeddedIcc) { $nativeArguments += @('-profile',(Get-WinImgNativeOutputPath $ColourInfo.SourceProfilePath)) }
           $nativeArguments += @('+black-point-compensation', '-intent', 'Relative', '-profile', (Get-WinImgNativeOutputPath $SrgbProfilePath))
         } else { $nativeArguments += @('-colorspace', 'sRGB') }
         # HDRI preserves out-of-gamut RGB; bound converted sRGB before blending
@@ -2589,6 +2765,17 @@ function Invoke-WinImgNormalizer {
         Write-Log ('NATIVE IMG: Attempt={0}; Scale={1}%; Category={2}; Exit={3}; TransientRetries={4}/2' -f $attemptCount,$p,$outcome.Category,$exit,$transientRetries) -Quiet
         if (-not $outcome.Acceptable -or $outcome.Warning) { Write-Log ('NATIVE DETAILS: ' + $outcome.DiagnosticText) -Quiet }
         if (-not $outcome.Acceptable) {
+          if ($ColourInfo.JpegInfo.IsJpeg -and $ColourInfo.HasIcc -and -not $ColourInfo.ColourWarning -and (Test-WinImgIccOnlyOutcome $nativeResult)) {
+            Enable-WinImgJpegColourPreview -ColourInfo $ColourInfo -SnapshotPath $SourcePath -MagickPath $MagickCmd -NativeContext $NativeContext -Reason 'IccTransformUnusable'
+            if ($ColourInfo.Policy -eq 'JpegExifAdobeRgb') {
+              $ColourInfo.SourceProfilePath=New-WinImgAdobeRgbProfile -WorkRoot $WorkRoot -OwnedCandidates $OwnedCandidates
+              $ColourInfo.HasIcc=$true
+            }
+            Write-Log ('COLOUR RETRY: Reason={0}; Policy={1}; original ICC excluded; source pixels fully decoded' -f $ColourInfo.ColourReason,$ColourInfo.Policy) -Quiet
+            # The next attempt starts from the unchanged snapshot and a newly
+            # allocated candidate; this is the sole colour fallback for the item.
+            continue
+          }
           if ($outcome.Retryable -and $transientRetries -lt 2) {
             $transientRetries++; $delay = 100 * $transientRetries
             Write-Log ('RETRY IMG: Category=TransientIO; Attempt={0}; Scale={1}%; Retry={2}/2; DelayMs={3}; Reason=sharing or lock violation; unchanged colour/alpha policy' -f $attemptCount,$p,$transientRetries,$delay) 'WARN'
@@ -2610,7 +2797,8 @@ function Invoke-WinImgNormalizer {
           $notes = @()
           if ($aboveTarget) { $notes += 'Could not reach target; best-effort saved' }
           if ($outcome.Warning) { $notes += 'Accepted native lossless-to-lossy JPEG notice; see NATIVE DETAILS in log' }
-          return @{ Status=$(if ($aboveTarget -or $outcome.Warning) { 'ConvertedWithWarning' } else { 'Converted' });
+          if ($ColourInfo.ColourWarning) { $notes += $ColourInfo.WarningText }
+          return @{ Status=$(if ($aboveTarget -or $outcome.Warning -or $ColourInfo.ColourWarning) { 'ConvertedWithWarning' } else { 'Converted' });
             CandidatePath=$DestPath; BytesOut=$validation.BytesOut; Width=$validation.Width; Height=$validation.Height;
             Scale=$p; Attempts=$attemptCount; SizeWarning=$aboveTarget; NativeWarning=$outcome.Warning; Note=($notes -join '; ') }
         }
@@ -2623,6 +2811,7 @@ function Invoke-WinImgNormalizer {
   }
 
   # --------- Main loop ---
+  $colourNotices=@{}
   [int]$i = 0
   foreach ($row in $outputPlan) {
     $outcomeRow = $reportState.BySource[$row.SourceRelativePath]
@@ -2700,8 +2889,21 @@ function Invoke-WinImgNormalizer {
         $colourInfo = Get-WinImgColourInfo -SnapshotPath $imageSource -MagickPath $MagickCmd -NativeContext $nativeContext
         $srgbProfilePath = $null
         if ($colourInfo.HasIcc) {
-          $null = New-WinImgSourceIccProfile -SnapshotPath $imageSource -MagickPath $MagickCmd -ColourSpace $colourInfo.ColourSpace -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -NativeContext $nativeContext
-          $srgbProfilePath = New-WinImgSrgbProfile -WorkRoot $workRoot -OwnedCandidates $ownedCandidates
+          try {
+            $colourInfo.SourceProfilePath = New-WinImgSourceIccProfile -SnapshotPath $imageSource -MagickPath $MagickCmd -ColourSpace $colourInfo.ColourSpace -WorkRoot $workRoot -OwnedCandidates $ownedCandidates -NativeContext $nativeContext -JpegInfo $colourInfo.JpegInfo
+            $colourInfo.ColourReason=$colourInfo.JpegInfo.Reason
+            if ($colourInfo.JpegInfo.ProfileDetail) { Write-Log ('COLOUR PROFILE: {0} (Reason={1}; {2}; validated source bytes explicitly applied)' -f $rel,$colourInfo.ColourReason,$colourInfo.JpegInfo.ProfileDetail) -Quiet }
+          } catch {
+            if (Test-WinImgCancellationException $_) { throw }
+            if (-not $colourInfo.JpegInfo.IsJpeg -or -not $_.Exception.Data['WinImgIccReason']) { throw }
+            Write-Log ('COLOUR ICC: '+$_.Exception.Message) -Quiet
+            Enable-WinImgJpegColourPreview -ColourInfo $colourInfo -SnapshotPath $imageSource -MagickPath $MagickCmd -NativeContext $nativeContext -Reason $_.Exception.Data['WinImgIccReason']
+            if ($colourInfo.Policy -eq 'JpegExifAdobeRgb') {
+              $colourInfo.SourceProfilePath=New-WinImgAdobeRgbProfile -WorkRoot $workRoot -OwnedCandidates $ownedCandidates
+              $colourInfo.HasIcc=$true
+            }
+          }
+          if ($colourInfo.HasIcc) { $srgbProfilePath = New-WinImgSrgbProfile -WorkRoot $workRoot -OwnedCandidates $ownedCandidates }
         }
         Write-Log ('COLOUR IMG: {0} (SourceSpace={1}; SourceICC={2}; Policy={3}; Intent={4}; Alpha=WhiteAfterSrgb; OutputICC=None)' -f
           $rel, $colourInfo.ColourSpace, $colourInfo.HasIcc, $colourInfo.Policy, $(if ($colourInfo.HasIcc) { 'Relative' } else { 'None' }))
@@ -2721,6 +2923,7 @@ function Invoke-WinImgNormalizer {
           $outcomeRow.InputBytes=[long]$sourceLength; $outcomeRow.OutputBytes=[long]$res.BytesOut
           $outcomeRow.OutputRelativePath=$destRel; $outcomeRow.Width=$res.Width; $outcomeRow.Height=$res.Height; $outcomeRow.ScalePercent=$res.Scale
           $outcomeRow.SizeWarning=[bool]$res.SizeWarning; $outcomeRow.NativeWarning=[bool]$res.NativeWarning
+          $outcomeRow.ColourPath=$colourInfo.Policy; $outcomeRow.ColourReason=$colourInfo.ColourReason; $outcomeRow.ColourWarning=$colourInfo.ColourWarning
           $outcomeRow.Reason=$(if ($res.Note) { $res.Note } else { 'Validated JPEG finalized' }); $outcomeRow.Status='Converted'
           $stats.Converted++
           if ($res.SizeWarning) { $stats.SizeWarnings++ }
@@ -2752,11 +2955,15 @@ function Invoke-WinImgNormalizer {
             Set-WinImgReportWarning -Row $outcomeRow -Flag AncillaryWarning -Reason 'Source metadata changed after finalization; heuristic registration omitted'
             Write-Log ('Finalized image kept without heuristic registration: {0} ({1})' -f $rel, $_.Exception.Message) 'WARN'
           }
+          if ($colourInfo.ColourWarning -and -not $colourNotices.ContainsKey($colourInfo.ColourReason)) {
+            $colourNotices[$colourInfo.ColourReason]=$true
+            Write-Log ($colourInfo.WarningText+' Reason='+$colourInfo.ColourReason+'; details for each file are in the local log/CSV.') 'WARN'
+          }
           $note = if ($res.Note) { " ($($res.Note))" } else { "" }
           $level = if ($res.Status -eq 'ConvertedWithWarning') { 'WARN' } else { 'OK' }
           Write-Log ("{0} IMG: {1} -> {2} [{3} bytes, MaxBytes={4}, Width={5}, Height={6}, Scale={7}%]{8}" -f
             $level, $rel, $destRel, $res.BytesOut.ToString([Globalization.CultureInfo]::InvariantCulture),
-            $MaxBytes.ToString([Globalization.CultureInfo]::InvariantCulture), $res.Width, $res.Height, $res.Scale, $note) $level
+            $MaxBytes.ToString([Globalization.CultureInfo]::InvariantCulture), $res.Width, $res.Height, $res.Scale, $note) $level -Quiet:([bool]($colourInfo.ColourWarning -and -not ($res.SizeWarning -or $res.NativeWarning -or $outcomeRow.TimestampWarning)))
           Invoke-WinImgRunStage -Stage 'AfterFinalization' -RelativePath $rel -Path $destPath
         } else {
           $outcomeRow.Status='Error'; $outcomeRow.Reason=$res.Note; $outcomeRow.Attempts=$res.Attempts

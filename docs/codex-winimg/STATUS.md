@@ -1,3 +1,23 @@
+# Authorized JPEG ICC repair 1.0.3 — 1 November 2026
+
+The user requests one continuous implementation and stable publication task for
+JPEG colour-profile failures, starting from v1.0.2. Their explicit instruction
+authorizes normal commits, pushes, checks, merge, tag, stable publication and fresh
+public portable/source-ZIP replay. Historical owner-testing and discretionary
+publication gates are superseded for this repair. Protected-branch checks remain;
+no website deployment is authorized.
+
+Work starts from maintained main `2f754c9600f866366f4321dcaae01ba111c03ef1` on a
+dedicated repair branch. The unchanged runtime and distribution paths from 1.0.2
+remain in scope as regression controls, not as dependency-selection changes.
+Colour implementation, synthetic reference checks and release gates are in
+progress. No 1.0.3 publication or private-batch result is claimed here yet.
+
+Evidence: `evidence/JPEG-ICC-1.0.3.json` will record only measured, sanitized
+aggregates. Earlier records below remain historical.
+
+---
+
 # WinImgNormalizer 1.0.2 stable delivery verified — 1 November 2026
 
 The authorized launcher repair is merged and the stable/latest release is public.

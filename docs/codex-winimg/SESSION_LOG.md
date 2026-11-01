@@ -1,3 +1,16 @@
+# Authorized JPEG ICC repair 1.0.3 — 1 November 2026
+
+Opened the scoped repair from maintained main
+`2f754c9600f866366f4321dcaae01ba111c03ef1` in an isolated feature worktree. The user
+explicitly requests implementation through stable publication and public-download
+verification, superseding historical owner gates for this repair. Dependency
+detection, the private engine version, launcher/TUI and website are unchanged in
+scope. Synthetic colour fixtures and independent references are the required
+automated acceptance basis; test and release results remain unclaimed until
+measured. Earlier session evidence is preserved below.
+
+---
+
 # WinImgNormalizer 1.0.2 stable delivery verified — 1 November 2026
 
 The authorized launcher repair is merged and the stable/latest release is public.

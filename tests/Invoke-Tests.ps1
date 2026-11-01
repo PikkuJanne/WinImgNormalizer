@@ -23,6 +23,10 @@ function Get-TestSourceBindings {
         # bind those exact bytes in targeted and full-suite run summaries too.
         $colourFixtureRoot = Join-Path $PSScriptRoot 'fixtures/colour'
         $files += @(Get-ChildItem -LiteralPath $colourFixtureRoot -Recurse -File -Force | ForEach-Object { $_.FullName })
+        $files += @(Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'fixtures/icc-repair') -Recurse -File -Force | ForEach-Object { $_.FullName })
+        $files += Join-Path $PSScriptRoot 'IccAcceptanceHelpers.ps1'
+        $files += Join-Path $PSScriptRoot 'Invoke-IccAcceptance.ps1'
+        $files += Join-Path $PSScriptRoot 'Invoke-IccDistributionAcceptance.ps1'
         # Bind the procedural size/quality measurement recipe with the gate.
         $files += Join-Path $PSScriptRoot 'Measure-SizeQuality.ps1'
         # Release derivation assertions bind both inputs and checked-in outputs.
@@ -37,7 +41,7 @@ function Get-TestSourceBindings {
         $files += Join-Path $repositoryRoot 'docs/release/RUNTIME_IMPORTS.json'
         # Bind the dated public-byte witness when present. Legacy deliberately
         # draft fixtures have no witness; published consistency requires it.
-        foreach ($publicationRelative in @('docs/release/publication-v1.0.0.json','docs/release/publication-v1.0.1.json','docs/release/identity-v1.0.1.json','docs/release/publication-v1.0.2.json','docs/release/identity-v1.0.2.json')) {
+        foreach ($publicationRelative in @('docs/release/publication-v1.0.0.json','docs/release/publication-v1.0.1.json','docs/release/identity-v1.0.1.json','docs/release/publication-v1.0.2.json','docs/release/identity-v1.0.2.json','docs/release/publication-v1.0.3.json','docs/release/identity-v1.0.3.json')) {
             $publicationFile = Join-Path $repositoryRoot $publicationRelative
             if (Test-Path -LiteralPath $publicationFile -PathType Leaf) { $files += $publicationFile }
         }

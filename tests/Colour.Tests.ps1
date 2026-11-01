@@ -96,6 +96,8 @@ BeforeAll {
         throw 'Selected colour test magick.exe is missing.'
     }
     . (Join-Path $repository 'WinImgNormalizer.ps1')
+    . (Join-Path $PSScriptRoot 'IccAcceptanceHelpers.ps1')
+    $iccRepairAssets = Join-Path $PSScriptRoot 'fixtures/icc-repair'
 
     function Invoke-ColourMagick {
         param([string[]]$Arguments)
@@ -392,11 +394,11 @@ Describe 'M2-T02 independent profiled and untagged colour references (T032-T033)
 }
 
 Describe 'M2-T02 malformed profiles and native diagnostic handling (T034)' {
-    It 'T034 rejects actual <Kind> ICC problems without finalizing an inaccurate JPEG' -ForEach @(
-        @{ Kind = 'malformed PNG'; Name = 'bad.png' },
-        @{ Kind = 'malformed JPEG'; Name = 'bad.jpg' },
-        @{ Kind = 'RGB pixels with CMYK profile'; Name = 'bad.jpg' },
-        @{ Kind = 'CMYK pixels with RGB profile'; Name = 'bad.tiff' }
+    It 'T034 handles actual <Kind> ICC problems under the restricted JPEG preview policy' -ForEach @(
+        @{ Kind = 'malformed PNG'; Name = 'bad.png'; Preview = $false },
+        @{ Kind = 'malformed JPEG'; Name = 'bad.jpg'; Preview = $true },
+        @{ Kind = 'RGB pixels with CMYK profile'; Name = 'bad.jpg'; Preview = $true },
+        @{ Kind = 'CMYK pixels with RGB profile'; Name = 'bad.tiff'; Preview = $false }
     ) {
         $case = New-ColourCase 'bad-icc' $Name
         $sourcePath = Join-Path $case.Source $case.Name
@@ -415,7 +417,15 @@ Describe 'M2-T02 malformed profiles and native diagnostic handling (T034)' {
         Set-ColourSourceTimes $sourcePath
         $before = Get-ColourSourceState $case.Source
         $result = Invoke-ColourRun $case
-        Assert-ColourFailed $result
+        if ($Preview) {
+            $result.Code | Should -Be 2
+            $result.Log | Should -Match 'Policy=JpegIccAssumeSrgb'
+            $result.Log | Should -Match ([regex]::Escape('JPEG saved; embedded colour profile unusable; sRGB assumed, colours may differ.'))
+            $result.Log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0'
+            $output = Join-Path $result.Run 'bad.jpeg'
+            Assert-ColourPixels -Path $output -Width 128 -Height 96 -Expected $reference.rgb_source -Tolerance $reference.tolerance.jpeg_channel_units -Format JPEG
+            Assert-ColourNoMetadata $output
+        } else { Assert-ColourFailed $result }
         $result.Log | Should -Match '(?i)(colour|color|ICC|profile)'
         Get-ColourSourceState $case.Source | Should -Be $before
     }
@@ -441,7 +451,7 @@ Describe 'M2-T02 malformed profiles and native diagnostic handling (T034)' {
         Get-ColourSourceState $case.Source | Should -Be $before
     }
 
-    It 'T034 rejects an actual retained RGB ICC with valid structure but an invalid curve through the default native runner' {
+    It 'T034 saves an explicitly approximate JPEG when a structurally valid RGB profile has an invalid curve' {
         $case = New-ColourCase 'invalid-curve' 'curve.jpg'
         $sourcePath = Join-Path $case.Source $case.Name
         New-ColourRgb -Path $sourcePath -Values $reference.rgb_source -Coder JPEG
@@ -465,12 +475,12 @@ Describe 'M2-T02 malformed profiles and native diagnostic handling (T034)' {
         Set-ColourSourceTimes $sourcePath
         $before = Get-ColourSourceState $case.Source
         $result = Invoke-ColourRun $case
-        # This log follows source ICC extraction and the structural/model guard;
-        # the actual LCMS conversion must still reject the semantic error.
-        $result.Log | Should -Match 'COLOUR IMG: curve.jpg \(SourceSpace=sRGB; SourceICC=True; Policy=ProfileToSrgb;'
-        $result.Log | Should -Match 'Native conversion stopped: Category=DamagedInput'
-        $result.Log | Should -Match 'NATIVE DETAILS:'
-        Assert-ColourFailed $result
+        $result.Code | Should -Be 2
+        $result.Log | Should -Match 'Policy=JpegIccAssumeSrgb'
+        $result.Log | Should -Match ([regex]::Escape('JPEG saved; embedded colour profile unusable; sRGB assumed, colours may differ.'))
+        $result.Log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0'
+        Assert-ColourPixels -Path (Join-Path $result.Run 'curve.jpeg') -Width 128 -Height 96 -Expected $reference.rgb_source -Tolerance $reference.tolerance.jpeg_channel_units -Format JPEG
+        Assert-ColourNoMetadata (Join-Path $result.Run 'curve.jpeg')
         Get-ColourSourceState $case.Source | Should -Be $before
     }
 
@@ -505,13 +515,15 @@ Describe 'M2-T02 malformed profiles and native diagnostic handling (T034)' {
             ExitCode = $nativeExit; DiagnosticOutput = $nativeDiagnostics -join "`n"
             FullyDecoded = $true; JpegBytes = [IO.File]::ReadAllBytes($probePath).Length
         } | ConvertTo-Json))
-        # No injected ProcessRunner: the default implementation must capture the
-        # same native diagnostics and stop immediately despite valid JPEG bytes.
+        # No injected ProcessRunner: retain the real profile diagnostics locally,
+        # then use one clean profile-excluded read for the identified ICC problem.
         $result = Invoke-ColourRun $case
-        $result.Log | Should -Match 'COLOUR IMG: version.jpg \(SourceSpace=sRGB; SourceICC=True; Policy=ProfileToSrgb;'
-        $result.Log | Should -Match 'Native conversion stopped: Category=DamagedInput'
-        $result.Log | Should -Match 'NATIVE DETAILS:'
-        Assert-ColourFailed $result
+        $result.Code | Should -Be 2
+        $result.Log | Should -Match 'Policy=JpegIccAssumeSrgb'
+        $result.Log | Should -Match ([regex]::Escape('JPEG saved; embedded colour profile unusable; sRGB assumed, colours may differ.'))
+        $result.Log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0'
+        Assert-ColourPixels -Path (Join-Path $result.Run 'version.jpeg') -Width 128 -Height 96 -Expected $reference.rgb_source -Tolerance $reference.tolerance.jpeg_channel_units -Format JPEG
+        Assert-ColourNoMetadata (Join-Path $result.Run 'version.jpeg')
         Get-ColourSourceState $case.Source | Should -Be $before
     }
 }
@@ -653,3 +665,249 @@ Describe 'M2-T02 alpha composition and retry invariants (T036)' {
         Get-ColourSourceState $case.Source | Should -Be $before
     }
 }
+
+Describe '1.0.3 actual JPEG ICC repair corpus and independent colour references (T076)' {
+    It 'T076 reconciles the actual <Group> corpus, fully decoded outputs, independent colours and warning subsets' -ForEach @(
+        @{Group='views'}, @{Group='negative'}, @{Group='mixed'}
+    ) {
+        $container=New-ColourDirectory ('icc-'+$Group)
+        $case=[pscustomobject]@{Source=(Join-Path $container 'Kesä ICC input');Parent=(New-ColourDirectory 'icc-output');Probe=(New-ColourDirectory 'icc-probe');Name=''}
+        $null=Copy-IccAcceptanceInputs -Assets $iccRepairAssets -Group $Group -Source $case.Source
+        $before=Get-ColourSourceState $case.Source
+        $result=Invoke-ColourRun $case
+        $accepted=Assert-IccAcceptanceOutput -Assets $iccRepairAssets -Group $Group -Output $result.Run -MagickPath $magick -ExitCode $result.Code -ConsoleText $result.Text
+        $accepted.IndependentReferencesPassed | Should -BeTrue
+        Get-ColourSourceState $case.Source | Should -Be $before
+    }
+
+    It 'T076 applies exactly the reconstructed wide source bytes at every real scale with the embedded ICC excluded on read' {
+        $case=New-ColourCase 'icc-split-scales' 'split.jpg'
+        $sourcePath=Join-Path $case.Source $case.Name
+        [IO.File]::Copy((Join-Path $iccRepairAssets 'fixtures/views/04-wide-split-reversed.jpg'),$sourcePath,$false)
+        $normal=Join-Path $iccRepairAssets 'fixtures/views/03-good-wide.jpg'
+        $segment=@(Get-ColourJpegSegments $normal|Where-Object {$_.Marker -eq 226 -and [Text.Encoding]::ASCII.GetString($_.Payload,0,12) -eq "ICC_PROFILE`0"})[0]
+        $expected=[Convert]::ToBase64String([byte[]]$segment.Payload[14..($segment.Payload.Length-1)])
+        $trace=[pscustomobject]@{Calls=0;Profiles=New-Object 'Collections.Generic.List[string]'}
+        $runner={
+            param([string]$Executable,[string[]]$Arguments)
+            $trace.Calls++
+            $skip=[Array]::IndexOf($Arguments,'profile:skip=ICC')
+            $skip | Should -BeGreaterThan 0
+            $Arguments[$skip-1] | Should -Be '-define'
+            $indices=@(for($i=0;$i -lt $Arguments.Length;$i++){if($Arguments[$i] -eq '-profile'){$i}})
+            $indices.Count | Should -Be 2 -Because 'validated source is assigned once before the sRGB transform'
+            $sourceProfile=$Arguments[$indices[0]+1]
+            $trace.Profiles.Add([Convert]::ToBase64String([IO.File]::ReadAllBytes($sourceProfile)))
+            $native=@($Arguments|ForEach-Object {if($_ -like 'jpeg:extent=*'){'jpeg:extent=1048576B'}else{$_}})
+            $nativeText=@(& $Executable @native 2>&1)
+            return [pscustomobject]@{ExitCode=$LASTEXITCODE;DiagnosticOutput=$nativeText -join "`n"}
+        }
+        $before=Get-ColourSourceState $case.Source
+        $result=Invoke-ColourRun -Case $case -Runner $runner -MaxBytes 1
+        $result.Code | Should -Be 2
+        $trace.Calls | Should -Be 6
+        foreach($profile in $trace.Profiles){$profile | Should -Be $expected}
+        @(Get-ChildItem -LiteralPath $result.Run -File -Filter '*.jpeg').Count | Should -Be 1
+        Get-ColourSourceState $case.Source | Should -Be $before
+    }
+
+    It 'T076 treats <Kind> APP2 chunks as unusable metadata without losing clean RGB pixels' -ForEach @(
+        @{Kind='missing';ExpectedReason='IccSegmentsMissing'},@{Kind='duplicate';ExpectedReason='IccSegmentsDuplicate'},@{Kind='contradictory';ExpectedReason='IccSegmentsContradictory'}
+    ) {
+        $case=New-ColourCase ('icc-'+$Kind) 'broken-chunks.jpg'
+        $sourcePath=Join-Path $case.Source $case.Name
+        [IO.File]::Copy((Join-Path $iccRepairAssets 'fixtures/views/01-untagged.jpg'),$sourcePath,$false)
+        $normal=Join-Path $iccRepairAssets 'fixtures/views/03-good-wide.jpg'
+        $segment=@(Get-ColourJpegSegments $normal|Where-Object {$_.Marker -eq 226 -and [Text.Encoding]::ASCII.GetString($_.Payload,0,12) -eq "ICC_PROFILE`0"})[0]
+        $profile=[byte[]]$segment.Payload[14..($segment.Payload.Length-1)]
+        $first=[byte[]]$profile[0..283];$second=[byte[]]$profile[284..($profile.Length-1)]
+        Add-ColourJpegSegment -Path $sourcePath -Marker 226 -Payload ([Text.Encoding]::ASCII.GetBytes("ICC_PROFILE`0")+[byte[]]@(1,2)+$first)
+        if($Kind -ne 'missing'){
+            $sequence=if($Kind -eq 'duplicate'){1}else{2};$count=if($Kind -eq 'contradictory'){3}else{2}
+            Add-ColourJpegSegment -Path $sourcePath -Marker 226 -Payload ([Text.Encoding]::ASCII.GetBytes("ICC_PROFILE`0")+[byte[]]@($sequence,$count)+$second)
+        }
+        $before=Get-ColourSourceState $case.Source
+        $result=Invoke-ColourRun $case
+        $result.Code | Should -Be 2
+        $result.Log | Should -Match $ExpectedReason
+        $result.Log | Should -Match 'SUMMARY ConvertedImages=1 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0'
+        Assert-IccAcceptanceJpeg -Path (Join-Path $result.Run 'broken-chunks.jpeg') -Reference (Join-Path $iccRepairAssets 'references/srgb.png') -MagickPath $magick
+        Get-ColourSourceState $case.Source | Should -Be $before
+    }
+
+    It 'T076 caps a recurring ICC notice while preserving every warning in the local outcome CSV' {
+        $case=New-ColourCase 'icc-recurring' ''
+        for($i=1;$i -le 3;$i++){[IO.File]::Copy((Join-Path $iccRepairAssets 'fixtures/views/06-bad-signature.jpg'),(Join-Path $case.Source ('bad-'+$i+'.jpg')),$false)}
+        $result=Invoke-ColourRun $case
+        $notice=[regex]::Escape('JPEG saved; embedded colour profile unusable; sRGB assumed, colours may differ.')
+        [regex]::Matches($result.Text,$notice).Count | Should -Be 1
+        [regex]::Matches($result.Log,$notice).Count | Should -BeGreaterOrEqual 3
+        $csv=@(Get-ChildItem -LiteralPath (Join-Path $result.Run '.WinImgNormalizer/reports') -Filter '*.csv' -File)[0]
+        $rows=@(Import-Csv -LiteralPath $csv.FullName|ForEach-Object {foreach($property in $_.PSObject.Properties){if([string]$property.Value -like 'text:*'){$property.Value=([string]$property.Value).Substring(5)}};$_}|Where-Object RecordType -eq 'File')
+        $rows.Count | Should -Be 3
+        foreach($row in $rows){$row.Status|Should -Be 'Converted';$row.ColourPath|Should -Be 'JpegIccAssumeSrgb';[int]$row.ColourWarning|Should -Be 1}
+        $result.Log | Should -Match 'SUMMARY ConvertedImages=3 CopiedVideos=0 Duplicates=0 Unsupported=0 Errors=0'
+    }
+
+    It 'T076 identifies the actual independent header assertion for <Name>' -ForEach @(
+        @{Name='06-bad-signature.jpg';Reason='IccSignature'},
+        @{Name='07-zero-tags.jpg';Reason='IccEmptyTagTable'},
+        @{Name='08-huge-table.jpg';Reason='IccTagTableBounds'},
+        @{Name='09-declared-too-large.jpg';Reason='IccDeclaredLength'}
+    ) {
+        $path=Join-Path $iccRepairAssets ('fixtures/views/'+$Name)
+        $segment=@(Get-ColourJpegSegments $path|Where-Object {$_.Marker -eq 226 -and [Text.Encoding]::ASCII.GetString($_.Payload,0,12) -eq "ICC_PROFILE`0"})[0]
+        $bytes=[byte[]]$segment.Payload[14..($segment.Payload.Length-1)]
+        $caught=$null
+        try {$null=Assert-WinImgIccBytes -Bytes $bytes -ColourSpace sRGB}catch{$caught=$_}
+        $caught | Should -Not -BeNullOrEmpty
+        $caught.Exception.Data['WinImgIccReason'] | Should -Be $Reason
+    }
+
+    It 'T076 retains an actual conversion failure for <Category> even after identifying unusable JPEG ICC' -ForEach @(
+        @{Category='policy denial';Diagnostic='not authorized by the security policy JPEG';NativeExit=1},
+        @{Category='resource limit';Diagnostic='cache resources exhausted';NativeExit=1},
+        @{Category='unidentified native failure';Diagnostic='Unidentified native decode failure';NativeExit=1}
+    ) {
+        $case=New-ColourCase 'icc-real-failure' 'profile.jpg'
+        $sourcePath=Join-Path $case.Source $case.Name
+        [IO.File]::Copy((Join-Path $iccRepairAssets 'fixtures/views/06-bad-signature.jpg'),$sourcePath,$false)
+        $trace=[pscustomobject]@{Calls=0;Diagnostic=$Diagnostic;Exit=$NativeExit}
+        $runner={param($Executable,$Arguments);$trace.Calls++;return [pscustomobject]@{ExitCode=$trace.Exit;StdErr=$trace.Diagnostic}}
+        $before=Get-ColourSourceState $case.Source
+        $result=Invoke-ColourRun -Case $case -Runner $runner
+        Assert-ColourFailed $result
+        $trace.Calls | Should -Be 1
+        $result.Log | Should -Not -Match 'JPEG saved; embedded colour profile unusable'
+        Get-ColourSourceState $case.Source | Should -Be $before
+    }
+
+    It 'T076 rejects ICC-only fallback classification for incomplete or failed native lifecycle <Mode>' -ForEach @(
+        @{Mode='incomplete capture';Field='StreamsComplete';Value=$false},
+        @{Mode='drain timeout';Field='DrainTimedOut';Value=$true},
+        @{Mode='unterminated child tree';Field='TreeTerminated';Value=$false},
+        @{Mode='unexpected native exit';Field='ExitCode';Value=7},
+        @{Mode='native timeout';Field='TimedOut';Value=$true},
+        @{Mode='native cancellation';Field='Cancelled';Value=$true},
+        @{Mode='capture overflow';Field='StdErrTruncated';Value=$true}
+    ) {
+        $native=[pscustomobject]@{ExitCode=1;StdOut='';StdErr='magick.exe: ColorspaceColorProfileMismatch `icc` @ warning/profile.c/LCMSExceptionHandler/123.';StartError='';StreamsComplete=$true;DrainTimedOut=$false;ProcessId=123;TreeTerminated=$true;TimedOut=$false;Cancelled=$false;StdErrTruncated=$false}
+        Test-WinImgIccOnlyOutcome -Result $native | Should -BeTrue -Because 'the complete pure profile diagnostic is the positive control'
+        $native.$Field=$Value
+        Test-WinImgIccOnlyOutcome -Result $native | Should -BeFalse
+    }
+
+    It 'T076 refuses <Category> diagnostics from an attempted valid-profile JPEG transform without an ICC fallback' -ForEach @(
+        @{Category='policy';Diagnostic='not authorized by the security policy JPEG'},
+        @{Category='resource';Diagnostic='cache resources exhausted'},
+        @{Category='pixel damage mixed with profile warning';Diagnostic="magick.exe: ColorspaceColorProfileMismatch ``icc`` @ warning/profile.c/LCMSExceptionHandler/123.`nmagick.exe: Premature end of JPEG file @ warning/jpeg.c/JPEGWarningHandler/123."}
+    ) {
+        $case=New-ColourCase 'icc-transform-failure' 'valid.jpg'
+        [IO.File]::Copy((Join-Path $iccRepairAssets 'fixtures/views/03-good-wide.jpg'),(Join-Path $case.Source $case.Name),$false)
+        $trace=[pscustomobject]@{Calls=0;Diagnostic=$Diagnostic}
+        $runner={param($Executable,$Arguments);$trace.Calls++;return [pscustomobject]@{ExitCode=1;StdErr=$trace.Diagnostic}}
+        $result=Invoke-ColourRun -Case $case -Runner $runner
+        Assert-ColourFailed $result
+        $trace.Calls | Should -Be 1
+        $result.Log | Should -Not -Match 'JPEG saved; embedded colour profile unusable'
+    }
+}
+
+Describe '1.0.3 explicit alternate EXIF characterization after unusable JPEG ICC (T076)' {
+    BeforeAll {
+        function New-ColourExifCharacterization {
+            param([ValidateSet('Srgb','AdobeRgb','Duplicate')][string]$Characterization)
+            $stream=[IO.MemoryStream]::new();$writer=[IO.BinaryWriter]::new($stream)
+            try {
+                $writer.Write([Text.Encoding]::ASCII.GetBytes("Exif`0`0II"));$writer.Write([uint16]42);$writer.Write([uint32]8)
+                $writer.Write([uint16]1)
+                $writer.Write([uint16]34665);$writer.Write([uint16]4);$writer.Write([uint32]1);$writer.Write([uint32]26)
+                $writer.Write([uint32]0)
+                $entries=if($Characterization -eq 'Duplicate'){3}else{2}
+                $space=if($Characterization -eq 'AdobeRgb'){65535}else{1}
+                $writer.Write([uint16]$entries)
+                $writer.Write([uint16]40961);$writer.Write([uint16]3);$writer.Write([uint32]1);$writer.Write([uint16]$space);$writer.Write([uint16]0)
+                $writer.Write([uint16]40965);$writer.Write([uint16]4);$writer.Write([uint32]1);$writer.Write([uint32](26+2+12*$entries+4))
+                if($Characterization -eq 'Duplicate'){
+                    $writer.Write([uint16]40961);$writer.Write([uint16]3);$writer.Write([uint32]1);$writer.Write([uint16]65535);$writer.Write([uint16]0)
+                }
+                $writer.Write([uint32]0);$writer.Write([uint16]1)
+                $writer.Write([uint16]1);$writer.Write([uint16]2);$writer.Write([uint32]4)
+                $index=if($Characterization -eq 'AdobeRgb'){"R03`0"}else{"R98`0"}
+                $writer.Write([Text.Encoding]::ASCII.GetBytes($index));$writer.Write([uint32]0)
+                return ,$stream.ToArray()
+            } finally {$writer.Dispose();$stream.Dispose()}
+        }
+    }
+
+    It 'T076 uses <Characterization> characterization for actual <Problem> ICC without an inaccurate sRGB assumption' -ForEach @(
+        @{Characterization='Srgb';Problem='bad-signature';Policy='JpegExifSrgb';Calls=1;Managed=0},
+        @{Characterization='AdobeRgb';Problem='bad-signature';Policy='JpegExifAdobeRgb';Calls=1;Managed=1},
+        @{Characterization='AdobeRgb';Problem='invalid-curve';Policy='JpegExifAdobeRgb';Calls=2;Managed=1},
+        @{Characterization='Duplicate';Problem='bad-signature';Policy='JpegIccAssumeSrgb';Calls=1;Managed=0}
+    ) {
+        $case=New-ColourCase 'exif-characterization' 'exif.jpg'
+        $sourcePath=Join-Path $case.Source $case.Name
+        New-ColourRgb -Path $sourcePath -Values $reference.rgb_source -Coder JPEG
+        $profile=[IO.File]::ReadAllBytes($srgbProfile)
+        if($Problem -eq 'bad-signature'){
+            [Array]::Copy([Text.Encoding]::ASCII.GetBytes('bad!'),0,$profile,36,4)
+        }else{
+            $tags=Get-ColourBigEndian $profile 128 4;$curve=-1
+            for($i=0;$i -lt $tags;$i++){
+                $entry=132+12*$i
+                if([Text.Encoding]::ASCII.GetString($profile,$entry,4) -eq 'rTRC'){$curve=Get-ColourBigEndian $profile ($entry+4) 4}
+            }
+            $curve | Should -BeGreaterThan 0
+            [Array]::Copy([Text.Encoding]::ASCII.GetBytes('xxxx'),0,$profile,$curve,4)
+        }
+        Add-ColourJpegSegment -Path $sourcePath -Marker 226 -Payload ([Text.Encoding]::ASCII.GetBytes("ICC_PROFILE`0")+[byte[]]@(1,1)+$profile)
+        Add-ColourJpegSegment -Path $sourcePath -Marker 225 -Payload (New-ColourExifCharacterization $Characterization)
+        Set-ColourSourceTimes $sourcePath
+        $before=Get-ColourSourceState $case.Source
+        $trace=[pscustomobject]@{Calls=0}
+        $runner={
+            param([string]$Executable,[string[]]$Arguments)
+            $trace.Calls++
+            $nativeText=@(& $Executable @Arguments 2>&1)
+            return [pscustomobject]@{ExitCode=$LASTEXITCODE;DiagnosticOutput=$nativeText -join "`n"}
+        }
+        $result=Invoke-ColourRun -Case $case -Runner $runner
+        $result.Code | Should -Be 2 -Because $result.Text
+        $trace.Calls | Should -Be $Calls
+        $result.Log | Should -Match ([regex]::Escape('Policy='+$Policy))
+        $result.Log | Should -Match ('ColourManaged='+$Managed+' ColourAssumed='+$(if($Characterization -eq 'Duplicate'){1}else{0})+' ColourWarnings=1')
+        $expected=if($Characterization -eq 'AdobeRgb'){$reference.wide_rgb}else{$reference.rgb_source}
+        $output=Join-Path $result.Run 'exif.jpeg'
+        Assert-ColourPixels -Path $output -Width 128 -Height 96 -Expected $expected -Tolerance $reference.tolerance.jpeg_channel_units -Format JPEG
+        Assert-ColourNoMetadata $output
+        @(Get-ChildItem -LiteralPath (Join-Path $result.Run '.WinImgNormalizer/work') -Force).Count | Should -Be 0
+        Get-ColourSourceState $case.Source | Should -Be $before
+    }
+}
+
+Describe '1.0.3 damaged JPEG source scans remain genuine failures (T076)' {
+    It 'T076 rejects damaged scan data with <ProfileState> through the actual native JPEG encoder' -ForEach @(
+        @{ProfileState='no ICC'},@{ProfileState='valid ICC'}
+    ) {
+        $case=New-ColourCase 'jpeg-source-damage' 'damaged.jpg'
+        $damaged=[IO.File]::ReadAllBytes((Join-Path $iccRepairAssets 'fixtures/negative/01-damaged-scan-and-bad-icc.jpg'))
+        # Remove exactly the injected first APP2, preserving the damaged scan.
+        $damaged[2] | Should -Be 255;$damaged[3] | Should -Be 226
+        $segmentLength=Get-ColourBigEndian $damaged 4 2
+        $bytes=[byte[]]@($damaged[0..1]+$damaged[(4+$segmentLength)..($damaged.Length-1)])
+        $sourcePath=Join-Path $case.Source $case.Name
+        [IO.File]::WriteAllBytes($sourcePath,$bytes)
+        if($ProfileState -eq 'valid ICC'){
+            Add-ColourJpegSegment -Path $sourcePath -Marker 226 -Payload ([Text.Encoding]::ASCII.GetBytes("ICC_PROFILE`0")+[byte[]]@(1,1)+[IO.File]::ReadAllBytes($srgbProfile))
+        }
+        $before=Get-ColourSourceState $case.Source
+        $result=Invoke-ColourRun $case
+        Assert-ColourFailed $result
+        $result.Log | Should -Match 'NATIVE DETAILS:'
+        $result.Log | Should -Match '(?i)(premature|corrupt|insufficient|end of data|end of file)'
+        $result.Log | Should -Not -Match 'JPEG saved; embedded colour profile unusable'
+        Get-ColourSourceState $case.Source | Should -Be $before
+    }
+}
+

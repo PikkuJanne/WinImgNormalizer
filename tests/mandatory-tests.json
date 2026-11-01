@@ -33,6 +33,7 @@
     "Console.Tests.ps1"
   ],
   "required_case_ids": [
+    "T076",
     "T075",
     "T005",
     "T006",

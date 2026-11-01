@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "version": "1.0.3",
+  "record_state": "repair_in_progress",
+  "base_commit": "2f754c9600f866366f4321dcaae01ba111c03ef1",
+  "scope": "JPEG colour repair through stable publication; no dependency detection or website change",
+  "baseline": {
+    "application_tag": "v1.0.2",
+    "launches": [
+      {
+        "errors": 6,
+        "entry": "Unmodified BAT / Windows PowerShell 5.1",
+        "exit_code": 2,
+        "actual_jpegs": 4,
+        "inputs": 10
+      },
+      {
+        "errors": 6,
+        "entry": "Direct PowerShell 7",
+        "exit_code": 2,
+        "actual_jpegs": 4,
+        "inputs": 10
+      }
+    ],
+    "engine": "ImageMagick 7.1.2-35 Beta Q16-HDRI",
+    "engine_source": "authenticated per-user cache",
+    "launch_working_directory": "reported existing launch directory",
+    "reported_launch_copy": "preserved pre-maintained non-Git snapshot identified by its PROJECT_CLOSED record",
+    "maintained_checkouts": "clean maintained main at base_commit",
+    "trace_scope": "approved synthetic JPEG fixtures only",
+    "source_icc_trace": [
+      {
+        "File": "02-good-srgb.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 588,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [],
+        "ValidationFailure": null,
+        "EncodeReached": true,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 588
+      },
+      {
+        "File": "03-good-wide.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 568,
+        "Declared": 568,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [],
+        "ValidationFailure": null,
+        "EncodeReached": true,
+        "IndependentBytes": 568,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 568,
+        "IndependentWideProfileOpens": true
+      },
+      {
+        "File": "04-wide-split-reversed.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 568,
+        "Declared": 24,
+        "SignatureIsAcsp": false,
+        "Tags": 1936077618,
+        "TableEnd": 23232931548,
+        "Assertions": [
+          "LengthMismatch",
+          "SignatureInvalid",
+          "TablePastEnd"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 568,
+        "NativeMatchesIndependent": false,
+        "IndependentDeclared": 568,
+        "IndependentWideProfileOpens": true
+      },
+      {
+        "File": "05-wide-outer-padding.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 571,
+        "Declared": 568,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [
+          "LengthMismatch"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 571,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 568,
+        "IndependentWideProfileOpens": true
+      },
+      {
+        "File": "06-bad-signature.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 588,
+        "SignatureIsAcsp": false,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [
+          "SignatureInvalid"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 588
+      },
+      {
+        "File": "07-zero-tags.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 588,
+        "SignatureIsAcsp": true,
+        "Tags": 0,
+        "TableEnd": 132,
+        "Assertions": [
+          "EmptyTable"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 588
+      },
+      {
+        "File": "08-huge-table.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 588,
+        "SignatureIsAcsp": true,
+        "Tags": 4294967295,
+        "TableEnd": 51539607672,
+        "Assertions": [
+          "TablePastEnd"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 588
+      },
+      {
+        "File": "09-declared-too-large.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 588,
+        "Declared": 652,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [
+          "LengthMismatch"
+        ],
+        "ValidationFailure": "Embedded ICC size, signature or tag table is invalid; no accurate colour conversion was claimed.",
+        "EncodeReached": false,
+        "IndependentBytes": 588,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 652
+      },
+      {
+        "File": "10-valid-later-sibling.jpg",
+        "ColourSpace": "sRGB",
+        "Policy": "ProfileToSrgb",
+        "Actual": 568,
+        "Declared": 568,
+        "SignatureIsAcsp": true,
+        "Tags": 11,
+        "TableEnd": 264,
+        "Assertions": [],
+        "ValidationFailure": null,
+        "EncodeReached": true,
+        "IndependentBytes": 568,
+        "NativeMatchesIndependent": true,
+        "IndependentDeclared": 568,
+        "IndependentWideProfileOpens": true
+      }
+    ],
+    "conclusion": "The reordered split profile was exported in a different byte order from the independent reader; the narrow padding case failed only the length assertion. Four malformed profiles trigger distinct header assertions before encode. These synthetic findings do not identify an unavailable private source.",
+    "actual_stale_launch_snapshot_replay": {
+      "inputs": 10,
+      "actual_jpegs": 10,
+      "errors": 0,
+      "version": "Pre-maintained snapshot; not v1.0.2",
+      "limitation": "Legacy stripping retained outputs but did not establish accurate ICC conversion. This observation is separate from the maintained v1.0.2 reproduction."
+    }
+  },
+  "private_batch": {
+    "available": false,
+    "content_accessed": false,
+    "coverage": "Unavailable in this environment; no private-batch result claimed. Synthetic acceptance continues."
+  },
+  "repair_validation": null,
+  "public_release_validation": null,
+  "windows10_executed": false,
+  "human_testing_gate": false,
+  "website_deployed": false
+}
