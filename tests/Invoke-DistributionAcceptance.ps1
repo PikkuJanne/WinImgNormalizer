@@ -130,6 +130,17 @@ if(-not $Worker) {
         $workerProcess=Start-Process -FilePath $ps5 -ArgumentList (($tokens|ForEach-Object {Quote-Distribution $_})-join ' ') -Credential ([Management.Automation.PSCredential]::new(([Environment]::MachineName+'\'+$userName),$password)) -LoadUserProfile -WindowStyle Hidden -WorkingDirectory $repository -RedirectStandardOutput (Join-Path $root 'worker.stdout.txt') -RedirectStandardError (Join-Path $root 'worker.stderr.txt') -PassThru
         $null=$workerProcess.Handle
         if(-not $workerProcess.WaitForExit(900000)){$workerProcess.Kill();throw 'Distribution worker exceeded deadline.'}
+        if($workerProcess.ExitCode -ne 0){
+            $summaryPath=Join-Path $root 'distribution-summary.json';$detail=''
+            if([IO.File]::Exists($summaryPath)){
+                $failure=[IO.File]::ReadAllText($summaryPath)|ConvertFrom-Json
+                $detail='Line='+$failure.ErrorLine+'; completed cases='+@($failure.Cases).Count+'; '+$failure.Error
+            }elseif([IO.File]::Exists((Join-Path $root 'worker.stderr.txt'))){$detail=[IO.File]::ReadAllText((Join-Path $root 'worker.stderr.txt'))}
+            $detail=$detail.Replace($root,'<acceptance>').Replace($repository,'<checkout>').Replace($env:USERPROFILE,'<runner-profile>')
+            $detail=[regex]::Replace($detail,'(?i)[A-Z]:[\\/]Users[\\/][^\\/\r\n" ]+','<disposable-profile>')
+            if($detail.Length -gt 1800){$detail=$detail.Substring(0,700)+"`n[bounded]`n"+$detail.Substring($detail.Length-1000)}
+            Write-Host ('Distribution worker cause: '+$detail)
+        }
         Assert-Distribution ($workerProcess.ExitCode -eq 0) 'Distribution worker failed; inspect owned raw evidence.'
     } finally {
         foreach($rule in $rules){Remove-NetFirewallRule -Name $rule -ErrorAction Continue}

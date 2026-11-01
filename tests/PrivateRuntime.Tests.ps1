@@ -40,6 +40,15 @@ BeforeAll {
 
 Describe 'T075 private runtime distribution and cache boundary' {
     AfterEach { $env:LOCALAPPDATA = $originalLocalData }
+    It 'keeps an application drive root absolute while checking runtime layout markers' {
+        $driveRoot = [IO.Path]::GetPathRoot($repository)
+        Mock Test-Path { return $false }
+        Get-WinImgBundledRuntime -ApplicationRoot $driveRoot | Should -BeNullOrEmpty
+        Should -Invoke Test-Path -Times 1 -Exactly -ParameterFilter { $LiteralPath -eq ($driveRoot + 'portable-runtime.json') }
+        Should -Invoke Test-Path -Times 1 -Exactly -ParameterFilter { $LiteralPath -eq ($driveRoot + 'runtime') }
+        Should -Invoke Test-Path -Times 1 -Exactly -ParameterFilter { $LiteralPath -eq ($driveRoot + 'package-manifest.json') }
+    }
+
     It 'authenticates the tracked payload and cold extraction without an external decoder' {
         $case = New-PrivateRuntimeCase -WithPayload
         Mock Resolve-WinImgMagickApplication { throw 'PATH must not be resolved.' }

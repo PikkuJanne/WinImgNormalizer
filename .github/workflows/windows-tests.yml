@@ -51,9 +51,6 @@ jobs:
             else { $acceptanceArguments.Build=$true }
           }
           ./tests/Invoke-HotfixAcceptance.ps1 @acceptanceArguments
-      - name: Run mandatory tests with verified development dependencies
-        run: |
-          ./tests/Invoke-Tests.ps1 -DownloadDependencies -ResultDirectory .scratch/ci-tests
       - name: Verify cold clone, source archive, unchanged BAT shortcut and pull upgrade offline
         run: |
           $canonical = Get-Content -LiteralPath release-metadata.json -Raw | ConvertFrom-Json
@@ -74,6 +71,9 @@ jobs:
             $arguments.ArchivePath = Join-Path .scratch/ci-hotfix/build ('WinImgNormalizer-' + $canonical.version + '-portable.zip')
           }
           ./tests/Invoke-DistributionAcceptance.ps1 @arguments
+      - name: Run mandatory tests with verified development dependencies
+        run: |
+          ./tests/Invoke-Tests.ps1 -DownloadDependencies -ResultDirectory .scratch/ci-tests
       - name: Run scoped static analysis with verified development dependencies
         if: ${{ !cancelled() }}
         run: |

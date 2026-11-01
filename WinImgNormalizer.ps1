@@ -1574,7 +1574,7 @@ function Get-WinImgRuntimeStreamHash {
 
 function Get-WinImgBundledRuntime {
   param([string]$ApplicationRoot = $PSScriptRoot, [string]$ExpectedManifestSha256)
-  $ApplicationRoot = [IO.Path]::GetFullPath($ApplicationRoot).TrimEnd('\','/')
+  $ApplicationRoot = Normalize-WinImgRootPath $ApplicationRoot
   $markerPath = Join-Path $ApplicationRoot 'portable-runtime.json'
   $runtimeRoot = Join-Path $ApplicationRoot 'runtime'
   $packaged = Test-Path -LiteralPath (Join-Path $ApplicationRoot 'package-manifest.json') -PathType Leaf
@@ -1625,7 +1625,7 @@ function Get-WinImgBundledRuntime {
 
 function Get-WinImgPrivateRuntime {
   param([string]$ApplicationRoot = $PSScriptRoot)
-  $ApplicationRoot = [IO.Path]::GetFullPath($ApplicationRoot).TrimEnd('\','/')
+  $ApplicationRoot = Normalize-WinImgRootPath $ApplicationRoot
   $pin = Get-WinImgPrivateRuntimePin
   # A recognized portable copy is always authoritative. Damage is never hidden
   # by a cache or another runtime, even if that other engine would be healthy.
