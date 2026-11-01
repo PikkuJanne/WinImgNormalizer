@@ -910,4 +910,3 @@ Describe '1.0.3 damaged JPEG source scans remain genuine failures (T076)' {
         Get-ColourSourceState $case.Source | Should -Be $before
     }
 }
-
