@@ -869,8 +869,10 @@ Describe '1.0.3 explicit alternate EXIF characterization after unusable JPEG ICC
         $runner={
             param([string]$Executable,[string[]]$Arguments)
             $trace.Calls++
-            $nativeText=@(& $Executable @Arguments 2>&1)
-            return [pscustomobject]@{ExitCode=$LASTEXITCODE;DiagnosticOutput=$nativeText -join "`n"}
+            $preference=$ErrorActionPreference
+            try { $ErrorActionPreference='Continue';$nativeText=@(& $Executable @Arguments 2>&1);$nativeCode=$LASTEXITCODE }
+            finally { $ErrorActionPreference=$preference }
+            return [pscustomobject]@{ExitCode=$nativeCode;DiagnosticOutput=$nativeText -join "`n"}
         }
         $result=Invoke-ColourRun -Case $case -Runner $runner
         $result.Code | Should -Be 2 -Because $result.Text
