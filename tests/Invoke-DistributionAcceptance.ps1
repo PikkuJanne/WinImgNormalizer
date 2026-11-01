@@ -237,6 +237,9 @@ try {
                 $item=Get-Item -LiteralPath $result;Assert-Distribution ($item.Length -gt 0 -and $item.Length -le $expected.max_jpeg_bytes) 'Unexpected JPEG byte count.'
                 $image=[Drawing.Bitmap]::new($result)
                 try{Assert-Distribution ($image.RawFormat.Guid -eq [Drawing.Imaging.ImageFormat]::Jpeg.Guid -and $image.Width -eq $file.dimensions[0] -and $image.Height -eq $file.dimensions[1]) 'Independent GDI+ JPEG decode dimensions/format failed.'
+                    # Force every raster pixel through the independent decoder,
+                    # including the camera JPEG that has no white-corner check.
+                    for($pixelY=0;$pixelY -lt $image.Height;$pixelY++){for($pixelX=0;$pixelX -lt $image.Width;$pixelX++){$null=$image.GetPixel($pixelX,$pixelY)}}
                     if($file.PSObject.Properties['white_point']){$pixel=$image.GetPixel($file.white_point[0],$file.white_point[1]);Assert-Distribution ($pixel.R -ge 245 -and $pixel.G -ge 245 -and $pixel.B -ge 245) 'Transparent corner is not white.'}
                 }finally{$image.Dispose()}
             }

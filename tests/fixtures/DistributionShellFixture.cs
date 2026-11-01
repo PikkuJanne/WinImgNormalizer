@@ -23,6 +23,8 @@ public static class DistributionShellFixture {
     [DllImport("kernel32.dll", SetLastError=true)] static extern bool AllocConsole();
     [DllImport("kernel32.dll")] static extern bool FreeConsole();
     [DllImport("kernel32.dll", SetLastError=true)] static extern bool AttachConsole(uint process);
+    [DllImport("kernel32.dll", SetLastError=true)] static extern bool SetStdHandle(int kind,IntPtr handle);
+    [DllImport("kernel32.dll", SetLastError=true)] static extern bool SetHandleInformation(IntPtr handle,uint mask,uint flags);
     [DllImport("kernel32.dll")] static extern IntPtr GetConsoleWindow();
     [DllImport("user32.dll")] static extern bool ShowWindow(IntPtr window, int command);
     [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] static extern IntPtr CreateFileW(string path,uint access,uint sharing,IntPtr security,uint disposition,uint flags,IntPtr template);
@@ -72,7 +74,7 @@ public static class DistributionShellFixture {
         var handles=new Dictionary<uint,IntPtr>();var records=new Dictionary<uint,Dictionary<string,object>>();
         var hashes=new Dictionary<string,string>(StringComparer.OrdinalIgnoreCase);
         var hashThreads=new Dictionary<string,Thread>(StringComparer.OrdinalIgnoreCase);
-        IntPtr job=IntPtr.Zero,port=IntPtr.Zero,screen=IntPtr.Zero,shellProcess=IntPtr.Zero;
+        IntPtr job=IntPtr.Zero,port=IntPtr.Zero,screen=IntPtr.Zero,input=IntPtr.Zero,shellProcess=IntPtr.Zero;
         bool running=true;Thread observer=null;int exit=1;string captured="";string failure=null;
         string recordPath=args.Length==3?args[2]:(args.Length==4?args[3]:null);
         try {
@@ -85,6 +87,13 @@ public static class DistributionShellFixture {
             record["PrivateJobAssignedBeforeShell"]=true;
             FreeConsole();Check(AllocConsole(),"AllocConsole");ShowWindow(GetConsoleWindow(),0);
             screen=CreateFileW("CONOUT$",0xC0000000,3,IntPtr.Zero,3,0,IntPtr.Zero);Check(screen!=new IntPtr(-1),"CONOUT$");SetConsoleScreenBufferSize(screen,new Coord(180,5000));
+            input=CreateFileW("CONIN$",0xC0000000,3,IntPtr.Zero,3,0,IntPtr.Zero);Check(input!=new IntPtr(-1),"CONIN$");
+            // The controller itself was started with redirected parent pipes.
+            // AllocConsole preserves STARTF_USESTDHANDLES in that case; replace
+            // those inherited handles explicitly before ShellExecuteEx creates
+            // CMD so the real child renders into our private console buffer.
+            Check(SetHandleInformation(screen,1,1),"Inheritable console output");Check(SetHandleInformation(input,1,1),"Inheritable console input");
+            Check(SetStdHandle(-10,input),"Console stdin");Check(SetStdHandle(-11,screen),"Console stdout");Check(SetStdHandle(-12,screen),"Console stderr");
             observer=new Thread(delegate(){
                 try { while(running) {
                     uint message;UIntPtr key;IntPtr processId;
@@ -154,7 +163,7 @@ public static class DistributionShellFixture {
             record["Processes"]=processes;record["ControllerExitCode"]=exit;
             if(recordPath!=null)File.WriteAllText(recordPath,new JavaScriptSerializer{MaxJsonLength=4000000}.Serialize(record),new UTF8Encoding(false));
             foreach(var value in handles.Values)CloseHandle(value);
-            if(shellProcess!=IntPtr.Zero)CloseHandle(shellProcess);if(screen!=IntPtr.Zero && screen!=new IntPtr(-1))CloseHandle(screen);FreeConsole();
+            if(shellProcess!=IntPtr.Zero)CloseHandle(shellProcess);if(screen!=IntPtr.Zero && screen!=new IntPtr(-1))CloseHandle(screen);if(input!=IntPtr.Zero && input!=new IntPtr(-1))CloseHandle(input);FreeConsole();
             // Job handle deliberately remains open until this controller exits.
         }
         return exit;

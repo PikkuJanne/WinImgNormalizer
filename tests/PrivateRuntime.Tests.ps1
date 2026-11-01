@@ -123,6 +123,17 @@ Describe 'T075 private runtime distribution and cache boundary' {
         (Get-Item -LiteralPath $selection.Path).Length | Should -Be (32395952 + 6)
     }
 
+    It 'treats a package-manifest directory as damaged portable evidence even with a healthy cache' {
+        $case = New-PrivateRuntimeCase -WithPayload
+        $selection = Get-WinImgPrivateRuntime -ApplicationRoot $case.App
+        Remove-WinImgEngineSelection $selection
+        $damaged = Join-Path $case.Root 'damaged-portable'
+        [IO.Directory]::CreateDirectory((Join-Path $damaged 'package-manifest.json')) | Out-Null
+        Mock Invoke-WinImgNativeProcess { throw 'A damaged portable app must not execute the healthy cache.' }
+        { Get-WinImgPrivateRuntime -ApplicationRoot $damaged } | Should -Throw '*Packaged ImageMagick is missing or damaged*'
+        Should -Invoke Invoke-WinImgNativeProcess -Times 0 -Exactly
+    }
+
     It 'rejects missing source bytes identified by <Marker> with warm-cache=<Warm>' -ForEach @(
         @{Marker='resources';Warm=$false}, @{Marker='.git';Warm=$false}, @{Marker='release-metadata.json';Warm=$false},
         @{Marker='resources';Warm=$true}, @{Marker='.git';Warm=$true}, @{Marker='release-metadata.json';Warm=$true}

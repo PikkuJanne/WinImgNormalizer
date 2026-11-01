@@ -1577,7 +1577,7 @@ function Get-WinImgBundledRuntime {
   $ApplicationRoot = Normalize-WinImgRootPath $ApplicationRoot
   $markerPath = Join-Path $ApplicationRoot 'portable-runtime.json'
   $runtimeRoot = Join-Path $ApplicationRoot 'runtime'
-  $packaged = Test-Path -LiteralPath (Join-Path $ApplicationRoot 'package-manifest.json') -PathType Leaf
+  $packaged = Test-Path -LiteralPath (Join-Path $ApplicationRoot 'package-manifest.json')
   if (-not $packaged -and -not (Test-Path -LiteralPath $markerPath) -and -not (Test-Path -LiteralPath $runtimeRoot)) { return $null }
   $handles = New-Object 'Collections.Generic.List[IO.Stream]'
   try {
