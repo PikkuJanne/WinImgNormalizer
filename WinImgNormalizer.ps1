@@ -5,7 +5,7 @@ Non-destructive image normalizer + archive prep for mixed photo folders
 Author: Janne Vuorela
 Target OS: Windows 10/11
 PowerShell: Windows PowerShell 5.1+, also works on PowerShell 7
-Dependencies: private verified ImageMagick in the portable ZIP; optional .bat wrapper
+Dependencies: private verified ImageMagick in portable/source distributions; optional .bat wrapper
 
 SYNOPSIS
     Recursively mirrors a source folder into a safe copy under the user’s Pictures folder,
@@ -73,7 +73,7 @@ LIMITATIONS
     - Final known-sRGB JPEGs omit ICC and source metadata; profiled originals remain untouched.
 
 TROUBLESHOOTING
-    - "magick not found": install ImageMagick; ensure magick.exe is in PATH (check `magick -version`).
+    - Missing private engine: the console identifies the incomplete app copy and exact portable asset.
     - PS 5.1 “Parameter set cannot be resolved”: this script uses positional arguments by design.
       Always launch via the provided .bat or pass the folder path positionally.
     - Conversion uses `-quiet`; candidate validation promotes decode warnings to
@@ -89,7 +89,7 @@ LICENSE / WARRANTY
 # The sole application version source also drives development release metadata.
 # Keep it inside the script so package metadata and direct use agree.
 function Get-WinImgVersion {
-  return '1.0.1'
+  return '1.0.2'
 }
 
 # Presentation stays out of the persistent log and CSV. Console colours never
@@ -154,7 +154,7 @@ function Write-WinImgConsoleLine {
 }
 
 function Get-WinImgConsoleLayout {
-  param([ValidateSet('Start','Engine','Progress','Result','Failure')]$ConsoleEvent, [object]$Data, [int]$Width=80)
+  param([ValidateSet('Start','Engine','EnginePending','EngineDetails','Progress','Result','Failure')]$ConsoleEvent, [object]$Data, [int]$Width=80)
   $boundedWidth = [Math]::Max(20, [Math]::Min(120, $Width))
   switch ($ConsoleEvent) {
     'Start' {
@@ -163,6 +163,19 @@ function Get-WinImgConsoleLayout {
       '-' * [Math]::Min(56, $boundedWidth)
       '[01 / INPUT]'
       [string]$Data.Source
+    }
+    'EnginePending' {
+      '[02 / ENGINE]   Resolving private ImageMagick'
+      'Application:'
+      [string]$Data.ApplicationRoot
+    }
+    'EngineDetails' {
+      if (-not $Data.Path) { 'Selected engine: none' }
+      else {
+        $display = if ($Data.DisplayVersion) { [string]$Data.DisplayVersion } else { 'version unavailable' }
+        'Selected engine: {0} | {1}' -f $Data.Source, $display
+        [string]$Data.Path
+      }
     }
     'Engine' {
       if (-not $Data.Path) { '[02 / ENGINE]   Not needed (no image decoding)' }
@@ -967,7 +980,7 @@ function Invoke-WinImgNativeProcess {
   $workingDirectory = $null
   # One verified private engine is pinned for the run. Its child environment is
   # isolated without changing the caller's PATH, registry, policy or settings.
-  if ($script:WinImgEngineSelection -and $Executable -ieq $script:WinImgEngineSelection.Path -and $script:WinImgEngineSelection.Source -eq 'bundled') {
+  if ($script:WinImgEngineSelection -and $Executable -ieq $script:WinImgEngineSelection.Path -and $script:WinImgEngineSelection.Source -in @('bundled','cache')) {
     $privateEnvironment = @{}
     foreach ($key in $script:WinImgEngineSelection.Environment.Keys) { $privateEnvironment[$key] = $script:WinImgEngineSelection.Environment[$key] }
     foreach ($key in $Environment.Keys) { $privateEnvironment[$key] = $Environment[$key] }
@@ -1540,33 +1553,59 @@ function Assert-WinImgRegularRuntimeFile {
   if ($item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) { throw 'Runtime files must be regular files without reparse points.' }
 }
 
+function Get-WinImgPrivateRuntimePin {
+  # These source-controlled pins also travel with a bare BAT/PS1 copy. The
+  # manifest authenticates every executable, DLL, configuration and notice.
+  return [pscustomobject]@{
+    PayloadBytes=13760329L
+    PayloadSha256='0289a6e663df27c92a151dff10440023dda325599e86b1c33fa2ec1f02660a6e'
+    ManifestSha256='5efa916c9ee643e94cac53dcce704ab9ad17a0cbce16e430350d03998c1d28b9'
+  }
+}
+
+function Get-WinImgRuntimeStreamHash {
+  param([IO.Stream]$Stream)
+  $hash = [Security.Cryptography.SHA256]::Create()
+  try {
+    $Stream.Position = 0
+    return ([BitConverter]::ToString($hash.ComputeHash($Stream))).Replace('-','').ToLowerInvariant()
+  } finally { $hash.Dispose(); $Stream.Position = 0 }
+}
+
 function Get-WinImgBundledRuntime {
-  param([string]$ApplicationRoot = $PSScriptRoot)
+  param([string]$ApplicationRoot = $PSScriptRoot, [string]$ExpectedManifestSha256)
+  $ApplicationRoot = Normalize-WinImgRootPath $ApplicationRoot
   $markerPath = Join-Path $ApplicationRoot 'portable-runtime.json'
   $runtimeRoot = Join-Path $ApplicationRoot 'runtime'
-  $packaged = Test-Path -LiteralPath (Join-Path $ApplicationRoot 'package-manifest.json') -PathType Leaf
+  $packaged = Test-Path -LiteralPath (Join-Path $ApplicationRoot 'package-manifest.json')
   if (-not $packaged -and -not (Test-Path -LiteralPath $markerPath) -and -not (Test-Path -LiteralPath $runtimeRoot)) { return $null }
+  $handles = New-Object 'Collections.Generic.List[IO.Stream]'
   try {
     Assert-WinImgNoReparseAncestors $ApplicationRoot
     Assert-WinImgNoReparseAncestors $runtimeRoot
     Assert-WinImgRegularRuntimeFile $markerPath
+    $handles.Add([IO.File]::Open($markerPath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read))
     $marker = Get-Content -LiteralPath $markerPath -Raw -ErrorAction Stop | ConvertFrom-Json
     if ($marker.runtime_required -ne $true -or $marker.runtime_manifest_sha256 -notmatch '^[a-fA-F0-9]{64}$') { throw 'Invalid runtime marker.' }
+    if ($ExpectedManifestSha256 -and $marker.runtime_manifest_sha256 -ine $ExpectedManifestSha256) { throw 'Runtime manifest differs from this application version''s pinned private engine.' }
     $manifestPath = Join-Path $runtimeRoot 'runtime-manifest.json'
     Assert-WinImgRegularRuntimeFile $manifestPath
-    if ((Get-FileHash -LiteralPath $manifestPath -Algorithm SHA256 -ErrorAction Stop).Hash -ine $marker.runtime_manifest_sha256) { throw 'Runtime manifest checksum mismatch.' }
+    $manifestStream = [IO.File]::Open($manifestPath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+    $handles.Add($manifestStream)
+    if ((Get-WinImgRuntimeStreamHash $manifestStream) -ine $marker.runtime_manifest_sha256) { throw 'Runtime manifest checksum mismatch.' }
     $manifest = Get-Content -LiteralPath $manifestPath -Raw -ErrorAction Stop | ConvertFrom-Json
     if ($manifest.schema_version -ne 1 -or $manifest.engine_relative_path -cne 'imagemagick/magick.exe' -or @($manifest.files).Count -lt 1) { throw 'Invalid runtime manifest.' }
     $listed = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
     foreach ($record in $manifest.files) {
       $relative = [string]$record.path
-      if ([IO.Path]::IsPathRooted($relative) -or $relative -match '[:\\]|(^|/)\.\.(/|$)|[\x00-\x1f]' -or -not $listed.Add($relative)) { throw 'Unsafe or duplicate runtime path.' }
+      if ([IO.Path]::IsPathRooted($relative) -or $relative -match '[:\\]|(^|/)\.\.?(/|$)|[\x00-\x1f]|[. ](/|$)|//' -or -not $listed.Add($relative)) { throw 'Unsafe or duplicate runtime path.' }
       $path = [IO.Path]::GetFullPath((Join-Path $runtimeRoot $relative))
       if (-not $path.StartsWith($runtimeRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Runtime path escapes its private directory.' }
       Assert-WinImgRegularRuntimeFile $path
-      $item = Get-Item -LiteralPath $path -Force -ErrorAction Stop
-      if ($item.PSIsContainer -or $record.sha256 -notmatch '^[a-fA-F0-9]{64}$' -or $item.Length -ne $record.bytes -or
-          (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash -ine $record.sha256) { throw ('Runtime file integrity failure: ' + $relative) }
+      $stream = [IO.File]::Open($path, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+      $handles.Add($stream)
+      if ($record.sha256 -notmatch '^[a-fA-F0-9]{64}$' -or $stream.Length -ne $record.bytes -or
+          (Get-WinImgRuntimeStreamHash $stream) -ine $record.sha256) { throw ('Runtime file integrity failure: ' + $relative) }
     }
     foreach ($item in Get-ChildItem -LiteralPath $runtimeRoot -Recurse -Force -ErrorAction Stop) {
       if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Runtime contains a reparse point.' }
@@ -1577,9 +1616,120 @@ function Get-WinImgBundledRuntime {
     }
     if (-not $listed.Contains($manifest.engine_relative_path)) { throw 'Runtime executable is not authenticated by its manifest.' }
     $executable = [IO.Path]::GetFullPath((Join-Path $runtimeRoot $manifest.engine_relative_path))
-    return [pscustomobject]@{ Path=$executable; Source='bundled'; Version=$manifest.engine_version; ManifestSha256=$marker.runtime_manifest_sha256; Environment=@{}; PolicyDirectories=@(); PolicyFiles=@() }
+    return [pscustomobject]@{ Path=$executable; Source='bundled'; Version=$manifest.engine_version; ManifestSha256=$marker.runtime_manifest_sha256; RuntimeHandles=$handles; Environment=@{}; PolicyDirectories=@(); PolicyFiles=@() }
   } catch {
+    foreach ($handle in $handles) { $handle.Dispose() }
     throw ('Packaged ImageMagick is missing or damaged. Re-extract the official portable ZIP; no external engine was tried. ' + $_.Exception.Message)
+  }
+}
+
+function Get-WinImgPrivateRuntime {
+  param([string]$ApplicationRoot = $PSScriptRoot)
+  $ApplicationRoot = Normalize-WinImgRootPath $ApplicationRoot
+  $pin = Get-WinImgPrivateRuntimePin
+  # A recognized portable copy is always authoritative. Damage is never hidden
+  # by a cache or another runtime, even if that other engine would be healthy.
+  $selection = Get-WinImgBundledRuntime -ApplicationRoot $ApplicationRoot -ExpectedManifestSha256 $pin.ManifestSha256
+  if ($selection) { return $selection }
+
+  $payload = Join-Path $ApplicationRoot 'resources/private-runtime.zip'
+  $payloadStream = $null; $archive = $null; $staging = $null
+  try {
+    if (Test-Path -LiteralPath $payload) {
+      Assert-WinImgRegularRuntimeFile $payload
+      $payloadStream = [IO.File]::Open($payload, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+      if ($payloadStream.Length -ne $pin.PayloadBytes -or (Get-WinImgRuntimeStreamHash $payloadStream) -cne $pin.PayloadSha256) {
+        throw 'Private runtime payload integrity failure; no image engine was executed.'
+      }
+    } elseif ((Test-Path -LiteralPath (Join-Path $ApplicationRoot 'resources')) -or
+              (Test-Path -LiteralPath (Join-Path $ApplicationRoot 'release-metadata.json')) -or
+              (Test-Path -LiteralPath (Join-Path $ApplicationRoot '.git'))) {
+      throw 'Private runtime payload is missing from this source copy; no image engine was executed.'
+    }
+    $profileData = $env:LOCALAPPDATA
+    if (-not $profileData) { $profileData = [Environment]::GetFolderPath('LocalApplicationData') }
+    if (-not $profileData -or -not [IO.Path]::IsPathRooted($profileData) -or $profileData -match '^[A-Za-z]:($|[^\\/])') {
+      throw 'A private per-user runtime cache directory could not be resolved.'
+    }
+    $cacheParent = [IO.Path]::GetFullPath((Join-Path $profileData 'WinImgNormalizer/runtimes'))
+    $cache = Join-Path $cacheParent ((Get-WinImgVersion) + '-' + $pin.PayloadSha256)
+    Assert-WinImgNoReparseAncestors $cache
+    if (Test-Path -LiteralPath $cache) {
+      $selection = Get-WinImgBundledRuntime -ApplicationRoot $cache -ExpectedManifestSha256 $pin.ManifestSha256
+      if (-not $selection) { throw 'Private runtime cache is incomplete; no image engine was executed.' }
+      $selection.Source = 'cache'
+      return $selection
+    }
+    if (-not $payloadStream) {
+      throw ('Incomplete WinImgNormalizer app copy in "' + $ApplicationRoot + '". No authenticated private engine is available; no external decoder was tried. The complete portable asset is WinImgNormalizer-' + (Get-WinImgVersion) + '-portable.zip.')
+    }
+
+    Add-Type -AssemblyName System.IO.Compression
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $archive = [IO.Compression.ZipArchive]::new($payloadStream, [IO.Compression.ZipArchiveMode]::Read, $true)
+    $manifestEntry = $archive.GetEntry('runtime/runtime-manifest.json')
+    if (-not $manifestEntry -or $manifestEntry.Length -gt 1MB) { throw 'Private runtime archive has no bounded manifest.' }
+    $manifestBuffer = [IO.MemoryStream]::new()
+    $manifestInput = $manifestEntry.Open()
+    try { $manifestInput.CopyTo($manifestBuffer) } finally { $manifestInput.Dispose() }
+    try {
+      if ((Get-WinImgRuntimeStreamHash $manifestBuffer) -cne $pin.ManifestSha256) { throw 'Private runtime archive manifest is not pinned by this application.' }
+      $manifest = [Text.Encoding]::UTF8.GetString($manifestBuffer.ToArray()) | ConvertFrom-Json
+    } finally { $manifestBuffer.Dispose() }
+    if ($manifest.schema_version -ne 1 -or $manifest.engine_relative_path -cne 'imagemagick/magick.exe') { throw 'Invalid private runtime archive manifest.' }
+    $expected = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    $null = $expected.Add('portable-runtime.json'); $null = $expected.Add('runtime/runtime-manifest.json')
+    foreach ($record in $manifest.files) {
+      $relative = [string]$record.path
+      if (-not $relative -or [IO.Path]::IsPathRooted($relative) -or $relative -match '[:\\]|(^|/)\.\.?(/|$)|[\x00-\x1f]|[. ](/|$)|//' -or
+          -not $expected.Add('runtime/' + $relative)) { throw 'Unsafe or duplicate private runtime archive manifest path.' }
+    }
+    $seen = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    foreach ($entry in $archive.Entries) {
+      if (-not $expected.Contains($entry.FullName) -or -not $seen.Add($entry.FullName) -or $entry.Length -gt 64MB -or
+          (($entry.ExternalAttributes -shr 16) -band 0xf000) -eq 0xa000 -or
+          ($entry.ExternalAttributes -band [int][IO.FileAttributes]::ReparsePoint)) { throw 'Private runtime archive contains an unexpected, linked or duplicate entry.' }
+    }
+    if ($seen.Count -ne $expected.Count) { throw 'Private runtime archive is incomplete.' }
+    Assert-WinImgNoReparseAncestors $cacheParent
+    [IO.Directory]::CreateDirectory($cacheParent) | Out-Null
+    Assert-WinImgNoReparseAncestors $cacheParent
+    $staging = Join-Path $cacheParent ('.extract-' + [guid]::NewGuid().ToString('N'))
+    if (-not (New-WinImgExclusiveDirectory $staging)) { throw 'Private runtime extraction ownership collision.' }
+    # Files are created only below the exclusive sibling, using the authenticated
+    # manifest allowlist. ZipArchive.ExtractToDirectory is intentionally avoided.
+    foreach ($entry in $archive.Entries) {
+      $target = [IO.Path]::GetFullPath((Join-Path $staging $entry.FullName))
+      if (-not $target.StartsWith($staging + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Private runtime archive path escapes its directory.' }
+      $parent = [IO.Path]::GetDirectoryName($target)
+      Assert-WinImgNoReparseAncestors $parent
+      [IO.Directory]::CreateDirectory($parent) | Out-Null
+      Assert-WinImgNoReparseAncestors $parent
+      $entryInput = $entry.Open()
+      $output = $null
+      try {
+        $output = [IO.File]::Open($target, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+        $entryInput.CopyTo($output)
+        if ($output.Length -ne $entry.Length) { throw 'Private runtime extraction length mismatch.' }
+      } finally { if ($output) { $output.Dispose() }; $entryInput.Dispose() }
+    }
+    $verified = Get-WinImgBundledRuntime -ApplicationRoot $staging -ExpectedManifestSha256 $pin.ManifestSha256
+    Remove-WinImgEngineSelection $verified
+    try { [IO.Directory]::Move($staging, $cache); $staging = $null }
+    catch [IO.IOException] {
+      # Another first run may have published the same immutable digest. It must
+      # pass the complete verifier below; no partially expanded tree is accepted.
+      if (-not (Test-Path -LiteralPath $cache -PathType Container)) { throw }
+    }
+    $selection = Get-WinImgBundledRuntime -ApplicationRoot $cache -ExpectedManifestSha256 $pin.ManifestSha256
+    if (-not $selection) { throw 'Private runtime cache publication is incomplete.' }
+    $selection.Source = 'cache'
+    return $selection
+  } finally {
+    if ($archive) { $archive.Dispose() }
+    if ($payloadStream) { $payloadStream.Dispose() }
+    # A losing concurrent extraction is retained in its unique private sibling.
+    # It is never selected or executed; no unknown tree is recursively removed.
   }
 }
 
@@ -1644,9 +1794,13 @@ function Initialize-WinImgBundledEnvironment {
 
 function Remove-WinImgEngineSelection {
   param([object]$Selection)
-  if (-not $Selection -or $Selection.Source -ne 'bundled') { return }
-  foreach ($path in $Selection.PolicyFiles) { [IO.File]::Delete($path) }
-  for ($index = $Selection.PolicyDirectories.Count - 1; $index -ge 0; $index--) { [IO.Directory]::Delete($Selection.PolicyDirectories[$index], $false) }
+  if (-not $Selection -or $Selection.Source -notin @('bundled','cache')) { return }
+  try {
+    foreach ($path in $Selection.PolicyFiles) { [IO.File]::Delete($path) }
+    for ($index = $Selection.PolicyDirectories.Count - 1; $index -ge 0; $index--) { [IO.Directory]::Delete($Selection.PolicyDirectories[$index], $false) }
+  } finally {
+    if ($Selection.PSObject.Properties['RuntimeHandles']) { foreach ($handle in $Selection.RuntimeHandles) { $handle.Dispose() } }
+  }
 }
 
 function Resolve-WinImgMagickApplication {
@@ -1681,18 +1835,24 @@ function Invoke-WinImgPreflightProcess {
 
 function Get-WinImgMagickInfo {
   param([string]$MagickPath, [scriptblock]$PreflightRunner)
+  $script:WinImgEngineDiagnostic = [pscustomobject]@{ Path=''; Source='none'; DisplayVersion='' }
   # MagickPath is an internal source-test seam, never a public positional option.
   # A distributed package always resolves its own authenticated private runtime.
   $selection = $null
-  if (-not $MagickPath -or (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'package-manifest.json'))) { $selection = Get-WinImgBundledRuntime }
+  if (-not $MagickPath -or (Test-Path -LiteralPath (Join-Path $PSScriptRoot 'package-manifest.json'))) { $selection = Get-WinImgPrivateRuntime }
+  if (-not $selection -and -not $MagickPath) { throw 'No authenticated private ImageMagick engine is available; no external decoder was tried.' }
   if ($selection) {
     $script:WinImgEngineSelection = $selection
+    $script:WinImgEngineDiagnostic.Path = $selection.Path
+    $script:WinImgEngineDiagnostic.Source = $selection.Source
     Initialize-WinImgBundledEnvironment $selection
     $executable = $selection.Path
   } else {
     $executable = Resolve-WinImgMagickApplication $MagickPath
     $selection = [pscustomobject]@{ Path=$executable; Source='external'; Environment=@{} }
     $script:WinImgEngineSelection = $selection
+    $script:WinImgEngineDiagnostic.Path = $selection.Path
+    $script:WinImgEngineDiagnostic.Source = $selection.Source
   }
   if (-not $PreflightRunner) { $PreflightRunner = { param($Executable, $Arguments) Invoke-WinImgPreflightProcess $Executable $Arguments } }
   $version = & $PreflightRunner $executable @('-version')
@@ -1700,6 +1860,8 @@ function Get-WinImgMagickInfo {
   $match = [regex]::Match($version.StdOut, '(?m)^Version: ImageMagick (7)\.(\d+)\.(\d+)-(\d+)\b')
   if (-not $match.Success) { throw 'Unrecognized ImageMagick version; use a supported ImageMagick 7 build.' }
   $build = [version]($match.Groups[1].Value + '.' + $match.Groups[2].Value + '.' + $match.Groups[3].Value + '.' + $match.Groups[4].Value)
+  $script:WinImgEngineDiagnostic.DisplayVersion = [regex]::Match($version.StdOut, '(?m)^Version: ImageMagick (7\.\d+\.\d+-\d+(?: \(Beta\))?\s+Q\d+(?:-HDRI)?\s+\S+)').Groups[1].Value
+  if (-not $script:WinImgEngineDiagnostic.DisplayVersion) { $script:WinImgEngineDiagnostic.DisplayVersion = $build.ToString() }
   # Reviewed 2026-10-31: -35 incorporates the current core and delegate fixes.
   # Source discovery accepts qualifying newer 7.x, independent of the package pin.
   if ($build -lt [version]'7.1.2.35') { throw 'ImageMagick 7.1.2-35 or newer supported 7.x build is required; update the dependency before running.' }
@@ -2219,10 +2381,18 @@ function Invoke-WinImgNormalizer {
     $magickInfo = [pscustomobject]@{ Path=''; Version=$null; VersionText=''; Delegates=''; Formats=@{}; Source='Not needed'; Sha256='' }
     $MagickCmd = ''
     if (@($allFiles | Where-Object { $imageCoders.ContainsKey($_.Extension.ToLowerInvariant()) }).Count -gt 0) {
-      $magickInfo = Get-WinImgMagickInfo -MagickPath $MagickPath -PreflightRunner $PreflightRunner
-      $MagickCmd = $magickInfo.Path
+      $script:WinImgEngineDiagnostic = [pscustomobject]@{ Path=''; Source='none'; DisplayVersion='' }
+      Write-WinImgConsoleEvent -ConsoleEvent EnginePending -Data ([pscustomobject]@{ ApplicationRoot=$PSScriptRoot }) -Kind Label
+      try {
+        $magickInfo = Get-WinImgMagickInfo -MagickPath $MagickPath -PreflightRunner $PreflightRunner
+        $MagickCmd = $magickInfo.Path
+        $script:WinImgEngineDiagnostic = $magickInfo
+      } finally {
+        Write-WinImgConsoleEvent -ConsoleEvent EngineDetails -Data $script:WinImgEngineDiagnostic -Kind Label
+      }
+    } else {
+      Write-WinImgConsoleEvent -ConsoleEvent Engine -Data $magickInfo -Kind Label
     }
-    Write-WinImgConsoleEvent -ConsoleEvent Engine -Data $magickInfo -Kind Label
     $missingCoders = @{}
     foreach ($f in $allFiles) {
       $coder = $imageCoders[$f.Extension.ToLowerInvariant()]

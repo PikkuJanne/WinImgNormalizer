@@ -82,6 +82,9 @@ BeforeAll {
         }
         $start.EnvironmentVariables['PATH'] = [IO.Path]::GetDirectoryName($magick) + ';' + $env:PATH
         $start.EnvironmentVariables['TEMP'] = $temporary
+        # Keep each child cold without extending the already descriptive work
+        # path past native CreateProcessW's application-directory path limit.
+        $start.EnvironmentVariables['LOCALAPPDATA'] = New-OwnedDirectory ('cache-' + [guid]::NewGuid().ToString('N').Substring(0,8))
         $start.EnvironmentVariables['TMP'] = $temporary
         $start.EnvironmentVariables['MAGICK_TEMPORARY_PATH'] = $temporary
         $process = New-Object Diagnostics.Process
@@ -319,6 +322,8 @@ Describe 'M0-T03 callable boundary and positional compatibility' {
         # native runner, conversion, discovery and exit execute unchanged in a -File host.
         # This intentionally does not claim coverage of real Known Folder resolution.
         [IO.File]::WriteAllText($snapshot, $contained, (New-Object Text.UTF8Encoding($false)))
+        # A runnable source copy now includes its tracked offline runtime bytes.
+        Copy-Item -LiteralPath (Join-Path $repository 'resources') -Destination (Join-Path $work 'resources') -Recurse
         $before = Get-SourceState $fixtureSource
         $arguments = @($fixtureSource)
         if ($ExplicitCap) { $arguments += '1048576' }

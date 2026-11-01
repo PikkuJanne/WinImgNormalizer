@@ -1,6 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     $repository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
     $workflow = [IO.File]::ReadAllText((Join-Path $repository '.github/workflows/windows-tests.yml')).Replace("`r`n", "`n")
+    $releaseWorkflow = [IO.File]::ReadAllText((Join-Path $repository '.github/workflows/release-verification.yml')).Replace("`r`n", "`n")
 
     function Get-WorkflowFieldBlock {
         param([string]$Text, [string]$Key, [int]$Indent)
@@ -106,9 +107,9 @@ BeforeAll {
         else {
             $pathBlock = Get-WorkflowFieldBlock -Text $upload[0].Value -Key 'path' -Indent 10
             $paths = @($pathBlock -split '\n' | Select-Object -Skip 1 | ForEach-Object { $_.Trim() })
-            $allowlist = @('.scratch/ci-export/test-evidence.json', '.scratch/ci-export/static-analysis-evidence.json', '.scratch/ci-export/hotfix-evidence.json')
-            if ($paths.Count -ne 3 -or @($paths | Where-Object { $_ -cnotin $allowlist }).Count -gt 0 -or
-                @($paths | Select-Object -Unique).Count -ne 3) {
+            $allowlist = @('.scratch/ci-export/test-evidence.json', '.scratch/ci-export/static-analysis-evidence.json', '.scratch/ci-export/hotfix-evidence.json', '.scratch/ci-export/distribution-evidence.json')
+            if ($paths.Count -ne 4 -or @($paths | Where-Object { $_ -cnotin $allowlist }).Count -gt 0 -or
+                @($paths | Select-Object -Unique).Count -ne 4) {
                 $violations += 'Artifact paths must be the exact sanitized JSON allowlist.'
             }
             if ($upload[0].Value -notmatch '(?m)^ {10}if-no-files-found: error\s*$' -or
@@ -174,6 +175,58 @@ BeforeAll {
         param([string]$Mutated, [string]$ExpectedViolation)
         $Mutated | Should -Not -BeExactly $workflow
         @(Get-WorkflowPolicyViolations $Mutated) | Should -Contain $ExpectedViolation
+    }
+}
+
+Describe 'Exact release verification workflow security' {
+    BeforeAll {
+        function Get-ExactReleaseViolations([string]$Text) {
+            $Text=$Text.Replace("`r`n","`n");$violations=@()
+            $triggers=Get-WorkflowFieldBlock -Text $Text -Key 'on' -Indent 0
+            if(@($triggers -split '\n'|Where-Object {$_ -match '^  \S'}).Count -ne 1 -or $triggers -notmatch '(?m)^  workflow_dispatch:\s*$' -or $triggers -notmatch '(?m)^        required: true\s*$' -or $triggers -notmatch '(?m)^      candidate_tag:\s*$'){$violations+='Required exact-tag dispatch only.'}
+            $permissions=Get-WorkflowFieldBlock -Text $Text -Key 'permissions' -Indent 0
+            if($permissions -cne "permissions:`n  contents: read" -or [regex]::Matches($Text,'(?m)^\s*permissions:').Count -ne 1){$violations+='Contents-read permission only.'}
+            if($Text -notmatch 'runs-on: windows-2025' -or $Text -notmatch 'shell: \[powershell, pwsh\]'){$violations+='Both identified Windows shells required.'}
+            $uses=@([regex]::Matches($Text,'(?m)^\s*(?:- )?uses:\s*(?<reference>[^\r\n]*)'))
+            if($uses.Count -ne 2 -or $Text -notmatch 'uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\.4\.0;' -or $Text -notmatch 'uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7\.0\.1;'){$violations+='Reviewed action pins only.'}
+            if($Text -notmatch '(?m)^          ref: \$\{\{ inputs\.candidate_tag \}\}\s*$' -or $Text -notmatch '(?m)^          persist-credentials: false\s*$' -or $Text -notmatch '(?m)^          fetch-depth: 0\s*$'){$violations+='Exact tag checkout without saved credentials required.'}
+            if($Text -notmatch [regex]::Escape("if (`$env:WINIMG_CANDIDATE_TAG -notmatch '^v\d+\.\d+\.\d+$')")){$violations+='Stable tag validation required.'}
+            $acquisition='      - name: Authenticate existing exact release artifacts'+"`n"+'        env:'+"`n"+'          GH_TOKEN: ${{ github.token }}'+"`n"+'        run: |'+"`n"+'          ./tests/Get-HotfixCandidate.ps1 -Tag $env:WINIMG_CANDIDATE_TAG'+"`n"
+            $withoutAcquisition=$Text.Replace($acquisition,'')
+            if($withoutAcquisition -ceq $Text -or $withoutAcquisition -match 'GH_TOKEN|GITHUB_TOKEN|github\.token|secrets\.|persist-credentials: true'){$violations+='Read token restricted to artifact acquisition.'}
+            if($Text -match '(?i)-Build\b|Invoke-Tests\.ps1|Invoke-StaticAnalysis\.ps1|Stage-Runtime\.ps1' -or $Text -notmatch 'Invoke-HotfixAcceptance\.ps1 -CandidateTag \$env:WINIMG_CANDIDATE_TAG -DownloadDependencies -DisposableRunner' -or $Text -notmatch 'Invoke-DistributionAcceptance\.ps1 @arguments' -or $Text -notmatch 'ArchivePath = Join-Path \.scratch/ci-candidate \$candidate\.AssetFilename'){$violations+='Verify existing exact bytes without rebuilding.'}
+            if($Text -notmatch 'if \(\$candidate\.Stable -and \$candidate\.Latest\) \{ \$arguments\.PublicTag = \$candidate\.Tag \}'){$violations+='Public source archive verification required.'}
+            $pathBlock=Get-WorkflowFieldBlock -Text $Text -Key 'path' -Indent 10
+            $paths=@($pathBlock -split '\n'|Select-Object -Skip 1|ForEach-Object {$_.Trim()})
+            $allowed=@('.scratch/exact-release-export/hotfix-evidence.json','.scratch/exact-release-export/distribution-evidence.json')
+            if($paths.Count -ne 2 -or @($paths|Where-Object {$_ -cnotin $allowed}).Count -or @($paths|Select-Object -Unique).Count -ne 2 -or $Text -notmatch "-not \`$hotfix\.Passed" -or $Text -notmatch "-not \`$distribution\.Passed" -or $Text -notmatch 'if-no-files-found: error' -or $Text -notmatch 'overwrite: false'){$violations+='Only passing sanitized evidence allowlist may be uploaded.'}
+            if($Text -match '(?im)continue-on-error:|pull_request_target:|workflow_run:'){$violations+='No bypass triggers or ignored failures.'}
+            $violations
+        }
+    }
+    It 'keeps exact-byte publication verification separate from the full merge gate' {
+        @(Get-ExactReleaseViolations $releaseWorkflow).Count | Should -Be 0
+    }
+    It 'requires an explicit tag rather than a default or optional dispatch' {
+        @(Get-ExactReleaseViolations ($releaseWorkflow.Replace('required: true','required: false'))) | Should -Contain 'Required exact-tag dispatch only.'
+    }
+    It 'rejects write permission during release verification' {
+        @(Get-ExactReleaseViolations ($releaseWorkflow.Replace('contents: read','contents: write'))) | Should -Contain 'Contents-read permission only.'
+    }
+    It 'rejects moving action references' {
+        @(Get-ExactReleaseViolations ($releaseWorkflow.Replace('actions/checkout@11d5960a326750d5838078e36cf38b85af677262','actions/checkout@v4'))) | Should -Contain 'Reviewed action pins only.'
+    }
+    It 'requires both actual Windows hosts' {
+        @(Get-ExactReleaseViolations ($releaseWorkflow.Replace('[powershell, pwsh]','[pwsh]'))) | Should -Contain 'Both identified Windows shells required.'
+    }
+    It 'rejects rebuilding bytes while claiming to verify a candidate' {
+        @(Get-ExactReleaseViolations ($releaseWorkflow.Replace('-CandidateTag $env:WINIMG_CANDIDATE_TAG','-Build'))) | Should -Contain 'Verify existing exact bytes without rebuilding.'
+    }
+    It 'rejects raw scratch artifacts' {
+        @(Get-ExactReleaseViolations ($releaseWorkflow.Replace('.scratch/exact-release-export/hotfix-evidence.json','.scratch/**'))) | Should -Contain 'Only passing sanitized evidence allowlist may be uploaded.'
+    }
+    It 'rejects persisting credentials in the exact tag checkout' {
+        @(Get-ExactReleaseViolations ($releaseWorkflow.Replace('persist-credentials: false','persist-credentials: true'))) | Should -Contain 'Exact tag checkout without saved credentials required.'
     }
 }
 

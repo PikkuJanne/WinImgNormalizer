@@ -181,8 +181,12 @@ No separate ImageMagick installation required for the portable ZIP. The engine i
 chosen once after safe media inventory and is used by absolute path for every
 probe, inspection, conversion and final JPEG decode. Empty and video-only runs
 never resolve an engine; videos retain their bytes and metadata. Missing optional
-decoders are per-file partial outcomes. A damaged release fails closed; source
-checkouts can stage the same payload with `tools/release/Stage-Runtime.ps1 -Download`.
+decoders are per-file partial outcomes. A damaged release fails closed. Normal
+clones and tagged source ZIPs carry the pinned compressed runtime and initialize
+an authenticated, versioned per-user cache offline. Bare BAT/PS1 copies use only a
+matching authenticated cache, otherwise report the incomplete app directory and
+exact portable asset before any external decoder. System ImageMagick is never
+selected by a normal launch.
 
 The ASCII field console shows INPUT, ENGINE, PROCESS and RESULT sections. It reports
 actual version/source, bounded live progress and complete final paths. Cyan labels,

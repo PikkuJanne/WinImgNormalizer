@@ -6,13 +6,11 @@ folder under Pictures, makes JPEG derivatives and copies supported videos unchan
 Your source files remain untouched. JPEGs are lossy derivatives: keep the originals
 and a separate backup.
 
-**Version 1.0.1 is published and unsigned.**
-[Download the portable ZIP](https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.1/WinImgNormalizer-1.0.1-portable.zip)
-or view the [release, checksums and provenance](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.1).
-The ZIP is 33652800 bytes; SHA-256:
-`0f5ef869fb2a868a49754fef3116c7b9c9618f448edf1e30f8413d5f5c93dee5`.
-Source and tag commit: `25cd8da78595abd256d96b2ff7d117e2b3a02c18`.
-No separate ImageMagick installation required for the portable ZIP. Its pinned
+**Version 1.0.2 is in release preparation and unsigned.**
+The [v1.0.1 release](https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.1)
+remains unchanged. Version 1.0.2 repairs offline image runs from a normal clone,
+`git pull`, and GitHub's tagged source ZIP as well as the full portable ZIP.
+No separate ImageMagick installation required. The pinned
 upstream engine is ImageMagick 7.1.2-35 Beta Q16-HDRI with patched HEIF support.
 Build records retain their preparation-time state; these exact bytes were tested
 and promoted unchanged. See [release metadata](release-metadata.json), the
@@ -20,8 +18,8 @@ and promoted unchanged. See [release metadata](release-metadata.json), the
 ## Requirements
 
 - 64-bit Windows 10 or 11, with Windows PowerShell 5.1 or PowerShell 7.
-- The complete official portable ZIP, including its private runtime folder and
-  integrity marker. No separate ImageMagick installation required for the portable ZIP.
+- The complete official portable ZIP, a normal Git clone, or the tagged GitHub
+  source ZIP. No separate ImageMagick installation required for these forms.
 - Ordinary read access to the source and write access to Pictures and temporary storage.
 
 The portable package uses one verified app-relative engine for all probes and image
@@ -30,10 +28,18 @@ software, download anything while processing, or change PATH, registry or securi
 Empty and video-only folders do not initialize an image engine. Videos keep their bytes.
 A missing optional decoder is a per-file partial result; JPEG/PNG and video siblings continue.
 
-A fresh source clone has no binary payload. Developers can stage the same verified
-runtime with `tools/release/Stage-Runtime.ps1 -Download`, or deliberately use a trusted
-external ImageMagick 7.1.2-35 or newer supported 7.x build on PATH. A damaged packaged
-runtime fails closed and tells you to re-extract the official ZIP.
+A fresh source clone or source ZIP carries one compressed, digest-pinned private
+runtime in `resources`. Its cold first image run verifies those local bytes and
+atomically extracts into a versioned per-user cache under Local AppData. No network,
+administrator rights or developer staging is needed. Every run authenticates the
+selected runtime and pins its absolute executable and compatible configuration for
+the entire run. The normal launcher never selects a system ImageMagick.
+
+The full portable ZIP prefers its verified app-relative runtime and omits the
+redundant compressed payload. Damaged runtime or payload bytes fail closed. A bare
+BAT/PS1 copy can reuse only an authenticated cache for the same version; otherwise
+it identifies the incomplete app directory and exact portable asset before any
+external decoder runs. Empty/video-only folders still need no engine.
 
 Automated coverage records the actual OS, shell and engine in the hotfix evidence.
 Windows 10 has not been executed; Windows 11 and maintained Windows Server CI are distinct

@@ -126,8 +126,10 @@ foreach ($name in $allowlist.Keys) {
     $entries[$name] = $bytes
     $fileRecords += [ordered]@{ path = $name; source_path = $allowlist[$name]; bytes = $bytes.Length; sha256 = Get-ReleaseHash $bytes }
 }
-# Binary bytes are never taken from Git history. The reviewed tracked lock fixes
-# the exact upstream payload; staging authenticates it before this offline build.
+# The source distribution carries one compressed runtime for offline cold starts.
+# This full portable ZIP ships the expanded verified runtime only; the explicit
+# allowlist deliberately omits resources/private-runtime.zip to avoid duplication.
+# The reviewed tracked lock authenticates the staged bytes for this offline build.
 $runtimeLock = $utf8.GetString((Get-ReleaseBlob 'tools/release/runtime-lock.json')) | ConvertFrom-Json
 $runtimeRoot = Join-Path $repository 'runtime'
 Assert-ReleaseAncestors $runtimeRoot

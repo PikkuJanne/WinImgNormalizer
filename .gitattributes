@@ -6,3 +6,5 @@ release-metadata.json text eol=lf
 docs/release/publication-v1.0.0.json text eol=lf
 docs/release/IMAGEMAGICK_SOURCE.md text eol=lf
 tools/release/runtime-lock.json text eol=lf
+resources/private-runtime.zip binary
+resources/private-runtime.json text eol=lf

@@ -524,7 +524,7 @@ Set-Alias -Name magick -Value Invoke-SyntheticMagickShadow
 Set-Alias -Name magick.exe -Value Invoke-SyntheticMagickShadow
 . ([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('__APPLICATION__')))
 function Get-WinImgBundledRuntime { return $null }
-$info = Get-WinImgMagickInfo
+$info = Get-WinImgMagickInfo -MagickPath (Resolve-WinImgMagickApplication)
 [Console]::WriteLine($info.Path)
 [Console]::WriteLine($info.Version)
 '@
@@ -550,17 +550,18 @@ $info = Get-WinImgMagickInfo
         Should -Invoke Get-Command -Times 1 -Exactly -ParameterFilter { $CommandType -eq 'Application' }
     }
 
-    It 'fails missing application without invoking a same-name function or creating output' {
+    It 'fails an incomplete private app copy without trying PATH or creating output' {
         $source = New-PreflightDirectory 'missing-magick-source'
         [IO.File]::WriteAllBytes((Join-Path $source 'needs-decoder.png'), [byte[]](1,2,3))
-        Mock Get-WinImgBundledRuntime { return $null }
+        Mock Get-WinImgPrivateRuntime { throw 'Incomplete WinImgNormalizer app copy: no authenticated private engine; no external decoder was tried.' }
         $parent = Join-Path $ownedRoot ('unused-output-' + [Guid]::NewGuid().ToString('N'))
         Mock Get-Command { return $null }
         $result = Invoke-ContainedPreflight -InputArguments @($source) -OutputParent $parent -MagickPath '' -PreflightRunner {
             throw 'Missing application was invoked.'
         } -ProcessRunner { throw 'Missing application attempted conversion.' }
         $result.Code | Should -Be 1
-        $result.Text | Should -Match '(?i)ImageMagick.*(not found|missing|application|executable)'
+        $result.Text | Should -Match '(?i)Incomplete.*app copy.*no external decoder'
+        Should -Invoke Get-Command -Times 0 -Exactly
         Assert-PreflightNoOutput $parent
     }
 

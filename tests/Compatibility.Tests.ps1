@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     $repository = Split-Path -Parent $PSScriptRoot
     . (Join-Path $PSScriptRoot 'TestGate.ps1')
     $scratch = Join-Path $repository '.scratch'
@@ -296,5 +296,53 @@ Describe 'T066 synthetic evidence export privacy and containment' {
         $output=Join-Path $owned 'nested-output'
         { & (Join-Path $PSScriptRoot 'Export-TestEvidence.ps1') -ResultDirectories @($directory) -OutputDirectory $output } | Should -Throw '*must be scalar*'
         Test-Path -LiteralPath $output | Should -BeFalse
+    }
+}
+
+Describe 'Public private-runtime evidence bindings' {
+    BeforeAll {
+        $repository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
+        if (-not [IO.File]::Exists((Join-Path $repository 'WinImgNormalizer.ps1'))) {
+            $repository = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
+        }
+        $tokens = $null; $parseErrors = $null
+        $exporter = [Management.Automation.Language.Parser]::ParseFile((Join-Path $repository 'tests/Export-TestEvidence.ps1'), [ref]$tokens, [ref]$parseErrors)
+        if ($parseErrors.Count) { throw 'The maintained exporter did not parse.' }
+        $definition = $exporter.Find({ param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -eq 'Get-ExportSourceBindings' }, $true)
+        if (-not $definition) { throw 'The maintained source-binding validator is absent.' }
+        # Import only the real pure validator, not the exporter entry point.
+        . ([scriptblock]::Create($definition.Extent.Text))
+    }
+
+    It 'retains the authenticated public payload ZIP source binding' {
+        $hash = (Get-FileHash -LiteralPath (Join-Path $repository 'resources/private-runtime.zip')).Hash.ToLowerInvariant()
+        $result = @(Get-ExportSourceBindings @([pscustomobject]@{ relative_path='resources/private-runtime.zip'; sha256=$hash }))
+        $result.Count | Should -Be 1
+        $result[0].path | Should -BeExactly 'resources/private-runtime.zip'
+        $result[0].sha256 | Should -BeExactly $hash
+    }
+
+    It 'retains the authenticated public payload JSON source binding' {
+        $hash = (Get-FileHash -LiteralPath (Join-Path $repository 'resources/private-runtime.json')).Hash.ToLowerInvariant()
+        $result = @(Get-ExportSourceBindings @([pscustomobject]@{ relative_path='resources/private-runtime.json'; sha256=$hash }))
+        $result.Count | Should -Be 1
+        $result[0].path | Should -BeExactly 'resources/private-runtime.json'
+        $result[0].sha256 | Should -BeExactly $hash
+    }
+
+    It 'does not admit arbitrary nearby resource files' {
+        { Get-ExportSourceBindings @([pscustomobject]@{ relative_path='resources/private-notes.json'; sha256=('0' * 64) }) } | Should -Throw '*Unsafe evidence source binding*'
+    }
+
+    It 'rejects traversal into a legitimate payload filename' {
+        { Get-ExportSourceBindings @([pscustomobject]@{ relative_path='resources/../resources/private-runtime.zip'; sha256=('0' * 64) }) } | Should -Throw '*Unsafe evidence source binding*'
+    }
+
+    It 'rejects absolute paths that could expose private locations' {
+        { Get-ExportSourceBindings @([pscustomobject]@{ relative_path='C:/private/private-runtime.zip'; sha256=('0' * 64) }) } | Should -Throw '*Unsafe evidence source binding*'
+    }
+
+    It 'rejects malformed payload digests even for an allowlisted file' {
+        { Get-ExportSourceBindings @([pscustomobject]@{ relative_path='resources/private-runtime.zip'; sha256='not-a-digest' }) } | Should -Throw '*Unsafe evidence source binding*'
     }
 }

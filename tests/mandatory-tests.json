@@ -4,6 +4,7 @@
   "suites": [
     "Normalizer.Tests.ps1",
     "Preflight.Tests.ps1",
+    "PrivateRuntime.Tests.ps1",
     "Traversal.Tests.ps1",
     "Naming.Tests.ps1",
     "Transactions.Tests.ps1",
@@ -32,6 +33,7 @@
     "Console.Tests.ps1"
   ],
   "required_case_ids": [
+    "T075",
     "T005",
     "T006",
     "T008",

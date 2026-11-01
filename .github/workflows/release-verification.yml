@@ -1,0 +1,76 @@
+name: Exact release verification
+
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_tag:
+        description: Exact stable version tag whose existing release bytes will be verified
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Exact release with ${{ matrix.shell }} on Windows Server 2025
+    runs-on: windows-2025
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        shell: [powershell, pwsh]
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+    env:
+      WINIMG_CI_RUNNER_LABEL: windows-2025
+      WINIMG_CANDIDATE_TAG: ${{ inputs.candidate_tag }}
+    steps:
+      - name: Validate the exact stable version tag
+        run: |
+          if ($env:WINIMG_CANDIDATE_TAG -notmatch '^v\d+\.\d+\.\d+$') { throw 'An exact stable version tag is required.' }
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0; official tag/commit verified 2026-10-05
+        with:
+          ref: ${{ inputs.candidate_tag }}
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Authenticate existing exact release artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ./tests/Get-HotfixCandidate.ps1 -Tag $env:WINIMG_CANDIDATE_TAG
+      - name: Verify exact portable bytes offline in an ordinary disposable account
+        run: |
+          ./tests/Invoke-HotfixAcceptance.ps1 -CandidateTag $env:WINIMG_CANDIDATE_TAG -DownloadDependencies -DisposableRunner -ResultDirectory .scratch/exact-hotfix
+      - name: Verify cold source distributions and actual BAT shortcuts offline
+        run: |
+          $candidate = Get-Content -LiteralPath .scratch/ci-candidate/candidate.json -Raw | ConvertFrom-Json
+          $control = Get-Content -LiteralPath .scratch/exact-hotfix/runner-control.json -Raw | ConvertFrom-Json
+          $arguments = @{
+            ArchivePath = Join-Path .scratch/ci-candidate $candidate.AssetFilename
+            LegacyMagickPath = $control.LegacyMagickPath
+            DisposableRunner = $true
+            ResultDirectory = '.scratch/exact-distribution'
+          }
+          if ($candidate.Stable -and $candidate.Latest) { $arguments.PublicTag = $candidate.Tag }
+          ./tests/Invoke-DistributionAcceptance.ps1 @arguments
+      - name: Export passing sanitized release evidence
+        run: |
+          $hotfix = Get-Content -LiteralPath .scratch/exact-hotfix/acceptance-summary.json -Raw | ConvertFrom-Json
+          $distribution = Get-Content -LiteralPath .scratch/exact-distribution/distribution-summary.json -Raw | ConvertFrom-Json
+          if (-not $hotfix.Passed -or $hotfix.PSObject.Properties['Error'] -or -not $distribution.Passed -or $distribution.PSObject.Properties['Error']) { throw 'Only passing sanitized exact-byte evidence may be exported.' }
+          New-Item -ItemType Directory -Path .scratch/exact-release-export | Out-Null
+          Copy-Item -LiteralPath .scratch/exact-hotfix/acceptance-summary.json -Destination .scratch/exact-release-export/hotfix-evidence.json
+          Copy-Item -LiteralPath .scratch/exact-distribution/distribution-summary.json -Destination .scratch/exact-release-export/distribution-evidence.json
+      - name: Upload exact release evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1; official tag/commit and upload sources reviewed 2026-10-05
+        with:
+          name: exact-release-evidence-${{ matrix.shell }}-${{ inputs.candidate_tag }}
+          path: |
+            .scratch/exact-release-export/hotfix-evidence.json
+            .scratch/exact-release-export/distribution-evidence.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+          overwrite: false

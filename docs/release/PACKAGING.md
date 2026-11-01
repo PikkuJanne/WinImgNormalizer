@@ -3,7 +3,10 @@
 The standard ZIP includes a verified app-relative ImageMagick engine. No separate
 ImageMagick installation is required for the portable ZIP. Application processing
 never downloads dependencies or changes PATH, registry, execution policy or an
-installed ImageMagick. Source-only clones retain supported external-engine use.
+installed ImageMagick. Normal clones and tagged source ZIPs carry the compressed
+`resources/private-runtime.zip` payload for an offline cold first run. The script
+embeds its digest and the existing runtime-manifest digest. The expanded runtime
+remains Git ignored; the portable ZIP omits the redundant compressed payload.
 
 ## Stage the reviewed runtime
 

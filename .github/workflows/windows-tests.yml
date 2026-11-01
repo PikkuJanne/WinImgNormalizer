@@ -34,6 +34,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0; official tag/commit verified 2026-10-05
         with:
           persist-credentials: false
+          fetch-depth: 0
       - name: Authenticate build-only runtime dependency cache
         env:
           GH_TOKEN: ${{ github.token }}
@@ -50,6 +51,26 @@ jobs:
             else { $acceptanceArguments.Build=$true }
           }
           ./tests/Invoke-HotfixAcceptance.ps1 @acceptanceArguments
+      - name: Verify cold clone, source archive, unchanged BAT shortcut and pull upgrade offline
+        run: |
+          $canonical = Get-Content -LiteralPath release-metadata.json -Raw | ConvertFrom-Json
+          $control = Get-Content -LiteralPath .scratch/ci-hotfix/runner-control.json -Raw | ConvertFrom-Json
+          $arguments = @{
+            LegacyMagickPath = $control.LegacyMagickPath
+            DisposableRunner = $true
+            ResultDirectory = '.scratch/ci-distribution'
+          }
+          if ($env:WINIMG_CANDIDATE_TAG) {
+            $candidate = Get-Content -LiteralPath .scratch/ci-candidate/candidate.json -Raw | ConvertFrom-Json
+            $arguments.ArchivePath = Join-Path .scratch/ci-candidate $candidate.AssetFilename
+            if ($candidate.Stable -and $candidate.Latest) { $arguments.PublicTag = $candidate.Tag }
+          } elseif ($canonical.release_state -eq 'published') {
+            $arguments.ArchivePath = Join-Path .scratch/ci-hotfix/public-download $canonical.asset_filename
+            $arguments.PublicTag = $canonical.tag
+          } else {
+            $arguments.ArchivePath = Join-Path .scratch/ci-hotfix/build ('WinImgNormalizer-' + $canonical.version + '-portable.zip')
+          }
+          ./tests/Invoke-DistributionAcceptance.ps1 @arguments
       - name: Run mandatory tests with verified development dependencies
         run: |
           ./tests/Invoke-Tests.ps1 -DownloadDependencies -ResultDirectory .scratch/ci-tests
@@ -95,6 +116,9 @@ jobs:
           $acceptance = Get-Content -LiteralPath .scratch/ci-hotfix/acceptance-summary.json -Raw | ConvertFrom-Json
           if (-not $acceptance.Passed -or $acceptance.PSObject.Properties['Error']) { throw 'Only a passing sanitized acceptance summary may be exported; failure details remain in bounded job diagnostics.' }
           Copy-Item -LiteralPath .scratch/ci-hotfix/acceptance-summary.json -Destination .scratch/ci-export/hotfix-evidence.json
+          $distribution = Get-Content -LiteralPath .scratch/ci-distribution/distribution-summary.json -Raw | ConvertFrom-Json
+          if (-not $distribution.Passed -or $distribution.PSObject.Properties['Error']) { throw 'Only passing sanitized distribution evidence may be exported.' }
+          Copy-Item -LiteralPath .scratch/ci-distribution/distribution-summary.json -Destination .scratch/ci-export/distribution-evidence.json
       - name: Upload sanitized synthetic evidence
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1; official tag/commit and upload sources reviewed 2026-10-05
@@ -104,6 +128,7 @@ jobs:
             .scratch/ci-export/test-evidence.json
             .scratch/ci-export/static-analysis-evidence.json
             .scratch/ci-export/hotfix-evidence.json
+            .scratch/ci-export/distribution-evidence.json
           # Explicit filenames only; .scratch is a dot directory. The exporter
           # rejects links and copies bounded fields, never raw logs/XML/media.
           include-hidden-files: true
