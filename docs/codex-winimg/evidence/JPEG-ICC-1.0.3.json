@@ -545,5 +545,17 @@
     "cases": 18,
     "old_path_version": "7.1.2-5",
     "public_replay_pending": true
+  },
+  "final_colour_boundary_validation": {
+    "hosts": [
+      "5.1.26100.9711",
+      "7.6.5"
+    ],
+    "passed_per_host": 57,
+    "failed_per_host": 0,
+    "skipped_per_host": 0,
+    "source_change": "EXIF parser catches only its explicit malformed-metadata FormatException; unexpected resource, I/O and cancellation faults propagate.",
+    "verifier_change": "Independent GDI reference comparison decodes identical byte buffers via streams held for bitmap lifetimes, including a measured 261-character synthetic output path.",
+    "production_scope": "Two-line typed-exception repair; no other application changes since the earlier actual ZIP replay."
   }
 }

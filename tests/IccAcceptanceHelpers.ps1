@@ -43,8 +43,13 @@ function Assert-IccAcceptanceJpeg {
         $offset+=2+$length
     }
     Add-Type -AssemblyName System.Drawing
-    $actual=[Drawing.Bitmap]::new($Path);$expected=[Drawing.Bitmap]::new($Reference)
+    # GDI's filename overload rejects some long owned paths on PS7. Decode
+    # the same bytes through streams, retained for both bitmap lifetimes.
+    $actual=$null;$expected=$null;$actualStream=$null;$expectedStream=$null
     try {
+        $actualStream=[IO.MemoryStream]::new($bytes,$false)
+        $expectedStream=[IO.MemoryStream]::new([IO.File]::ReadAllBytes($Reference),$false)
+        $actual=[Drawing.Bitmap]::new($actualStream);$expected=[Drawing.Bitmap]::new($expectedStream)
         if($actual.Width -ne 160 -or $actual.Height -ne 240){throw 'Independent decoder found wrong orientation.'}
         foreach($y in @(30,90,150,210)) { foreach($x in @(40,120)) {
             $a=@(0.0,0.0,0.0);$b=@(0.0,0.0,0.0)
@@ -54,7 +59,10 @@ function Assert-IccAcceptanceJpeg {
             }}
             for($channel=0;$channel -lt 3;$channel++){if([Math]::Abs(($a[$channel]-$b[$channel])/81) -gt 12){throw ('Actual colour differs from independent reference at patch '+$x+','+$y)}}
         }}
-    } finally {$actual.Dispose();$expected.Dispose()}
+    } finally {
+        if($actual){$actual.Dispose()};if($expected){$expected.Dispose()}
+        if($actualStream){$actualStream.Dispose()};if($expectedStream){$expectedStream.Dispose()}
+    }
 }
 
 function Assert-IccAcceptanceOutput {

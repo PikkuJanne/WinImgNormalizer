@@ -1490,7 +1490,7 @@ function Get-WinImgJpegExifCharacterization {
     $little=[Text.Encoding]::ASCII.GetString($Bytes,6,2) -ceq 'II'
     if (-not $little -and [Text.Encoding]::ASCII.GetString($Bytes,6,2) -cne 'MM') { return '' }
     function Read-ExifNumber([int]$Offset,[int]$Size) {
-      if ($Offset -lt 6 -or [long]$Offset+$Size -gt $Bytes.Length) { throw 'EXIF bound' }
+      if ($Offset -lt 6 -or [long]$Offset+$Size -gt $Bytes.Length) { throw [FormatException]::new('EXIF offset lies outside its APP1 segment.') }
       $value=0L
       for ($b=0;$b -lt $Size;$b++) { $position=if ($little) {$Offset+$Size-1-$b} else {$Offset+$b}; $value=$value*256+$Bytes[$position] }
       return $value
@@ -1519,7 +1519,7 @@ function Get-WinImgJpegExifCharacterization {
     }
     if ($space -eq 1 -and -not $indexName) { return 'Srgb' }
     if ($space -eq 65535 -and $indexName -eq 'AdobeRgb') { return 'AdobeRgb' }
-  } catch { return '' }
+  } catch [FormatException] { return '' }
   return ''
 }
 
