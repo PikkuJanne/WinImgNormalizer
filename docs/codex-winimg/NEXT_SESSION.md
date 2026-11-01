@@ -1,3 +1,22 @@
+# WinImgNormalizer 1.0.3 stable delivery verified — 2026-11-01
+
+Authorized colour repair, checked publication and fresh public replay are complete.
+Release: https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.3
+Source/tag: 3c266fa6e11285ba74506ad92564bd89a7368532
+Portable ZIP SHA-256: be3b6d0675eb1b65cbb82e770a12a0dabfd0f9de34a4c5d02f1fb1b4cb4a13da
+
+Both public distributions passed all 18 Windows ICC replay cases with the old
+system engine first on PATH. Each mixed run retained 10/13 JPEGs, including 4
+explicit approximate previews, with 3 genuine failures. Actual local launch
+copies are reconciled with backups and unrelated files preserved. The private
+input directory was unavailable; no owner rerun or testing gate remains.
+
+Finish the normal publication-metadata PR/checkpoint synchronization if still in
+progress, observing its final SHA after commit. Do not retag or replace the tested
+release assets. Website files remain frozen and no live deployment was performed.
+
+---
+
 # JPEG ICC repair 1.0.3 in progress — 1 November 2026
 
 Continue the authorized repair through verified stable delivery. The untouched

@@ -1,3 +1,31 @@
+# WinImgNormalizer 1.0.3 stable delivery verified — 2026-11-01
+
+The JPEG colour-profile repair is published as a stable, non-draft/latest release.
+Release: https://github.com/PikkuJanne/WinImgNormalizer/releases/tag/v1.0.3
+Source/tag: 3c266fa6e11285ba74506ad92564bd89a7368532
+Portable ZIP: https://github.com/PikkuJanne/WinImgNormalizer/releases/download/v1.0.3/WinImgNormalizer-1.0.3-portable.zip
+ZIP SHA-256: be3b6d0675eb1b65cbb82e770a12a0dabfd0f9de34a4c5d02f1fb1b4cb4a13da (33681996 bytes).
+
+Fresh anonymous public portable and actual GitHub tag source ZIPs passed all
+18 real Windows cases with ImageMagick 7.1.2-32 first on PATH: BAT, direct Windows
+PowerShell 5.1 and PowerShell 7 across views, negative and mixed batches. Each
+mixed run read 13 inputs and retained 10 JPEGs: 5 ICC-managed, 4 explicit sRGB
+assumption previews and 1 ordinary untagged RGB image. Three genuine failures
+were preserved: damaged pixel scan, uncharacterized CMYK and CMYK with unusable
+ICC. Independent output references passed and processed inputs stayed unchanged.
+
+The actual original launch copy and 2 maintained checkout(s) are reconciled;
+a separate backup preserves the prior launch copy and unrelated files remain.
+The private input directory was unavailable, so no private-batch result is claimed.
+Final source CI/required checks were observed successful before this checkpoint;
+exact run identities and local evidence are in evidence/JPEG-ICC-1.0.3.json.
+
+Website files and live deployment remain unchanged. Historical evidence follows.
+This later metadata checkpoint is separate from the immutable release source;
+it cannot contain its own future commit SHA. No owner testing is requested.
+
+---
+
 # Authorized JPEG ICC repair 1.0.3 — 1 November 2026
 
 The user requests one continuous implementation and stable publication task for
