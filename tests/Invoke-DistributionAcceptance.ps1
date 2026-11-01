@@ -115,6 +115,14 @@ if(-not $Worker) {
         $payloadPin=[IO.File]::ReadAllText((Join-Path $repository 'resources/private-runtime.json'))|ConvertFrom-Json
         $canonical=[IO.File]::ReadAllText((Join-Path $repository 'release-metadata.json'))|ConvertFrom-Json
         $programs=@($ps5,$ps7,$cmd,$LegacyMagickPath,(Join-Path $env:SystemRoot 'System32/conhost.exe'),(Join-Path $root 'DistributionShellFixture.exe'))
+        # PS5.1 Add-Type invokes the inbox C# compiler for the application's
+        # native directory APIs. Its possible resource compiler is a child too.
+        foreach($framework in @('Framework','Framework64')){
+            foreach($compilerName in @('csc.exe','cvtres.exe')){
+                $inboxCompiler=Join-Path $env:SystemRoot ('Microsoft.NET/'+$framework+'/v4.0.30319/'+$compilerName)
+                if([IO.File]::Exists($inboxCompiler)){$programs+=$inboxCompiler}
+            }
+        }
         foreach($case in @(Get-DistributionCases)){
             $caseRoot=Join-Path $root (Get-DistributionCaseLabel $case)
             $programs+=Join-Path $caseRoot 'Application Ä 2026/runtime/imagemagick/magick.exe'
@@ -282,7 +290,7 @@ try {
         Assert-Distribution ([IO.File]::Exists($record)) ($label+' did not record actual child instrumentation.')
         $instrumentation=[IO.File]::ReadAllText($record)|ConvertFrom-Json
         Assert-Distribution (-not $instrumentation.HarnessError -and $instrumentation.PrivateJobAssignedBeforeShell) ($label+' instrumentation failed: '+$instrumentation.HarnessError)
-        foreach($child in $instrumentation.Processes){Assert-Distribution ($child.Path -iin $isolation.ProgramPaths) 'An actual application child executable lacked a pre-applied outbound deny rule.'}
+        foreach($child in $instrumentation.Processes){Assert-Distribution ($child.Path -iin $isolation.ProgramPaths) ('An actual application child executable lacked a pre-applied outbound deny rule: '+$child.Path)}
         Assert-Distribution ($result.Exit -eq $instrumentation.ObservedChildExitCode) 'Actual child exit and helper exit disagree.'
         $sibling=[IO.Path]::ChangeExtension($target,'.ps1')
         $hosts=@($instrumentation.Processes|Where-Object {$_.CommandLine -and $_.CommandLine.Contains($sibling) -and $_.CommandLine.Contains($source)})
